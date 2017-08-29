@@ -1,0 +1,723 @@
+# Addon Name: AliveGR
+# Addon id: plugin.video.AliveGR
+# Addon Provider: Twilight0
+msgid ""
+msgstr ""
+"Project-Id-Version: AliveGR\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-06-22 11:29+0000\n"
+"Last-Translator: twilight0\n"
+"Language-Team: English (http://www.domain.com)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30001"
+msgid "Live TV"
+msgstr "Ζωντανή Τηλεόραση"
+
+msgctxt "#30002"
+msgid "Radio"
+msgstr "Ραδιόφωνο"
+
+msgctxt "#30003"
+msgid "General"
+msgstr "Γενικά"
+
+msgctxt "#30004"
+msgid "Live Streams"
+msgstr "Ζωντανές Ροές"
+
+msgctxt "#30005"
+msgid ""
+msgstr ""
+
+msgctxt "#30006"
+msgid ""
+msgstr ""
+
+msgctxt "#30007"
+msgid ""
+msgstr ""
+
+msgctxt "#30008"
+msgid "Networks"
+msgstr "Δίκτυα"
+
+msgctxt "#30009"
+msgid "Content switcher"
+msgstr "Εναλλάκτης περιεχομένου"
+
+msgctxt "#30010"
+msgid "Display"
+msgstr "Aπεικόνιση"
+
+msgctxt "#30011"
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+msgctxt "#30012"
+msgid "Miscellany"
+msgstr "Διάφορα"
+
+msgctxt "#30013"
+msgid "Developer/Debugging mode"
+msgstr "Λειτουργία αποσφαλμάτωσης/δοκιμών"
+
+msgctxt "#30014"
+msgid "TV Guide"
+msgstr "Οδηγός Τηλεόρασης"
+
+msgctxt "#30015"
+msgid "watch at "
+msgstr "προβολή στο "
+
+msgctxt "#30016"
+msgid "Currently Down"
+msgstr "Προσωρινά Εκτός"
+
+msgctxt "#30017"
+msgid "Actions"
+msgstr "Ενέργειες"
+
+msgctxt "#30018"
+msgid "IPTV Simple Client Integration"
+msgstr "Ενσωμάτωση με τον πελάτη IPTV Simple"
+
+msgctxt "#30019"
+msgid "Previous Menu Key Setup"
+msgstr "Ρύθμιση πλήκτρου επιστροφής"
+
+msgctxt "#30020"
+msgid "Previous Menu Shortcut Setup"
+msgstr "Ρύθμιση συντόμευσης επιστροφής"
+
+msgctxt "#30021"
+msgid "This action will overwrite existing IPTV Simple Client settings"
+msgstr "Η τρέχουσα ενέργεια θα διορθώσει τυχόν υπάρχουσες ρυθμίσεις του πελάτη IPTV Simple"
+
+msgctxt "#30022"
+msgid "Proceed?"
+msgstr "Να εκτελεστεί η ενέργεια;"
+
+msgctxt "#30023"
+msgid "IPTV Simple Client will now be set up"
+msgstr "Ο πελάτης IPTV Simple πρότειται να ρυθμιστεί"
+
+msgctxt "#30024"
+msgid "Process complete"
+msgstr "Η ενέργεια έχει πλέον ολοκληρωθεί"
+
+msgctxt "#30025"
+msgid "This action will add a modified keyboard shortcut in the"
+msgstr "Η τρέχουσα ενέργεια θα προσθέσει τροποποιήσεις στον χάρτη συντομεύσεων για"
+
+msgctxt "#30026"
+msgid "TV Guide window"
+msgstr "το παράθυρο του Οδηγού Τηλεόρασης"
+
+msgctxt "#30027"
+msgid "If you use a program such as Keymap Editor"
+msgstr "Εάν χρησιμοποιήσετε κάποιο πρόγραμμα τροποποίησης χάρτη συντομεύσεων"
+
+msgctxt "#30028"
+msgid "you will have to repeat this process"
+msgstr "θα πρέπει να επαναλάβετε αυτήν την ενέργεια"
+
+msgctxt "#30029"
+msgid "No change was made"
+msgstr "Δεν πραγματοποιήθηκε κάποια αλλαγή"
+
+msgctxt "#30030"
+msgid "TV Series"
+msgstr "Σειρές"
+
+msgctxt "#30031"
+msgid "Movies"
+msgstr "Ταινίες"
+
+msgctxt "#30032"
+msgid "Kids"
+msgstr "Για τα παιδιά"
+
+msgctxt "#30033"
+msgid "No bookmarks found"
+msgstr "Δεν βρέθηκαν σελιδοδείκτες"
+
+msgctxt "#30034"
+msgid "Group Switcher"
+msgstr "Εναλλάκτης ομάδων"
+
+msgctxt "#30035"
+msgid "Date updated the list: "
+msgstr "Ημερομηνία ανανέωσης της λίστας: "
+
+msgctxt "#30036"
+msgid "IPTV Simple Client"
+msgstr "Πελάτης IPTV Simple"
+
+msgctxt "#30037"
+msgid "More maintenance tools"
+msgstr "Περισσότερα εργαλεία συντήρησης"
+
+msgctxt "#30038"
+msgid "Resolve youtube streams with URLResolver"
+msgstr "Κάνε επίλυση ροών youtube με URLResolver"
+
+msgctxt "#30039"
+msgid "Appearance"
+msgstr "Εμφάνιση"
+
+msgctxt "#30040"
+msgid "Show {0}"
+msgstr "Δείξε {0}"
+
+msgctxt "#30041"
+msgid "Documentaties - Set 1"
+msgstr "Ντοκυμαντέρ - Σετ 1"
+
+msgctxt "#30042"
+msgid "Documentaties - Set 2"
+msgstr "Ντοκυμαντέρ - Σετ 2"
+
+msgctxt "#30043"
+msgid "Reverse episodes order"
+msgstr "Αντιστροφή τρόπου προβολής επεισοδίων"
+
+msgctxt "#30044"
+msgid "Broadcasted on "
+msgstr "Προβλήθηκε στην "
+
+msgctxt "#30045"
+msgid "Index by '{0}'"
+msgstr "Ταξινόμιση κατά '{0}'"
+
+msgctxt "#30046"
+msgid "Show Alternative Streams"
+msgstr "Δείξε τις Εναλλακτικές Ροές"
+
+msgctxt "#30047"
+msgid "Group '{0}'"
+msgstr "Ομάδα '{0}'"
+
+msgctxt "#30048"
+msgid "ALL CHANNELS"
+msgstr "ΟΛΑ ΤΑ ΚΑΝΑΛΙΑ"
+
+msgctxt "#30049"
+msgid "Select the group of your choice"
+msgstr "Επιλέξτε ομάδα της αρεσκείας σας"
+
+msgctxt "#30050"
+msgid "Enable Sort"
+msgstr "Ενεργοποίησε την ταξινόμηση"
+
+msgctxt "#30051"
+msgid "Groups"
+msgstr "Ομάδες"
+
+msgctxt "#30052"
+msgid "Title"
+msgstr "Τίτλο"
+
+msgctxt "#30053"
+msgid "Sort Method"
+msgstr "Μεθοδος Ταξινόμησης"
+
+msgctxt "#30054"
+msgid "Refresh"
+msgstr "Ανανέωση"
+
+msgctxt "#30055"
+msgid "Bookmarks"
+msgstr "Σελιδοδείκτες"
+
+msgctxt "#30056"
+msgid "Cache clear"
+msgstr "Καθαρισμός προσωρινής μνήμης"
+
+msgctxt "#30057"
+msgid "Dual Language Title Split (where supported)"
+msgstr "Διαχωρισμός διπλής γλώσσας (όπου υποστηρίζεται)"
+
+msgctxt "#30058"
+msgid "Show English only"
+msgstr "Δείξε μόνο στα Αγγλικά"
+
+msgctxt "#30059"
+msgid "Show Greek only"
+msgstr "Δείξε μόνο στα Ελληνικά"
+
+msgctxt "#30060"
+msgid "English/Greek"
+msgstr "Αγγλικά/Ελληνικά"
+
+msgctxt "#30061"
+msgid "Show group switcher"
+msgstr "Δείξε τον εναλλάκτη ομάδων"
+
+msgctxt "#30062"
+msgid "Select the index of your choice"
+msgstr "Επιλέξτε την ταξινόμιση της αρεσκείας σας"
+
+msgctxt "#30063"
+msgid "TV Shows"
+msgstr "Εκπομπές"
+
+msgctxt "#30064"
+msgid "Select a host"
+msgstr "Επιλέξτε έναν σύνδεσμο"
+
+msgctxt "#30065"
+msgid "PVR Client is not setup or ready"
+msgstr "Ο πελάτης PVR δεν εκτελείται ή ρυθμιστεί"
+
+msgctxt "#30066"
+msgid "Season"
+msgstr "Σεζόν"
+
+msgctxt "#30067"
+msgid "Episode"
+msgstr "Επεισόδιο"
+
+msgctxt "#30068"
+msgid "Theater"
+msgstr "Θέατρο"
+
+msgctxt "#30069"
+msgid "This action will overwrite existing Youtube API keys and will log you out if already logged in"
+msgstr "Αυτή η ενέργεια θα τροποποιήσει υπάρχουσες ρυθμίσεις των κλειδιών του Youtube και θα σας βγάλει εκτός συνδεδεμένης κατάστασης"
+
+msgctxt "#30070"
+msgid "This action will log you out if already logged in"
+msgstr "Αυτή η ενέργεια θα σας βγάλει εκτός συνδεδεμένης κατάστασης"
+
+msgctxt "#30071"
+msgid "Youtube API Keys Setup"
+msgstr "Ρύθμιση κλειδιών του Youtube API"
+
+msgctxt "#30072"
+msgid "Cartoon Series"
+msgstr "Σειρές κινουμένων σχεδίων"
+
+msgctxt "#30073"
+msgid "Cartoon Movies"
+msgstr "Ταινίες κινουμένων σχεδίων"
+
+msgctxt "#30074"
+msgid "Cartoon Collection"
+msgstr "Συλλογή κινουμένων σχεδίων"
+
+msgctxt "#30075"
+msgid "Educational"
+msgstr "Εκπαιδευτικά"
+
+msgctxt "#30076"
+msgid "Kids Songs"
+msgstr "Παιδικά Τραγούδια"
+
+msgctxt "#30077"
+msgid "Youtube Addon is not installed, do you want to install it now and setup the keys?"
+msgstr "Το πρόσθετο Youtube δεν είναι εγκατεστημένο, θέλετε να το εγκαταστήσετε τώρα και να γίνει ρύθμιση των κλειδιών;"
+
+msgctxt "#30078"
+msgid "Kids Live Channels"
+msgstr "Ζωντανά κανάλια με παιδικά"
+
+msgctxt "#30079"
+msgid "Documentaries"
+msgstr "Ντοκυμαντέρ"
+
+msgctxt "#30080"
+msgid "Add to Bookmarks"
+msgstr "Προσθήκη στους σελιδοδείκτες"
+
+msgctxt "#30081"
+msgid "Remove from Bookmarks"
+msgstr "Αφαίρεση από τους σελιδοδείκτες"
+
+msgctxt "#30082"
+msgid "Cache clear & Playlist refresh"
+msgstr "Καθαρισμός & Ανανέωση λίστας"
+
+msgctxt "#30083"
+msgid "Short Films"
+msgstr "Ταινίες Μικρού Μήκους"
+
+msgctxt "#30084"
+msgid "Go to TV Guide"
+msgstr "Πήγαινε στον Οδηγό Τηλεόρασης"
+
+msgctxt "#30085"
+msgid "No description found"
+msgstr "Δεν βρέθηκε περιγραφή"
+
+msgctxt "#30086"
+msgid "Settings below apply only to Live TV"
+msgstr "Οι παρακάτω ρυθμίσεις αφορούν μόνο την Ζωντανή Τηλεόραση"
+
+msgctxt "#30087"
+msgid "Show descriptions and various info (metadata)"
+msgstr "Δείξε περιγραφές και άλλες πληροφορίες (metadata)"
+
+msgctxt "#30088"
+msgid "Settings below apply only to VOD Sections"
+msgstr "Οι παρακάτω ρυθμίσεις αφορούν μόνο τα βίντεο αρχείου"
+
+msgctxt "#30089"
+msgid "Setting below will slow down loading of indexes"
+msgstr "Η παρακάτω ρύθμιση καθυστερεί την φόρτωση των καταλόγων"
+
+msgctxt "#30090"
+msgid "Year"
+msgstr "Έτος"
+
+msgctxt "#30091"
+msgid "Reverse sort (new at the top)"
+msgstr "Αντίστροφη ταξινόμηση (νεότερα στην κορυφή)"
+
+msgctxt "#30092"
+msgid "Cartoon Short Films"
+msgstr "Παιδικές Ταινίες Μικρού Μήκους"
+
+msgctxt "#30093"
+msgid "No information available"
+msgstr "Χωρίς πληροφορίες"
+
+msgctxt "#30094"
+msgid "Sports"
+msgstr "Αθλητικά"
+
+msgctxt "#30095"
+msgid "Search (No greeklish, please)"
+msgstr "Αναζήτηση (Παρακαλώ όχι φραγκολεβαντίνικα)"
+
+msgctxt "#30096"
+msgid "Live TV Channel"
+msgstr "Ζωντανό τηλεοπτικό κανάλι"
+
+msgctxt "#30097"
+msgid "Movies/Documentary/Theater"
+msgstr "Ταινίες/Ντοκυμαντέρ/Θεατρικές παραστάσεις"
+
+msgctxt "#30098"
+msgid "TV Series/TV Shows"
+msgstr "Σειρές/Εκπομπές"
+
+msgctxt "#30099"
+msgid "Cartoon Movies & Series"
+msgstr "Παιδικές Ταινίες & Σειρές"
+
+msgctxt "#30100"
+msgid " for "
+msgstr " για "
+
+msgctxt "#30101"
+msgid "Actor/Actress"
+msgstr "Ηθοποιός/Πρόσωπο"
+
+msgctxt "#30102"
+msgid "Icons set"
+msgstr "Σετ εικονιδίων"
+
+msgctxt "#30103"
+msgid "AliveGR"
+msgstr "AliveGR"
+
+msgctxt "#30104"
+msgid "Twilight"
+msgstr "Twilight"
+
+msgctxt "#30105"
+msgid "Dr.Azziw"
+msgstr "Dr.Azziw"
+
+msgctxt "#30106"
+msgid "Toggle On/Off dark theme"
+msgstr "Εναλλαγή σκουρόχρωμου θέματος"
+
+msgctxt "#30107"
+msgid "Restart AliveGR for theme to be applied"
+msgstr "Επανεκκινήστε το AliveGR για να εφαρμοστούν οι αλλαγές"
+
+msgctxt "#30108"
+msgid "or via context menu -> Refresh"
+msgstr "ή μέσω του εναλλακτικού μενού -> Ανανέωση"
+
+msgctxt "#30109"
+msgid "VOD Streams"
+msgstr "Επιλεκτικές Ροές"
+
+msgctxt "#30110"
+msgid "Changelog"
+msgstr "Αρχείο καταγραφής αλλαγών"
+
+msgctxt "#30111"
+msgid "Stream Resolver Settings (URL Resolver)"
+msgstr "Ρυθμίσεις του επιλυτή ροών (URL Resolver)"
+
+msgctxt "#30112"
+msgid "Stream not resolvable"
+msgstr "Ροή μη επιλύσιμη"
+
+msgctxt "#30113"
+msgid "Delete cache file"
+msgstr "Διαγραφή αρχείου προσωρινής μνήμης"
+
+msgctxt "#30114"
+msgid "View Changelog"
+msgstr "Δείξε το αρχείο καταγραφής αλλαγών"
+
+msgctxt "#30115"
+msgid "Developer"
+msgstr "Ανάπτυξη"
+
+msgctxt "#30116"
+msgid "Sports News"
+msgstr "Αθλητικά Νέα"
+
+msgctxt "#30117"
+msgid "Sports & Events"
+msgstr "Αθλήματα & Αγώνες"
+
+msgctxt "#30118"
+msgid "ERT News"
+msgstr "ΕΡΤ Ειδήσεις"
+
+msgctxt "#30119"
+msgid "ANT1 News"
+msgstr "Τα νέα του ΑΝΤ1"
+
+msgctxt "#30120"
+msgid "Star News"
+msgstr "Star Ειδήσεις"
+
+msgctxt "#30121"
+msgid "Skai News"
+msgstr "Skai Ειδήσεις"
+
+msgctxt "#30122"
+msgid "Alpha News"
+msgstr "Alpha Ειδήσεις"
+
+msgctxt "#30123"
+msgid "News"
+msgstr "Ειδήσεις"
+
+msgctxt "#30124"
+msgid "GM Index"
+msgstr "Το ευρετήριο του GM"
+
+msgctxt "#30125"
+msgid "Music"
+msgstr "Μουσική"
+
+msgctxt "#30126"
+msgid "Mad Greekz Index"
+msgstr "Το ευρετήριο του Mad Greekz"
+
+msgctxt "#30127"
+msgid "Mad Greekz Top 10"
+msgstr "Τα 10 κορυφαία του Mad Greekz"
+
+msgctxt "#30128"
+msgid "Rythmos 949 Top 20"
+msgstr "Τα 20 κορυφαία του Ρυθμός 949"
+
+msgctxt "#30129"
+msgid "Disclaimer"
+msgstr "Αποποίηση ευθυνών"
+
+msgctxt "#30130"
+msgid "In order to use AliveGR addon please install respective repository zip addon from [COLOR yellow]http://alivegr.net/master[/COLOR]"
+msgstr "Για να επιτραπεί η χρήση της μικροεφαρμογής AliveGR παρακαλώ εγκαταστείστε το zip αποθετήριό του από την διεύθυνση [COLOR yellow]http://alivegr.net/master[/COLOR]"
+
+msgctxt "#30131"
+msgid "Please press back button on your remote or backspace on your keyboard to exit from this message"
+msgstr "Παρακαλώ πατήστε το κουμπί τηλεχειριστηρίου 'προς τα πίσω' ή το backspace στο πληκτρολόγιό σας για να ακυρώσετε αυτό το μήνυμα"
+
+msgctxt "#30132"
+msgid "Do you want to disable first time prompt and set Greek Language & Region?"
+msgstr "Θέλετε να απενεργοποιήσετε το οδηγό ρυθμίσεων και χρήση γλώσσας & περιοχής για Ελλάδα;"
+
+msgctxt "#30133"
+msgid "Use old method for calling settings window"
+msgstr "Κάνε χρήση παλαιάς μεθόδου κλήσης παραθύρου ρυθμίσεων"
+
+msgctxt "#30134"
+msgid "Reset indexer methods"
+msgstr "Επαναφορά μεθόδων ομαδοποίησης"
+
+msgctxt "#30135"
+msgid "Purge bookmarks"
+msgstr "Εκκαθάριση σελιδοδεικτών"
+
+msgctxt "#30136"
+msgid "Delete addon settings folder"
+msgstr "Διαγραφή φακέλου ρυθμίσεων"
+
+msgctxt "#30137"
+msgid "Tools"
+msgstr "Εργαλεία"
+
+msgctxt "#30138"
+msgid "Maintenance"
+msgstr "Συντήρηση"
+
+msgctxt "#30139"
+msgid "No bookmarks found"
+msgstr "Δεν βρέθηκαν σελιδοδείκτες"
+
+msgctxt "#30140"
+msgid "Settings folder no longer exists"
+msgstr "Δεν υπάρχει φάκελος ρυθμίσεων"
+
+msgctxt "#30141"
+msgid "Local proxy module for IPTV simple client streams' resolving does not exist. Do you want to install it?"
+msgstr "Το πρόσθετο τοπικής επίλυσης ροών για τον πελάτη IPTV δεν είναι εγκατεστημένο. Θέλετε να το εγκαταστήσετε;"
+
+msgctxt "#30142"
+msgid "Local proxy module was not installed"
+msgstr "Το πρόσθετο τοπικής επίλυσης ροών δεν εγκαταστάθηκε"
+
+msgctxt "#30143"
+msgid "Local proxy module already installed"
+msgstr "Το πρόσθετο τοπικής επίλυσης ροών είναι ήδη εγκατεστημένο"
+
+msgctxt "#30144"
+msgid "Type of dialog for streams' choice"
+msgstr "Τύπος διαλόγου για την επιλογή ροής"
+
+msgctxt "#30145"
+msgid "Selection"
+msgstr "Παράθυρο"
+
+msgctxt "#30146"
+msgid "Directory"
+msgstr "Κατάλογος"
+
+msgctxt "#30147"
+msgid "Unknown genre"
+msgstr "Άγνωστο είδος"
+
+msgctxt "#30148"
+msgid "Show Live TV"
+msgstr "Δείξε την Ζωντανή Τηλεόραση"
+
+msgctxt "#30149"
+msgid "Show PVR Simple Client menu"
+msgstr "Δείξε το μενού του απλού πελάτη IPTV"
+
+msgctxt "#30150"
+msgid "Show Networks"
+msgstr "Δείξε τα δίκτυα"
+
+msgctxt "#30151"
+msgid "Show News"
+msgstr "Δείξε τις Ειδήσεις"
+
+msgctxt "#30152"
+msgid "Show Movies"
+msgstr "Δείξε τις ταινίες"
+
+msgctxt "#30153"
+msgid "Show Short Films"
+msgstr "Δείξε τις ταινίες μικρού μήκους"
+
+msgctxt "#30154"
+msgid "Show TV Series"
+msgstr "Δείξε τις Σειρές"
+
+msgctxt "#30155"
+msgid "Show TV Shows"
+msgstr "Δείξε τις εκπομπές"
+
+msgctxt "#30156"
+msgid "Show Theater"
+msgstr "Δείξε το Θέατρο"
+
+msgctxt "#30157"
+msgid "Show Documentaries"
+msgstr "Δείξε τα Ντοκυμαντέρ"
+
+msgctxt "#30158"
+msgid "Show Sports"
+msgstr "Δείξε τα αθλητικά"
+
+msgctxt "#30159"
+msgid "Show Kids Section"
+msgstr "Δείξε την ενότητα των παιδιών"
+
+msgctxt "#30160"
+msgid "Show Misc Section"
+msgstr "Δείξε τα διάφορα"
+
+msgctxt "#30161"
+msgid "Show Music"
+msgstr "Δείξε την μουσική"
+
+msgctxt "#30162"
+msgid "Show Radio"
+msgstr "Δείξε το ραδιόφωνο"
+
+msgctxt "#30163"
+msgid "Show Search Menu"
+msgstr "Δείξε την αναζήτηση"
+
+msgctxt "#30164"
+msgid "Show Bookmarks"
+msgstr "Δείξε τους σελιδοδείκτες"
+
+msgctxt "#30165"
+msgid "Show Tools"
+msgstr "Δείξε τα εργαλεία"
+
+msgctxt "#30166"
+msgid ""
+msgstr ""
+
+msgctxt "#30401"
+msgid "Clear addon's cache?"
+msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"
+
+msgctxt "#30402"
+msgid "Success"
+msgstr "Επιτυχία"
+
+msgctxt "#30403"
+msgid ""
+msgstr ""
+
+msgctxt "#30404"
+msgid ""
+msgstr ""
+
+msgctxt "#30405"
+msgid ""
+msgstr ""
+
+msgctxt "#30406"
+msgid "Enable PVR Simple Client menu now?"
+msgstr "Ενεργοποίηση μενού πελάτη PVR Simple τώρα;"
+
+msgctxt "#30407"
+msgid "PVR Simple Client & Live TV is already enabled"
+msgstr "Ο πελάτης PVR Simple και το μενού ζωντανής τηλεόρασης είναι ήδη ενεργοποιημένο"
+
+msgctxt "#30408"
+msgid "Enable PVR Simple Client & native Live TV menu"
+msgstr "Ενεργοποίηση πελάτη PVR Simple & μενού ζωντανής τηλεόρασης"
+
+msgctxt "#30409"
+msgid "Please run IPTV Simple Client setup function first"
+msgstr "Παρακαλώ εκτελέστε την ενέργεια ρύθμισης του πελάτη IPTV Simple πρώτα"
+
+msgctxt "#30410"
+msgid ""
+msgstr ""
+
+msgctxt "#30411"
+msgid ""
+msgstr ""

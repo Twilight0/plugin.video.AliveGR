@@ -1,0 +1,723 @@
+# Addon Name: AliveGR
+# Addon id: plugin.video.AliveGR
+# Addon Provider: Twilight0
+msgid ""
+msgstr ""
+"Project-Id-Version: AliveGR\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-06-22 11:29+0000\n"
+"Last-Translator: twilight0\n"
+"Language-Team: English (http://www.domain.com)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30001"
+msgid "Live TV"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Radio"
+msgstr ""
+
+msgctxt "#30003"
+msgid "General"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Live Streams"
+msgstr ""
+
+msgctxt "#30005"
+msgid ""
+msgstr ""
+
+msgctxt "#30006"
+msgid ""
+msgstr ""
+
+msgctxt "#30007"
+msgid ""
+msgstr ""
+
+msgctxt "#30008"
+msgid "Networks"
+msgstr ""
+
+msgctxt "#30009"
+msgid ""
+msgstr ""
+
+msgctxt "#30010"
+msgid "Display"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Miscellany"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Developer/Debugging mode"
+msgstr ""
+
+msgctxt "#30014"
+msgid "TV Guide"
+msgstr ""
+
+msgctxt "#30015"
+msgid "watch at "
+msgstr ""
+
+msgctxt "#30016"
+msgid "Currently Down"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Actions"
+msgstr ""
+
+msgctxt "#30018"
+msgid "IPTV Simple Client Integration"
+msgstr ""
+
+msgctxt "#30019"
+msgid "Previous Menu Key Setup"
+msgstr ""
+
+msgctxt "#30020"
+msgid "Previous Menu Shortcut Setup"
+msgstr ""
+
+msgctxt "#30021"
+msgid "This action will overwrite existing IPTV Simple Client settings"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Proceed?"
+msgstr ""
+
+msgctxt "#30023"
+msgid "IPTV Simple Client will now be set up"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Process complete"
+msgstr ""
+
+msgctxt "#30025"
+msgid "This action will add a modified keyboard shortcut in the"
+msgstr ""
+
+msgctxt "#30026"
+msgid "TV Guide window"
+msgstr ""
+
+msgctxt "#30027"
+msgid "If you use a program such as Keymap Editor"
+msgstr ""
+
+msgctxt "#30028"
+msgid "you will have to repeat this process"
+msgstr ""
+
+msgctxt "#30029"
+msgid "No change was made"
+msgstr ""
+
+msgctxt "#30030"
+msgid "TV Series"
+msgstr ""
+
+msgctxt "#30031"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#30032"
+msgid "Kids"
+msgstr ""
+
+msgctxt "#30033"
+msgid "No bookmarks found"
+msgstr ""
+
+msgctxt "#30034"
+msgid "Group Switcher"
+msgstr ""
+
+msgctxt "#30035"
+msgid "Date updated the list: "
+msgstr ""
+
+msgctxt "#30036"
+msgid "IPTV Simple Client"
+msgstr ""
+
+msgctxt "#30037"
+msgid "More maintenance tools"
+msgstr ""
+
+msgctxt "#30038"
+msgid "Resolve youtube streams with URLResolver"
+msgstr ""
+
+msgctxt "#30039"
+msgid "Appearance"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Show {0}"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Documentaties - Set 1"
+msgstr ""
+
+msgctxt "#30042"
+msgid "Documentaties - Set 2"
+msgstr ""
+
+msgctxt "#30043"
+msgid "Reverse episodes order"
+msgstr ""
+
+msgctxt "#30044"
+msgid "Broadcasted on "
+msgstr ""
+
+msgctxt "#30045"
+msgid "Index by '{0}'"
+msgstr ""
+
+msgctxt "#30046"
+msgid "Show Alternative Streams"
+msgstr ""
+
+msgctxt "#30047"
+msgid "Group '{0}'"
+msgstr ""
+
+msgctxt "#30048"
+msgid "ALL CHANNELS"
+msgstr ""
+
+msgctxt "#30049"
+msgid "Select the group of your choice"
+msgstr ""
+
+msgctxt "#30050"
+msgid "Enable Sort"
+msgstr ""
+
+msgctxt "#30051"
+msgid "Groups"
+msgstr ""
+
+msgctxt "#30052"
+msgid "Title"
+msgstr ""
+
+msgctxt "#30053"
+msgid "Sort Method"
+msgstr ""
+
+msgctxt "#30054"
+msgid "Refresh"
+msgstr ""
+
+msgctxt "#30055"
+msgid "Bookmarks"
+msgstr ""
+
+msgctxt "#30056"
+msgid "Cache clear"
+msgstr ""
+
+msgctxt "#30057"
+msgid "Dual Language Title Split (where supported)"
+msgstr ""
+
+msgctxt "#30058"
+msgid "Show English only"
+msgstr ""
+
+msgctxt "#30059"
+msgid "Show Greek only"
+msgstr ""
+
+msgctxt "#30060"
+msgid "English/Greek"
+msgstr ""
+
+msgctxt "#30061"
+msgid "Show group switcher"
+msgstr ""
+
+msgctxt "#30062"
+msgid "Select the index of your choice"
+msgstr ""
+
+msgctxt "#30063"
+msgid "TV Shows"
+msgstr ""
+
+msgctxt "#30064"
+msgid "Select a host"
+msgstr ""
+
+msgctxt "#30065"
+msgid "PVR Client is not setup or ready"
+msgstr ""
+
+msgctxt "#30066"
+msgid "Season"
+msgstr ""
+
+msgctxt "#30067"
+msgid "Episode"
+msgstr ""
+
+msgctxt "#30068"
+msgid "Theater"
+msgstr ""
+
+msgctxt "#30069"
+msgid "This action will overwrite existing Youtube API keys and will log you out if already logged in"
+msgstr ""
+
+msgctxt "#30070"
+msgid "This action will log you out if already logged in"
+msgstr ""
+
+msgctxt "#30071"
+msgid "Youtube API Keys Setup"
+msgstr ""
+
+msgctxt "#30072"
+msgid "Cartoon Series"
+msgstr ""
+
+msgctxt "#30073"
+msgid "Cartoon Movies"
+msgstr ""
+
+msgctxt "#30074"
+msgid "Cartoon Collection"
+msgstr ""
+
+msgctxt "#30075"
+msgid "Educational"
+msgstr ""
+
+msgctxt "#30076"
+msgid "Kids Songs"
+msgstr ""
+
+msgctxt "#30077"
+msgid "Youtube Addon is not installed, do you want to install it now and setup the keys?"
+msgstr ""
+
+msgctxt "#30078"
+msgid "Kids Live Channels"
+msgstr ""
+
+msgctxt "#30079"
+msgid "Documentaries"
+msgstr ""
+
+msgctxt "#30080"
+msgid "Add to Bookmarks"
+msgstr ""
+
+msgctxt "#30081"
+msgid "Remove from Bookmarks"
+msgstr ""
+
+msgctxt "#30082"
+msgid "Cache clear & Playlist refresh"
+msgstr ""
+
+msgctxt "#30083"
+msgid "Short Films"
+msgstr ""
+
+msgctxt "#30084"
+msgid "Go to TV Guide"
+msgstr ""
+
+msgctxt "#30085"
+msgid "No description found"
+msgstr ""
+
+msgctxt "#30086"
+msgid "Settings below apply only to Live TV"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Show descriptions and various info (metadata)"
+msgstr ""
+
+msgctxt "#30088"
+msgid "Settings below apply only to VOD Sections"
+msgstr ""
+
+msgctxt "#30089"
+msgid "Setting below will slow down loading of indexes"
+msgstr ""
+
+msgctxt "#30090"
+msgid "Year"
+msgstr ""
+
+msgctxt "#30091"
+msgid "Reverse sort (new at the top)"
+msgstr ""
+
+msgctxt "#30092"
+msgid "Cartoon Short Films"
+msgstr ""
+
+msgctxt "#30093"
+msgid "No information available"
+msgstr ""
+
+msgctxt "#30094"
+msgid "Sports"
+msgstr ""
+
+msgctxt "#30095"
+msgid "Search (No greeklish, please)"
+msgstr ""
+
+msgctxt "#30096"
+msgid "Live TV Channel"
+msgstr ""
+
+msgctxt "#30097"
+msgid "Movies/Documentary/Theater"
+msgstr ""
+
+msgctxt "#30098"
+msgid "TV Series/TV Shows"
+msgstr ""
+
+msgctxt "#30099"
+msgid "Cartoon Movies & Series"
+msgstr ""
+
+msgctxt "#30100"
+msgid " for "
+msgstr ""
+
+msgctxt "#30101"
+msgid "Actor/Actress"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Icons set"
+msgstr ""
+
+msgctxt "#30103"
+msgid "AliveGR"
+msgstr ""
+
+msgctxt "#30104"
+msgid "Twilight"
+msgstr ""
+
+msgctxt "#30105"
+msgid "Dr.Azziw"
+msgstr ""
+
+msgctxt "#30106"
+msgid "Toggle On/Off dark theme"
+msgstr ""
+
+msgctxt "#30107"
+msgid "Restart AliveGR for theme to be applied"
+msgstr ""
+
+msgctxt "#30108"
+msgid "or via context menu -> Refresh"
+msgstr ""
+
+msgctxt "#30109"
+msgid "VOD Streams"
+msgstr ""
+
+msgctxt "#30110"
+msgid "Changelog"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Stream Resolver Settings (URL Resolver)"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Stream not resolvable"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Delete cache file"
+msgstr ""
+
+msgctxt "#30114"
+msgid "View Changelog"
+msgstr ""
+
+msgctxt "#30115"
+msgid "Developer"
+msgstr ""
+
+msgctxt "#30116"
+msgid "Sports News"
+msgstr ""
+
+msgctxt "#30117"
+msgid "Sports & Events"
+msgstr ""
+
+msgctxt "#30118"
+msgid "ERT News"
+msgstr ""
+
+msgctxt "#30119"
+msgid "ANT1 News"
+msgstr ""
+
+msgctxt "#30120"
+msgid "Star News"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Skai News"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Alpha News"
+msgstr ""
+
+msgctxt "#30123"
+msgid "News"
+msgstr ""
+
+msgctxt "#30124"
+msgid "GM Index"
+msgstr ""
+
+msgctxt "#30125"
+msgid "Music"
+msgstr ""
+
+msgctxt "#30126"
+msgid "Mad Greekz Index"
+msgstr ""
+
+msgctxt "#30127"
+msgid "Mad Greekz Top 10"
+msgstr ""
+
+msgctxt "#30128"
+msgid "Rythmos 949 Top 20"
+msgstr ""
+
+msgctxt "#30129"
+msgid "Disclaimer"
+msgstr ""
+
+msgctxt "#30130"
+msgid "In order to use AliveGR addon please install respective repository zip addon from [COLOR yellow]http://alivegr.net/master[/COLOR]"
+msgstr ""
+
+msgctxt "#30131"
+msgid "Please press back button on your remote or backspace on your keyboard to exit from this message"
+msgstr ""
+
+msgctxt "#30132"
+msgid "Do you want to disable first time prompt and set Greek Language & Region?"
+msgstr ""
+
+msgctxt "#30133"
+msgid "Use old method for calling settings window"
+msgstr ""
+
+msgctxt "#30134"
+msgid "Reset indexer methods"
+msgstr ""
+
+msgctxt "#30135"
+msgid "Purge bookmarks"
+msgstr ""
+
+msgctxt "#30136"
+msgid "Delete addon settings folder"
+msgstr ""
+
+msgctxt "#30137"
+msgid "Tools"
+msgstr ""
+
+msgctxt "#30138"
+msgid "Maintenance"
+msgstr ""
+
+msgctxt "#30139"
+msgid "No bookmarks found"
+msgstr ""
+
+msgctxt "#30140"
+msgid "Settings folder no longer exists"
+msgstr ""
+
+msgctxt "#30141"
+msgid "Local proxy module for IPTV simple client streams' resolving does not exist. Do you want to install it?"
+msgstr ""
+
+msgctxt "#30142"
+msgid "Local proxy module was not installed"
+msgstr ""
+
+msgctxt "#30143"
+msgid "Local proxy module already installed"
+msgstr ""
+
+msgctxt "#30144"
+msgid "Type of dialog for streams' choice"
+msgstr ""
+
+msgctxt "#30145"
+msgid "Selection"
+msgstr ""
+
+msgctxt "#30146"
+msgid "Directory"
+msgstr ""
+
+msgctxt "#30147"
+msgid "Unknown genre"
+msgstr ""
+
+msgctxt "#30148"
+msgid "Show Live TV"
+msgstr ""
+
+msgctxt "#30149"
+msgid "Show PVR Simple Client menu"
+msgstr ""
+
+msgctxt "#30150"
+msgid "Show Networks"
+msgstr ""
+
+msgctxt "#30151"
+msgid "Show News"
+msgstr ""
+
+msgctxt "#30152"
+msgid "Show Movies"
+msgstr ""
+
+msgctxt "#30153"
+msgid "Show Short Films"
+msgstr ""
+
+msgctxt "#30154"
+msgid "Show TV Series"
+msgstr ""
+
+msgctxt "#30155"
+msgid "Show TV Shows"
+msgstr ""
+
+msgctxt "#30156"
+msgid "Show Theater"
+msgstr ""
+
+msgctxt "#30157"
+msgid "Show Documentaries"
+msgstr ""
+
+msgctxt "#30158"
+msgid "Show Sports"
+msgstr ""
+
+msgctxt "#30159"
+msgid "Show Kids Section"
+msgstr ""
+
+msgctxt "#30160"
+msgid "Show Misc Section"
+msgstr ""
+
+msgctxt "#30161"
+msgid "Show Music"
+msgstr ""
+
+msgctxt "#30162"
+msgid "Show Radio"
+msgstr ""
+
+msgctxt "#30163"
+msgid "Show Search Menu"
+msgstr ""
+
+msgctxt "#30164"
+msgid "Show Bookmarks"
+msgstr ""
+
+msgctxt "#30165"
+msgid "Show Tools"
+msgstr ""
+
+msgctxt "#30166"
+msgid ""
+msgstr ""
+
+msgctxt "#30401"
+msgid "Clear addon's cache?"
+msgstr ""
+
+msgctxt "#30402"
+msgid "Success"
+msgstr ""
+
+msgctxt "#30403"
+msgid ""
+msgstr ""
+
+msgctxt "#30404"
+msgid ""
+msgstr ""
+
+msgctxt "#30405"
+msgid ""
+msgstr ""
+
+msgctxt "#30406"
+msgid "Enable PVR Simple Client menu now?"
+msgstr ""
+
+msgctxt "#30407"
+msgid "PVR Simple Client & Live TV is already enabled"
+msgstr ""
+
+msgctxt "#30408"
+msgid "Enable PVR Simple Client & native Live TV menu"
+msgstr ""
+
+msgctxt "#30409"
+msgid "Please run IPTV Simple Client setup function first"
+msgstr ""
+
+msgctxt "#30410"
+msgid ""
+msgstr ""
+
+msgctxt "#30411"
+msgid ""
+msgstr ""

@@ -1,0 +1,522 @@
+0.9.5 (14-07-2017)
+- Bug fix in Live TV section
+- Various code cosmetics
+
+0.9.4 (08-07-2017)
+- Removed private youtube resolver
+- Reduced sleep time for calling urlresolver settings window
+- Added action for deleting function cache file
+- Added action for viewing changelog
+- Tweaks in ERT's live resolver
+- Various code cosmetics
+
+0.9.3 (25-06-2017)
+- Fixed mega's live resolver
+
+0.9.2 (24-06-2017)
+- Fix for radios icons
+
+0.9.1 (24-06-2017)
+- Fixed Euronews live resolver
+
+0.9.0 (21-06-2017)
+- New icon & fanart images
+- New shortcut pointing to URL resolver settings
+- New "News" Section
+- Dev/Debug function tweaks
+- Clear cache function tweaks
+- Enhanced sports section
+- Fix for theater's indexer
+- Fix for group choices for VOD
+
+0.8.26 (15-06-2017)
+- Forced update to fix some caching issues
+
+0.8.25 (14-06-2017)
+- Moved all xmls lists to new host
+
+0.8.24 (12-06-2017)
+- Fixed Alpha's live resolver
+- Added dependency for repository addon
+- Bumped other dependencies
+
+0.8.23 (06-06-2017)
+- Re-work of settings menu
+- Added toggle On/Off setting/switch for private youtube resolver for live streams
+- Bug Fixes in youtube setup function
+- Improved PVR Simple Client setup function
+- Added shortcut to ERA Radio Stations in Radio menu
+- Various code cosmetics
+
+0.8.22 (25-05-2017)
+- Fix for episodes indexers
+- Increased a few cache values for live resolvers
+- Added Montreal Greek TV Network
+
+0.8.21 (08-04-2017)
+- Fix VOD for indexers and choice of categorizer
+- Optimizations in player calls for live channels (caching)
+
+0.8.20 (05-04-2017)
+- Fixed gm indexers
+- Removed passthrough function in player module. Urlresolver is now called directly.
+
+0.8.19 (23-03-2017)
+- Small fix in miscellany section
+- Minor change in iptv simple client setup function
+- Code cosmetics
+
+0.8.18 (23-03-2017)
+- Fixes in debugging function
+- Disabled metadata function
+- Enabled sports section
+
+0.8.17 (22-03-2017)
+- Minor bug fixes
+
+0.8.16 (22-03-2017)
+- Minor bug fixes
+
+0.8.15 (18-03-2017)
+- Code cosmetics
+
+0.8.14 (14-03-2017)
+- Converted m3u radio list to xml
+- Minor fix in root menu
+
+0.8.13 (14-03-2017)
+- Bug fix in player methors (temporary passthrough for youtube live streams)
+- Re-added radios item, effectively merging AliveGR radios addon
+
+0.8.12 (14-03-2017)
+- Minor code rework in various modules
+
+0.8.11 (13-03-2017)
+- Minor rework on player methods
+
+0.8.10 (11-03-2017)
+- Minor fix in translation strings
+- Fix for urlresolver player method or root links
+- Fix for fnetwork's resolver
+- Removed forgotten parameter to change group of channels for kids
+- Fixed broken documentaries plugin call
+
+0.8.9 (11-03-2017)
+- Code cosmetics & bug fixes
+- New resolver for youtube live urls
+- New resolvers for various live channels
+- New content switcher function for root menu
+- Removed radios item, please find it in the separate addon.
+- Implemented developer mode/action for various tests
+
+0.8.8 (04-03-2017)
+- New resolvers for Mega GR & Mega CY
+
+0.8.7 (03-03-2017)
+- Bug fix in bookmarks
+
+0.8.6 (02-03-2017)
+- Bug fixes in search function
+- Bug fixes in youtube documentaries
+- New context menu item, shortcut to clearing cache from root menu
+- Fixed Ant1CY resolver
+- Code cosmetics
+
+0.8.5 (28-02-2017)
+- More optimizations in Live Section
+- Various code cosmetics
+
+0.8.4 (28-02-2017)
+- Converted AliveGR's main list from m3u to xml
+- Various optimizations in live tv section
+- Various code cosmetics
+
+0.8.3 (24-02-2017)
+- Various code cosmetics
+- Fixes in documentaries section
+- Revised search function (#3)
+
+0.8.2 (23-02-2017)
+- Another revision in search function (documentaries, unicode)
+- Code cosmetics
+
+0.8.1 (22-02-2017)
+- Corrected a couple of translation strings
+- Code cosmetics
+- Minor revision of search function
+
+0.8.0 (21-02-2016)
+- New section of 2 sets with documentaries
+- New search function
+- New artwork themes
+
+0.7.12 (18-02-2017)
+- Fixed indexer by year
+
+0.7.11 (18-02-2017)
+- Fixed indexer by channel
+
+0.7.10 (18-02-2017)
+- Fixed episodes indexer
+- More improvements to listing indexers
+
+0.7.9 (15-02-2017)
+- Greatly improved gm indexers and metadata loaders
+- Updated a few translation strings
+- Fixed cartoon shortcuts
+- Added sports section however it is disabled due to lots of dead links
+
+0.7.8 (06-02-2017)
+- Cancelled all recent changes in Live Section
+- Made group switcher load faster
+
+0.7.7 (05-02-2017)
+- Ammendments to yesterday's changes
+
+0.7.6 (04-02-2017)
+- Changes in some translation strings
+- Some fixes in Live section
+- Few other minor fixes & changes
+
+0.7.5 (14-01-2017)
+- Minor fixes here and there
+- New cartoon short films item in kids menu
+
+0.7.4.2 (10-01-2017)
+- Depend to urlresolver temporary version 3.0.26.1
+- Stripped many unused and old translation strings
+- Removed force view from all levels and accompanying option
+- Improved display of live channels
+
+0.7.4.1 (07-01-2017)
+- Fixed year passing to indexers
+
+0.7.4 (07-01-2017)
+- Introduced sort method in VOD sections
+- Added refresh context menu in some sections
+- Plot is now visible in movie playback as well (even when metadata option is off)
+- Improved switchers' behaviour
+- Code cosmetics
+
+0.7.3.4 (06-01-2017)
+- Urgent update to fix VOD playing conditional method
+
+0.7.3.3 (06-01-2017)
+- Reverted to old method of title splitting
+
+0.7.3.2 (06-01-2017)
+- Fix in links choice handling
+
+0.7.3.1 (05-01-2017)
+- Minor fix for imdb code regex
+
+0.7.3 (05-01-2017)
+- Removed switch for tv guide display. It is now automatic based on whether Live TV is set up and running.
+- Bookmarks root menu item is not displayed when there are no bookmarks.
+- Rework on gm indexers to display metadata (off by default)
+- Code cosmetics
+
+0.7.2 (29-12-2016)
+- Improved Youtube keys setup function
+
+0.7.1 (27-12-2016)
+- Fixed TV Guide shortcut broke in 0.7.0
+- New context menu item in Live TV for going to TV Guide
+
+0.7.0 (27-12-2016)
+- New documentaries section
+- New short films section
+- New shortcut to kids live channels from the kids submenu
+- Some other miscellaneous underlying changes to improve code efficiency
+- New bookmarks function
+- New Clear Cache & Refresh function in Live TV context menu
+- New resolvers for official links
+
+0.6.3.3 (26-12-2016)
+- Code cosmetics
+
+0.6.3.2 (25-12-2016)
+- Code cosmetics
+- Made some more changes to resolvers. If only one choice is available it is selected automatically.
+- Fix for live channels
+
+0.6.3.1 (25-12-2016)
+- Made cosmetics changes to resolver function, also a fix.
+
+0.6.3 (24-12-2016)
+- Gathered cartoons selections to shortcuts accessed from the root menu
+- Added "Cartoon Collection"
+- Added Kids Songs & Various Educational Videos
+
+0.6.2.1 (20-12-2016)
+- Small fix for translated string in Youtube setup keys function.
+
+0.6.2 (19-12-2016)
+- Added a function for setting up AliveGR's Youtube keys.
+  > This setting is global.
+
+0.6.1.1 (18-12-2016)
+- Small fix in resolvers section
+
+0.6.1 (18-12-2016)
+- Fix for Live TV section
+- Added sort method for movies
+- Fixed genre selection by adding all years to them
+
+0.6.0 (18-12-2016)
+- Removed old AliveGR (Greek/Hellenic) TV VOD module entirely
+  > All items are now self-contained
+- New theater option
+- New shows option
+- Revised cartoon section
+  > It will be updated with more content in a future version
+- Index switcher for VOD
+- New functional choice instead of random for videos playback
+- Lots and lots of other changes, including but not limited to code cosmetics
+
+0.5.2 (09-12-2016)
+- Skipped version
+
+0.5.1.3 (03-12-2016)
+- Code cosmetics
+
+0.5.1.2 (01-12-2016)
+- Code cosmetics
+
+0.5.1.1 (29-Nov-2016)
+- Small fix for a setting string
+
+0.5.1 (28-Nov-2016)
+- Added group sort.
+- Added title split for dual language strings
+- Added the ability to disable group switcher in live tv section (by default it is on)
+- Various minor bug fixes.
+- Added screenshots in xml assets tag.
+
+0.5.0 (27-Nov-2016)
+- Major & complete rework of addon code
+  > Utilizing tulip routine libraries (lamlib fork)
+  > Can now accommodate future code like custom resolvers and such
+- Caching to improve performance
+  > Accompanied with a function to clear it
+- Removed thumbnails clearing function
+- News tag in addon.xml
+
+0.4.4~beta (25-Nov-2016)
+- Added ANT1 CY resolver
+- Refined user-agents passing in various functions
+- Code cosmetics
+
+0.4.3~beta (24-Nov-2016)
+- Implemented group switcher for live channels
+- Various other insignificant changes
+
+0.4.2~beta (11-Nov-2016)
+- Reverted to urlresolver for streams loading
+
+0.4.1.1~beta (07-Nov-2016)
+- Minor bug fix for "Toronto Channels" url
+
+0.4.1~beta (07-Nov-2016
+- Rework of miscellaneous items code
+  > Playlist is now hosted remotely for easy changes
+- Added Toronto Channels "network"
+- Code cosmetics
+
+0.4.0~beta (04-Nov-2016)
+- Rework of main menu code
+- Removed toggle on/off settings except for the tv guide one
+- Removed urlloader & urlresolver dependency, youtube-dl is now called directly
+  > Youtube-dl features faster youtube resolving and is used by LiveLite as well.
+  > Simplified youtube & dailymotion urls passing to the resolver
+- Code cosmetics
+
+0.3.3~beta (03-Nov-2016)
+- Revert to urlllib2 and removed requests dependency
+- Implemented replace method for youtube and dailymotion urls
+- Complete unification of playlists. Now only one url is used.
+
+0.3.2~beta (24-Oct-2016)
+- Removed mainstream playlists
+  > Option is now a boolean type. To show alternative streams simply enable "show alternative streams" in settings.
+- Added the "VHS Maniax" channel in miscellany section
+- Fixed typo for TV Series strings
+- Removed random user-agent from resolved urls
+- Other miscellaneous in-significant changes and code cosmetics
+
+0.3.1~beta (11-Oct-2016)
+- Added vice "network"
+- Added 4 more channels for greek movies
+ > 50's, 60's, 70's, 80's They all load a random movie and play it
+- Added the "VHS Past Archive - Το Παρελθόν Του VHS" in miscellany section
+- Removed radio icons from artwork addon. They are now loaded remotely
+- AliveGR is now marked as Kodi 16+ compatible
+
+0.3.0~beta (15-Sep-2016)
+- Added the "Miscellany" section. Subject to continuous updates (in the same manner as live tv).
+- Rework of the parameters to "action" calls
+- AliveGR is now using "requests" instead of urllib2 with support for random user agent (thanks to lambda)
+- Random User Agent is also passed to channel urls
+- Minor fixes-cosmetics here & there
+
+0.2.2.5~beta (12-Sep-2016)
+- Changed the name for AliveGR's vod module
+
+0.2.2.4~beta (11-Sep-2016)
+- Minor rework in main menu and other parts of the addon's code
+- Added wzra48 (greek voice) network
+
+0.2.2.3~beta (04-Sep-2016)
+- Properly fixed networks list
+
+0.2.2.2~beta (03-Sep-2016)
+- [S]Fixed networks list[/S]
+
+0.2.2.1~beta (03-Sep-2016)
+- Changed the icon tiny bit for Krypton's default skin appearance.
+- Fixed default value for playlist setting
+
+0.2.2~beta (02-Sep-2016)
+- Rework of live channel resolving and playing
+  > Utilizing UrlLoader module & urlresolver
+- Minor fixes here & there
+
+0.2.1~beta (01-Sep-2016)
+- New artwork
+
+0.2.0.3~beta (01-Sep-2016)
+- New addon fanart & icon to match theme
+
+0.2.0.2~beta (01-Sep-2016)
+- Pushed version for update
+
+0.2.0.1~beta (01-Sep-2016)
+- Skip this version
+
+0.2.0~beta (01-Sep-2016)
+- Added Movies, TV Serries, Cartoons from existing greek tv addon which is now turned into a module/script
+- Added function/action to delete thumbnail cache
+
+0.1.4.3~beta (31-Aug-2016)
+- Proper fix for version's 0.1.4.1 changes.
+
+0.1.4.2~beta (31-Aug-2016)
+- Minor fix for a localised string
+
+0.1.4.1~beta (30-Aug-2016)
+- Minor fix for radio fanart selection
+
+0.1.4~beta (30-Aug-2016)
+- Added actions for semi-auto TV Guide and keyboard shortcut setup
+- Miscellaneous insignificant code changes
+
+0.1.3.3~beta (29-Aug-2016)
+- Fix for a typo at settings menu
+
+0.1.3.2~beta (29-Aug-2016)
+- Improved settings appearance, behaviour & addition of items toggle on/off
+- Miscellaneous & insignificant code changes
+
+0.1.3.1~beta (27-Aug-2016)
+- Removed extension point for repository distribution without repo zip
+- Insignificant code changes
+
+0.1.3~beta (27-Aug-2016)
+- Added TV guide feature
+  > [B]Make sure to follow guide at TVADDONS.ag forums in order to setup the guide.[/B]
+- Changed some icons and added one for TV Guide (AliveGR artwork)
+- Code cosmetics
+
+0.1.2~beta (27-Aug-2016)
+- Various code fixes & cosmetics
+- Amended descriptions & disclaimers
+- Separated radios to optional addon (menu item toggle on/off)
+- New icons (script.AliveGR.artwork)
+- Localised the "Stream Display Options"
+- Placed Networks' fanarts at respective options in Networks menu (script.AliveGR.artwork)
+
+0.1.1.3~beta (21-Aug-2016)
+- Reduced number of radio stations significantly
+  > Now only featured stations are shown. For more... select "MORE" (loads the e-radio addon, only Kodi 16.X plus compatible)
+  > Added logos as well
+  > This was done due to dead links, which is near to impossible to fix each one of them in case of update requirement.
+- Code cosmetics & other insignificant fixes
+
+0.1.1.2~beta (20-Aug-2016)
+- Added networks option
+- Separated artwork, make sure to have script.AliveGR.artwork already installed
+- Playlists encoded & moved to offshorepastebin
+- Code cosmetics
+
+0.1.1.1~beta (20-Aug-2016)
+- Skipped version due to fixes made internally
+
+0.1.1~beta (20-Aug-2016)
+- Skipped version due to fixes made internally
+
+0.1.0~beta (19-Aug-2016)
+- Major code rework
+ > Several new functions introduced for channel lists and respective icons (also available in the m3u lists, still compatible with IPTV pvr addons)
+ > Upon failure of channel playback it does not skip to next available channel
+- Bump to beta. Most desired code is in place to allow more content to reside in future versions such as VOD.
+- Removed audio tag from extension point (Will add again in future version)
+- Several minor fixes here & there
+
+0.0.9.1~alpha (13-Aug-2016)
+- Temporary fix for a playback issue
+  > Reverted to old plugin call for Live TV. Will properly fix in an upcoming version
+- Made compatible Kodi Isengard+
+
+0.0.9~alpha (13-Aug-2016)
+- Some more fixes to plugin calls
+- Minor other fixes
+- Settings menu added for easier access
+- AliveGR is now Jarvis 16.X up compatible
+
+0.0.8~alpha (10-Aug-2016)
+- Fixes to addon's urls (plugin calls).
+  > It is now possible to set shortcuts in any skin directly to live tv or radio lists.
+- Made auto view option localized.
+
+0.0.7~alpha (08-Aug-2016)
+- Added one more setting for stream display (major+alt)
+- New option: Auto View (force thumbnail view)
+- Reduced size of the new fanart
+- Code cosmetics
+
+0.0.6~alpha (08-Aug-2016)
+- Finalized settings (not yet localized)
+- Continuous streams updates
+
+0.0.5.1~alpha (08-Aug-2016)
+- Preliminary options introduction with 3 different settings for playlist display level
+- Changed icon & fanart to a simpler and more flat approach
+
+0.0.5~alpha (03-Aug-2016)
+- Code cosmetics
+
+0.0.4.3~alpha (01-Aug-2016)
+- Insignificant change due to typo
+
+0.0.4.2~alpha (01-Aug-2016)
+- Changed icon for alternative streams playlist
+- Argument to keep fanart within the addon menu
+
+0.0.4.1~alpha (20-Jul-2016)
+- Correctly fixed translations for below changes
+
+0.0.4~alpha (20-Jul-2016)
+- Added alternative streams as option
+- Removed setcontent argument
+
+0.0.3~alpha (26-Jun-2016)
+- Non-significant changes to code and addon.xml
+- Altered the icon a bit.
+
+0.0.2~alpha (23-Jun-2016)
+- Probably fixed the non-appearance of radio menu sometimes
+
+0.0.1~alpha (22-Jun-2016)
+- Initial Release
+- Added 82 Live Greek & Cypriot channels after extensive testing
+- Added Several Radio Stations
