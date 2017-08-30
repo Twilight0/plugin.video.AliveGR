@@ -92,6 +92,7 @@ def enable_proxy_module():
             control.infoDialog(control.lang(30142))
     else:
         control.infoDialog(control.lang(30143))
+    control.addon('service.streamlink.proxy').setSetting('listen_port', '50165')
 
 
 def setup_previous_menu_key():
@@ -129,7 +130,7 @@ def yt_setup():
 
 ########################################################################################################################
 
-    def installed():
+    def process():
 
         if control.addon('plugin.video.youtube').getSetting('youtube.api.enable') == 'true':
 
@@ -147,35 +148,7 @@ def yt_setup():
 
 ########################################################################################################################
 
-    def with_install():
-
-        if control.yesnoDialog(line1=control.lang(30077), line2='', line3=''):
-
-            if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-                control.execute('RunPlugin(plugin://plugin.video.youtube/)')
-            else:
-                control.execute('InstallAddon(plugin.video.youtube)')
-
-            while not control.condVisibility('System.HasAddon(plugin.video.youtube)'):
-                control.wait()
-                pass
-
-            else:
-                seq()
-
-        else:
-
-            control.infoDialog(message=control.lang(30029), time=3000)
-
-########################################################################################################################
-
-    if control.condVisibility('System.HasAddon(plugin.video.youtube)'):
-
-        installed()
-
-    else:
-
-        with_install()
+    process()
 
     if control.yesnoDialog(line1=control.lang(30132), line2='', line3=''):
 

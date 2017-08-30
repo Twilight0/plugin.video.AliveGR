@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import json
+import json, datetime
 # noinspection PyUnresolvedReferences
 from tulip import cache, control, directory, client, ordereddict
 from ..modules import sysaddon, syshandle
@@ -78,8 +78,7 @@ class Main:
             data = (
                 {
                     'title': name, 'image': logo, 'group': group, 'url': url,
-                    'genre': control.lang(30096) + ', ' + group, 'plot': info,
-                    'duration': None
+                    'genre': control.lang(30096) + ', ' + group, 'plot': info
                 }
             )
             self.list.append(data)
@@ -148,8 +147,10 @@ class Main:
         else:
             pass
 
+        year = datetime.datetime.now().year
+
         for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False'})
+            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None})
 
         for item in self.list:
 
@@ -176,8 +177,4 @@ class Main:
         else:
             pass
 
-        # if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
         directory.add(self.list, content='movies')
-        # else:
-        #     directory.add(self.list)
-

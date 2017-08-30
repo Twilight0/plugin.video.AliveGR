@@ -675,8 +675,8 @@ msgid "Show Tools"
 msgstr "Δείξε τα εργαλεία"
 
 msgctxt "#30166"
-msgid ""
-msgstr ""
+msgid "Enable local proxy module"
+msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

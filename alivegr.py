@@ -229,6 +229,10 @@ elif action == 'enable_iptv':
     from resources.lib.modules import tools
     tools.enable_iptv()
 
+elif action == 'enable_proxy':
+    from resources.lib.modules import tools
+    tools.enable_proxy_module()
+
 elif action == 'setup_previous_menu_key':
     from resources.lib.modules import tools
     tools.setup_previous_menu_key()

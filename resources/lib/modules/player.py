@@ -264,8 +264,8 @@ def player(url, name):
 
     if any(conditions):
 
-        from ..resolvers import sl_wrapper as sw
-        stream = cache.get(sw.resolve, 2, result)
+        from ..resolvers import stream_link
+        stream = stream_link.sl_session(result)
         directory.resolve(stream)
 
     elif urlresolver.HostedMediaFile(result).valid_url():

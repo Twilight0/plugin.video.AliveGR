@@ -1,5 +1,9 @@
-1.3.4 (30-08-2017)
+1.3.4 (31-08-2017)
 - More conditionals in player module to pass urls into streamlink's resolvers
+- Added dialog for streamlink's resolver quality output (default is to pick best automatically)
+- Tweaks in various indexers
+- Removed youtube addon installation function (it gets installed as mandatory dependency)
+- New repo source url
 
 1.3.3 (29-08-2017)
 - Fixed issues in episodes indexers

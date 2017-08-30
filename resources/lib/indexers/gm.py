@@ -234,7 +234,9 @@ class Main:
 
             self.years.append(equation)
 
-        if indexer.startswith(('l=', 'g=', 's=', 'p=', 'c=')) and 'movies.php' in url or 'shortfilm.php' in url or 'theater.php' in url:
+        if indexer.startswith(
+                ('l=', 'g=', 's=', 'p=', 'c=')
+        ) and 'movies.php' in url or 'shortfilm.php' in url or 'theater.php' in url:
 
             for content in self.years:
                 links = base_link + url.rpartition('/')[2].partition('&')[0] + '&' + content
@@ -264,16 +266,17 @@ class Main:
                 name = client.parseDOM(item, 'p')[0]
                 icon = client.parseDOM(item, 'IMG', ret='SRC')[0]
 
-            if url.startswith(self.sports_link):
-                title = name
-            else:
-                title = name.rpartition(' (')[0]
+            # if url.startswith(self.sports_link):
+            #     title = name
+            # else:
+            #     title = name.rpartition(' (')[0]
 
             icon = urlparse.urljoin(base_link, icon)
             link = client.parseDOM(item, 'a', ret='href')[0]
             link = urlparse.urljoin(base_link, link)
-            year = int(re.findall('.*?\((\d{4})', name, re.U)[0])
+            year = re.findall('.*?\((\d{4})', name, re.U)[0]
 
+            # Not normally used, available only on dev mode, as it creates a lot of traffic:
             if control.setting('show_info') == 'true' and control.setting('dev_switch') == 'true':
 
                 item_html = client.request(link)
@@ -298,7 +301,7 @@ class Main:
 
                     self.list.append(
                         {
-                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': year,
+                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
                             'genre': genre, 'code': code
                         }
                     )
@@ -309,16 +312,17 @@ class Main:
 
                     self.list.append(
                         {
-                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': year,
+                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
                             'genre': genre, 'duration': duration, 'code': code
                         }
                     )
 
+            # Available to all users:
             else:
 
                 self.list.append(
                     {
-                        'title': title, 'url': link, 'image': icon.encode('utf-8'), 'year': year, 'name': name
+                        'title': title, 'url': link, 'image': icon.encode('utf-8'), 'year': int(year), 'name': name
                     }
                 )
 

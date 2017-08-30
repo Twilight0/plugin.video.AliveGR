@@ -20,22 +20,50 @@
 
 import streamlink.session
 # import sys
+from tulip import control
 
-# TODO: add dialog for quality
-def resolve(url, quality='best'):
+
+def sl_session(url):
 
     try:
 
         session = streamlink.session.Streamlink()
         # session.set_loglevel("debug")
-        # session.set_logoutput(sys.stdout)
+        # session.set_logoutput(sys.stdin)
         plugin = session.resolve_url(url)
         streams = plugin.get_streams()
-        streams = repr(streams[quality])
-        link = streams.partition('(\'')[2][:-3]
+        qualities = streams.keys()
+        urls = streams.values()
+        urls = [repr(u).partition('(\'')[2][:-3] for u in urls]
+        output = dict(zip(qualities, urls))
 
-        return link
+        if control.setting('quality_picker') == '1':
+
+            try:
+
+                del output['audio_webm']
+                del output['audio_mp4']
+
+                return stream_picker(output.keys(), output.values())
+
+            except KeyError:
+
+                return stream_picker(output.keys(), output.values())
+        else:
+
+            return output['best']
 
     except:
+
         pass
 
+
+def stream_picker(qualities, urls):
+
+    choice = control.selectDialog(heading=control.lang(30064), list=qualities)
+
+    if choice <= len(qualities) and not choice == -1:
+        popped = urls.pop(choice)
+        return popped
+    else:
+        return

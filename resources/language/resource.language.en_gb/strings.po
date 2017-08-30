@@ -675,7 +675,19 @@ msgid "Show Tools"
 msgstr ""
 
 msgctxt "#30166"
-msgid ""
+msgid "Enable local proxy module"
+msgstr ""
+
+msgctxt "#30167"
+msgid "Quality choice (streamlink)"
+msgstr ""
+
+msgctxt "#30168"
+msgid "Best"
+msgstr ""
+
+msgctxt "#30169"
+msgid "Ask (dialog)"
 msgstr ""
 
 msgctxt "#30401"

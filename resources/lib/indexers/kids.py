@@ -94,21 +94,23 @@ class Main:
     def kids_live(self):
 
         import live
+        import datetime
 
         self.data = cache.get(live.Main().live, 12)[0]
 
         self.list = [item for item in self.data if item['group'] == 'KIDS']
 
+        year = datetime.datetime.now().year
+
         for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False'})
+            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None})
 
         for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
-            pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client'}}
-            item.update({'cm': [bookmark_cm, r_and_c_cm, pvr_client_cm]})
+            item.update({'cm': [bookmark_cm, r_and_c_cm]})
 
         self.list = sorted(self.list, key=lambda k: k['title'].lower())
 
