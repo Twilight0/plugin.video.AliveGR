@@ -266,7 +266,11 @@ def player(url, name):
 
         from ..resolvers import stream_link
         stream = stream_link.sl_session(result)
-        directory.resolve(stream)
+        if stream == 30403:
+            control.execute('Dialog.Close(all)')
+            control.infoDialog(control.lang(30403))
+        else:
+            directory.resolve(stream)
 
     elif urlresolver.HostedMediaFile(result).valid_url():
 
@@ -284,7 +288,7 @@ def player(url, name):
 
         else:
 
-            link = cache.get(dialog_picker, 6, sources[1], sources[2])
+            link = dialog_picker(sources[1], sources[2])
             if link is None:
                 control.execute('Dialog.Close(all)')
             else:
@@ -295,8 +299,11 @@ def player(url, name):
                     directory.resolve(stream)
 
     else:
+
         stream = wrapper(result)
+
         try:
             directory.resolve(stream, meta={'title': name})
         except:
+            control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30112))

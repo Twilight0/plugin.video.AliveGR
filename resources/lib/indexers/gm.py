@@ -258,23 +258,19 @@ class Main:
 
         for item in items:
 
-            if 'thumbnail' in item:
-                name = client.parseDOM(item, 'h4')[0]
-                icon = client.parseDOM(item, 'img', ret='src')[0]
+            title = client.parseDOM(item, 'h4')[0]
+            icon = client.parseDOM(item, 'img', ret='src')[0]
 
-            else:
-                name = client.parseDOM(item, 'p')[0]
-                icon = client.parseDOM(item, 'IMG', ret='SRC')[0]
+            # unused for now:
+            # title = client.parseDOM(item, 'p')[0]
+            # icon = client.parseDOM(item, 'IMG', ret='SRC')[0]
 
-            # if url.startswith(self.sports_link):
-            #     title = name
-            # else:
-            #     title = name.rpartition(' (')[0]
+            name = title.rpartition(' (')[0]
 
             icon = urlparse.urljoin(base_link, icon)
             link = client.parseDOM(item, 'a', ret='href')[0]
             link = urlparse.urljoin(base_link, link)
-            year = re.findall('.*?\((\d{4})', name, re.U)[0]
+            year = re.findall('.*?\((\d{4})', title, re.U)[0]
 
             # Not normally used, available only on dev mode, as it creates a lot of traffic:
             if control.setting('show_info') == 'true' and control.setting('dev_switch') == 'true':

@@ -32,26 +32,23 @@ def sl_session(url):
         # session.set_logoutput(sys.stdin)
         plugin = session.resolve_url(url)
         streams = plugin.get_streams()
-        qualities = streams.keys()
-        urls = streams.values()
-        urls = [repr(u).partition('(\'')[2][:-3] for u in urls]
-        output = dict(zip(qualities, urls))
+
+        try:
+            del streams['audio_webm']
+            del streams['audio_mp4']
+        except KeyError:
+            pass
+
+        keys = streams.keys()
+        values = [repr(u).partition('(\'')[2][:-3] for u in streams.values()]
 
         if control.setting('quality_picker') == '1':
 
-            try:
+            return stream_picker(keys, values)
 
-                del output['audio_webm']
-                del output['audio_mp4']
-
-                return stream_picker(output.keys(), output.values())
-
-            except KeyError:
-
-                return stream_picker(output.keys(), output.values())
         else:
 
-            return output['best']
+            return repr(streams['best']).partition('(\'')[2][:-3]
 
     except:
 
@@ -66,4 +63,4 @@ def stream_picker(qualities, urls):
         popped = urls.pop(choice)
         return popped
     else:
-        return
+        return 30403

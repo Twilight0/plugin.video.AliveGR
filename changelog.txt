@@ -2,6 +2,7 @@
 - More conditionals in player module to pass urls into streamlink's resolvers
 - Added dialog for streamlink's resolver quality output (default is to pick best automatically)
 - Tweaks in various indexers
+- Tweaks in player module (again!)
 - Removed youtube addon installation function (it gets installed as mandatory dependency)
 - New repo source url
 

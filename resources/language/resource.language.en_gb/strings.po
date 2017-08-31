@@ -591,7 +591,7 @@ msgid "Type of dialog for streams' choice"
 msgstr ""
 
 msgctxt "#30145"
-msgid "Selection"
+msgid "Dialog"
 msgstr ""
 
 msgctxt "#30146"
@@ -699,7 +699,7 @@ msgid "Success"
 msgstr ""
 
 msgctxt "#30403"
-msgid ""
+msgid "Cancelled"
 msgstr ""
 
 msgctxt "#30404"

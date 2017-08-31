@@ -591,8 +591,8 @@ msgid "Type of dialog for streams' choice"
 msgstr "Τύπος διαλόγου για την επιλογή ροής"
 
 msgctxt "#30145"
-msgid "Selection"
-msgstr "Παράθυρο"
+msgid "Dialog"
+msgstr "Διάλογος"
 
 msgctxt "#30146"
 msgid "Directory"
@@ -687,8 +687,8 @@ msgid "Success"
 msgstr "Επιτυχία"
 
 msgctxt "#30403"
-msgid ""
-msgstr ""
+msgid "Cancelled"
+msgstr "Ακύρωση"
 
 msgctxt "#30404"
 msgid ""
