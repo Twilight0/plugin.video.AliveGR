@@ -678,6 +678,18 @@ msgctxt "#30166"
 msgid "Enable local proxy module"
 msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
+msgctxt "#30168"
+msgid "Best"
+msgstr "Βέλτιστη"
+
+msgctxt "#30169"
+msgid "Ask (dialog)"
+msgstr "Ερώτηση (διάλογος)"
+
+msgctxt "#30170"
+msgid "Live music channels"
+msgstr "Ζωντανά κανάλια με μουσική"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

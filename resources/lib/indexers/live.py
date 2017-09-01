@@ -178,3 +178,28 @@ class Main:
             pass
 
         directory.add(self.list, content='movies')
+
+    def modular(self, group):
+
+        import live
+        import datetime
+
+        self.data = cache.get(live.Main().live, 12)[0]
+
+        self.list = [item for item in self.data if item['group'] == group]
+
+        year = datetime.datetime.now().year
+
+        for item in self.list:
+            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None})
+
+        for item in self.list:
+            bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+            bookmark['bookmark'] = item['url']
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
+            item.update({'cm': [bookmark_cm, r_and_c_cm]})
+
+        self.list = sorted(self.list, key=lambda k: k['title'].lower())
+
+        directory.add(self.list)

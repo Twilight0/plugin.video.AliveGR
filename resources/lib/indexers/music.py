@@ -43,9 +43,17 @@ class Main:
 
         self.list = [
             {
+                'title': 30170,
+                'action': 'music_live',
+                'image': iconname('monitor'),
+                'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
+            }
+            ,
+            {
                 'title': 30124,
                 'action': 'gm_music',
-                'image': iconname('music')
+                'image': iconname('music'),
+                'fanart': 'https://cdn.allwallpaper.in/wallpapers/1280x720/1895/music-hd-1280x720-wallpaper.jpg'
             }
             ,
             {
@@ -112,7 +120,7 @@ class Main:
 
             url = item.partition('?')[0]
 
-            self.list.append({'title': title, 'url': url, 'image': image})
+            self.list.append({'title': title, 'url': url, 'image': image, 'artist': [title.partition(u' – ')[2]]})
 
         return self.list
 
@@ -164,7 +172,11 @@ class Main:
             # file_ = re.findall("Audio/(.*?(?:.mp3|.wav))\'", file_)[0]
             # file_ = urljoin(self.rythmos_top20_base, file_.replace(' ', '%20'))
 
-            self.list.append({'title': str(count) + '. ' + title, 'url': link, 'image': image})
+            self.list.append(
+                {
+                    'title': str(count) + '. ' + title, 'url': link, 'image': image, 'artist': [title.partition(' - ')[0]]
+                }
+            )
 
         return self.list
 

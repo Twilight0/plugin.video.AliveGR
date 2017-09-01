@@ -68,8 +68,8 @@ elif action == 'kids':
     kids.Main().kids()
 
 elif action == 'kids_live':
-    from resources.lib.indexers import kids
-    kids.Main().kids_live()
+    from resources.lib.indexers import live
+    live.Main().modular('KIDS')
 
 elif action == 'cartoon_series':
     from resources.lib.indexers import gm
@@ -131,6 +131,10 @@ elif action == 'music':
     from resources.lib.indexers import music
     music.Main().root()
 
+elif action == 'music_live':
+    from resources.lib.indexers import live
+    live.Main().modular('MUSIC')
+
 elif action == 'gm_music':
     from resources.lib.indexers import gm
     gm.Main().gm_music()
@@ -145,7 +149,7 @@ elif action == 'album_index':
 
 elif action == 'songs_index':
     from resources.lib.indexers import gm
-    gm.Main().songs_index(url, title)
+    gm.Main().songs_index(url, name)
 
 elif action == 'mgreekz_index':
     from resources.lib.indexers import music

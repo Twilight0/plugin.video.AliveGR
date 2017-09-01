@@ -598,9 +598,14 @@ class Main:
             return
 
         for item in self.list:
-            item.update({'action': 'songs_index'})
+            item.update(
+                {
+                    'action': 'songs_index', 'name': item['title'].partition(' (')[0],
+                    'year': int(item['title'].partition(' (')[2][:-1])
+                }
+            )
 
-        directory.add(self.list)
+        directory.add(self.list, content='musicvideos')
 
     def songs_index(self, url, album):
 
@@ -609,14 +614,8 @@ class Main:
         if self.list is None:
             return
 
-        for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False', 'album': album})
-
-        count = 1
-
-        for item in self.list:
-            item.setdefault('tracknumber', count)
-            count += 1
+        for count, item in list(enumerate(self.list, start=1)):
+            item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'tracknumber': count})
 
         directory.add(self.list, content='musicvideos')
 

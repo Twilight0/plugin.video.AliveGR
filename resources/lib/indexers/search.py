@@ -48,13 +48,15 @@ class Main:
 
         if choice == 0:
 
-            str_input = control.inputDialog(heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096))
+            str_input = control.inputDialog(
+                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096)
+            )
 
             if bool(str_input):
 
                 import live
 
-                self.data = cache.get(live.Main().live, 2)[0]
+                self.data = cache.get(live.Main().live, 4)[0]
 
                 for item in self.data:
                     item.update({'action': 'play', 'isFolder': 'False'})
@@ -75,13 +77,16 @@ class Main:
                 directory.add(self.list)
 
             else:
+
                 return
 
         elif choice == 1:
 
             import documentaries
 
-            str_input = control.inputDialog(heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097))
+            str_input = control.inputDialog(
+                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
+            )
 
             str_input = strip_accents(str_input.decode('utf-8'))
 
@@ -131,9 +136,18 @@ class Main:
                     else:
                         plot = control.lang(30085)
 
-                    self.data.append({'title': title.encode('utf-8'), 'url': url, 'image': image.encode('utf-8'), 'year': year, 'plot': plot})
+                    self.data.append(
+                        {
+                            'title': title.encode('utf-8'), 'url': url, 'image': image.encode('utf-8'), 'year': year,
+                            'plot': plot
+                        }
+                    )
 
-                dl = [item for item in cache.get(documentaries.Main().items_list, 48) if str_input.lower() in strip_accents(item['title'].decode('utf-8')).lower()]
+                dl = [
+                    item for item in cache.get(
+                        documentaries.Main().items_list, 48
+                    ) if str_input.lower() in strip_accents(item['title'].decode('utf-8')).lower()
+                ]
 
                 self.list = self.data + dl
 

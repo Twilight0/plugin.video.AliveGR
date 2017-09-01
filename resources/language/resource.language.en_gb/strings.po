@@ -690,6 +690,10 @@ msgctxt "#30169"
 msgid "Ask (dialog)"
 msgstr ""
 
+msgctxt "#30170"
+msgid "Live music channels"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""
