@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.3.5~beta2" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.3.5~beta3" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.AliveGR.artwork" version="2.2.0"/>
         <import addon="script.module.urlresolver" version="4.0.01"/>
-        <import addon="script.module.streamlink.base" version="2017.08.30"/>
+        <import addon="script.module.streamlink.base" version="2017.09.05"/>
         <import addon="script.module.tulip" version="1.2.5"/>
         <import addon="plugin.video.youtube" version="5.4.0"/>
     </requires>
@@ -23,13 +23,14 @@
         <description lang="el">Το πρόσθετο AliveGR προσφέρει ροές περιεχομένου διαθέσιμες στην Ελλάδα. Παρακαλώ διαβάστε την αποποίηση ευθυνών.</description>
         <disclaimer lang="el">Ο δημιουργός του AliveGR δεν φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
     Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο. Το παρόν λογισμικό ενεργεί ως κατάλογος και όχι ως συνδεσμοποιητής.
-    Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "ως είναι".
+    Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι".
         </disclaimer>
         <language>en el</language>
         <license>GNU GPL, version 2</license>
         <website>https://twitter.com/TwilightZer0</website>
         <!--<forum></forum>-->
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
+        <size>661000</size>
         <news>
 1.3.4 (31-08-2017)
 - More conditionals in player module to pass urls into streamlink's resolvers

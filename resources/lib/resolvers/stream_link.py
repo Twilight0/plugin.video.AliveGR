@@ -23,11 +23,23 @@ import streamlink.session
 from tulip import control
 
 
+try:
+    custom_plugins = control.join(control.addon('script.module.streamlink.plugins').getAddonInfo('path'), 'plugins')
+except:
+    pass
+
+
 def sl_session(url):
 
     try:
 
         session = streamlink.session.Streamlink()
+
+        try:
+            session.load_plugins(custom_plugins)
+        except:
+            pass
+
         # session.set_loglevel("debug")
         # session.set_logoutput(sys.stdin)
         plugin = session.resolve_url(url)

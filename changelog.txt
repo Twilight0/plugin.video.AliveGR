@@ -3,6 +3,8 @@
 - Tweaked music indexers
 - Minor re-ordering of settings menu items
 - Minor cosmetics here & there
+- Rebased dependencies
+- Added optional custom plugin imports for streamlink wrapper
 
 1.3.4 (31-08-2017)
 - More conditionals in player module to pass urls into streamlink's resolvers

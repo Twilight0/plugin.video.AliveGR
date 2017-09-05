@@ -56,8 +56,8 @@
         <setting visible="true" label="30135" type="action" action="RunPlugin(plugin://$ID/?action=purge_bookmarks)"/>
         <setting type="sep"/>
         <setting visible="true" label="30136" type="action" action="RunPlugin(plugin://$ID/?action=delete_settings)"/>
-        <setting type="sep"/>
-        <setting visible="true" label="30037" type="action" action="RunPlugin(plugin://$ID/?action=spanner)"/>
+        <!--<setting type="sep"/>-->
+        <!--<setting visible="true" label="30037" type="action" action="RunPlugin(plugin://$ID/?action=spanner)"/>-->
     </category>
     <category label="30017">
         <setting visible="true" label="30018" type="action" action="RunPlugin(plugin://$ID/?action=setup_iptv)"/>
