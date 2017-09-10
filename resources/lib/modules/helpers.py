@@ -61,7 +61,7 @@ def smu_settings(sleep=True):
 def reset_idx():
 
     control.setSetting('live_group', 'ALL')
-    control.setSetting('vod_group', 'ΑΡΧΙΚΑ')
+    control.setSetting('vod_group', '30213')
     control.infoDialog(message=control.lang(30402), time=3000)
 
 

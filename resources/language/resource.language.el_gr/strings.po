@@ -203,8 +203,8 @@ msgid "Group '{0}'"
 msgstr "Ομάδα '{0}'"
 
 msgctxt "#30048"
-msgid "ALL CHANNELS"
-msgstr "ΟΛΑ ΤΑ ΚΑΝΑΛΙΑ"
+msgid "All Channels"
+msgstr "Όλα τα κανάλια"
 
 msgctxt "#30049"
 msgid "Select the group of your choice"
@@ -678,6 +678,10 @@ msgctxt "#30166"
 msgid "Enable local proxy module"
 msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
+msgctxt "#30167"
+msgid "Quality choice (streamlink)"
+msgstr "Επιλογή ποιότητας (streamlink)"
+
 msgctxt "#30168"
 msgid "Best"
 msgstr "Βέλτιστη"
@@ -689,6 +693,62 @@ msgstr "Ερώτηση (διάλογος)"
 msgctxt "#30170"
 msgid "Live music channels"
 msgstr "Ζωντανά κανάλια με μουσική"
+
+msgctxt "#30200"
+msgid "Genre"
+msgstr "Είδος"
+
+msgctxt "#30201"
+msgid "Panhellenic"
+msgstr "Πανελλαδικά"
+
+msgctxt "#30202"
+msgid "Pancypriot"
+msgstr "Πανκυπριακά"
+
+msgctxt "#30203"
+msgid "International"
+msgstr "Διεθνή δίκτυα"
+
+msgctxt "#30204"
+msgid "Any"
+msgstr "Οποιοδήποτε"
+
+msgctxt "#30205"
+msgid "Cinema"
+msgstr "Σινεμά"
+
+msgctxt "#30206"
+msgid "Misc"
+msgstr "Διάφορα"
+
+msgctxt "#30207"
+msgid "Regional"
+msgstr "Τοπικά"
+
+msgctxt "#30208"
+msgid "Thematic"
+msgstr "Θεματικά"
+
+msgctxt "#30209"
+msgid "Toronto Channels"
+msgstr "Κανάλια Τορόντο"
+
+msgctxt "#30210"
+msgid "Web TV"
+msgstr "Διαδικτυακή τηλεόραση"
+
+msgctxt "#30211"
+msgid "Network"
+msgstr "Κανάλι/Δίκτυο"
+
+msgctxt "#30212"
+msgid "Country"
+msgstr "Παραγωγή"
+
+msgctxt "#30213"
+msgid "Initials"
+msgstr "Αρχικά"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

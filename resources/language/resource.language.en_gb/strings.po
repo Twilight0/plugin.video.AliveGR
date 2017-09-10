@@ -203,7 +203,7 @@ msgid "Group '{0}'"
 msgstr ""
 
 msgctxt "#30048"
-msgid "ALL CHANNELS"
+msgid "All Channels"
 msgstr ""
 
 msgctxt "#30049"
@@ -692,6 +692,62 @@ msgstr ""
 
 msgctxt "#30170"
 msgid "Live music channels"
+msgstr ""
+
+msgctxt "#30200"
+msgid "Genre"
+msgstr ""
+
+msgctxt "#30201"
+msgid "Panhellenic"
+msgstr ""
+
+msgctxt "#30202"
+msgid "Pancypriot"
+msgstr ""
+
+msgctxt "#30203"
+msgid "International"
+msgstr ""
+
+msgctxt "#30204"
+msgid "Any"
+msgstr ""
+
+msgctxt "#30205"
+msgid "Cinema"
+msgstr ""
+
+msgctxt "#30206"
+msgid "Misc"
+msgstr ""
+
+msgctxt "#30207"
+msgid "Regional"
+msgstr ""
+
+msgctxt "#30208"
+msgid "Thematic"
+msgstr ""
+
+msgctxt "#30209"
+msgid "Toronto Channels"
+msgstr ""
+
+msgctxt "#30210"
+msgid "Web TV"
+msgstr ""
+
+msgctxt "#30211"
+msgid "Network"
+msgstr ""
+
+msgctxt "#30212"
+msgid "Country"
+msgstr ""
+
+msgctxt "#30213"
+msgid "Initials"
 msgstr ""
 
 msgctxt "#30401"

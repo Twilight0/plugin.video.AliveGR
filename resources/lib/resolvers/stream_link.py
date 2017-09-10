@@ -45,6 +45,9 @@ def sl_session(url):
         plugin = session.resolve_url(url)
         streams = plugin.get_streams()
 
+        if streams is None:
+            return
+
         try:
             del streams['audio_webm']
             del streams['audio_mp4']

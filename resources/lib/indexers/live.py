@@ -19,7 +19,7 @@
 '''
 
 import json, datetime
-# noinspection PyUnresolvedReferences
+
 from tulip import cache, control, directory, client, ordereddict
 from ..modules import sysaddon, syshandle
 from ..modules.themes import iconname
@@ -31,7 +31,7 @@ class Main:
     def __init__(self):
 
         self.list = []; self.data = []; self.groups = []
-        self.alivegr = 'AbthnLydWZ2lGbh9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
+        self.alivegr = 'AbthnLzxWZu5WYoN2XlZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
 
     def live(self):
@@ -78,15 +78,13 @@ class Main:
             data = (
                 {
                     'title': name, 'image': logo, 'group': group, 'url': url,
-                    'genre': control.lang(30096) + ', ' + group, 'plot': info
+                    'genre': control.lang(int(group)), 'plot': info
                 }
             )
             self.list.append(data)
             self.data.append(group)
 
         self.groups = list(ordereddict.OrderedDict.fromkeys(self.data))
-
-        self.groups.sort()
 
         return self.list, self.groups, updated
 
@@ -99,14 +97,15 @@ class Main:
             control.sleep(50)
             control.refresh()
 
-        self.data = cache.get(self.live, 24)[1]
-        self.groups = [control.lang(30048)] + self.data
-        choice = control.selectDialog(heading=control.lang(30049), list=self.groups)
+        self.groups = cache.get(self.live, 24)[1]
+        translated = [control.lang(int(i)) for i in self.groups]
+        self.data = [control.lang(30048)] + self.groups
+        choice = control.selectDialog(heading=control.lang(30049), list=[control.lang(30048)] + translated)
 
         if choice == 0:
             seq('ALL')
-        elif choice <= len(self.groups) and not choice == -1:
-            seq(self.groups.pop(choice))
+        elif choice <= len(self.data) and not choice == -1:
+            seq(self.data.pop(choice))
         else:
             control.execute('Dialog.Close(all)')
 
@@ -119,28 +118,20 @@ class Main:
 
         switch = {
             'title': control.lang(30047).format(
-                control.lang(30048) if control.setting('live_group') == 'ALL' else control.setting(
-                    'live_group'
-                ).decode('utf-8')
+                control.lang(30048) if control.setting('live_group') == 'ALL' else control.lang(
+                    int(control.setting('live_group'))
+                )
             ),
             'icon': iconname('switcher'),
             'action': 'live_switcher',
             'plot': control.lang(30034)
         }
 
-        self.data = [
+        self.list = [
             item for item in self.list if any(
                 item['group'] == group for group in [control.setting('live_group')]
             )
         ] if not control.setting('live_group') == 'ALL' else self.list
-
-        if control.setting('live_sort') == 'true':
-            if control.setting('live_method') == '0':
-                self.list = sorted(self.data, key=lambda k: k['title'].lower())
-            elif control.setting('live_method') == '1':
-                self.list = sorted(self.data, key=lambda k: k['group'].lower())
-        else:
-            self.list = self.data
 
         if control.setting('show-alt') == 'false':
             self.list = [item for item in self.list if not any(alt in item['title'] for alt in self.alt_str)]
@@ -149,8 +140,10 @@ class Main:
 
         year = datetime.datetime.now().year
 
+        count = 1
         for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None})
+            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
+            count += 1
 
         for item in self.list:
 
@@ -179,12 +172,15 @@ class Main:
 
         directory.add(self.list, content='movies')
 
+        control.sortmethods('title')
+        control.sortmethods('genre')
+        control.sortmethods('production_code')
+
     def modular(self, group):
 
-        import live
         import datetime
 
-        self.data = cache.get(live.Main().live, 12)[0]
+        self.data = cache.get(self.live, 12)[0]
 
         self.list = [item for item in self.data if item['group'] == group]
 

@@ -66,27 +66,21 @@ def megagr(url):
 
 def ert(url):
 
-    try:
+    code = client.request('http://www.ipinfodb.com/my_ip_location.php')
 
-        code = client.request('http://ipinfo.io/')
+    if 'Greece' in code:
+        GR = True
+    else:
+        GR = False
 
-        if '/countries/gr' in code:
-            GR = True
-        else:
-            GR = False
+    html = client.request(url)
 
-        html = client.request(url)
+    if GR:
+        result = client.parseDOM(html, 'iframe', ret='src')[-1]
+    else:
+        result = client.parseDOM(html, 'iframe', ret='src')[0]
 
-        if GR:
-            result = client.parseDOM(html, 'iframe', ret='src')[-1]
-        else:
-            result = client.parseDOM(html, 'iframe', ret='src')[0]
-
-        return result
-
-    except:
-
-        pass
+    return result
 
 
 def skai(url):

@@ -25,7 +25,7 @@
         <setting id="show_bookmarks" label="30164" type="bool" default="true"/>
         <setting id="show_settings" label="30165" type="bool" default="true"/>
         <setting id="live_group" label="Live Group" type="text" default="ALL" visible="false"/>
-        <setting id="vod_group" label="VOD Group" type="text" default="ΑΡΧΙΚΑ" visible="false"/>
+        <setting id="vod_group" label="VOD Group" type="text" default="30213" visible="false"/>
         <setting id="bookmarks_group" label="Bookmarks Group" type="text" default="ALL" visible="false"/>
         <setting id="first_time" label="First Time" type="bool" default="true" visible="false"/>
     </category>
@@ -33,8 +33,6 @@
         <setting id="quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
         <setting id="show-alt" type="bool" label="30046" default="true"/>
         <setting id="show-switcher" type="bool" label="30061" default="true"/>
-        <setting id="live_sort" label="30050" type="bool" default="false"/>
-        <setting id="live_method" type="enum" label="30053" lvalues="30052|30051" default="0" visible="eq(-1,true)"/>
     </category>
     <category label="30109">
         <setting visible="true" label="30111" type="action" action="RunPlugin(plugin://$ID/?action=smu_settings)"/>
@@ -43,9 +41,6 @@
         <setting id="yt_resolve" label="30038" type="bool" default="true"/>
         <setting id="splitter" label="30057" type="bool" default="false"/>
         <setting id="lang_split" type="enum" label="30060" lvalues="30058|30059" default="1" enable="eq(-1,true)"/>
-        <setting id="vod_sort" label="30050" type="bool" default="true"/>
-        <setting id="vod_method" type="enum" label="30053" lvalues="30052|30090" default="0" visible="eq(-1,true)"/>
-        <setting id="reverse_sort" label="30091" type="bool" default="false" visible="eq(-2,true)" enable="eq(-1,1)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
     </category>
     <category label="30138">
@@ -56,8 +51,6 @@
         <setting visible="true" label="30135" type="action" action="RunPlugin(plugin://$ID/?action=purge_bookmarks)"/>
         <setting type="sep"/>
         <setting visible="true" label="30136" type="action" action="RunPlugin(plugin://$ID/?action=delete_settings)"/>
-        <!--<setting type="sep"/>-->
-        <!--<setting visible="true" label="30037" type="action" action="RunPlugin(plugin://$ID/?action=spanner)"/>-->
     </category>
     <category label="30017">
         <setting visible="true" label="30018" type="action" action="RunPlugin(plugin://$ID/?action=setup_iptv)"/>

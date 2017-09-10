@@ -69,7 +69,7 @@ elif action == 'kids':
 
 elif action == 'kids_live':
     from resources.lib.indexers import live
-    live.Main().modular('KIDS')
+    live.Main().modular('30032')
 
 elif action == 'cartoon_series':
     from resources.lib.indexers import gm
@@ -133,7 +133,7 @@ elif action == 'music':
 
 elif action == 'music_live':
     from resources.lib.indexers import live
-    live.Main().modular('MUSIC')
+    live.Main().modular('30125')
 
 elif action == 'gm_music':
     from resources.lib.indexers import gm

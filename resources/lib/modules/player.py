@@ -54,8 +54,7 @@ def wrapper(url):
 
     elif 'webtv.ert.gr' in url:
 
-        link = cache.get(live.ert, 24, url)
-
+        link = cache.get(live.ert, 12, url)
         stream = urlresolver.resolve(link)
         return stream
 

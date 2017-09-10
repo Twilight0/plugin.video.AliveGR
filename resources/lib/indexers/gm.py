@@ -32,7 +32,7 @@ class Main:
 
     def __init__(self):
 
-        self.list = []; self.data = []; self.years = []
+        self.list = []; self.data = []; self.years = []; self.groups = []
         self.movies_link = urlparse.urljoin(base_link, 'movies.php')
         self.shows_link = urlparse.urljoin(base_link, 'shows.php')
         self.series_link = urlparse.urljoin(base_link, 'series.php')
@@ -44,7 +44,7 @@ class Main:
         self.episode_link = urlparse.urljoin(base_link, 'ajax.php?type=episode&epid={0}&view={1}')
 
         self.switch = {
-            'title': control.lang(30045).format(control.setting('vod_group').decode('utf-8')),
+            'title': control.lang(30045).format(control.lang(int(control.setting('vod_group')))),
             'icon': iconname('switcher'), 'action': 'vod_switcher&url={0}'
         }
 
@@ -69,6 +69,19 @@ class Main:
 
             groups = client.parseDOM(result, 'option', attrs={'selected value': '.+?'})
 
+            for group in groups:
+                if group == 'ΑΡΧΙΚΑ'.decode('utf-8'):
+                    group = group.replace('ΑΡΧΙΚΑ'.decode('utf-8'), '30213')
+                elif group == 'ΕΤΟΣ'.decode('utf-8'):
+                    group = group.replace('ΕΤΟΣ'.decode('utf-8'), '30090')
+                elif group == 'ΚΑΝΑΛΙ'.decode('utf-8'):
+                    group = group.replace('ΚΑΝΑΛΙ'.decode('utf-8'), '30211')
+                elif group == 'ΕΙΔΟΣ'.decode('utf-8'):
+                    group = group.replace('ΕΙΔΟΣ'.decode('utf-8'), '30200')
+                elif group == 'ΠΑΡΑΓΩΓΗ'.decode('utf-8'):
+                    group = group.replace('ΠΑΡΑΓΩΓΗ'.decode('utf-8'), '30212')
+                self.groups.append(group)
+
             for item in items:
 
                 name = client.parseDOM(item, 'option', attrs={'value': '.+?.php.+?'})[0]
@@ -78,27 +91,29 @@ class Main:
                 index = urlparse.urljoin(base_link, link)
 
                 if indexer.startswith('l='):
-                    group = 'ΑΡΧΙΚΑ'.decode('utf-8')
+                    group = '30213'
                 elif indexer.startswith('y='):
-                    group = 'ΕΤΟΣ'.decode('utf-8')
+                    group = '30090'
                 elif indexer.startswith('c='):
-                    group = 'ΚΑΝΑΛΙ'.decode('utf-8')
+                    group = '30211'
                 elif indexer.startswith('g='):
-                    group = 'ΕΙΔΟΣ'.decode('utf-8')
+                    group = '30200'
                 elif indexer.startswith('p='):
-                    group = 'ΠΑΡΑΓΩΓΗ'.decode('utf-8')
+                    group = '30212'
                 else:
                     group = ''.decode('utf-8')
 
                 self.list.append({'title': title, 'group': group, 'action': 'listing', 'url': index})
 
-            return self.list, groups
+            return self.list, self.groups
 
     def vod_switcher(self, url):
 
         self.data = cache.get(self.root, 24, url)[1]
 
-        choice = control.selectDialog(heading=control.lang(30062), list=self.data)
+        translated = [control.lang(int(i)) for i in self.data]
+
+        choice = control.selectDialog(heading=control.lang(30062), list=translated)
 
         if choice <= len(self.data) and not choice == -1:
             control.setSetting('vod_group', self.data.pop(choice))
@@ -354,21 +369,13 @@ class Main:
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
             item.update({'cm': [bookmark_cm, refresh_cm]})
 
-        if control.setting('vod_sort') == 'true':
-            if control.setting('vod_method') == '0':
-                self.list = sorted(self.list, key=lambda k: k['title'].lower())
-            elif control.setting('vod_method') == '1':
-                if control.setting('reverse_sort') == 'true':
-                    self.list = sorted(self.list, key=lambda k: k['year'])[::-1]
-                else:
-                    self.list = sorted(self.list, key=lambda k: k['year'])
-        else:
-            pass
-
         if url.startswith((self.movies_link, self.theater_link, self.shortfilms_link)):
             directory.add(self.list, content='movies')
         else:
             directory.add(self.list, content='tvshows')
+
+        control.sortmethods('title')
+        control.sortmethods('year')
 
     def epeisodia(self, url):
 
