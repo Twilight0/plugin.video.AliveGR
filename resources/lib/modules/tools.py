@@ -192,6 +192,7 @@ def checkpoint():
         )
 
         control.setSetting('first_time', 'false')
+        control.monitor.abortRequested()
 
     else:
 
@@ -217,7 +218,6 @@ def checkpoint():
     else:
 
         pass
-
 
 
 def dev():

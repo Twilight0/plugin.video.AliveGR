@@ -48,6 +48,17 @@ def pvr_client(tvguide='false'):
         control.infoDialog(message=control.lang(30065))
 
 
+def stream_picker(qualities, urls):
+
+    choice = control.selectDialog(heading=control.lang(30064), list=qualities)
+
+    if choice <= len(qualities) and not choice == -1:
+        popped = urls.pop(choice)
+        return popped
+    else:
+        return 30403
+
+
 def smu_settings(sleep=True):
 
     if sleep:

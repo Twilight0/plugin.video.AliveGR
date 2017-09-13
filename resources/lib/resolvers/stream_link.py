@@ -21,6 +21,7 @@
 import streamlink.session
 # import sys
 from tulip import control
+from ..modules.helpers import stream_picker
 
 
 try:
@@ -57,7 +58,7 @@ def sl_session(url):
         keys = streams.keys()
         values = [repr(u).partition('(\'')[2][:-3] for u in streams.values()]
 
-        if control.setting('quality_picker') == '1':
+        if control.setting('sl_quality_picker') == '1':
 
             return stream_picker(keys, values)
 
@@ -68,14 +69,3 @@ def sl_session(url):
     except:
 
         pass
-
-
-def stream_picker(qualities, urls):
-
-    choice = control.selectDialog(heading=control.lang(30064), list=qualities)
-
-    if choice <= len(qualities) and not choice == -1:
-        popped = urls.pop(choice)
-        return popped
-    else:
-        return 30403

@@ -18,26 +18,37 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from tulip import directory, control, client, cache
-from urlparse import urljoin
-from ..indexers.gm import base_link
 import urlresolver
-from ..modules import sysaddon, syshandle
 import random, re
+from urlparse import urljoin
+
+from tulip import directory, control, client, cache
+
+from ..indexers.gm import base_link
+from ..modules import sysaddon, syshandle
+from ..resolvers import live, stream_link, m3u8_loader
 
 
 def wrapper(url):
-
-    from ..resolvers import live
 
     if urlresolver.HostedMediaFile(url).valid_url():
         stream = urlresolver.resolve(url)
         return stream
 
+    elif 'antenna' in url and not 'live_1' in url:
+        return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
+    elif 'alphatv' in url and not 'live' in url:
+        return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
+    elif 'ert.gr' in url and not 'ipinfo-geo' in url:
+        return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
+    elif 'skai.gr' in url and not 'TVLive' in url:
+        return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
+
     elif 'ant1iwo' in url:
 
         link = client.replaceHTMLCodes(url)
         stream = cache.get(live.ant1cy, 12, link)
+
         return stream
 
     elif 'megatv.com.cy/live/' in url:
@@ -67,12 +78,12 @@ def wrapper(url):
 
     elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
 
-        stream = cache.get(live.alphatv, 24, url)
+        stream = cache.get(live.alphatv, 12, url)
         return stream
 
     elif 'euronews.com' in url:
 
-        stream = cache.get(live.euronews, 24, url)
+        stream = cache.get(live.euronews, 12, url)
         return stream
 
     elif 'fnetwork.com' in url:
@@ -96,15 +107,6 @@ def wrapper(url):
     #
     #     stream = url + client.spoofer(referer=True, ref_str='https://www.rythmosfm.gr/community/top20/')
     #     return stream
-
-    elif 'antenna' in url and not 'live_1' in url:
-        return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
-    elif 'alphatv' in url and not 'live' in url:
-        return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
-    elif 'ert.gr' in url and not 'ipinfo-geo' in url:
-        return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
-    elif 'skai.gr' in url and not 'TVLive' in url:
-        return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
 
     else:
         return url
@@ -263,7 +265,6 @@ def player(url, name):
 
     if any(conditions):
 
-        from ..resolvers import stream_link
         stream = stream_link.sl_session(result)
         if stream == 30403:
             control.execute('Dialog.Close(all)')
@@ -301,8 +302,18 @@ def player(url, name):
 
         stream = wrapper(result)
 
-        try:
-            directory.resolve(stream, meta={'title': name})
-        except:
+        if 'm3u8' in stream and control.setting('m3u8_quality_picker') == '1':
+
+            stream = m3u8_loader.m3u8_picker(stream)
+
+        if stream == 30403:
             control.execute('Dialog.Close(all)')
-            control.infoDialog(control.lang(30112))
+            control.infoDialog(control.lang(30403))
+
+        else:
+
+            try:
+                directory.resolve(stream, meta={'title': name})
+            except:
+                control.execute('Dialog.Close(all)')
+                control.infoDialog(control.lang(30112))

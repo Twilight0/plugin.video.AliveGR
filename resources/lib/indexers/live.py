@@ -140,10 +140,8 @@ class Main:
 
         year = datetime.datetime.now().year
 
-        count = 1
-        for item in self.list:
+        for count, item in list(enumerate(self.list, start=1)):
             item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
-            count += 1
 
         for item in self.list:
 

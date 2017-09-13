@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.4.1~beta2" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.4.1~beta4" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.AliveGR.artwork" version="2.2.0"/>
         <import addon="script.module.urlresolver" version="4.0.01"/>
         <import addon="script.module.streamlink.base" version="2017.09.06"/>
+        <import addon="script.module.m3u8" version="0.2.10"/>
         <import addon="script.module.tulip" version="1.2.6"/>
         <import addon="plugin.video.youtube" version="5.4.0"/>
     </requires>
