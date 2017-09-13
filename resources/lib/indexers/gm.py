@@ -369,13 +369,13 @@ class Main:
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
             item.update({'cm': [bookmark_cm, refresh_cm]})
 
+        control.sortmethods('title')
+        control.sortmethods('year')
+
         if url.startswith((self.movies_link, self.theater_link, self.shortfilms_link)):
             directory.add(self.list, content='movies')
         else:
             directory.add(self.list, content='tvshows')
-
-        control.sortmethods('title')
-        control.sortmethods('year')
 
     def epeisodia(self, url):
 
@@ -458,6 +458,9 @@ class Main:
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
             item.update({'cm': [bookmark_cm, refresh_cm]})
+
+        control.sortmethods('title')
+        control.sortmethods('year')
 
         if control.setting('episodes_reverse') == 'true':
             self.list = sorted(self.list, key=lambda k: (k['group'], k['title']) if k['group'] in ['1bynumber', '3bytitle'] else k['group'])

@@ -163,7 +163,14 @@ def yt_setup():
 
 def changelog():
 
-    ch_txt = control.join(control.addonPath, 'changelog.txt')
+    if control.setting('changelog_lang') == '0' and control.infoLabel('System.Language') == 'Greek':
+        change_txt = 'changelog.el.txt'
+    elif control.setting('changelog_lang') == '0' and control.infoLabel('System.Language') != 'Greek' or control.setting('changelog_lang') == '1':
+        change_txt = 'changelog.txt'
+    else:
+        change_txt = 'changelog.el.txt'
+
+    ch_txt = control.join(control.addonPath, change_txt)
     with open(ch_txt) as text:
         result = text.read()
 
@@ -203,7 +210,9 @@ def checkpoint():
     if control.exists(control.join(control.addonPath, 'DELETE_ME')):
 
         from helpers import cache_clear, reset_idx
-        cache_clear(); reset_idx()
+        from tools import changelog
+        cache_clear(); reset_idx(); changelog()
+        control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
     else:
 

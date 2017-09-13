@@ -170,11 +170,11 @@ class Main:
         else:
             pass
 
-        directory.add(self.list, content='movies')
-
+        control.sortmethods('production_code')
         control.sortmethods('title')
         control.sortmethods('genre')
-        control.sortmethods('production_code')
+
+        directory.add(self.list, content='movies')
 
     def modular(self, group):
 

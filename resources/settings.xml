@@ -62,6 +62,7 @@
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
     </category>
     <category label="30115">
+        <setting id="changelog_lang" type="enum" label="30215" lvalues="30216|30217|30218" default="0"/>
         <setting visible="true" label="30114" type="action" action="RunPlugin(plugin://$ID/?action=changelog)"/>
         <setting visible="true" label="30013" type="action" action="RunPlugin(plugin://$ID/?action=developer_mode)"/>
         <setting id="toggler" type="bool" label="toggler" default="false" visible="false"/>
