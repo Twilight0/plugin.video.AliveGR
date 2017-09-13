@@ -20,6 +20,7 @@
 
 import m3u8
 from ..modules.helpers import stream_picker
+from urlparse import urljoin
 
 
 def m3u8_picker(url):
@@ -35,11 +36,12 @@ def m3u8_picker(url):
     for playlist in m3u8_playlists:
 
         quality = repr(playlist.stream_info[3]).strip('()').replace(', ', 'x')
+        if quality == 'None':
+            quality = 'Auto'
         uri = playlist.uri
+        if not uri.startswith('http'):
+            uri = urljoin(playlist.base_uri, uri)
         qualities.append(quality)
         uris.append(uri)
-
-    print qualities
-    print uris
 
     return stream_picker(qualities, uris)
