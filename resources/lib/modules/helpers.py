@@ -78,8 +78,11 @@ def cache_delete():
 def purge_bookmarks():
 
     if control.exists(control.bookmarksFile):
-        control.deleteFile(control.bookmarksFile)
-        control.infoDialog(control.lang(30402).encode('utf-8'))
+        if control.yesnoDialog(line1=control.lang(30214)):
+            control.deleteFile(control.bookmarksFile)
+            control.infoDialog(control.lang(30402))
+        else:
+            control.infoDialog(control.lang(30403))
     else:
         control.infoDialog(control.lang(30139))
 

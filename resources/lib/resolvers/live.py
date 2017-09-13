@@ -94,7 +94,7 @@ def skai(url):
     return base_link + result
 
 
-def alphagr(url):
+def alphatv(url):
 
     link = client.request(url)
     link = re.findall('(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[-1]

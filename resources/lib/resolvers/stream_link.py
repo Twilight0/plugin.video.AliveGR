@@ -45,7 +45,7 @@ def sl_session(url):
         plugin = session.resolve_url(url)
         streams = plugin.get_streams()
 
-        if streams is None:
+        if not streams:
             return
 
         try:

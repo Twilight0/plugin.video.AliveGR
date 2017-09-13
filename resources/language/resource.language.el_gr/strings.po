@@ -750,6 +750,10 @@ msgctxt "#30213"
 msgid "Initials"
 msgstr "Αρχικά"
 
+msgctxt "#30214"
+msgid "Do you want to purge your bookmarks?"
+msgstr "Θέλετε να πραγματοποιήσετε εκκαθάριση των σελιδοδεικτών;"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

@@ -750,6 +750,10 @@ msgctxt "#30213"
 msgid "Initials"
 msgstr ""
 
+msgctxt "#30214"
+msgid "Do you want to purge your bookmarks?"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

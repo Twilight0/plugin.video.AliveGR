@@ -200,6 +200,16 @@ def checkpoint():
 
         pass
 
+    if control.exists(control.join(control.addonPath, 'DELETE_ME')):
+
+        from helpers import cache_clear, reset_idx
+        cache_clear(); reset_idx()
+
+    else:
+
+        pass
+
+
 
 def dev():
 

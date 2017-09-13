@@ -65,9 +65,9 @@ def wrapper(url):
         stream = urlresolver.resolve(link)
         return stream
 
-    elif 'alphatv.gr/webtv/live' in url:
+    elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
 
-        stream = cache.get(live.alphagr, 24, url)
+        stream = cache.get(live.alphatv, 24, url)
         return stream
 
     elif 'euronews.com' in url:

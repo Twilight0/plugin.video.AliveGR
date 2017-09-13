@@ -1,3 +1,9 @@
+1.4.1 (14-09-2017)
+- Passed Alpha CY's stream to alpha's resolver (it was direct in previous versions)
+- Implemented auto fix for indexers methods on first run only
+- Streamlink wrapper now returns None if it doesn't provide links
+- Added yesno dialog for bookmarks purge function
+
 1.4.0 (11-09-2017)
 - Added live music channels in music menu
 - Tweaked music indexers
