@@ -1,3 +1,104 @@
+1.3.4 (31-08-2017)
+- More conditionals in player module to pass urls into streamlink's resolvers
+- Added dialog for streamlink's resolver quality output (default is to pick best automatically)
+- Tweaks in various indexers
+- Tweaks in player module (again!)
+- Removed youtube addon installation function (it gets installed as mandatory dependency)
+- New repo source url
+
+1.3.3 (29-08-2017)
+- Fixed issues in episodes indexers
+- Removed random picking of genre
+
+1.3.2 (28-08-2017)
+- Some more tweaks in player module for performance
+- Rework of content switcher for main menu
+  > it is now possible to switch off items individually
+ - Removed optional imports. They were not necessary to "import".
+ - Added source url in addon.xml
+
+1.3.1 (27-08-2017)
+- Minor bug fix for series play method on dialog picker
+
+1.3.0 (27-08-2017)
+- Minor rework in tools indexer
+- Improved gm indexers
+- Rework of player module to add caching and directory stream picker
+- Removed radio stations, featured stations can be found in e-radio addon and radio menu from iptv simple client
+
+1.2.6 (24-08-2017)
+- Minor fix for gm_sports on demand indexer
+- Added "musicvideos" parameter for music videos in respective section
+- Aesthetic enhancements in music videos sections (albums, titles, artist infos)
+- Fixed bug in VOD sub-indexers
+- Various code cosmetics
+
+1.2.5 (21-08-2017)
+- Added yt_resolve setting for explicitly calling urlresolver for youtube streams
+    > (when urlresolver is installed - defaults to true)
+- Removed screenshots
+
+1.2.4 (19-08-2017)
+- Tweaked icon method call
+
+1.2.3 (17-08-2017)
+- Minor fix for iptv simple client integration on Kodi 17
+- Minor code tweaks here & there
+- New internal resolver for ssh101 streams
+- Updated & tweaked disclaimer
+
+1.2.2 (15-08-2017)
+- Improved iptv simple client setup function by allowing installation of proxy module for streams' resolving
+- Added actions item in settings menu directory
+- Renamed root menu item from TV Guide to IPTV Simple Client
+- Zouzounia Songs now installs zouzounia video plugin
+- Various cosmetics
+
+1.2.1 (11-08-2017)
+- Quick fix in player module
+
+1.2.0 (10-08-2017)
+- New resolver for ustream via streamlink's resolvers
+- Fixed Rytmos 949's top 20 indexer
+
+1.1.2 (09-08-2017)
+- New purge bookmarks action
+- Bookmarks menu always visible now
+- Delete settings folder action
+- More rework in settings menu (new category maintenance & fixes)
+- Removed forgotten trailer import in music indexer (which caused indexer to fail)
+
+1.1.1 (07-08-2017)
+-Introduced reset indexers' methods action for manual operation
+ > Before it was automatic and vod indexer was not saved
+
+1.1.0 (04-08-2017)
+- Minor aesthetic tweaks in music indexers
+- Tweaked youtube setup api keys function (added yesno dialog for disabling wizard & customizing for greek region)
+- Added settings directory (old method still available via a setting)
+- Added more channels for documentaries (set #2)
+
+1.0.2 (27-07-2017)
+- Minor tweak in music indexer and youtube_requests import method
+- Moved radio item back to root menu
+- Tweaked root indexer's filter for content type
+- Deprecated changelog lines pre-1.0.0 versions (moved to "old")
+- Re-ordered root menu items (search, bookmarks, music items on bottom)
+- Tweaked message for disclaimer
+
+1.0.1 (26-07-2017)
+- Fix for live resolvers (Skai, Mega)
+- Code tweaks
+- First time prompt for disclaimer
+
+1.0.0 (25-07-2017)
+- New music menu
+  > Two a-z indexes
+  > Top 10 & Top 20 Lists by Mad Greekz & Rythmos 949's community
+- Moved radio menu from root menu to music submenu
+- Various code tweaks
+Note: Anniversary update! 1 year old +
+
 0.9.5 (14-07-2017)
 - Bug fix in Live TV section
 - Various code cosmetics

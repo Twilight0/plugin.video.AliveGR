@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import m3u8
+from ..modules import m3u8
 from ..modules.helpers import stream_picker
 from urlparse import urljoin
 
@@ -35,7 +35,7 @@ def m3u8_picker(url):
 
     for playlist in m3u8_playlists:
 
-        quality = repr(playlist.stream_info[3]).strip('()').replace(', ', 'x')
+        quality = repr(playlist.stream_info.resolution).strip('()').replace(', ', 'x')
         if quality == 'None':
             quality = 'Auto'
         uri = playlist.uri
