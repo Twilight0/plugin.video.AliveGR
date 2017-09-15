@@ -774,6 +774,14 @@ msgctxt "#30219"
 msgid "Quality choice (m3u8)"
 msgstr "Επιλογή ποιότητας (m3u8)"
 
+msgctxt "#30220"
+msgid "Quality {0}"
+msgstr "Ποιότητα {0}"
+
+msgctxt "#30221"
+msgid "Plus Radio Top 20"
+msgstr "Τα 20 κορυφαία του Plus Radio"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

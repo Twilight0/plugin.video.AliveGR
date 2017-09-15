@@ -774,6 +774,14 @@ msgctxt "#30219"
 msgid "Quality choice (m3u8)"
 msgstr ""
 
+msgctxt "#30220"
+msgid "Quality {0}"
+msgstr ""
+
+msgctxt "#30221"
+msgid "Plus Radio Top 20"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

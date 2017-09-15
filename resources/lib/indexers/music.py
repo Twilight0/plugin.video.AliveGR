@@ -36,6 +36,7 @@ class Main:
         self.mgreekz_id = 'UClMj1LyMRBMu_TG1B1BirqQ'
         self.mgreekz_url = 'http://mad.tv/mad-hits-top-10/'
         self.rythmos_url = 'https://www.rythmosfm.gr/'
+        self.plus_url = 'http://plusradio.gr/top20'
         self.top20_url = urljoin(self.rythmos_url, 'community/top20/')
         self.rythmos_top20_base = urljoin(self.rythmos_url, 'Userfiles/TopTwentyAudio/')
 
@@ -80,6 +81,13 @@ class Main:
                     icon='rythmos_fanart.jpg'
                 )
             }
+            ,
+            {
+                'title': 30221,
+                'action': 'plus_top20',
+                'image': 'https://is5-ssl.mzstatic.com/image/thumb/Purple20/v4/e8/99/e8/e899e8ea-0df6-0f60-d66d-b82b8021e8af/source/256x256bb.jpg',
+                'fanart': 'https://i.imgur.com/G8koVR8.jpg'
+            }
         ]
 
         directory.add(self.list)
@@ -104,7 +112,7 @@ class Main:
 
         directory.add(self.list)
 
-    def items_top10(self):
+    def _top10(self):
 
         html = client.request(self.mgreekz_url)
 
@@ -126,7 +134,7 @@ class Main:
 
     def mgreekz_top10(self):
 
-        self.list = cache.get(self.items_top10, 24)
+        self.list = cache.get(self._top10, 24)
 
         if self.list is None:
             return
@@ -148,7 +156,7 @@ class Main:
 
         directory.add(self.list, content='musicvideos')
 
-    def items_top20(self):
+    def _top20_1(self):
 
         from youtube_requests import get_search
 
@@ -164,6 +172,7 @@ class Main:
             image = client.parseDOM(item, 'img', ret='src')[0]
             image = image.replace(' ', '%20')
             link = get_search(q=title + ' ' + 'official', search_type='video')[0]
+            print link
             link = link['snippet']['thumbnails']['default']['url']
             link = re.findall('vi/([\w-]*?)/', link)[0]
             link = urljoin(youtu_be.base_link, link)
@@ -174,7 +183,8 @@ class Main:
 
             self.list.append(
                 {
-                    'title': str(count) + '. ' + title, 'url': link, 'image': image, 'artist': [title.partition(' - ')[0]]
+                    'title': str(count) + '. ' + title, 'url': link, 'image': image,
+                    'artist': [title.partition(' - ')[0]], 'tracknumber': count
                 }
             )
 
@@ -182,7 +192,7 @@ class Main:
 
     def rythmos_top20(self):
 
-        self.list = cache.get(self.items_top20, 24)
+        self.list = cache.get(self._top20_1, 24)
 
         if self.list is None:
             return
@@ -190,7 +200,7 @@ class Main:
         for item in self.list:
             item.update(
                 {
-                    'action': 'play', 'isFolder': 'False', 'album': 'Rytmhos 949 top 20',
+                    'action': 'play', 'isFolder': 'False', 'album': 'Rytmhos 949 - Top 20',
                     'fanart': control.addonmedia(
                         addonid='script.AliveGR.artwork',
                         theme='networks',
@@ -199,7 +209,44 @@ class Main:
                 }
             )
 
-        for count, item in list(enumerate(self.list, start=1)):
-            item.setdefault('tracknumber', count)
+        directory.add(self.list, content='musicvideos')
+
+    def _top20_2(self):
+
+        from youtube_requests import get_search
+
+        html = client.request(self.top20_url)
+
+        items = client.parseDOM(html, 'div', attrs={'class': 'element element-itemname first last'})
+
+        for count, item in list(enumerate(items, start=1)):
+
+            title = item.partition('.')[2].strip()
+            you_tube = get_search(q=title + ' ' + 'official', search_type='video')[0]
+            image = you_tube['snippet']['thumbnails']['default']['url']
+            link = re.findall('vi/([\w-]*?)/', image)[0]
+            link = urljoin(youtu_be.base_link, link)
+
+            self.list.append(
+                {
+                    'title': str(count) + '. ' + title, 'url': link, 'image': image,
+                    'artist': [title.partition('-')[0]], 'tracknumber': count
+                }
+            )
+
+    def plus_top20(self):
+
+        self.list = cache.get(self._top20_2, 24)
+
+        if self.list is None:
+            return
+
+        for item in self.list:
+            item.update(
+                {
+                    'action': 'play', 'isFolder': 'False', 'album': 'Plus Radio - Top 20',
+                    'fanart': 'https://i.imgur.com/G8koVR8.jpg'
+                }
+            )
 
         directory.add(self.list, content='musicvideos')

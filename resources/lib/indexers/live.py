@@ -176,16 +176,21 @@ class Main:
 
     def modular(self, group):
 
-        import datetime
+        if group == '30125':
+            fanart = 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
+        elif group == '30032':
+            fanart = 'http://cdn.iview.abc.net.au/thumbs/i/ls/LS1604H001S005786f5937ded19.22034349_1280.jpg'
+        else:
+            fanart = control.addonInfo('fanart')
 
         self.data = cache.get(self.live, 12)[0]
-
         self.list = [item for item in self.data if item['group'] == group]
 
+        import datetime
         year = datetime.datetime.now().year
 
         for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None})
+            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'fanart': fanart})
 
         for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')

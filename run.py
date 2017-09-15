@@ -163,6 +163,10 @@ elif action == 'rythmos_top20':
     from resources.lib.indexers import music
     music.Main().rythmos_top20()
 
+elif action == 'plus_top20':
+    from resources.lib.indexers import music
+    music.Main().plus_top20()
+
 elif action == 'radio':
     from resources.lib.indexers import radios
     radios.Main().radio()
