@@ -199,11 +199,6 @@ elif action == 'smu_settings':
     from resources.lib.modules import helpers
     helpers.smu_settings(sleep)
 
-# TODO
-# elif action == 'spanner':
-#     from resources.lib.modules import helpers
-#     helpers.spanner()
-
 elif action == 'youtube':
     from resources.lib.indexers import youtu_be
     youtu_be.yt_videos(url)

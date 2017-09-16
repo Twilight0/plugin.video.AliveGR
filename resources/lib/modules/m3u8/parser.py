@@ -7,7 +7,7 @@ import iso8601
 import datetime
 import itertools
 import re
-from m3u8 import protocol
+import protocol
 
 '''
 http://tools.ietf.org/html/draft-pantos-http-live-streaming-08#section-3.2

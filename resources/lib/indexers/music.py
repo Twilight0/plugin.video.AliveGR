@@ -128,7 +128,12 @@ class Main:
 
             url = item.partition('?')[0]
 
-            self.list.append({'title': title, 'url': url, 'image': image, 'artist': [title.partition(u' – ')[2]]})
+            self.list.append(
+                {
+                    'label': title, 'title': title.partition(u' – ')[0], 'url': url,
+                    'image': image, 'artist': [title.partition(u' – ')[2]]
+                }
+            )
 
         return self.list
 
@@ -172,7 +177,6 @@ class Main:
             image = client.parseDOM(item, 'img', ret='src')[0]
             image = image.replace(' ', '%20')
             link = get_search(q=title + ' ' + 'official', search_type='video')[0]
-            print link
             link = link['snippet']['thumbnails']['default']['url']
             link = re.findall('vi/([\w-]*?)/', link)[0]
             link = urljoin(youtu_be.base_link, link)
@@ -183,7 +187,7 @@ class Main:
 
             self.list.append(
                 {
-                    'title': str(count) + '. ' + title, 'url': link, 'image': image,
+                    'label': str(count) + '. ' + title, 'url': link, 'image': image, 'title': title.partition(' - ')[2],
                     'artist': [title.partition(' - ')[0]], 'tracknumber': count
                 }
             )
@@ -223,6 +227,7 @@ class Main:
         for count, item in list(enumerate(items, start=1)):
 
             title = item.partition('.')[2].strip()
+            originaltitle = title.partition('-')[2]
             you_tube = get_search(q=title + ' ' + 'official', search_type='video')[0]
             image = you_tube['snippet']['thumbnails']['default']['url']
             link = re.findall('vi/([\w-]*?)/', image)[0]
@@ -230,7 +235,7 @@ class Main:
 
             self.list.append(
                 {
-                    'title': str(count) + '. ' + title, 'url': link, 'image': image,
+                    'label': str(count) + '. ' + title, 'title': originaltitle, 'url': link, 'image': image,
                     'artist': [title.partition('-')[0]], 'tracknumber': count
                 }
             )
