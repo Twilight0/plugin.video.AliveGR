@@ -1,3 +1,7 @@
+1.4.3 (17-09-2017)
+- Added random user agent into m3u8 loader
+- Changed url get method on streamlink's wrapper
+
 1.4.2 (16-09-2017)
 - Removed script.module.m3u8 dependency, package has now been integrated
 - Added iso8601 which is needed by m3u8 package

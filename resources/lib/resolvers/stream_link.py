@@ -56,7 +56,7 @@ def sl_session(url):
             pass
 
         keys = streams.keys()
-        values = [repr(u).partition('(\'')[2][:-3] for u in streams.values()]
+        values = [u.url for u in streams.values()]
 
         if control.setting('sl_quality_picker') == '1':
 
@@ -64,7 +64,7 @@ def sl_session(url):
 
         else:
 
-            return repr(streams['best']).partition('(\'')[2][:-3]
+            return streams['best'].url
 
     except:
 

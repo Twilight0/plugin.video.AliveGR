@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.4.2" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.4.3~beta1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.AliveGR.artwork" version="2.2.0"/>
@@ -33,6 +33,10 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>661000</size>
         <news>
+1.4.3 (17-09-2017)
+- Added random user agent into m3u8 loader
+- Changed url get method on streamlink's wrapper
+
 1.4.2 (16-09-2017)
 - Removed script.module.m3u8 dependency, package has now been integrated
 - Added iso8601 which is needed by m3u8 package

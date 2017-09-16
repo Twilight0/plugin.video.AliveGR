@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from tulip import control
+from tulip import control, client, cache
 from ..modules import m3u8
 from ..modules.helpers import stream_picker
 from urlparse import urljoin
@@ -26,7 +26,9 @@ from urlparse import urljoin
 
 def m3u8_picker(url):
 
-    m3u8_playlists = m3u8.load(url).playlists
+    m3u8_playlists = m3u8.load(
+        url.partition('|')[0], headers={'User-Agent': cache.get(client.randomagent, 12)}
+    ).playlists
 
     if not m3u8_playlists:
         return url
