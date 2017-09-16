@@ -215,7 +215,8 @@ class Main:
 
         from youtube_requests import get_search
 
-        html = client.request(self.top20_url)
+        cookie = client.request(self.plus_url, close=False, output='cookie', mobile=True)
+        html = client.request(self.plus_url, cookie=cookie, mobile=True)
 
         items = client.parseDOM(html, 'div', attrs={'class': 'element element-itemname first last'})
 
@@ -233,6 +234,8 @@ class Main:
                     'artist': [title.partition('-')[0]], 'tracknumber': count
                 }
             )
+
+        return self.list
 
     def plus_top20(self):
 
