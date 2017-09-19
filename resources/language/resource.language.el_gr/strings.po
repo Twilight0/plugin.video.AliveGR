@@ -782,6 +782,10 @@ msgctxt "#30221"
 msgid "Plus Radio Top 20"
 msgstr "Τα 20 κορυφαία του Plus Radio"
 
+msgctxt "#30222"
+msgid "Radiopolis Top 20"
+msgstr "Τα 20 κορυφαία του Ραδιόπολις"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

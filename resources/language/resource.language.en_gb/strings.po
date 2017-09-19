@@ -782,6 +782,10 @@ msgctxt "#30221"
 msgid "Plus Radio Top 20"
 msgstr ""
 
+msgctxt "#30222"
+msgid "Radiopolis Top 20"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

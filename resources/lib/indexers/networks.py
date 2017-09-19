@@ -110,7 +110,7 @@ class Main:
             }
         ]
 
-        if not control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
+        if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
             del networks[-1]
 
         for network in networks:

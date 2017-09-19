@@ -159,13 +159,9 @@ elif action == 'mgreekz_top10':
     from resources.lib.indexers import music
     music.Main().mgreekz_top10()
 
-elif action == 'rythmos_top20':
+elif action == 'top20_list':
     from resources.lib.indexers import music
-    music.Main().rythmos_top20()
-
-elif action == 'plus_top20':
-    from resources.lib.indexers import music
-    music.Main().plus_top20()
+    music.Main().top20_list(url)
 
 elif action == 'radio':
     from resources.lib.indexers import radios
