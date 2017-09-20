@@ -823,7 +823,7 @@ msgid "Please run IPTV Simple Client setup function first"
 msgstr ""
 
 msgctxt "#30410"
-msgid ""
+msgid "Do you want to restart IPTV Simple Client & clear its cache?"
 msgstr ""
 
 msgctxt "#30411"

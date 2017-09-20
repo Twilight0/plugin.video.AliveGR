@@ -34,13 +34,22 @@ api_keys = {
             'secret': 'e6RBIFCVh1Fm-IX87PVJjgUu'
            }
 
+########################################################################################################################
+
 iptv_folder = control.transPath('special://profile/addon_data/pvr.iptvsimple')
+iscoff = '{"jsonrpc":"2.0", "method": "Addons.SetAddonEnabled", "params": {"addonid": "pvr.iptvsimple", "enabled": false}, "id": 1}'
+iscon = '{"jsonrpc":"2.0", "method": "Addons.SetAddonEnabled", "params": {"addonid": "pvr.iptvsimple", "enabled": true}, "id": 1}'
+liveoff = '{"jsonrpc":"2.0", "method": "Settings.SetSettingValue", "params": {"setting": "pvrmanager.enabled", "value": false}, "id": 1}'
+liveon = '{"jsonrpc":"2.0", "method": "Settings.SetSettingValue", "params": {"setting": "pvrmanager.enabled", "value": true}, "id": 1}'
+
+########################################################################################################################
 
 
 def setup_iptv():
 
     if control.exists(control.join(iptv_folder, 'settings.xml')):
         if control.yesnoDialog(line1=control.lang(30021), line2='', line3=control.lang(30022)):
+            control.deleteFile(control.join(iptv_folder, 'settings.xml'))
             client.retriever('http://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, "settings.xml"))
             control.infoDialog(message=control.lang(30024), time=2000)
             enable_iptv()
@@ -64,6 +73,19 @@ def enable_iptv():
 
     if control.condVisibility('Pvr.HasTVChannels'):
         control.infoDialog(message=control.lang(30407), time=4000)
+        if control.yesnoDialog(line1=control.lang(30410), line2='', line3=''):
+            control.jsonrpc(iscoff)
+            try:
+                control.deleteFile(control.join(iptv_folder, 'iptv.m3u.cache'))
+                control.deleteFile(control.join(iptv_folder, 'xmltv.xml.cache'))
+            except:
+                pass
+            control.jsonrpc(iscon)
+            if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
+                control.jsonrpc(liveoff)
+                control.jsonrpc(liveon)
+        else:
+            pass
 
     elif not control.exists(control.join(iptv_folder, 'settings.xml')):
         control.infoDialog(message=control.lang(30409), time=4000)
@@ -71,10 +93,8 @@ def enable_iptv():
     else:
 
         if control.yesnoDialog(line1=control.lang(30406), line2='', line3=''):
-            iscon = '{"jsonrpc":"2.0", "method": "Addons.SetAddonEnabled", "params": {"addonid": "pvr.iptvsimple", "enabled": true}, "id": 1}'
             control.jsonrpc(iscon)
             if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-                liveon = '{"jsonrpc":"2.0", "method": "Settings.SetSettingValue", "params": {"setting": "pvrmanager.enabled", "value": true}, "id": 1}'
                 control.jsonrpc(liveon)
         else:
             pass
