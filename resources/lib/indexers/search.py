@@ -21,7 +21,7 @@
 
 from tulip import client, directory, control, cache
 from ..modules import sysaddon
-from gm import base_link
+import gm
 import re, urllib, urlparse, json
 
 
@@ -92,7 +92,7 @@ class Main:
 
             if bool(str_input):
 
-                query = self.google.format(str_input.encode('utf-8'), base_link)
+                query = self.google.format(str_input.encode('utf-8'), gm.base_link)
 
                 html = client.request(query.replace(' ', '+'), headers=self.UA)
 
@@ -124,7 +124,7 @@ class Main:
                     except IndexError:
                         thumb = client.parseDOM(item_html, 'IMG', ret='SRC')[0]
 
-                    image = urlparse.urljoin(base_link, thumb)
+                    image = urlparse.urljoin(gm.base_link, thumb)
 
                     year = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
                     year = int(year.strip(u'Έτος:').strip()[:4])
@@ -149,10 +149,17 @@ class Main:
                     ) if str_input.lower() in strip_accents(item['title'].decode('utf-8')).lower()
                 ]
 
-                self.list = self.data + dl
+                for item in dl:
+                    item.update({'action': 'play', 'isFolder': 'False'})
 
-                for i in self.list:
-                    i.update({'action': 'play', 'isFolder': 'False'})
+                if control.setting('dialog_type') == '0':
+                    for item in self.data:
+                        item.update({'action': 'play', 'isFolder': 'False'})
+                else:
+                    for item in self.data:
+                        item.update({'action': 'directory'})
+
+                self.list = self.data + dl
 
                 for item in self.list:
                     bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
@@ -176,7 +183,7 @@ class Main:
 
             if bool(str_input):
 
-                query = self.google.format(str_input, base_link)
+                query = self.google.format(str_input, gm.base_link)
 
                 html = client.request(query.replace(' ', '+'), headers=self.UA)
 
@@ -208,7 +215,7 @@ class Main:
                     except IndexError:
                         thumb = client.parseDOM(item_html, 'IMG', ret='SRC')[0]
 
-                    image = urlparse.urljoin(base_link, thumb)
+                    image = urlparse.urljoin(gm.base_link, thumb)
 
                     year = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
                     year = int(year.strip(u'Έτος:').strip()[:4])
@@ -220,7 +227,12 @@ class Main:
                     else:
                         plot = control.lang(30085)
 
-                    self.list.append({'title': title, 'url': url, 'image': image.encode('utf-8'), 'year': year, 'plot': plot,  'action': 'episodes'})
+                    self.list.append(
+                        {
+                            'title': title, 'url': url, 'image': image.encode('utf-8'), 'year': year, 'plot': plot,
+                            'action': 'episodes'
+                        }
+                    )
 
                 if self.list is None:
                     return
@@ -238,13 +250,15 @@ class Main:
 
         elif choice == 3:
 
-            str_input = control.inputDialog(heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30099))
+            str_input = control.inputDialog(
+                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30099)
+            )
 
             str_input = strip_accents(str_input.decode('utf-8'))
 
             if bool(str_input):
 
-                query = self.google.format(str_input.encode('utf-8'), base_link)
+                query = self.google.format(str_input.encode('utf-8'), gm.base_link)
 
                 html = client.request(query.replace(' ', '+'), headers=self.UA)
 
@@ -276,7 +290,7 @@ class Main:
                     except IndexError:
                         thumb = client.parseDOM(item_html, 'IMG', ret='SRC')[0]
 
-                    image = urlparse.urljoin(base_link, thumb)
+                    image = urlparse.urljoin(gm.base_link, thumb)
 
                     year = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
                     year = int(year.strip(u'Έτος:').strip()[:4])
@@ -288,14 +302,23 @@ class Main:
                     else:
                         plot = control.lang(30085)
 
-                    self.list.append({'title': title, 'url': url, 'image': image.encode('utf-8'), 'year': year, 'plot': plot, 'action': 'episodes'})
+                    self.list.append(
+                        {
+                            'title': title, 'url': url, 'image': image.encode('utf-8'), 'year': year, 'plot': plot,
+                            'action': 'episodes'
+                        }
+                    )
 
                 self.data = cache.get(gm.Main().items_list, 24, urlparse.urljoin(gm.Main().movies_link, '?g=8&y=&l=&p='))
 
                 cm = [item for item in self.data if str_input.lower() in item['title'].lower()]
 
-                for item in cm:
-                    item.update({'action': 'play', 'isFolder': 'False'})
+                if control.setting('dialog_type') == '0':
+                    for item in cm:
+                        item.update({'action': 'play', 'isFolder': 'False'})
+                else:
+                    for item in cm:
+                        item.update({'action': 'directory'})
 
                 self.list += cm
 

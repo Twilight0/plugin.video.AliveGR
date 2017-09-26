@@ -98,7 +98,7 @@ def alphatv(url):
 
     link = client.request(url)
     link = re.findall('(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[-1]
-    link = client.request(link, output='geturl')
+    link = client.request(link, output='geturl') + client.spoofer()
 
     return link
 

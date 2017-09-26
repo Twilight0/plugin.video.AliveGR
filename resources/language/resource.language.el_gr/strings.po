@@ -783,8 +783,20 @@ msgid "Plus Radio Top 20"
 msgstr "Τα 20 κορυφαία του Plus Radio"
 
 msgctxt "#30222"
-msgid "Radiopolis Top 20"
-msgstr "Τα 20 κορυφαία του Ραδιόπολις"
+msgid "Radiopolis Top 20 (Greek)"
+msgstr "Τα 20 κορυφαία του Ραδιόπολις (Ελληνικά)"
+
+msgctxt "#30223"
+msgid "Radiopolis Top 20 (Foreign)"
+msgstr "Τα 20 κορυφαία του Ραδιόπολις (Ξένα)"
+
+msgctxt "#30224"
+msgid "Music indexers play audio only"
+msgstr "Αναπαραγωγή ήχου μόνο στην ενότητα μουσικής"
+
+msgctxt "#30225"
+msgid "Quality choice (youtube-dl)"
+msgstr "Επιλογή ποιότητας (youtube-dl)"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

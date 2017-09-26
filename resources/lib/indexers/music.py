@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import json, youtu_be, re, urllib
+import json, re, urllib
 
 from tulip import control, directory, cache, client
 from urlparse import urljoin
@@ -26,7 +26,7 @@ from ..modules.themes import iconname
 from ..modules import syshandle
 from ..modules.helpers import thgiliwt
 from ..modules.tools import api_keys
-
+from youtu_be import base_link
 
 class Main:
 
@@ -37,7 +37,7 @@ class Main:
         self.mgreekz_url = 'http://mad.tv/mad-hits-top-10/'
         self.rythmos_url = 'https://www.rythmosfm.gr/'
         self.plus_url = 'http://plusradio.gr/top20'
-        self.radiopolis_url = 'http://www.radiopolis.gr/station/top-20'
+        self.radiopolis_url = 'http://www.radiopolis.gr/station/top-20/'
         self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
 
     def root(self):
@@ -94,7 +94,15 @@ class Main:
             {
                 'title': 30222,
                 'action': 'top20_list',
-                'url': self.radiopolis_url,
+                'url': self.radiopolis_url + '1',
+                'image': 'http://www.radiopolis.gr/templates/ja_muzic/images/logo.png',
+                'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
+            }
+            ,
+            {
+                'title': 30223,
+                'action': 'top20_list',
+                'url': self.radiopolis_url + '2',
                 'image': 'http://www.radiopolis.gr/templates/ja_muzic/images/logo.png',
                 'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             }
@@ -156,10 +164,19 @@ class Main:
         if self.list is None:
             return
 
+        # Reserved for later use
+        # if control.setting('audio_only') == 'true':
+        #     self.list = [
+        #         dict((k, item[k] + '|audio_only' if (k == 'url') else v) for k, v in item.items())
+        #         for item in self.list
+        #     ]
+        # else:
+        #     pass
+
         for item in self.list:
             item.update(
                 {
-                    'action': 'play', 'isFolder': 'False', 'album': 'Mad Greekz top 10',
+                    'action': 'play', 'isFolder': 'False', 'album': control.lang(30127),
                     'fanart': control.addonmedia(
                         addonid='script.AliveGR.artwork', theme='networks', icon='mgz_fanart.jpg'
                     )
@@ -177,17 +194,24 @@ class Main:
 
         from youtube_requests import get_search
 
-        cookie = client.request(url, close=False, output='cookie')
-        html = client.request(url, cookie=cookie)
+        cookie = client.request(url.rstrip('12'), close=False, output='cookie')
+        html = client.request(url.rstrip('12'), cookie=cookie)
 
-        if url == self.radiopolis_url:
-            html = client.parseDOM(html.decode('unicode_escape'), 'div', attrs={'class': 'ja-slidenews-item clearfix'})[1]
+        if url.rstrip('12') == self.radiopolis_url:
+            if url.endswith('1'):
+                html = client.parseDOM(
+                    html.decode('unicode_escape'), 'div', attrs={'class': 'ja-slidenews-item clearfix'}
+                )[0]
+            else:
+                html = client.parseDOM(
+                    html.decode('unicode_escape'), 'div', attrs={'class': 'ja-slidenews-item clearfix'}
+                )[1]
 
         if url == self.rythmos_top20_url:
             attributes = {'class': 'va-title'}
         elif url == self.plus_url:
             attributes = {'class': 'element element-itemname first last'}
-        elif url == self.radiopolis_url:
+        elif url.rstrip('12') == self.radiopolis_url:
             attributes = {'style': 'border-bottom:1px solid #333;padding: 2px 0px;'}
 
         items = client.parseDOM(html, 'div', attrs=attributes)
@@ -205,8 +229,8 @@ class Main:
                 title = item.partition('.')[2].strip()
                 originaltitle = title.partition('-')[2]
                 artist = [title.partition('-')[0]]
-            elif url == self.radiopolis_url:
-                title = client.parseDOM(item, 'a')[0]
+            elif url.rstrip('12') == self.radiopolis_url:
+                title = client.parseDOM(item, 'a')[0].encode('latin1')
                 title = title.partition('.')[2].strip()
                 originaltitle = title.partition(' - ')[2]
                 artist = [title.partition(' - ')[0]]
@@ -219,8 +243,8 @@ class Main:
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
-                link = urljoin(youtu_be.base_link, vid)
-            elif url == self.radiopolis_url:
+                link = urljoin(base_link, vid)
+            elif url.rstrip('12') == self.radiopolis_url:
                 link = client.parseDOM(item, 'a', ret='href')[0].rpartition('?')[0]
                 image = 'https://i.ytimg.com/vi/' + link.partition('=')[2] + '/mqdefault.jpg'
                 description = None
@@ -247,9 +271,18 @@ class Main:
         elif url == self.plus_url:
             fanart = 'https://i.imgur.com/G8koVR8.jpg'
             album = control.lang(30221)
-        elif url == self.radiopolis_url:
+        elif url.rstrip('12') == self.radiopolis_url:
             fanart = 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             album = control.lang(30222)
+
+        # Reserved for later use
+        # if control.setting('audio_only') == 'true':
+        #     self.list = [
+        #         dict((k, item[k] + '|audio_only' if (k == 'url') else v) for k, v in item.items())
+        #         for item in self.list
+        #     ]
+        # else:
+        #     pass
 
         for item in self.list:
             item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'fanart': fanart})

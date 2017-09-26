@@ -624,6 +624,14 @@ class Main:
         if self.list is None:
             return
 
+        # if control.setting('audio_only') == 'true':
+        #     self.list = [
+        #         dict((k, item[k] + '|audio_only' if (k == 'url') else v) for k, v in item.items())
+        #         for item in self.list
+        #     ]
+        # else:
+        #     pass
+
         for count, item in list(enumerate(self.list, start=1)):
             item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'tracknumber': count})
 

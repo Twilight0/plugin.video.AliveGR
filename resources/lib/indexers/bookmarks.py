@@ -29,23 +29,6 @@ class Main:
     def __init__(self):
 
         self.list = [] ; self.data = []
-    # TODO
-    #     self.switch = {
-    #         'title': control.lang(30040).format(control.lang(30005) if control.setting('bookmarks_group') == 'ALL' else control.setting('bookmarks_group')),
-    #         'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme=theme()[0], icon='switcher' + theme()[1]),
-    #         'action': 'bookmarks_switcher'
-    #     }
-    #
-    # def switcher(self):
-    #
-    #     self.list = [control.lang(30001), control.lang(30031), control.lang(30030), control.lang(30068), control.lang(30079)]
-    #
-    #     choice = control.selectDialog(heading=control.lang(30049), list=[])
-    #
-    #     if choice == 0:
-    #         pass
-    #     else:
-    #         control.execute('Dialog.Close(all)')
 
     def bookmarks(self):
 

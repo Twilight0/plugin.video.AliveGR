@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import urlresolver
+import urlresolver  #, YDStreamExtractor
 import random, re
 from urlparse import urljoin
 
@@ -26,7 +26,7 @@ from tulip import directory, control, client, cache
 
 from ..indexers.gm import base_link
 from ..modules import sysaddon, syshandle
-from ..resolvers import live, stream_link, m3u8_loader
+from ..resolvers import live, m3u8_loader, stream_link  # ytdl_wrapper,
 
 
 def wrapper(url):
@@ -39,7 +39,7 @@ def wrapper(url):
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
-    elif 'ert.gr' in url and not 'ipinfo-geo' in url:
+    elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld2' in url:
         return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
     elif 'skai.gr' in url and not 'TVLive' in url:
         return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
@@ -263,9 +263,16 @@ def player(url, name):
         'youtube.com/user/' in result, 'facebook' in result
     ]
 
+    # if any(conditions) and YDStreamExtractor.mightHaveVideo(result):
+    #
+    #     stream = ytdl_wrapper.ytdl_session(result)
+    #
+    #     directory.resolve(stream)
+
     if any(conditions):
 
         stream = stream_link.sl_session(result)
+
         if stream == 30403:
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30403))
@@ -307,6 +314,7 @@ def player(url, name):
             stream = m3u8_loader.m3u8_picker(stream)
 
         if stream == 30403:
+
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30403))
 

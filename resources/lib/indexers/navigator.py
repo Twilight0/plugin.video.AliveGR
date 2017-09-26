@@ -105,9 +105,9 @@ class Main:
             }
             ,
             {
-               'title': 30012,
-               'action': 'miscellany',
-               'icon': iconname('miscellany')
+                'title': 30012,
+                'action': 'miscellany',
+                'icon': iconname('miscellany')
             }
             ,
             {
