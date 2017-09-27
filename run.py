@@ -236,6 +236,14 @@ elif action == 'setup_previous_menu_key':
     from resources.lib.modules import tools
     tools.setup_previous_menu_key()
 
+elif action == 'add_to_playlist':
+    from resources.lib.modules import helpers
+    helpers.add_to_playlist()
+
+elif action == 'clear_playlist':
+    from resources.lib.modules import helpers
+    helpers.clear_playlist()
+
 elif action == 'cache_clear':
     from resources.lib.modules import helpers
     helpers.cache_clear()

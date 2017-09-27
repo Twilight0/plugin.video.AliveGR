@@ -76,6 +76,16 @@ def reset_idx():
     control.infoDialog(message=control.lang(30402), time=3000)
 
 
+def add_to_playlist():
+
+    control.execute('Action(Queue)')
+
+
+def clear_playlist():
+
+    control.execute('Playlist.Clear')
+
+
 def cache_clear():
 
     cache.clear(withyes=False)

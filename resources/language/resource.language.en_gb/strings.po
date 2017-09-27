@@ -798,6 +798,14 @@ msgctxt "#30225"
 msgid "Quality choice (youtube-dl)"
 msgstr ""
 
+msgctxt "#30226"
+msgid "Queue song to current playlist"
+msgstr ""
+
+msgctxt "#30227"
+msgid "Clear current playlist"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

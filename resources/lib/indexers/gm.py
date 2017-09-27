@@ -635,5 +635,10 @@ class Main:
         for count, item in list(enumerate(self.list, start=1)):
             item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'tracknumber': count})
 
+        for item in self.list:
+            add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
+            clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
+            item.update({'cm': [add_to_playlist, clear_playlist]})
+
         directory.add(self.list, content='musicvideos')
 

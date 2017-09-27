@@ -798,6 +798,14 @@ msgctxt "#30225"
 msgid "Quality choice (youtube-dl)"
 msgstr "Επιλογή ποιότητας (youtube-dl)"
 
+msgctxt "#30226"
+msgid "Queue song to current playlist"
+msgstr "Προσθήκη κομματιού στην τρέχουσα λίστα αναπαραγωγής"
+
+msgctxt "#30227"
+msgid "Clear current playlist"
+msgstr "Εκκαθάριση τρέχουσας λίστας αναπαραγωγής"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

@@ -26,7 +26,7 @@ from ..modules.themes import iconname
 from ..modules import syshandle
 from ..modules.helpers import thgiliwt
 from ..modules.tools import api_keys
-from youtu_be import base_link
+from youtu_be import base_link, thumb_maker
 
 class Main:
 
@@ -146,7 +146,8 @@ class Main:
 
             url = item.partition('?')[0]
 
-            image = 'https://i.ytimg.com/vi/' + url.rpartition('/')[2] + '/mqdefault.jpg'
+            # image = 'https://i.ytimg.com/vi/' + url.rpartition('/')[2] + '/mqdefault.jpg'
+            image = thumb_maker(url.rpartition('/')[2])
 
             self.list.append(
                 {
@@ -187,6 +188,11 @@ class Main:
 
         for count, item in list(enumerate(self.list, start=1)):
             item.setdefault('tracknumber', count)
+
+        for item in self.list:
+            add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
+            clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
+            item.update({'cm': [add_to_playlist, clear_playlist]})
 
         directory.add(self.list, content='musicvideos')
 
@@ -246,7 +252,8 @@ class Main:
                 link = urljoin(base_link, vid)
             elif url.rstrip('12') == self.radiopolis_url:
                 link = client.parseDOM(item, 'a', ret='href')[0].rpartition('?')[0]
-                image = 'https://i.ytimg.com/vi/' + link.partition('=')[2] + '/mqdefault.jpg'
+                # image = 'https://i.ytimg.com/vi/' + link.partition('=')[2] + '/mqdefault.jpg'
+                image = thumb_maker(link.partition('=')[2])
                 description = None
 
             self.list.append(
@@ -286,5 +293,10 @@ class Main:
 
         for item in self.list:
             item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'fanart': fanart})
+
+        for item in self.list:
+            add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
+            clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
+            item.update({'cm': [add_to_playlist, clear_playlist]})
 
         directory.add(self.list, content='musicvideos')
