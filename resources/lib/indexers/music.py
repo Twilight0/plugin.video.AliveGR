@@ -26,7 +26,10 @@ from ..modules.themes import iconname
 from ..modules import syshandle
 from ..modules.helpers import thgiliwt
 from ..modules.tools import api_keys
-from youtu_be import base_link, thumb_maker
+from youtu_be import base_link as yt_base_link
+from youtu_be import thumb_maker
+import gm
+
 
 class Main:
 
@@ -40,7 +43,7 @@ class Main:
         self.radiopolis_url = 'http://www.radiopolis.gr/station/top-20/'
         self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
 
-    def root(self):
+    def menu(self):
 
         self.list = [
             {
@@ -109,6 +112,121 @@ class Main:
         ]
 
         directory.add(self.list)
+
+    def gm_music(self):
+
+        html = cache.get(gm.root, 96, gm.music_link)
+
+        options = re.compile('(<option  value=.+?</option>)', re.U).findall(html)
+
+        for option in options:
+
+            title = client.parseDOM(option, 'option')[0]
+            link = client.parseDOM(option, 'option', ret='value')[0]
+            link = urljoin(gm.base_link, link)
+
+            data = {'title': title, 'url': link, 'image': iconname('music'), 'action': 'artist_index'}
+
+            self.list.append(data)
+
+        directory.add(self.list)
+
+    def music_list(self, url):
+
+        html = client.request(url)
+
+        if 'albumlist' in html:
+            artist = client.parseDOM(html, 'h4')[0].partition(' <a')[0]
+        else:
+            artist = None
+
+        if 'songlist' in html:
+            songlist = client.parseDOM(html, 'div', attrs={'class': 'songlist'})[0]
+            items = client.parseDOM(songlist, 'li')
+        elif 'albumlist' in html:
+            albumlist = client.parseDOM(html, 'div', attrs={'class': 'albumlist'})[0]
+            items = client.parseDOM(albumlist, 'li')
+        else:
+            artistlist = client.parseDOM(html, 'div', attrs={'class': 'artistlist'})[0]
+            items = client.parseDOM(artistlist, 'li')
+
+        if 'icon/music' in html:
+            icon = client.parseDOM(html, 'img', attrs={'class': 'img-responsive'}, ret='src')[-1]
+            icon = urljoin(gm.base_link, icon)
+        else:
+            icon = iconname('music')
+
+        for item in items:
+
+            title = client.parseDOM(item, 'a')[0]
+            link = client.parseDOM(item, 'a', ret='href')[0]
+            link = urljoin(gm.base_link, link)
+
+            data = {'title': title, 'url': link, 'image': icon, 'artist': [artist]}
+
+            self.list.append(data)
+
+        return self.list
+
+    def artist_index(self, url):
+
+        self.list = cache.get(self.music_list, 48, url)
+
+        if self.list is None:
+            return
+
+        for item in self.list:
+            item.update({'action': 'album_index'})
+
+        for item in self.list:
+            bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+            bookmark['bookmark'] = item['url']
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            item.update({'cm': [bookmark_cm]})
+
+        directory.add(self.list)
+
+    def album_index(self, url):
+
+        self.list = cache.get(self.music_list, 48, url)
+
+        if self.list is None:
+            return
+
+        for item in self.list:
+            item.update(
+                {
+                    'action': 'songs_index', 'name': item['title'].partition(' (')[0],
+                    'year': int(item['title'].partition(' (')[2][:-1])
+                }
+            )
+
+        directory.add(self.list, content='musicvideos')
+
+    def songs_index(self, url, album):
+
+        self.list = cache.get(self.music_list, 48, url)
+
+        if self.list is None:
+            return
+
+        # if control.setting('audio_only') == 'true':
+        #     self.list = [
+        #         dict((k, item[k] + '|audio_only' if (k == 'url') else v) for k, v in item.items())
+        #         for item in self.list
+        #     ]
+        # else:
+        #     pass
+
+        for count, item in list(enumerate(self.list, start=1)):
+            item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'tracknumber': count})
+
+        for item in self.list:
+            add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
+            clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
+            item.update({'cm': [add_to_playlist, clear_playlist]})
+
+        directory.add(self.list, content='musicvideos')
 
     def mgreekz_index(self):
 
@@ -249,7 +367,7 @@ class Main:
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
-                link = urljoin(base_link, vid)
+                link = urljoin(yt_base_link, vid)
             elif url.rstrip('12') == self.radiopolis_url:
                 link = client.parseDOM(item, 'a', ret='href')[0].rpartition('?')[0]
                 # image = 'https://i.ytimg.com/vi/' + link.partition('=')[2] + '/mqdefault.jpg'

@@ -129,27 +129,27 @@ elif action == 'miscellany':
 
 elif action == 'music':
     from resources.lib.indexers import music
-    music.Main().root()
+    music.Main().menu()
 
 elif action == 'music_live':
     from resources.lib.indexers import live
     live.Main().modular('30125')
 
 elif action == 'gm_music':
-    from resources.lib.indexers import gm
-    gm.Main().gm_music()
+    from resources.lib.indexers import music
+    music.Main().gm_music()
 
 elif action == 'artist_index':
-    from resources.lib.indexers import gm
-    gm.Main().artist_index(url)
+    from resources.lib.indexers import music
+    music.Main().artist_index(url)
 
 elif action == 'album_index':
-    from resources.lib.indexers import gm
-    gm.Main().album_index(url)
+    from resources.lib.indexers import music
+    music.Main().album_index(url)
 
 elif action == 'songs_index':
-    from resources.lib.indexers import gm
-    gm.Main().songs_index(url, name)
+    from resources.lib.indexers import music
+    music.Main().songs_index(url, name)
 
 elif action == 'mgreekz_index':
     from resources.lib.indexers import music
