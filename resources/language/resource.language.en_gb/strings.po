@@ -31,7 +31,7 @@ msgid "Live Streams"
 msgstr ""
 
 msgctxt "#30005"
-msgid ""
+msgid "Folders"
 msgstr ""
 
 msgctxt "#30006"
@@ -799,11 +799,15 @@ msgid "Quality choice (youtube-dl)"
 msgstr ""
 
 msgctxt "#30226"
-msgid "Queue song to current playlist"
+msgid "Queue item to current playlist"
 msgstr ""
 
 msgctxt "#30227"
 msgid "Clear current playlist"
+msgstr ""
+
+msgctxt "#30228"
+msgid "Toggle (un)watched status"
 msgstr ""
 
 msgctxt "#30401"

@@ -147,13 +147,11 @@ class Main:
         if self.data is None:
             return
 
-        for i in self.data:
-            i.update({'action': 'play', 'isFolder': 'False'})
-
         for item in self.data:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
             bookmark['bookmark'] = item['url']
-            item.update({'cm': [{'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}]})
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            item.update({'cm': [bookmark_cm], 'action': 'play', 'isFolder': 'False'})
 
         self.list = sorted(self.data, key=lambda k: k['title'].lower())
 

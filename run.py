@@ -205,7 +205,7 @@ elif action == 'play':
 
 elif action == 'directory':
     from resources.lib.modules.player import directory_picker
-    directory_picker(url, plot, genre)
+    directory_picker(url, title, plot, genre)
 
 elif action == 'live_switcher':
     from resources.lib.indexers import live
@@ -243,6 +243,10 @@ elif action == 'add_to_playlist':
 elif action == 'clear_playlist':
     from resources.lib.modules import helpers
     helpers.clear_playlist()
+
+elif action == 'toggle_watched':
+    from resources.lib.modules import helpers
+    helpers.toggle_watched()
 
 elif action == 'cache_clear':
     from resources.lib.modules import helpers

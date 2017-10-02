@@ -1,30 +1,35 @@
-1.4.5 (27-09-2017)
++ [B]1.4.5[/B] [COLOR yellow](02-10-2017)[/COLOR]
 - Added "queue to playlist" & "clear playlist" context menu items in music indexers
   > You can now create custom playlists and playback them
-- Added thumb_maker function for scraping thumbnails
+- Added "queue to playlist" & "clear playlist" context menu items in video indexers when directory option is used
+  > You can now play episodes sequentially
+- Added toggle watched option in context menu
+- Improved displayed labels on directory mode
+- Added thumb_maker function for scraping thumbnails on youtube
 - Moved gm's indexers for music from main gm indexer to music one
+- Cosmetics
 
-1.4.4 (26-09-2017)
++ [B]1.4.4[/B] [COLOR yellow](26-09-2017)[/COLOR]
 - Added spoofed UA into Alpha CY's stream resolver
 - Bug fixes in search module
 - Another music indexer added (Radiopolis's Greek songs)
 - Fixed ERT World's stream for incorrect plugin call
 
-1.4.3 (20-09-2017)
++ [B]1.4.3[/B] [COLOR yellow](20-09-2017)[/COLOR]
 - Added random user agent into m3u8 loader
 - Changed url get method on streamlink's wrapper
 - More improvements to music indexers and added a new one (radiopolis's foreign tracks)
 - Improved IPTV Simple client activation function
 
-1.4.2 (16-09-2017)
++ [B]1.4.2[/B] [COLOR yellow](16-09-2017)[/COLOR]
 - Removed script.module.m3u8 dependency, package has now been integrated
 - Added iso8601 which is needed by m3u8 package
 - M3U8 stream resolution is now obtained in a more pythonic way
 - Auto pick quality if only one option is available
 - Deprecated logs on versions pre-1.4.0
-- Some enhancements and a new music indexer (Plus Radio Top 20)
+- Some enhancements and a new music indexer
 
-1.4.1 (14-09-2017)
++ [B]1.4.1[/B] [COLOR yellow](14-09-2017)[/COLOR]
 - Passed Alpha CY's stream to alpha's resolver (it was direct in previous versions)
 - Implemented for first run only, on every version bump:
   > View changelog
@@ -34,10 +39,8 @@
 - Added yesno dialog for bookmarks purge function
 - Added changelog for Greek language (post 1.4.0 versions)
 - Sort methods are now called earlier (hopefully to fix methods on Krypton)
-- M3U8 module is now used for quality selection of miscellaneous live streams
-- Stream picker for VOD now defaults to dialog type
 
-1.4.0 (11-09-2017)
++ [B]1.4.0[/B] [COLOR yellow](11-09-2017)[/COLOR]
 - Added live music channels in music menu
 - Tweaked music indexers
 - Minor re-ordering of settings menu items

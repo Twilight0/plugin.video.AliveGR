@@ -86,6 +86,11 @@ def clear_playlist():
     control.execute('Playlist.Clear')
 
 
+def toggle_watched():
+
+    control.execute('Action(ToggleWatched)')
+
+
 def cache_clear():
 
     cache.clear(withyes=False)

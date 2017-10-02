@@ -176,13 +176,10 @@ class Main:
             return
 
         for item in self.list:
-            item.update({'action': 'album_index'})
-
-        for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            item.update({'cm': [bookmark_cm]})
+            item.update({'cm': [bookmark_cm], 'action': 'album_index'})
 
         directory.add(self.list)
 
@@ -219,12 +216,10 @@ class Main:
         #     pass
 
         for count, item in list(enumerate(self.list, start=1)):
-            item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'tracknumber': count})
-
-        for item in self.list:
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist]})
+            item.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play',
+                         'isFolder': 'False', 'album': album, 'tracknumber': count})
 
         directory.add(self.list, content='musicvideos')
 
@@ -292,16 +287,6 @@ class Main:
         # else:
         #     pass
 
-        for item in self.list:
-            item.update(
-                {
-                    'action': 'play', 'isFolder': 'False', 'album': control.lang(30127),
-                    'fanart': control.addonmedia(
-                        addonid='script.AliveGR.artwork', theme='networks', icon='mgz_fanart.jpg'
-                    )
-                 }
-            )
-
         self.list = self.list[::-1]
 
         for count, item in list(enumerate(self.list, start=1)):
@@ -310,7 +295,12 @@ class Main:
         for item in self.list:
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist]})
+            item.update(
+                {'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False',
+                 'album': control.lang(30127),
+                 'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='mgz_fanart.jpg')
+                }
+            )
 
         directory.add(self.list, content='musicvideos')
 
@@ -370,7 +360,6 @@ class Main:
                 link = urljoin(yt_base_link, vid)
             elif url.rstrip('12') == self.radiopolis_url:
                 link = client.parseDOM(item, 'a', ret='href')[0].rpartition('?')[0]
-                # image = 'https://i.ytimg.com/vi/' + link.partition('=')[2] + '/mqdefault.jpg'
                 image = thumb_maker(link.partition('=')[2])
                 description = None
 
@@ -410,11 +399,10 @@ class Main:
         #     pass
 
         for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False', 'album': album, 'fanart': fanart})
 
-        for item in self.list:
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist]})
+            item.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False',
+                         'album': album, 'fanart': fanart})
 
         directory.add(self.list, content='musicvideos')

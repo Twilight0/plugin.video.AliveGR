@@ -31,8 +31,8 @@ msgid "Live Streams"
 msgstr "Ζωντανές Ροές"
 
 msgctxt "#30005"
-msgid ""
-msgstr ""
+msgid "Folders"
+msgstr "Φάκελοι"
 
 msgctxt "#30006"
 msgid ""
@@ -799,12 +799,16 @@ msgid "Quality choice (youtube-dl)"
 msgstr "Επιλογή ποιότητας (youtube-dl)"
 
 msgctxt "#30226"
-msgid "Queue song to current playlist"
-msgstr "Προσθήκη κομματιού στην τρέχουσα λίστα αναπαραγωγής"
+msgid "Queue item to current playlist"
+msgstr "Προσθήκη αντικειμένου στην τρέχουσα λίστα αναπαραγωγής"
 
 msgctxt "#30227"
 msgid "Clear current playlist"
 msgstr "Εκκαθάριση τρέχουσας λίστας αναπαραγωγής"
+
+msgctxt "#30228"
+msgid "Toggle (un)watched status"
+msgstr "Εναλλαγή (μη)προβληθέντος κατάστασης"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

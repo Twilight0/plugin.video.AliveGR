@@ -194,13 +194,13 @@ def dialog_picker(hl, sl):
         return button
 
 
-def _directory(url, description, genre):
+def items_directory(url, title, description, genre):
 
     sources = cache.get(source_maker, 6, url)
 
     lists = zip(sources[1], sources[2])
 
-    list_ = []
+    items = []
 
     if description is None:
         try:
@@ -230,23 +230,25 @@ def _directory(url, description, genre):
         plot = name + '\n' + control.lang(30090) + ': ' + year + '\n' + description
 
         data = dict(
-            title=h, url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
+            title=title.decode('utf-8') + ' - ' + h, url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
         )
 
-        list_.append(data)
+        items.append(data)
 
-    return list_
+    return items
 
 
-def directory_picker(url, description, genre):
+def directory_picker(url, title, description, genre):
 
-    items = cache.get(_directory, 6, url, description, genre)
+    items = cache.get(items_directory, 12, url, title, description, genre)
 
     if items is None:
         return
 
     for i in items:
-        i.update({'action': 'play', 'isFolder': 'False'})
+        add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
+        clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
+        i.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False'})
 
     directory.add(items, content='movies')
 

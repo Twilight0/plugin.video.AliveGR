@@ -190,14 +190,12 @@ class Main:
         year = datetime.datetime.now().year
 
         for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'fanart': fanart})
-
-        for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
-            item.update({'cm': [bookmark_cm, r_and_c_cm]})
+            item.update({'cm': [bookmark_cm, r_and_c_cm], 'action': 'play', 'isFolder': 'False', 'year': year,
+                         'duration': None, 'fanart': fanart})
 
         self.list = sorted(self.list, key=lambda k: k['title'].lower())
 

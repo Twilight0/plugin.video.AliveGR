@@ -374,7 +374,8 @@ class Main:
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
-            item.update({'cm': [bookmark_cm, refresh_cm]})
+            unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
+            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
 
         control.sortmethods('title')
         control.sortmethods('year')
@@ -464,7 +465,8 @@ class Main:
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
-            item.update({'cm': [bookmark_cm, refresh_cm]})
+            unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
+            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
 
         control.sortmethods('title')
         control.sortmethods('year')
@@ -524,12 +526,9 @@ class Main:
             return
 
         for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False'})
-
-        for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            item.update({'cm': [bookmark_cm]})
+            item.update({'cm': [bookmark_cm], 'action': 'play', 'isFolder': 'False'})
 
         directory.add(self.list)
