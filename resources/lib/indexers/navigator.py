@@ -20,7 +20,9 @@
 
 
 from tulip import control, bookmarks, directory
+from tulip.log import *
 from ..modules.themes import iconname
+from ..modules.helpers import reset_idx as reset
 
 
 class Main:
@@ -30,6 +32,8 @@ class Main:
         self.list = []
 
     def root(self):
+
+        log_notice('Main menu loaded, have fun...')
 
         self.list = [
             {
@@ -191,3 +195,7 @@ class Main:
         checkpoint()
 
         directory.add(self.list)
+
+        if control.setting('reset-idx') == 'true':
+            log_notice('Indexers have been reset')
+            reset(notify=False)

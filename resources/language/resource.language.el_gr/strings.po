@@ -23,8 +23,8 @@ msgid "Radio"
 msgstr "Ραδιόφωνο"
 
 msgctxt "#30003"
-msgid "General"
-msgstr "Γενικά"
+msgid "Appearance"
+msgstr "Εμφάνιση"
 
 msgctxt "#30004"
 msgid "Live Streams"
@@ -809,6 +809,10 @@ msgstr "Εκκαθάριση τρέχουσας λίστας αναπαραγω�
 msgctxt "#30228"
 msgid "Toggle (un)watched status"
 msgstr "Εναλλαγή (μη)προβληθέντος κατάστασης"
+
+msgctxt "#30229"
+msgid "Toggle auto reset indexers"
+msgstr "Εναλλαγή αυτόματης επαναφοράς ομαδοποιητών"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

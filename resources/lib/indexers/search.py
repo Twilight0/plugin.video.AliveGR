@@ -20,7 +20,7 @@
 
 
 from tulip import client, directory, control, cache
-from ..modules import sysaddon
+from tulip.init import sysaddon
 import gm
 import re, urllib, urlparse, json
 

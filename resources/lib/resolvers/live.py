@@ -66,7 +66,7 @@ def megagr(url):
 
 def ert(url):
 
-    code = client.request('http://www.ipinfodb.com/my_ip_location.php')
+    code = client.request('http://whatismyipaddress.com/')
 
     if 'Greece' in code:
         GR = True

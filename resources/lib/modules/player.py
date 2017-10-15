@@ -25,7 +25,7 @@ from urlparse import urljoin
 from tulip import directory, control, client, cache
 
 from ..indexers.gm import base_link
-from ..modules import sysaddon, syshandle
+from tulip.init import sysaddon, syshandle
 from ..resolvers import live, m3u8_loader, stream_link  # ytdl_wrapper,
 
 

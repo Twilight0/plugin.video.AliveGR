@@ -20,13 +20,10 @@
 
 from resources.lib.modules import action, title, url, query, sleep, tvguide, plot, genre, name
 
-
 ########################################################################################################################
 
 if action is None:
-
     from resources.lib.indexers import navigator
-
     navigator.Main().root()
 
 ########################################################################################################################

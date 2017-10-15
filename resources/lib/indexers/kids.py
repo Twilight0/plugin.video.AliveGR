@@ -21,7 +21,7 @@
 
 from tulip import control, cache, directory
 from ..modules.themes import iconname
-from ..modules import sysaddon, syshandle
+from tulip.init import sysaddon, syshandle
 import json
 
 class Main:

@@ -18,11 +18,9 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import sys, urlparse, xbmc
-
-syshandle = int(sys.argv[1])
-sysaddon = sys.argv[0]
-params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
+from helpers import reset_idx
+from tulip.control import infoLabel
+from tulip.init import params
 
 ########################################################################################################################
 
@@ -48,7 +46,9 @@ else:
 
 ########################################################################################################################
 
-fp = xbmc.getInfoLabel('Container.FolderPath')
+fp = infoLabel('Container.FolderPath')
 
 if 'audio' in fp and action is None:
     action = 'radio'
+
+########################################################################################################################

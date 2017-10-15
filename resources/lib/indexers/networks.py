@@ -20,7 +20,7 @@
 
 
 from tulip import control
-from ..modules import syshandle
+from tulip.init import syshandle
 
 
 class Main:

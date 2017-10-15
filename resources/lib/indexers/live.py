@@ -21,7 +21,8 @@
 import json, datetime
 
 from tulip import cache, control, directory, client, ordereddict
-from ..modules import sysaddon, syshandle
+from tulip.log import *
+from tulip.init import sysaddon, syshandle
 from ..modules.themes import iconname
 from ..modules.helpers import thgiliwt
 
@@ -36,28 +37,23 @@ class Main:
 
     def live(self):
 
-        if control.setting('dev_switch') == 'false':
+        if control.setting('debug') == 'false':
 
             result = client.request(thgiliwt('==' + self.alivegr))
 
         else:
 
-            if control.setting('show_dialog') == 'true':
-                choice = control.selectDialog(['Load local file', 'Load remote list'])
-            else:
-                choice = -1
-
-            if choice == 0:
-                local = control.setting('local')
+            if control.setting('local_remote') == '0':
+                local = control.setting('live_local')
                 with open(local) as xml:
                     result = xml.read()
                     xml.close()
-            elif choice == 1:
-                result = client.request(control.setting('remote'))
+            elif control.setting('local_remote') == '1':
+                result = client.request(control.setting('live_remote'))
             else:
                 result = client.request(thgiliwt('==' + self.alivegr))
 
-        if control.setting('dev_switch') == 'false':
+        if control.setting('debug') == 'false':
             channels = client.parseDOM(result, 'channel', attrs={'enable': '1'})
         else:
             channels = client.parseDOM(result, 'channel', attrs={'enable': '1|2'})
@@ -86,6 +82,8 @@ class Main:
 
         self.groups = list(ordereddict.OrderedDict.fromkeys(self.data))
 
+        log_notice('Number of live channels available: ' + str(len(self.list)) + ', cached for 4 hours')
+
         return self.list, self.groups, updated
 
     def switcher(self):
@@ -111,10 +109,14 @@ class Main:
 
     def live_tv(self):
 
-        if control.setting('dev_switch') == 'false':
+        if control.setting('debug') == 'false':
             self.list = cache.get(self.live, 4)[0]
         else:
             self.list = cache.get(self.live, int(control.setting('cache_period')))[0]
+
+        if self.list is None:
+            log_error('Live channels list did not load successfully')
+            return
 
         switch = {
             'title': control.lang(30047).format(
@@ -173,6 +175,7 @@ class Main:
         control.sortmethods('genre')
 
         directory.add(self.list, content='movies')
+
 
     def modular(self, group):
 

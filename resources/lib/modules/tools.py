@@ -84,8 +84,7 @@ def enable_iptv():
             if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
                 control.jsonrpc(liveoff)
                 control.jsonrpc(liveon)
-        else:
-            pass
+        else: pass
 
     elif not control.exists(control.join(iptv_folder, 'settings.xml')):
         control.infoDialog(message=control.lang(30409), time=4000)
@@ -96,8 +95,7 @@ def enable_iptv():
             control.jsonrpc(iscon)
             if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
                 control.jsonrpc(liveon)
-        else:
-            pass
+        else: pass
 
 
 def enable_proxy_module():
@@ -174,9 +172,7 @@ def yt_setup():
 
         wizard()
 
-    else:
-
-        pass
+    else: pass
 
 ########################################################################################################################
 
@@ -214,9 +210,7 @@ def checkpoint():
         control.setSetting('first_time', 'false')
         control.monitor.abortRequested()
 
-    else:
-
-        pass
+    else: pass
 
     if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
 
@@ -224,20 +218,16 @@ def checkpoint():
         import sys
         sys.exit(1)
 
-    else:
-
-        pass
+    else: pass
 
     if control.exists(control.join(control.addonPath, 'DELETE_ME')):
 
-        from helpers import cache_clear, reset_idx
+        from helpers import cache_clear
         from tools import changelog
-        cache_clear(); reset_idx(); changelog()
+        cache_clear(); changelog()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
-    else:
-
-        pass
+    else: pass
 
 
 def dev():
@@ -259,6 +249,7 @@ def dev():
             cache.clear(withyes=False)
 
         else:
+
             import sys
             control.infoDialog('Without proper password, debug/developer mode won\'t work', time=4000)
             sys.exit()

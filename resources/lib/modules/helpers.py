@@ -20,6 +20,7 @@
 
 
 from tulip import control, cache
+from tulip.log import *
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 
@@ -69,11 +70,12 @@ def smu_settings(sleep=True):
         control.Settings('script.module.urlresolver')
 
 
-def reset_idx():
+def reset_idx(notify=True):
 
     control.setSetting('live_group', 'ALL')
     control.setSetting('vod_group', '30213')
-    control.infoDialog(message=control.lang(30402), time=3000)
+    if notify:
+        control.infoDialog(message=control.lang(30402), time=3000)
 
 
 def add_to_playlist():
@@ -142,3 +144,17 @@ def thgiliwt(s):
     string = s[::-1]
 
     return b64decode(string)
+
+
+def pawsesac(s, ison=None):
+
+    string = s.swapcase()
+
+    if ison:
+
+        string = string + ison
+        return string
+
+    else:
+
+        return string

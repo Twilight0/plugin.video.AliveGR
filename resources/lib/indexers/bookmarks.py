@@ -21,6 +21,7 @@
 import json
 
 from tulip import bookmarks, directory, control
+from tulip.log import *
 from ..modules.themes import iconname
 
 
@@ -36,6 +37,7 @@ class Main:
 
         if not self.data:
 
+            log_notice('Bookmarks list is empty')
             na = [{'title': 30033, 'action':  None, 'icon': iconname('empty')}]
             directory.add(na)
 

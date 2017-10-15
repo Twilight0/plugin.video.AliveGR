@@ -20,7 +20,8 @@
 
 
 from tulip import cache, control, client
-from ..modules import syshandle
+from tulip.log import *
+from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
 
 
@@ -33,20 +34,18 @@ class Main:
 
     def misc_list(self):
 
-        if control.setting('dev_switch') == 'false':
+        if control.setting('debug') == 'false':
 
             playlists = client.request(thgiliwt('==' + self.misc))
 
         else:
 
-            choice = control.selectDialog(['Load local file', 'Load custom remote list'])
-
-            if choice == 0:
+            if control.setting('local_remote') == '0':
                 local = control.setting('misc_local')
                 with open(local) as xml:
                     playlists = xml.read()
                     xml.close()
-            elif choice == 1:
+            elif control.setting('local_remote') == '1':
                 playlists = client.request(control.setting('misc_remote'))
             else:
                 playlists = client.request(thgiliwt(self.misc))
@@ -70,12 +69,13 @@ class Main:
 
     def miscellany(self):
 
-        if control.setting('dev_switch') == 'true':
+        if control.setting('debug') == 'true':
             self.data = cache.get(self.misc_list, int(control.setting('cache_period')))
         else:
             self.data = cache.get(self.misc_list, 24)
 
         if self.data is None:
+            log_error('Misc channels list did not load successfully')
             return
 
         self.list = []

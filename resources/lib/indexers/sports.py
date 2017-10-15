@@ -20,7 +20,7 @@
 
 from tulip import control, directory
 from ..modules.themes import iconname
-from ..modules import syshandle
+from tulip.init import syshandle
 
 
 class Main:

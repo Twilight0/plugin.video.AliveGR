@@ -5,7 +5,8 @@
         <setting id="dark_theme" label="30106" type="bool" default="true" visible="eq(-1,2)"/>
         <setting type="sep"/>
         <setting id="settings_method" type="bool" label="30133" default="false"/>
-        <setting type="lsep" label="30005"/>
+    </category>
+    <category label="30005">
         <setting id="show_live" label="30148" type="bool" default="true"/>
         <setting id="show_pvr" label="30149" type="bool" default="true"/>
         <setting id="show_networks" label="30150" type="bool" default="true"/>
@@ -24,10 +25,6 @@
         <setting id="show_search" label="30163" type="bool" default="true"/>
         <setting id="show_bookmarks" label="30164" type="bool" default="true"/>
         <setting id="show_settings" label="30165" type="bool" default="true"/>
-        <setting id="live_group" label="Live Group" type="text" default="ALL" visible="false"/>
-        <setting id="vod_group" label="VOD Group" type="text" default="30213" visible="false"/>
-        <setting id="bookmarks_group" label="Bookmarks Group" type="text" default="ALL" visible="false"/>
-        <setting id="first_time" label="First Time" type="bool" default="true" visible="false"/>
     </category>
     <category label="30004">
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
@@ -47,6 +44,7 @@
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
     </category>
     <category label="30138">
+        <setting id="reset-idx" type="bool" label="30229" default="true"/>
         <setting visible="true" label="30134" type="action" action="RunPlugin(plugin://$ID/?action=reset_idx)"/>
         <setting type="sep"/>
         <setting visible="true" label="30056" type="action" action="RunPlugin(plugin://$ID/?action=cache_clear)"/>
@@ -54,6 +52,11 @@
         <setting visible="true" label="30135" type="action" action="RunPlugin(plugin://$ID/?action=purge_bookmarks)"/>
         <setting type="sep"/>
         <setting visible="true" label="30136" type="action" action="RunPlugin(plugin://$ID/?action=delete_settings)"/>
+        <setting type="sep"/>
+        <setting id="live_group" label="Live Group" type="text" default="ALL" visible="false"/>
+        <setting id="vod_group" label="VOD Group" type="text" default="30213" visible="false"/>
+        <setting id="bookmarks_group" label="Bookmarks Group" type="text" default="ALL" visible="false"/>
+        <setting id="first_time" label="First Time" type="bool" default="true" visible="false"/>
     </category>
     <category label="30017">
         <setting visible="true" label="30018" type="action" action="RunPlugin(plugin://$ID/?action=setup_iptv)"/>
@@ -69,11 +72,12 @@
         <setting visible="true" label="30114" type="action" action="RunPlugin(plugin://$ID/?action=changelog)"/>
         <setting visible="true" label="30013" type="action" action="RunPlugin(plugin://$ID/?action=developer_mode)"/>
         <setting id="toggler" type="bool" label="toggler" default="false" visible="false"/>
-        <setting id="dev_switch" type="bool" label="Debugging Mode" default="false" visible="eq(-1,true)"/>
-        <setting id="local" label="Local playlist file" type="file" default="" visible="eq(-2,true)"/>
-        <setting id="remote" label="Remote playlist url" type="text" default="" visible="eq(-3,true)"/>
-        <setting id="misc_local" label="Local misc playlist file" type="file" default="" visible="eq(-4,true)"/>
-        <setting id="misc_remote" label="Remote misc playlist url" type="text" default="" visible="eq(-5,true)"/>
+        <setting id="debug" type="bool" label="Debugging Mode" default="false" visible="eq(-1,true)"/>
+        <setting id="local_remote" type="enum" label="Local/Remote Selector" values="Local|Remote|Default" default="0"/>
+        <setting id="live_local" label="Local playlist file" type="file" default="" visible="eq(-2,true) + eq(-1,0)"/>
+        <setting id="live_remote" label="Remote playlist url" type="text" default="" visible="eq(-3,true) + eq(-2,1)"/>
+        <setting id="misc_local" label="Local misc playlist file" type="file" default="" visible="eq(-4,true) + eq(-3,0)"/>
+        <setting id="misc_remote" label="Remote misc playlist url" type="text" default="" visible="eq(-5,true) + eq(-4,1)"/>
         <setting id="show_info" type="bool" label="30087" default="false" visible="eq(-6,true)"/>
         <setting id="cache_period" type="number" label="Custom cache period" default="4" visible="eq(-7,true)"/>
         <setting id="show_dialog" type="bool" label="Display Dialog" default="true" visible="eq(-8,true)"/>

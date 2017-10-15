@@ -21,7 +21,7 @@
 import json, re
 
 from tulip import youtube, cache, directory, control, workers
-from ..modules import syshandle
+from tulip.init import syshandle
 from ..modules.tools import api_keys
 from ..modules.themes import iconname
 from ..modules.helpers import thgiliwt

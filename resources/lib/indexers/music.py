@@ -21,9 +21,10 @@
 import json, re, urllib
 
 from tulip import control, directory, cache, client
+from tulip.log import *
 from urlparse import urljoin
 from ..modules.themes import iconname
-from ..modules import syshandle
+from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
 from ..modules.tools import api_keys
 from youtu_be import base_link as yt_base_link
@@ -173,6 +174,7 @@ class Main:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
+            log_error('Artist\'s section failed to load successfully')
             return
 
         for item in self.list:
@@ -188,6 +190,7 @@ class Main:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
+            log_error('Album index section failed to load successfully')
             return
 
         for item in self.list:
@@ -205,6 +208,7 @@ class Main:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
+            log_error('Songs section failed to load successfully')
             return
 
         # if control.setting('audio_only') == 'true':
@@ -228,6 +232,7 @@ class Main:
         self.list = youtu_be.yt_playlists(self.mgreekz_id)
 
         if self.list is None:
+            log_error('Mad_greekz index section failed to load successfully')
             return
 
         for item in self.list:
@@ -276,6 +281,7 @@ class Main:
         self.list = cache.get(self._top10, 24)
 
         if self.list is None:
+            log_error('Mad_greekz top 10 section failed to load successfully')
             return
 
         # Reserved for later use
@@ -377,6 +383,7 @@ class Main:
         self.list = cache.get(self._top20, 24, url)
 
         if self.list is None:
+            log_error('Top 20 list section failed to load successfully')
             return
 
         if url == self.rythmos_top20_url:
@@ -388,6 +395,9 @@ class Main:
         elif url.rstrip('12') == self.radiopolis_url:
             fanart = 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             album = control.lang(30222)
+        else:
+            fanart = control.addonInfo('fanart')
+            album = 'AliveGR \'s Top Music'
 
         # Reserved for later use
         # if control.setting('audio_only') == 'true':

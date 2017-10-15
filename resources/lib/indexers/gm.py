@@ -22,9 +22,10 @@ import re
 import json
 
 from tulip import control, cache, client, directory
+from tulip.log import *
 from urlparse import urljoin, urlparse
 from ..modules.themes import iconname
-from ..modules import syshandle, sysaddon
+from tulip.init import syshandle, sysaddon
 
 
 base_link = 'http://greek-movies.com/'
@@ -134,7 +135,11 @@ class Main:
 
         self.data = cache.get(root, 24, movies_link)[0]
 
-        self.list = [item for item in self.data if any(group in item['group'] for group in [control.setting('vod_group').decode('utf-8')])]
+        self.list = [
+            item for item in self.data if any(
+                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+            )
+        ]
 
         for item in self.list:
             item.update({'icon': iconname('movies')})
@@ -150,7 +155,11 @@ class Main:
 
         self.data = cache.get(root, 24, series_link)[0]
 
-        self.list = [item for item in self.data if any(group in item['group'] for group in [control.setting('vod_group').decode('utf-8')])]
+        self.list = [
+            item for item in self.data if any(
+                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+            )
+        ]
 
         for item in self.list:
             item.update({'icon': iconname('series')})
@@ -166,7 +175,11 @@ class Main:
 
         self.data = cache.get(root, 24, shows_link)[0]
 
-        self.list = [item for item in self.data if any(group in item['group'] for group in [control.setting('vod_group').decode('utf-8')])]
+        self.list = [
+            item for item in self.data if any(
+                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+            )
+        ]
 
         for item in self.list:
             item.update({'icon': iconname('shows')})
@@ -182,7 +195,11 @@ class Main:
 
         self.data = cache.get(root, 24, animation_link)[0]
 
-        self.list = [item for item in self.data if any(group in item['group'] for group in [control.setting('vod_group').decode('utf-8')])]
+        self.list = [
+            item for item in self.data if any(
+                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+            )
+        ]
 
         for item in self.list:
             item.update({'icon': iconname('cartoon_series')})
@@ -198,7 +215,11 @@ class Main:
 
         self.data = cache.get(root, 24, theater_link)[0]
 
-        self.list = [item for item in self.data if any(group in item['group'] for group in [control.setting('vod_group').decode('utf-8')])]
+        self.list = [
+            item for item in self.data if any(
+                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+            )
+        ]
 
         for item in self.list:
             item.update({'icon': iconname('theater')})
@@ -214,7 +235,11 @@ class Main:
 
         self.data = cache.get(root, 24, shortfilms_link)[0]
 
-        self.list = [item for item in self.data if any(group in item['group'] for group in [control.setting('vod_group').decode('utf-8')])]
+        self.list = [
+            item for item in self.data if any(
+                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+            )
+        ]
 
         for item in self.list:
             item.update({'icon': iconname('short')})
@@ -295,7 +320,7 @@ class Main:
             year = re.findall('.*?\((\d{4})', title, re.U)[0]
 
             # Not normally used, available only on dev mode, as it creates a lot of traffic:
-            if control.setting('show_info') == 'true' and control.setting('dev_switch') == 'true':
+            if control.setting('show_info') == 'true' and control.setting('debug') == 'true':
 
                 item_html = client.request(link)
 
@@ -351,6 +376,7 @@ class Main:
         self.list = cache.get(self.items_list, 12, url)
 
         if self.list is None:
+            log_error('Listing section failed to load successfully, try to reset indexer methods')
             return
 
         if url.startswith((movies_link, theater_link, shortfilms_link)):
@@ -450,6 +476,7 @@ class Main:
         self.list = cache.get(self.epeisodia, 12, url)
 
         if self.list is None:
+            log_error('Episode section failed to load successfully, try to reset indexer methods')
             return
 
         if control.setting('dialog_type') == '0':
@@ -472,9 +499,15 @@ class Main:
         control.sortmethods('year')
 
         if control.setting('episodes_reverse') == 'true':
-            self.list = sorted(self.list, key=lambda k: (k['group'], k['title']) if k['group'] in ['1bynumber', '3bytitle'] else k['group'])
+            self.list = sorted(
+                self.list,
+                key=lambda k: (k['group'], k['title']) if k['group'] in ['1bynumber', '3bytitle'] else k['group']
+            )
         else:
-            self.list = sorted(self.list, key=lambda k: k['group'])
+            self.list = sorted(
+                self.list,
+                key=lambda k: k['group']
+            )
 
         directory.add(self.list, content='episodes')
 
@@ -523,6 +556,7 @@ class Main:
         self.list = cache.get(self.event_list, 12, url)
 
         if self.list is None:
+            log_error('Events section failed to load successfully, try to reset indexer methods')
             return
 
         for item in self.list:

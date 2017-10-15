@@ -38,32 +38,38 @@ class Main:
             }
             ,
             {
-                'title': control.lang(30011) + ': ' + control.lang(30004),
+                'title': control.lang(30011) + ': ' + control.lang(30005),
                 'action': 'openSettings&query=1.0',
+                'icon': iconname('settings')
+            }
+            ,
+            {
+                'title': control.lang(30011) + ': ' + control.lang(30004),
+                'action': 'openSettings&query=2.0',
                 'icon': iconname('monitor')
             }
             ,
             {
                 'title': control.lang(30011) + ': ' + control.lang(30109),
-                'action': 'openSettings&query=2.0',
+                'action': 'openSettings&query=3.0',
                 'icon': iconname('movies')
             }
             ,
             {
                 'title': control.lang(30011) + ': ' + control.lang(30138),
-                'action': 'openSettings&query=3.0',
-                'icon': iconname('settings')
-            }
-            ,
-            {
-                'title': control.lang(30011) + ': ' + control.lang(30017),
                 'action': 'openSettings&query=4.0',
                 'icon': iconname('settings')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30115),
+                'title': control.lang(30011) + ': ' + control.lang(30017),
                 'action': 'openSettings&query=5.0',
+                'icon': iconname('settings')
+            }
+            ,
+            {
+                'title': control.addonInfo('name') + ': ' + control.lang(30115),
+                'action': 'openSettings&query=6.0',
                 'icon': iconname('godmode')
             }
             ,

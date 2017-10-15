@@ -23,7 +23,7 @@ msgid "Radio"
 msgstr ""
 
 msgctxt "#30003"
-msgid "General"
+msgid "Appearance"
 msgstr ""
 
 msgctxt "#30004"
@@ -808,6 +808,10 @@ msgstr ""
 
 msgctxt "#30228"
 msgid "Toggle (un)watched status"
+msgstr ""
+
+msgctxt "#30229"
+msgid "Toggle auto reset indexers"
 msgstr ""
 
 msgctxt "#30401"

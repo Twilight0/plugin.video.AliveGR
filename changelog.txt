@@ -1,3 +1,10 @@
++ [B]1.4.6[/B] [COLOR yellow](15-10-2017)[/COLOR]
+- Minor re-order in settings
+- Added option to reset indexers automatically
+- Tweaks for developer mode
+- Added logging to a few addon levels
+- Cosmetics
+
 + [B]1.4.5[/B] [COLOR yellow](02-10-2017)[/COLOR]
 - Added "queue to playlist" & "clear playlist" context menu items in music indexers
   > You can now create custom playlists and playback them

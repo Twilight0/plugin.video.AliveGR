@@ -19,7 +19,7 @@
 '''
 
 from tulip import cache, control, client
-from ..modules import sysaddon, syshandle
+from tulip.init import sysaddon, syshandle
 from ..modules.helpers import thgiliwt
 
 
