@@ -1,8 +1,11 @@
-+ [B]1.4.6[/B] [COLOR yellow](15-10-2017)[/COLOR]
++ [B]1.5.0[/B] [COLOR yellow](10-11-2017)[/COLOR]
 - Minor re-order in settings
 - Added option to reset indexers automatically
 - Tweaks for developer mode
 - Added logging to a few addon levels
+- Added audio-only option for music indexers
+- Fixed various sections in kids menu
+- Added newspapers' front pages in news section and as pictures addon
 - Cosmetics
 
 + [B]1.4.5[/B] [COLOR yellow](02-10-2017)[/COLOR]

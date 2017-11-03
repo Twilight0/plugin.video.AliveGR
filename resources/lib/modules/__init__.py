@@ -18,7 +18,6 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from helpers import reset_idx
 from tulip.control import infoLabel
 from tulip.init import params
 
@@ -50,5 +49,7 @@ fp = infoLabel('Container.FolderPath')
 
 if 'audio' in fp and action is None:
     action = 'radio'
+elif 'image' in fp and action is None:
+    action = 'papers_index'
 
 ########################################################################################################################

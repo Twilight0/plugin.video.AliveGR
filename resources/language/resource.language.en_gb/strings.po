@@ -487,7 +487,7 @@ msgid "ERT News"
 msgstr ""
 
 msgctxt "#30119"
-msgid "ANT1 News"
+msgid "Ant1 News"
 msgstr ""
 
 msgctxt "#30120"
@@ -812,6 +812,30 @@ msgstr ""
 
 msgctxt "#30229"
 msgid "Toggle auto reset indexers"
+msgstr ""
+
+msgctxt "#30230"
+msgid "News front pages"
+msgstr ""
+
+msgctxt "#30231"
+msgid "General"
+msgstr ""
+
+msgctxt "#30232"
+msgid "Sports"
+msgstr ""
+
+msgctxt "#30233"
+msgid "Economic"
+msgstr ""
+
+msgctxt "#30234"
+msgid "Local"
+msgstr ""
+
+msgctxt "#30235"
+msgid "All groups"
 msgstr ""
 
 msgctxt "#30401"

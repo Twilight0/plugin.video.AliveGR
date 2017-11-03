@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.4.6~alpha1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.0~alpha1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.AliveGR.artwork" version="2.2.0"/>
@@ -11,7 +11,7 @@
         <import addon="plugin.video.youtube" version="5.4.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="run.py">
-        <provides>video audio</provides>
+        <provides>video audio image</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
@@ -34,11 +34,14 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
-+ [B]1.4.6[/B] [COLOR yellow](15-10-2017)[/COLOR]
++ [B]1.5.0[/B] [COLOR yellow](10-11-2017)[/COLOR]
 - Minor re-order in settings
 - Added option to reset indexers automatically
 - Tweaks for developer mode
 - Added logging to a few addon levels
+- Added audio-only option for music indexers
+- Fixed various sections in kids menu
+- Added newspapers' front pages in news section and as pictures addon
 - Cosmetics
 
 + [B]1.4.5[/B] [COLOR yellow](02-10-2017)[/COLOR]

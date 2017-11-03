@@ -33,8 +33,6 @@ class Main:
 
     def root(self):
 
-        log_notice('Main menu loaded, have fun...')
-
         self.list = [
             {
                 'title': 30001,
@@ -194,8 +192,10 @@ class Main:
         from ..modules.tools import checkpoint
         checkpoint()
 
-        directory.add(self.list)
+        log_notice('Main menu loaded, have fun...')
 
         if control.setting('reset-idx') == 'true':
             log_notice('Indexers have been reset')
             reset(notify=False)
+
+        directory.add(self.list)

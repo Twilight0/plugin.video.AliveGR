@@ -19,19 +19,28 @@
 '''
 
 
-from tulip import control
-from tulip.init import syshandle
+from tulip import control, client, cache
+from tulip.init import syshandle, sysaddon
+from ..modules.themes import iconname
 
 
 class Main:
 
     def __init__(self):
 
-        self.list = []
+        self.list = []; self.data = []; self.directory = []
+        self.fp_link = 'http://www.frontpages.gr'
 
     def news(self):
 
-        networks = [
+        items = [
+            {
+                'title': control.lang(30230),
+                'icon': 'https://cdn4.iconfinder.com/data/icons/project-document-std-pack-3/512/newspaper-256.png',
+                'url': '{0}?action=papers'.format(sysaddon),
+                'fanart': control.addonInfo('fanart')
+            }
+            ,
             {
                 'title': control.lang(30118),
                 'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ert_icon.png'),
@@ -73,15 +82,117 @@ class Main:
                 'url': 'plugin://plugin.video.euronews.com/?action=videos&url=%22methodName%22%3a%22content.getThemeDetails%22%2c%22params%22%3a%7b%22tId%22%3a%221%22%7d',
                 'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='euronews_fanart.jpg')
             }
-
         ]
 
-        for network in networks:
-            list_item = control.item(label=network['title'])
-            list_item.setArt({'icon': network['icon'], 'fanart': network['fanart']})
-            url = network['url']
+        for item in items:
+            list_item = control.item(label=item['title'])
+            list_item.setArt({'icon': item['icon'], 'fanart': item['fanart']})
+            url = item['url']
             isFolder = True
             self.list.append((url, list_item, isFolder))
 
         control.addItems(syshandle, self.list)
+        control.directory(syshandle)
+
+    def switcher(self):
+
+        def seq(choose):
+
+            control.setSetting('papers_group', choose)
+            control.idle()
+            control.sleep(50)
+            control.refresh()
+
+        groups = (
+            [control.lang(30235), control.lang(30231), control.lang(30232), control.lang(30233), control.lang(30234)],
+            ['0', '1', '2', '3', '4']
+        )
+
+        choice = control.selectDialog(heading=control.lang(30049), list=groups[0])
+
+        if choice == 0:
+            seq('0')
+        elif choice <= len(groups[0]) and not choice == -1:
+            seq(groups[1].pop(choice))
+        else:
+            control.execute('Dialog.Close(all)')
+
+    def front_pages(self):
+
+        html = client.request(self.fp_link)
+
+        groups = client.parseDOM(html.decode('utf-8'), 'div', attrs={'class': 'tabbertab'})
+
+        for group, papers in list(enumerate(groups, start=1)):
+
+            items = client.parseDOM(papers, 'div', attrs={'class': 'thumber'})
+
+            for i in items:
+
+                name = client.parseDOM(i, 'a', attrs={'style': 'font-size:12px;color:white;'})[0]
+                headline = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='alt')[0]
+                title = name + ' ' + headline
+                image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='src')[0]
+                image = self.fp_link + image
+                link = image.replace('B.jpg', 'I.jpg')
+
+                data = {'title': title, 'image': image, 'url': link, 'group': group}
+
+                self.list.append(data)
+
+        return self.list
+
+    def papers_index(self):
+
+        self.data = cache.get(self.front_pages, 12)
+
+        if not self.data:
+            return
+
+        for i in self.data:
+            i.update({'action': None, 'isFolder': 'False'})
+
+        self.list = [
+            item for item in self.data if any(
+                item['group'] == group for group in [int(control.setting('papers_group'))]
+            )
+        ] if not control.setting('papers_group') == '0' else self.data
+
+        if control.setting('papers_group') == '1':
+            integer = 30231
+        elif control.setting('papers_group') == '2':
+            integer = 30232
+        elif control.setting('papers_group') == '3':
+            integer = 30233
+        elif control.setting('papers_group') == '4':
+            integer = 30234
+        else:
+            integer = 30235
+
+        switch = {
+            'title': control.lang(30047).format(control.lang(integer)),
+            'icon': iconname('switcher'),
+            'action': 'papers_switcher'
+        }
+
+        if control.setting('show-switcher') == 'true':
+
+            li = control.item(label=switch['title'], iconImage=switch['icon'])
+            li.setArt({'fanart': control.addonInfo('fanart')})
+            url = '{0}?action={1}'.format(sysaddon, switch['action'])
+            control.addItem(syshandle, url, li)
+
+        else:
+            pass
+
+        for i in self.list:
+
+            li = control.item(label=i['title'], iconImage=i['image'])
+            li.setArt({'poster': i['image'], 'thumb': i['image'], 'fanart': control.addonInfo('fanart')})
+            li.setInfo('image', {'title': i['title'], 'picturepath': i['url']})
+            url = i['url']
+            isFolder = False
+            self.directory.append((url, li, isFolder))
+
+        control.addItems(syshandle, self.directory)
         control.directory(syshandle)

@@ -55,6 +55,7 @@
         <setting type="sep"/>
         <setting id="live_group" label="Live Group" type="text" default="ALL" visible="false"/>
         <setting id="vod_group" label="VOD Group" type="text" default="30213" visible="false"/>
+        <setting id="papers_group" label="Papers Group" type="text" default="0" visible="false"/>
         <setting id="bookmarks_group" label="Bookmarks Group" type="text" default="ALL" visible="false"/>
         <setting id="first_time" label="First Time" type="bool" default="true" visible="false"/>
     </category>

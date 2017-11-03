@@ -49,6 +49,11 @@ def pvr_client(tvguide='false'):
         control.infoDialog(message=control.lang(30065))
 
 
+def papers():
+
+    control.execute('ActivateWindow(10002,"plugin://plugin.video.AliveGR/?content_type=image",return)')
+
+
 def stream_picker(qualities, urls):
 
     choice = control.selectDialog(heading=control.lang(30167).partition(' (')[0], list=qualities)
@@ -72,8 +77,10 @@ def smu_settings(sleep=True):
 
 def reset_idx(notify=True):
 
+    log_notice('Indexers have been reset')
     control.setSetting('live_group', 'ALL')
     control.setSetting('vod_group', '30213')
+    control.setSetting('papers_group', '0')
     if notify:
         control.infoDialog(message=control.lang(30402), time=3000)
 
@@ -95,6 +102,7 @@ def toggle_watched():
 
 def cache_clear():
 
+    log_notice('Cache has been cleared')
     cache.clear(withyes=False)
 
 

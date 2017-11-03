@@ -164,6 +164,14 @@ elif action == 'radio':
     from resources.lib.indexers import radios
     radios.Main().radio()
 
+elif action == 'papers':
+    from resources.lib.modules import helpers
+    helpers.papers()
+
+elif action == 'papers_index':
+    from resources.lib.indexers import news
+    news.Main().papers_index()
+
 elif action == 'addBookmark':
     from tulip import bookmarks
     bookmarks.add(url)
@@ -212,10 +220,9 @@ elif action == 'vod_switcher':
     from resources.lib.indexers import gm
     gm.Main().vod_switcher(url)
 
-# TODO:
-# elif action == 'bookmarks_switcher':
-#     from resources.lib.indexers import bookmarks
-#     bookmarks.Main().switcher()
+elif action == 'papers_switcher':
+    from resources.lib.indexers import news
+    news.Main().switcher()
 
 elif action == 'setup_iptv':
     from resources.lib.modules import tools

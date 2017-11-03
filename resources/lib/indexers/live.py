@@ -77,6 +77,7 @@ class Main:
                     'genre': control.lang(int(group)), 'plot': info
                 }
             )
+
             self.list.append(data)
             self.data.append(group)
 
@@ -117,6 +118,8 @@ class Main:
         if self.list is None:
             log_error('Live channels list did not load successfully')
             return
+        else:
+            log_notice('Cached live channels available: ' + str(len(self.list)))
 
         switch = {
             'title': control.lang(30047).format(
@@ -197,8 +200,12 @@ class Main:
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
-            item.update({'cm': [bookmark_cm, r_and_c_cm], 'action': 'play', 'isFolder': 'False', 'year': year,
-                         'duration': None, 'fanart': fanart})
+            item.update(
+                {
+                    'cm': [bookmark_cm, r_and_c_cm], 'action': 'play', 'isFolder': 'False', 'year': year,
+                    'duration': None, 'fanart': fanart
+                }
+            )
 
         self.list = sorted(self.list, key=lambda k: k['title'].lower())
 

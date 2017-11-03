@@ -133,7 +133,7 @@ class Main:
             else:
                 li = control.item(label=item['title'])
             li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
-            self.list.append((item['url'], li, item['isFolder']))
+            self.list.append((item['url'], li, True))
 
         control.addItems(syshandle, self.list)
         control.directory(syshandle)
@@ -217,7 +217,7 @@ class Main:
             else:
                 li = control.item(label=item['title'])
             li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
-            self.list.append((item['url'], li, item['isFolder']))
+            self.list.append((item['url'], li, True))
 
         control.addItems(syshandle, self.list)
         control.directory(syshandle)
@@ -283,7 +283,7 @@ class Main:
             else:
                 li = control.item(label=item['title'])
             li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
-            self.list.append((item['url'], li, item['isFolder']))
+            self.list.append((item['url'], li, True))
 
         control.addItems(syshandle, self.list)
         control.directory(syshandle)

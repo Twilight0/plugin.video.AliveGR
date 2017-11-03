@@ -484,15 +484,15 @@ msgstr "Αθλήματα & Αγώνες"
 
 msgctxt "#30118"
 msgid "ERT News"
-msgstr "ΕΡΤ Ειδήσεις"
+msgstr "Δελτία Ειδήσεων της ΕΡΤ"
 
 msgctxt "#30119"
-msgid "ANT1 News"
-msgstr "Τα νέα του ΑΝΤ1"
+msgid "Ant1 News"
+msgstr "Τα νέα του Αnt1"
 
 msgctxt "#30120"
 msgid "Star News"
-msgstr "Star Ειδήσεις"
+msgstr "Ειδήσεις από το Star"
 
 msgctxt "#30121"
 msgid "Skai News"
@@ -813,6 +813,30 @@ msgstr "Εναλλαγή (μη)προβληθέντος κατάστασης"
 msgctxt "#30229"
 msgid "Toggle auto reset indexers"
 msgstr "Εναλλαγή αυτόματης επαναφοράς ομαδοποιητών"
+
+msgctxt "#30230"
+msgid "News front pages"
+msgstr "Πρωτοσέλιδα εφημερίδων"
+
+msgctxt "#30231"
+msgid "General"
+msgstr "Πολιτικές"
+
+msgctxt "#30232"
+msgid "Sports"
+msgstr "Αθλητικές"
+
+msgctxt "#30233"
+msgid "Economic"
+msgstr "Οικονομικές"
+
+msgctxt "#30234"
+msgid "Local"
+msgstr "Τοπικές"
+
+msgctxt "#30235"
+msgid "All groups"
+msgstr "Όλες οι κατηγορίες"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"
