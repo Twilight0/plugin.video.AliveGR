@@ -1,4 +1,4 @@
-+ [B]1.5.0[/B] [COLOR yellow](10-11-2017)[/COLOR]
++ [B]1.5.0[/B] [COLOR yellow](05-11-2017)[/COLOR]
 - Minor re-order in settings
 - Added option to reset indexers automatically
 - Tweaks for developer mode
