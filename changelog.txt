@@ -1,3 +1,7 @@
++ [B]1.5.1[/B] [COLOR yellow](05-11-2017)[/COLOR]
+- Fixed playback of audio-only streams other the gm indexer's
+- Added songs content type when audio-only streams are selected
+
 + [B]1.5.0[/B] [COLOR yellow](05-11-2017)[/COLOR]
 - Minor re-order in settings
 - Added option to reset indexers automatically

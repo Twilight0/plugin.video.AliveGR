@@ -313,15 +313,13 @@ def player(url, name):
 
         if any(['music' in sources[0], 'view' in sources[0]]):
 
-            print type(control.condVisibility('Window.IsActive(music)'))
-
             if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsActive(music)') == 1:
                 link = sources[1] + '#audio_only'
             else:
                 link = sources[1]
 
             stream = yt_wrapper.wrapper(link)
-            directory.resolve(stream)
+            directory.resolve(stream[0])
 
         else:
 

@@ -222,8 +222,10 @@ class Main:
                 for item in self.list
             ]
             log_notice('Tracks loaded as audio only')
+            content = 'songs'
         else:
             log_notice('Normal playback of tracks')
+            content = 'musicvideos'
 
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
@@ -231,7 +233,7 @@ class Main:
             item.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play',
                          'isFolder': 'False', 'album': album, 'tracknumber': count})
 
-        directory.add(self.list, content='musicvideos')
+        directory.add(self.list, content=content)
 
     def mgreekz_index(self):
 
@@ -298,8 +300,10 @@ class Main:
                 for item in self.list
             ]
             log_notice('Tracks loaded as audio only')
+            content = 'songs'
         else:
             log_notice('Normal playback of tracks')
+            content = 'musicvideos'
 
         self.list = self.list[::-1]
 
@@ -316,7 +320,7 @@ class Main:
                 }
             )
 
-        directory.add(self.list, content='musicvideos')
+        directory.add(self.list, content=content)
 
     def _top20(self, url):
 
@@ -415,8 +419,10 @@ class Main:
                 for item in self.list
             ]
             log_notice('Tracks loaded as audio only')
+            content = 'songs'
         else:
             log_notice('Normal playback of tracks')
+            content = 'musicvideos'
 
         for item in self.list:
 
@@ -425,4 +431,4 @@ class Main:
             item.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False',
                          'album': album, 'fanart': fanart})
 
-        directory.add(self.list, content='musicvideos')
+        directory.add(self.list, content=content)

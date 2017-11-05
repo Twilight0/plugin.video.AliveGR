@@ -60,7 +60,7 @@ def wrapper(url):
             'Window.IsActive(music)') == 1:
 
         stream = streams[-5]['url']
-        return stream
+        return stream, False
 
     elif control.setting('yt_quality_picker') == '1':
 
