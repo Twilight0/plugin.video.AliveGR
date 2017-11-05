@@ -81,7 +81,9 @@ def wrapper(url):
 
         if addon_version('xbmc.python') < 225:
             selected = streams[1]['url']
+            return selected, False
         else:
             selected = streams[0]['url']
+            return selected, True
 
-        return selected, False
+

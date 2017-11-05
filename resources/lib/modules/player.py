@@ -319,7 +319,11 @@ def player(url, name):
                 link = sources[1]
 
             stream = yt_wrapper.wrapper(link)
-            directory.resolve(stream[0])
+
+            if len(stream) == 2:
+                directory.resolve(stream[0], dash=stream[1])
+            else:
+                directory.resolve(stream)
 
         else:
 
