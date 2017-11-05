@@ -1,3 +1,9 @@
++ [B]1.5.3[/B] [COLOR yellow](06-11-2017)[/COLOR]
+- Re-added urlresolver call in player's wrapper function
+
++ [B]1.5.2[/B] [COLOR yellow](05-11-2017)[/COLOR]
+- Fixed another bug which dash music videos could not playback when best quality was selected.
+
 + [B]1.5.1[/B] [COLOR yellow](05-11-2017)[/COLOR]
 - Fixed playback of audio-only streams other the gm indexer's
 - Added songs content type when audio-only streams are selected

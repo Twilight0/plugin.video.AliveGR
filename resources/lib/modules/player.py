@@ -34,11 +34,11 @@ from ..modules.tools import api_keys
 
 def wrapper(url):
 
-    # if urlresolver.HostedMediaFile(url).valid_url():
-    #     stream = urlresolver.resolve(url)
-    #     return stream
+    if urlresolver.HostedMediaFile(url).valid_url():
+        stream = urlresolver.resolve(url)
+        return stream
 
-    if 'antenna' in url and not 'live_1' in url:
+    elif 'antenna' in url and not 'live_1' in url:
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
@@ -302,7 +302,7 @@ def player(url, name):
         else:
             directory.resolve(stream)
 
-    elif urlresolver.HostedMediaFile(result).valid_url() and not 'youtu' in result:
+    elif urlresolver.HostedMediaFile(result).valid_url():
 
         stream = urlresolver.resolve(result)
         directory.resolve(stream, meta={'title': name})
