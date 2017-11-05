@@ -65,6 +65,13 @@ def stream_picker(qualities, urls):
         return 30403
 
 
+def addon_version(addon_id):
+
+    version = int(control.infoLabel('System.AddonVersion({0})'.format(addon_id)).replace('.', ''))
+
+    return version
+
+
 def smu_settings(sleep=True):
 
     if sleep:

@@ -20,7 +20,7 @@
 
 import re, youtube_resolver
 from tulip import client, control
-from ..modules.helpers import stream_picker
+from ..modules.helpers import stream_picker, addon_version
 
 
 yt_prefix = 'plugin://plugin.video.youtube/play/?video_id='
@@ -66,6 +66,11 @@ def wrapper(url):
 
         qualities = [i['title'] for i in streams]
         urls = [i['url'] for i in streams]
+
+        if addon_version('xbmc.python') < 225:
+            del qualities[0]
+            del urls[0]
+
         stream = stream_picker(qualities, urls)
         if stream == streams[0]['url']:
             return stream, True
@@ -74,5 +79,9 @@ def wrapper(url):
 
     else:
 
-        selected = streams[1]['url']
+        if addon_version('xbmc.python') < 225:
+            selected = streams[1]['url']
+        else:
+            selected = streams[0]['url']
+
         return selected, False
