@@ -55,7 +55,7 @@ def megagr(url):
 
     except:
 
-        from ..indexers.youtu_be import base_link
+        from ..resolvers.yt_wrapper import base_link
 
         pattern = re.compile('"https?://(?:www\.youtube\.com|youtu\.be)/(?:watch\?v=|embed/|)([\w-]*?)"')
 
@@ -85,7 +85,7 @@ def ert(url):
 
 def skai(url):
 
-    from ..indexers.youtu_be import base_link
+    from ..resolvers.yt_wrapper import base_link
 
     xml = client.request(url)
 

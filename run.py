@@ -124,6 +124,10 @@ elif action == 'miscellany':
     from resources.lib.indexers import miscellany
     miscellany.Main().miscellany()
 
+elif action == 'audio':
+    from resources.lib.indexers import navigator
+    navigator.Main().audio()
+
 elif action == 'music':
     from resources.lib.indexers import music
     music.Main().menu()

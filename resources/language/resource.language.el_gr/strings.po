@@ -795,8 +795,8 @@ msgid "Music indexers play audio only"
 msgstr "Αναπαραγωγή ήχου μόνο στην ενότητα μουσικής"
 
 msgctxt "#30225"
-msgid "Quality choice (youtube-dl)"
-msgstr "Επιλογή ποιότητας (youtube-dl)"
+msgid "Quality choice (youtube)"
+msgstr "Επιλογή ποιότητας (youtube)"
 
 msgctxt "#30226"
 msgid "Queue item to current playlist"

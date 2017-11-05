@@ -48,7 +48,7 @@ else:
 fp = infoLabel('Container.FolderPath')
 
 if 'audio' in fp and action is None:
-    action = 'radio'
+    action = 'audio'
 elif 'image' in fp and action is None:
     action = 'papers_index'
 

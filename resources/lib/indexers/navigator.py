@@ -199,3 +199,29 @@ class Main:
             reset(notify=False)
 
         directory.add(self.list)
+
+    def audio(self):
+
+        self.list = [
+            {
+                'title': 30002,
+                'action': 'radio',
+                'icon': iconname('radios')
+            }
+            ,
+            {
+                'title': 30125,
+                'action': 'music',
+                'icon': iconname('music')
+            }
+        ]
+
+        for item in self.list:
+            refresh = {'title': 30054, 'query': {'action': 'refresh'}}
+            cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
+            reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
+            item.update({'cm': [refresh, cache_clear, reset_idx]})
+
+        log_notice('Plugin started as music addon, have fun...')
+
+        directory.add(self.list)

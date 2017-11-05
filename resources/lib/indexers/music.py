@@ -27,7 +27,7 @@ from ..modules.themes import iconname
 from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
 from ..modules.tools import api_keys
-from youtu_be import base_link as yt_base_link
+from ..resolvers.yt_wrapper import base_link as yt_base_link
 from youtu_be import thumb_maker
 import gm
 
@@ -111,6 +111,9 @@ class Main:
                 'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             }
         ]
+
+        if 'audio' in control.infoLabel('Container.FolderPath'):
+            del self.list[0]
 
         directory.add(self.list)
 
@@ -210,14 +213,17 @@ class Main:
         if self.list is None:
             log_error('Songs section failed to load successfully')
             return
+        else:
+            log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
-        # if control.setting('audio_only') == 'true':
-        #     self.list = [
-        #         dict((k, item[k] + '|audio_only' if (k == 'url') else v) for k, v in item.items())
-        #         for item in self.list
-        #     ]
-        # else:
-        #     pass
+        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+            self.list = [
+                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
+                for item in self.list
+            ]
+            log_notice('Tracks loaded as audio only')
+        else:
+            log_notice('Normal playback of tracks')
 
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
@@ -283,15 +289,17 @@ class Main:
         if self.list is None:
             log_error('Mad_greekz top 10 section failed to load successfully')
             return
+        else:
+            log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
-        # Reserved for later use
-        # if control.setting('audio_only') == 'true':
-        #     self.list = [
-        #         dict((k, item[k] + '|audio_only' if (k == 'url') else v) for k, v in item.items())
-        #         for item in self.list
-        #     ]
-        # else:
-        #     pass
+        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+            self.list = [
+                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
+                for item in self.list
+            ]
+            log_notice('Tracks loaded as audio only')
+        else:
+            log_notice('Normal playback of tracks')
 
         self.list = self.list[::-1]
 
@@ -385,6 +393,8 @@ class Main:
         if self.list is None:
             log_error('Top 20 list section failed to load successfully')
             return
+        else:
+            log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
         if url == self.rythmos_top20_url:
             fanart = control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='rythmos_fanart.jpg')
@@ -399,14 +409,14 @@ class Main:
             fanart = control.addonInfo('fanart')
             album = 'AliveGR \'s Top Music'
 
-        # Reserved for later use
-        # if control.setting('audio_only') == 'true':
-        #     self.list = [
-        #         dict((k, item[k] + '|audio_only' if (k == 'url') else v) for k, v in item.items())
-        #         for item in self.list
-        #     ]
-        # else:
-        #     pass
+        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+            self.list = [
+                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
+                for item in self.list
+            ]
+            log_notice('Tracks loaded as audio only')
+        else:
+            log_notice('Normal playback of tracks')
 
         for item in self.list:
 

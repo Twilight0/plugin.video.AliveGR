@@ -28,6 +28,7 @@
     </category>
     <category label="30004">
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
+        <setting id="yt_quality_picker" type="enum" label="30225" lvalues="30168|30169" default="0"/>
         <!--<setting id="ytdl_quality_picker" type="enum" label="30225" lvalues="30168|30169" default="0"/>-->
         <setting id="m3u8_quality_picker" type="enum" label="30219" lvalues="30168|30169" default="0"/>
         <setting id="show-alt" type="bool" label="30046" default="true"/>
@@ -36,9 +37,11 @@
     <category label="30109">
         <setting visible="true" label="30111" type="action" action="RunPlugin(plugin://$ID/?action=smu_settings)"/>
         <setting type="sep"/>
-        <setting id="dialog_type" type="enum" label="30144" lvalues="30145|30146" default="0"/>
         <setting id="yt_resolve" label="30038" type="bool" default="true"/>
-        <!--<setting id="audio_only" label="30224" type="bool" default="false"/>-->
+        <setting id="dialog_type" type="enum" label="30144" lvalues="30145|30146" default="0"/>
+        <setting id="yt_quality_picker" type="enum" label="30225" lvalues="30168|30169" default="0"/>
+        <setting id="audio_only" label="30224" type="bool" default="false"/>
+        <setting type="sep"/>
         <setting id="splitter" label="30057" type="bool" default="false"/>
         <setting id="lang_split" type="enum" label="30060" lvalues="30058|30059" default="1" enable="eq(-1,true)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>

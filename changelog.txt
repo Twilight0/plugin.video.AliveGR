@@ -6,6 +6,7 @@
 - Added audio-only option for music indexers
 - Fixed various sections in kids menu
 - Added newspapers' front pages in news section and as pictures addon
+- When AliveGR is selected as music addon it now points into a stripped down menu with music items only and audio only
 - Cosmetics
 
 + [B]1.4.5[/B] [COLOR yellow](02-10-2017)[/COLOR]

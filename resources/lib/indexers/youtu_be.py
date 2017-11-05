@@ -26,9 +26,6 @@ from ..modules.tools import api_keys
 from ..modules.helpers import thgiliwt
 
 
-base_link = 'https://www.youtube.com/watch?v='
-
-
 def yt_playlists(pid):
 
     playlists = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key'])).playlists, 48, pid)

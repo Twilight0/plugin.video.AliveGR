@@ -18,24 +18,27 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import urlresolver  #, YDStreamExtractor
+import urlresolver #, YDStreamExtractor
 import random, re
 from urlparse import urljoin
 
 from tulip import directory, control, client, cache
+from tulip.log import *
 
 from ..indexers.gm import base_link
 from tulip.init import sysaddon, syshandle
-from ..resolvers import live, m3u8_loader, stream_link  # ytdl_wrapper,
+from ..resolvers import live, m3u8_loader, stream_link, yt_wrapper  # ytdl_wrapper
+from ..modules.helpers import thgiliwt, stream_picker
+from ..modules.tools import api_keys
 
 
 def wrapper(url):
 
-    if urlresolver.HostedMediaFile(url).valid_url():
-        stream = urlresolver.resolve(url)
-        return stream
+    # if urlresolver.HostedMediaFile(url).valid_url():
+    #     stream = urlresolver.resolve(url)
+    #     return stream
 
-    elif 'antenna' in url and not 'live_1' in url:
+    if 'antenna' in url and not 'live_1' in url:
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
@@ -246,6 +249,7 @@ def directory_picker(url, title, description, genre):
         return
 
     for i in items:
+
         add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
         clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
         i.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False'})
@@ -256,14 +260,31 @@ def directory_picker(url, title, description, genre):
 def player(url, name):
 
     if url is None:
+        log_error('Nothing playable was found')
         return
+    else:
+        log_notice('Invoked player method')
 
     result = url.replace('&amp;', '&')
+    conditions = ['ustream' in result, 'dailymotion' in result, 'twitch' in result, 'facebook' in result]
 
-    conditions = [
-        'ustream' in result, 'dailymotion' in result, 'youtube.com/channel/' in result,
-        'youtube.com/user/' in result, 'facebook' in result
-    ]
+    if 'youtu' in result:
+
+        stream = yt_wrapper.wrapper(result)
+        directory.resolve(stream[0], dash=stream[1])
+
+        # Alternative method reserved:
+        # if 'user' in result or 'channel' in result:
+        #
+        #     from ..resolvers import yt_wrapper
+        #     stream = yt_wrapper.traslate(result, add_base=True)
+        #     stream = urlresolver.resolve(stream)
+        #     directory.resolve(stream)
+        #
+        # else:
+        #
+        #     stream = urlresolver.resolve(result)
+        #     directory.resolve(stream, meta={'title': name})
 
     # if any(conditions) and YDStreamExtractor.mightHaveVideo(result):
     #
@@ -271,7 +292,7 @@ def player(url, name):
     #
     #     directory.resolve(stream)
 
-    if any(conditions):
+    elif any(conditions):
 
         stream = stream_link.sl_session(result)
 
@@ -281,7 +302,7 @@ def player(url, name):
         else:
             directory.resolve(stream)
 
-    elif urlresolver.HostedMediaFile(result).valid_url():
+    elif urlresolver.HostedMediaFile(result).valid_url() and not 'youtu' in result:
 
         stream = urlresolver.resolve(result)
         directory.resolve(stream, meta={'title': name})
@@ -292,7 +313,14 @@ def player(url, name):
 
         if any(['music' in sources[0], 'view' in sources[0]]):
 
-            stream = wrapper(sources[1])
+            print type(control.condVisibility('Window.IsActive(music)'))
+
+            if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsActive(music)') == 1:
+                link = sources[1] + '#audio_only'
+            else:
+                link = sources[1]
+
+            stream = yt_wrapper.wrapper(link)
             directory.resolve(stream)
 
         else:

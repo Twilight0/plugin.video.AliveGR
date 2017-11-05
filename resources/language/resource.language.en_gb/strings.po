@@ -795,7 +795,7 @@ msgid "Music indexers play audio only"
 msgstr ""
 
 msgctxt "#30225"
-msgid "Quality choice (youtube-dl)"
+msgid "Quality choice (youtube)"
 msgstr ""
 
 msgctxt "#30226"
