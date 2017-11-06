@@ -187,7 +187,8 @@ class Main:
             refresh = {'title': 30054, 'query': {'action': 'refresh'}}
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
-            item.update({'cm': [refresh, cache_clear, reset_idx]})
+            settings = {'title': 30011, 'query': {'action': 'openSettings'}}
+            item.update({'cm': [refresh, cache_clear, reset_idx, settings]})
 
         from ..modules.tools import checkpoint
         checkpoint()
@@ -220,7 +221,8 @@ class Main:
             refresh = {'title': 30054, 'query': {'action': 'refresh'}}
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
-            item.update({'cm': [refresh, cache_clear, reset_idx]})
+            settings = {'title': 30011, 'query': {'action': 'openSettings'}}
+            item.update({'cm': [refresh, cache_clear, reset_idx, settings]})
 
         log_notice('Plugin started as music addon, have fun...')
 

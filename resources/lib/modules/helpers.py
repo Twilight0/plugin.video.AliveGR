@@ -107,6 +107,11 @@ def toggle_watched():
     control.execute('Action(ToggleWatched)')
 
 
+def toggle_debug():
+
+    control.execute('ToggleDebug')
+
+
 def cache_clear():
 
     log_notice('Cache has been cleared')

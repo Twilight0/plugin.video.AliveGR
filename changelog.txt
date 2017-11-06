@@ -1,3 +1,8 @@
++ [B]1.5.4[/B] [COLOR yellow](06-11-2017)[/COLOR]
+- Various changes/cosmetics in player module
+- Added context menu item to open settings (old method)
+- Added toggle debug function for developer mode
+
 + [B]1.5.3[/B] [COLOR yellow](06-11-2017)[/COLOR]
 - Re-added urlresolver call in player's wrapper function
 

@@ -77,13 +77,14 @@
         <setting visible="true" label="30013" type="action" action="RunPlugin(plugin://$ID/?action=developer_mode)"/>
         <setting id="toggler" type="bool" label="toggler" default="false" visible="false"/>
         <setting id="debug" type="bool" label="Debugging Mode" default="false" visible="eq(-1,true)"/>
-        <setting id="local_remote" type="enum" label="Local/Remote Selector" values="Local|Remote|Default" default="0"/>
-        <setting id="live_local" label="Local playlist file" type="file" default="" visible="eq(-2,true) + eq(-1,0)"/>
-        <setting id="live_remote" label="Remote playlist url" type="text" default="" visible="eq(-3,true) + eq(-2,1)"/>
-        <setting id="misc_local" label="Local misc playlist file" type="file" default="" visible="eq(-4,true) + eq(-3,0)"/>
-        <setting id="misc_remote" label="Remote misc playlist url" type="text" default="" visible="eq(-5,true) + eq(-4,1)"/>
-        <setting id="show_info" type="bool" label="30087" default="false" visible="eq(-6,true)"/>
+        <setting label="Toggle system-wide debug" type="action" action="RunPlugin(plugin://$ID/?action=toggle_debug)" visible="eq(-1,true)"/>
+        <setting id="local_remote" type="enum" label="Local/Remote Selector" values="Local|Remote|Default" default="0" visible="eq(-2,true)"/>
+        <setting id="live_local" label="Local playlist file" type="file" default="" visible="eq(-3,true) + eq(-1,0)"/>
+        <setting id="live_remote" label="Remote playlist url" type="text" default="" visible="eq(-4,true) + eq(-2,1)"/>
+        <setting id="misc_local" label="Local misc playlist file" type="file" default="" visible="eq(-5,true) + eq(-3,0)"/>
+        <setting id="misc_remote" label="Remote misc playlist url" type="text" default="" visible="eq(-6,true) + eq(-4,1)"/>
         <setting id="cache_period" type="number" label="Custom cache period" default="4" visible="eq(-7,true)"/>
-        <setting id="show_dialog" type="bool" label="Display Dialog" default="true" visible="eq(-8,true)"/>
+        <!--<setting id="show_dialog" type="bool" label="Display Dialog" default="true" visible="eq(-8,true)"/>-->
+        <!--<setting id="show_info" type="bool" label="30087" default="false" visible="eq(-6,true)"/>-->
     </category>
 </settings>

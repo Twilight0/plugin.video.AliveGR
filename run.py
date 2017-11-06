@@ -256,6 +256,10 @@ elif action == 'toggle_watched':
     from resources.lib.modules import helpers
     helpers.toggle_watched()
 
+elif action == 'toggle_debug':
+    from resources.lib.modules import helpers
+    helpers.toggle_debug()
+
 elif action == 'cache_clear':
     from resources.lib.modules import helpers
     helpers.cache_clear()

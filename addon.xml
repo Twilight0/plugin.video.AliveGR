@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.3" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.4~alpha1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.AliveGR.artwork" version="2.2.0"/>
@@ -34,6 +34,11 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
++ [B]1.5.4[/B] [COLOR yellow](06-11-2017)[/COLOR]
+- Various changes/cosmetics in player module
+- Added context menu item to open settings (old method)
+- Added toggle debug function for developer mode
+
 + [B]1.5.3[/B] [COLOR yellow](06-11-2017)[/COLOR]
 - Re-added urlresolver call in player's wrapper function
 

@@ -32,89 +32,6 @@ from ..modules.helpers import thgiliwt, stream_picker
 from ..modules.tools import api_keys
 
 
-def wrapper(url):
-
-    if urlresolver.HostedMediaFile(url).valid_url():
-        stream = urlresolver.resolve(url)
-        return stream
-
-    elif 'antenna' in url and not 'live_1' in url:
-        return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
-    elif 'alphatv' in url and not 'live' in url:
-        return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
-    elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld2' in url:
-        return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
-    elif 'skai.gr' in url and not 'TVLive' in url:
-        return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
-
-    elif 'ant1iwo' in url:
-
-        link = client.replaceHTMLCodes(url)
-        stream = cache.get(live.ant1cy, 12, link)
-
-        return stream
-
-    elif 'megatv.com.cy/live/' in url:
-
-        stream = cache.get(live.megacy, 12, url)
-        return stream
-
-    elif 'megatv.com/webtv/' in url:
-
-        link = client.replaceHTMLCodes(url)
-        link = cache.get(live.megagr, 24, link)
-        stream = urlresolver.resolve(link)
-        return stream
-
-    elif 'webtv.ert.gr' in url:
-
-        link = cache.get(live.ert, 12, url)
-        stream = urlresolver.resolve(link)
-        return stream
-
-    elif 'skai.gr/ajax.aspx' in url:
-
-        link = client.replaceHTMLCodes(url)
-        link = cache.get(live.skai, 6, link)
-        stream = urlresolver.resolve(link)
-        return stream
-
-    elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
-
-        stream = cache.get(live.alphatv, 12, url)
-        return stream
-
-    elif 'euronews.com' in url:
-
-        stream = cache.get(live.euronews, 12, url)
-        return stream
-
-    elif 'fnetwork.com' in url:
-
-        stream = cache.get(live.fnetwork, 12, url)
-        stream = urlresolver.resolve(stream)
-        return stream
-
-    elif 'visionip.tv' in url:
-
-        sid = cache.get(live.visioniptv, 12)
-        stream = url + sid
-        return stream
-
-    elif 'ssh101.com/securelive/' in url:
-
-        stream = cache.get(live.ssh101, 48, url)
-        return stream
-
-    # elif 'rythmosfm.gr' in url:
-    #
-    #     stream = url + client.spoofer(referer=True, ref_str='https://www.rythmosfm.gr/community/top20/')
-    #     return stream
-
-    else:
-        return url
-
-
 def source_maker(url):
 
     if 'episode' in url:  # series & shows
@@ -257,6 +174,128 @@ def directory_picker(url, title, description, genre):
     directory.add(items, content='movies')
 
 
+def router(url):
+
+    conditions = ['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url]
+
+    if 'youtu' in url:
+
+        stream = yt_wrapper.wrapper(url)
+        return stream
+
+        # Alternative method reserved:
+        # if 'user' in url or 'channel' in url:
+        #
+        #     from ..resolvers import yt_wrapper
+        #     stream = yt_wrapper.traslate(url, add_base=True)
+        #     stream = urlresolver.resolve(stream)
+        #     directory.resolve(stream)
+        #
+        # else:
+        #
+        #     stream = urlresolver.resolve(url)
+        #     directory.resolve(stream, meta={'title': name})
+
+    # Reserved in case youtube-dl is used in the future:
+    # if any(conditions) and YDStreamExtractor.mightHaveVideo(url):
+    #
+    #     stream = ytdl_wrapper.ytdl_session(url)
+    #
+    #     directory.resolve(stream)
+
+    elif any(conditions):
+
+        stream = stream_link.sl_session(url)
+
+        if stream == 30403:
+            control.execute('Dialog.Close(all)')
+            control.infoDialog(control.lang(30403))
+        else:
+            directory.resolve(stream)
+
+    elif urlresolver.HostedMediaFile(url).valid_url():
+
+        stream = urlresolver.resolve(url)
+        return stream
+
+    elif 'antenna' in url and not 'live_1' in url:
+        return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
+    elif 'alphatv' in url and not 'live' in url:
+        return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
+    elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld2' in url:
+        return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
+    elif 'skai.gr' in url and not 'TVLive' in url:
+        return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
+
+    elif 'ant1iwo' in url:
+
+        link = client.replaceHTMLCodes(url)
+        stream = cache.get(live.ant1cy, 12, link)
+
+        return stream
+
+    elif 'megatv.com.cy/live/' in url:
+
+        stream = cache.get(live.megacy, 12, url)
+        return stream
+
+    elif 'megatv.com/webtv/' in url:
+
+        link = client.replaceHTMLCodes(url)
+        link = cache.get(live.megagr, 24, link)
+        stream = urlresolver.resolve(link)
+        return stream
+
+    elif 'webtv.ert.gr' in url:
+
+        link = cache.get(live.ert, 12, url)
+        stream = urlresolver.resolve(link)
+        return stream
+
+    elif 'skai.gr/ajax.aspx' in url:
+
+        link = client.replaceHTMLCodes(url)
+        link = cache.get(live.skai, 6, link)
+        stream = urlresolver.resolve(link)
+        return stream
+
+    elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
+
+        stream = cache.get(live.alphatv, 12, url)
+        return stream
+
+    elif 'euronews.com' in url:
+
+        stream = cache.get(live.euronews, 12, url)
+        return stream
+
+    elif 'fnetwork.com' in url:
+
+        stream = cache.get(live.fnetwork, 12, url)
+        stream = urlresolver.resolve(stream)
+        return stream
+
+    elif 'visionip.tv' in url:
+
+        sid = cache.get(live.visioniptv, 12)
+        stream = url + sid
+        return stream
+
+    elif 'ssh101.com/securelive/' in url:
+
+        stream = cache.get(live.ssh101, 48, url)
+        return stream
+
+    # elif 'rythmosfm.gr' in url:
+    #
+    #     stream = url + client.spoofer(referer=True, ref_str='https://www.rythmosfm.gr/community/top20/')
+    #     return stream
+
+    else:
+
+        return url
+
+
 def player(url, name):
 
     if url is None:
@@ -265,51 +304,11 @@ def player(url, name):
     else:
         log_notice('Invoked player method')
 
-    result = url.replace('&amp;', '&')
-    conditions = ['ustream' in result, 'dailymotion' in result, 'twitch' in result, 'facebook' in result]
+    link = url.replace('&amp;', '&')
 
-    if 'youtu' in result:
+    if 'greek-movies.com' in link:
 
-        stream = yt_wrapper.wrapper(result)
-        directory.resolve(stream[0], dash=stream[1])
-
-        # Alternative method reserved:
-        # if 'user' in result or 'channel' in result:
-        #
-        #     from ..resolvers import yt_wrapper
-        #     stream = yt_wrapper.traslate(result, add_base=True)
-        #     stream = urlresolver.resolve(stream)
-        #     directory.resolve(stream)
-        #
-        # else:
-        #
-        #     stream = urlresolver.resolve(result)
-        #     directory.resolve(stream, meta={'title': name})
-
-    # if any(conditions) and YDStreamExtractor.mightHaveVideo(result):
-    #
-    #     stream = ytdl_wrapper.ytdl_session(result)
-    #
-    #     directory.resolve(stream)
-
-    elif any(conditions):
-
-        stream = stream_link.sl_session(result)
-
-        if stream == 30403:
-            control.execute('Dialog.Close(all)')
-            control.infoDialog(control.lang(30403))
-        else:
-            directory.resolve(stream)
-
-    elif urlresolver.HostedMediaFile(result).valid_url():
-
-        stream = urlresolver.resolve(result)
-        directory.resolve(stream, meta={'title': name})
-
-    elif 'greek-movies.com' in result:
-
-        sources = cache.get(source_maker, 6, result)
+        sources = cache.get(source_maker, 6, link)
 
         if any(['music' in sources[0], 'view' in sources[0]]):
 
@@ -328,20 +327,40 @@ def player(url, name):
         else:
 
             link = dialog_picker(sources[1], sources[2])
+
             if link is None:
                 control.execute('Dialog.Close(all)')
             else:
-                stream = wrapper(link)
+                stream = router(link)
+
+                if len(stream) == 2:
+                    stream = stream[0]
+                    dash = stream[1]
+                else:
+                    stream = stream
+                    dash = False
+
                 try:
-                    directory.resolve(stream, meta={'plot': sources[3]})
+                    directory.resolve(stream, meta={'plot': sources[3]}, dash=dash)
                 except IndexError:
-                    directory.resolve(stream)
+                    directory.resolve(stream, dash=dash)
 
     else:
 
-        stream = wrapper(result)
+        stream = router(link)
 
-        if 'm3u8' in stream and control.setting('m3u8_quality_picker') == '1':
+        try:
+            if len(stream) == 2:
+                stream = stream[0]
+                dash = stream[1]
+            else:
+                stream = stream
+                dash = False
+        except TypeError:
+            stream = stream
+            dash = False
+
+        if 'm3u8' in stream and control.setting('m3u8_quality_picker') == '1' and not 'googlevideo' in stream:
 
             stream = m3u8_loader.m3u8_picker(stream)
 
@@ -353,7 +372,7 @@ def player(url, name):
         else:
 
             try:
-                directory.resolve(stream, meta={'title': name})
+                directory.resolve(stream, meta={'title': name}, dash=dash)
             except:
                 control.execute('Dialog.Close(all)')
                 control.infoDialog(control.lang(30112))
