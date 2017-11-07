@@ -838,6 +838,10 @@ msgctxt "#30235"
 msgid "All groups"
 msgstr "Όλες οι κατηγορίες"
 
+msgctxt "#30236"
+msgid "Newspaper front page"
+msgstr "Πρωτοσέλιδο εφημερίδας"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

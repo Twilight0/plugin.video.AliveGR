@@ -85,6 +85,7 @@ class Main:
         ]
 
         for item in items:
+
             list_item = control.item(label=item['title'])
             list_item.setArt({'icon': item['icon'], 'fanart': item['fanart']})
             url = item['url']
@@ -131,7 +132,9 @@ class Main:
 
                 name = client.parseDOM(i, 'a', attrs={'style': 'font-size:12px;color:white;'})[0]
                 headline = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='alt')[0]
-                title = name + ' ' + headline
+                if headline == '':
+                    headline = 'Πρωτοσέλιδο εφημερίδας'.decode('utf-8')
+                title = name + ': ' + headline
                 image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='src')[0]
                 image = self.fp_link + image
                 link = image.replace('B.jpg', 'I.jpg')

@@ -1,7 +1,9 @@
-+ [B]1.5.4[/B] [COLOR yellow](06-11-2017)[/COLOR]
++ [B]1.5.4[/B] [COLOR yellow](08-11-2017)[/COLOR]
 - Various changes/cosmetics in player module
 - Added context menu item to open settings (old method)
 - Added toggle debug function for developer mode
+- Added program addon extension point directing into tools menu
+- Enhanced headlines info for news papers
 
 + [B]1.5.3[/B] [COLOR yellow](06-11-2017)[/COLOR]
 - Re-added urlresolver call in player's wrapper function

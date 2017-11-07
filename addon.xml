@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.4~alpha1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.4" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.AliveGR.artwork" version="2.2.0"/>
@@ -11,7 +11,7 @@
         <import addon="plugin.video.youtube" version="5.4.99"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="run.py">
-        <provides>video audio image</provides>
+        <provides>video audio image executable</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
@@ -34,10 +34,12 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
-+ [B]1.5.4[/B] [COLOR yellow](06-11-2017)[/COLOR]
++ [B]1.5.4[/B] [COLOR yellow](08-11-2017)[/COLOR]
 - Various changes/cosmetics in player module
 - Added context menu item to open settings (old method)
 - Added toggle debug function for developer mode
+- Added program addon extension point directing into tools menu
+- Enhanced headlines info for news papers
 
 + [B]1.5.3[/B] [COLOR yellow](06-11-2017)[/COLOR]
 - Re-added urlresolver call in player's wrapper function

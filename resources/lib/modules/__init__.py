@@ -51,5 +51,7 @@ if 'audio' in fp and action is None:
     action = 'audio'
 elif 'image' in fp and action is None:
     action = 'papers_index'
+elif 'executable' in fp and action is None:
+    action = 'settings'
 
 ########################################################################################################################

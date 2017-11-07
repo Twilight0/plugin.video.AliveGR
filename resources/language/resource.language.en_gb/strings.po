@@ -838,6 +838,10 @@ msgctxt "#30235"
 msgid "All groups"
 msgstr ""
 
+msgctxt "#30236"
+msgid "Newspaper front page"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""
