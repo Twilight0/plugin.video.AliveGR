@@ -842,6 +842,66 @@ msgctxt "#30236"
 msgid "Newspaper front page"
 msgstr "Πρωτοσέλιδο εφημερίδας"
 
+msgctxt "#30237"
+msgid "Add enhanced mouse keymap for newspaper covers viewing"
+msgstr "Ενεργοποίηση βελτιωμένου χάρτη για ποντίκι κατά την θέαση εφημερίδων"
+
+msgctxt "#30238"
+msgid "This action will modify existing keymap (pictures window only)"
+msgstr "Αυτή η ενέργεια θα τροποποιήσει τον υπάρχον χάρτη πλήκτρων (μόνο για το παράθυρο εικόνων)"
+
+msgctxt "#30239"
+msgid "Miscellaneous"
+msgstr "Διάφορα"
+
+msgctxt "#30240"
+msgid "In the following dialog you can select one or more options"
+msgstr "Στο επόμενο παράθυρο μπορείτε να επιλέξετε μία ή περισσότερες επιλογές"
+
+msgctxt "#30241"
+msgid "Map left mouse click for next slide"
+msgstr "Αντιστοίχισε το αριστερό κλικ για την επόμενη διαφάνεια"
+
+msgctxt "#30242"
+msgid "Map right mouse click for previous slide"
+msgstr "Αντιστοίχισε το δεξί κλικ για την προηγούμενη διαφάνεια"
+
+msgctxt "#30243"
+msgid "Map middle mouse click for clockwise rotation"
+msgstr "Αντιστοίχισε το μεσαίο κλικ για δεξιά περιστροφή"
+
+msgctxt "#30244"
+msgid "Map mouse wheel up for zooming in"
+msgstr "Αντιστοίχισε τον τροχό προς τα πάνω για μεγένθυση"
+
+msgctxt "#30245"
+msgid "Map mouse wheel up for zooming out"
+msgstr "Αντιστοίχισε τον τροχό προς τα κάτω για σμίκρυνση"
+
+msgctxt "#30246"
+msgid "No mapping selected"
+msgstr "Δεν επιλέχθηκε κάποια αντιστοίχιση"
+
+msgctxt "#30247"
+msgid "Caution: Existing settings detected."
+msgstr "Προσοχή: Ανιχνεύθηκαν προηγούμενες ρυθμίσεις."
+
+msgctxt "#30248"
+msgid "Overwrite"
+msgstr "Εγγραφή από πάνω"
+
+msgctxt "#30249"
+msgid "Reset"
+msgstr "Επαναφορά"
+
+msgctxt "#30250"
+msgid "Enhanced keymaps"
+msgstr "Βελτιωμένοι χάρτες πλήκτρων"
+
+msgctxt "#30251"
+msgid "Youtube"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

@@ -495,9 +495,6 @@ class Main:
             unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
             item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
 
-        control.sortmethods('title')
-        control.sortmethods('year')
-
         if control.setting('episodes_reverse') == 'true':
             self.list = sorted(
                 self.list,
@@ -508,6 +505,10 @@ class Main:
                 self.list,
                 key=lambda k: k['group']
             )
+
+        control.sortmethods('unsorted')
+        control.sortmethods('title')
+        control.sortmethods('year')
 
         directory.add(self.list, content='episodes')
 

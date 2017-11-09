@@ -28,11 +28,11 @@ from helpers import thgiliwt
 ########################################################################################################################
 
 api_keys = {
-            'enablement': 'true',
-            'id': '498788153161-pe356urhr0uu2m98od6f72k0vvcdsij0.apps.googleusercontent.com',
-            'api_key': '0I1Ry82VGNWOypWMxUDR5JGMs5kQINDMmdET59UMrhTQ5NVY6lUQ',
-            'secret': 'e6RBIFCVh1Fm-IX87PVJjgUu'
-           }
+    'enablement': 'true',
+    'id': '498788153161-pe356urhr0uu2m98od6f72k0vvcdsij0.apps.googleusercontent.com',
+    'api_key': '0I1Ry82VGNWOypWMxUDR5JGMs5kQINDMmdET59UMrhTQ5NVY6lUQ',
+    'secret': 'e6RBIFCVh1Fm-IX87PVJjgUu'
+}
 
 ########################################################################################################################
 
@@ -126,6 +126,88 @@ def setup_previous_menu_key():
         control.okDialog(control.addonInfo('name'), control.lang(30027) + ', ' + control.lang(30028))
     else:
         control.infoDialog(message=control.lang(30029), time=2000)
+
+
+def setup_mouse_keymap():
+
+    location = control.transPath(control.join('special://profile', 'keymaps', 'newspapers.xml'))
+
+    def seq():
+
+        string_start = '<keymap><slideshow><mouse>'
+        string_end = '</mouse></slideshow></keymap>'
+        string_for_left = '<leftclick>NextPicture</leftclick>'
+        string_for_right = '<rightclick>PreviousPicture</rightclick>'
+        string_for_middle = '<middleclick>Rotate</middleclick>'
+        string_for_up = '<wheelup>ZoomIn</wheelup>'
+        string_for_down = '<wheeldown>ZoomOut</wheeldown>'
+
+        strings = [string_for_left, string_for_right, string_for_middle, string_for_up, string_for_down]
+
+        map_left = control.lang(30241)
+        map_right = control.lang(30242)
+        map_middle = control.lang(30243)
+        map_up = control.lang(30244)
+        map_down = control.lang(30245)
+
+        keys = [map_left, map_right, map_middle, map_up, map_down]
+
+        control.okDialog(control.addonInfo('name'), control.lang(30240))
+
+        indices = control.dialog.multiselect(control.addonInfo('name'), keys)
+
+        if not indices:
+
+            control.infoDialog(control.lang(30246))
+
+        else:
+
+            finalized = []
+
+            for i in indices:
+                finalized.append(strings[i])
+
+            joined = ''.join(finalized)
+
+            to_write = string_start + joined + string_end
+
+            with open(location, 'w') as f:
+                f.write(to_write)
+
+            control.execute('Action(reloadkeymaps)')
+
+            control.infoDialog(control.lang(30402))
+
+    yes = control.yesnoDialog(control.lang(30238))
+
+    if yes:
+
+        if control.exists(location):
+
+            choices = [control.lang(30248), control.lang(30249)]
+
+            choice = control.selectDialog(choices, heading=control.lang(30247))
+
+            if choice == 0:
+
+                seq()
+
+            elif choice == 1:
+
+                control.deleteFile(location)
+                control.execute('Action(reloadkeymaps)')
+
+            else:
+
+                control.infoDialog(control.lang(30403))
+
+        else:
+
+            seq()
+
+    else:
+
+        control.infoDialog(control.lang(30403))
 
 
 def yt_setup():

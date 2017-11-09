@@ -244,6 +244,10 @@ elif action == 'setup_previous_menu_key':
     from resources.lib.modules import tools
     tools.setup_previous_menu_key()
 
+elif action == 'setup_mouse_keymap':
+    from resources.lib.modules import tools
+    tools.setup_mouse_keymap()
+
 elif action == 'add_to_playlist':
     from resources.lib.modules import helpers
     helpers.add_to_playlist()

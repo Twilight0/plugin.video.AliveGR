@@ -177,7 +177,7 @@ class Main:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
-            log_error('Artist\'s section failed to load successfully')
+            log_error('Artist\'s section failed to load')
             return
 
         for item in self.list:
@@ -211,7 +211,7 @@ class Main:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
-            log_error('Songs section failed to load successfully')
+            log_error('Songs section failed to load')
             return
         else:
             log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
@@ -289,7 +289,7 @@ class Main:
         self.list = cache.get(self._top10, 24)
 
         if self.list is None:
-            log_error('Mad_greekz top 10 section failed to load successfully')
+            log_error('Mad Greekz top 10 section failed to load')
             return
         else:
             log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
@@ -395,7 +395,7 @@ class Main:
         self.list = cache.get(self._top20, 24, url)
 
         if self.list is None:
-            log_error('Top 20 list section failed to load successfully')
+            log_error('Top 20 list section failed to load')
             return
         else:
             log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')

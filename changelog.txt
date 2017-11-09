@@ -1,9 +1,12 @@
-+ [B]1.5.4[/B] [COLOR yellow](08-11-2017)[/COLOR]
++ [B]1.5.4[/B] [COLOR yellow](09-11-2017)[/COLOR]
 - Various changes/cosmetics in player module
 - Added context menu item to open settings (old method)
 - Added toggle debug function for developer mode
 - Added program addon extension point directing into tools menu
 - Enhanced headlines info for news papers
+- Added "default" sort method for tv series & shows episodes indexers
+- Added function for setting up enhanced mouse keymap for newspaper covers
+- Added a few debug log messages in various addon levels
 
 + [B]1.5.3[/B] [COLOR yellow](06-11-2017)[/COLOR]
 - Re-added urlresolver call in player's wrapper function

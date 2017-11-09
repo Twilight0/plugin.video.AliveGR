@@ -842,6 +842,66 @@ msgctxt "#30236"
 msgid "Newspaper front page"
 msgstr ""
 
+msgctxt "#30237"
+msgid "Add enhanced mouse keymap for newspaper covers viewing"
+msgstr ""
+
+msgctxt "#30238"
+msgid "This action will modify existing keymap (pictures window only)"
+msgstr ""
+
+msgctxt "#30239"
+msgid "Miscellaneous"
+msgstr ""
+
+msgctxt "#30240"
+msgid "In the following dialog you can select one or more options"
+msgstr ""
+
+msgctxt "#30241"
+msgid "Map left mouse click for next slide"
+msgstr ""
+
+msgctxt "#30242"
+msgid "Map right mouse click for previous slide"
+msgstr ""
+
+msgctxt "#30243"
+msgid "Map middle mouse click for clockwise rotation"
+msgstr ""
+
+msgctxt "#30244"
+msgid "Map mouse wheel up for zooming in"
+msgstr ""
+
+msgctxt "#30245"
+msgid "Map mouse wheel up for zooming out"
+msgstr ""
+
+msgctxt "#30246"
+msgid "No mapping selected"
+msgstr ""
+
+msgctxt "#30247"
+msgid "Caution: Existing settings detected"
+msgstr ""
+
+msgctxt "#30248"
+msgid "Overwrite"
+msgstr ""
+
+msgctxt "#30249"
+msgid "Reset"
+msgstr ""
+
+msgctxt "#30250"
+msgid "Enhanced keymaps"
+msgstr ""
+
+msgctxt "#30251"
+msgid "Youtube"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

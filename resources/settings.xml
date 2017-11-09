@@ -63,12 +63,14 @@
         <setting id="first_time" label="First Time" type="bool" default="true" visible="false"/>
     </category>
     <category label="30017">
+        <setting type="lsep" label="30018"/>
         <setting visible="true" label="30018" type="action" action="RunPlugin(plugin://$ID/?action=setup_iptv)"/>
         <setting visible="true" label="30408" type="action" action="RunPlugin(plugin://$ID/?action=enable_iptv)"/>
         <setting visible="true" label="30166" type="action" action="RunPlugin(plugin://$ID/?action=enable_proxy)"/>
-        <setting type="sep"/>
+        <setting type="lsep" label="30250"/>
         <setting visible="true" label="30019" type="action" action="RunPlugin(plugin://$ID/?action=setup_previous_menu_key)"/>
-        <setting type="sep"/>
+        <setting visible="true" label="30237" type="action" action="RunPlugin(plugin://$ID/?action=setup_mouse_keymap)"/>
+        <setting type="lsep" label="30251"/>
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
     </category>
     <category label="30115">

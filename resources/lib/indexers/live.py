@@ -85,6 +85,8 @@ class Main:
 
         log_notice('Number of live channels available: ' + str(len(self.list)) + ', cached for 4 hours')
 
+        if control.setSetting('debug') == 'true': log_debug('Live list uncached' + repr(self.list))
+
         return self.list, self.groups, updated
 
     def switcher(self):
@@ -118,6 +120,8 @@ class Main:
         if self.list is None:
             log_error('Live channels list did not load successfully')
             return
+        elif control.setSetting('debug') == 'true':
+            log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
         else:
             log_notice('Cached live channels available: ' + str(len(self.list)))
 

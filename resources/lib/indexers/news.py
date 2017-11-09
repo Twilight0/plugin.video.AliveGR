@@ -36,7 +36,7 @@ class Main:
         items = [
             {
                 'title': control.lang(30230),
-                'icon': 'https://cdn4.iconfinder.com/data/icons/project-document-std-pack-3/512/newspaper-256.png',
+                'icon': 'http://downloadicons.net/sites/default/files/news-icon-53570.png',
                 'url': '{0}?action=papers'.format(sysaddon),
                 'fanart': control.addonInfo('fanart')
             }
