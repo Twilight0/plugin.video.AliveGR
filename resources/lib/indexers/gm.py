@@ -376,7 +376,7 @@ class Main:
         self.list = cache.get(self.items_list, 12, url)
 
         if self.list is None:
-            log_error('Listing section failed to load successfully, try to reset indexer methods')
+            log_error('Listing section failed to load, try resetting indexer methods')
             return
 
         if url.startswith((movies_link, theater_link, shortfilms_link)):
@@ -476,7 +476,7 @@ class Main:
         self.list = cache.get(self.epeisodia, 12, url)
 
         if self.list is None:
-            log_error('Episode section failed to load successfully, try to reset indexer methods')
+            log_error('Episode section failed to load, try resetting indexer methods')
             return
 
         if control.setting('dialog_type') == '0':
@@ -557,7 +557,7 @@ class Main:
         self.list = cache.get(self.event_list, 12, url)
 
         if self.list is None:
-            log_error('Events section failed to load successfully, try to reset indexer methods')
+            log_error('Events section failed to load, try resetting indexer methods')
             return
 
         for item in self.list:

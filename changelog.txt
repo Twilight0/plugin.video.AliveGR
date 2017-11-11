@@ -1,3 +1,6 @@
++ [B]1.5.6[/B] [COLOR yellow](13-11-2017)[/COLOR]
+- New resolver for ellinikosfm.tv
+
 + [B]1.5.5[/B] [COLOR yellow](10-11-2017)[/COLOR]
 - Fixed typo in live indexer which prevented proper load of channels
 

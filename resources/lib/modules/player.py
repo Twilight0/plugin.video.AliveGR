@@ -291,6 +291,11 @@ def router(url):
     #     stream = url + client.spoofer(referer=True, ref_str='https://www.rythmosfm.gr/community/top20/')
     #     return stream
 
+    elif 'ellinikosfm.tv' in url:
+
+        stream = cache.get(live.ellinikosfm, 6, url)
+        return stream
+
     else:
 
         return url

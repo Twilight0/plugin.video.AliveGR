@@ -20,7 +20,7 @@
 
 
 from tulip import client
-import re, urllib
+import re, urllib, json
 
 
 def ant1cy(url):
@@ -105,8 +105,6 @@ def alphatv(url):
 
 def euronews(url):
 
-    import json
-
     result = client.request(url)
     result = json.loads(result)['url']
 
@@ -142,3 +140,19 @@ def visioniptv():
     cookie = client.request(url, output='cookie', headers=UA)
 
     return '?' + cookie
+
+
+def ellinikosfm(url):
+
+    html = client.request(url)
+
+    iframe_url = 'http:' + client.parseDOM(html, 'iframe', ret='src')[0]
+    services_url = iframe_url.replace('http://iframe.dacast.com', 'https://services.dacast.com/token/i')
+    json_url = iframe_url.replace('iframe', 'json')
+
+    json_token = client.request(services_url, output='response')[1]
+    token = json.loads(json_token)['token']
+    json_obj = client.request(json_url)
+    hls_url = 'http:' + json.loads(json_obj)['hls'].replace('\\', '')
+
+    return hls_url + token
