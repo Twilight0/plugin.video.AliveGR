@@ -20,7 +20,8 @@
 
 
 from tulip import control, client
-from helpers import thgiliwt
+from helpers import thgiliwt, addon_version, cache_clear
+
 
 ########################################################################################################################
 ############### Please do not copy these keys, instead create your own with this tutorial: #############################
@@ -225,7 +226,7 @@ def yt_setup():
 
         control.addon('plugin.video.youtube').setSetting('kodion.setup_wizard', 'false')
         control.addon('plugin.video.youtube').setSetting('youtube.language', 'el')
-        control.addon('plugin.video.youtube').setSetting('youtube.language', 'GR')
+        control.addon('plugin.video.youtube').setSetting('youtube.region', 'GR')
         control.infoDialog(message=control.lang(30402), time=3000)
 
 ########################################################################################################################
@@ -277,6 +278,19 @@ def changelog():
     text.close()
 
 
+def isa_enable():
+
+    enabled = control.addon_details('inputstream.adaptive').get('enabled')
+
+    if addon_version('xbmc.python') > 224 and not enabled:
+        yes = control.yesnoDialog(control.lang(30252))
+        if yes:
+            control.enable_addon('inputstream.adaptive')
+            control.infoDialog(control.lang(30402))
+        else:
+            pass
+
+
 def checkpoint():
 
     disclaimer = control.addonInfo('disclaimer')
@@ -289,27 +303,28 @@ def checkpoint():
             ) + ', ' + control.lang(30129),  ' ' * 3 + disclaimer.decode('utf-8') + '\n' * 2 + control.lang(30131)
         )
 
-        control.setSetting('first_time', 'false')
         control.monitor.abortRequested()
 
     else: pass
 
-    if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
+    if not control.condVisibility('System.HasAddon(repository.thgiliwt)') or not control.addon_details('repository.thgiliwt').get('enabled'):
 
         control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
+        control.execute('Dialog.Close(all)')
         import sys
         sys.exit(1)
 
     else: pass
 
     if control.exists(control.join(control.addonPath, 'DELETE_ME')):
-
-        from helpers import cache_clear
-        from tools import changelog
-        cache_clear(); changelog()
+        cache_clear()
+        changelog()
+        isa_enable()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
     else: pass
+
+
 
 
 def dev():

@@ -176,8 +176,6 @@ def directory_picker(url, title, description, genre):
 
 def router(url):
 
-    conditions = ['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url]
-
     if 'youtu' in url:
 
         stream = yt_wrapper.wrapper(url)
@@ -203,7 +201,7 @@ def router(url):
     #
     #     directory.resolve(stream)
 
-    elif any(conditions):
+    elif any(['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url]):
 
         stream = stream_link.sl_session(url)
 
@@ -249,7 +247,7 @@ def router(url):
     elif 'webtv.ert.gr' in url:
 
         link = cache.get(live.ert, 12, url)
-        stream = urlresolver.resolve(link)
+        stream = yt_wrapper.wrapper(link)
         return stream
 
     elif 'skai.gr/ajax.aspx' in url:
@@ -339,16 +337,16 @@ def player(url, name):
                 stream = router(link)
 
                 if len(stream) == 2:
-                    stream = stream[0]
+                    resolved = stream[0]
                     dash = stream[1]
                 else:
-                    stream = stream
+                    resolved = stream
                     dash = False
 
                 try:
-                    directory.resolve(stream, meta={'plot': sources[3]}, dash=dash)
+                    directory.resolve(resolved, meta={'plot': sources[3]}, dash=dash)
                 except IndexError:
-                    directory.resolve(stream, dash=dash)
+                    directory.resolve(resolved, dash=dash)
 
     else:
 
@@ -356,20 +354,20 @@ def player(url, name):
 
         try:
             if len(stream) == 2:
-                stream = stream[0]
+                resolved = stream[0]
                 dash = stream[1]
             else:
-                stream = stream
+                resolved = stream
                 dash = False
         except TypeError:
-            stream = stream
+            resolved = stream
             dash = False
 
-        if 'm3u8' in stream and control.setting('m3u8_quality_picker') == '1' and not 'googlevideo' in stream:
+        if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not 'googlevideo' in resolved:
 
-            stream = m3u8_loader.m3u8_picker(stream)
+            resolved = m3u8_loader.m3u8_picker(resolved)
 
-        if stream == 30403:
+        if resolved == 30403:
 
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30403))
@@ -377,7 +375,7 @@ def player(url, name):
         else:
 
             try:
-                directory.resolve(stream, meta={'title': name}, dash=dash)
+                directory.resolve(resolved, meta={'title': name}, dash=dash)
             except:
                 control.execute('Dialog.Close(all)')
                 control.infoDialog(control.lang(30112))

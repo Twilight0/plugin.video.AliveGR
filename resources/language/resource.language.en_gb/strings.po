@@ -771,7 +771,7 @@ msgid "Greek"
 msgstr ""
 
 msgctxt "#30219"
-msgid "Quality choice (m3u8)"
+msgid "Quality choice (HLS)"
 msgstr ""
 
 msgctxt "#30220"
@@ -900,6 +900,10 @@ msgstr ""
 
 msgctxt "#30251"
 msgid "Youtube"
+msgstr ""
+
+msgctxt "#30252"
+msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30401"

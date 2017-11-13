@@ -56,34 +56,38 @@ def wrapper(url):
 
         streams = youtube_resolver.resolve(url)
 
-    if '#audio_only' in url and control.setting('audio_only') == 'true' or control.condVisibility(
-            'Window.IsActive(music)') == 1:
+    if addon_version('xbmc.python') > 225 and control.addon_details('inputstream.adaptive').get('enabled'):
+        choices = streams
+    else:
+        choices = [s for s in streams if 'dash' not in repr(s)]
 
-        stream = streams[-5]['url']
-        return stream, False
+    if '#audio_only' in url and control.setting('audio_only') == 'true' or control.condVisibility('Window.IsActive(music)') == 1:
+
+        resolved = choices[-5]['url']
+        return resolved, False
 
     elif control.setting('yt_quality_picker') == '1':
 
-        qualities = [i['title'] for i in streams]
-        urls = [i['url'] for i in streams]
+        qualities = [i['title'] for i in choices]
+        urls = [i['url'] for i in choices]
 
-        if addon_version('xbmc.python') < 225:
-            del qualities[0]
-            del urls[0]
+        resolved = stream_picker(qualities, urls)
 
-        stream = stream_picker(qualities, urls)
-        if stream == streams[0]['url']:
-            return stream, True
+        if 'dash' in resolved:
+            return resolved, True
         else:
-            return stream, False
+            return resolved, False
 
     else:
 
-        if addon_version('xbmc.python') < 225:
-            selected = streams[1]['url']
-            return selected, False
+        resolved = choices[0]['url']
+
+        if addon_version('xbmc.python') > 225 and control.addon_details('inputstream.adaptive').get('enabled'):
+
+            return resolved, True
+
         else:
-            selected = streams[0]['url']
-            return selected, True
+
+            return resolved, False
 
 

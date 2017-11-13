@@ -35,6 +35,27 @@ class Main:
         self.alivegr = 'AbthnLzxWZu5WYoN2XlZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
 
+    def switcher(self):
+
+        def seq(choose):
+
+            control.setSetting('live_group', choose)
+            control.idle()
+            control.sleep(50)
+            control.refresh()
+
+        self.groups = cache.get(self.live, 24)[1]
+        translated = [control.lang(int(i)) for i in self.groups]
+        self.data = [control.lang(30048)] + self.groups
+        choice = control.selectDialog(heading=control.lang(30049), list=[control.lang(30048)] + translated)
+
+        if choice == 0:
+            seq('ALL')
+        elif choice <= len(self.data) and not choice == -1:
+            seq(self.data.pop(choice))
+        else:
+            control.execute('Dialog.Close(all)')
+
     def live(self):
 
         if control.setting('debug') == 'false':
@@ -89,27 +110,6 @@ class Main:
             log_debug('Live list uncached' + repr(self.list))
 
         return self.list, self.groups, updated
-
-    def switcher(self):
-
-        def seq(choose):
-
-            control.setSetting('live_group', choose)
-            control.idle()
-            control.sleep(50)
-            control.refresh()
-
-        self.groups = cache.get(self.live, 24)[1]
-        translated = [control.lang(int(i)) for i in self.groups]
-        self.data = [control.lang(30048)] + self.groups
-        choice = control.selectDialog(heading=control.lang(30049), list=[control.lang(30048)] + translated)
-
-        if choice == 0:
-            seq('ALL')
-        elif choice <= len(self.data) and not choice == -1:
-            seq(self.data.pop(choice))
-        else:
-            control.execute('Dialog.Close(all)')
 
     def live_tv(self):
 
@@ -183,7 +183,6 @@ class Main:
         control.sortmethods('genre')
 
         directory.add(self.list, content='movies')
-
 
     def modular(self, group):
 

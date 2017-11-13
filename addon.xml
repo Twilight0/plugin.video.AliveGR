@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.6~alpha1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.6" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.AliveGR.artwork" version="2.2.0"/>
@@ -36,6 +36,11 @@
         <news>
 + [B]1.5.6[/B] [COLOR yellow](13-11-2017)[/COLOR]
 - New resolver for ellinikosfm.tv
+- Minor fix for youtube's setup function
+- Checkpoint function can now enable inputstream adaptive addon if necessary
+- Removed doubled log_notice for indexer reset function
+- Improved detection of dash streams for auto-deletion on Jarvis and Krypton+ when inputstream addon is disabled
+- Various cosmetics and bug fixes
 
 + [B]1.5.5[/B] [COLOR yellow](10-11-2017)[/COLOR]
 - Fixed typo in live indexer which prevented proper load of channels

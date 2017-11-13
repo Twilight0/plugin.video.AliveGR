@@ -196,7 +196,6 @@ class Main:
         log_notice('Main menu loaded, have fun...')
 
         if control.setting('reset-idx') == 'true':
-            log_notice('Indexers have been reset')
             reset(notify=False)
 
         directory.add(self.list)
