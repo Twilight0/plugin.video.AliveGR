@@ -906,6 +906,42 @@ msgctxt "#30252"
 msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr "Το πρόσθετο inputstream adaptive δεν είναι ενεργοποιημένο. Θέλετε να το ενεργοποιήσετε τώρα;"
 
+msgctxt "#30253"
+msgid "Enable inputstream adaptive addon (DASH)"
+msgstr "Ενεργοποίηση προσθέτου inputstream adaptive (DASH)"
+
+msgctxt "#30254"
+msgid "Inputstream adaptive addon is already enabled"
+msgstr "Το πρόσθετο inputstream adaptive είναι ήδη ενεργοποιημένο"
+
+msgctxt "#30255"
+msgid "[COLOR red]Importand information[/COLOR]"
+msgstr "[COLOR red]Σημαντικές πληροφορίες[/COLOR]"
+
+msgctxt "#30256"
+msgid "[COLOR white]AliveGR, version:[/COLOR] [COLOR lime]{0}[/COLOR]"
+msgstr "[COLOR white]AliveGR, έκδοση:[/COLOR] [COLOR lime]{0}[/COLOR]"
+
+msgctxt "#30257"
+msgid "[COLOR white]Tulip Libraries, version:[/COLOR] [COLOR darkorange]{0}[/COLOR]"
+msgstr "[COLOR white]Βιβλιοθήκες tulip, έκδοση:[/COLOR] [COLOR darkorange]{0}[/COLOR]"
+
+msgctxt "#30258"
+msgid "[COLOR white]Kodi, version:[/COLOR] [COLOR cyan]{0}[/COLOR]"
+msgstr "[COLOR white]Kodi, έκδοση:[/COLOR] [COLOR cyan]{0}[/COLOR]"
+
+msgctxt "#30259"
+msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
+msgstr "[COLOR white]Ακολουθήστε με στο Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]""
+
+msgctxt "#30260"
+msgid "[COLOR white]Support, feature & pull requests:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgstr "[COLOR white]Υποστήριξη, αιτήσεις δυνατοτήτων και κώδικα:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+
+msgctxt "#30261"
+msgid "Forced updating of addons repositories"
+msgstr "Επιβολή ενημέρωσης αποθετηρίων προσθέτων"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

@@ -56,7 +56,12 @@ def wrapper(url):
 
         streams = youtube_resolver.resolve(url)
 
-    if addon_version('xbmc.python') > 225 and control.addon_details('inputstream.adaptive').get('enabled'):
+    try:
+        enabled = control.addon_details('inputstream.adaptive').get('enabled')
+    except KeyError:
+        enabled = False
+
+    if addon_version('xbmc.python') > 225 and enabled:
         choices = streams
     else:
         choices = [s for s in streams if 'dash' not in repr(s)]
@@ -82,7 +87,7 @@ def wrapper(url):
 
         resolved = choices[0]['url']
 
-        if addon_version('xbmc.python') > 225 and control.addon_details('inputstream.adaptive').get('enabled'):
+        if addon_version('xbmc.python') > 225 and enabled:
 
             return resolved, True
 

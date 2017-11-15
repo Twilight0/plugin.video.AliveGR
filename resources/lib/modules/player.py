@@ -18,18 +18,16 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import urlresolver #, YDStreamExtractor
-import random, re
+import random
+import re
 from urlparse import urljoin
 
-from tulip import directory, control, client, cache
+import urlresolver  # , YDStreamExtractor
+import m3u8_loader
+from tulip import directory, client, cache
 from tulip.log import *
-
 from ..indexers.gm import base_link
-from tulip.init import sysaddon, syshandle
-from ..resolvers import live, m3u8_loader, stream_link, yt_wrapper  # ytdl_wrapper
-from ..modules.helpers import thgiliwt, stream_picker
-from ..modules.tools import api_keys
+from ..resolvers import live, stream_link, yt_wrapper  #, ytdl_wrapper
 
 
 def source_maker(url):
@@ -291,7 +289,7 @@ def router(url):
 
     elif 'ellinikosfm.tv' in url:
 
-        stream = cache.get(live.ellinikosfm, 6, url)
+        stream = live.ellinikosfm(url)
         return stream
 
     else:

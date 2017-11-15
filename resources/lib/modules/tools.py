@@ -280,15 +280,20 @@ def changelog():
 
 def isa_enable():
 
-    enabled = control.addon_details('inputstream.adaptive').get('enabled')
+    try:
+        enabled = control.addon_details('inputstream.adaptive').get('enabled')
 
-    if addon_version('xbmc.python') > 224 and not enabled:
-        yes = control.yesnoDialog(control.lang(30252))
-        if yes:
-            control.enable_addon('inputstream.adaptive')
-            control.infoDialog(control.lang(30402))
-        else:
-            pass
+        if addon_version('xbmc.python') > 224 and not enabled:
+            yes = control.yesnoDialog(control.lang(30252))
+            if yes:
+                control.enable_addon('inputstream.adaptive')
+                control.infoDialog(control.lang(30402))
+            else:
+                pass
+        elif enabled:
+            control.infoDialog(control.lang(30254))
+    except:
+        pass
 
 
 def checkpoint():
@@ -323,8 +328,6 @@ def checkpoint():
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
     else: pass
-
-
 
 
 def dev():

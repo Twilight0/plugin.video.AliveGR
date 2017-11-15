@@ -72,6 +72,7 @@
         <setting visible="true" label="30237" type="action" action="RunPlugin(plugin://$ID/?action=setup_mouse_keymap)"/>
         <setting type="lsep" label="30251"/>
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
+        <setting visible="true" label="30253" type="action" action="RunPlugin(plugin://$ID/?action=isa_enable)"/>
     </category>
     <category label="30115">
         <setting id="changelog_lang" type="enum" label="30215" lvalues="30216|30217|30218" default="0"/>

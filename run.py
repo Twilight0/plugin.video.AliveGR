@@ -296,6 +296,10 @@ elif action == 'yt_setup':
     from resources.lib.modules import tools
     tools.yt_setup()
 
+elif action == 'isa_enable':
+    from resources.lib.modules import tools
+    tools.isa_enable()
+
 elif action == 'changelog':
     from resources.lib.modules import tools
     tools.changelog()
@@ -303,3 +307,14 @@ elif action == 'changelog':
 elif action == 'developer_mode':
     from resources.lib.modules import tools
     tools.dev()
+
+elif action == 'info':
+    from resources.lib.indexers import settings
+    settings.Main().info()
+
+elif action == 'force':
+    from resources.lib.modules import helpers
+    helpers.force()
+
+else:
+    print 'AliveGR:: Something wrong just happened'

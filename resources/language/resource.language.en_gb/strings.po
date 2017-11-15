@@ -906,6 +906,42 @@ msgctxt "#30252"
 msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr ""
 
+msgctxt "#30253"
+msgid "Enable inputstream adaptive addon (DASH)"
+msgstr ""
+
+msgctxt "#30254"
+msgid "Inputstream adaptive addon is already enabled"
+msgstr ""
+
+msgctxt "#30255"
+msgid "[COLOR red]Importand information[/COLOR]"
+msgstr ""
+
+msgctxt "#30256"
+msgid "[COLOR white]AliveGR, version:[/COLOR] [COLOR lime]{0}[/COLOR]"
+msgstr ""
+
+msgctxt "#30257"
+msgid "[COLOR white]Tulip Libraries, version:[/COLOR] [COLOR darkorange]{0}[/COLOR]"
+msgstr ""
+
+msgctxt "#30258"
+msgid "[COLOR white]Kodi, version:[/COLOR] [COLOR cyan]{0}[/COLOR]"
+msgstr ""
+
+msgctxt "#30259"
+msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
+msgstr ""
+
+msgctxt "#30260"
+msgid "[COLOR white]Support, feature & pull requests:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgstr ""
+
+msgctxt "#30261"
+msgid "Forced updating of addons repositories"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

@@ -19,8 +19,8 @@
 '''
 
 from tulip import control, client, cache
-from ..modules import m3u8
-from ..modules.helpers import stream_picker
+import m3u8
+from helpers import stream_picker
 from urlparse import urljoin
 
 

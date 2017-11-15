@@ -32,6 +32,12 @@ class Main:
 
         self.list = [
             {
+                'title': control.addonInfo('name') + ': ' + control.lang(30255),
+                'action': 'info',
+                'icon': control.addonInfo('icon')
+            }
+            ,
+            {
                 'title': control.lang(30011) + ': ' + control.lang(30003),
                 'action': 'openSettings',
                 'icon': iconname('settings')
@@ -98,4 +104,41 @@ class Main:
             }
         ]
 
+        directory.add(self.list)
+
+    def info(self):
+
+        self.list = [
+            {
+                'title': control.lang(30260),
+                'action': 'force',
+                'icon': 'bitbucket.png'
+            }
+            ,
+            {
+                'title': control.lang(30259),
+                'action': 'force',
+                'icon': 'twitter.png'
+            }
+            ,
+            {
+                'title': control.lang(30256).format(control.addonInfo('version')),
+                'action': 'force',
+                'icon': control.addonInfo('icon')
+            }
+            ,
+            {
+                'title': control.lang(30257).format(control.addon('script.module.tulip').getAddonInfo('version')),
+                'action': 'force',
+                'icon': control.addon('script.module.tulip').getAddonInfo('icon')
+            }
+            ,
+            {
+                'title': control.lang(30258).format(control.addon('xbmc.addon').getAddonInfo('version').rpartition('.')[0]),
+                'action': 'force',
+                'icon': 'kodi.png'
+            }
+        ]
+
+        control.execute('Container.SetViewMode(50)')
         directory.add(self.list)

@@ -1,3 +1,14 @@
++ [B]1.5.8[/B] [COLOR yellow](15-11-2017)[/COLOR]
+- Removed caching from ellinikosfm's url in player module
+- Added importand info items, tools submenu
+- Added function for forcing addons' repositories update (in important info menu)
+- Obfuscation of live channels list
+
++ [B]1.5.7[/B] [COLOR yellow](14-11-2017)[/COLOR]
+- Inputstream adaptive addon can now be enabled through actions tab in settings window
+- Added try/except block for inputstream adaptive which doesn't exist on Jarvis
+- Bumped dependencies
+
 + [B]1.5.6[/B] [COLOR yellow](13-11-2017)[/COLOR]
 - New resolver for ellinikosfm.tv
 - Minor fix for youtube's setup function

@@ -19,12 +19,12 @@
 '''
 
 import json, datetime
-
+from base64 import b64decode
 from tulip import cache, control, directory, client, ordereddict
 from tulip.log import *
 from tulip.init import sysaddon, syshandle
 from ..modules.themes import iconname
-from ..modules.helpers import thgiliwt
+from ..modules.helpers import thgiliwt, xteni, dexteni
 
 
 class Main:
@@ -32,7 +32,7 @@ class Main:
     def __init__(self):
 
         self.list = []; self.data = []; self.groups = []
-        self.alivegr = 'AbthnLzxWZu5WYoN2XlZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
+        self.alivegr = 'zxWZu5WYoN2XlZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
 
     def switcher(self):
@@ -60,7 +60,8 @@ class Main:
 
         if control.setting('debug') == 'false':
 
-            result = client.request(thgiliwt('==' + self.alivegr))
+            result = client.request(thgiliwt(self.alivegr))
+            result = dexteni(b64decode(result))
 
         else:
 
@@ -72,7 +73,8 @@ class Main:
             elif control.setting('local_remote') == '1':
                 result = client.request(control.setting('live_remote'))
             else:
-                result = client.request(thgiliwt('==' + self.alivegr))
+                result = client.request(thgiliwt(self.alivegr))
+                result = dexteni(b64decode(result))
 
         if control.setting('debug') == 'false':
             channels = client.parseDOM(result, 'channel', attrs={'enable': '1'})

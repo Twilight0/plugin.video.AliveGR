@@ -18,7 +18,8 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
+from zlib import decompress, compress
+from base64 import b64decode, b64encode
 from tulip import control, cache
 from tulip.log import *
 
@@ -84,12 +85,12 @@ def smu_settings(sleep=True):
 
 def reset_idx(notify=True):
 
-    log_notice('Indexers have been reset')
     control.setSetting('live_group', 'ALL')
     control.setSetting('vod_group', '30213')
     control.setSetting('papers_group', '0')
     if notify:
         control.infoDialog(message=control.lang(30402), time=3000)
+    log_notice('Indexers have been reset')
 
 
 def add_to_playlist():
@@ -157,24 +158,32 @@ def refresh_and_clear():
     refresh()
 
 
-def thgiliwt(s):
+def force():
 
-    from base64 import b64decode
+    control.execute('UpdateAddonRepos')
+    control.infoDialog(control.lang(30261))
+
+
+def thgiliwt(s):
 
     string = s[::-1]
 
     return b64decode(string)
 
 
-def pawsesac(s, ison=None):
+def pawsesac(s, ison=''):
 
     string = s.swapcase()
 
-    if ison:
+    string = string + ison
+    return string
 
-        string = string + ison
-        return string
 
-    else:
+def dexteni(s):
 
-        return string
+    return decompress(s)
+
+
+def xteni(s):
+
+    return compress(s)
