@@ -52,30 +52,30 @@ class Main:
         self.data = [
                 {
                     'title': 'EPT Sports',
-                    'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ert_icon.png'),
+                    'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='ert_icon.png', media_subfolder=False),
                     'url': 'plugin://plugin.video.ert.gr/?action=episodes&url=http%3a%2f%2fwebtv.ert.gr%2fcategory%2fkatigories%2fathlitika%2f',
-                    'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ert_fanart.jpg')
+                    'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='ert_fanart.jpg', media_subfolder=False)
                 }
                 ,
                 {
                     'title': 'Skai Sports',
-                    'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='skai_icon.png'),
+                    'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='skai_icon.png', media_subfolder=False),
                     'url': 'plugin://plugin.video.skai.gr/?action=sports',
-                    'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='skai_fanart.jpg')
+                    'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='skai_fanart.jpg', media_subfolder=False)
                 }
                 ,
                 {
                     'title': 'Euronews Sports',
-                    'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='euronews_icon.png'),
+                    'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='euronews_icon.png', media_subfolder=False),
                     'url': 'plugin://plugin.video.euronews.com/?action=videos&url=%22methodName%22%3a%22content.getThemeDetails%22%2c%22params%22%3a%7b%22tId%22%3a%228%22%7d',
-                    'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='euronews_fanart.jpg')
+                    'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='euronews_fanart.jpg', media_subfolder=False)
                 }
                 ,
                 {
                     'title': 'NovaSports',
-                    'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='nova_icon.png'),
+                    'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='nova_icon.png', media_subfolder=False),
                     'url': 'plugin://plugin.video.novasports.gr/',
-                    'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='nova_fanart.jpg')
+                    'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='nova_fanart.jpg', media_subfolder=False)
                 }
         ]
 

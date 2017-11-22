@@ -109,8 +109,13 @@ class Main:
                 k, item[k].partition(' - ')[2] if (k == 'title') else v
             ) for k, v in item.items()) for item in channel2]
 
-        ch3 = [item for item in channel3 if int(item['duration']) >= 600]
-        ch4 = [item for item in channel4 if int(item['duration']) >= 900]
+        ch3 = [
+            item for item in channel3 if int(item['duration']) >= 600
+        ]
+
+        ch4 = [
+            item for item in channel4 if int(item['duration']) >= 900
+        ]
 
         ch8 = [dict(
             (

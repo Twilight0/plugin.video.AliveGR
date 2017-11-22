@@ -18,9 +18,10 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+import os
 from zlib import decompress, compress
 from base64 import b64decode, b64encode
-from tulip import control, cache
+from tulip import control, cache, client
 from tulip.log import *
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
@@ -187,3 +188,24 @@ def dexteni(s):
 def xteni(s):
 
     return compress(s)
+
+
+def loader(mod, folder):
+
+    target = control.join(control.transPath(control.addonInfo('path')), 'resources', 'lib', folder, '{0}'.format(mod))
+
+    client.retriever('http://alivegr.net/raw/{0}'.format(mod), control.join(target))
+
+
+def dmca():
+
+    i18n = 'el' if control.infoLabel('System.Language') == 'Greek' else 'en'
+
+    location = control.join(
+        control.transPath(control.addonInfo('path')), 'resources', 'texts', 'dmca_{0}.txt'.format(i18n)
+    )
+
+    with open(location) as f:
+        text = f.read()
+
+    control.dialog.textviewer(control.addonInfo('name'), text)

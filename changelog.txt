@@ -1,3 +1,10 @@
++ [B]1.6.0[/B] [COLOR yellow](22-11-2017)[/COLOR]
+- Filtered potentially infringing content from kids section
+- Revised live channels url
+- Removed Dr.Azziw themes & converted artwork to resource type
+- Bumped dependencies
+- New dmca tool for viewing a plain text targeting copyright holders
+
 + [B]1.5.8[/B] [COLOR yellow](15-11-2017)[/COLOR]
 - Removed caching from ellinikosfm's url in player module
 - Added importand info items, tools submenu

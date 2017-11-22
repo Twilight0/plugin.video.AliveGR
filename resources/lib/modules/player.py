@@ -22,12 +22,14 @@ import random
 import re
 from urlparse import urljoin
 
-import urlresolver  # , YDStreamExtractor
+import urlresolver
+# import YDStreamExtractor
+from ..resolvers import stream_link
 import m3u8_loader
 from tulip import directory, client, cache
 from tulip.log import *
 from ..indexers.gm import base_link
-from ..resolvers import live, stream_link, yt_wrapper  #, ytdl_wrapper
+from ..resolvers import live, yt_wrapper, ytdl_wrapper
 
 
 def source_maker(url):
@@ -192,12 +194,11 @@ def router(url):
         #     stream = urlresolver.resolve(url)
         #     directory.resolve(stream, meta={'title': name})
 
-    # Reserved in case youtube-dl is used in the future:
-    # if any(conditions) and YDStreamExtractor.mightHaveVideo(url):
+    # if YDStreamExtractor.mightHaveVideo(url):
     #
-    #     stream = ytdl_wrapper.ytdl_session(url)
+    #     stream = ytdl_wrapper.session(url)
     #
-    #     directory.resolve(stream)
+    #     return stream
 
     elif any(['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url]):
 
@@ -239,7 +240,7 @@ def router(url):
 
         link = client.replaceHTMLCodes(url)
         link = cache.get(live.megagr, 24, link)
-        stream = urlresolver.resolve(link)
+        stream = yt_wrapper.wrapper(link)
         return stream
 
     elif 'webtv.ert.gr' in url:
@@ -252,7 +253,7 @@ def router(url):
 
         link = client.replaceHTMLCodes(url)
         link = cache.get(live.skai, 6, link)
-        stream = urlresolver.resolve(link)
+        stream = yt_wrapper.wrapper(link)
         return stream
 
     elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
@@ -268,7 +269,7 @@ def router(url):
     elif 'fnetwork.com' in url:
 
         stream = cache.get(live.fnetwork, 12, url)
-        stream = urlresolver.resolve(stream)
+        stream = yt_wrapper.wrapper(stream)
         return stream
 
     elif 'visionip.tv' in url:
@@ -281,11 +282,6 @@ def router(url):
 
         stream = cache.get(live.ssh101, 48, url)
         return stream
-
-    # elif 'rythmosfm.gr' in url:
-    #
-    #     stream = url + client.spoofer(referer=True, ref_str='https://www.rythmosfm.gr/community/top20/')
-    #     return stream
 
     elif 'ellinikosfm.tv' in url:
 
@@ -334,10 +330,14 @@ def player(url, name):
             else:
                 stream = router(link)
 
-                if len(stream) == 2:
-                    resolved = stream[0]
-                    dash = stream[1]
-                else:
+                try:
+                    if len(stream) == 2:
+                        resolved = stream[0]
+                        dash = stream[1]
+                    else:
+                        resolved = stream
+                        dash = False
+                except TypeError:
                     resolved = stream
                     dash = False
 
@@ -345,6 +345,9 @@ def player(url, name):
                     directory.resolve(resolved, meta={'plot': sources[3]}, dash=dash)
                 except IndexError:
                     directory.resolve(resolved, dash=dash)
+                except:
+                    control.execute('Dialog.Close(all)')
+                    control.infoDialog(control.lang(30112))
 
     else:
 

@@ -25,11 +25,10 @@ from tulip import control, cache, client, directory
 from tulip.log import *
 from urlparse import urljoin, urlparse
 from ..modules.themes import iconname
+from ..modules.helpers import loader
 from tulip.init import syshandle, sysaddon
 
-
 base_link = 'http://greek-movies.com/'
-
 movies_link = urljoin(base_link, 'movies.php')
 shows_link = urljoin(base_link, 'shows.php')
 series_link = urljoin(base_link, 'series.php')
@@ -39,6 +38,12 @@ sports_link = urljoin(base_link, 'sports.php')
 shortfilms_link = urljoin(base_link, 'shortfilm.php')
 music_link = urljoin(base_link, 'music.php')
 episode_link = urljoin(base_link, 'ajax.php?type=episode&epid={0}&view={1}')
+
+try:
+    loader('bl.py', 'indexers')
+    from bl import bl
+except ImportError:
+    bl = []
 
 
 def root(url):
@@ -261,6 +266,8 @@ class Main:
             length = 9                                             #
         elif all(['shortfilm.php' in url, 'theater.php' in url]):  #
             length = 6                                             #
+        elif 'animation' in url:
+            return
         else:                                                      #
             length = 2                                             #
         #                                                          #
@@ -280,6 +287,9 @@ class Main:
                 equation = ''
 
             self.years.append(equation)
+
+        if indexer.startswith('g=8') and 'movies' in url or 'shortfilm' in url:
+            return
 
         if indexer.startswith(
                 ('l=', 'g=', 's=', 'p=', 'c=')
@@ -306,6 +316,9 @@ class Main:
         for item in items:
 
             title = client.parseDOM(item, 'h4')[0]
+            if title in bl:
+                continue
+
             icon = client.parseDOM(item, 'img', ret='src')[0]
 
             # unused for now:
@@ -378,6 +391,8 @@ class Main:
         if self.list is None:
             log_error('Listing section failed to load, try resetting indexer methods')
             return
+        elif control.setting('debug') == 'true':
+            log_debug('Caching was successful, list of vod items ~ ' + repr(self.list))
 
         if url.startswith((movies_link, theater_link, shortfilms_link)):
             if control.setting('dialog_type') == '0':

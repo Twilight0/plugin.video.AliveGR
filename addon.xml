@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.5.8" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.0" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
-        <import addon="script.AliveGR.artwork" version="2.2.0"/>
-        <import addon="script.module.urlresolver" version="4.0.08"/>
+        <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
-        <import addon="script.module.streamlink.base" version="2017.09.20"/>
+        <import addon="script.module.urlresolver" version="4.00.09"/>
+        <import addon="script.module.streamlink.base" version="2017.11.18"/>
         <import addon="script.module.iso8601" version="0.1.11"/>
-        <import addon="script.module.tulip" version="1.3.2"/>
-        <import addon="plugin.video.youtube" version="5.4.99.1"/>
+        <import addon="script.module.tulip" version="1.3.3"/>
+        <import addon="plugin.video.youtube" version="5.4.99.2"/>
     </requires>
-    <extension point="xbmc.python.pluginsource" library="run.py">
+    <extension point="xbmc.python.pluginsource" library="runner.py">
         <provides>video audio image executable</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
@@ -34,6 +34,13 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
++ [B]1.6.0[/B] [COLOR yellow](22-11-2017)[/COLOR]
+- Filtered potentially infringing content from kids section
+- Revised live channels url
+- Removed Dr.Azziw themes &amp; converted artwork to resource type
+- Bumped dependencies
+- New dmca tool for viewing a plain text targeting copyright holders
+
 + [B]1.5.8[/B] [COLOR yellow](15-11-2017)[/COLOR]
 - Removed caching from ellinikosfm's url in player module
 - Added importand info items, tools submenu

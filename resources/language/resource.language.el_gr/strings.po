@@ -431,12 +431,12 @@ msgid "Twilight"
 msgstr "Twilight"
 
 msgctxt "#30105"
-msgid "Dr.Azziw"
-msgstr "Dr.Azziw"
+msgid "DMCA: click to view a brief text from the developer"
+msgstr "Πνευματικά δικαιώματα: πατήστε το για να διαβάσετε ένα σύντομο κείμενο από τον δημιουργό"
 
 msgctxt "#30106"
-msgid "Toggle On/Off dark theme"
-msgstr "Εναλλαγή σκουρόχρωμου θέματος"
+msgid "Click to open a brief text by the developer"
+msgstr "Επιλέξτε για διαβάσετε ένα σύντοκο κείμενο από τον δημιουργό"
 
 msgctxt "#30107"
 msgid "Restart AliveGR for theme to be applied"
@@ -587,8 +587,8 @@ msgid "Local proxy module already installed"
 msgstr "Το πρόσθετο τοπικής επίλυσης ροών είναι ήδη εγκατεστημένο"
 
 msgctxt "#30144"
-msgid "Type of dialog for streams' choice"
-msgstr "Τύπος διαλόγου για την επιλογή ροής"
+msgid "Action for streams' choice"
+msgstr "Ενέργεια για την επιλογή ροών"
 
 msgctxt "#30145"
 msgid "Dialog"
@@ -941,6 +941,10 @@ msgstr "[COLOR white]Υποστήριξη, αιτήσεις δυνατοτήτω
 msgctxt "#30261"
 msgid "Forced updating of addons repositories"
 msgstr "Επιβολή ενημέρωσης αποθετηρίων προσθέτων"
+
+msgctxt "#30262"
+msgid "Quality choice (Youtube-DL)"
+msgstr "Επιλογή ποιότητας (Youtube-DL)"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

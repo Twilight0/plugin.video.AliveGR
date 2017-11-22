@@ -110,15 +110,21 @@ class Main:
 
         self.list = [
             {
+                'title': control.lang(30105),
+                'action': 'dmca',
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='dmca.png', media_subfolder=False)
+            }
+            ,
+            {
                 'title': control.lang(30260),
                 'action': 'force',
-                'icon': 'bitbucket.png'
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='bitbucket.png', media_subfolder=False)
             }
             ,
             {
                 'title': control.lang(30259),
                 'action': 'force',
-                'icon': 'twitter.png'
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='twitter.png', media_subfolder=False)
             }
             ,
             {
@@ -136,7 +142,7 @@ class Main:
             {
                 'title': control.lang(30258).format(control.addon('xbmc.addon').getAddonInfo('version').rpartition('.')[0]),
                 'action': 'force',
-                'icon': 'kodi.png'
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='kodi.png', media_subfolder=False)
             }
         ]
 

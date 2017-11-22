@@ -25,17 +25,19 @@ from tulip import control
 def theme():
 
     theme = control.setting('theme')
-    toggle = control.setting('dark_theme')
 
     if theme == '0':
         return 'alivegr', '+alivegr.png'
     elif theme == '1':
         return 'twilight', '+twilight.png'
-    elif theme == '2' and toggle == 'true':
-        return 'dr.azziw_dark', '+dr.azziw_dark.png'
-    else:
-        return 'dr.azziw_inverted', '+dr.azziw_inverted.png'
 
 
 def iconname(name):
-    return control.addonmedia(addonid='script.AliveGR.artwork', theme=theme()[0], icon=name + theme()[1])
+
+    __id__ = 'resource.images.alivegr.artwork'
+
+    icon = control.addonmedia(
+        addonid=__id__, theme=theme()[0], icon=name + theme()[1], media_subfolder=False
+    )
+
+    return icon

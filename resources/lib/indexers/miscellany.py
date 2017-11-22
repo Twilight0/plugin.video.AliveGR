@@ -93,5 +93,6 @@ class Main:
             isFolder = True
             self.list.append((url, li, isFolder))
 
+        control.execute('Container.SetViewMode(50)')
         control.addItems(syshandle, self.list)
         control.directory(syshandle)

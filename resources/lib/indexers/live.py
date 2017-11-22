@@ -32,7 +32,7 @@ class Main:
     def __init__(self):
 
         self.list = []; self.data = []; self.groups = []
-        self.alivegr = 'zxWZu5WYoN2XlZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
+        self.alivegr = 'gcn9VZ2lGbh9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
 
     def switcher(self):
@@ -60,7 +60,7 @@ class Main:
 
         if control.setting('debug') == 'false':
 
-            result = client.request(thgiliwt(self.alivegr))
+            result = client.request(thgiliwt('==' + self.alivegr))
             result = dexteni(b64decode(result))
 
         else:
@@ -73,7 +73,7 @@ class Main:
             elif control.setting('local_remote') == '1':
                 result = client.request(control.setting('live_remote'))
             else:
-                result = client.request(thgiliwt(self.alivegr))
+                result = client.request(thgiliwt('==' + self.alivegr))
                 result = dexteni(b64decode(result))
 
         if control.setting('debug') == 'false':

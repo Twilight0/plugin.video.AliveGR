@@ -43,44 +43,44 @@ class Main:
             ,
             {
                 'title': control.lang(30118),
-                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ert_icon.png'),
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='ert_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.ert.gr/?action=episodes&url=http%3a%2f%2fwebtv.ert.gr%2fcategory%2fkatigories%2feidiseis%2f',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ert_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='ert_fanart.jpg', media_subfolder=False)
             }
             ,
             {
                 'title': control.lang(30119),
-                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ant1_icon.png'),
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='ant1_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.antenna.gr/?action=news',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ant1_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='ant1_fanart.jpg', media_subfolder=False)
             }
             ,
             {
                 'title': control.lang(30120),
-                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='star_icon.png'),
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='star_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.star.gr/?action=news',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='star_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='star_fanart.jpg', media_subfolder=False)
             }
             ,
             {
                 'title': control.lang(30122),
-                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='alpha_icon.png'),
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='alpha_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.alphatv.gr/?action=news',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='alpha_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='alpha_fanart.jpg', media_subfolder=False)
             }
             ,
             {
                 'title': control.lang(30121),
-                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='skai_icon.png'),
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='skai_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.skai.gr/?action=news',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='skai_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='skai_fanart.jpg', media_subfolder=False)
             }
             ,
             {
                 'title': 'Euronews',
-                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='euronews_icon.png'),
+                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='euronews_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.euronews.com/?action=videos&url=%22methodName%22%3a%22content.getThemeDetails%22%2c%22params%22%3a%7b%22tId%22%3a%221%22%7d',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='euronews_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='euronews_fanart.jpg', media_subfolder=False)
             }
         ]
 

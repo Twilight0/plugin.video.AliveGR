@@ -316,5 +316,14 @@ elif action == 'force':
     from resources.lib.modules import helpers
     helpers.force()
 
+elif action == 'dmca':
+    from resources.lib.modules import helpers
+    helpers.dmca()
+
+# Reserved might use later:
+# elif action == 'report':
+#     from resources.lib.modules import tools
+#     tools.mailer(text=title)
+
 else:
-    print 'AliveGR:: Something wrong just happened'
+    print 'AliveGR:: Something wrong has just happened'

@@ -65,14 +65,14 @@ class Main:
                 'title': 30126,
                 'action': 'mgreekz_index',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='mgz_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='mgz_fanart.jpg', media_subfolder=False)
             }
             ,
             {
                 'title': 30127,
                 'action': 'mgreekz_top10',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
-                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='mgz_fanart.jpg')
+                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='mgz_fanart.jpg', media_subfolder=False)
             }
             ,
             {
@@ -81,9 +81,10 @@ class Main:
                 'url': self.rythmos_top20_url,
                 'image': 'https://is3-ssl.mzstatic.com/image/thumb/Purple62/v4/3e/a4/48/3ea44865-8cb2-5fec-be70-188a060b712c/source/256x256bb.jpg',
                 'fanart': control.addonmedia(
-                    addonid='script.AliveGR.artwork',
+                    addonid='resource.images.alivegr.artwork',
                     theme='networks',
-                    icon='rythmos_fanart.jpg'
+                    icon='rythmos_fanart.jpg',
+                    media_subfolder = False
                 )
             }
             ,
@@ -247,9 +248,10 @@ class Main:
             item.update(
                 {
                     'fanart': control.addonmedia(
-                        addonid='script.AliveGR.artwork',
+                        addonid='resource.images.alivegr.artwork',
                         theme='networks',
-                        icon='mgz_fanart.jpg'
+                        icon='mgz_fanart.jpg',
+                        media_subfolder=False
                     )
                 }
             )
@@ -316,7 +318,7 @@ class Main:
             item.update(
                 {'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False',
                  'album': control.lang(30127),
-                 'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='mgz_fanart.jpg')
+                 'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='mgz_fanart.jpg' , media_subfolder=False)
                 }
             )
 
@@ -401,7 +403,7 @@ class Main:
             log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
         if url == self.rythmos_top20_url:
-            fanart = control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='rythmos_fanart.jpg')
+            fanart = control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='rythmos_fanart.jpg', media_subfolder=False)
             album = control.lang(30128)
         elif url == self.plus_url:
             fanart = 'https://i.imgur.com/G8koVR8.jpg'

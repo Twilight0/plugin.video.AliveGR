@@ -18,11 +18,11 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
+import json
 from tulip import control, cache, directory
 from ..modules.themes import iconname
 from tulip.init import sysaddon, syshandle
-import json
+
 
 class Main:
 
@@ -37,24 +37,6 @@ class Main:
                 'title': control.lang(30078),
                 'url': 'plugin://plugin.video.AliveGR/?action=kids_live',
                 'icon': iconname('kids_live')
-            }
-            ,
-            {
-                'title': control.lang(30073),
-                'url': 'plugin://plugin.video.AliveGR/?action=listing&url=http://greek-movies.com/movies.php?g=8&y=&l=&p=',
-                'icon': iconname('cartoon_movies')
-            }
-            ,
-            {
-                'title': control.lang(30092),
-                'url': 'plugin://plugin.video.AliveGR/?action=listing&url=http://greek-movies.com/shortfilm.php?g=8&y=&l=&p=',
-                'icon': iconname('cartoon_short')
-            }
-            ,
-            {
-                'title': control.lang(30072),
-                'url': '{0}?action={1}'.format(sysaddon, 'cartoon_series'),
-                'icon': iconname('cartoon_series')
             }
             ,
             {

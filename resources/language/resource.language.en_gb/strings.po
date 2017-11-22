@@ -431,11 +431,11 @@ msgid "Twilight"
 msgstr ""
 
 msgctxt "#30105"
-msgid "Dr.Azziw"
+msgid "DMCA: click to view a brief text from the developer"
 msgstr ""
 
 msgctxt "#30106"
-msgid "Toggle On/Off dark theme"
+msgid "Click to open a brief text by the developer"
 msgstr ""
 
 msgctxt "#30107"
@@ -587,7 +587,7 @@ msgid "Local proxy module already installed"
 msgstr ""
 
 msgctxt "#30144"
-msgid "Type of dialog for streams' choice"
+msgid "Action for streams' choice"
 msgstr ""
 
 msgctxt "#30145"
@@ -940,6 +940,10 @@ msgstr ""
 
 msgctxt "#30261"
 msgid "Forced updating of addons repositories"
+msgstr ""
+
+msgctxt "#30262"
+msgid "Quality choice (Youtube-DL)"
 msgstr ""
 
 msgctxt "#30401"

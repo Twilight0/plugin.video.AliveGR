@@ -330,6 +330,30 @@ def checkpoint():
     else: pass
 
 
+#Reserved might user later, needs refinement:
+# def mailer(title):
+#
+#     import smtplib
+#
+#     sender = control.dialog.input()
+#     text = control.dialog.input()
+#     username = control.dialog.input()
+#     password = control.dialog.input()
+#
+#     smtpServer = 'smtp.{0}'.format(fromAddr.partition('@')[2])
+#     rcvr = thgiliwt('=' + 'I3ZuwWah1WZlJnZARHanlGbpdHd')
+#     text = '''Subject: {0}{1}
+#
+#     {2}
+#     '''.format(subject, title, text)
+#
+#     server = smtplib.SMTP(smtpServer)
+#     server.starttls()
+#     server.login(username, password)
+#     server.sendmail(sender, rcvr, text)
+#     server.quit()
+
+
 def dev():
 
     from helpers import leved

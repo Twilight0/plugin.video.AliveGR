@@ -28,7 +28,7 @@
 # from ..modules.helpers import stream_picker
 #
 #
-# def ytdl_session(url):
+# def session(url):
 #
 #     qualities = []
 #     links = []
@@ -47,6 +47,8 @@
 #
 #     else:
 #
-#         stream = stream.streamURL()
-#
-#         return stream
+#         try:
+#             stream = stream.streamURL()
+#             return stream
+#         except AttributeError:
+#             return 30112
