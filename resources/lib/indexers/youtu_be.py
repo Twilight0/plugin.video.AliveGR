@@ -22,13 +22,13 @@ import json
 
 from tulip import cache, directory, youtube
 from tulip.log import *
-from ..modules.tools import api_keys
+from ..modules.constants import strings
 from ..modules.helpers import thgiliwt
 
 
 def yt_playlists(pid):
 
-    playlists = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key'])).playlists, 48, pid)
+    playlists = cache.get(youtube.youtube(key=thgiliwt(strings['api_keys']['api_key'])).playlists, 48, pid)
 
     if playlists is None:
         log_error('Playlist indexer failed to load successfully')

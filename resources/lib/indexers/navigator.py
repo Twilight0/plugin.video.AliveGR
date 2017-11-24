@@ -35,91 +35,91 @@ class Main:
 
         self.list = [
             {
-                'title': 30001,
+                'title': control.lang(30001),
                 'action': 'live_tv',
                 'icon': iconname('monitor')
             }
             ,
             {
-                'title': 30036,
+                'title': control.lang(30036),
                 'action': 'pvr_client',
                 'icon': iconname('guide')
             }
             ,
             {
-                'title': 30008,
+                'title': control.lang(30008),
                 'action': 'networks',
                 'icon': iconname('networks')
             }
             ,
             {
-                'title': 30123,
+                'title': control.lang(30123),
                 'action': 'news',
                 'icon': iconname('news')
             }
             ,
             {
-                'title': 30031,
+                'title': control.lang(30031),
                 'action': 'movies',
                 'icon': iconname('movies')
             }
             ,
             {
-                'title': 30083,
+                'title': control.lang(30083),
                 'action': 'short_films',
                 'icon': iconname('short')
             }
             ,
             {
-                'title': 30030,
+                'title': control.lang(30030),
                 'action': 'series',
                 'icon': iconname('series')
             }
             ,
             {
-                'title': 30063,
+                'title': control.lang(30063),
                 'action': 'shows',
                 'icon': iconname('shows')
             }
             ,
             {
-                'title': 30068,
+                'title': control.lang(30068),
                 'action': 'theater',
                 'icon': iconname('theater')
             }
             ,
             {
-                'title': 30079,
+                'title': control.lang(30079),
                 'action': 'documentaries',
                 'icon': iconname('documentaries')
             }
             ,
             {
-                'title': 30094,
+                'title': control.lang(30094),
                 'action': 'sports',
                 'icon': iconname('sports')
             }
             ,
             {
-                'title': 30032,
+                'title': control.lang(30032),
                 'action': 'kids',
                 'icon': iconname('kids')
             }
             ,
             {
-                'title': 30012,
+                'title': control.lang(30012),
                 'action': 'miscellany',
                 'icon': iconname('miscellany')
             }
             ,
             {
-                'title': 30002,
+                'title': control.lang(30002),
                 'action': 'radio',
                 'icon': iconname('radios')
             }
             ,
             {
-                'title': 30125,
+                'title': control.lang(30125),
                 'action': 'music',
                 'icon': iconname('music')
             }
@@ -131,13 +131,13 @@ class Main:
             }
             ,
             {
-                'title': 30055,
+                'title': control.lang(30055),
                 'action': 'bookmarks',
                 'icon': iconname('bookmarks')
             }
             ,
             {
-                'title': 30137,
+                'title': control.lang(30137),
                 'action': 'openSettings&query=0.0' if control.setting('settings_method') == 'true' else 'settings',
                 'icon': iconname('settings')
             }

@@ -21,9 +21,10 @@
 import re, youtube_resolver
 from tulip import client, control
 from ..modules.helpers import stream_picker, addon_version
+from ..modules.constants import *
 
 
-yt_prefix = 'plugin://plugin.video.youtube/play/?video_id='
+yt_prefix = '{0}/play/?video_id='.format(strings['yt_url'])
 base_link = 'https://www.youtube.com/watch?v='
 
 

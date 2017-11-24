@@ -431,8 +431,8 @@ msgid "Twilight"
 msgstr "Twilight"
 
 msgctxt "#30105"
-msgid "DMCA: click to view a brief text from the developer"
-msgstr "Πνευματικά δικαιώματα: πατήστε το για να διαβάσετε ένα σύντομο κείμενο από τον δημιουργό"
+msgid "[COLOR white]AliveGR: Legal[/COLOR]"
+msgstr "[COLOR white]AliveGR: Πνευματικά δικαιώματα[/COLOR]"
 
 msgctxt "#30106"
 msgid "Click to open a brief text by the developer"
@@ -935,8 +935,8 @@ msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com
 msgstr "[COLOR white]Ακολουθήστε με στο Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]""
 
 msgctxt "#30260"
-msgid "[COLOR white]Support, feature & pull requests:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
-msgstr "[COLOR white]Υποστήριξη, αιτήσεις δυνατοτήτων και κώδικα:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgid "[COLOR white]Source code & support:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgstr "[COLOR white]Πηγαίος κώδικας & υποστήριξη:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
 
 msgctxt "#30261"
 msgid "Forced updating of addons repositories"

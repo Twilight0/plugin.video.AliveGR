@@ -1,13 +1,16 @@
-# coding: utf-8
-# Copyright 2014 Globo.com Player authors. All rights reserved.
-# Use of this source code is governed by a MIT License
-# license that can be found in the LICENSE file.
+# -*- coding: utf-8 -*-
+
+'''
+    Copyright 2014 Globo.com Player authors. All rights reserved.
+    Use of this source code is governed by a MIT License
+    license that can be found in the LICENSE file.
+'''
 
 import iso8601
 import datetime
 import itertools
 import re
-import protocol
+from m3u8 import protocol
 
 '''
 http://tools.ietf.org/html/draft-pantos-http-live-streaming-08#section-3.2
@@ -51,7 +54,7 @@ def parse(content, strict=False):
         'segments': [],
         'iframe_playlists': [],
         'media': [],
-        'keys': [],
+        'keys': []
     }
 
     state = {
@@ -141,6 +144,13 @@ def parse(content, strict=False):
             segment_map_info = _parse_attribute_list(protocol.ext_x_map, line, quoted_parser)
             data['segment_map'] = segment_map_info
 
+        elif line.startswith(protocol.ext_x_start):
+            attribute_parser = {
+                "time_offset": lambda x: float(x)
+            }
+            start_info = _parse_attribute_list(protocol.ext_x_start, line, attribute_parser)
+            data['start'] = start_info
+
         # Comments and whitespace
         elif line.startswith('#'):
             # comment
@@ -174,7 +184,7 @@ def _parse_key(line):
 
 
 def _parse_extinf(line, data, state, lineno, strict):
-    chunks = line.replace(protocol.extinf + ':', '').split(',')
+    chunks = line.replace(protocol.extinf + ':', '').split(',', 1)
     if len(chunks) == 2:
         duration, title = chunks
     elif len(chunks) == 1:

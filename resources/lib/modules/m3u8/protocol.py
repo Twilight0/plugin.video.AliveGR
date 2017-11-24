@@ -1,7 +1,9 @@
-# coding: utf-8
-# Copyright 2014 Globo.com Player authors. All rights reserved.
-# Use of this source code is governed by a MIT License
-# license that can be found in the LICENSE file.
+# -*- coding: utf-8 -*-
+'''
+    Copyright 2014 Globo.com Player authors. All rights reserved.
+    Use of this source code is governed by a MIT License
+    license that can be found in the LICENSE file.
+'''
 
 ext_x_targetduration = '#EXT-X-TARGETDURATION'
 ext_x_media_sequence = '#EXT-X-MEDIA-SEQUENCE'
@@ -26,3 +28,4 @@ ext_x_cue_start = '#EXT-X-CUE-OUT'
 ext_x_cue_end = '#EXT-X-CUE-IN'
 ext_x_cue_span = '#EXT-X-CUE-SPAN'
 ext_x_map = '#EXT-X-MAP'
+ext_x_start = '#EXT-X-START'

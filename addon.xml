@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.0" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.1~alpha2" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -34,6 +34,10 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
++ [B]1.6.1[/B] [COLOR yellow](24-11-2017)[/COLOR]
+- Updated m3u8 unit to latest commits (ref:5a8b976)
+- Main menu labels re-work (fixes compatibility on various skins shortcuts)
+
 + [B]1.6.0[/B] [COLOR yellow](22-11-2017)[/COLOR]
 - Filtered potentially infringing content from kids section
 - Revised live channels url

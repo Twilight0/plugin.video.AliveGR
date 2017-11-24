@@ -1,86 +1,59 @@
-# coding: utf-8
-# Copyright 2014 Globo.com Player authors. All rights reserved.
-# Use of this source code is governed by a MIT License
-# license that can be found in the LICENSE file.
+# -*- coding: utf-8 -*-
 
-import sys
 import os
-import posixpath
+from m3u8.parser import is_url
 
 try:
-    from urllib.request import urlopen, Request
-    from urllib.error import HTTPError
-    from urllib.parse import urlparse, urljoin
-except ImportError:  # Python 2.x
-    from urllib2 import urlopen, Request, HTTPError
-    from urlparse import urlparse, urljoin
-
-from model import M3U8, Playlist, IFramePlaylist, Media, Segment
-from parser import parse, is_url, ParseError
-
-PYTHON_MAJOR_VERSION = sys.version_info
-
-__all__ = ('M3U8', 'Playlist', 'IFramePlaylist', 'Media',
-           'Segment', 'loads', 'load', 'parse', 'ParseError')
+    import urlparse as url_parser
+except ImportError:
+    import urllib.parse as url_parser
 
 
-def loads(content):
-    '''
-    Given a string with a m3u8 content, returns a M3U8 object.
-    Raises ValueError if invalid content
-    '''
-    return M3U8(content)
-
-
-def load(uri, timeout=None, headers={}):
-    '''
-    Retrieves the content from a given URI and returns a M3U8 object.
-    Raises ValueError if invalid content or IOError if request fails.
-    Raises socket.timeout(python 2.7+) or urllib2.URLError(python 2.6) if
-    timeout happens when loading from uri
-    '''
-    if is_url(uri):
-        return _load_from_uri(uri, timeout, headers)
+def _urijoin(base_uri, path):
+    if is_url(base_uri):
+        return url_parser.urljoin(base_uri, path)
     else:
-        return _load_from_file(uri)
-
-# Support for python3 inspired by https://github.com/szemtiv/m3u8/
+        return os.path.normpath(os.path.join(base_uri, path.strip('/')))
 
 
-def _load_from_uri(uri, timeout=None, headers={}):
-    request = Request(uri, headers=headers)
-    resource = urlopen(request, timeout=timeout)
-    base_uri = _parsed_url(_url_for(request))
-    if PYTHON_MAJOR_VERSION < (3,):
-        content = _read_python2x(resource)
-    else:
-        content = _read_python3x(resource)
-    return M3U8(content, base_uri=base_uri)
+class BasePathMixin(object):
+
+    @property
+    def absolute_uri(self):
+        if self.uri is None:
+            return None
+        if is_url(self.uri):
+            return self.uri
+        else:
+            if self.base_uri is None:
+                raise ValueError('There can not be `absolute_uri` with no `base_uri` set')
+            return _urijoin(self.base_uri, self.uri)
+
+    @property
+    def base_path(self):
+        if self.uri is None:
+            return None
+        return os.path.dirname(self.uri)
+
+    @base_path.setter
+    def base_path(self, newbase_path):
+        if self.uri is not None:
+            if not self.base_path:
+                self.uri = "%s/%s" % (newbase_path, self.uri)
+            else:
+                self.uri = self.uri.replace(self.base_path, newbase_path)
 
 
-def _url_for(request):
-    return urlopen(request).geturl()
+class GroupedBasePathMixin(object):
 
+    def _set_base_uri(self, new_base_uri):
+        for item in self:
+            item.base_uri = new_base_uri
 
-def _parsed_url(url):
-    parsed_url = urlparse(url)
-    prefix = parsed_url.scheme + '://' + parsed_url.netloc
-    base_path = posixpath.normpath(parsed_url.path + '/..')
-    return urljoin(prefix, base_path)
+    base_uri = property(None, _set_base_uri)
 
+    def _set_base_path(self, newbase_path):
+        for item in self:
+            item.base_path = newbase_path
 
-def _read_python2x(resource):
-    return resource.read().strip()
-
-
-def _read_python3x(resource):
-    return resource.read().decode(
-        resource.headers.get_content_charset(failobj="utf-8")
-    )
-
-
-def _load_from_file(uri):
-    with open(uri) as fileobj:
-        raw_content = fileobj.read().strip()
-    base_uri = os.path.dirname(uri)
-    return M3U8(raw_content, base_uri=base_uri)
+    base_path = property(None, _set_base_path)

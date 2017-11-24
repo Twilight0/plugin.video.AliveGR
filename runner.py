@@ -320,6 +320,10 @@ elif action == 'dmca':
     from resources.lib.modules import helpers
     helpers.dmca()
 
+elif action == 'system_info':
+    from resources.lib.modules import helpers
+    helpers.system_info()
+
 # Reserved might use later:
 # elif action == 'report':
 #     from resources.lib.modules import tools

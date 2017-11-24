@@ -22,7 +22,7 @@ import json, re
 
 from tulip import youtube, cache, directory, control, workers
 from tulip.init import syshandle
-from ..modules.tools import api_keys
+from ..modules.constants import *
 from ..modules.themes import iconname
 from ..modules.helpers import thgiliwt
 
@@ -72,7 +72,7 @@ class Main:
 
     def items_list(self):
 
-        key = thgiliwt(api_keys['api_key'])
+        key = thgiliwt(strings['api_keys']['api_key'])
 
         channel1 = youtube.youtube(key=key).videos(self.youtube_link1)
 

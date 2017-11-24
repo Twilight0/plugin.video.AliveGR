@@ -19,6 +19,7 @@
 '''
 
 from ..modules.themes import iconname
+from ..modules.constants import *
 from tulip import control, directory
 
 
@@ -112,19 +113,23 @@ class Main:
             {
                 'title': control.lang(30105),
                 'action': 'dmca',
-                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='dmca.png', media_subfolder=False)
+                'icon': control.addonmedia(
+                    addonid=strings['art_id'], theme='icons', icon='dmca.png', media_subfolder=False
+                )
             }
             ,
             {
                 'title': control.lang(30260),
-                'action': 'force',
-                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='bitbucket.png', media_subfolder=False)
+                'action': 'info',
+                'icon': control.addonmedia(
+                    addonid=strings['art_id'], theme='icons', icon='bitbucket.png', media_subfolder=False
+                )
             }
             ,
             {
                 'title': control.lang(30259),
-                'action': 'force',
-                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='twitter.png', media_subfolder=False)
+                'action': 'info',
+                'icon': control.addonmedia(addonid=strings['art_id'], theme='icons', icon='twitter.png', media_subfolder=False)
             }
             ,
             {
@@ -141,8 +146,8 @@ class Main:
             ,
             {
                 'title': control.lang(30258).format(control.addon('xbmc.addon').getAddonInfo('version').rpartition('.')[0]),
-                'action': 'force',
-                'icon': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='icons', icon='kodi.png', media_subfolder=False)
+                'action': 'system_info',
+                'icon': control.addonmedia(addonid=strings['art_id'], theme='icons', icon='kodi.png', media_subfolder=False)
             }
         ]
 

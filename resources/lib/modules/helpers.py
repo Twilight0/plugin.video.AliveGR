@@ -165,6 +165,10 @@ def force():
     control.infoDialog(control.lang(30261))
 
 
+def system_info():
+    control.execute('ActivateWindow(systeminfo,return)')
+
+
 def thgiliwt(s):
 
     string = s[::-1]

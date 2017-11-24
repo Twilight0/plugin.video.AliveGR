@@ -26,7 +26,6 @@ from urlparse import urljoin
 from ..modules.themes import iconname
 from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
-from ..modules.tools import api_keys
 from ..resolvers.yt_wrapper import base_link as yt_base_link
 from youtu_be import thumb_maker
 import gm

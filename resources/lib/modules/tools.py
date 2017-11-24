@@ -21,19 +21,8 @@
 
 from tulip import control, client
 from helpers import thgiliwt, addon_version, cache_clear
+from constants import *
 
-
-########################################################################################################################
-############### Please do not copy these keys, instead create your own with this tutorial: #############################
-############### http://forum.kodi.tv/showthread.php?tid=267160&pid=2299960#pid2299960      #############################
-########################################################################################################################
-
-api_keys = {
-    'enablement': 'true',
-    'id': '498788153161-pe356urhr0uu2m98od6f72k0vvcdsij0.apps.googleusercontent.com',
-    'api_key': '0I1Ry82VGNWOypWMxUDR5JGMs5kQINDMmdET59UMrhTQ5NVY6lUQ',
-    'secret': 'e6RBIFCVh1Fm-IX87PVJjgUu'
-}
 
 ########################################################################################################################
 
@@ -215,10 +204,10 @@ def yt_setup():
 
     def seq():
 
-        control.addon('plugin.video.youtube').setSetting('youtube.api.enable', api_keys['enablement'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.id', api_keys['id'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(api_keys['api_key']))
-        control.addon('plugin.video.youtube').setSetting('youtube.api.secret', api_keys['secret'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.enable', strings['api_keys']['enablement'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.id', strings['api_keys']['id'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(strings['api_keys']['api_key']))
+        control.addon('plugin.video.youtube').setSetting('youtube.api.secret', strings['api_keys']['secret'])
 
         control.infoDialog(message=control.lang(30402), time=3000)
 
@@ -312,7 +301,7 @@ def checkpoint():
 
     else: pass
 
-    if not control.condVisibility('System.HasAddon(repository.thgiliwt)') or not control.addon_details('repository.thgiliwt').get('enabled'):
+    if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
 
         control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
         control.execute('Dialog.Close(all)')

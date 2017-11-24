@@ -20,7 +20,7 @@
 
 
 from tulip import control
-
+from constants import *
 
 def theme():
 
@@ -34,7 +34,7 @@ def theme():
 
 def iconname(name):
 
-    __id__ = 'resource.images.alivegr.artwork'
+    __id__ = strings['art_id']
 
     icon = control.addonmedia(
         addonid=__id__, theme=theme()[0], icon=name + theme()[1], media_subfolder=False

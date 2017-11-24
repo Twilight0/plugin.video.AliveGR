@@ -431,7 +431,7 @@ msgid "Twilight"
 msgstr ""
 
 msgctxt "#30105"
-msgid "DMCA: click to view a brief text from the developer"
+msgid "[COLOR white]AliveGR: Legal[/COLOR]"
 msgstr ""
 
 msgctxt "#30106"
@@ -935,7 +935,7 @@ msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com
 msgstr ""
 
 msgctxt "#30260"
-msgid "[COLOR white]Support, feature & pull requests:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgid "[COLOR white]Source code & support:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
 msgstr ""
 
 msgctxt "#30261"
