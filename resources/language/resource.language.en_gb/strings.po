@@ -431,7 +431,7 @@ msgid "Twilight"
 msgstr ""
 
 msgctxt "#30105"
-msgid "[COLOR white]AliveGR: Legal[/COLOR]"
+msgid "[COLOR white]AliveGR:[/COLOR] [COLOR red]Legal[/COLOR]"
 msgstr ""
 
 msgctxt "#30106"

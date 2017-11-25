@@ -18,7 +18,6 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
 from tulip import control, client
 from helpers import thgiliwt, addon_version, cache_clear
 from constants import *

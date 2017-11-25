@@ -431,8 +431,8 @@ msgid "Twilight"
 msgstr "Twilight"
 
 msgctxt "#30105"
-msgid "[COLOR white]AliveGR: Legal[/COLOR]"
-msgstr "[COLOR white]AliveGR: Πνευματικά δικαιώματα[/COLOR]"
+msgid "[COLOR white]AliveGR:[/COLOR] [COLOR red]Legal[/COLOR]""
+msgstr "[COLOR white]AliveGR:[/COLOR] [COLOR red]Πνευματικά δικαιώματα[/COLOR]"
 
 msgctxt "#30106"
 msgid "Click to open a brief text by the developer"

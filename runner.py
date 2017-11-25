@@ -196,6 +196,10 @@ elif action == 'settings':
     from resources.lib.indexers import settings
     settings.Main().menu()
 
+elif action == 'settings_menu':
+    from resources.lib.indexers import settings
+    settings.Main().menu()
+
 elif action == 'openSettings':
     from tulip import control
     control.openSettings(query)
