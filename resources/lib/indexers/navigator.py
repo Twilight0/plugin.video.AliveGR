@@ -188,7 +188,8 @@ class Main:
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
-            item.update({'cm': [refresh, cache_clear, reset_idx, settings]})
+            tools = {'title': 30137, 'query': {'action': 'settings'}}
+            item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
         from ..modules.tools import checkpoint
         checkpoint()
@@ -222,7 +223,8 @@ class Main:
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
-            item.update({'cm': [refresh, cache_clear, reset_idx, settings]})
+            tools = {'title': 30137, 'query': {'action': 'settings'}}
+            item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
         log_notice('Plugin started as music addon, have fun...')
         log_notice('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))

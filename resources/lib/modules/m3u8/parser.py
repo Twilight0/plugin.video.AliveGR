@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 
-'''
-    Copyright 2014 Globo.com Player authors. All rights reserved.
-    Use of this source code is governed by a MIT License
-    license that can be found in the LICENSE file.
-'''
+# Copyright 2014 Globo.com Player authors. All rights reserved.
+# Use of this source code is governed by a MIT License
+# license that can be found in the LICENSE file.
 
 import iso8601
 import datetime
 import itertools
 import re
-from m3u8 import protocol
+import protocol
 
 '''
 http://tools.ietf.org/html/draft-pantos-http-live-streaming-08#section-3.2
 http://stackoverflow.com/questions/2785755/how-to-split-but-ignore-separators-in-quoted-strings-in-python
 '''
+
 ATTRIBUTELISTPATTERN = re.compile(r'''((?:[^,"']|"[^"]*"|'[^']*')+)''')
 
 

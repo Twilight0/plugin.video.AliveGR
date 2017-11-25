@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
-'''
-    Copyright 2014 Globo.com Player authors. All rights reserved.
-    Use of this source code is governed by a MIT License
-    license that can be found in the LICENSE file.
-'''
+# Copyright 2014 Globo.com Player authors. All rights reserved.
+# Use of this source code is governed by a MIT License
+# license that can be found in the LICENSE file.
 
 from collections import namedtuple
 import os
 import errno
 import math
 
+from protocol import ext_x_start
 from parser import parse, format_date_time
 from mixins import BasePathMixin, GroupedBasePathMixin
 
@@ -181,6 +180,9 @@ class M3U8(object):
                                         )
         self.segment_map = self.data.get('segment_map')
 
+        start = self.data.get('start', None)
+        self.start = start and Start(**start)
+
     def __unicode__(self):
         return self.dumps()
 
@@ -254,6 +256,8 @@ class M3U8(object):
             output.append('#EXT-X-PROGRAM-DATE-TIME:' + format_date_time(self.program_date_time))
         if not (self.playlist_type is None or self.playlist_type == ''):
             output.append('#EXT-X-PLAYLIST-TYPE:%s' % str(self.playlist_type).upper())
+        if self.start:
+            output.append(str(self.start))
         if self.is_i_frames_only:
             output.append('#EXT-X-I-FRAMES-ONLY')
         if self.is_variant:
@@ -677,6 +681,22 @@ class PlaylistList(list, GroupedBasePathMixin):
     def __str__(self):
         output = [str(playlist) for playlist in self]
         return '\n'.join(output)
+
+
+class Start(object):
+
+    def __init__(self, time_offset, precise=None):
+        self.time_offset = float(time_offset)
+        self.precise = precise
+
+    def __str__(self):
+        output = [
+            'TIME-OFFSET=' + str(self.time_offset)
+        ]
+        if self.precise and self.precise in ['YES', 'NO']:
+            output.append('PRECISE=' + str(self.precise))
+
+        return ext_x_start + ':' + ','.join(output)
 
 
 def find_key(keydata, keylist):
