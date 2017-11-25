@@ -99,6 +99,12 @@ class Main:
             }
             ,
             {
+                'title': control.addonInfo('name') + ': ' + control.lang(30110),
+                'action': 'changelog',
+                'icon': control.addonInfo('icon')
+            }
+            ,
+            {
                 'title': 'URLResolver' + ': ' + control.lang(30111).rpartition(' (')[0],
                 'action': 'smu_settings&sleep=false',
                 'icon': control.addon(id='script.module.urlresolver').getAddonInfo('icon')

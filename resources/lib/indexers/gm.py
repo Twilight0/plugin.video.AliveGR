@@ -21,11 +21,10 @@
 import re
 import json
 
-from tulip import control, cache, client, directory
+from tulip import cache, client, directory, control
 from tulip.log import *
 from urlparse import urljoin, urlparse
 from ..modules.themes import iconname
-from ..modules.helpers import loader
 from tulip.init import syshandle, sysaddon
 
 base_link = 'http://greek-movies.com/'
@@ -40,10 +39,11 @@ music_link = urljoin(base_link, 'music.php')
 episode_link = urljoin(base_link, 'ajax.php?type=episode&epid={0}&view={1}')
 
 try:
+    from ..modules.helpers import loader
     loader('bl.py', 'indexers')
-    from bl import bl
+    import bl
 except ImportError:
-    bl = []
+    pass
 
 
 def root(url):
@@ -288,7 +288,7 @@ class Main:
 
             self.years.append(equation)
 
-        if indexer.startswith('g=8') and 'movies' in url or 'shortfilm' in url:
+        if indexer.startswith('g=8') and 'movies' in url or indexer.startswith('g=8') and 'shortfilm' in url:
             return
 
         if indexer.startswith(
@@ -316,8 +316,13 @@ class Main:
         for item in items:
 
             title = client.parseDOM(item, 'h4')[0]
-            if title in bl:
-                continue
+
+            try:
+                # noinspection PyUnresolvedReferences
+                if title in bl.bl:
+                    continue
+            except:
+                pass
 
             icon = client.parseDOM(item, 'img', ret='src')[0]
 
@@ -333,54 +338,57 @@ class Main:
             year = re.findall('.*?\((\d{4})', title, re.U)[0]
 
             # Not normally used, available only on dev mode, as it creates a lot of traffic:
-            if control.setting('show_info') == 'true' and control.setting('debug') == 'true':
-
-                item_html = client.request(link)
-
-                if 'text-align: justify' in item_html:
-                    plot = client.parseDOM(item_html, 'p', attrs={'style': 'text-align: justify'})[0]
-                elif 'text-justify' in item_html:
-                    plot = client.parseDOM(item_html, 'p', attrs={'class': 'text-justify'})[0]
-                else:
-                    plot = control.lang(30085)
-
-                info = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})
-
-                genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
-
-                if 'imdb.com' in item_html:
-                    code = re.findall('(tt\d*)/?', info[3])[0]
-                else:
-                    code = ''
-
-                if url.startswith((series_link, shows_link, animation_link)):
-
-                    self.list.append(
-                        {
-                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
-                            'genre': genre, 'code': code
-                        }
-                    )
-
-                else:
-
-                    duration = int(info[2].lstrip('Διάρκεια:'.decode('utf-8')).strip(' \'')) * 60
-
-                    self.list.append(
-                        {
-                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
-                            'genre': genre, 'duration': duration, 'code': code
-                        }
-                    )
+            # if control.setting('debug') == 'true':
+            #
+            #     item_html = client.request(link)
+            #
+            #     if 'text-align: justify' in item_html:
+            #         plot = client.parseDOM(item_html, 'p', attrs={'style': 'text-align: justify'})[0]
+            #     elif 'text-justify' in item_html:
+            #         plot = client.parseDOM(item_html, 'p', attrs={'class': 'text-justify'})[0]
+            #     else:
+            #         plot = control.lang(30085)
+            #
+            #     info = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})
+            #
+            #     genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
+            #
+            #     if 'imdb.com' in item_html:
+            #         code = re.findall('(tt\d*)/?', info[3])[0]
+            #     else:
+            #         code = ''
+            #
+            #     if url.startswith((series_link, shows_link, animation_link)):
+            #
+            #         self.list.append(
+            #             {
+            #                 'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
+            #                 'genre': genre, 'code': code
+            #             }
+            #         )
+            #
+            #     else:
+            #
+            #         duration = int(info[2].lstrip('Διάρκεια:'.decode('utf-8')).strip(' \'')) * 60
+            #
+            #         self.list.append(
+            #             {
+            #                 'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
+            #                 'genre': genre, 'duration': duration, 'code': code
+            #             }
+            #         )
 
             # Available to all users:
-            else:
+            # else:
 
-                self.list.append(
-                    {
-                        'title': title, 'url': link, 'image': icon.encode('utf-8'), 'year': int(year), 'name': name
-                    }
-                )
+            self.list.append(
+                {
+                    'title': title, 'url': link, 'image': icon.encode('utf-8'), 'year': int(year), 'name': name
+                }
+            )
+
+        if control.setting('debug') == 'true':
+            log_debug('List of vod items ~ ' + repr(self.list))
 
         return self.list
 
@@ -529,7 +537,7 @@ class Main:
 
     def gm_sports(self):
 
-        html = cache.get(self.root, 48, sports_link)
+        html = cache.get(root, 48, sports_link)
         options = re.compile('(<option value.+?</option>)', re.U).findall(html)
 
         icons = ['https://www.shareicon.net/data/256x256/2015/11/08/157712_sport_512x512.png',

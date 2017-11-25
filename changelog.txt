@@ -1,6 +1,10 @@
-+ [B]1.6.1[/B] [COLOR yellow](24-11-2017)[/COLOR]
++ [B]1.6.1[/B] [COLOR yellow](25-11-2017)[/COLOR]
 - Updated m3u8 unit to latest commits (ref:5a8b976)
 - Main menu labels re-work (fixes compatibility on various skins shortcuts)
+- Fixed input dialogs in search menu to follow recent changes in tulip libraries
+- Forced list items view in miscellany & importand info menus
+- Minor rework to fix filtering for short films
+- Cosmetics
 
 + [B]1.6.0[/B] [COLOR yellow](22-11-2017)[/COLOR]
 - Filtered potentially infringing content from kids section

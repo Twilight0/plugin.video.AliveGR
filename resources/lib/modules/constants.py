@@ -26,12 +26,11 @@
 
 strings = {
     'art_id': 'resource.images.alivegr.artwork',
+    'yt_url': 'plugin://plugin.video.youtube',
     'api_keys': {
         'enablement': 'true',
         'id': '498788153161-pe356urhr0uu2m98od6f72k0vvcdsij0.apps.googleusercontent.com',
         'api_key': '0I1Ry82VGNWOypWMxUDR5JGMs5kQINDMmdET59UMrhTQ5NVY6lUQ',
         'secret': 'e6RBIFCVh1Fm-IX87PVJjgUu'
     }
-    ,
-    'yt_url': 'plugin://plugin.video.youtube'
 }

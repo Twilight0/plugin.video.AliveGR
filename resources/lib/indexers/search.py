@@ -48,7 +48,7 @@ class Main:
 
         if choice == 0:
 
-            str_input = control.inputDialog(
+            str_input = control.dialog.input(
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096)
             )
 
@@ -84,7 +84,7 @@ class Main:
 
             import documentaries
 
-            str_input = control.inputDialog(
+            str_input = control.dialog.input(
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
             )
 
@@ -179,7 +179,9 @@ class Main:
 
         elif choice == 2:
 
-            str_input = control.inputDialog(heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30098))
+            str_input = control.dialog.input(
+                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30098)
+            )
 
             if bool(str_input):
 
