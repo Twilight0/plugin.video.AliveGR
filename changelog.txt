@@ -3,6 +3,7 @@
 - Main menu folder filteration re-work
 - Verious enhancemens in "important info" menu
 - Lang split re-work
+- Changed geoloc provider and moved to helpers
 - Cosmetics
 
 + [B]1.6.2[/B] [COLOR yellow](25-11-2017)[/COLOR]
