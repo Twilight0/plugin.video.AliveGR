@@ -24,7 +24,7 @@ from tulip import cache, control, directory, client, ordereddict
 from tulip.log import *
 from tulip.init import sysaddon, syshandle
 from ..modules.themes import iconname
-from ..modules.helpers import thgiliwt, xteni, dexteni
+from ..modules.helpers import thgiliwt, dexteni
 
 
 class Main:

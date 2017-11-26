@@ -20,7 +20,7 @@
 
 from tulip import control, client
 from helpers import thgiliwt, addon_version, cache_clear
-from constants import *
+from constants import api_keys
 
 
 ########################################################################################################################
@@ -131,7 +131,7 @@ def setup_mouse_keymap():
         string_for_up = '<wheelup>ZoomIn</wheelup>'
         string_for_down = '<wheeldown>ZoomOut</wheeldown>'
 
-        strings = [string_for_left, string_for_right, string_for_middle, string_for_up, string_for_down]
+        classes = [string_for_left, string_for_right, string_for_middle, string_for_up, string_for_down]
 
         map_left = control.lang(30241)
         map_right = control.lang(30242)
@@ -154,7 +154,7 @@ def setup_mouse_keymap():
             finalized = []
 
             for i in indices:
-                finalized.append(strings[i])
+                finalized.append(classes[i])
 
             joined = ''.join(finalized)
 
@@ -203,10 +203,10 @@ def yt_setup():
 
     def seq():
 
-        control.addon('plugin.video.youtube').setSetting('youtube.api.enable', strings['api_keys']['enablement'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.id', strings['api_keys']['id'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(strings['api_keys']['api_key']))
-        control.addon('plugin.video.youtube').setSetting('youtube.api.secret', strings['api_keys']['secret'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.enable', api_keys['enablement'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.id', api_keys['id'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(api_keys['api_key']))
+        control.addon('plugin.video.youtube').setSetting('youtube.api.secret', api_keys['secret'])
 
         control.infoDialog(message=control.lang(30402), time=3000)
 

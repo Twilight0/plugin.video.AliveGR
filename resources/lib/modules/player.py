@@ -26,15 +26,15 @@ import urlresolver
 # import YDStreamExtractor
 from ..resolvers import stream_link
 import m3u8_loader
-from tulip import directory, client, cache
+from tulip import directory, client, cache, control
 from tulip.log import *
 from ..indexers.gm import base_link
-from ..resolvers import live, yt_wrapper, ytdl_wrapper
+from ..resolvers import live, yt_wrapper  # , ytdl_wrapper
 
 
 def source_maker(url):
 
-    if 'episode' in url:  # series & shows
+    if 'episode' in url:
 
         html = client.request(url=url.partition('?')[0], post=url.partition('?')[2])
         links = client.parseDOM(html, 'a', ret='href')
@@ -57,7 +57,7 @@ def source_maker(url):
         link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
         return 'music', link
 
-    else:  # movies
+    else:
 
         html = client.request(url)
 

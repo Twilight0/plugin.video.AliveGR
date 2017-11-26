@@ -37,103 +37,120 @@ class Main:
             {
                 'title': control.lang(30001),
                 'action': 'live_tv',
-                'icon': iconname('monitor')
+                'icon': iconname('monitor'),
+                'id': '30001'
             }
             ,
             {
                 'title': control.lang(30036),
                 'action': 'pvr_client',
-                'icon': iconname('guide')
+                'icon': iconname('guide'),
+                'id': '30036'
             }
             ,
             {
                 'title': control.lang(30008),
                 'action': 'networks',
-                'icon': iconname('networks')
+                'icon': iconname('networks'),
+                'id': '30008'
             }
             ,
             {
                 'title': control.lang(30123),
                 'action': 'news',
-                'icon': iconname('news')
+                'icon': iconname('news'),
+                'id': '30123'
             }
             ,
             {
                 'title': control.lang(30031),
                 'action': 'movies',
-                'icon': iconname('movies')
+                'icon': iconname('movies'),
+                'id': '30031'
             }
             ,
             {
                 'title': control.lang(30083),
                 'action': 'short_films',
-                'icon': iconname('short')
+                'icon': iconname('short'),
+                'id': '30083'
             }
             ,
             {
                 'title': control.lang(30030),
                 'action': 'series',
-                'icon': iconname('series')
+                'icon': iconname('series'),
+                'id': '30030'
             }
             ,
             {
                 'title': control.lang(30063),
                 'action': 'shows',
-                'icon': iconname('shows')
+                'icon': iconname('shows'),
+                'id': '30063'
             }
             ,
             {
                 'title': control.lang(30068),
                 'action': 'theater',
-                'icon': iconname('theater')
+                'icon': iconname('theater'),
+                'id': '30068'
             }
             ,
             {
                 'title': control.lang(30079),
                 'action': 'documentaries',
-                'icon': iconname('documentaries')
+                'icon': iconname('documentaries'),
+                'id': '30079'
             }
             ,
             {
                 'title': control.lang(30094),
                 'action': 'sports',
-                'icon': iconname('sports')
+                'icon': iconname('sports'),
+                'id': '30094'
             }
             ,
             {
                 'title': control.lang(30032),
                 'action': 'kids',
-                'icon': iconname('kids')
+                'icon': iconname('kids'),
+                'id': '30032'
             }
             ,
             {
                 'title': control.lang(30012),
                 'action': 'miscellany',
-                'icon': iconname('miscellany')
+                'icon': iconname('miscellany'),
+                'id': '30012'
             }
             ,
             {
                 'title': control.lang(30002),
                 'action': 'radio',
-                'icon': iconname('radios')
+                'icon': iconname('radios'),
+                'id': '30002'
             }
             ,
             {
                 'title': control.lang(30125),
                 'action': 'music',
-                'icon': iconname('music')
+                'icon': iconname('music'),
+                'id': '30125'
             }
             ,
             {
                 'title': control.lang(30095).partition(' ')[0],
                 'action': 'search',
-                'icon': iconname('search')
+                'icon': iconname('search'),
+                'id': '30095'
             }
             ,
             {
                 'title': control.lang(30055),
                 'action': 'bookmarks',
-                'icon': iconname('bookmarks')
+                'icon': iconname('bookmarks'),
+                'id': '30055'
             }
             ,
             {
@@ -148,39 +165,39 @@ class Main:
             del self.list[1]
 
         if control.setting('show_live') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'live_tv']
+            self.list = [d for d in self.list if d.get('id') != '30001']
         if control.setting('show_pvr') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'pvr_client']
+            self.list = [d for d in self.list if d.get('id') != '30036']
         if control.setting('show_networks') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'networks']
+            self.list = [d for d in self.list if d.get('id') != '30008']
         if control.setting('show_news') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'news']
+            self.list = [d for d in self.list if d.get('id') != '30123']
         if control.setting('show_movies') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'movies']
+            self.list = [d for d in self.list if d.get('id') != '30031']
         if control.setting('show_short_films') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'short_films']
+            self.list = [d for d in self.list if d.get('id') != '30083']
         if control.setting('show_series') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'series']
+            self.list = [d for d in self.list if d.get('id') != '30030']
         if control.setting('show_shows') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'shows']
+            self.list = [d for d in self.list if d.get('id') != '30063']
         if control.setting('show_theater') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'theater']
+            self.list = [d for d in self.list if d.get('id') != '30068']
         if control.setting('show_docs') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'documentaries']
+            self.list = [d for d in self.list if d.get('id') != '30079']
         if control.setting('show_sports') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'sports']
+            self.list = [d for d in self.list if d.get('id') != '30094']
         if control.setting('show_kids') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'kids']
+            self.list = [d for d in self.list if d.get('id') != '30032']
         if control.setting('show_misc') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'miscellany']
+            self.list = [d for d in self.list if d.get('id') != '30012']
         if control.setting('show_radio') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'radio']
+            self.list = [d for d in self.list if d.get('id') != '30002']
         if control.setting('show_music') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'music']
+            self.list = [d for d in self.list if d.get('id') != '30125']
         if control.setting('show_search') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'search']
+            self.list = [d for d in self.list if d.get('id') != '30095']
         if control.setting('show_bookmarks') == 'false':
-            self.list = [d for d in self.list if d.get('action') != 'bookmarks']
+            self.list = [d for d in self.list if d.get('id') != '30055']
         if control.setting('show_settings') == 'false':
             self.list = [d for d in self.list if d.get('id') != '30137']
 

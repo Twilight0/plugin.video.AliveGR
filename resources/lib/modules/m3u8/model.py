@@ -478,7 +478,7 @@ class Playlist(BasePathMixin):
         self.base_uri = base_uri
 
         resolution = stream_info.get('resolution')
-        if resolution != None:
+        if resolution is not None:
             resolution = resolution.strip('"')
             values = resolution.split('x')
             resolution_pair = (int(values[0]), int(values[1]))
@@ -659,7 +659,7 @@ class Media(BasePathMixin):
         if self.characteristics:
             media_out.append('CHARACTERISTICS=' + quoted(self.characteristics))
 
-        return ('#EXT-X-MEDIA:' + ','.join(media_out))
+        return '#EXT-X-MEDIA:' + ','.join(media_out)
 
     def __str__(self):
         return self.dumps()

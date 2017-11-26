@@ -19,7 +19,7 @@
 '''
 
 from ..modules.themes import iconname
-from ..modules.constants import *
+from ..modules.constants import art_id
 from tulip import control, directory
 
 
@@ -121,7 +121,7 @@ class Main:
                 'action': 'dmca',
                 'plot': control.addonInfo('disclaimer').decode('utf-8'),
                 'icon': control.addonmedia(
-                    addonid=strings['art_id'], theme='icons', icon='dmca.png', media_subfolder=False
+                    addonid=art_id, theme='icons', icon='dmca.png', media_subfolder=False
                 )
             }
             ,
@@ -130,7 +130,7 @@ class Main:
                 'action': 'none',
                 'plot': 'Git repo',
                 'icon': control.addonmedia(
-                    addonid=strings['art_id'], theme='icons', icon='bitbucket.png', media_subfolder=False
+                    addonid=art_id, theme='icons', icon='bitbucket.png', media_subfolder=False
                 )
             }
             ,
@@ -138,7 +138,7 @@ class Main:
                 'title': control.lang(30259),
                 'action': 'none',
                 'plot': 'RSS feed: https://twitrss.me/twitter_user_to_rss/?user=TwilightZer0',
-                'icon': control.addonmedia(addonid=strings['art_id'], theme='icons', icon='twitter.png', media_subfolder=False)
+                'icon': control.addonmedia(addonid=art_id, theme='icons', icon='twitter.png', media_subfolder=False)
             }
             ,
             {
@@ -166,7 +166,7 @@ class Main:
                 'title': control.lang(30258).format(control.addon('xbmc.addon').getAddonInfo('version').rpartition('.')[0]),
                 'action': 'system_info',
                 'plot': control.lang(30263),
-                'icon': control.addonmedia(addonid=strings['art_id'], theme='icons', icon='kodi.png', media_subfolder=False)
+                'icon': control.addonmedia(addonid=art_id, theme='icons', icon='kodi.png', media_subfolder=False)
             }
         ]
 

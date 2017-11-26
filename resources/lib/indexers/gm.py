@@ -25,6 +25,7 @@ from tulip import cache, client, directory, control
 from tulip.log import *
 from urlparse import urljoin, urlparse
 from ..modules.themes import iconname
+from ..modules.helpers import loader
 from tulip.init import syshandle, sysaddon
 
 base_link = 'http://greek-movies.com/'
@@ -39,7 +40,6 @@ music_link = urljoin(base_link, 'music.php')
 episode_link = urljoin(base_link, 'ajax.php?type=episode&epid={0}&view={1}')
 
 try:
-    from ..modules.helpers import loader
     loader('bl.py', 'indexers')
     import bl
 except ImportError:

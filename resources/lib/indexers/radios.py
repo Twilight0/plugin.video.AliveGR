@@ -18,9 +18,8 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from tulip import cache, control, client
-from tulip.init import sysaddon, syshandle
-from ..modules.helpers import thgiliwt
+from tulip import control
+from tulip.init import syshandle
 
 
 class Main:
@@ -28,7 +27,6 @@ class Main:
     def __init__(self):
 
         self.list = []
-        # self.radios = 's1GeuM3bpRWYy9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.addons = [
             {
                 'title': 'EPT PLAYER RADIO STATIONS',
@@ -55,27 +53,8 @@ class Main:
             }
         ]
 
-    # def get_radios(self):
-    #
-    #     xml = client.request(thgiliwt(self.radios))
-    #
-    #     items = client.parseDOM(xml, 'station', attrs={'enable': '1'})
-    #
-    #     for item in items:
-    #
-    #         name = client.parseDOM(item, 'name')[0]
-    #         logo = client.parseDOM(item, 'logo')[0]
-    #         url = client.parseDOM(item, 'url')[0]
-    #
-    #         self.list.append({'title': name, 'icon': logo, 'url': url})
-    #
-    #     self.list.extend(self.addons)
-    #
-    #     return self.list
-
     def radio(self):
 
-        # stations = cache.get(self.get_radios, 2)
         stations = self.addons
 
         self.list = []
@@ -84,14 +63,8 @@ class Main:
             li = control.item(label=station['title'], iconImage=station['icon'], thumbnailImage=station['icon'])
             li.setInfo('music', {'title': station['title']})
             li.setArt({'fanart': control.addonInfo('fanart')})
-            li.setProperty('IsPlayable', 'true')
-            # if station['url'].startswith('plugin://'):
             url = station['url']
-            _isFolder = True
-            # else:
-            #     url = '{0}?action=play&url={1}'.format(sysaddon, station['url'])
-            #     _isFolder = False
-            self.list.append((url, li, _isFolder))
+            self.list.append((url, li, True))
 
         control.addItems(syshandle, self.list)
         control.directory(syshandle)

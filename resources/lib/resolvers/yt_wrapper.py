@@ -21,7 +21,7 @@
 import re, youtube_resolver
 from tulip import client, control
 from ..modules.helpers import stream_picker, addon_version
-from ..modules.constants import *
+from ..modules.constants import yt_base
 
 
 def traslate(url, add_base=False):
@@ -38,7 +38,7 @@ def traslate(url, add_base=False):
 
     else:
 
-        stream = strings['yt_base'] + video_id
+        stream = yt_base + video_id
         return stream
 
 

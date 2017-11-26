@@ -8,7 +8,7 @@ import sys
 import os
 import posixpath
 
-from urllib2 import urlopen, Request, HTTPError
+from urllib2 import urlopen, Request
 from urlparse import urlparse, urljoin
 from model import M3U8, Playlist, IFramePlaylist, Media, Segment
 from parser import parse, is_url, ParseError

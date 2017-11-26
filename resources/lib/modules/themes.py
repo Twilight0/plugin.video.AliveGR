@@ -20,24 +20,23 @@
 
 
 from tulip import control
-from constants import *
+from constants import art_id
+
 
 def theme():
 
-    theme = control.setting('theme')
+    icon_theme = control.setting('theme')
 
-    if theme == '0':
+    if icon_theme == '0':
         return 'alivegr', '+alivegr.png'
-    elif theme == '1':
+    elif icon_theme == '1':
         return 'twilight', '+twilight.png'
 
 
 def iconname(name):
 
-    __id__ = strings['art_id']
-
     icon = control.addonmedia(
-        addonid=__id__, theme=theme()[0], icon=name + theme()[1], media_subfolder=False
+        addonid=art_id, theme=theme()[0], icon=name + theme()[1], media_subfolder=False
     )
 
     return icon

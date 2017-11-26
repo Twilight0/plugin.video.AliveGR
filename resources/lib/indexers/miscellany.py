@@ -19,11 +19,11 @@
 '''
 
 
-from tulip import cache, client
+from tulip import cache, client, control
 from tulip.log import *
 from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
-from ..modules.constants import *
+from ..modules.constants import yt_url
 
 
 class Main:
@@ -61,7 +61,7 @@ class Main:
 
             item_data = (
                 dict(title=title, icon=icon, url=url.replace(
-                    'https://www.youtube.com/channel', '{0}/channel'.format(strings['yt_url'])
+                    'https://www.youtube.com/channel', '{0}/channel'.format(yt_url)
                 ))
             )
 
@@ -83,13 +83,21 @@ class Main:
         self.list = []
 
         for item in self.data:
-            if control.setting('splitter') == 'true':
-                if control.setting('lang_split') == '0':
-                    li = control.item(label=item['title'].partition('-')[0].strip())
-                elif control.setting('lang_split') == '1':
-                    li = control.item(label=item['title'].partition('-')[2].strip())
+
+            if control.setting('lang_split') == '0':
+                if 'Greek' in control.infoLabel('System.Language'):
+                    li = control.item(label=item['title'].partition(' - ')[2])
+                elif 'English' in control.infoLabel('System.Language'):
+                    li = control.item(label=item['title'].partition(' - ')[0])
+                else:
+                    li = control.item(label=item['title'])
+            elif control.setting('lang_split') == '1':
+                li = control.item(label=item['title'].partition(' - ')[0])
+            elif control.setting('lang_split') == '2':
+                li = control.item(label=item['title'].partition(' - ')[2])
             else:
                 li = control.item(label=item['title'])
+
             li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
             url = item['url']
             isFolder = True

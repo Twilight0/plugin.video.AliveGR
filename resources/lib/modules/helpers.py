@@ -18,9 +18,8 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import os
 from zlib import decompress, compress
-from base64 import b64decode, b64encode
+from base64 import b64decode
 from tulip import control, cache, client
 from tulip.log import *
 

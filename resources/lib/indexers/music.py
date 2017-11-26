@@ -18,15 +18,14 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import json, re, urllib
+import json, re
 
 from tulip import control, directory, cache, client
 from tulip.log import *
 from urlparse import urljoin
 from ..modules.themes import iconname
-from tulip.init import syshandle
-from ..modules.helpers import thgiliwt
-from ..resolvers.yt_wrapper import base_link as yt_base_link
+from ..modules.constants import yt_base
+from ..indexers import youtu_be
 from youtu_be import thumb_maker
 import gm
 
@@ -376,7 +375,7 @@ class Main:
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
-                link = urljoin(yt_base_link, vid)
+                link = urljoin(yt_base, vid)
             elif url.rstrip('12') == self.radiopolis_url:
                 link = client.parseDOM(item, 'a', ret='href')[0].rpartition('?')[0]
                 image = thumb_maker(link.partition('=')[2])

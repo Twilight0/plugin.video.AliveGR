@@ -20,7 +20,7 @@
 
 import json
 
-from tulip import bookmarks, directory, control
+from tulip import bookmarks, directory
 from tulip.log import *
 from ..modules.themes import iconname
 

@@ -302,7 +302,7 @@ def _cueout_elemental(line, state, prevline):
     param, value = line.split(':', 1)
     res = re.match('.*EXT-OATCLS-SCTE35:(.*)$', prevline)
     if res:
-        return (res.group(1), value)
+        return res.group(1), value
     else:
         return None
 
@@ -310,7 +310,7 @@ def _cueout_envivio(line, state, prevline):
     param, value = line.split(':', 1)
     res = re.match('.*DURATION=(.*),.*,CUE="(.*)"', value)
     if res:
-        return (res.group(2), res.group(1))
+        return res.group(2), res.group(1)
     else:
         return None
 

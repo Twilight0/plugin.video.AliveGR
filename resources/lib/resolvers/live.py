@@ -55,13 +55,13 @@ def megagr(url):
 
     except:
 
-        from ..resolvers.yt_wrapper import base_link
+        from ..modules.constants import yt_base
 
         pattern = re.compile('"https?://(?:www\.youtube\.com|youtu\.be)/(?:watch\?v=|embed/|)([\w-]*?)"')
 
         yt_id = re.findall(pattern, html)[0]
 
-        return base_link + yt_id
+        return yt_base + yt_id
 
 
 def ert(url):
@@ -85,13 +85,13 @@ def ert(url):
 
 def skai(url):
 
-    from ..resolvers.yt_wrapper import base_link
+    from ..modules.constants import strings
 
     xml = client.request(url)
 
     result = re.findall('<File><!\[CDATA\[(.*?)\]\]></File>', xml)[0]
 
-    return base_link + result
+    return strings['yt_base'] + result
 
 
 def alphatv(url):
