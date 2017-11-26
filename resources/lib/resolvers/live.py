@@ -66,9 +66,9 @@ def megagr(url):
 
 def ert(url):
 
-    code = client.request('http://whatismyipaddress.com/')
+    from ..modules.helpers import geo_loc
 
-    if 'Greece' in code:
+    if 'Greece' in geo_loc():
         GR = True
     else:
         GR = False
@@ -85,13 +85,13 @@ def ert(url):
 
 def skai(url):
 
-    from ..modules.constants import strings
+    from ..modules.constants import yt_base
 
     xml = client.request(url)
 
     result = re.findall('<File><!\[CDATA\[(.*?)\]\]></File>', xml)[0]
 
-    return strings['yt_base'] + result
+    return yt_base + result
 
 
 def alphatv(url):

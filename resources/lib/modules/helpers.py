@@ -210,6 +210,13 @@ def loader(mod, folder):
     client.retriever('http://alivegr.net/raw/{0}'.format(mod), control.join(target))
 
 
+def geo_loc():
+
+    json = client.request('http://freegeoip.net/json/')
+
+    return json
+
+
 def dmca():
 
     i18n = 'el' if control.infoLabel('System.Language') == 'Greek' else 'en'
