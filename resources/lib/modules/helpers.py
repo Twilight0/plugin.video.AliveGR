@@ -142,6 +142,11 @@ def tools_menu():
     control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?content_type=executable",return)')
 
 
+def greeting():
+
+    control.infoDialog(control.lang(30263))
+
+
 def delete_settings():
 
     if control.exists(control.dataPath):

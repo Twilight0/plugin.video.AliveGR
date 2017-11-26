@@ -24,13 +24,9 @@ from ..modules.helpers import stream_picker, addon_version
 from ..modules.constants import *
 
 
-yt_prefix = '{0}/play/?video_id='.format(strings['yt_url'])
-base_link = 'https://www.youtube.com/watch?v='
-
-
 def traslate(url, add_base=False):
 
-    """Translate /user & /channel youtube urls into video ids"""
+    """Translate /user/some_user/live & /channel/some_channel_id/live youtube urls into video ids"""
 
     html = client.request(url)
 
@@ -42,7 +38,7 @@ def traslate(url, add_base=False):
 
     else:
 
-        stream = base_link + video_id
+        stream = strings['yt_base'] + video_id
         return stream
 
 

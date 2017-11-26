@@ -946,6 +946,18 @@ msgctxt "#30262"
 msgid "Quality choice (Youtube-DL)"
 msgstr "Επιλογή ποιότητας (Youtube-DL)"
 
+msgctxt "#30263"
+msgid "Thank you for using AliveGR addon"
+msgstr "Ευχαριστώ που χρησιμοποιείτε το AliveGR"
+
+msgctxt "#30264"
+msgid "[COLOR white]URLresolver, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
+msgstr "[COLOR white]URLresolver, έκδοση:[/COLOR] [COLOR purple]{0}[/COLOR]"
+
+msgctxt "#30265"
+msgid "Click on this item to force update local repos"
+msgstr "Πατήστε πάνω του για επιβολή ενημέρωσης τοπικών αποθετηρίων"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

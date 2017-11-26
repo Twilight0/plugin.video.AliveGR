@@ -334,4 +334,5 @@ elif action == 'system_info':
 #     tools.mailer(text=title)
 
 else:
-    print 'AliveGR:: Something wrong has just happened'
+    from resources.lib.modules import helpers
+    helpers.greeting()

@@ -1,6 +1,8 @@
 + [B]1.6.3[/B] [COLOR yellow](26-11-2017)[/COLOR]
 - A few alteration in language strings
 - Main menu folder filteration re-work
+- Verious enhancemens in "important info" menu
+- Cosmetics
 
 + [B]1.6.2[/B] [COLOR yellow](25-11-2017)[/COLOR]
 - Fixed imports in m3u8 units
