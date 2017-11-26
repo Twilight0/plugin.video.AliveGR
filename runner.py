@@ -196,9 +196,9 @@ elif action == 'settings':
     from resources.lib.indexers import settings
     settings.Main().menu()
 
-elif action == 'settings_menu':
+elif action == 'tools_menu':
     from resources.lib.modules import helpers
-    helpers.settings_menu()
+    helpers.tools_menu()
 
 elif action == 'openSettings':
     from tulip import control

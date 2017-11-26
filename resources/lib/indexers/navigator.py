@@ -19,7 +19,7 @@
 '''
 
 
-from tulip import control, bookmarks, directory
+from tulip import control, directory
 from tulip.log import *
 from ..modules.themes import iconname
 from ..modules.helpers import reset_idx as reset
@@ -139,7 +139,8 @@ class Main:
             {
                 'title': control.lang(30137),
                 'action': 'openSettings&query=0.0' if control.setting('settings_method') == 'true' else 'settings',
-                'icon': iconname('settings')
+                'icon': iconname('settings'),
+                'id': '30137'
             }
         ]
 
@@ -147,48 +148,48 @@ class Main:
             del self.list[1]
 
         if control.setting('show_live') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30001]
+            self.list = [d for d in self.list if d.get('action') != 'live_tv']
         if control.setting('show_pvr') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30036]
+            self.list = [d for d in self.list if d.get('action') != 'pvr_client']
         if control.setting('show_networks') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30008]
+            self.list = [d for d in self.list if d.get('action') != 'networks']
         if control.setting('show_news') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30123]
+            self.list = [d for d in self.list if d.get('action') != 'news']
         if control.setting('show_movies') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30031]
+            self.list = [d for d in self.list if d.get('action') != 'movies']
         if control.setting('show_short_films') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30083]
+            self.list = [d for d in self.list if d.get('action') != 'short_films']
         if control.setting('show_series') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30030]
+            self.list = [d for d in self.list if d.get('action') != 'series']
         if control.setting('show_shows') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30063]
+            self.list = [d for d in self.list if d.get('action') != 'shows']
         if control.setting('show_theater') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30068]
+            self.list = [d for d in self.list if d.get('action') != 'theater']
         if control.setting('show_docs') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30079]
+            self.list = [d for d in self.list if d.get('action') != 'documentaries']
         if control.setting('show_sports') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30094]
+            self.list = [d for d in self.list if d.get('action') != 'sports']
         if control.setting('show_kids') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30032]
+            self.list = [d for d in self.list if d.get('action') != 'kids']
         if control.setting('show_misc') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30012]
+            self.list = [d for d in self.list if d.get('action') != 'miscellany']
         if control.setting('show_radio') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30002]
+            self.list = [d for d in self.list if d.get('action') != 'radio']
         if control.setting('show_music') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30125]
+            self.list = [d for d in self.list if d.get('action') != 'music']
         if control.setting('show_search') == 'false':
             self.list = [d for d in self.list if d.get('action') != 'search']
         if control.setting('show_bookmarks') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30055]
+            self.list = [d for d in self.list if d.get('action') != 'bookmarks']
         if control.setting('show_settings') == 'false':
-            self.list = [d for d in self.list if d.get('title') != 30137]
+            self.list = [d for d in self.list if d.get('id') != '30137']
 
         for item in self.list:
             refresh = {'title': 30054, 'query': {'action': 'refresh'}}
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
-            tools = {'title': 30137, 'query': {'action': 'settings_menu'}}
+            tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
         from ..modules.tools import checkpoint
@@ -223,7 +224,7 @@ class Main:
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
-            tools = {'title': 30137, 'query': {'action': 'settings_menu'}}
+            tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
         log_notice('Plugin started as music addon, have fun...')

@@ -431,7 +431,7 @@ msgid "Twilight"
 msgstr "Twilight"
 
 msgctxt "#30105"
-msgid "[COLOR white]AliveGR:[/COLOR] [COLOR red]Legal[/COLOR]""
+msgid "[COLOR white]AliveGR:[/COLOR] [COLOR red]Legal[/COLOR]"
 msgstr "[COLOR white]AliveGR:[/COLOR] [COLOR red]Πνευματικά δικαιώματα[/COLOR]"
 
 msgctxt "#30106"
@@ -811,8 +811,8 @@ msgid "Toggle (un)watched status"
 msgstr "Εναλλαγή (μη)προβληθέντος κατάστασης"
 
 msgctxt "#30229"
-msgid "Toggle auto reset indexers"
-msgstr "Εναλλαγή αυτόματης επαναφοράς ομαδοποιητών"
+msgid "Auto reset indexers"
+msgstr "Αυτόματη επαναφορά ομαδοποιητών"
 
 msgctxt "#30230"
 msgid "News front pages"
@@ -932,7 +932,7 @@ msgstr "[COLOR white]Kodi, έκδοση:[/COLOR] [COLOR cyan]{0}[/COLOR]"
 
 msgctxt "#30259"
 msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
-msgstr "[COLOR white]Ακολουθήστε με στο Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]""
+msgstr "[COLOR white]Ακολουθήστε με στο Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
 
 msgctxt "#30260"
 msgid "[COLOR white]Source code & support:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"

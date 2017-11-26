@@ -137,7 +137,7 @@ def purge_bookmarks():
         control.infoDialog(control.lang(30139))
 
 
-def settings_menu():
+def tools_menu():
 
     control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?content_type=executable",return)')
 
