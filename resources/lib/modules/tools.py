@@ -99,7 +99,6 @@ def enable_proxy_module():
             control.infoDialog(control.lang(30142))
     else:
         control.infoDialog(control.lang(30143))
-    control.addon('service.streamlink.proxy').setSetting('listen_port', '50165')
 
 
 def setup_previous_menu_key():

@@ -106,7 +106,7 @@ class Main:
             ,
             {
                 'title': 'URLResolver' + ': ' + control.lang(30111).rpartition(' (')[0],
-                'action': 'smu_settings&sleep=false',
+                'action': 'smu_settings',
                 'icon': control.addon(id='script.module.urlresolver').getAddonInfo('icon')
             }
         ]

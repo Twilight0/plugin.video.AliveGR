@@ -162,7 +162,7 @@ class Main:
 
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
-            pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'tvguide': 'true'}}
+            pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'query': 'true'}}
 
             if control.condVisibility('Pvr.HasTVChannels'):
                 item.update({'cm': [bookmark_cm, r_and_c_cm, pvr_client_cm]})

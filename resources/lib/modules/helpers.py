@@ -26,11 +26,11 @@ from tulip.log import *
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 
 
-def pvr_client(tvguide='false'):
+def pvr_client(query='false'):
 
     if control.condVisibility('Pvr.HasTVChannels'):
 
-        if tvguide is None or tvguide == 'false':
+        if query is None or query == 'false':
 
             selection = control.selectDialog([control.lang(30001), control.lang(30014)])
 
@@ -41,7 +41,7 @@ def pvr_client(tvguide='false'):
             else:
                 control.execute('Dialog.Close(all)')
 
-        elif tvguide == 'true':
+        elif query == 'true':
 
             control.execute('ActivateWindow(TVGuide)')
 
@@ -73,14 +73,11 @@ def addon_version(addon_id):
     return version
 
 
-def smu_settings(sleep=True):
+def smu_settings():
 
-    if sleep:
-        control.execute('Dialog.Close(all)')
-        control.sleep(50)
-        control.Settings('script.module.urlresolver')
-    else:
-        control.Settings('script.module.urlresolver')
+    control.execute('Dialog.Close(all)')
+    control.sleep(50)
+    control.Settings('script.module.urlresolver')
 
 
 def reset_idx(notify=True):

@@ -1,3 +1,7 @@
++ [B]1.6.3[/B] [COLOR yellow](29-11-2017)[/COLOR]
+- Minor re-work in runner module
+- Simplified params-get imports
+
 + [B]1.6.3[/B] [COLOR yellow](26-11-2017)[/COLOR]
 - A few alteration in language strings
 - Main menu folder filteration re-work

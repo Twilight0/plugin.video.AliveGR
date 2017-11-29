@@ -18,13 +18,25 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from resources.lib.modules import action, title, url, query, sleep, tvguide, plot, genre, name
+from resources.lib import action, content, title, url, query, plot, genre, name
 
 ########################################################################################################################
 
-if action is None:
+if content == 'video':
     from resources.lib.indexers import navigator
     navigator.Main().root()
+
+elif content == 'audio':
+    from resources.lib.indexers import navigator
+    navigator.Main().audio()
+
+elif content == 'image':
+    from resources.lib.indexers import news
+    news.Main().papers_index()
+
+elif content == 'executable':
+    from resources.lib.indexers import settings
+    settings.Main().menu()
 
 ########################################################################################################################
 
@@ -34,7 +46,7 @@ elif action == 'live_tv':
 
 elif action == 'pvr_client':
     from resources.lib.modules import helpers
-    helpers.pvr_client(tvguide)
+    helpers.pvr_client(query)
 
 elif action == 'networks':
     from resources.lib.indexers import networks
@@ -124,9 +136,9 @@ elif action == 'miscellany':
     from resources.lib.indexers import miscellany
     miscellany.Main().miscellany()
 
-elif action == 'audio':
-    from resources.lib.indexers import navigator
-    navigator.Main().audio()
+# elif action == 'audio':
+#     from resources.lib.indexers import navigator
+#     navigator.Main().audio()
 
 elif action == 'music':
     from resources.lib.indexers import music
@@ -172,9 +184,9 @@ elif action == 'papers':
     from resources.lib.modules import helpers
     helpers.papers()
 
-elif action == 'papers_index':
-    from resources.lib.indexers import news
-    news.Main().papers_index()
+# elif action == 'papers_index':
+#     from resources.lib.indexers import news
+#     news.Main().papers_index()
 
 elif action == 'addBookmark':
     from tulip import bookmarks
@@ -206,7 +218,7 @@ elif action == 'openSettings':
 
 elif action == 'smu_settings':
     from resources.lib.modules import helpers
-    helpers.smu_settings(sleep)
+    helpers.smu_settings()
 
 elif action == 'youtube':
     from resources.lib.indexers import youtu_be
