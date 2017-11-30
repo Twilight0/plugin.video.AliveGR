@@ -1,3 +1,7 @@
++ [B]1.6.5[/B] [COLOR yellow](30-11-2017)[/COLOR]
+- Fix for dailymotion links in player module (due to conflicts with other HLS streams)
+- Reversed streamlink's quality choice order (best on top)
+
 + [B]1.6.4[/B] [COLOR yellow](30-11-2017)[/COLOR]
 - Minor re-work in runner module
 - Minor re-work of disclaimer prompt and TOS

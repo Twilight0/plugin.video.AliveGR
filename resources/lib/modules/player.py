@@ -30,6 +30,7 @@ from tulip import directory, client, cache, control
 from tulip.log import *
 from ..indexers.gm import base_link
 from ..resolvers import live, yt_wrapper  # , ytdl_wrapper
+from ..modules.constants import sl_hosts
 
 
 def source_maker(url):
@@ -200,7 +201,7 @@ def router(url):
     #
     #     return stream
 
-    elif any(['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url]):
+    elif any(sl_hosts(url)):
 
         stream = stream_link.sl_session(url)
 
@@ -208,7 +209,7 @@ def router(url):
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30403))
         else:
-            directory.resolve(stream)
+            return stream
 
     elif urlresolver.HostedMediaFile(url).valid_url():
 
@@ -364,7 +365,7 @@ def player(url, name):
             resolved = stream
             dash = False
 
-        if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not 'googlevideo' in resolved:
+        if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(sl_hosts(resolved)):
 
             resolved = m3u8_loader.m3u8_picker(resolved)
 
