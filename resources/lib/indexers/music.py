@@ -25,8 +25,7 @@ from tulip.log import *
 from urlparse import urljoin
 from ..modules.themes import iconname
 from ..modules.constants import yt_base
-from ..indexers import youtu_be
-from youtu_be import thumb_maker
+from ..indexers import you_tube
 import gm
 
 
@@ -236,7 +235,7 @@ class Main:
 
     def mgreekz_index(self):
 
-        self.list = youtu_be.yt_playlists(self.mgreekz_id)
+        self.list = you_tube.yt_playlists(self.mgreekz_id)
 
         if self.list is None:
             log_error('Mad_greekz index section failed to load successfully')
@@ -273,7 +272,7 @@ class Main:
             url = item.partition('?')[0]
 
             # image = 'https://i.ytimg.com/vi/' + url.rpartition('/')[2] + '/mqdefault.jpg'
-            image = thumb_maker(url.rpartition('/')[2])
+            image = you_tube.thumb_maker(url.rpartition('/')[2])
 
             self.list.append(
                 {
@@ -378,7 +377,7 @@ class Main:
                 link = urljoin(yt_base, vid)
             elif url.rstrip('12') == self.radiopolis_url:
                 link = client.parseDOM(item, 'a', ret='href')[0].rpartition('?')[0]
-                image = thumb_maker(link.partition('=')[2])
+                image = you_tube.thumb_maker(link.partition('=')[2])
                 description = None
 
             self.list.append(

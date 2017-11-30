@@ -27,7 +27,7 @@ msgid "Appearance"
 msgstr ""
 
 msgctxt "#30004"
-msgid "Live Streams"
+msgid "Streams"
 msgstr ""
 
 msgctxt "#30005"
@@ -35,11 +35,11 @@ msgid "Folders"
 msgstr ""
 
 msgctxt "#30006"
-msgid ""
+msgid "Quality Choice"
 msgstr ""
 
 msgctxt "#30007"
-msgid ""
+msgid "Live"
 msgstr ""
 
 msgctxt "#30008"
@@ -47,7 +47,7 @@ msgid "Networks"
 msgstr ""
 
 msgctxt "#30009"
-msgid ""
+msgid "Video on demand"
 msgstr ""
 
 msgctxt "#30010"
@@ -447,7 +447,7 @@ msgid "or via context menu -> Refresh"
 msgstr ""
 
 msgctxt "#30109"
-msgid "VOD Streams"
+msgid ""
 msgstr ""
 
 msgctxt "#30110"
@@ -679,7 +679,7 @@ msgid "Enable local proxy module"
 msgstr ""
 
 msgctxt "#30167"
-msgid "Quality choice (streamlink)"
+msgid "Streamlink (ustream, facebook, twitch, dailymotion)"
 msgstr ""
 
 msgctxt "#30168"
@@ -771,7 +771,7 @@ msgid "Greek"
 msgstr ""
 
 msgctxt "#30219"
-msgid "Quality choice (HLS)"
+msgid "HLS (m3u8/ts)"
 msgstr ""
 
 msgctxt "#30220"
@@ -795,7 +795,7 @@ msgid "Music indexers play audio only"
 msgstr ""
 
 msgctxt "#30225"
-msgid "Quality choice (youtube)"
+msgid ""
 msgstr ""
 
 msgctxt "#30226"
@@ -956,6 +956,14 @@ msgstr ""
 
 msgctxt "#30265"
 msgid "Click on this item to force update local repos"
+msgstr ""
+
+msgctxt "#30266"
+msgid "Do you agree with these terms?"
+msgstr ""
+
+msgctxt "#30267"
+msgid "Display this version's changelog?"
 msgstr ""
 
 msgctxt "#30401"

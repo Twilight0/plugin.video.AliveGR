@@ -20,13 +20,12 @@
 
 from tulip.init import params
 
-action = params.get('action', None)
-url = params.get('url')
 content = params.get('content_type')
+action = params.get('action')
+url = params.get('url')
 image = params.get('image')
 title = params.get('title')
 name = params.get('name')
 query = params.get('query')
-tvguide = params.get('tvguide')
 plot = params.get('plot')
 genre = params.get('genre')

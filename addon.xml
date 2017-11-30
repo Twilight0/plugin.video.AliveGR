@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.3" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.4" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -7,7 +7,7 @@
         <import addon="script.module.urlresolver" version="4.00.09"/>
         <import addon="script.module.streamlink.base" version="2017.11.18"/>
         <import addon="script.module.iso8601" version="0.1.11"/>
-        <import addon="script.module.tulip" version="1.3.3"/>
+        <import addon="script.module.tulip" version="1.3.4"/>
         <import addon="plugin.video.youtube" version="5.4.99.2"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
@@ -19,13 +19,13 @@
         <description lang="en_GB">AliveGR is an addon offering streaming content available in Greece. Please read disclaimer.</description>
         <disclaimer lang="en_GB">AliveGR's author does not host, stream or distribute any of the content displayed inside this software and cannot be held responsible for the quality or availability of the listed streams.
     On demand content is scraped from various websites and are freely available on the internet. This software acts as indexer and not a linker.
-    Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is".
+    Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is" with no warranty.
         </disclaimer>
         <summary lang="el_GR">Πρόσθετο AliveGR</summary>
         <description lang="el_GR">Το πρόσθετο AliveGR προσφέρει ροές περιεχομένου διαθέσιμες στην Ελλάδα. Παρακαλώ διαβάστε την αποποίηση ευθυνών.</description>
         <disclaimer lang="el_GR">Ο δημιουργός του AliveGR δεν φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
     Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο. Το παρόν λογισμικό ενεργεί ως κατάλογος και όχι ως συνδεσμοποιητής.
-    Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι".
+    Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.
         </disclaimer>
         <language>en el</language>
         <license>GNU GPL, version 2</license>
@@ -34,6 +34,13 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
++ [B]1.6.4[/B] [COLOR yellow](30-11-2017)[/COLOR]
+- Minor re-work in runner module
+- Minor re-work of disclaimer prompt and TOS
+- Simplified params-get imports
+- Re-ordered settings of streams
+- Cosmetics
+
 + [B]1.6.3[/B] [COLOR yellow](26-11-2017)[/COLOR]
 - A few alteration in language strings
 - Main menu folder filteration re-work

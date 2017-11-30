@@ -1,6 +1,9 @@
-+ [B]1.6.3[/B] [COLOR yellow](29-11-2017)[/COLOR]
++ [B]1.6.4[/B] [COLOR yellow](30-11-2017)[/COLOR]
 - Minor re-work in runner module
+- Minor re-work of disclaimer prompt and TOS
 - Simplified params-get imports
+- Re-ordered settings of streams
+- Cosmetics
 
 + [B]1.6.3[/B] [COLOR yellow](26-11-2017)[/COLOR]
 - A few alteration in language strings

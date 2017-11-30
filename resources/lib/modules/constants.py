@@ -35,4 +35,4 @@ api_keys = {
 art_id = 'resource.images.alivegr.artwork'
 yt_url = 'plugin://plugin.video.youtube'
 yt_base = 'https://www.youtube.com/watch?v='
-yt_prefix = 'plugin://plugin.video.youtube/play/?video_id='
+yt_prefix = yt_url + '/play/?video_id='

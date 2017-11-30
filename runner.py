@@ -221,8 +221,8 @@ elif action == 'smu_settings':
     helpers.smu_settings()
 
 elif action == 'youtube':
-    from resources.lib.indexers import youtu_be
-    youtu_be.yt_videos(url)
+    from resources.lib.indexers import you_tube
+    you_tube.yt_videos(url)
 
 elif action == 'play':
     from resources.lib.modules.player import player

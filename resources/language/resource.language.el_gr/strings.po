@@ -27,28 +27,28 @@ msgid "Appearance"
 msgstr "Εμφάνιση"
 
 msgctxt "#30004"
-msgid "Live Streams"
-msgstr "Ζωντανές Ροές"
+msgid "Streams"
+msgstr "Ροές"
 
 msgctxt "#30005"
 msgid "Folders"
 msgstr "Φάκελοι"
 
 msgctxt "#30006"
-msgid ""
-msgstr ""
+msgid "Quality Choice"
+msgstr "Επιλογές ποιότητας"
 
 msgctxt "#30007"
-msgid ""
-msgstr ""
+msgid "Live"
+msgstr "Ζωντανές"
 
 msgctxt "#30008"
 msgid "Networks"
 msgstr "Δίκτυα"
 
 msgctxt "#30009"
-msgid "Content switcher"
-msgstr "Εναλλάκτης περιεχομένου"
+msgid "Video on demand"
+msgstr "Κατα παραγγελία"
 
 msgctxt "#30010"
 msgid "Display"
@@ -447,8 +447,8 @@ msgid "or via context menu -> Refresh"
 msgstr "ή μέσω του εναλλακτικού μενού -> Ανανέωση"
 
 msgctxt "#30109"
-msgid "VOD Streams"
-msgstr "Επιλεκτικές Ροές"
+msgid ""
+msgstr ""
 
 msgctxt "#30110"
 msgid "Changelog"
@@ -679,8 +679,8 @@ msgid "Enable local proxy module"
 msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
 msgctxt "#30167"
-msgid "Quality choice (streamlink)"
-msgstr "Επιλογή ποιότητας (streamlink)"
+msgid "Streamlink (ustream, facebook, twitch, dailymotion)"
+msgstr "Streamlink (ustream, facebook, twitch, dailymotion)"
 
 msgctxt "#30168"
 msgid "Best"
@@ -771,8 +771,8 @@ msgid "Greek"
 msgstr "Ελληνικά"
 
 msgctxt "#30219"
-msgid "Quality choice (HLS)"
-msgstr "Επιλογή ποιότητας (HLS)"
+msgid "HLS (m3u8/ts)"
+msgstr "HLS (m3u8/ts)"
 
 msgctxt "#30220"
 msgid "Quality {0}"
@@ -795,8 +795,8 @@ msgid "Music indexers play audio only"
 msgstr "Αναπαραγωγή ήχου μόνο στην ενότητα μουσικής"
 
 msgctxt "#30225"
-msgid "Quality choice (youtube)"
-msgstr "Επιλογή ποιότητας (youtube)"
+msgid ""
+msgstr ""
 
 msgctxt "#30226"
 msgid "Queue item to current playlist"
@@ -957,6 +957,14 @@ msgstr "[COLOR white]URLresolver, έκδοση:[/COLOR] [COLOR purple]{0}[/COLOR
 msgctxt "#30265"
 msgid "Click on this item to force update local repos"
 msgstr "Πατήστε πάνω του για επιβολή ενημέρωσης τοπικών αποθετηρίων"
+
+msgctxt "#30266"
+msgid "Do you agree with these terms?"
+msgstr "Συμφωνείτε με αυτούς τους όρους χρήσης;"
+
+msgctxt "#30267"
+msgid "Display this version's changelog?"
+msgstr "Θέλετε να δείτε το αρχείο καταγραφής αλλαγών αυτής της έκδοσης;"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

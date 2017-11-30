@@ -283,35 +283,54 @@ def isa_enable():
         pass
 
 
-def checkpoint():
+def disclaimer():
 
-    disclaimer = control.addonInfo('disclaimer')
+    text = control.addonInfo('disclaimer')
 
     if control.setting('first_time') == 'true':
 
         control.dialog.textviewer(
             control.addonInfo(
                 'name'
-            ) + ', ' + control.lang(30129),  ' ' * 3 + disclaimer.decode('utf-8') + '\n' * 2 + control.lang(30131)
+            ) + ', ' + control.lang(30129), ' ' * 3 + text.decode('utf-8') + '\n' * 2 + control.lang(30131)
         )
 
-        control.monitor.abortRequested()
+        if control.yesnoDialog(control.lang(30266)):
 
-    else: pass
+            control.setSetting('first_time', 'false')
+            control.aborted()
+
+        else:
+            pass
+
+    else:
+        pass
+
+
+def repo_check():
 
     if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
 
         control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
         control.execute('Dialog.Close(all)')
         import sys
-        sys.exit(1)
+        sys.exit()
 
     else: pass
 
+
+def checkpoint():
+
+    disclaimer()
+    repo_check()
+
     if control.exists(control.join(control.addonPath, 'DELETE_ME')):
-        cache_clear()
-        changelog()
+        if control.yesnoDialog(control.lang(30267)):
+            changelog()
+        else:
+            pass
         isa_enable()
+        cache_clear()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
     else: pass
