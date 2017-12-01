@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.5" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.6" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -34,6 +34,9 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
++ [B]1.6.6[/B] [COLOR yellow](01-12-2017)[/COLOR]
+- Minor fix for calling the addon from shortcuts
+
 + [B]1.6.5[/B] [COLOR yellow](30-11-2017)[/COLOR]
 - Fix for dailymotion links in player module (due to conflicts with other HLS streams)
 - Reversed streamlink's quality choice order (best on top)

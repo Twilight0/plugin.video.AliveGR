@@ -22,7 +22,7 @@ from resources.lib import action, content, title, url, query, plot, genre, name
 
 ########################################################################################################################
 
-if content == 'video':
+if content == 'video' or action is None:
     from resources.lib.indexers import navigator
     navigator.Main().root()
 
