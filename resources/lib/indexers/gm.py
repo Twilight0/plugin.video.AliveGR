@@ -41,7 +41,7 @@ episode_link = urljoin(base_link, 'ajax.php?type=episode&epid={0}&view={1}')
 
 try:
     loader('bl.py', 'indexers')
-    import bl
+    from bl import bl
 except ImportError:
     pass
 
@@ -319,7 +319,7 @@ class Main:
 
             try:
                 # noinspection PyUnresolvedReferences
-                if title in bl.bl:
+                if title in bl:
                     continue
             except:
                 pass

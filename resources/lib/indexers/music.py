@@ -212,17 +212,17 @@ class Main:
             log_error('Songs section failed to load')
             return
         else:
-            log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
         if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
             ]
-            log_notice('Tracks loaded as audio only')
+            log_info('Tracks loaded as audio only')
             content = 'songs'
         else:
-            log_notice('Normal playback of tracks')
+            log_info('Normal playback of tracks')
             content = 'musicvideos'
 
         for count, item in list(enumerate(self.list, start=1)):
@@ -291,17 +291,17 @@ class Main:
             log_error('Mad Greekz top 10 section failed to load')
             return
         else:
-            log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
         if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
             ]
-            log_notice('Tracks loaded as audio only')
+            log_info('Tracks loaded as audio only')
             content = 'songs'
         else:
-            log_notice('Normal playback of tracks')
+            log_info('Normal playback of tracks')
             content = 'musicvideos'
 
         self.list = self.list[::-1]
@@ -397,7 +397,7 @@ class Main:
             log_error('Top 20 list section failed to load')
             return
         else:
-            log_notice('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
         if url == self.rythmos_top20_url:
             fanart = control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='rythmos_fanart.jpg', media_subfolder=False)
@@ -417,10 +417,10 @@ class Main:
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
             ]
-            log_notice('Tracks loaded as audio only')
+            log_info('Tracks loaded as audio only')
             content = 'songs'
         else:
-            log_notice('Normal playback of tracks')
+            log_info('Normal playback of tracks')
             content = 'musicvideos'
 
         for item in self.list:

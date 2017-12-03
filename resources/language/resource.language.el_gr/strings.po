@@ -447,8 +447,8 @@ msgid "or via context menu -> Refresh"
 msgstr "ή μέσω του εναλλακτικού μενού -> Ανανέωση"
 
 msgctxt "#30109"
-msgid ""
-msgstr ""
+msgid "Language"
+msgstr "Γλώσσα"
 
 msgctxt "#30110"
 msgid "Changelog"

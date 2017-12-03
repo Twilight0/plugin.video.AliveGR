@@ -22,7 +22,7 @@ from resources.lib import action, content, title, url, query, plot, genre, name
 
 ########################################################################################################################
 
-if content == 'video' or action is None:
+if content == 'video':
     from resources.lib.indexers import navigator
     navigator.Main().root()
 
@@ -39,6 +39,10 @@ elif content == 'executable':
     settings.Main().menu()
 
 ########################################################################################################################
+
+elif action is None:
+    from resources.lib.indexers import navigator
+    navigator.Main().root()
 
 elif action == 'live_tv':
     from resources.lib.indexers import live
@@ -136,9 +140,9 @@ elif action == 'miscellany':
     from resources.lib.indexers import miscellany
     miscellany.Main().miscellany()
 
-# elif action == 'audio':
-#     from resources.lib.indexers import navigator
-#     navigator.Main().audio()
+elif action == 'audio':
+    from resources.lib.indexers import navigator
+    navigator.Main().audio()
 
 elif action == 'music':
     from resources.lib.indexers import music
@@ -184,9 +188,9 @@ elif action == 'papers':
     from resources.lib.modules import helpers
     helpers.papers()
 
-# elif action == 'papers_index':
-#     from resources.lib.indexers import news
-#     news.Main().papers_index()
+elif action == 'papers_index':
+    from resources.lib.indexers import news
+    news.Main().papers_index()
 
 elif action == 'addBookmark':
     from tulip import bookmarks

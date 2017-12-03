@@ -212,8 +212,8 @@ class Main:
         from ..modules.tools import checkpoint
         checkpoint()
 
-        log_notice('Main menu loaded, have fun...')
-        log_notice('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
+        log_info('Main menu loaded, have fun...')
+        log_info('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
 
         if control.setting('reset-idx') == 'true':
             reset(notify=False)
@@ -245,6 +245,6 @@ class Main:
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
         log_notice('Plugin started as music addon, have fun...')
-        log_notice('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
+        log_info('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
 
         directory.add(self.list)

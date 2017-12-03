@@ -299,8 +299,10 @@ def player(url, name):
     if url is None:
         log_error('Nothing playable was found')
         return
+    elif control.setting('debug') == 'true':
+        log_debug('Trying to play this url: ' + url)
     else:
-        log_notice('Invoked player method')
+        log_info('Invoked player method')
 
     link = url.replace('&amp;', '&')
 

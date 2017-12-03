@@ -24,7 +24,8 @@ from tulip import cache, control, directory, client, ordereddict
 from tulip.log import *
 from tulip.init import sysaddon, syshandle
 from ..modules.themes import iconname
-from ..modules.helpers import thgiliwt, dexteni
+from ..modules.helpers import thgiliwt, dexteni, geo_loc
+from ..modules.constants import live_groups
 
 
 class Main:
@@ -32,27 +33,27 @@ class Main:
     def __init__(self):
 
         self.list = []; self.data = []; self.groups = []
-        self.alivegr = 'gcn9VZ2lGbh9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
+        self.alivegr = 'lZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
 
     def switcher(self):
 
         def seq(choose):
 
-            control.setSetting('live_group', choose)
+            control.setSetting('live_group', str(choose))
             control.idle()
             control.sleep(50)
             control.refresh()
 
         self.groups = cache.get(self.live, 24)[1]
-        translated = [control.lang(int(i)) for i in self.groups]
+        translated = [control.lang(i) for i in self.groups]
         self.data = [control.lang(30048)] + self.groups
         choice = control.selectDialog(heading=control.lang(30049), list=[control.lang(30048)] + translated)
 
         if choice == 0:
             seq('ALL')
         elif choice <= len(self.data) and not choice == -1:
-            seq(self.data.pop(choice))
+            seq(self.data[choice])
         else:
             control.execute('Dialog.Close(all)')
 
@@ -60,7 +61,7 @@ class Main:
 
         if control.setting('debug') == 'false':
 
-            result = client.request(thgiliwt('==' + self.alivegr))
+            result = client.request(thgiliwt(self.alivegr))
             result = dexteni(b64decode(result))
 
         else:
@@ -73,7 +74,7 @@ class Main:
             elif control.setting('local_remote') == '1':
                 result = client.request(control.setting('live_remote'))
             else:
-                result = client.request(thgiliwt('==' + self.alivegr))
+                result = client.request(thgiliwt(self.alivegr))
                 result = dexteni(b64decode(result))
 
         if control.setting('debug') == 'false':
@@ -82,22 +83,55 @@ class Main:
             channels = client.parseDOM(result, 'channel', attrs={'enable': '1|2'})
 
         updated = client.parseDOM(result, 'channels', ret='updated')[0]
+        gl = cache.get(geo_loc, 48)
 
         for channel in channels:
 
-            name = client.parseDOM(channel, 'name')[0]
+            title = client.parseDOM(channel, 'name')[0]
+
+            if 'Greece' in gl and '(Worldwide)' in title:
+                continue
+            elif 'Greece' not in gl and '(GR)' in title:
+                continue
+
+            try:
+                title = title.partition(' (GR)')[0]
+            except:
+                pass
+
+            try:
+                title = title.partition(' (Worldwide)')[0]
+            except:
+                pass
+
             logo = client.parseDOM(channel, 'logo')[0]
             group = client.parseDOM(channel, 'group')[0]
+            group = live_groups[group]
             url = client.parseDOM(channel, 'url')[0]
 
             info = client.parseDOM(channel, 'info')[0]
             if len(info) == 5 and info[:5].isdigit():
                 info = control.lang(int(info))
 
+            if ' - ' in info:
+                if control.setting('lang_split') == '0':
+                    if 'Greek' in control.infoLabel('System.Language'):
+                        info = info.partition(' - ')[2]
+                    elif 'English' in control.infoLabel('System.Language'):
+                        info = info.partition(' - ')[0]
+                    else:
+                        info = info
+                elif control.setting('lang_split') == '1':
+                    info = info.partition(' - ')[0]
+                elif control.setting('lang_split') == '2':
+                    info = info.partition(' - ')[2]
+                else:
+                    info = info
+
             data = (
                 {
-                    'title': name, 'image': logo, 'group': group, 'url': url,
-                    'genre': control.lang(int(group)), 'plot': info
+                    'title': title, 'image': logo, 'group': str(group), 'url': url,
+                    'genre': control.lang(group), 'plot': info
                 }
             )
 
@@ -106,7 +140,7 @@ class Main:
 
         self.groups = list(ordereddict.OrderedDict.fromkeys(self.data))
 
-        log_notice('Number of live channels available: ' + str(len(self.list)) + ', cached for 4 hours')
+        log_info('Number of live channels available: ' + str(len(self.list)) + ', cached for 4 hours')
 
         if control.setting('debug') == 'true':
             log_debug('Live list uncached' + repr(self.list))
@@ -126,7 +160,7 @@ class Main:
         elif control.setting('debug') == 'true':
             log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
         else:
-            log_notice('Cached live channels available: ' + str(len(self.list)))
+            log_info('Cached live channels available: ' + str(len(self.list)))
 
         switch = {
             'title': control.lang(30047).format(

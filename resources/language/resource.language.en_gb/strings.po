@@ -447,7 +447,7 @@ msgid "or via context menu -> Refresh"
 msgstr ""
 
 msgctxt "#30109"
-msgid ""
+msgid "Language"
 msgstr ""
 
 msgctxt "#30110"

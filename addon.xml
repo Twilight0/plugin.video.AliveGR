@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.6" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.7~alpha1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -34,6 +34,13 @@
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>325488</size>
         <news>
++ [B]1.6.7[/B] [COLOR yellow](04-12-2017)[/COLOR]
+- Several Log-notice were changed to Log-info
+- Changed url of live channels
+- Changed the way live groups are loaded
+- Added function to automate the choice of ERT's channels (user perpective only)
+- Placed language split option on top of streams' settings
+
 + [B]1.6.6[/B] [COLOR yellow](01-12-2017)[/COLOR]
 - Minor fix for calling the addon from shortcuts
 
