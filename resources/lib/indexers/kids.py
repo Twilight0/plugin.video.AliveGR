@@ -20,9 +20,16 @@
 
 from tulip import control
 from ..modules.themes import iconname
-from ..modules.constants import yt_url
+from ..modules.constants import yt_url, sdik
 from tulip.init import sysaddon, syshandle
 
+try:
+    if control.condVisibility('System.HasAddon({0})'.format(sdik)):
+        import sys
+        sys.path.extend([control.join(control.addon(id=sdik).getAddonInfo('path'), 'resources', 'lib')])
+        import extension
+except:
+    pass
 
 class Main:
 
@@ -57,6 +64,14 @@ class Main:
                 'icon': iconname('kids_songs')
             }
         ]
+
+        try:
+            if control.condVisibility('System.HasAddon({0})'.format(sdik)):
+                extended = [dict((k, control.lang(v) if (k == 'title') else v) for k, v in item.items()) for item in extension.kids_indexer]
+                extended = [dict((k, iconname(v) if (k == 'icon') else v) for k, v in item.items()) for item in extended]
+                self.data = [self.data[0]] + extended + self.data[1:]
+        except:
+            pass
 
         for item in self.data:
             li = control.item(label=item['title'])

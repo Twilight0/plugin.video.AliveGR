@@ -26,7 +26,19 @@ from tulip.log import *
 from urlparse import urljoin, urlparse
 from ..modules.themes import iconname
 from ..modules.helpers import loader
+from ..modules.constants import sdik
 from tulip.init import syshandle, sysaddon
+
+try:
+    if not control.condVisibility('System.HasAddon({0})'.format(sdik)):
+        loader('bl.py', 'indexers')
+        from bl import bl
+    else:
+        control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.py'))
+        control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.pyo'))
+        bl = []
+except ImportError:
+    pass
 
 base_link = 'http://greek-movies.com/'
 movies_link = urljoin(base_link, 'movies.php')
@@ -38,12 +50,6 @@ sports_link = urljoin(base_link, 'sports.php')
 shortfilms_link = urljoin(base_link, 'shortfilm.php')
 music_link = urljoin(base_link, 'music.php')
 episode_link = urljoin(base_link, 'ajax.php?type=episode&epid={0}&view={1}')
-
-try:
-    loader('bl.py', 'indexers')
-    from bl import bl
-except ImportError:
-    pass
 
 
 def root(url):
@@ -288,8 +294,11 @@ class Main:
 
             self.years.append(equation)
 
-        if indexer.startswith('g=8') and 'movies' in url or indexer.startswith('g=8') and 'shortfilm' in url:
-            return
+        if control.condVisibility('System.HasAddon({0})'.format(sdik)):
+            pass
+        else:
+            if indexer.startswith('g=8') and 'movies' in url or indexer.startswith('g=8') and 'shortfilm' in url:
+                return
 
         if indexer.startswith(
                 ('l=', 'g=', 's=', 'p=', 'c=')

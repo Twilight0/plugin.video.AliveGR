@@ -4,6 +4,8 @@
 - Changed the way live groups are loaded
 - Added function to automate the choice of ERT's channels (user perpective only)
 - Placed language split option on top of streams' settings
+- Preliminary support for private extension system
+- Various other changes
 
 + [B]1.6.6[/B] [COLOR yellow](01-12-2017)[/COLOR]
 - Minor fix for calling the addon from shortcuts

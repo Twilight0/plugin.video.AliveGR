@@ -36,6 +36,7 @@ art_id = 'resource.images.alivegr.artwork'
 yt_url = 'plugin://plugin.video.youtube'
 yt_base = 'https://www.youtube.com/watch?v='
 yt_prefix = yt_url + '/play/?video_id='
+sdik = 'script.alivegr.kids'
 
 ########################################################################################################################
 
