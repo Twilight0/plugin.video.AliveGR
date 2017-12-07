@@ -83,27 +83,10 @@ class Main:
             channels = client.parseDOM(result, 'channel', attrs={'enable': '1|2'})
 
         updated = client.parseDOM(result, 'channels', ret='updated')[0]
-        gl = cache.get(geo_loc, 48)
 
         for channel in channels:
 
             title = client.parseDOM(channel, 'name')[0]
-
-            if 'Greece' in gl and '(Worldwide)' in title:
-                continue
-            elif 'Greece' not in gl and '(GR)' in title:
-                continue
-
-            try:
-                title = title.partition(' (GR)')[0]
-            except:
-                pass
-
-            try:
-                title = title.partition(' (Worldwide)')[0]
-            except:
-                pass
-
             logo = client.parseDOM(channel, 'logo')[0]
             group = client.parseDOM(channel, 'group')[0]
             group = live_groups[group]

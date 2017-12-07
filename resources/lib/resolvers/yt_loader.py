@@ -61,7 +61,7 @@ def wrapper(url):
     if addon_version('xbmc.python') > 225 and enabled:
         choices = streams
     else:
-        choices = [s for s in streams if 'dash' not in repr(s)]
+        choices = [s for s in streams if 'DASH' not in s['title']]
 
     music_active = control.condVisibility('Window.IsActive(music)')
 

@@ -29,7 +29,7 @@ import m3u8_loader
 from tulip import directory, client, cache, control
 from tulip.log import *
 from ..indexers.gm import base_link
-from ..resolvers import live, yt_wrapper  # , ytdl_wrapper
+from ..resolvers import live, yt_loader  # , ytdl_wrapper
 from ..modules.constants import sl_hosts
 
 
@@ -179,14 +179,14 @@ def router(url):
 
     if 'youtu' in url:
 
-        stream = yt_wrapper.wrapper(url)
+        stream = yt_loader.wrapper(url)
         return stream
 
         # Alternative method reserved:
         # if 'user' in url or 'channel' in url:
         #
-        #     from ..resolvers import yt_wrapper
-        #     stream = yt_wrapper.traslate(url, add_base=True)
+        #     from ..resolvers import yt_loader
+        #     stream = yt_loader.traslate(url, add_base=True)
         #     stream = urlresolver.resolve(stream)
         #     directory.resolve(stream)
         #
@@ -241,20 +241,20 @@ def router(url):
 
         link = client.replaceHTMLCodes(url)
         link = cache.get(live.megagr, 24, link)
-        stream = yt_wrapper.wrapper(link)
+        stream = yt_loader.wrapper(link)
         return stream
 
     elif 'webtv.ert.gr' in url:
 
         link = cache.get(live.ert, 12, url)
-        stream = yt_wrapper.wrapper(link)
+        stream = yt_loader.wrapper(link)
         return stream
 
     elif 'skai.gr/ajax.aspx' in url:
 
         link = client.replaceHTMLCodes(url)
-        link = cache.get(live.skai, 6, link)
-        stream = yt_wrapper.wrapper(link)
+        vid = cache.get(live.skai, 6, link)
+        stream = yt_loader.wrapper(vid)
         return stream
 
     elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
@@ -270,7 +270,7 @@ def router(url):
     elif 'fnetwork.com' in url:
 
         stream = cache.get(live.fnetwork, 12, url)
-        stream = yt_wrapper.wrapper(stream)
+        stream = yt_loader.wrapper(stream)
         return stream
 
     elif 'visionip.tv' in url:
@@ -287,6 +287,11 @@ def router(url):
     elif 'ellinikosfm.tv' in url:
 
         stream = live.ellinikosfm(url)
+        return stream
+
+    elif 'tzampa.tv' in url:
+
+        stream = url + client.spoofer(referer=True, ref_str='https://tzampa.tv/home') + '&Origin=https%3A%2F%2Ftzampa.tv'
         return stream
 
     else:
@@ -317,7 +322,7 @@ def player(url, name):
             else:
                 link = sources[1]
 
-            stream = yt_wrapper.wrapper(link)
+            stream = yt_loader.wrapper(link)
 
             if len(stream) == 2:
                 directory.resolve(stream[0], dash=stream[1])
@@ -369,7 +374,13 @@ def player(url, name):
 
         if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(sl_hosts(resolved)):
 
-            resolved = m3u8_loader.m3u8_picker(resolved)
+            if 'tzampa.tv' in resolved:
+
+                resolved = m3u8_loader.m3u8_picker(resolved, referer='https://tzampa.tv/home', origin='https://tzampa.tv/')
+
+            else:
+
+                resolved = m3u8_loader.m3u8_picker(resolved)
 
         if resolved == 30403:
 

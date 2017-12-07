@@ -68,14 +68,9 @@ def ert(url):
 
     from ..modules.helpers import geo_loc
 
-    if 'Greece' in geo_loc():
-        GR = True
-    else:
-        GR = False
-
     html = client.request(url)
 
-    if GR:
+    if 'Greece' in geo_loc():
         result = client.parseDOM(html, 'iframe', ret='src')[-1]
     else:
         result = client.parseDOM(html, 'iframe', ret='src')[0]
@@ -85,13 +80,11 @@ def ert(url):
 
 def skai(url):
 
-    from ..modules.constants import yt_base
-
     xml = client.request(url)
 
     result = re.findall('<File><!\[CDATA\[(.*?)\]\]></File>', xml)[0]
 
-    return yt_base + result
+    return result
 
 
 def alphatv(url):

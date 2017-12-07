@@ -24,10 +24,10 @@ from helpers import stream_picker
 from urlparse import urljoin
 
 
-def m3u8_picker(url):
+def m3u8_picker(url, UA=cache.get(client.randomagent, 12), referer='', origin=''):
 
     m3u8_playlists = m3u8.load(
-        url.partition('|')[0], headers={'User-Agent': cache.get(client.randomagent, 12)}
+        url.partition('|')[0], headers={'User-Agent': UA, 'Referer': referer, 'Origin': origin}
     ).playlists
 
     if not m3u8_playlists:

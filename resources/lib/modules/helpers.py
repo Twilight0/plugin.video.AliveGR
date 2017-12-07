@@ -209,9 +209,9 @@ def loader(mod, folder):
 
 def geo_loc():
 
-    json = client.request('http://freegeoip.net/json/')
+    json_obj = client.request('http://freegeoip.net/json/')
 
-    return json
+    return json_obj
 
 
 def dmca():
