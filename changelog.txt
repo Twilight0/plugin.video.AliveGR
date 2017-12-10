@@ -1,3 +1,11 @@
++ [B]1.6.9[/B] [COLOR yellow](11-12-2017)[/COLOR]
+- Enhanced resolver for Ant1 CY (it is possible now to load VOD)
+- Cosmetics
+
++ [B]1.6.8[/B] [COLOR yellow](08-12-2017)[/COLOR]
+- Reverted to old method of autopicking of Greek/International streams for ERT's channels
+- Added support for a few more unofficial streams
+
 + [B]1.6.7[/B] [COLOR yellow](04-12-2017)[/COLOR]
 - Several Log-notice were changed to Log-info
 - Changed url of live channels

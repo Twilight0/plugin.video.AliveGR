@@ -25,12 +25,30 @@ import re, urllib, json
 
 def ant1cy(url):
 
-    referer = 'http://www.ant1iwo.com/webtv/web-tv-live/'
+    token = 'http://www.ant1iwo.com/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL='
 
-    cookie = client.request(url, output='cookie', close=False)
+    if '#' in url:
+        referer = url.partition('#')[0]
+    else:
+        referer = url
+
+    cookie = client.request(url, output='cookie', close=False, referer=referer)
     result = client.request(url, cookie=cookie, referer=referer)
+    try:
+        video = client.parseDOM(result, 'a', attrs={'class': 'playVideo'}, ret='data-video')[0]
+        video = client.replaceHTMLCodes(video).strip('[]"')
+    except IndexError:
+        video = re.findall('\'(http.+?\.m3u8)\'', result)[0]
+        if not video:
+            video = 'http://l2.cloudskep.com/antl2/abr/playlist.m3u8'
 
-    return result.strip() + client.spoofer() + '&Referer=' + urllib.quote_plus(referer)
+    link = token + video
+
+    generated = client.request(link)
+
+    print generated
+
+    return generated.strip() + client.spoofer() + '&Referer=' + urllib.quote_plus(referer)
 
 
 def megacy(url):
@@ -79,6 +97,8 @@ def ert(url):
 
 
 def skai(url):
+
+    # http://www.skai.gr/ajax.aspx?m=NewModules.LookupMultimedia&amp;mmid=/Root/TVLive
 
     xml = client.request(url)
 

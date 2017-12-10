@@ -29,7 +29,7 @@ import m3u8_loader
 from tulip import directory, client, cache, control
 from tulip.log import *
 from ..indexers.gm import base_link
-from ..resolvers import live, yt_loader  # , ytdl_wrapper
+from ..resolvers import various, yt_loader  # , ytdl_wrapper
 from ..modules.constants import sl_hosts
 
 
@@ -227,66 +227,65 @@ def router(url):
 
     elif 'ant1iwo' in url:
 
-        link = client.replaceHTMLCodes(url)
-        stream = cache.get(live.ant1cy, 12, link)
+        stream = cache.get(various.ant1cy, 12, url)
 
         return stream
 
     elif 'megatv.com.cy/live/' in url:
 
-        stream = cache.get(live.megacy, 12, url)
+        stream = cache.get(various.megacy, 12, url)
         return stream
 
     elif 'megatv.com/webtv/' in url:
 
         link = client.replaceHTMLCodes(url)
-        link = cache.get(live.megagr, 24, link)
+        link = cache.get(various.megagr, 24, link)
         stream = yt_loader.wrapper(link)
         return stream
 
     elif 'webtv.ert.gr' in url:
 
-        link = cache.get(live.ert, 12, url)
+        link = cache.get(various.ert, 12, url)
         stream = yt_loader.wrapper(link)
         return stream
 
     elif 'skai.gr/ajax.aspx' in url:
 
         link = client.replaceHTMLCodes(url)
-        vid = cache.get(live.skai, 6, link)
+        vid = cache.get(various.skai, 6, link)
         stream = yt_loader.wrapper(vid)
         return stream
 
     elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
 
-        stream = cache.get(live.alphatv, 12, url)
+        stream = cache.get(various.alphatv, 12, url)
         return stream
 
     elif 'euronews.com' in url:
 
-        stream = cache.get(live.euronews, 12, url)
+        stream = cache.get(various.euronews, 12, url)
         return stream
 
     elif 'fnetwork.com' in url:
 
-        stream = cache.get(live.fnetwork, 12, url)
+        stream = cache.get(various.fnetwork, 12, url)
         stream = yt_loader.wrapper(stream)
         return stream
 
     elif 'visionip.tv' in url:
 
-        sid = cache.get(live.visioniptv, 12)
+        sid = cache.get(various.visioniptv, 12)
         stream = url + sid
         return stream
 
     elif 'ssh101.com/securelive/' in url:
 
-        stream = cache.get(live.ssh101, 48, url)
+        stream = cache.get(various.ssh101, 48, url)
         return stream
 
     elif 'ellinikosfm.tv' in url:
 
-        stream = live.ellinikosfm(url)
+        stream = various.ellinikosfm(url)
         return stream
 
     elif 'tzampa.tv' in url:

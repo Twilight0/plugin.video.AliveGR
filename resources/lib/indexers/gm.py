@@ -266,18 +266,18 @@ class Main:
 
         indexer = urlparse(url).query
 
-        ############################################################
-        #                                                          #
-        if 'movies.php' in url:                                    #
-            length = 9                                             #
-        elif all(['shortfilm.php' in url, 'theater.php' in url]):  #
-            length = 6                                             #
-        elif 'animation' in url:
-            return
-        else:                                                      #
-            length = 2                                             #
-        #                                                          #
-        ############################################################
+        ################################################################################################
+        #                                                                                              #
+        if 'movies.php' in url:                                                                        #
+            length = 9                                                                                 #
+        elif all(['shortfilm.php' in url, 'theater.php' in url]):                                      #
+            length = 6                                                                                 #
+        elif 'animation' in url and not control.condVisibility('System.HasAddon({0})'.format(sdik)):   #
+            return                                                                                     #
+        else:                                                                                          #
+            length = 2                                                                                 #
+        #                                                                                              #
+        ################################################################################################
 
         for year in range(1, length):
 
