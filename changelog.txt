@@ -1,5 +1,8 @@
 + [B]1.6.9[/B] [COLOR yellow](11-12-2017)[/COLOR]
 - Enhanced resolver for Ant1 CY (it is possible now to load VOD)
+- Changed method for Skai's live resolver
+- Addon.xml from now on will hold only the latest version's changelog.
+- Added a new youtube channel in kids collection
 - Cosmetics
 
 + [B]1.6.8[/B] [COLOR yellow](08-12-2017)[/COLOR]

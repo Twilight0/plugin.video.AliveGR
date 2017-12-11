@@ -34,21 +34,20 @@ def ant1cy(url):
 
     cookie = client.request(url, output='cookie', close=False, referer=referer)
     result = client.request(url, cookie=cookie, referer=referer)
-    try:
-        video = client.parseDOM(result, 'a', attrs={'class': 'playVideo'}, ret='data-video')[0]
-        video = client.replaceHTMLCodes(video).strip('[]"')
-    except IndexError:
+
+    video = client.parseDOM(result, 'a', attrs={'class': 'playVideo'}, ret='data-video')[0]
+    video = client.replaceHTMLCodes(video).strip('[]"')
+
+    if not video:
         video = re.findall('\'(http.+?\.m3u8)\'', result)[0]
-        if not video:
-            video = 'http://l2.cloudskep.com/antl2/abr/playlist.m3u8'
+    if not video:
+        video = 'http://l2.cloudskep.com/antl2/abr/playlist.m3u8'
 
     link = token + video
 
     generated = client.request(link)
 
-    print generated
-
-    return generated.strip() + client.spoofer() + '&Referer=' + urllib.quote_plus(referer)
+    return generated.strip() + client.spoofer(referer=True, ref_str=referer)
 
 
 def megacy(url):
@@ -98,13 +97,14 @@ def ert(url):
 
 def skai(url):
 
+    # Keeping xml url for reference
     # http://www.skai.gr/ajax.aspx?m=NewModules.LookupMultimedia&amp;mmid=/Root/TVLive
 
-    xml = client.request(url)
+    html = client.request(url)
 
-    result = re.findall('<File><!\[CDATA\[(.*?)\]\]></File>', xml)[0]
+    vid = client.parseDOM(html, 'span', attrs={'itemprop': 'contentUrl'}, ret='href')[0]
 
-    return result
+    return vid
 
 
 def alphatv(url):

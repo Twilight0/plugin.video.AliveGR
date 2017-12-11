@@ -24,7 +24,7 @@ from tulip import cache, control, directory, client, ordereddict
 from tulip.log import *
 from tulip.init import sysaddon, syshandle
 from ..modules.themes import iconname
-from ..modules.helpers import thgiliwt, dexteni, geo_loc
+from ..modules.helpers import thgiliwt, dexteni
 from ..modules.constants import live_groups
 
 
@@ -38,9 +38,9 @@ class Main:
 
     def switcher(self):
 
-        def seq(choose):
+        def seq(group):
 
-            control.setSetting('live_group', str(choose))
+            control.setSetting('live_group', str(group))
             control.idle()
             control.sleep(50)
             control.refresh()
@@ -133,7 +133,7 @@ class Main:
     def live_tv(self):
 
         if control.setting('debug') == 'false':
-            self.list = cache.get(self.live, 4)[0]
+            self.list = cache.get(self.live, 8)[0]
         else:
             self.list = cache.get(self.live, int(control.setting('cache_period')))[0]
 

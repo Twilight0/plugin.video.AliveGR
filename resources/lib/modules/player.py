@@ -222,7 +222,7 @@ def router(url):
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
     elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld2' in url:
         return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
-    elif 'skai.gr' in url and not 'TVLive' in url:
+    elif 'skai.gr' in url and not 'TVLive' in url and not 'tvlive' in url:
         return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
 
     elif 'ant1iwo' in url:
@@ -249,10 +249,9 @@ def router(url):
         stream = yt_loader.wrapper(link)
         return stream
 
-    elif 'skai.gr/ajax.aspx' in url:
+    elif 'skai.gr' in url:
 
-        link = client.replaceHTMLCodes(url)
-        vid = cache.get(various.skai, 6, link)
+        vid = cache.get(various.skai, 6, url)
         stream = yt_loader.wrapper(vid)
         return stream
 
@@ -371,15 +370,15 @@ def player(url, name):
             resolved = stream
             dash = False
 
-        if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(sl_hosts(resolved)):
+        try:
 
-            if 'tzampa.tv' in resolved:
-
-                resolved = m3u8_loader.m3u8_picker(resolved, referer='https://tzampa.tv/home', origin='https://tzampa.tv/')
-
-            else:
+            if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not 'tzampa.tv' in resolved and not any(sl_hosts(resolved)):
 
                 resolved = m3u8_loader.m3u8_picker(resolved)
+
+        except TypeError:
+
+            pass
 
         if resolved == 30403:
 
