@@ -195,6 +195,7 @@ def router(url):
         #     stream = urlresolver.resolve(url)
         #     directory.resolve(stream, meta={'title': name})
 
+    # Reserved as failsafe:
     # if YDStreamExtractor.mightHaveVideo(url):
     #
     #     stream = ytdl_wrapper.session(url)
@@ -216,7 +217,7 @@ def router(url):
         stream = urlresolver.resolve(url)
         return stream
 
-    elif 'antenna' in url and not 'live_1' in url:
+    elif 'antenna' in url and not 'live_2' in url:
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
