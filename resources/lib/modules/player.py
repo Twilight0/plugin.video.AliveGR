@@ -217,7 +217,7 @@ def router(url):
         stream = urlresolver.resolve(url)
         return stream
 
-    elif 'antenna' in url and not '/live' in url:
+    elif 'antenna' in url and not '/live' in url.lower():
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)

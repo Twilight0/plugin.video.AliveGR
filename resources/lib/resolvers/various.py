@@ -20,7 +20,7 @@
 
 
 from tulip import client
-import re, urlparse, json
+import re, json
 
 
 def ant1gr(url):
@@ -28,9 +28,10 @@ def ant1gr(url):
     html = client.request(url)
 
     param = re.findall('\$.getJSON\(\'(.+?)\?', html)[0]
-    get_json = urlparse.urlsplit(url).geturl() + param
-    output = client.request(get_json)
-    link = json.loads(output)['url']
+    get_json = url.rpartition('/')[0] + param
+    cookie = client.request(get_json, output='cookie', close=False, referer=url)
+    result = client.request(get_json, cookie=cookie, referer=url)
+    link = json.loads(result)['url']
 
     return link
 

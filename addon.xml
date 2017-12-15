@@ -37,9 +37,8 @@ Kindly note that AliveGR is not an official part of the media player you are run
 [I][COLOR white]Welcome to AliveGR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.6.10[/B] [COLOR yellow](15-12-2017)[/COLOR]
-- Minor fix in greek faily tales url
-- Enhanced resolver for Ant1 Live
++ [B]1.6.11[/B] [COLOR yellow](15-12-2017)[/COLOR]
+- Some minor changes to fix antenna's resolver
         </news>
         <assets>
             <icon>icon.png</icon>

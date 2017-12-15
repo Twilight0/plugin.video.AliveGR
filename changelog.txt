@@ -1,3 +1,6 @@
++ [B]1.6.11[/B] [COLOR yellow](15-12-2017)[/COLOR]
+- Some minor changes to fix antenna's resolver
+
 + [B]1.6.10[/B] [COLOR yellow](15-12-2017)[/COLOR]
 - Minor fix in greek faily tales url
 - Enhanced resolver for Ant1 Live
