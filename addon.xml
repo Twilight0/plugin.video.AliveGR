@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.9" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.10" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -18,34 +18,28 @@
         <summary lang="en">AliveGR addon</summary>
         <description lang="en_GB">AliveGR is an addon offering streaming content available in Greece.</description>
         <disclaimer lang="en_GB">AliveGR's author does not host, stream or distribute any of the content displayed inside this software and cannot be held responsible for the quality or availability of the listed streams.
-    On demand content is scraped from various websites and are freely available on the internet. This software acts as indexer and not a linker.
-    Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is" with no warranty.
+On demand content is scraped from various websites and are freely available on the internet. This software acts as indexer and not a linker.
+Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is" with no warranty.
         </disclaimer>
         <summary lang="el_GR">Πρόσθετο AliveGR</summary>
         <description lang="el_GR">Το πρόσθετο AliveGR προσφέρει ροές περιεχομένου διαθέσιμες στην Ελλάδα.</description>
         <disclaimer lang="el_GR">Ο δημιουργός του AliveGR δεν φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
-    Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο. Το παρόν λογισμικό ενεργεί ως κατάλογος και όχι ως συνδεσμοποιητής.
-    Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.
+Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο. Το παρόν λογισμικό ενεργεί ως κατάλογος και όχι ως συνδεσμοποιητής.
+Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.
         </disclaimer>
         <language>en el</language>
         <license>GNU GPL, version 2</license>
         <website>https://twitter.com/TwilightZer0</website>
         <!--<forum></forum>-->
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
-        <size>325488</size>
+        <size>387240</size>
         <news>
 [I][COLOR white]Welcome to AliveGR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-
-+ [B]1.6.9[/B] [COLOR yellow](11-12-2017)[/COLOR]
-- Enhanced resolver for Ant1 CY (it is possible now to load VOD)
-- Changed method for Skai's live resolver
-- Added a new youtube channel in kids collection
-- Cosmetics
-
-** From version 1.6.9+, addon.xml will only hold the latest version's changelog **
- > For detailed changelog navigate to tools menu and select respective item
++ [B]1.6.10[/B] [COLOR yellow](15-12-2017)[/COLOR]
+- Minor fix in greek faily tales url
+- Enhanced resolver for Ant1 Live
         </news>
         <assets>
             <icon>icon.png</icon>

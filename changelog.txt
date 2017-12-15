@@ -1,3 +1,7 @@
++ [B]1.6.10[/B] [COLOR yellow](15-12-2017)[/COLOR]
+- Minor fix in greek faily tales url
+- Enhanced resolver for Ant1 Live
+
 + [B]1.6.9[/B] [COLOR yellow](11-12-2017)[/COLOR]
 - Enhanced resolver for Ant1 CY (it is possible now to load VOD)
 - Changed method for Skai's live resolver

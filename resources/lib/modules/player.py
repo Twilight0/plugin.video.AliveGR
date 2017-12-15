@@ -217,7 +217,7 @@ def router(url):
         stream = urlresolver.resolve(url)
         return stream
 
-    elif 'antenna' in url and not 'live_2' in url:
+    elif 'antenna' in url and not '/live' in url:
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
@@ -229,6 +229,12 @@ def router(url):
     elif 'ant1iwo' in url:
 
         stream = cache.get(various.ant1cy, 12, url)
+
+        return stream
+
+    elif 'antenna.gr' in url:
+
+        stream = cache.get(various.ant1gr, 12, url)
 
         return stream
 

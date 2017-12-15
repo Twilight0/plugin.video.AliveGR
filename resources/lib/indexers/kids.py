@@ -116,7 +116,7 @@ class Main:
             ,
             {
                 'title': 'Greek Fairy Tales - Ελληνικά Παραμύθια'.decode('utf-8'),
-                'url': '{0}/channel/UC9VmWb5Wd5sc4E4k1CevEug/videos/'.format(yt_url),
+                'url': '{0}/channel/UC9VmWb5Wd5sc4E4k1CevEug/'.format(yt_url),
                 'icon': 'https://yt3.ggpht.com/-n8KoGQ6U_zc/AAAAAAAAAAI/AAAAAAAAAAA/SoUWvy5-Tb8/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
             }
             ,
