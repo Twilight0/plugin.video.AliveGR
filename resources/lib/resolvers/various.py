@@ -25,8 +25,7 @@ import re, urlparse, json
 
 def ant1gr(url):
 
-    cookie = client.request(url, output='cookie', close=False)
-    html = client.request(url, cookie=cookie)
+    html = client.request(url)
 
     param = re.findall('\$.getJSON\(\'(.+?)\?', html)[0]
     get_json = urlparse.urlsplit(url).geturl() + param
