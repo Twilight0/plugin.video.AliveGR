@@ -1,3 +1,8 @@
++ [B]1.6.12[/B] [COLOR yellow](16-12-2017)[/COLOR]
+- Changed the reversed way of sorting the episodes
+- Some debug logs no longer need debug mode
+- Further enhancement of Ant1's & CY's live resolver
+
 + [B]1.6.11[/B] [COLOR yellow](15-12-2017)[/COLOR]
 - Some minor changes to fix antenna's resolver
 

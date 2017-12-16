@@ -23,22 +23,38 @@ from tulip import client
 import re, json
 
 
-def ant1gr(url):
+def ant1gr(link):
 
-    html = client.request(url)
+    url = client.request('http://mservices.antenna.gr/services/mobile/getLiveStream.ashx?')
+    if url is None:
+        url = ''
+    url = re.findall('(?:\"|\')(http(?:s|)://.+?)(?:\"|\')', url)
+    url = [i for i in url if '.m3u8' in i]
 
-    param = re.findall('\$.getJSON\(\'(.+?)\?', html)[0]
-    get_json = url.rpartition('/')[0] + param
-    cookie = client.request(get_json, output='cookie', close=False, referer=url)
-    result = client.request(get_json, cookie=cookie, referer=url)
-    link = json.loads(result)['url']
+    try:
+        try:
+            if url:
+                return url[-1]
+            else:
+                raise Exception
+        except:
+            html = client.request(link)
 
-    return link
+            param = re.findall('\$.getJSON\(\'(.+?)\?', html)[0]
+            get_json = 'https://www.antenna.gr' + param
+            cookie = client.request(get_json, output='cookie', close=False, referer=url)
+            result = client.request(get_json, cookie=cookie, referer=url)
+            link = json.loads(result)['url']
+
+            return link
+    except:
+        return 'http://antglantennatv-lh.akamaihd.net/i/live_1@421307/master.m3u8'
 
 
 def ant1cy(url):
 
     token = 'http://www.ant1iwo.com/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL='
+    failsafe_live_url = 'http://l2.cloudskep.com/antl2/abr/playlist.m3u8'
 
     if '#' in url:
         referer = url.partition('#')[0]
@@ -51,10 +67,13 @@ def ant1cy(url):
     video = client.parseDOM(result, 'a', attrs={'class': 'playVideo'}, ret='data-video')[0]
     video = client.replaceHTMLCodes(video).strip('[]"')
 
-    if not video:
-        video = re.findall('\'(http.+?\.m3u8)\'', result)[0]
-    if not video:
-        video = 'http://l2.cloudskep.com/antl2/abr/playlist.m3u8'
+    if url == token + failsafe_live_url:
+        video = url
+    else:
+        if not video:
+            video = re.findall('\'(http.+?\.m3u8)\'', result)[0]
+        if not video:
+            video = failsafe_live_url
 
     link = token + video
 

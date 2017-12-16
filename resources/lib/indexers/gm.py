@@ -396,8 +396,7 @@ class Main:
                 }
             )
 
-        if control.setting('debug') == 'true':
-            log_debug('List of vod items ~ ' + repr(self.list))
+        log_debug('List of vod items ~ ' + repr(self.list))
 
         return self.list
 
@@ -408,8 +407,8 @@ class Main:
         if self.list is None:
             log_error('Listing section failed to load, try resetting indexer methods')
             return
-        elif control.setting('debug') == 'true':
-            log_debug('Caching was successful, list of vod items ~ ' + repr(self.list))
+
+        log_debug('Caching was successful, list of vod items ~ ' + repr(self.list))
 
         if url.startswith((movies_link, theater_link, shortfilms_link)):
             if control.setting('dialog_type') == '0':
@@ -490,7 +489,8 @@ class Main:
                 y = re.findall('<h4.+?bold.+?(\d{4})', row, re.U)[-1]
                 m = re.findall('width:50px..?>(.+?)<', row, re.U)[-1]
                 m = dictionary[m.decode('utf-8')]
-                title = title + '-' + m + '-' + y
+                prefix = '0' + title if len(title) == 1 else title
+                title = prefix + '-' + m + '-' + y
             else:
                 group = '3bytitle'
 
@@ -530,17 +530,17 @@ class Main:
         if control.setting('episodes_reverse') == 'true':
             self.list = sorted(
                 self.list,
-                key=lambda k: (k['group'], k['title']) if k['group'] in ['1bynumber', '3bytitle'] else k['group']
-            )
+                key=lambda k: k['group'] if k['group'] in ['1bynumber', '2bydate'] else k['title'], reverse=True
+            )[::-1]
         else:
             self.list = sorted(
                 self.list,
                 key=lambda k: k['group']
             )
 
-        control.sortmethods('unsorted')
-        control.sortmethods('title')
-        control.sortmethods('year')
+        # control.sortmethods('unsorted')
+        # control.sortmethods('title')
+        # control.sortmethods('year')
 
         directory.add(self.list, content='episodes')
 

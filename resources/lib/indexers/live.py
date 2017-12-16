@@ -125,8 +125,7 @@ class Main:
 
         log_info('Number of live channels available: ' + str(len(self.list)) + ', cached for 4 hours')
 
-        if control.setting('debug') == 'true':
-            log_debug('Live list uncached' + repr(self.list))
+        log_debug('Live list uncached' + repr(self.list))
 
         return self.list, self.groups, updated
 
@@ -140,10 +139,10 @@ class Main:
         if self.list is None:
             log_error('Live channels list did not load successfully')
             return
-        elif control.setting('debug') == 'true':
-            log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
         else:
             log_info('Cached live channels available: ' + str(len(self.list)))
+
+        log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
 
         switch = {
             'title': control.lang(30047).format(
