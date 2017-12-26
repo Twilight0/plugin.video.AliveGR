@@ -289,9 +289,9 @@ def router(url):
         stream = cache.get(various.ssh101, 48, url)
         return stream
 
-    elif 'ellinikosfm.tv' in url:
+    elif 'ellinikosfm.tv' in url or 'lepantortv' in url:
 
-        stream = various.ellinikosfm(url)
+        stream = various.dacast(url)
         return stream
 
     elif 'tzampa.tv' in url:
@@ -379,7 +379,7 @@ def player(url, name):
 
         try:
 
-            if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not 'tzampa.tv' in resolved and not any(sl_hosts(resolved)):
+            if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(sl_hosts(resolved)):
 
                 resolved = m3u8_loader.m3u8_picker(resolved)
 

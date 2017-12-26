@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.12" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.13" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -32,16 +32,15 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <website>https://twitter.com/TwilightZer0</website>
         <!--<forum></forum>-->
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
-        <size>387240</size>
-        <news>
-[I][COLOR white]Welcome to AliveGR, the BEST addon with everything greek related[/COLOR][/I]
+        <size>389838</size>
+        <news>[I][COLOR white]Welcome to AliveGR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.6.12[/B] [COLOR yellow](16-12-2017)[/COLOR]
-- Changed the reversed way of sorting the episodes
-- Some debug logs no longer need debug mode
-- Further enhancement of Ant1's &amp; CY's live resolver
-        </news>
++ [B]1.6.13[/B] [COLOR yellow](26-12-2017)[/COLOR]
+- Enhanced resolver for dacast (akamaihd)
+  > For ellinikosfm and lepanto tv
+- Improved Ant1's live resolver
+- Changed the method in m3u8 picker function for appending custom headers</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

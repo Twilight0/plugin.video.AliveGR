@@ -18,17 +18,18 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from tulip import control, client, cache
+from tulip import control
 import m3u8
 from helpers import stream_picker
 from urlparse import urljoin
 
 
-def m3u8_picker(url, UA=cache.get(client.randomagent, 12), referer='', origin=''):
+def m3u8_picker(url):
 
-    m3u8_playlists = m3u8.load(
-        url.partition('|')[0], headers={'User-Agent': UA, 'Referer': referer, 'Origin': origin}
-    ).playlists
+    try:
+        m3u8_playlists = m3u8.load(url.rpartition('|')[0]).playlists
+    except:
+        m3u8_playlists = m3u8.load(url).playlists
 
     if not m3u8_playlists:
         return url
@@ -45,7 +46,10 @@ def m3u8_picker(url, UA=cache.get(client.randomagent, 12), referer='', origin=''
         if not uri.startswith('http'):
             uri = urljoin(playlist.base_uri, uri)
         qualities.append(quality)
-        urls.append(uri)
+        try:
+            urls.append(uri + '|' + url.rpartition('|')[2])
+        except:
+            urls.append(uri)
 
     if len(qualities) == 1:
         control.infoDialog(control.lang(30220).format(qualities[0]))

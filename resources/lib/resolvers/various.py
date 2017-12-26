@@ -25,30 +25,51 @@ import re, json
 
 def ant1gr(link):
 
-    url = client.request('http://mservices.antenna.gr/services/mobile/getLiveStream.ashx?')
-    if url is None:
-        url = ''
-    url = re.findall('(?:\"|\')(http(?:s|)://.+?)(?:\"|\')', url)
-    url = [i for i in url if '.m3u8' in i]
+    try:
+
+        html = client.request(link)
+
+        param = re.findall('\$.getJSON\(\'(.+?)\?', html)[0]
+        get_json = 'http://www.antenna.gr' + param
+        cookie = client.request(get_json, output='cookie', close=False, referer=link)
+        result = client.request(get_json, cookie=cookie, referer=link)
+        url = json.loads(result)['url']
+
+        if url.endswith('.mp4'):
+            raise StandardError
+        else:
+            return url
+
+    except StandardError:
+
+        pass
+
+    # Carry on:
+
+    get_live = 'http://mservices.antenna.gr/services/mobile/getLiveStream.ashx?'
+
+    live_link_1 = 'http://antglantennatv-lh.akamaihd.net/i/live_1@421307/master.m3u8'
+    live_link_2 = 'http://antglantennatv-lh.akamaihd.net/i/live_2@421307/master.m3u8'
+
+    ###########
 
     try:
-        try:
-            if url:
-                return url[-1]
-            else:
-                raise Exception
-        except:
-            html = client.request(link)
 
-            param = re.findall('\$.getJSON\(\'(.+?)\?', html)[0]
-            get_json = 'https://www.antenna.gr' + param
-            cookie = client.request(get_json, output='cookie', close=False, referer=url)
-            result = client.request(get_json, cookie=cookie, referer=url)
-            link = json.loads(result)['url']
+        json_obj = client.request(get_live)
 
-            return link
-    except:
-        return 'http://antglantennatv-lh.akamaihd.net/i/live_1@421307/master.m3u8'
+        url = json.loads(json_obj.strip('();'))['data']['stream']
+
+        if url.endswith('.mp4'):
+            raise StandardError
+        else:
+            return url
+
+    except (KeyError, ValueError, StandardError, TypeError):
+
+        if client.request(live_link_1, output='response')[0] == '200':
+            return live_link_1
+        else:
+            return live_link_2
 
 
 def ant1cy(url):
@@ -187,15 +208,20 @@ def visioniptv():
     return '?' + cookie
 
 
-def ellinikosfm(url):
+def dacast(url):
 
     html = client.request(url)
 
-    iframe_url = 'http:' + client.parseDOM(html, 'iframe', ret='src')[0]
-    services_url = iframe_url.replace('http://iframe.dacast.com', 'https://services.dacast.com/token/i')
-    json_url = iframe_url.replace('iframe', 'json')
+    if 'iframe.dacast' in html:
+        combined_id = client.parseDOM(html, 'iframe', ret='src')[0].partition('/b/')[2]
+    else:
+        combined_id = client.parseDOM(html, 'script', attrs={'class': 'dacast-video'}, ret='id')[0].replace('_', '/')
+
+    services_url = 'https://services.dacast.com/token/i/b/' + combined_id
+    json_url = 'https://json.dacast.com/b/' + combined_id
 
     json_token = client.request(services_url, output='response')[1]
+
     token = json.loads(json_token)['token']
     json_obj = client.request(json_url)
     hls_url = 'http:' + json.loads(json_obj)['hls'].replace('\\', '')
