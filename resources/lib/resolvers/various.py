@@ -137,6 +137,7 @@ def megagr(url):
 def ert(url):
 
     from ..modules.helpers import geo_loc
+    from ..modules.constants import yt_base
 
     html = client.request(url)
 
@@ -145,7 +146,11 @@ def ert(url):
     else:
         result = client.parseDOM(html, 'iframe', ret='src')[0]
 
-    return result
+    vid = result.rpartition('/')[2][:11]
+
+    video = yt_base + vid
+
+    return video
 
 
 def skai(url):

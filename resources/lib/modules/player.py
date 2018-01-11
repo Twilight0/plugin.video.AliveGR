@@ -30,7 +30,7 @@ from tulip import directory, client, cache, control
 from tulip.log import *
 from ..indexers.gm import base_link
 from ..resolvers import various, youtu  # , ytdl_wrapper
-from ..modules.constants import sl_hosts
+from ..modules.constants import sl_hosts, yt_prefix
 
 
 def source_maker(url):
@@ -253,7 +253,10 @@ def router(url):
     elif 'webtv.ert.gr' in url:
 
         link = cache.get(various.ert, 12, url)
-        stream = youtu.wrapper(link)
+        # try:
+        #     stream = youtu.wrapper(link)
+        # except:
+        stream = stream_link.sl_session(link)
         return stream
 
     elif 'skai.gr' in url:

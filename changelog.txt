@@ -1,4 +1,7 @@
-+ [B]1.6.14[/B] [COLOR yellow](08-01-2017)[/COLOR]
++ [B]1.6.15[/B] [COLOR yellow](11-01-2017)[/COLOR]
+- Quick bump to 1.6.15 so that ERT channels are utilizing streamlink resolver
+
++ [B]1.6.14[/B] [COLOR yellow](10-01-2017)[/COLOR]
 - New play m3u function
   > It can play an m3u file on demand
   > It can shuffle items upon request, on by default
