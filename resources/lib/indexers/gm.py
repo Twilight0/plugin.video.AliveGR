@@ -135,7 +135,7 @@ class Main:
         choice = control.selectDialog(heading=control.lang(30062), list=translated)
 
         if choice <= len(self.data) and not choice == -1:
-            control.setSetting('vod_group', self.data.pop(choice))
+            control.setSetting('vod_group', self.data[choice])
             control.idle()
             control.sleep(50)  # ensure setting has been saved
             control.refresh()

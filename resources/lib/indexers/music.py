@@ -24,9 +24,10 @@ from tulip import control, directory, cache, client
 from tulip.log import *
 from urlparse import urljoin
 from ..modules.themes import iconname
-from ..modules.constants import yt_base
+from ..modules.constants import yt_base, art_id
 from ..indexers import you_tube
 import gm
+import datetime
 
 
 class Main:
@@ -38,7 +39,8 @@ class Main:
         self.mgreekz_url = 'http://mad.tv/mad-hits-top-10/'
         self.rythmos_url = 'https://www.rythmosfm.gr/'
         self.plus_url = 'http://plusradio.gr/top20'
-        self.radiopolis_url = 'http://www.radiopolis.gr/station/top-20/'
+        self.radiopolis_url_gr = 'http://www.radiopolis.gr/top-20-gr/'
+        self.radiopolis_url_other = 'http://www.radiopolis.gr/kseno-polis-top-20/'
         self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
 
     def menu(self):
@@ -62,14 +64,18 @@ class Main:
                 'title': 30126,
                 'action': 'mgreekz_index',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
-                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='mgz_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(
+                    addonid=art_id, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
+                )
             }
             ,
             {
                 'title': 30127,
                 'action': 'mgreekz_top10',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
-                'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='mgz_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(
+                    addonid=art_id, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
+                )
             }
             ,
             {
@@ -78,7 +84,7 @@ class Main:
                 'url': self.rythmos_top20_url,
                 'image': 'https://is3-ssl.mzstatic.com/image/thumb/Purple62/v4/3e/a4/48/3ea44865-8cb2-5fec-be70-188a060b712c/source/256x256bb.jpg',
                 'fanart': control.addonmedia(
-                    addonid='resource.images.alivegr.artwork',
+                    addonid=art_id,
                     theme='networks',
                     icon='rythmos_fanart.jpg',
                     media_subfolder = False
@@ -96,7 +102,7 @@ class Main:
             {
                 'title': 30222,
                 'action': 'top20_list',
-                'url': self.radiopolis_url + '1',
+                'url': self.radiopolis_url_gr,
                 'image': 'http://www.radiopolis.gr/templates/ja_muzic/images/logo.png',
                 'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             }
@@ -104,10 +110,18 @@ class Main:
             {
                 'title': 30223,
                 'action': 'top20_list',
-                'url': self.radiopolis_url + '2',
-                'image': 'http://www.radiopolis.gr/templates/ja_muzic/images/logo.png',
+                'url': self.radiopolis_url_other,
+                'image': 'http://www.radiopolis.gr/wp-content/uploads/2017/11/noimageavailable.jpg',
                 'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             }
+            # ,
+            # {
+            #     'title': 30269,
+            #     'action': 'top50_list',
+            #     'url': 'http://alivegr.net/raw/top50.xml',
+            #     'image': control.addonInfo('icon'),
+            #     'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
+            # }
         ]
 
         if 'audio' in control.infoLabel('Container.FolderPath'):
@@ -225,11 +239,13 @@ class Main:
             log_info('Normal playback of tracks')
             content = 'musicvideos'
 
+        for item in self.list:
+            item.update({'action': 'play', 'isFolder': 'False'})
+
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play',
-                         'isFolder': 'False', 'album': album, 'tracknumber': count})
+            item.update({'cm': [add_to_playlist, clear_playlist], 'album': album, 'tracknumber': count})
 
         directory.add(self.list, content=content)
 
@@ -245,7 +261,7 @@ class Main:
             item.update(
                 {
                     'fanart': control.addonmedia(
-                        addonid='resource.images.alivegr.artwork',
+                        addonid=art_id,
                         theme='networks',
                         icon='mgz_fanart.jpg',
                         media_subfolder=False
@@ -306,46 +322,42 @@ class Main:
 
         self.list = self.list[::-1]
 
-        for count, item in list(enumerate(self.list, start=1)):
-            item.setdefault('tracknumber', count)
-
         for item in self.list:
+            item.update({'action': 'play', 'isFolder': 'False'})
+
+        for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
             item.update(
-                {'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False',
-                 'album': control.lang(30127),
-                 'fanart': control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='mgz_fanart.jpg' , media_subfolder=False)
+                {
+                    'cm': [add_to_playlist, clear_playlist], 'album': control.lang(30127),
+                    'fanart': control.addonmedia(
+                        addonid=art_id, theme='networks', icon='mgz_fanart.jpg',
+                        media_subfolder=False
+                    ), 'tracknumber': count
                 }
             )
 
+        control.sortmethods('label')
         directory.add(self.list, content=content)
 
     def _top20(self, url):
 
         from youtube_requests import get_search
 
-        cookie = client.request(url.rstrip('12'), close=False, output='cookie')
-        html = client.request(url.rstrip('12'), cookie=cookie)
-
-        if url.rstrip('12') == self.radiopolis_url:
-            if url.endswith('1'):
-                html = client.parseDOM(
-                    html.decode('unicode_escape'), 'div', attrs={'class': 'ja-slidenews-item clearfix'}
-                )[0]
-            else:
-                html = client.parseDOM(
-                    html.decode('unicode_escape'), 'div', attrs={'class': 'ja-slidenews-item clearfix'}
-                )[1]
+        cookie = client.request(url, close=False, output='cookie')
+        html = client.request(url, cookie=cookie)
 
         if url == self.rythmos_top20_url:
             attributes = {'class': 'va-title'}
         elif url == self.plus_url:
             attributes = {'class': 'element element-itemname first last'}
-        elif url.rstrip('12') == self.radiopolis_url:
-            attributes = {'style': 'border-bottom:1px solid #333;padding: 2px 0px;'}
+        elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
+            attributes = {'class': 'top20'}
 
         items = client.parseDOM(html, 'div', attrs=attributes)
+
+        year = str(datetime.datetime.now().year)
 
         for count, item in list(enumerate(items, start=1)):
 
@@ -360,13 +372,12 @@ class Main:
                 title = item.partition('.')[2].strip()
                 originaltitle = title.partition('-')[2]
                 artist = [title.partition('-')[0]]
-            elif url.rstrip('12') == self.radiopolis_url:
-                title = client.parseDOM(item, 'a')[0].encode('latin1')
+            elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
+                title = client.parseDOM(item, 'a')[0]
                 title = title.partition('.')[2].strip()
+                title = client.replaceHTMLCodes(title)
                 originaltitle = title.partition(' - ')[2]
                 artist = [title.partition(' - ')[0]]
-                import datetime
-                year = str(datetime.datetime.now().year)
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
                 search = get_search(q=title + ' ' + 'official', search_type='video')[0]
@@ -375,8 +386,8 @@ class Main:
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
                 link = urljoin(yt_base, vid)
-            elif url.rstrip('12') == self.radiopolis_url:
-                link = client.parseDOM(item, 'a', ret='href')[0].rpartition('?')[0]
+            elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
+                link = client.parseDOM(item, 'a', ret='href')[0]
                 image = you_tube.thumb_maker(link.partition('=')[2])
                 description = None
 
@@ -400,12 +411,15 @@ class Main:
             log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
         if url == self.rythmos_top20_url:
-            fanart = control.addonmedia(addonid='resource.images.alivegr.artwork', theme='networks', icon='rythmos_fanart.jpg', media_subfolder=False)
+            fanart = control.addonmedia(
+                addonid=art_id, theme='networks', icon='rythmos_fanart.jpg',
+                media_subfolder=False
+            )
             album = control.lang(30128)
         elif url == self.plus_url:
             fanart = 'https://i.imgur.com/G8koVR8.jpg'
             album = control.lang(30221)
-        elif url.rstrip('12') == self.radiopolis_url:
+        elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
             fanart = 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             album = control.lang(30222)
         else:
@@ -424,10 +438,81 @@ class Main:
             content = 'musicvideos'
 
         for item in self.list:
+            item.update({'action': 'play', 'isFolder': 'False'})
+
+        for item in self.list:
 
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False',
-                         'album': album, 'fanart': fanart})
+            item.update({'cm': [add_to_playlist, clear_playlist], 'album': album, 'fanart': fanart})
 
+        control.sortmethods('label')
+        directory.add(self.list, content=content)
+
+    def _top50(self, url):
+
+        if control.setting('debug') == 'false':
+
+            playlists = client.request(url)
+
+        else:
+
+            if control.setting('local_remote') == '0':
+                local = control.setting('top50_local')
+                with open(local) as xml:
+                    playlists = xml.read()
+                    xml.close()
+            elif control.setting('local_remote') == '1':
+                playlists = client.request(control.setting('top50_remote'))
+            else:
+                playlists = client.request(url)
+
+        self.data = client.parseDOM(playlists, 'item')
+
+        for item in self.data:
+            title = client.parseDOM(item, 'title')[0]
+            url = client.parseDOM(item, 'url')[0]
+            image = you_tube.thumb_maker(url.rpartition('=')[2])
+
+            item_data = (dict(title=title, image=image, url=url))
+
+            self.list.append(item_data)
+
+        return self.list
+
+    def top50_list(self, url):
+
+        self.list = cache.get(self._top50, 48, url)
+
+        if self.list is None:
+            log_error('Developer\'s picks section failed to load')
+            return
+        else:
+            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+
+        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+            self.list = [
+                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
+                for item in self.list
+            ]
+            log_info('Tracks loaded as audio only')
+            content = 'songs'
+        else:
+            log_info('Normal playback of tracks')
+            content = 'musicvideos'
+
+        for item in self.list:
+            item.update({'action': 'play', 'isFolder': 'False'})
+
+        for count, item in list(enumerate(self.list, start=1)):
+            add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
+            clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
+            item.update(
+                {
+                    'cm': [add_to_playlist, clear_playlist], 'album': control.lang(30269),
+                    'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg', 'tracknumber': count
+                }
+            )
+
+        control.sortmethods('label')
         directory.add(self.list, content=content)

@@ -29,7 +29,7 @@ import m3u8_loader
 from tulip import directory, client, cache, control
 from tulip.log import *
 from ..indexers.gm import base_link
-from ..resolvers import various, yt_loader  # , ytdl_wrapper
+from ..resolvers import various, youtu  # , ytdl_wrapper
 from ..modules.constants import sl_hosts
 
 
@@ -100,7 +100,7 @@ def dialog_picker(hl, sl):
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
         if choice <= len(sl) and not choice == -1:
-            popped = sl.pop(choice)
+            popped = sl[choice]
             html = client.request(urljoin(base_link, popped))
             button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
             return button
@@ -179,14 +179,14 @@ def router(url):
 
     if 'youtu' in url:
 
-        stream = yt_loader.wrapper(url)
+        stream = youtu.wrapper(url)
         return stream
 
         # Alternative method reserved:
         # if 'user' in url or 'channel' in url:
         #
-        #     from ..resolvers import yt_loader
-        #     stream = yt_loader.traslate(url, add_base=True)
+        #     from ..resolvers import youtu
+        #     stream = youtu.traslate(url, add_base=True)
         #     stream = urlresolver.resolve(stream)
         #     directory.resolve(stream)
         #
@@ -247,19 +247,19 @@ def router(url):
 
         link = client.replaceHTMLCodes(url)
         link = cache.get(various.megagr, 24, link)
-        stream = yt_loader.wrapper(link)
+        stream = youtu.wrapper(link)
         return stream
 
     elif 'webtv.ert.gr' in url:
 
         link = cache.get(various.ert, 12, url)
-        stream = yt_loader.wrapper(link)
+        stream = youtu.wrapper(link)
         return stream
 
     elif 'skai.gr' in url:
 
         vid = cache.get(various.skai, 6, url)
-        stream = yt_loader.wrapper(vid)
+        stream = youtu.wrapper(vid)
         return stream
 
     elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
@@ -275,7 +275,7 @@ def router(url):
     elif 'fnetwork.com' in url:
 
         stream = cache.get(various.fnetwork, 12, url)
-        stream = yt_loader.wrapper(stream)
+        stream = youtu.wrapper(stream)
         return stream
 
     elif 'visionip.tv' in url:
@@ -304,13 +304,29 @@ def router(url):
         return url
 
 
+def play_m3u(link, title, randomize=True):
+
+    m3u_file = control.join(control.transPath('special://temp'), link.rpartition('/')[2])
+
+    play_list = client.request(link)
+    videos = play_list.splitlines()[1:][1::2]
+    if randomize and control.setting('randomize_m3u') == 'true':
+        random.shuffle(videos)
+    m3u_playlist = '#EXTM3U\n#EXTINF:0,{0}\n'.format(title) + '\n#EXTINF:0,{0}\n'.format(title).join(videos)
+
+    with open(m3u_file, 'w') as f: f.write(m3u_playlist)
+
+    control.playlist.load(m3u_file)
+    control.execute('Action(Play)')
+
+
 def player(url, name):
+
+    log_debug('Attempting to play this url: ' + url)
 
     if url is None:
         log_error('Nothing playable was found')
         return
-    elif control.setting('debug') == 'true':
-        log_debug('Trying to play this url: ' + url)
     else:
         log_info('Invoked player method')
 
@@ -327,7 +343,7 @@ def player(url, name):
             else:
                 link = sources[1]
 
-            stream = yt_loader.wrapper(link)
+            stream = youtu.wrapper(link)
 
             if len(stream) == 2:
                 directory.resolve(stream[0], dash=stream[1])

@@ -123,8 +123,6 @@ class Main:
 
         self.groups = list(ordereddict.OrderedDict.fromkeys(self.data))
 
-        log_info('Number of live channels available: ' + str(len(self.list)) + ', cached for 4 hours')
-
         log_debug('Live list uncached' + repr(self.list))
 
         return self.list, self.groups, updated

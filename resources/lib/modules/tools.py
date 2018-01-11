@@ -319,6 +319,17 @@ def repo_check():
     else: pass
 
 
+def block_check():
+
+    if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
+
+        settings_xml = control.join(control.dataPath, 'settings.xml')
+        control.deleteFile(settings_xml)
+        control.okDialog(control.lang(30270), control.lang(30271))
+
+    else: pass
+
+
 def checkpoint():
 
     disclaimer()
@@ -331,6 +342,7 @@ def checkpoint():
             pass
         isa_enable()
         cache_clear()
+        block_check()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
     else: pass

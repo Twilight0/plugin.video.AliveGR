@@ -60,7 +60,7 @@ def stream_picker(qualities, urls):
     choice = control.selectDialog(heading=control.lang(30167).partition(' (')[0], list=qualities)
 
     if choice <= len(qualities) and not choice == -1:
-        popped = urls.pop(choice)
+        popped = urls[choice]
         return popped
     else:
         return 30403

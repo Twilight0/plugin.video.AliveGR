@@ -36,6 +36,7 @@
         <setting type="lsep" label="30007"/>
         <setting id="show-alt" type="bool" label="30046" default="true"/>
         <setting id="show-switcher" type="bool" label="30061" default="true"/>
+        <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
         <setting type="lsep" label="30009"/>
         <setting id="dialog_type" type="enum" label="30144" lvalues="30145|30146" default="0"/>
         <setting id="audio_only" label="30224" type="bool" default="false"/>
@@ -83,7 +84,9 @@
         <setting id="live_remote" label="Remote playlist url" type="text" default="" visible="eq(-4,true) + eq(-2,1)"/>
         <setting id="misc_local" label="Local misc playlist file" type="file" default="" visible="eq(-5,true) + eq(-3,0)"/>
         <setting id="misc_remote" label="Remote misc playlist url" type="text" default="" visible="eq(-6,true) + eq(-4,1)"/>
-        <setting id="cache_period" type="number" label="Custom cache period" default="4" visible="eq(-7,true)"/>
+        <setting id="top50_local" label="Local top 50 playlist file" type="file" default="" visible="eq(-7,true) + eq(-5,0)"/>
+        <setting id="top50_remote" label="Remote top 50 playlist url" type="text" default="" visible="eq(-8,true) + eq(-6,1)"/>
+        <setting id="cache_period" type="number" label="Custom cache period" default="4" visible="eq(-9,true)"/>
         <!--<setting id="show_dialog" type="bool" label="Display Dialog" default="true" visible="eq(-8,true)"/>-->
         <!--<setting id="show_info" type="bool" label="30087" default="false" visible="eq(-6,true)"/>-->
     </category>

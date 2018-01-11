@@ -180,6 +180,10 @@ elif action == 'top20_list':
     from resources.lib.indexers import music
     music.Main().top20_list(url)
 
+elif action == 'top50_list':
+    from resources.lib.indexers import music
+    music.Main().top50_list(url)
+
 elif action == 'radio':
     from resources.lib.indexers import radios
     radios.Main().radio()
@@ -231,6 +235,11 @@ elif action == 'youtube':
 elif action == 'play':
     from resources.lib.modules.player import player
     player(url, name)
+
+elif action == 'play_m3u':
+    from distutils.util import strtobool
+    from resources.lib.modules.player import play_m3u
+    play_m3u(url, title, randomize=True if query is None else bool(strtobool(query)))
 
 elif action == 'directory':
     from resources.lib.modules.player import directory_picker

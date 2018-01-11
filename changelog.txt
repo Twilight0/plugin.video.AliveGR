@@ -1,3 +1,12 @@
++ [B]1.6.14[/B] [COLOR yellow](08-01-2017)[/COLOR]
+- New play m3u function
+  > It can play an m3u file on demand
+  > It can shuffle items upon request, on by default
+- Added block check function to prevent unauthorised changes to the addon
+- Various fixes in music indexers
+- Replaced pop list methods with direct indices for various pickers
+- Removed support for MPEG-DASH, hopefully temporarily
+
 + [B]1.6.13[/B] [COLOR yellow](26-12-2017)[/COLOR]
 - Enhanced resolver for dacast (akamaihd)
   > For ellinikosfm and lepanto tv

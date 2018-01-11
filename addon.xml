@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.13" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.14" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -8,7 +8,7 @@
         <import addon="script.module.streamlink.base" version="2017.11.18"/>
         <import addon="script.module.iso8601" version="0.1.11"/>
         <import addon="script.module.tulip" version="1.3.4"/>
-        <import addon="plugin.video.youtube" version="5.4.99.2"/>
+        <import addon="plugin.video.youtube" version="5.4.99.5"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
         <provides>video audio image executable</provides>
@@ -36,11 +36,14 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <news>[I][COLOR white]Welcome to AliveGR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.6.13[/B] [COLOR yellow](26-12-2017)[/COLOR]
-- Enhanced resolver for dacast (akamaihd)
-  > For ellinikosfm and lepanto tv
-- Improved Ant1's live resolver
-- Changed the method in m3u8 picker function for appending custom headers</news>
++ [B]1.6.14[/B] [COLOR yellow](08-01-2017)[/COLOR]
+- New play m3u function
+  > It can play an m3u file on demand
+  > It can shuffle items upon request, on by default
+- Added block check function to prevent unauthorised changes to the addon
+- Various fixes in music indexers
+- Replaced pop list methods with direct indices for various pickers
+- Removed support for MPEG-DASH, hopefully temporarily</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

@@ -116,7 +116,7 @@ class Main:
         if choice == 0:
             seq('0')
         elif choice <= len(groups[0]) and not choice == -1:
-            seq(groups[1].pop(choice))
+            seq(groups[1][choice])
         else:
             control.execute('Dialog.Close(all)')
 

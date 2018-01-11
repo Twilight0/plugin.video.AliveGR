@@ -20,7 +20,7 @@
 
 import re, youtube_resolver
 from tulip import client, control
-from ..modules.helpers import stream_picker, addon_version
+from ..modules.helpers import stream_picker
 from ..modules.constants import yt_base
 
 
@@ -53,21 +53,22 @@ def wrapper(url):
 
         streams = youtube_resolver.resolve(url)
 
-    try:
-        enabled = control.addon_details('inputstream.adaptive').get('enabled')
-    except KeyError:
-        enabled = False
-
-    if addon_version('xbmc.python') > 225 and enabled:
-        choices = streams
-    else:
-        choices = [s for s in streams if 'DASH' not in s['title']]
+    # try:
+    #     enabled = control.addon_details('inputstream.adaptive').get('enabled')
+    # except KeyError:
+    #     enabled = False
+    #
+    # if addon_version('xbmc.python') > 225 and enabled:
+    #     choices = streams
+    # else:
+    choices = [s for s in streams if 'DASH' not in s['title']]
 
     music_active = control.condVisibility('Window.IsActive(music)')
 
     if '#audio_only' in url and control.setting('audio_only') == 'true' or music_active == 1:
 
         resolved = choices[-5]['url']
+
         return resolved, False
 
     elif control.setting('yt_quality_picker') == '1':
@@ -77,21 +78,21 @@ def wrapper(url):
 
         resolved = stream_picker(qualities, urls)
 
-        if 'dash' in resolved:
-            return resolved, True
-        else:
-            return resolved, False
+        # if 'dash' in resolved:
+        #     return resolved, True
+        # else:
+        return resolved, False
 
     else:
 
         resolved = choices[0]['url']
 
-        if addon_version('xbmc.python') > 225 and enabled:
+        # if addon_version('xbmc.python') > 225 and enabled:
+        #
+        #     return resolved, True
+        #
+        # else:
 
-            return resolved, True
-
-        else:
-
-            return resolved, False
+        return resolved, False
 
 

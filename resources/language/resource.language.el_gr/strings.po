@@ -966,6 +966,22 @@ msgctxt "#30267"
 msgid "Display this version's changelog?"
 msgstr "Θέλετε να δείτε το αρχείο καταγραφής αλλαγών αυτής της έκδοσης;"
 
+msgctxt "#30268"
+msgid "Randomize m3u playlists (pseudo-live streams)"
+msgstr "Ανακάτεμα λιστών αναπαραγωγής m3u (ψευδο-ζωντανές ροές)"
+
+msgctxt "#30269"
+msgid "Developer's top 50 picks"
+msgstr "Οι 50 κορυφαίες επιλογές του προγραμματιστή"
+
+msgctxt "#30270"
+msgid "Warning"
+msgstr "Ειδοποίηση"
+
+msgctxt "#30271"
+msgid "The author of G.K.N. Wizard has made some unauthorised changes to the settings of AliveGR, settings have been reset"
+msgstr "Ο δημιουργός του G.K.N. Wizard πραγματοποίησε μη αδειοδοτημένες τροποποιήσεις στο AliveGR, οι ρυθμίσεις έχουν επαναφερθεί στις αρχικές"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"
