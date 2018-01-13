@@ -224,9 +224,9 @@ elif action == 'openSettings':
     from tulip import control
     control.openSettings(query)
 
-elif action == 'smu_settings':
+elif action == 'other_addon_settings':
     from resources.lib.modules import helpers
-    helpers.smu_settings()
+    helpers.other_addon_settings(query)
 
 elif action == 'youtube':
     from resources.lib.indexers import you_tube

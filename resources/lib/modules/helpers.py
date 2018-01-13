@@ -73,11 +73,11 @@ def addon_version(addon_id):
     return version
 
 
-def smu_settings():
+def other_addon_settings(query):
 
     control.execute('Dialog.Close(all)')
     control.sleep(50)
-    control.Settings('script.module.urlresolver')
+    control.Settings('{0}').format(query)
 
 
 def reset_idx(notify=True):

@@ -20,8 +20,8 @@
 
 import re, youtube_resolver
 from tulip import client, control
-from ..modules.helpers import stream_picker
-from ..modules.constants import yt_base
+from ..modules.helpers import stream_picker, addon_version
+from ..modules.constants import yt_url
 
 
 def traslate(url, add_base=False):
@@ -38,7 +38,7 @@ def traslate(url, add_base=False):
 
     else:
 
-        stream = yt_base + video_id
+        stream = yt_url + video_id
         return stream
 
 
@@ -53,15 +53,20 @@ def wrapper(url):
 
         streams = youtube_resolver.resolve(url)
 
-    # try:
-    #     enabled = control.addon_details('inputstream.adaptive').get('enabled')
-    # except KeyError:
-    #     enabled = False
-    #
-    # if addon_version('xbmc.python') > 225 and enabled:
-    #     choices = streams
-    # else:
-    choices = [s for s in streams if 'DASH' not in s['title']]
+    try:
+        installed = control.condVisibility('System.HasAddon(inputstream.adaptive)')
+        activated = control.addon_details('inputstream.adaptive').get('enabled')
+        if installed and activated:
+            enabled = True
+        else:
+            enabled = False
+    except KeyError:
+        enabled = False
+
+    if addon_version('xbmc.python') >= 225 and enabled and control.setting('mped_dash') == 'true':
+        choices = streams
+    else:
+        choices = [s for s in streams if 'dash' not in s['title'].lower()]
 
     music_active = control.condVisibility('Window.IsActive(music)')
 
@@ -78,21 +83,21 @@ def wrapper(url):
 
         resolved = stream_picker(qualities, urls)
 
-        # if 'dash' in resolved:
-        #     return resolved, True
-        # else:
-        return resolved, False
+        if 'dash' in resolved.lower():
+            return resolved, True
+        else:
+            return resolved, False
 
     else:
 
         resolved = choices[0]['url']
 
-        # if addon_version('xbmc.python') > 225 and enabled:
-        #
-        #     return resolved, True
-        #
-        # else:
+        if addon_version('xbmc.python') >= 225 and enabled:
 
-        return resolved, False
+            return resolved, True
+
+        else:
+
+            return resolved, False
 
 

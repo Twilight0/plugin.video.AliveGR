@@ -125,19 +125,19 @@ def megagr(url):
 
     except:
 
-        from ..modules.constants import yt_base
+        from ..modules.constants import yt_url
 
         pattern = re.compile('"https?://(?:www\.youtube\.com|youtu\.be)/(?:watch\?v=|embed/|)([\w-]*?)"')
 
         yt_id = re.findall(pattern, html)[0]
 
-        return yt_base + yt_id
+        return yt_url + yt_id
 
 
 def ert(url):
 
     from ..modules.helpers import geo_loc
-    from ..modules.constants import yt_base
+    from ..modules.constants import yt_url
 
     html = client.request(url)
 
@@ -148,7 +148,7 @@ def ert(url):
 
     vid = result.rpartition('/')[2][:11]
 
-    video = yt_base + vid
+    video = yt_url + vid
 
     return video
 
@@ -183,14 +183,6 @@ def euronews(url):
     primary = json.loads(result)['primary']
 
     return primary
-
-
-def fnetwork(url):
-
-    html = client.request(url)
-    link = client.parseDOM(html, 'iframe', ret='src')[0]
-
-    return link
 
 
 def ssh101(url):

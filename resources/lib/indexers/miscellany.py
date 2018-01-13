@@ -23,7 +23,7 @@ from tulip import cache, client, control
 from tulip.log import *
 from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
-from ..modules.constants import yt_url
+from ..modules.constants import yt_addon
 
 
 class Main:
@@ -61,7 +61,7 @@ class Main:
 
             item_data = (
                 dict(title=title, icon=icon, url=url.replace(
-                    'https://www.youtube.com/channel', '{0}/channel'.format(yt_url)
+                    'https://www.youtube.com/channel', '{0}/channel'.format(yt_addon)
                 ))
             )
 

@@ -33,9 +33,9 @@ api_keys = {
 ########################################################################################################################
 
 art_id = 'resource.images.alivegr.artwork'
-yt_url = 'plugin://plugin.video.youtube'
-yt_base = 'https://www.youtube.com/watch?v='
-yt_prefix = yt_url + '/play/?video_id='
+yt_addon = 'plugin://plugin.video.youtube'
+yt_url = 'https://www.youtube.com/watch?v='
+yt_prefix = yt_addon + '/play/?video_id='
 sdik = 'script.alivegr.kids'
 
 ########################################################################################################################
@@ -47,8 +47,3 @@ live_groups = {
 }
 
 ########################################################################################################################
-
-def sl_hosts(url):
-
-    return ['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url, 'ttvnw' in url]
-

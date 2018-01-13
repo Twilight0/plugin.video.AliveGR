@@ -907,7 +907,7 @@ msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30253"
-msgid "Enable inputstream adaptive addon (DASH)"
+msgid "Activate inputstream adaptive (MPEG-DASH)"
 msgstr ""
 
 msgctxt "#30254"
@@ -980,6 +980,30 @@ msgstr ""
 
 msgctxt "#30271"
 msgid "The author of G.K.N. Wizard has made some unauthorised changes to the settings of AliveGR, settings have been reset"
+msgstr ""
+
+msgctxt "#30272"
+msgid "MPEG-DASH (Adaptive Stream Quality) & RTMP addons"
+msgstr ""
+
+msgctxt "#30273"
+msgid "Input stream addon settings"
+msgstr ""
+
+msgctxt "#30274"
+msgid "Utilize MPEG-DASH"
+msgstr ""
+
+msgctxt "#30275"
+msgid "Activate RTMP"
+msgstr ""
+
+msgctxt "#30276"
+msgid "RTMP has already been activated"
+msgstr ""
+
+msgctxt "#30277"
+msgid "RTMP addon is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30401"

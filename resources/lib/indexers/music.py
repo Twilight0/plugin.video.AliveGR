@@ -24,7 +24,7 @@ from tulip import control, directory, cache, client
 from tulip.log import *
 from urlparse import urljoin
 from ..modules.themes import iconname
-from ..modules.constants import yt_base, art_id
+from ..modules.constants import yt_url, art_id
 from ..indexers import you_tube
 import gm
 import datetime
@@ -385,7 +385,7 @@ class Main:
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
-                link = urljoin(yt_base, vid)
+                link = urljoin(yt_url, vid)
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
                 link = client.parseDOM(item, 'a', ret='href')[0]
                 image = you_tube.thumb_maker(link.partition('=')[2])
@@ -473,8 +473,11 @@ class Main:
             title = client.parseDOM(item, 'title')[0]
             url = client.parseDOM(item, 'url')[0]
             image = you_tube.thumb_maker(url.rpartition('=')[2])
+            plot = client.parseDOM(item, 'description')[0]
+            duration = client.parseDOM(item, 'duration')[0].split(':')
+            duration = (int(duration[0]) * 60) + int(duration[1])
 
-            item_data = (dict(title=title, image=image, url=url))
+            item_data = (dict(title=title, image=image, url=url, plot=plot, comment=plot, duration=duration))
 
             self.list.append(item_data)
 

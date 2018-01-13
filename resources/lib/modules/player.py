@@ -29,8 +29,8 @@ import m3u8_loader
 from tulip import directory, client, cache, control
 from tulip.log import *
 from ..indexers.gm import base_link
-from ..resolvers import various, youtu  # , ytdl_wrapper
-from ..modules.constants import sl_hosts, yt_prefix
+from ..resolvers import various, youtu
+from ..modules.constants import yt_url
 
 
 def source_maker(url):
@@ -177,10 +177,28 @@ def directory_picker(url, title, description, genre):
 
 def router(url):
 
+    def yt_router(uri):
+
+        if len(uri) == 11:
+            uri = yt_url + uri
+
+        try:
+            stream = youtu.wrapper(uri)
+        except:
+            stream = stream_link.sl_session(uri)
+
+        return stream
+
+        # Reserved as failsafe:
+        # if YDStreamExtractor.mightHaveVideo(url):
+        #
+        #     stream = ytdl_wrapper.session(url)
+        #
+        #     return stream
+
     if 'youtu' in url:
 
-        stream = youtu.wrapper(url)
-        return stream
+        return yt_router(url)
 
         # Alternative method reserved:
         # if 'user' in url or 'channel' in url:
@@ -195,14 +213,7 @@ def router(url):
         #     stream = urlresolver.resolve(url)
         #     directory.resolve(stream, meta={'title': name})
 
-    # Reserved as failsafe:
-    # if YDStreamExtractor.mightHaveVideo(url):
-    #
-    #     stream = ytdl_wrapper.session(url)
-    #
-    #     return stream
-
-    elif any(sl_hosts(url)):
+    elif any(stream_link.sl_hosts(url)):
 
         stream = stream_link.sl_session(url)
 
@@ -253,11 +264,8 @@ def router(url):
     elif 'webtv.ert.gr' in url:
 
         link = cache.get(various.ert, 12, url)
-        # try:
-        #     stream = youtu.wrapper(link)
-        # except:
-        stream = stream_link.sl_session(link)
-        return stream
+
+        return yt_router(link)
 
     elif 'skai.gr' in url:
 
@@ -275,12 +283,6 @@ def router(url):
         stream = cache.get(various.euronews, 12, url)
         return stream
 
-    elif 'fnetwork.com' in url:
-
-        stream = cache.get(various.fnetwork, 12, url)
-        stream = youtu.wrapper(stream)
-        return stream
-
     elif 'visionip.tv' in url:
 
         sid = cache.get(various.visioniptv, 12)
@@ -295,11 +297,6 @@ def router(url):
     elif 'ellinikosfm.tv' in url or 'lepantortv' in url:
 
         stream = various.dacast(url)
-        return stream
-
-    elif 'tzampa.tv' in url:
-
-        stream = url + client.spoofer(referer=True, ref_str='https://tzampa.tv/home') + '&Origin=https%3A%2F%2Ftzampa.tv'
         return stream
 
     else:
@@ -398,7 +395,9 @@ def player(url, name):
 
         try:
 
-            if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(sl_hosts(resolved)):
+            if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(stream_link.sl_hosts(
+                    resolved)
+            ):
 
                 resolved = m3u8_loader.m3u8_picker(resolved)
 

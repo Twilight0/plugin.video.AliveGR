@@ -270,7 +270,7 @@ def isa_enable():
     try:
         enabled = control.addon_details('inputstream.adaptive').get('enabled')
 
-        if addon_version('xbmc.python') > 224 and not enabled:
+        if addon_version('xbmc.python') >= 225 and not enabled:
             yes = control.yesnoDialog(control.lang(30252))
             if yes:
                 control.enable_addon('inputstream.adaptive')
@@ -279,6 +279,24 @@ def isa_enable():
                 pass
         elif enabled:
             control.infoDialog(control.lang(30254))
+    except:
+        pass
+
+
+def rtmp_enable():
+
+    try:
+        enabled = control.addon_details('inputstream.rtmp').get('enabled')
+
+        if addon_version('xbmc.python') >= 225 and not enabled:
+            yes = control.yesnoDialog(control.lang(30277))
+            if yes:
+                control.enable_addon('inputstream.adaptive')
+                control.infoDialog(control.lang(30402))
+            else:
+                pass
+        elif enabled:
+            control.infoDialog(control.lang(30276))
     except:
         pass
 
@@ -313,8 +331,7 @@ def repo_check():
 
         control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
         control.execute('Dialog.Close(all)')
-        import sys
-        sys.exit()
+        import sys; sys.exit()
 
     else: pass
 
@@ -333,14 +350,12 @@ def block_check():
 def checkpoint():
 
     disclaimer()
-    repo_check()
 
     if control.exists(control.join(control.addonPath, 'DELETE_ME')):
         if control.yesnoDialog(control.lang(30267)):
             changelog()
         else:
             pass
-        isa_enable()
         cache_clear()
         block_check()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))

@@ -1,3 +1,10 @@
++ [B]1.6.16[/B] [COLOR yellow](15-01-2017)[/COLOR]
+- Re-applied DASH and improved behaviour
+- Removed first-time prompt for enabling inputstream adaptive addon
+- Added settings item pointing to inputstream adaptive addon settings
+- Youtube resolver now has streamlink as fallback
+- Top 50 music section added with my personal playlist.
+
 + [B]1.6.15[/B] [COLOR yellow](11-01-2017)[/COLOR]
 - Quick bump to 1.6.15 so that ERT channels are utilizing streamlink resolver
 

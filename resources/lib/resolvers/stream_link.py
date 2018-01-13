@@ -60,3 +60,8 @@ def sl_session(url):
     else:
 
         return streams['best'].url
+
+
+def sl_hosts(url):
+
+    return ['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url, 'ttvnw' in url]
