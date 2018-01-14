@@ -31,7 +31,7 @@ try:
 except:
     pass
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

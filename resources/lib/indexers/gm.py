@@ -115,7 +115,7 @@ def root(url):
         return root_list, groups_list
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

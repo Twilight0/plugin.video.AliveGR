@@ -28,7 +28,7 @@ from ..modules.helpers import thgiliwt, dexteni
 from ..modules.constants import live_groups
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

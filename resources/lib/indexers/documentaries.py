@@ -27,7 +27,7 @@ from ..modules.themes import iconname
 from ..modules.helpers import thgiliwt
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

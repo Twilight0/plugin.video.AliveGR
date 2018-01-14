@@ -30,7 +30,7 @@ import gm
 import datetime
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 
@@ -114,14 +114,14 @@ class Main:
                 'image': 'http://www.radiopolis.gr/wp-content/uploads/2017/11/noimageavailable.jpg',
                 'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             }
-            # ,
-            # {
-            #     'title': 30269,
-            #     'action': 'top50_list',
-            #     'url': 'http://alivegr.net/raw/top50.xml',
-            #     'image': control.addonInfo('icon'),
-            #     'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
-            # }
+            ,
+            {
+                'title': 30269,
+                'action': 'top50_list',
+                'url': 'http://alivegr.net/raw/top50.xml',
+                'image': control.addonInfo('icon'),
+                'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
+            }
         ]
 
         if 'audio' in control.infoLabel('Container.FolderPath'):
@@ -504,18 +504,16 @@ class Main:
             log_info('Normal playback of tracks')
             content = 'musicvideos'
 
-        for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False'})
-
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
             item.update(
                 {
-                    'cm': [add_to_playlist, clear_playlist], 'album': control.lang(30269),
-                    'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg', 'tracknumber': count
+                    'action': 'play', 'isFolder': 'False', 'cm': [add_to_playlist, clear_playlist],
+                    'album': control.lang(30269), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
+                    'tracknumber': count
                 }
             )
 
-        control.sortmethods('label')
+        control.sortmethods('tracknumber')
         directory.add(self.list, content=content)

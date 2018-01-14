@@ -24,7 +24,7 @@ from tulip.init import syshandle
 from ..modules.constants import art_id
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

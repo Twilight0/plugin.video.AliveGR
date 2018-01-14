@@ -25,7 +25,7 @@ import gm
 import re, urllib, urlparse, json
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

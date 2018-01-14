@@ -25,7 +25,7 @@ from ..modules.themes import iconname
 from ..modules.helpers import reset_idx as reset
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

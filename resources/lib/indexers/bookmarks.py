@@ -25,7 +25,7 @@ from tulip.log import *
 from ..modules.themes import iconname
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

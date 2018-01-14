@@ -77,7 +77,7 @@ def other_addon_settings(query):
 
     control.execute('Dialog.Close(all)')
     control.sleep(50)
-    control.Settings('{0}').format(query)
+    control.Settings('{0}'.format(query))
 
 
 def reset_idx(notify=True):

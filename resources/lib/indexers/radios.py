@@ -22,7 +22,7 @@ from tulip import control
 from tulip.init import syshandle
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

@@ -25,7 +25,7 @@ from ..modules.themes import iconname
 from ..modules.constants import art_id
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

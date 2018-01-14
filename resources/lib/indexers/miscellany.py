@@ -26,7 +26,7 @@ from ..modules.helpers import thgiliwt
 from ..modules.constants import yt_addon
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 

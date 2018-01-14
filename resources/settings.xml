@@ -27,7 +27,7 @@
     </category>
     <category label="30004">
         <setting type="lsep" label="30272"/>
-        <setting visible="true" label="30253" type="action" action="RunPlugin(plugin://$ID/?action=rtmp_enable)"/>
+        <setting visible="true" label="30275" type="action" action="RunPlugin(plugin://$ID/?action=rtmp_enable)"/>
         <setting visible="true" label="30253" type="action" action="RunPlugin(plugin://$ID/?action=isa_enable)"/>
         <setting id="mpeg_dash" label="30274" type="bool" default="true"/>
         <setting visible="true" label="30273" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=inputstream.adaptive)"/>

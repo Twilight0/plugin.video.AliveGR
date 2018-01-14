@@ -23,7 +23,7 @@ from ..modules.constants import art_id
 from tulip import control, directory
 
 
-class Main:
+class Indexer:
 
     def __init__(self):
 
