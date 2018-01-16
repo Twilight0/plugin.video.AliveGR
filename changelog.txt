@@ -1,9 +1,14 @@
-+ [B]1.6.16[/B] [COLOR yellow](15-01-2017)[/COLOR]
++ [B]1.7.0[/B] [COLOR yellow](17-01-2017)[/COLOR]
+- New action for streams selection "Playlist" (Auto-pick an item)
+- New gm debris function improves performance bypassing greek movies extra window several times
+- Various enhancements in play m3u function
 - Re-applied DASH and improved behaviour
 - Removed first-time prompt for enabling inputstream adaptive addon
-- Added settings item pointing to inputstream adaptive addon settings
+- Added settings item pointing to inputstream adaptive & rtmp addon settings
 - Youtube resolver now has streamlink as fallback
+- Improved bookmarks behaviour and now it follows the type of action for stream selection
 - Top 50 music section added with my personal playlist.
+- Changed location of blacklist module
 
 + [B]1.6.15[/B] [COLOR yellow](11-01-2017)[/COLOR]
 - Quick bump to 1.6.15 so that ERT channels are utilizing streamlink resolver

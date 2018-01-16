@@ -267,6 +267,10 @@ def changelog():
 
 def isa_enable():
 
+    if not control.condVisibility('System.HasAddon(inputstream.adaptive)'):
+        control.infoDialog(control.lang(30278))
+        return
+
     try:
         enabled = control.addon_details('inputstream.adaptive').get('enabled')
 
@@ -285,13 +289,17 @@ def isa_enable():
 
 def rtmp_enable():
 
+    if not control.condVisibility('System.HasAddon(inputstream.rtmp)'):
+        control.infoDialog(control.lang(30279))
+        return
+
     try:
         enabled = control.addon_details('inputstream.rtmp').get('enabled')
 
         if addon_version('xbmc.python') >= 225 and not enabled:
             yes = control.yesnoDialog(control.lang(30277))
             if yes:
-                control.enable_addon('inputstream.adaptive')
+                control.enable_addon('inputstream.rtmp')
                 control.infoDialog(control.lang(30402))
             else:
                 pass
@@ -336,15 +344,15 @@ def repo_check():
     else: pass
 
 
-def block_check():
-
-    if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
-
-        settings_xml = control.join(control.dataPath, 'settings.xml')
-        control.deleteFile(settings_xml)
-        control.okDialog(control.lang(30270), control.lang(30271))
-
-    else: pass
+# def block_check():
+#
+#     if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
+#
+#         settings_xml = control.join(control.dataPath, 'settings.xml')
+#         control.deleteFile(settings_xml)
+#         control.okDialog(control.lang(30270), control.lang(30271))
+#
+#     else: pass
 
 
 def checkpoint():
@@ -357,7 +365,7 @@ def checkpoint():
         else:
             pass
         cache_clear()
-        block_check()
+        # block_check()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
     else: pass

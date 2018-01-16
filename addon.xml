@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.6.16" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.0~alpha1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
-        <import addon="script.module.urlresolver" version="4.00.09"/>
-        <import addon="script.module.streamlink.base" version="2018.01.11"/>
+        <import addon="script.module.urlresolver" version="4.00.17"/>
+        <import addon="script.module.streamlink.base" version="2018.01.14"/>
         <import addon="script.module.iso8601" version="0.1.11"/>
         <import addon="script.module.tulip" version="1.3.5"/>
-        <import addon="plugin.video.youtube" version="5.4.99.6"/>
+        <import addon="plugin.video.youtube" version="5.4.99.7"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
         <provides>video audio image executable</provides>
@@ -36,12 +36,8 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <news>[I][COLOR white]Welcome to AliveGR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.6.16[/B] [COLOR yellow](15-01-2017)[/COLOR]
-- Re-applied DASH and improved behaviour
-- Removed first-time prompt for enabling inputstream adaptive addon
-- Added settings item pointing to inputstream adaptive addon settings
-- Youtube resolver now has streamlink as fallback
-- Top 50 music section added with my personal playlist.</news>
++ [B]1.6.15[/B] [COLOR yellow](11-01-2017)[/COLOR]
+- Quick bump to 1.6.15 so that ERT channels are utilizing streamlink resolver</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

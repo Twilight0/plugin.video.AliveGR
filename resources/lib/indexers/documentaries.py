@@ -39,7 +39,7 @@ class Indexer:
         self.youtube_link5 = 'PL6B61F6F5FF763F17'
         self.youtube_link6 = 'PL548D38E101E0A09F'
         self.youtube_link7 = 'PL6FD8970BF53E4CB8'
-        self.youtube_link8 = 'PL4qYYh-kGH3ZOHVikP9H3GUylktTkRC4D'
+        self.youtube_link8 = 'PLb8uy1CvcjmyRAO_MXkKWMdHRKIq0MrD-'
         self.youtube_link9 = 'PLb8uy1Cvcjmx798IHlPWWN130pvrfNeMq'
         # self.youtube_link10 = 'UCXr6dzk36oq5zhiU-8SrWLA'
         self.youtube_extra = u'https://www.youtube.com/watch?v=oLjGJOP9Cb4'
@@ -85,7 +85,7 @@ class Indexer:
         channel5 = youtube.youtube(key=key).playlist(self.youtube_link5); ch5 = channel5
         channel6 = youtube.youtube(key=key).playlist(self.youtube_link6); ch6 = channel6
         channel7 = youtube.youtube(key=key).playlist(self.youtube_link7); ch7 = channel7
-        channel8 = youtube.youtube(key=key).playlist(self.youtube_link8)
+        channel8 = youtube.youtube(key=key).playlist(self.youtube_link8); ch8 = channel8
         channel9 = youtube.youtube(key=key).playlist(self.youtube_link9)
         # channel10 = youtube.youtube(key=key).videos(self.youtube_link10)
 
@@ -116,11 +116,6 @@ class Indexer:
         ch4 = [
             item for item in channel4 if int(item['duration']) >= 900
         ]
-
-        ch8 = [dict(
-            (
-                k, item[k].partition(' (ΝΤΟΚΙΜΑΝΤΕΡ')[0] if (k == 'title') else v
-            ) for k, v in item.items()) for item in channel8]
 
         ch9 = [dict(
             (
@@ -153,10 +148,13 @@ class Indexer:
             return
 
         for item in self.data:
+            item.update({'action': 'play', 'isFolder': 'False'})
+
+        for item in self.data:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            item.update({'cm': [bookmark_cm], 'action': 'play', 'isFolder': 'False'})
+            item.update({'cm': [bookmark_cm]})
 
         self.list = sorted(self.data, key=lambda k: k['title'].lower())
 

@@ -20,9 +20,10 @@
 
 import json
 
-from tulip import bookmarks, directory
+from tulip import bookmarks, directory, control
 from tulip.log import *
 from ..modules.themes import iconname
+from gm import movies_link, theater_link, shortfilms_link
 
 
 class Indexer:
@@ -43,10 +44,31 @@ class Indexer:
 
         else:
 
-            for item in self.data:
-                bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
-                bookmark['delbookmark'] = item['url']
-                item.update({'cm': [{'title': 30081, 'query': {'action': 'deleteBookmark', 'url': json.dumps(bookmark)}}]})
+            for i in self.data:
+
+                if i['url'].startswith((movies_link, theater_link, shortfilms_link)):
+                    if control.setting('action_type') == '1':
+                        try:
+                            del i['isFolder']
+                        except:
+                            pass
+                        action = 'directory'
+                    elif control.setting('action_type') == '2' and control.setting('auto_play') == 'false':
+                        try:
+                            del i['isFolder']
+                        except:
+                            pass
+                        action = i['action']
+                    else:
+                        action = i['action']
+                else:
+                    action = i['action']
+
+                i['action'] = action
+
+                item = dict((k, v) for k, v in i.iteritems() if not k == 'next')
+                item['delbookmark'] = i['url']
+                i.update({'cm': [{'title': 30081, 'query': {'action': 'deleteBookmark', 'url': json.dumps(item)}}]})
 
             self.list = sorted(self.data, key=lambda k: k['title'].lower())
 

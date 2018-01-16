@@ -174,6 +174,11 @@ def alphatv(url):
     return link
 
 
+# def epsilon(url):
+#
+#     pass
+
+
 def euronews(url):
 
     result = client.request(url)

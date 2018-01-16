@@ -411,9 +411,15 @@ class Indexer:
         log_debug('Caching was successful, list of vod items ~ ' + repr(self.list))
 
         if url.startswith((movies_link, theater_link, shortfilms_link)):
-            if control.setting('dialog_type') == '0':
+            if control.setting('action_type') == '0':
                 for item in self.list:
                     item.update({'action': 'play', 'isFolder': 'False'})
+            elif control.setting('action_type') == '2':
+                for item in self.list:
+                    if control.setting('auto_play') == 'false':
+                        item.update({'action': 'play'})
+                    else:
+                        item.update({'action': 'play', 'isFolder': 'False'})
             else:
                 for item in self.list:
                     item.update({'action': 'directory'})
@@ -511,7 +517,7 @@ class Indexer:
             log_error('Episode section failed to load, try resetting indexer methods')
             return
 
-        if control.setting('dialog_type') == '0':
+        if control.setting('action_type') == '0' or control.setting('action_type') == '2':
             for item in self.list:
                 item.update({'action': 'play', 'isFolder': 'False'})
         else:

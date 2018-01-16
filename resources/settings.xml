@@ -27,10 +27,10 @@
     </category>
     <category label="30004">
         <setting type="lsep" label="30272"/>
-        <setting visible="true" label="30275" type="action" action="RunPlugin(plugin://$ID/?action=rtmp_enable)"/>
-        <setting visible="true" label="30253" type="action" action="RunPlugin(plugin://$ID/?action=isa_enable)"/>
-        <setting id="mpeg_dash" label="30274" type="bool" default="true"/>
-        <setting visible="true" label="30273" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=inputstream.adaptive)"/>
+        <setting label="30275" type="action" action="RunPlugin(plugin://$ID/?action=rtmp_enable)"/>
+        <setting id="mpeg_dash" label="30274" type="bool" default="false"/>
+        <setting label="30253" type="action" action="RunPlugin(plugin://$ID/?action=isa_enable)" visible="eq(-1,true)"/>
+        <setting label="30273" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=inputstream.adaptive)" visible="eq(-2,true)"/>
         <setting type="lsep" label="30109"/>
         <setting id="lang_split" type="enum" label="30057" lvalues="30216|30058|30059|30060" default="0"/>
         <setting type="lsep" label="30006"/>
@@ -43,10 +43,13 @@
         <setting id="show-switcher" type="bool" label="30061" default="true"/>
         <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
         <setting type="lsep" label="30009"/>
-        <setting id="dialog_type" type="enum" label="30144" lvalues="30145|30146" default="0"/>
+        <setting id="action_type" type="enum" label="30144" lvalues="30145|30146|30216" default="0"/>
+        <setting id="auto_play" type="bool" label="30280" default="true" visible="eq(-1,2)"/>
+        <setting id="randomize_items" type="bool" label="30282" default="true" visible="eq(-2,2)"/>
         <setting id="audio_only" label="30224" type="bool" default="false"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
-        <setting visible="true" label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.urlresolver)"/>
+        <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.urlresolver)"/>
+        <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)"/>
         <setting id="yt_resolve" label="30038" type="bool" default="true"/>
     </category>
     <category label="30138">

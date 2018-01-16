@@ -1006,6 +1006,34 @@ msgctxt "#30277"
 msgid "RTMP addon is not enabled. Do you to enabled it now?"
 msgstr "Το πρόσθετο RTMP δεν είναι ενεργοποιημένο. Ενεργοποίηση τώρα;"
 
+msgctxt "#30278"
+msgid "Inputstream adaptive addon was not found in your system"
+msgstr "Το πρόσθετο inputstream adaptive δεν βρέθηκε στο σύστημά σας"
+
+msgctxt "#30279"
+msgid "RTMP addon was not found in your system"
+msgstr "Το πρόσθετο rtmp δεν βρέθηκε στο σύστημά σας"
+
+msgctxt "#30280"
+msgid "Auto play"
+msgstr "Αυτόματη αναπαραγωγή"
+
+msgctxt "#30281"
+msgid "Youtube addon settings"
+msgstr "Ρυθμίσεις προσθέτου Youtube"
+
+msgctxt "#30282"
+msgid "Randomize playlist items"
+msgstr "Ανακάτεμα αντικειμένων αναπαραγωγής"
+
+msgctxt "#30283"
+msgid "Addonid {0} was not found in your system"
+msgstr "Το πρόσθετο {0} δεν βρέθηκε στο σύστημά σας"
+
+msgctxt "#30284"
+msgid "Playlist"
+msgstr "Λίστα Αναπαραγωγής"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

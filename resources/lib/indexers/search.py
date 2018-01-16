@@ -19,7 +19,7 @@
 '''
 
 
-from tulip import client, directory, control, cache
+from tulip import client, directory, control, cache, cleantitle
 from tulip.init import sysaddon
 import gm
 import re, urllib, urlparse, json
@@ -35,14 +35,6 @@ class Indexer:
 
     def search(self):
 
-        def strip_accents(s):
-
-            import unicodedata
-
-            result = ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
-
-            return result
-
         choices = [control.lang(30096), control.lang(30097), control.lang(30098)]
         choice = control.selectDialog(heading=control.lang(30095), list=choices)
 
@@ -56,7 +48,7 @@ class Indexer:
 
                 import live
 
-                self.data = cache.get(live.Main().live, 4)[0]
+                self.data = cache.get(live.Indexer().live, 4)[0]
 
                 for item in self.data:
                     item.update({'action': 'play', 'isFolder': 'False'})
@@ -88,7 +80,7 @@ class Indexer:
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
             )
 
-            str_input = strip_accents(str_input.decode('utf-8'))
+            str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
 
             if bool(str_input):
 
@@ -145,14 +137,14 @@ class Indexer:
 
                 dl = [
                     item for item in cache.get(
-                        documentaries.Main().items_list, 48
-                    ) if str_input.lower() in strip_accents(item['title'].decode('utf-8')).lower()
+                        documentaries.Indexer().items_list, 48
+                    ) if str_input.lower() in cleantitle.strip_accents(item['title'].decode('utf-8')).lower()
                 ]
 
                 for item in dl:
                     item.update({'action': 'play', 'isFolder': 'False'})
 
-                if control.setting('dialog_type') == '0':
+                if control.setting('action_type') == '0' or control.setting('action_type') == '2':
                     for item in self.data:
                         item.update({'action': 'play', 'isFolder': 'False'})
                 else:

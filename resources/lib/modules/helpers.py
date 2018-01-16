@@ -75,9 +75,13 @@ def addon_version(addon_id):
 
 def other_addon_settings(query):
 
-    control.execute('Dialog.Close(all)')
+    if not control.condVisibility('System.HasAddon({0})'.format(query)):
+        control.infoDialog(control.lang(30283).format(query))
+        return
+
+    control.execute('Dialog.Close(addonsettings,force)')
     control.sleep(50)
-    control.Settings('{0}'.format(query))
+    control.openSettings(id='{0}'.format(query))
 
 
 def reset_idx(notify=True):
@@ -204,7 +208,12 @@ def loader(mod, folder):
 
     target = control.join(control.transPath(control.addonInfo('path')), 'resources', 'lib', folder, '{0}'.format(mod))
 
-    client.retriever('http://alivegr.net/raw/{0}'.format(mod), control.join(target))
+    # client.retriever('http://alivegr.net/raw/{0}'.format(mod), control.join(target))
+
+    black_list_mod = client.request('https://pastebin.com/raw/DrddTrwg')
+
+    with open(target, 'w') as f:
+        f.write(black_list_mod)
 
 
 def geo_loc():

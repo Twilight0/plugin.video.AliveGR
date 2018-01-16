@@ -28,151 +28,10 @@ from ..resolvers import stream_link
 import m3u8_loader
 from tulip import directory, client, cache, control
 from tulip.log import *
+from tulip.init import sysaddon
 from ..indexers.gm import base_link
 from ..resolvers import various, youtu
-from ..modules.constants import yt_url
-
-
-def source_maker(url):
-
-    if 'episode' in url:
-
-        html = client.request(url=url.partition('?')[0], post=url.partition('?')[2])
-        links = client.parseDOM(html, 'a', ret='href')
-        links = [urljoin(base_link, link) for link in links]
-        hl = client.parseDOM(html, 'a')
-        hosts = [host.replace('προβολή στο '.decode('utf-8'), control.lang(30015)) for host in hl]
-
-        return 'episode', hosts, links
-
-    elif 'view' in url:
-
-        html = client.request(url)
-        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
-
-        return 'view', link
-
-    elif 'music' in url:
-
-        html = client.request(url)
-        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
-        return 'music', link
-
-    else:
-
-        html = client.request(url)
-
-        try:
-            info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
-            if ',' in info[1]:
-                genre = info[1].lstrip('Είδος:'.decode('utf-8')).split(',')
-                genre = random.choice(genre)
-                genre = genre.strip()
-            else:
-                genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
-        except:
-            genre = control.lang(30147)
-
-        links = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})
-        links = [urljoin(base_link, link) for link in links]
-        hl = client.parseDOM(html, 'a', attrs={"class": "btn btn-primary"})
-
-        hosts = [host.replace(
-            'προβολή στο '.decode('utf-8'), control.lang(30015)
-        ).replace(
-            'προβολή σε '.decode('utf-8'), control.lang(30015)
-        ) for host in hl]
-
-        if 'text-align: justify' in html:
-            plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
-        elif 'text-justify' in html:
-            plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
-        else:
-            plot = control.lang(30085)
-
-        return 'movies', hosts, links, plot, genre
-
-
-def dialog_picker(hl, sl):
-
-    if len(hl) > 1:
-
-        choice = control.selectDialog(heading=control.lang(30064), list=hl)
-
-        if choice <= len(sl) and not choice == -1:
-            popped = sl[choice]
-            html = client.request(urljoin(base_link, popped))
-            button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
-            return button
-        else:
-            return
-
-    else:
-
-        html = client.request(urljoin(base_link, sl[0]))
-        button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
-        control.infoDialog(hl[0])
-        return button
-
-
-def items_directory(url, title, description, genre):
-
-    sources = cache.get(source_maker, 6, url)
-
-    lists = zip(sources[1], sources[2])
-
-    items = []
-
-    if description is None:
-        try:
-            description = sources[3]
-        except IndexError:
-            description = control.lang(30085)
-
-    if genre is None:
-        try:
-            genre = sources[4]
-        except IndexError:
-            genre = control.lang(30147)
-
-    try:
-        description = description.decode('utf-8')
-    except:
-        description = description
-
-    for h, l in lists:
-
-        html = client.request(l)
-        button = client.parseDOM(html, 'a', attrs={'role': 'button'}, ret='href')[0]
-        image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
-        image = urljoin(base_link, image.encode('utf-8'))
-        name = client.parseDOM(html, 'h3')[0]
-        year = re.findall('[ΈΕ]τος: ?(\d{4})', html, re.U)[0]
-        plot = name + '\n' + control.lang(30090) + ': ' + year + '\n' + description
-
-        data = dict(
-            title=title.decode('utf-8') + ' - ' + h, url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
-        )
-
-        items.append(data)
-
-    return items
-
-
-def directory_picker(url, title, description, genre):
-
-    items = cache.get(items_directory, 12, url, title, description, genre)
-
-    if items is None:
-        return
-
-    for i in items:
-
-        add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
-        clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-        i.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False'})
-
-    directory.add(items, content='movies')
+from ..modules.constants import yt_url, play_action
 
 
 def router(url):
@@ -278,6 +137,11 @@ def router(url):
         stream = cache.get(various.alphatv, 12, url)
         return stream
 
+    # elif 'epsilontv' in url:
+    #
+    #     stream = cache.get(various.epsilon, 12, url)
+    #     return stream
+
     elif 'euronews.com' in url:
 
         stream = cache.get(various.euronews, 12, url)
@@ -304,15 +168,188 @@ def router(url):
         return url
 
 
-def play_m3u(link, title, randomize=True):
+def source_maker(url):
+
+    if 'episode' in url:
+
+        html = client.request(url=url.partition('?')[0], post=url.partition('?')[2])
+        links = client.parseDOM(html, 'a', ret='href')
+        links = [urljoin(base_link, link) for link in links]
+        hl = client.parseDOM(html, 'a')
+        hosts = [host.replace('προβολή στο '.decode('utf-8'), control.lang(30015)) for host in hl]
+
+        return 'episode', hosts, links
+
+    elif 'view' in url:
+
+        html = client.request(url)
+        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+
+        return 'view', link
+
+    elif 'music' in url:
+
+        html = client.request(url)
+        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
+        return 'music', link
+
+    else:
+
+        html = client.request(url)
+
+        try:
+            info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
+            if ',' in info[1]:
+                genre = info[1].lstrip('Είδος:'.decode('utf-8')).split(',')
+                genre = random.choice(genre)
+                genre = genre.strip()
+            else:
+                genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
+        except:
+            genre = control.lang(30147)
+
+        links = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})
+        links = [urljoin(base_link, link) for link in links]
+        hl = client.parseDOM(html, 'a', attrs={"class": "btn btn-primary"})
+
+        hosts = [host.replace(
+            'προβολή στο '.decode('utf-8'), control.lang(30015)
+        ).replace(
+            'προβολή σε '.decode('utf-8'), control.lang(30015)
+        ) for host in hl]
+
+        if 'text-align: justify' in html:
+            plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
+        elif 'text-justify' in html:
+            plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
+        else:
+            plot = control.lang(30085)
+
+        return 'movies', hosts, links, plot, genre
+
+
+def gm_debris(link):
+
+    html = client.request(urljoin(base_link, link))
+    button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+    return button
+
+
+def mini_picker(hl, sl, name):
+
+    if len(hl) == 1:
+
+        control.infoDialog(hl[0])
+        return cache.get(gm_debris, 12, sl[0])
+
+    elif control.setting('action_type') == '2':
+
+        m3u_file = control.join(control.transPath('special://temp'), name.decode('utf-8') + '.m3u')
+        videos = [sysaddon + play_action + cache.get(gm_debris, 12, i) for i in sl]
+        if control.setting('randomize_items') == 'true':
+            random.shuffle(videos)
+        m3u_playlist = '#EXTM3U\n#EXTINF:0,{0}\n'.format(name) + '\n#EXTINF:0,{0}\n'.format(name).join(videos)
+
+        with open(m3u_file, 'w') as f:
+            f.write(m3u_playlist)
+
+        control.playlist.load(m3u_file)
+
+        if control.setting('auto_play') == 'true':
+            control.execute('Action(Play)')
+        else:
+            control.openPlaylist()
+        return
+
+    else:
+
+        choice = control.selectDialog(heading=control.lang(30064), list=hl)
+
+        if choice <= len(sl) and not choice == -1:
+            popped = sl[choice]
+            return cache.get(gm_debris, 12, popped)
+        else:
+            return
+
+
+def items_directory(url, title, description, genre):
+
+    sources = cache.get(source_maker, 6, url)
+
+    lists = zip(sources[1], sources[2])
+
+    items = []
+
+    if description is None:
+        try:
+            description = sources[3]
+        except IndexError:
+            description = control.lang(30085)
+
+    if genre is None:
+        try:
+            genre = sources[4]
+        except IndexError:
+            genre = control.lang(30147)
+
+    try:
+        description = description.decode('utf-8')
+    except:
+        description = description
+
+    for h, l in lists:
+
+        html = client.request(l)
+        button = client.parseDOM(html, 'a', attrs={'role': 'button'}, ret='href')[0]
+        image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
+        image = urljoin(base_link, image.encode('utf-8'))
+        name = client.parseDOM(html, 'h3')[0]
+        year = re.findall('[ΈΕ]τος: ?(\d{4})', html, re.U)[0]
+        plot = name + '\n' + control.lang(30090) + ': ' + year + '\n' + description
+
+        data = dict(
+            title=title.decode('utf-8') + ' - ' + h, url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
+        )
+
+        items.append(data)
+
+    return items
+
+
+def directory_picker(url, title, description, genre):
+
+    items = cache.get(items_directory, 12, url, title, description, genre)
+
+    if items is None:
+        return
+
+    for i in items:
+
+        add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
+        clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
+        i.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False'})
+
+    directory.add(items, content='movies')
+
+
+def play_m3u(link, title, rename_titles=True, randomize=True):
 
     m3u_file = control.join(control.transPath('special://temp'), link.rpartition('/')[2])
 
     play_list = client.request(link)
-    videos = play_list.splitlines()[1:][1::2]
+
+    if rename_titles:
+        videos = play_list.splitlines()[1:][1::2]
+    else:
+        videos = re.findall('#.+?$\n.+?$', play_list[1:], re.M)
+
     if randomize and control.setting('randomize_m3u') == 'true':
         random.shuffle(videos)
-    m3u_playlist = '#EXTM3U\n#EXTINF:0,{0}\n'.format(title) + '\n#EXTINF:0,{0}\n'.format(title).join(videos)
+
+    if rename_titles:
+        m3u_playlist = '#EXTM3U\n#EXTINF:0,{0}\n'.format(title) + '\n#EXTINF:0,{0}\n'.format(title).join(videos)
+    else:
+        m3u_playlist = '#EXTM3U\n' + '\n'.join(videos)
 
     with open(m3u_file, 'w') as f: f.write(m3u_playlist)
 
@@ -352,7 +389,7 @@ def player(url, name):
 
         else:
 
-            link = dialog_picker(sources[1], sources[2])
+            link = mini_picker(sources[1], sources[2], name)
 
             if link is None:
                 control.execute('Dialog.Close(all)')
