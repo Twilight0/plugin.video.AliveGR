@@ -30,6 +30,7 @@ import gm
 import datetime
 
 
+# noinspection PyUnboundLocalVariable
 class Indexer:
 
     def __init__(self):
@@ -334,11 +335,11 @@ class Indexer:
                     'fanart': control.addonmedia(
                         addonid=art_id, theme='networks', icon='mgz_fanart.jpg',
                         media_subfolder=False
-                    ), 'tracknumber': count
+                    ), 'tracknumber': count, 'code': count
                 }
             )
 
-        control.sortmethods('label')
+        control.sortmethods('tracknum', mask='%A')
         directory.add(self.list, content=content)
 
     def _top20(self, url):
@@ -359,25 +360,25 @@ class Indexer:
 
         year = str(datetime.datetime.now().year)
 
-        for count, item in list(enumerate(items, start=1)):
+        for item in items:
 
             if url == self.rythmos_top20_url:
-                title = client.parseDOM(item, 'span', attrs={'class': 'toptitle'})[0]
-                title = client.replaceHTMLCodes(title)
+                label = client.parseDOM(item, 'span', attrs={'class': 'toptitle'})[0]
+                label = client.replaceHTMLCodes(label)
+                label = re.sub('\s? ?-\s? ?', ' - ', label)
                 image = client.parseDOM(item, 'img', ret='src')[0]
                 image = image.replace(' ', '%20')
-                originaltitle = title.partition(' - ')[2]
-                artist = [title.partition(' - ')[0]]
+                title = label.partition(' - ')[2]
+                artist = [label.partition(' - ')[0]]
             elif url == self.plus_url:
-                title = item.partition('.')[2].strip()
-                originaltitle = title.partition('-')[2]
-                artist = [title.partition('-')[0]]
+                label = item.partition('.')[2].strip()
+                title = label.partition('-')[2]
+                artist = [label.partition('-')[0]]
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-                title = client.parseDOM(item, 'a')[0]
-                title = title.partition('.')[2].strip()
-                title = client.replaceHTMLCodes(title)
-                originaltitle = title.partition(' - ')[2]
-                artist = [title.partition(' - ')[0]]
+                label = client.parseDOM(item, 'a')[0]
+                label = label.partition('. ')[2].replace('&#8211;', '-').replace('&#8217;', '\'').replace('&#038;', '&')
+                title = label.partition(' - ')[2]
+                artist = [label.partition(' - ')[0]]
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
                 search = get_search(q=title + ' ' + 'official', search_type='video')[0]
@@ -385,7 +386,7 @@ class Indexer:
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
-                link = urljoin(yt_url, vid)
+                link = yt_url + vid
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
                 link = client.parseDOM(item, 'a', ret='href')[0]
                 image = you_tube.thumb_maker(link.partition('=')[2])
@@ -393,8 +394,8 @@ class Indexer:
 
             self.list.append(
                 {
-                    'label': str(count) + '. ' + title, 'url': link, 'image': image, 'title': originaltitle,
-                    'artist': artist, 'tracknumber': count, 'plot': description, 'year': int(year)
+                    'label': label, 'url': link, 'image': image, 'title': title,
+                    'artist': artist, 'plot': description, 'year': int(year)
                 }
             )
 
@@ -437,16 +438,18 @@ class Indexer:
             log_info('Normal playback of tracks')
             content = 'musicvideos'
 
-        for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False'})
-
-        for item in self.list:
+        for count, item in list(enumerate(self.list, start=1)):
 
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist], 'album': album, 'fanart': fanart})
+            item.update(
+                {
+                    'tracknumber': count, 'cm': [add_to_playlist, clear_playlist], 'album': album, 'fanart': fanart,
+                    'action': 'play', 'isFolder': 'False', 'code': count
+                }
+            )
 
-        control.sortmethods('label')
+        control.sortmethods('tracknum', mask='%A')
         directory.add(self.list, content=content)
 
     def _top50(self, url):
@@ -506,11 +509,9 @@ class Indexer:
             ]
             log_info('Tracks loaded as audio only')
             content = 'songs'
-            artist = 'artist'
         else:
             log_info('Normal playback of tracks')
             content = 'musicvideos'
-            artist = 'cast'
 
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
@@ -519,9 +520,9 @@ class Indexer:
                 {
                     'action': 'play', 'isFolder': 'False', 'cm': [add_to_playlist, clear_playlist],
                     'album': control.lang(30269), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
-                    'tracknumber': count, artist: [item['label'].partition(' - ')[0]]
+                    'tracknumber': count, 'code': count, 'artist': [item['label'].partition(' - ')[0]]
                 }
             )
 
-        control.sortmethods('tracknumber')
+        control.sortmethods('tracknum', mask='%A')
         directory.add(self.list, content=content)

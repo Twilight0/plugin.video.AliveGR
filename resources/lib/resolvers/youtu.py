@@ -82,7 +82,7 @@ def wrapper(url):
 
         resolved = stream_picker(qualities, urls)
 
-        if 'dash' in resolved.lower():
+        if 'dash' in resolved.lower() or resolved.lower().endswith('.mpd'):
             return resolved, True
         else:
             return resolved, False
