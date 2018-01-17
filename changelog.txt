@@ -1,3 +1,7 @@
++ [B]1.7.1[/B] [COLOR yellow](18-01-2017)[/COLOR]
+- New function for changing languages directly from AliveGR addon
+- Fix for an icon url in music section
+
 + [B]1.7.0[/B] [COLOR yellow](17-01-2017)[/COLOR]
 - New action for streams selection "Playlist" (Auto-pick an item)
 - New gm debris function improves performance bypassing greek movies extra window several times

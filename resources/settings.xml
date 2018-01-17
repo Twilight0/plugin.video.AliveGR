@@ -2,6 +2,7 @@
 <settings>
     <category label="30003">
         <setting id="theme" type="enum" label="30102" lvalues="30103|30104" default="0"/>
+        <setting label="30109" type="action" action="RunPlugin(plugin://$ID/?action=lang_choice)"/>
         <setting type="lsep" label=""/>
         <setting type="lsep" label="30285"/>
     </category>

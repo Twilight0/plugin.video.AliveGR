@@ -103,7 +103,7 @@ class Indexer:
                 'title': 30222,
                 'action': 'top20_list',
                 'url': self.radiopolis_url_gr,
-                'image': 'http://www.radiopolis.gr/templates/ja_muzic/images/logo.png',
+                'image': 'http://www.radiopolis.gr/wp-content/uploads/2017/11/noimageavailable.jpg',
                 'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             }
             ,
@@ -228,7 +228,7 @@ class Indexer:
         else:
             log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
-        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
@@ -309,7 +309,7 @@ class Indexer:
         else:
             log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
-        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
@@ -426,7 +426,7 @@ class Indexer:
             fanart = control.addonInfo('fanart')
             album = 'AliveGR \'s Top Music'
 
-        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
@@ -499,7 +499,7 @@ class Indexer:
         else:
             log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
 
-        if control.setting('audio_only') == 'true' or 'music' in control.infoLabel('Container.FolderPath'):
+        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list

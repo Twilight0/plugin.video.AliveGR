@@ -305,24 +305,11 @@ def disclaimer():
 
     text = control.addonInfo('disclaimer')
 
-    if control.setting('first_time') == 'true':
-
-        control.dialog.textviewer(
-            control.addonInfo(
-                'name'
-            ) + ', ' + control.lang(30129), ' ' * 3 + text.decode('utf-8') + '\n' * 2 + control.lang(30131)
-        )
-
-        if control.yesnoDialog(control.lang(30266)):
-
-            control.setSetting('first_time', 'false')
-            control.aborted()
-
-        else:
-            pass
-
-    else:
-        pass
+    control.dialog.textviewer(
+        control.addonInfo(
+            'name'
+        ) + ', ' + control.lang(30129), ' ' * 3 + text.decode('utf-8') + '\n' * 2 + control.lang(30131)
+    )
 
 
 def repo_check():
@@ -349,13 +336,23 @@ def repo_check():
 
 def checkpoint():
 
-    disclaimer()
+    if control.setting('first_time') == 'true':
+
+        disclaimer()
+
+        if control.yesnoDialog(control.lang(30266)):
+
+            control.setSetting('first_time', 'false')
+            control.aborted()
+
+        else: pass
+
+    else: pass
 
     if control.exists(control.join(control.addonPath, 'DELETE_ME')):
         if control.yesnoDialog(control.lang(30267)):
             changelog()
-        else:
-            pass
+        else: pass
         cache_clear()
         # block_check()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))

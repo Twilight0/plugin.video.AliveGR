@@ -357,6 +357,10 @@ elif action == 'system_info':
     from resources.lib.modules import helpers
     helpers.system_info()
 
+elif action == 'lang_choice':
+    from resources.lib.modules import helpers
+    helpers.lang_choice()
+
 # Reserved might use later:
 # elif action == 'report':
 #     from resources.lib.modules import tools
