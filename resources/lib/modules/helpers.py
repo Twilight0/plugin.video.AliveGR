@@ -75,13 +75,10 @@ def addon_version(addon_id):
 
 def other_addon_settings(query):
 
-    if not control.condVisibility('System.HasAddon({0})'.format(query)):
-        control.infoDialog(control.lang(30283).format(query))
-        return
-
-    control.execute('Dialog.Close(addonsettings,force)')
-    control.sleep(50)
-    control.openSettings(id='{0}'.format(query))
+    try:
+        control.openSettings(id='{0}'.format(query))
+    except:
+        pass
 
 
 def reset_idx(notify=True):

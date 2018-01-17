@@ -470,6 +470,7 @@ class Indexer:
         self.data = client.parseDOM(playlists, 'item')
 
         for item in self.data:
+
             title = client.parseDOM(item, 'title')[0]
             url = client.parseDOM(item, 'url')[0]
             image = you_tube.thumb_maker(url.rpartition('=')[2])
@@ -477,7 +478,12 @@ class Indexer:
             duration = client.parseDOM(item, 'duration')[0].split(':')
             duration = (int(duration[0]) * 60) + int(duration[1])
 
-            item_data = (dict(title=title, image=image, url=url, plot=plot, comment=plot, duration=duration))
+            item_data = (
+                {
+                    'label': title, 'title': title.partition(' - ')[2], 'image': image, 'url': url, 'plot': plot,
+                    'comment': plot, 'duration': duration
+                }
+            )
 
             self.list.append(item_data)
 
@@ -500,9 +506,11 @@ class Indexer:
             ]
             log_info('Tracks loaded as audio only')
             content = 'songs'
+            artist = 'artist'
         else:
             log_info('Normal playback of tracks')
             content = 'musicvideos'
+            artist = 'cast'
 
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
@@ -511,7 +519,7 @@ class Indexer:
                 {
                     'action': 'play', 'isFolder': 'False', 'cm': [add_to_playlist, clear_playlist],
                     'album': control.lang(30269), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
-                    'tracknumber': count
+                    'tracknumber': count, artist: [item['label'].partition(' - ')[0]]
                 }
             )
 

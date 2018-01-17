@@ -1007,11 +1007,11 @@ msgid "RTMP addon is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30278"
-msgid "Inputstream adaptive addon was not found in your system"
+msgid "Inputstream adaptive addon could not be enabled"
 msgstr ""
 
 msgctxt "#30279"
-msgid "RTMP addon was not found in your system"
+msgid "RTMP addon could not be enabled"
 msgstr ""
 
 msgctxt "#30280"
@@ -1032,6 +1032,10 @@ msgstr ""
 
 msgctxt "#30284"
 msgid "Playlist"
+msgstr ""
+
+msgctxt "#30285"
+msgid "Welcome to [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! The [COLOR red]best[/COLOR] addon for all the Greeks.[CR]Please do not hesitate to fiddle with the settings, they don't bite!"
 msgstr ""
 
 msgctxt "#30401"

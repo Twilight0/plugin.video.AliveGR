@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.0~alpha1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.0" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -32,12 +32,24 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <website>https://twitter.com/TwilightZer0</website>
         <!--<forum></forum>-->
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
-        <size>389838</size>
+        <size>404818</size>
         <news>[I][COLOR white]Welcome to AliveGR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.6.15[/B] [COLOR yellow](11-01-2017)[/COLOR]
-- Quick bump to 1.6.15 so that ERT channels are utilizing streamlink resolver</news>
++ [B]1.7.0[/B] [COLOR yellow](17-01-2017)[/COLOR]
+- New action for streams selection "Playlist" (Auto-pick an item)
+- New gm debris function improves performance bypassing greek movies extra window several times
+- Various enhancements in play m3u function
+- Re-applied DASH and improved behaviour
+- Removed first-time prompt for enabling inputstream adaptive addon
+- Added settings item pointing to inputstream adaptive &amp; rtmp addon settings
+- Youtube resolver now has streamlink as fallback
+- Improved bookmarks behaviour and now it follows the type of action for stream selection
+- Top 50 music section added with my personal playlist.
+- Fix for Documentaries set #2
+- Changed location of blacklist module
+- Made old settings method available for developer mode only
+- Removed block check function for other addons' behaviour</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

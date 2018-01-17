@@ -54,16 +54,15 @@ def wrapper(url):
         streams = youtube_resolver.resolve(url)
 
     try:
-        installed = control.condVisibility('System.HasAddon(inputstream.adaptive)')
-        activated = control.addon_details('inputstream.adaptive').get('enabled')
-        if installed and activated:
-            enabled = True
-        else:
-            enabled = False
+        addon_enabled = control.addon_details('inputstream.adaptive').get('enabled')
     except KeyError:
-        enabled = False
+        addon_enabled = False
 
-    if addon_version('xbmc.python') >= 225 and enabled and control.setting('mped_dash') == 'true':
+    mpeg_dash_on = control.setting('mpeg_dash') == 'true'
+    yt_mpd_enabled = control.addon(id='plugin.video.youtube').getSetting('kodion.video.quality.mpd') == 'true'
+    yt_proxy_enabled = control.addon(id='plugin.video.youtube').getSetting('kodion.mpd.proxy') == 'true'
+
+    if addon_version('xbmc.python') >= 225 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
         choices = streams
     else:
         choices = [s for s in streams if 'dash' not in s['title'].lower()]
@@ -92,7 +91,7 @@ def wrapper(url):
 
         resolved = choices[0]['url']
 
-        if addon_version('xbmc.python') >= 225 and enabled:
+        if addon_version('xbmc.python') >= 225 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
 
             return resolved, True
 

@@ -155,7 +155,7 @@ class Indexer:
             ,
             {
                 'title': control.lang(30137),
-                'action': 'openSettings&query=0.0' if control.setting('settings_method') == 'true' else 'settings',
+                'action': 'openSettings&query=0.0' if control.setting('old_settings') == 'true' else 'settings',
                 'icon': iconname('settings'),
                 'id': '30137'
             }

@@ -267,10 +267,6 @@ def changelog():
 
 def isa_enable():
 
-    if not control.condVisibility('System.HasAddon(inputstream.adaptive)'):
-        control.infoDialog(control.lang(30278))
-        return
-
     try:
         enabled = control.addon_details('inputstream.adaptive').get('enabled')
 
@@ -284,14 +280,10 @@ def isa_enable():
         elif enabled:
             control.infoDialog(control.lang(30254))
     except:
-        pass
+        control.infoDialog(control.lang(30278))
 
 
 def rtmp_enable():
-
-    if not control.condVisibility('System.HasAddon(inputstream.rtmp)'):
-        control.infoDialog(control.lang(30279))
-        return
 
     try:
         enabled = control.addon_details('inputstream.rtmp').get('enabled')
@@ -306,7 +298,7 @@ def rtmp_enable():
         elif enabled:
             control.infoDialog(control.lang(30276))
     except:
-        pass
+        control.infoDialog(control.lang(30279))
 
 
 def disclaimer():

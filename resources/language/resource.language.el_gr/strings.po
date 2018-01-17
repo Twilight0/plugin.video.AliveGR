@@ -1007,12 +1007,12 @@ msgid "RTMP addon is not enabled. Do you to enabled it now?"
 msgstr "Το πρόσθετο RTMP δεν είναι ενεργοποιημένο. Ενεργοποίηση τώρα;"
 
 msgctxt "#30278"
-msgid "Inputstream adaptive addon was not found in your system"
-msgstr "Το πρόσθετο inputstream adaptive δεν βρέθηκε στο σύστημά σας"
+msgid "Inputstream adaptive addon could not be enabled"
+msgstr "Αδυναμία ενεργοποίησης προσθέτου inputstream adaptive"
 
 msgctxt "#30279"
-msgid "RTMP addon was not found in your system"
-msgstr "Το πρόσθετο rtmp δεν βρέθηκε στο σύστημά σας"
+msgid "RTMP addon could not be enabled"
+msgstr "Αδυναμία ενεργοποίησης προσθέτου RTMP"
 
 msgctxt "#30280"
 msgid "Auto play"
@@ -1033,6 +1033,10 @@ msgstr "Το πρόσθετο {0} δεν βρέθηκε στο σύστημά σ
 msgctxt "#30284"
 msgid "Playlist"
 msgstr "Λίστα Αναπαραγωγής"
+
+msgctxt "#30285"
+msgid "Welcome to [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! The [COLOR red]best[/COLOR] addon for all the Greeks.[CR]Please do not hesitate to fiddle with the settings, they don't bite!"
+msgstr "Καλώς ήρθατε στο [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! Το καλύτερο [COLOR red]πρόσθετο[/COLOR] για όλους τους Έλληνες ανά την υφήλιο.[CR]Παρακαλώ μην διστάσετε να πειράξετε τις ρυθμίσεις, δεν δαγκώνουν!"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

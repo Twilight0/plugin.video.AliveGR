@@ -8,7 +8,10 @@
 - Youtube resolver now has streamlink as fallback
 - Improved bookmarks behaviour and now it follows the type of action for stream selection
 - Top 50 music section added with my personal playlist.
+- Fix for Documentaries set #2
 - Changed location of blacklist module
+- Made old settings method available for developer mode only
+- Removed block check function for other addons' behaviour
 
 + [B]1.6.15[/B] [COLOR yellow](11-01-2017)[/COLOR]
 - Quick bump to 1.6.15 so that ERT channels are utilizing streamlink resolver

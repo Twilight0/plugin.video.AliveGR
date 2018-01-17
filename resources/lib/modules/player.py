@@ -32,6 +32,7 @@ from tulip.init import sysaddon
 from ..indexers.gm import base_link
 from ..resolvers import various, youtu
 from ..modules.constants import yt_url, play_action
+from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
 def router(url):
@@ -39,14 +40,15 @@ def router(url):
     def yt_router(uri):
 
         if len(uri) == 11:
+
             uri = yt_url + uri
 
         try:
-            stream = youtu.wrapper(uri)
-        except:
-            stream = stream_link.sl_session(uri)
+            yt_stream = youtu.wrapper(uri)
+        except YouTubeException:
+            yt_stream = stream_link.sl_session(uri)
 
-        return stream
+        return yt_stream
 
         # Reserved as failsafe:
         # if YDStreamExtractor.mightHaveVideo(url):
@@ -168,7 +170,7 @@ def router(url):
         return url
 
 
-def source_maker(url):
+def gm_source_maker(url):
 
     if 'episode' in url:
 
@@ -274,7 +276,7 @@ def mini_picker(hl, sl, name):
 
 def items_directory(url, title, description, genre):
 
-    sources = cache.get(source_maker, 6, url)
+    sources = cache.get(gm_source_maker, 6, url)
 
     lists = zip(sources[1], sources[2])
 
@@ -371,7 +373,7 @@ def player(url, name):
 
     if 'greek-movies.com' in link:
 
-        sources = cache.get(source_maker, 6, link)
+        sources = cache.get(gm_source_maker, 6, link)
 
         if any(['music' in sources[0], 'view' in sources[0]]):
 
