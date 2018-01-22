@@ -38,7 +38,7 @@ class Indexer:
 
         if not self.data:
 
-            log_notice('Bookmarks list is empty')
+            log_debug('Bookmarks list is empty')
             na = [{'title': 30033, 'action':  None, 'icon': iconname('empty')}]
             directory.add(na)
 

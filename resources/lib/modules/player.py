@@ -22,11 +22,12 @@ import random
 import re
 from urlparse import urljoin
 
+from tulip import directory, client, cache, control
 import urlresolver
+urlresolver.add_plugin_dirs(control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'smu'))
 # import YDStreamExtractor
 from ..resolvers import stream_link
 import m3u8_loader
-from tulip import directory, client, cache, control
 from tulip.log import *
 from tulip.init import sysaddon
 from ..indexers.gm import base_link
@@ -364,10 +365,10 @@ def player(url, name):
     log_debug('Attempting to play this url: ' + url)
 
     if url is None:
-        log_error('Nothing playable was found')
+        log_debug('Nothing playable was found')
         return
     else:
-        log_info('Invoked player method')
+        log_debug('Invoked player method')
 
     link = url.replace('&amp;', '&')
 

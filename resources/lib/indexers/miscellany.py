@@ -77,7 +77,7 @@ class Indexer:
             self.data = cache.get(self.misc_list, 24)
 
         if self.data is None:
-            log_error('Misc channels list did not load successfully')
+            log_debug('Misc channels list did not load successfully')
             return
 
         self.list = []

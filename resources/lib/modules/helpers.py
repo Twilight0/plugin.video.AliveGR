@@ -144,7 +144,7 @@ def reset_idx(notify=True):
     control.setSetting('papers_group', '0')
     if notify:
         control.infoDialog(message=control.lang(30402), time=3000)
-    log_notice('Indexers have been reset')
+    log_debug('Indexers have been reset')
 
 
 def add_to_playlist():
@@ -169,7 +169,7 @@ def toggle_debug():
 
 def cache_clear():
 
-    log_notice('Cache has been cleared')
+    log_debug('Cache has been cleared')
     cache.clear(withyes=False)
 
 

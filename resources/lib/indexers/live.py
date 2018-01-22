@@ -18,7 +18,8 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import json, datetime
+import json
+from datetime import datetime
 from base64 import b64decode
 from tulip import cache, control, directory, client, ordereddict
 from tulip.log import *
@@ -135,12 +136,10 @@ class Indexer:
             self.list = cache.get(self.live, int(control.setting('cache_period')))[0]
 
         if self.list is None:
-            log_error('Live channels list did not load successfully')
+            log_debug('Live channels list did not load successfully')
             return
         else:
-            log_info('Cached live channels available: ' + str(len(self.list)))
-
-        log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
+            log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
 
         switch = {
             'title': control.lang(30047).format(
@@ -164,7 +163,7 @@ class Indexer:
         else:
             pass
 
-        year = datetime.datetime.now().year
+        year = datetime.now().year
 
         for count, item in list(enumerate(self.list, start=1)):
             item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
@@ -212,8 +211,10 @@ class Indexer:
         self.data = cache.get(self.live, 12)[0]
         self.list = [item for item in self.data if item['group'] == group]
 
-        import datetime
-        year = datetime.datetime.now().year
+        year = datetime.now().year
+
+        for item in self.list:
+            item.update({'action': 'play', 'isFolder': 'False'})
 
         for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
@@ -222,8 +223,7 @@ class Indexer:
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
             item.update(
                 {
-                    'cm': [bookmark_cm, r_and_c_cm], 'action': 'play', 'isFolder': 'False', 'year': year,
-                    'duration': None, 'fanart': fanart
+                    'cm': [bookmark_cm, r_and_c_cm], 'year': year, 'duration': None, 'fanart': fanart
                 }
             )
 

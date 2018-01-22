@@ -27,7 +27,7 @@ from ..modules.themes import iconname
 from ..modules.constants import yt_url, art_id
 from ..indexers import you_tube
 import gm
-import datetime
+from datetime import datetime
 
 
 # noinspection PyUnboundLocalVariable
@@ -128,6 +128,7 @@ class Indexer:
         if 'audio' in control.infoLabel('Container.FolderPath'):
             del self.list[0]
 
+        log_debug('Music section loaded')
         directory.add(self.list)
 
     def gm_music(self):
@@ -190,8 +191,10 @@ class Indexer:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
-            log_error('Artist\'s section failed to load')
+            log_debug('Artist\'s section failed to load')
             return
+        else:
+            log_debug('Artist index section list:' + ' ' + str(self.list))
 
         for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
@@ -206,8 +209,10 @@ class Indexer:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
-            log_error('Album index section failed to load successfully')
+            log_debug('Album index section failed to load successfully')
             return
+        else:
+            log_debug('Album index section list:' + ' ' + str(self.list))
 
         for item in self.list:
             item.update(
@@ -224,20 +229,20 @@ class Indexer:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
-            log_error('Songs section failed to load')
+            log_debug('Songs section failed to load')
             return
         else:
-            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+            log_debug('Song section list:' + ' ' + str(self.list))
 
         if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
             ]
-            log_info('Tracks loaded as audio only')
+            log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
-            log_info('Normal playback of tracks')
+            log_debug('Normal playback of tracks')
             content = 'musicvideos'
 
         for item in self.list:
@@ -255,8 +260,10 @@ class Indexer:
         self.list = you_tube.yt_playlists(self.mgreekz_id)
 
         if self.list is None:
-            log_error('Mad_greekz index section failed to load successfully')
+            log_debug('Mad_greekz index section failed to load successfully')
             return
+        else:
+            log_debug('Mad Greekz index section:' + ' ' + str(self.list))
 
         for item in self.list:
             item.update(
@@ -305,20 +312,20 @@ class Indexer:
         self.list = cache.get(self._top10, 24)
 
         if self.list is None:
-            log_error('Mad Greekz top 10 section failed to load')
+            log_debug('Mad Greekz top 10 section failed to load')
             return
         else:
-            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+            log_debug('Mad Greekz list:' + ' ' + str(self.list))
 
         if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
             ]
-            log_info('Tracks loaded as audio only')
+            log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
-            log_info('Normal playback of tracks')
+            log_debug('Normal playback of tracks')
             content = 'musicvideos'
 
         self.list = self.list[::-1]
@@ -358,7 +365,7 @@ class Indexer:
 
         items = client.parseDOM(html, 'div', attrs=attributes)
 
-        year = str(datetime.datetime.now().year)
+        year = str(datetime.now().year)
 
         for item in items:
 
@@ -406,10 +413,10 @@ class Indexer:
         self.list = cache.get(self._top20, 24, url)
 
         if self.list is None:
-            log_error('Top 20 list section failed to load')
+            log_debug('Top 20 list section failed to load')
             return
         else:
-            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+            log_debug('Top 20 list section list:' + ' ' + str(self.list))
 
         if url == self.rythmos_top20_url:
             fanart = control.addonmedia(
@@ -432,10 +439,10 @@ class Indexer:
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
             ]
-            log_info('Tracks loaded as audio only')
+            log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
-            log_info('Normal playback of tracks')
+            log_debug('Normal playback of tracks')
             content = 'musicvideos'
 
         for count, item in list(enumerate(self.list, start=1)):
@@ -497,20 +504,20 @@ class Indexer:
         self.list = cache.get(self._top50, 48, url)
 
         if self.list is None:
-            log_error('Developer\'s picks section failed to load')
+            log_debug('Developer\'s picks section failed to load')
             return
         else:
-            log_info('Please enjoy playing' + ' ' + str(len(self.list)) + ' ' + 'tracks from this list')
+            log_debug('Top 50 list:' + ' ' + str(self.list))
 
         if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
             self.list = [
                 dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
                 for item in self.list
             ]
-            log_info('Tracks loaded as audio only')
+            log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
-            log_info('Normal playback of tracks')
+            log_debug('Normal playback of tracks')
             content = 'musicvideos'
 
         for count, item in list(enumerate(self.list, start=1)):

@@ -405,7 +405,7 @@ class Indexer:
         self.list = cache.get(self.items_list, 12, url)
 
         if self.list is None:
-            log_error('Listing section failed to load, try resetting indexer methods')
+            log_debug('Listing section failed to load, try resetting indexer methods')
             return
 
         log_debug('Caching was successful, list of vod items ~ ' + repr(self.list))
@@ -514,7 +514,7 @@ class Indexer:
         self.list = cache.get(self.epeisodia, 12, url)
 
         if self.list is None:
-            log_error('Episode section failed to load, try resetting indexer methods')
+            log_debug('Episode section failed to load, try resetting indexer methods')
             return
 
         if control.setting('action_type') == '0' or control.setting('action_type') == '2':
@@ -595,7 +595,7 @@ class Indexer:
         self.list = cache.get(self.event_list, 12, url)
 
         if self.list is None:
-            log_error('Events section failed to load, try resetting indexer methods')
+            log_debug('Events section failed to load, try resetting indexer methods')
             return
 
         for item in self.list:

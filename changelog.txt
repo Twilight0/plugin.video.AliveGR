@@ -1,3 +1,8 @@
++ [B]1.7.2[/B] [COLOR yellow](22-01-2017)[/COLOR]
+- All logs are now in debug level only, also tweaks to it
+- Added shortcuts to important info into root menu
+- Other minor fixes
+
 + [B]1.7.1[/B] [COLOR yellow](18-01-2017)[/COLOR]
 - New function for changing languages directly from AliveGR addon
 - Fix for MPEG-DASH Vods, now properly passing stream properties
