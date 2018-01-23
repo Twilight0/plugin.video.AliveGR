@@ -21,6 +21,7 @@
 import random
 import re
 from urlparse import urljoin
+from urllib import quote_plus
 
 from tulip import directory, client, cache, control
 import urlresolver
@@ -47,7 +48,10 @@ def router(url):
         try:
             yt_stream = youtu.wrapper(uri)
         except YouTubeException:
-            yt_stream = stream_link.sl_session(uri)
+            try:
+                yt_stream = stream_link.sl_session(uri)
+            except:
+                return
 
         return yt_stream
 
@@ -238,23 +242,48 @@ def gm_debris(link):
     return button
 
 
-def mini_picker(hl, sl, name):
+def playlist_maker(hl, sl, title, image):
+
+    title = title.decode('utf-8')
+
+    vids = [
+        sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + image.decode('utf-8') + '&title=' + title for i in sl
+    ]
+    videos = zip(hl, vids)
+
+    if control.setting('randomize_items') == 'true':
+        random.shuffle(videos)
+    play_list = [u'#EXTM3U\n'] + [u'#EXTINF:0,{0}\n'.format(title + u' - ' + h) + v + u'\n' for h, v in videos]
+    m3u_playlist = u''.join(play_list)
+
+    m3u_file = control.join(control.transPath('special://temp'), 'pl_action.m3u')
+    with open(m3u_file, 'w') as f:
+        f.write(m3u_playlist.encode('utf-8'))
+
+    return m3u_file
+
+
+def mini_picker(hl, sl, title, image):
 
     if len(hl) == 1:
 
-        control.infoDialog(hl[0])
-        return cache.get(gm_debris, 12, sl[0])
+        stream = cache.get(gm_debris, 12, sl[0])
+
+        if control.setting('action_type') == '2':
+            if control.setting('auto_play') == 'true':
+                play_url = sysaddon + play_action + quote_plus(stream) + '&image=' + quote_plus(image) + '&title=' + quote_plus(title)
+                control.execute('PlayMedia("{0}")'.format(play_url))
+            else:
+                m3u_file = playlist_maker(hl, sl, title, image)
+                control.playlist.load(m3u_file)
+                control.openPlaylist()
+        else:
+            control.infoDialog(hl[0])
+            return stream
 
     elif control.setting('action_type') == '2':
 
-        m3u_file = control.join(control.transPath('special://temp'), name.decode('utf-8') + '.m3u')
-        videos = [sysaddon + play_action + cache.get(gm_debris, 12, i) for i in sl]
-        if control.setting('randomize_items') == 'true':
-            random.shuffle(videos)
-        m3u_playlist = '#EXTM3U\n#EXTINF:0,{0}\n'.format(name) + '\n#EXTINF:0,{0}\n'.format(name).join(videos)
-
-        with open(m3u_file, 'w') as f:
-            f.write(m3u_playlist)
+        m3u_file = playlist_maker(hl, sl, title, image)
 
         control.playlist.load(m3u_file)
 
@@ -311,7 +340,7 @@ def items_directory(url, title, description, genre):
         plot = name + '\n' + control.lang(30090) + ': ' + year + '\n' + description
 
         data = dict(
-            title=title.decode('utf-8') + ' - ' + h, url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
+            label=title.decode('utf-8') + ' - ' + h, title=title.decode('utf-8'), url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
         )
 
         items.append(data)
@@ -360,7 +389,7 @@ def play_m3u(link, title, rename_titles=True, randomize=True):
     control.execute('Action(Play)')
 
 
-def player(url, name):
+def player(url, title, image):
 
     log_debug('Attempting to play this url: ' + url)
 
@@ -392,7 +421,7 @@ def player(url, name):
 
         else:
 
-            link = mini_picker(sources[1], sources[2], name)
+            link = mini_picker(sources[1], sources[2], title, image)
 
             if link is None:
                 control.execute('Dialog.Close(all)')
@@ -453,7 +482,7 @@ def player(url, name):
         else:
 
             try:
-                directory.resolve(resolved, meta={'title': name}, dash=dash)
+                directory.resolve(resolved, meta={'title': title}, icon=image, dash=dash)
             except:
                 control.execute('Dialog.Close(all)')
                 control.infoDialog(control.lang(30112))

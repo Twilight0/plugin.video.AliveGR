@@ -195,6 +195,11 @@ def tools_menu():
     control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?content_type=executable",return)')
 
 
+def call_info():
+
+    control.execute('ActivateWindow(videos,"plugin://plugin.video.AliveGR/?action=info",return)')
+
+
 def greeting():
 
     control.infoDialog(control.lang(30263))

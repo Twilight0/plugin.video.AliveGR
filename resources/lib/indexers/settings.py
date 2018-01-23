@@ -172,3 +172,5 @@ class Indexer:
 
         control.execute('Container.SetViewMode(50)')
         directory.add(self.list, content='movies')
+
+

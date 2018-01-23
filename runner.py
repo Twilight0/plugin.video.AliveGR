@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from resources.lib import action, content, title, url, query, plot, genre, name
+from resources.lib import action, content, title, url, query, plot, genre, name, image
 
 ########################################################################################################################
 
@@ -234,7 +234,7 @@ elif action == 'youtube':
 
 elif action == 'play':
     from resources.lib.modules.player import player
-    player(url, name)
+    player(url, title, image)
 
 elif action == 'play_m3u':
     from distutils.util import strtobool
@@ -344,6 +344,10 @@ elif action == 'developer_mode':
 elif action == 'info':
     from resources.lib.indexers import settings
     settings.Indexer().info()
+
+elif action == 'call_info':
+    from resources.lib.modules import helpers
+    helpers.call_info()
 
 elif action == 'force':
     from resources.lib.modules import helpers

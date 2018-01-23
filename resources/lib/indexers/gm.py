@@ -503,7 +503,7 @@ class Indexer:
             self.list.append(
                 {
                     'title': name + ' - ' + title, 'url': link, 'group': group, 'name': name,
-                    'image': image, 'plot': plot, 'year': year, 'genre': genre
+                    'image': image.encode('utf-8'), 'plot': plot, 'year': year, 'genre': genre
                 }
             )
 
@@ -516,10 +516,18 @@ class Indexer:
         if self.list is None:
             log_debug('Episode section failed to load, try resetting indexer methods')
             return
+        else:
+            log_debug('List of vod items ~ ' + repr(self.list))
 
-        if control.setting('action_type') == '0' or control.setting('action_type') == '2':
+        if control.setting('action_type') == '0':
             for item in self.list:
                 item.update({'action': 'play', 'isFolder': 'False'})
+        elif control.setting('action_type') == '2':
+            for item in self.list:
+                if control.setting('auto_play') == 'false':
+                    item.update({'action': 'play'})
+                else:
+                    item.update({'action': 'play', 'isFolder': 'False'})
         else:
             for item in self.list:
                 item.update({'action': 'directory'})
@@ -539,10 +547,7 @@ class Indexer:
                 key=lambda k: k['group'] if k['group'] in ['1bynumber', '2bydate'] else k['title'], reverse=True
             )[::-1]
         else:
-            self.list = sorted(
-                self.list,
-                key=lambda k: k['group']
-            )
+            self.list = sorted(self.list, key=lambda k: k['group'])
 
         # control.sortmethods('unsorted')
         # control.sortmethods('title')

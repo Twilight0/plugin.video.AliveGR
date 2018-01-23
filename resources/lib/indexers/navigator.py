@@ -207,7 +207,7 @@ class Indexer:
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
-            ii_cm = {'title': 30255, 'query': {'action': 'info'}}
+            ii_cm = {'title': 30255, 'query': {'action': 'call_info'}}
             item.update({'cm': [ii_cm, refresh, cache_clear, reset_idx, settings, tools]})
 
         from ..modules.tools import checkpoint

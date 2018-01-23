@@ -38,7 +38,7 @@ yt_url = 'https://www.youtube.com/watch?v='
 yt_prefix = yt_addon + '/play/?video_id='
 sdik = 'script.alivegr.kids'
 tenmilf = 'script.alivegr.filmnet'
-play_action = '/?action=play&url='
+play_action = '?action=play&url='
 
 ########################################################################################################################
 
