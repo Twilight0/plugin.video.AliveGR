@@ -1036,7 +1036,7 @@ msgstr "Λίστα Αναπαραγωγής"
 
 msgctxt "#30285"
 msgid "Welcome to [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! The [COLOR red]best[/COLOR] addon for all the Greeks.[CR]Please do not hesitate to fiddle with the settings, they don't bite!"
-msgstr "Καλώς ήρθατε στο [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! Το καλύτερο [COLOR red]πρόσθετο[/COLOR] για όλους τους Έλληνες ανά την υφήλιο.[CR]Παρακαλώ μην διστάσετε να πειράξετε τις ρυθμίσεις, δεν δαγκώνουν!"
+msgstr "Καλώς ήρθατε στο [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! Το καλύτερο [COLOR red]πρόσθετο[/COLOR] για όλους τους Έλληνες.[CR]Παρακαλώ μην διστάσετε να πειράξετε τις ρυθμίσεις, δεν δαγκώνουν!"
 
 msgctxt "#30286"
 msgid "Do you want to also set the keyboard in dual layout English/Greek?"

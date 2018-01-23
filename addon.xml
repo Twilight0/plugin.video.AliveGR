@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.2~alpha2" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.2" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
@@ -36,9 +36,10 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR]GR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.7.2[/B] [COLOR yellow](22-01-2017)[/COLOR]
++ [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]
 - All logs are now in debug level only, also tweaks to it
 - Added shortcuts to important info into root menu
+- Fixes and enhancements in playlist/auto action
 - Other minor fixes</news>
         <assets>
             <icon>icon.png</icon>
