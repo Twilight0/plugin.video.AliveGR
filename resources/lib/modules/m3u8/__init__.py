@@ -8,15 +8,19 @@ import sys
 import os
 import posixpath
 
-from urllib2 import urlopen, Request
-from urlparse import urlparse, urljoin
-from model import M3U8, Playlist, IFramePlaylist, Media, Segment
-from parser import parse, is_url, ParseError
+from .model import M3U8, Playlist, IFramePlaylist, Media, Segment
+from .parser import parse, is_url, ParseError
+
+try:
+    from urllib2 import urlopen, Request
+    from urlparse import urlparse, urljoin
+except ImportError:
+    from urllib.request import urlopen, Request
+    from urllib.parse import urlparse, urljoin
 
 PYTHON_MAJOR_VERSION = sys.version_info
 
-__all__ = ('M3U8', 'Playlist', 'IFramePlaylist', 'Media',
-           'Segment', 'loads', 'load', 'parse', 'ParseError')
+__all__ = ('M3U8', 'Playlist', 'IFramePlaylist', 'Media', 'Segment', 'loads', 'load', 'parse', 'ParseError')
 
 
 def loads(content):

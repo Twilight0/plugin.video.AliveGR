@@ -233,6 +233,7 @@ def _parse_attribute_list(prefix, line, atribute_parser):
 
     return attributes
 
+
 def _parse_stream_inf(line, data, state):
     data['is_variant'] = True
     data['media_sequence'] = None
@@ -298,6 +299,7 @@ def _parse_cueout(line, state):
         state['current_cue_out_duration'] = res.group(1)
         state['current_cue_out_scte35'] = res.group(2)
 
+
 def _cueout_elemental(line, state, prevline):
     param, value = line.split(':', 1)
     res = re.match('.*EXT-OATCLS-SCTE35:(.*)$', prevline)
@@ -306,6 +308,7 @@ def _cueout_elemental(line, state, prevline):
     else:
         return None
 
+
 def _cueout_envivio(line, state, prevline):
     param, value = line.split(':', 1)
     res = re.match('.*DURATION=(.*),.*,CUE="(.*)"', value)
@@ -313,6 +316,7 @@ def _cueout_envivio(line, state, prevline):
         return res.group(2), res.group(1)
     else:
         return None
+
 
 def _parse_cueout_start(line, state, prevline):
     _cueout_state = _cueout_elemental(line, state, prevline) or _cueout_envivio(line, state, prevline)

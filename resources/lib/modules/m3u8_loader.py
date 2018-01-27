@@ -19,9 +19,12 @@
 '''
 
 from tulip import control
-import m3u8
-from helpers import stream_picker
-from urlparse import urljoin
+from . import m3u8
+from .helpers import stream_picker
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
 
 
 def m3u8_picker(url):

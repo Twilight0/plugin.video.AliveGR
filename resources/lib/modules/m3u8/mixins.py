@@ -5,8 +5,12 @@
 # license that can be found in the LICENSE file.
 
 import os
-from parser import is_url
-import urlparse as url_parser
+from .parser import is_url
+
+try:
+    import urlparse as url_parser
+except ImportError:
+    from urllib.parse import urlparse as url_parser
 
 def _urijoin(base_uri, path):
     if is_url(base_uri):

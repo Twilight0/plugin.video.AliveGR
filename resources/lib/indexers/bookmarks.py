@@ -23,7 +23,7 @@ import json
 from tulip import bookmarks, directory, control
 from tulip.log import *
 from ..modules.themes import iconname
-from gm import movies_link, theater_link, shortfilms_link
+from .gm import movies_link, theater_link, shortfilms_link
 
 
 class Indexer:

@@ -225,13 +225,13 @@ class Indexer:
 
         self.list = [
             {
-                'title': 30002,
+                'title': control.lang(30002),
                 'action': 'radio',
                 'icon': iconname('radios')
             }
             ,
             {
-                'title': 30125,
+                'title': control.lang(30125),
                 'action': 'music',
                 'icon': iconname('music')
             }

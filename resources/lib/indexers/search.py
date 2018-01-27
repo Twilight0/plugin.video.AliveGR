@@ -21,8 +21,14 @@
 
 from tulip import client, directory, control, cache, cleantitle
 from tulip.init import sysaddon
-import gm
-import re, urllib, urlparse, json
+from . import gm
+import re, json
+
+try:
+    from urlparse import urljoin, urlparse
+    from urllib import unquote_plus
+except ImportError:
+    from urllib.parse import urlparse, urljoin, unquote_plus
 
 
 class Indexer:
@@ -104,7 +110,7 @@ class Indexer:
                         title = title[:idx].strip()
 
                     url = client.parseDOM(item, 'a', ret='href')[0]
-                    url = urllib.unquote_plus(url.partition('=')[2].partition('&amp;')[0])
+                    url = unquote_plus(url.partition('=')[2].partition('&amp;')[0])
 
                     if all(['movies.php?m=' not in url, 'theater.php?m=' not in url]):
                         continue
@@ -116,7 +122,7 @@ class Indexer:
                     except IndexError:
                         thumb = client.parseDOM(item_html, 'IMG', ret='SRC')[0]
 
-                    image = urlparse.urljoin(gm.base_link, thumb)
+                    image = urljoin(gm.base_link, thumb)
 
                     year = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
                     year = int(year.strip(u'Έτος:').strip()[:4])
@@ -197,7 +203,7 @@ class Indexer:
                         title = title[:idx].strip()
 
                     url = client.parseDOM(item, 'a', ret='href')[0]
-                    url = urllib.unquote_plus(url.partition('=')[2].partition('&amp;')[0])
+                    url = unquote_plus(url.partition('=')[2].partition('&amp;')[0])
 
                     if all(['shows.php?s=' not in url, 'series.php?s=' not in url]):
                         continue
@@ -209,7 +215,7 @@ class Indexer:
                     except IndexError:
                         thumb = client.parseDOM(item_html, 'IMG', ret='SRC')[0]
 
-                    image = urlparse.urljoin(gm.base_link, thumb)
+                    image = urljoin(gm.base_link, thumb)
 
                     year = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
                     year = int(year.strip(u'Έτος:').strip()[:4])

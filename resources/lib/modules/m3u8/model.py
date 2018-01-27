@@ -9,9 +9,9 @@ import os
 import errno
 import math
 
-from protocol import ext_x_start
-from parser import parse, format_date_time
-from mixins import BasePathMixin, GroupedBasePathMixin
+from .protocol import ext_x_start
+from .parser import parse, format_date_time
+from .mixins import BasePathMixin, GroupedBasePathMixin
 
 
 class M3U8(object):
@@ -148,7 +148,6 @@ class M3U8(object):
 
         self._initialize_attributes()
         self.base_path = base_path
-
 
     def _initialize_attributes(self):
         self.keys = [ Key(base_uri=self.base_uri, **params) if params else None

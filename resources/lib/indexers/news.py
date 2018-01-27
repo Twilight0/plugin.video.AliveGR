@@ -135,7 +135,7 @@ class Indexer:
                 name = client.parseDOM(i, 'a', attrs={'style': 'font-size:12px;color:white;'})[0]
                 headline = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='alt')[0]
                 if headline == '':
-                    headline = 'Πρωτοσέλιδο εφημερίδας'.decode('utf-8')
+                    headline = u'Πρωτοσέλιδο εφημερίδας'
                 title = name + ': ' + headline
                 image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='src')[0]
                 image = self.fp_link + image

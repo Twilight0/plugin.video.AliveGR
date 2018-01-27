@@ -41,12 +41,6 @@ class Indexer:
             }
             ,
             {
-                'title': 'TUNE-IN ADDON',
-                'icon': 'http://alivegr.net/logos/TUNE%20IN.png',
-                'url': 'plugin://plugin.audio.tuneinradio/'
-            }
-            ,
-            {
                 'title': 'SOMAFM ADDON',
                 'icon': 'http://alivegr.net/logos/SOMAFM.png',
                 'url': 'plugin://plugin.audio.somafm.com/'

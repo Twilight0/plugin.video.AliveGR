@@ -23,7 +23,10 @@ import json
 
 from tulip import cache, client, directory, control
 from tulip.log import *
-from urlparse import urljoin, urlparse
+try:
+    from urlparse import urljoin, urlparse
+except ImportError:
+    from urllib.parse import  urlparse, urljoin
 from ..modules.themes import iconname
 from ..modules.helpers import loader
 from ..modules.constants import sdik
@@ -32,7 +35,7 @@ from tulip.init import syshandle, sysaddon
 try:
     if not control.condVisibility('System.HasAddon({0})'.format(sdik)):
         loader('bl.py', 'indexers')
-        from bl import bl
+        from .bl import bl
     else:
         control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.py'))
         control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.pyo'))
@@ -77,16 +80,16 @@ def root(url):
         groups = client.parseDOM(result, 'option', attrs={'selected value': '.+?'})
 
         for group in groups:
-            if group == 'ΑΡΧΙΚΑ'.decode('utf-8'):
-                group = group.replace('ΑΡΧΙΚΑ'.decode('utf-8'), '30213')
-            elif group == 'ΕΤΟΣ'.decode('utf-8'):
-                group = group.replace('ΕΤΟΣ'.decode('utf-8'), '30090')
-            elif group == 'ΚΑΝΑΛΙ'.decode('utf-8'):
-                group = group.replace('ΚΑΝΑΛΙ'.decode('utf-8'), '30211')
-            elif group == 'ΕΙΔΟΣ'.decode('utf-8'):
-                group = group.replace('ΕΙΔΟΣ'.decode('utf-8'), '30200')
-            elif group == 'ΠΑΡΑΓΩΓΗ'.decode('utf-8'):
-                group = group.replace('ΠΑΡΑΓΩΓΗ'.decode('utf-8'), '30212')
+            if group == u'ΑΡΧΙΚΑ':
+                group = group.replace(u'ΑΡΧΙΚΑ', '30213')
+            elif group == u'ΕΤΟΣ':
+                group = group.replace(u'ΕΤΟΣ', '30090')
+            elif group == u'ΚΑΝΑΛΙ':
+                group = group.replace(u'ΚΑΝΑΛΙ', '30211')
+            elif group == u'ΕΙΔΟΣ':
+                group = group.replace(u'ΕΙΔΟΣ', '30200')
+            elif group == u'ΠΑΡΑΓΩΓΗ':
+                group = group.replace(u'ΠΑΡΑΓΩΓΗ', '30212')
             groups_list.append(group)
 
         for item in items:
@@ -108,7 +111,7 @@ def root(url):
             elif indexer.startswith('p='):
                 group = '30212'
             else:
-                group = ''.decode('utf-8')
+                group = u''
 
             root_list.append({'title': title, 'group': group, 'action': 'listing', 'url': index})
 
@@ -470,10 +473,8 @@ class Indexer:
         genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
 
         dictionary = {
-            'Ιαν'.decode('utf-8'): '01', 'Φεβ'.decode('utf-8'): '02', 'Μάρ'.decode('utf-8'): '03',
-            'Απρ'.decode('utf-8'): '04', 'Μάι'.decode('utf-8'): '05', 'Ιούν'.decode('utf-8'): '06',
-            'Ιούλ'.decode('utf-8'): '07', 'Αύγ'.decode('utf-8'): '08', 'Σεπ'.decode('utf-8'): '09',
-            'Οκτ'.decode('utf-8'): '10', 'Νοέ'.decode('utf-8'): '11', 'Δεκ'.decode('utf-8'): '12'
+            u'Ιαν': '01', u'Φεβ': '02', u'Μάρ': '03', u'Απρ': '04', u'Μάι': '05', u'Ιούν': '06', u'Ιούλ': '07',
+            u'Αύγ': '08', u'Σεπ': '09', u'Οκτ': '10', u'Νοέ': '11', u'Δεκ': '12'
         }
 
         for eid, title in episodes:

@@ -20,15 +20,18 @@
 
 import random
 import re
-from urlparse import urljoin
-from urllib import quote_plus
+try:
+    from urlparse import urljoin
+    from urllib import quote_plus
+except ImportError:
+    from urllib.parse import urljoin, quote_plus
 
 from tulip import directory, client, cache, control
-import urlresolver
-urlresolver.add_plugin_dirs(control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'smu'))
+from urlresolver import resolve as url_resolver
+from urlresolver.hmf import HostedMediaFile as hmf
 # import YDStreamExtractor
 from ..resolvers import stream_link
-import m3u8_loader
+from . import m3u8_loader
 from tulip.log import *
 from tulip.init import sysaddon
 from ..indexers.gm import base_link
@@ -89,9 +92,9 @@ def router(url):
         else:
             return stream
 
-    elif urlresolver.HostedMediaFile(url).valid_url():
+    elif hmf(url).valid_url():
 
-        stream = urlresolver.resolve(url)
+        stream = url_resolver(url)
         return stream
 
     elif 'antenna' in url and not '/live' in url.lower():
@@ -183,7 +186,7 @@ def gm_source_maker(url):
         links = client.parseDOM(html, 'a', ret='href')
         links = [urljoin(base_link, link) for link in links]
         hl = client.parseDOM(html, 'a')
-        hosts = [host.replace('προβολή στο '.decode('utf-8'), control.lang(30015)) for host in hl]
+        hosts = [host.replace(u'προβολή στο ', control.lang(30015)) for host in hl]
 
         return 'episode', hosts, links
 
@@ -207,11 +210,11 @@ def gm_source_maker(url):
         try:
             info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
             if ',' in info[1]:
-                genre = info[1].lstrip('Είδος:'.decode('utf-8')).split(',')
+                genre = info[1].lstrip(u'Είδος:').split(',')
                 genre = random.choice(genre)
                 genre = genre.strip()
             else:
-                genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
+                genre = info[1].lstrip(u'Είδος:').strip()
         except:
             genre = control.lang(30147)
 
@@ -220,9 +223,9 @@ def gm_source_maker(url):
         hl = client.parseDOM(html, 'a', attrs={"class": "btn btn-primary"})
 
         hosts = [host.replace(
-            'προβολή στο '.decode('utf-8'), control.lang(30015)
+            u'προβολή στο ', control.lang(30015)
         ).replace(
-            'προβολή σε '.decode('utf-8'), control.lang(30015)
+            u'προβολή σε ', control.lang(30015)
         ) for host in hl]
 
         if 'text-align: justify' in html:

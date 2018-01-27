@@ -19,8 +19,8 @@
 '''
 
 from tulip import control, client
-from helpers import thgiliwt, addon_version, cache_clear
-from constants import api_keys
+from .helpers import thgiliwt, addon_version, cache_clear
+from .constants import api_keys
 
 
 ########################################################################################################################

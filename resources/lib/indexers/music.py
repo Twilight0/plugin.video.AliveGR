@@ -388,7 +388,7 @@ class Indexer:
                 artist = [label.partition(' - ')[0]]
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
-                search = get_search(q=title + ' ' + 'official', search_type='video')[0]
+                search = get_search(q=title + b' ' + b'official', search_type='video')[0]
                 description = search['snippet']['description']
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']

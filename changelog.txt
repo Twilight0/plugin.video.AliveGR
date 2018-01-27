@@ -1,3 +1,6 @@
++ [B]1.8.0[/B] [COLOR yellow](02-02-2017)[/COLOR]
+- Rework of the addon in various aspects to support python 3
+
 + [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]
 - All logs are now in debug level only, also tweaks to it
 - Added shortcuts to important info into root menu
