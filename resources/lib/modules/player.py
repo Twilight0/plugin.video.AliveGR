@@ -25,7 +25,6 @@ from urllib import quote_plus
 
 from tulip import directory, client, cache, control
 import urlresolver
-urlresolver.add_plugin_dirs(control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'smu'))
 # import YDStreamExtractor
 from ..resolvers import stream_link
 import m3u8_loader
