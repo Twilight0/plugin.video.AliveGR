@@ -252,7 +252,7 @@ def playlist_maker(hl, sl, title, image):
     vids = [
         sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + image.decode('utf-8') + '&title=' + title for i in sl
     ]
-    videos = zip(hl, vids)
+    videos = list(zip(hl, vids))
 
     if control.setting('randomize_items') == 'true':
         random.shuffle(videos)
@@ -311,7 +311,7 @@ def items_directory(url, title, description, genre):
 
     sources = cache.get(gm_source_maker, 6, url)
 
-    lists = zip(sources[1], sources[2])
+    lists = list(zip(sources[1], sources[2]))
 
     items = []
 

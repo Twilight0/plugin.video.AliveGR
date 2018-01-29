@@ -18,15 +18,21 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import json
+import json, sys
 from datetime import datetime
 from base64 import b64decode
-from tulip import cache, control, directory, client, ordereddict
+from tulip import cache, control, directory, client
 from tulip.log import *
 from tulip.init import sysaddon, syshandle
 from ..modules.themes import iconname
 from ..modules.helpers import thgiliwt, dexteni
 from ..modules.constants import live_groups
+
+
+if sys.version_info < (2, 7, 0):
+    from tulip.ordereddict import OrderedDict
+else:
+    from collections import OrderedDict
 
 
 class Indexer:
@@ -122,7 +128,7 @@ class Indexer:
             self.list.append(data)
             self.data.append(group)
 
-        self.groups = list(ordereddict.OrderedDict.fromkeys(self.data))
+        self.groups = list(OrderedDict.fromkeys(self.data))
 
         log_debug('Live list uncached' + repr(self.list))
 

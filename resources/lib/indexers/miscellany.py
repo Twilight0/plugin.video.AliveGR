@@ -37,7 +37,7 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            playlists = client.request(thgiliwt('==' + self.misc))
+            playlists = client.request(thgiliwt('=={0}'.format(self.misc)))
 
         else:
 
@@ -49,7 +49,7 @@ class Indexer:
             elif control.setting('local_remote') == '1':
                 playlists = client.request(control.setting('misc_remote'))
             else:
-                playlists = client.request(thgiliwt('==' + self.misc))
+                playlists = client.request(thgiliwt('=={0}'.format(self.misc)))
 
         self.data = client.parseDOM(playlists, 'item')
 

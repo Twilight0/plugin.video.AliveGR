@@ -36,11 +36,11 @@ def ant1gr(link):
         url = json.loads(result)['url']
 
         if url.endswith('.mp4'):
-            raise StandardError
+            raise Exception
         else:
             return url
 
-    except StandardError:
+    except Exception:
 
         pass
 
@@ -60,11 +60,11 @@ def ant1gr(link):
         url = json.loads(json_obj.strip('();'))['data']['stream']
 
         if url.endswith('.mp4'):
-            raise StandardError
+            raise Exception
         else:
             return url
 
-    except (KeyError, ValueError, StandardError, TypeError):
+    except (KeyError, ValueError, Exception, TypeError):
 
         if client.request(live_link_1, output='response')[0] == '200':
             return live_link_1

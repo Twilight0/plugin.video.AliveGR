@@ -80,7 +80,7 @@ class Indexer:
 
         elif choice == 1:
 
-            import documentaries
+            from . import documentaries
 
             str_input = control.dialog.input(
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)

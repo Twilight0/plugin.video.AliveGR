@@ -27,7 +27,7 @@ try:
     if control.condVisibility('System.HasAddon({0})'.format(sdik)):
         import sys
         sys.path.extend([control.join(control.addon(id=sdik).getAddonInfo('path'), 'resources', 'lib')])
-        import extension
+        from extension import kids_indexer
 except:
     pass
 
@@ -71,7 +71,7 @@ class Indexer:
                 extended = [
                     dict(
                         (k, control.lang(v) if (k == 'title') else v) for k, v in item.items()
-                    ) for item in extension.kids_indexer
+                    ) for item in kids_indexer
                 ]
                 extended = [
                     dict((k, iconname(v) if (k == 'icon') else v) for k, v in item.items()) for item in extended

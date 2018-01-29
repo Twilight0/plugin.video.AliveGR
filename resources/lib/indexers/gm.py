@@ -282,7 +282,7 @@ class Indexer:
         #                                                                                              #
         ################################################################################################
 
-        for year in range(1, length):
+        for year in list(range(1, length)):
 
             if indexer.startswith('l='):
                 equation = 'y=' + str(year) + '&g=&p='
@@ -470,7 +470,7 @@ class Indexer:
             plot = control.lang(30085)
 
         info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
-        genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
+        genre = info[1].lstrip(u'Είδος:').strip()
 
         dictionary = {
             u'Ιαν': '01', u'Φεβ': '02', u'Μάρ': '03', u'Απρ': '04', u'Μάι': '05', u'Ιούν': '06', u'Ιούλ': '07',
@@ -564,7 +564,7 @@ class Indexer:
         icons = ['https://www.shareicon.net/data/256x256/2015/11/08/157712_sport_512x512.png',
                  'https://www.shareicon.net/data/256x256/2015/12/07/196797_ball_256x256.png']
 
-        items = zip(options, icons)
+        items = list(zip(options, icons))
 
         for item, icon in items:
 

@@ -111,7 +111,7 @@ def setup_previous_menu_key():
         client.retriever('http://alivegr.net/raw//tvguide.xml', control.join(keymap_settings_folder, 'tvguide.xml'))
         control.execute('Action(reloadkeymaps)')
         control.infoDialog(message=control.lang(30024), time=2000)
-        control.okDialog(control.addonInfo('name'), control.lang(30027) + ', ' + control.lang(30028))
+        control.okDialog(control.addonInfo('name'), control.lang(30027) + ', ' + (control.lang(30028)))
     else:
         control.infoDialog(message=control.lang(30029), time=2000)
 
@@ -386,7 +386,7 @@ def checkpoint():
 
 def dev():
 
-    from helpers import leved
+    from .helpers import leved
     from tulip import cache
 
     if control.setting('toggler') == 'false':

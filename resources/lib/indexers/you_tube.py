@@ -65,6 +65,6 @@ def yt_videos(url):
 def thumb_maker(video_id, hq=False):
 
     if hq:
-        return 'http://img.youtube.com/vi/' + video_id + '/maxresdefault.jpg'
+        return 'http://img.youtube.com/vi/{0}/maxresdefault.jpg'.format(video_id)
     else:
-        return 'http://img.youtube.com/vi/' + video_id + '/mqdefault.jpg'
+        return 'http://img.youtube.com/vi/{0}/mqdefault.jpg'.format(video_id)

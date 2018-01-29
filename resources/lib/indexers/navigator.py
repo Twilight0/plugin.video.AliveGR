@@ -214,7 +214,7 @@ class Indexer:
         checkpoint()
 
         log_debug('Main menu loaded, have fun...')
-        log_debug('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
+        log_debug('Tulip libraries version ~ ' + control.addon('script.module.tulip').getAddonInfo('version'))
 
         if control.setting('reset-idx') == 'true':
             reset(notify=False)
@@ -246,6 +246,6 @@ class Indexer:
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
         log_debug('Plugin started as music addon, have fun...')
-        log_debug('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
+        log_debug('Tulip libraries version ~ ' + control.addon('script.module.tulip').getAddonInfo('version'))
 
         directory.add(self.list)

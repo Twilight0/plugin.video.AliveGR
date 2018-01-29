@@ -22,11 +22,14 @@ import json, re
 
 from tulip import control, directory, cache, client
 from tulip.log import *
-from urlparse import urljoin
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
 from ..modules.themes import iconname
 from ..modules.constants import yt_url, art_id
 from ..indexers import you_tube
-import gm
+from . import gm
 from datetime import datetime
 
 
@@ -388,7 +391,7 @@ class Indexer:
                 artist = [label.partition(' - ')[0]]
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
-                search = get_search(q=title + b' ' + b'official', search_type='video')[0]
+                search = get_search(q=title + ' official', search_type='video')[0]
                 description = search['snippet']['description']
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
@@ -416,7 +419,7 @@ class Indexer:
             log_debug('Top 20 list section failed to load')
             return
         else:
-            log_debug('Top 20 list section list:' + ' ' + str(self.list))
+            log_debug('Top 20 list section list: {0}'.format(str(self.list)))
 
         if url == self.rythmos_top20_url:
             fanart = control.addonmedia(

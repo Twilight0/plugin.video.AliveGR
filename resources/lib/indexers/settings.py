@@ -33,78 +33,78 @@ class Indexer:
 
         self.list = [
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30255),
+                'title': control.addonInfo('name') + ': ' + (control.lang(30255)),
                 'action': 'info',
                 'icon': control.addonInfo('icon')
             }
             ,
             {
-                'title': control.lang(30011) + ': ' + control.lang(30003),
+                'title': control.lang(30011) + ': ' + (control.lang(30003)),
                 'action': 'openSettings',
                 'icon': iconname('settings')
             }
             ,
             {
-                'title': control.lang(30011) + ': ' + control.lang(30005),
+                'title': control.lang(30011) + ': ' + (control.lang(30005)),
                 'action': 'openSettings',
                 'query': '1.0',
                 'icon': iconname('settings')
             }
             ,
             {
-                'title': control.lang(30011) + ': ' + control.lang(30004),
+                'title': control.lang(30011) + ': ' + (control.lang(30004)),
                 'action': 'openSettings',
                 'query': '2.0',
                 'icon': iconname('monitor')
             }
             ,
             {
-                'title': control.lang(30011) + ': ' + control.lang(30138),
+                'title': control.lang(30011) + ': ' + (control.lang(30138)),
                 'action': 'openSettings',
                 'query': '3.0',
                 'icon': iconname('settings')
             }
             ,
             {
-                'title': control.lang(30011) + ': ' + control.lang(30017),
+                'title': control.lang(30011) + ': ' + (control.lang(30017)),
                 'action': 'openSettings',
                 'query': '4.0',
                 'icon': iconname('settings')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30115),
+                'title': control.addonInfo('name') + ': ' + (control.lang(30115)),
                 'action': 'openSettings',
                 'query': '5.0',
                 'icon': iconname('godmode')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30056),
+                'title': control.addonInfo('name') + ': ' + (control.lang(30056)),
                 'action': 'cache_clear',
                 'icon': iconname('empty')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30135),
+                'title': control.addonInfo('name') + ': ' + (control.lang(30135)),
                 'action': 'purge_bookmarks',
                 'icon': iconname('empty')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30134),
+                'title': control.addonInfo('name') + ': ' + (control.lang(30134)),
                 'action': 'reset_idx',
                 'icon': iconname('settings')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30110),
+                'title': control.addonInfo('name') + ': ' + (control.lang(30110)),
                 'action': 'changelog',
                 'icon': control.addonInfo('icon')
             }
             ,
             {
-                'title': 'URLResolver' + ': ' + control.lang(30111).rpartition(' (')[0],
+                'title': 'URLResolver' + ': ' + (control.lang(30111).rpartition(' (')[0]),
                 'action': 'other_addon_settings',
                 'query': 'script.module.urlresolver',
                 'icon': control.addon(id='script.module.urlresolver').getAddonInfo('icon')
