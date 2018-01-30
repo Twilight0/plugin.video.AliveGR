@@ -115,11 +115,16 @@ class Indexer:
 
     def info(self):
 
+        try:
+            disclaimer = control.addonInfo('disclaimer').decode('utf-8')
+        except AttributeError:
+            disclaimer = control.addonInfo('disclaimer')
+
         self.list = [
             {
                 'title': control.lang(30105),
                 'action': 'dmca',
-                'plot': control.addonInfo('disclaimer').decode('utf-8'),
+                'plot': disclaimer,
                 'icon': control.addonmedia(
                     addonid=art_id, theme='icons', icon='dmca.png', media_subfolder=False
                 )

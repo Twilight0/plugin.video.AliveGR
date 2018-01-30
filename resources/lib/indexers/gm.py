@@ -151,7 +151,7 @@ class Indexer:
 
         self.list = [
             item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+                group in item['group'] for group in [control.setting('vod_group')]
             )
         ]
 
@@ -171,7 +171,7 @@ class Indexer:
 
         self.list = [
             item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+                group in item['group'] for group in [control.setting('vod_group')]
             )
         ]
 
@@ -191,7 +191,7 @@ class Indexer:
 
         self.list = [
             item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+                group in item['group'] for group in [control.setting('vod_group')]
             )
         ]
 
@@ -211,7 +211,7 @@ class Indexer:
 
         self.list = [
             item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+                group in item['group'] for group in [control.setting('vod_group')]
             )
         ]
 
@@ -231,7 +231,7 @@ class Indexer:
 
         self.list = [
             item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+                group in item['group'] for group in [control.setting('vod_group')]
             )
         ]
 
@@ -251,7 +251,7 @@ class Indexer:
 
         self.list = [
             item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group').decode('utf-8')]
+                group in item['group'] for group in [control.setting('vod_group')]
             )
         ]
 
@@ -495,7 +495,7 @@ class Indexer:
                 row = result.split(eid)[0].encode('utf-8')
                 y = re.findall('<h4.+?bold.+?(\d{4})', row, re.U)[-1]
                 m = re.findall('width:50px..?>(.+?)<', row, re.U)[-1]
-                m = dictionary[m.decode('utf-8')]
+                m = dictionary[m]
                 prefix = '0' + title if len(title) == 1 else title
                 title = prefix + '-' + m + '-' + y
             else:

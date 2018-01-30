@@ -50,6 +50,11 @@ class Indexer:
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096)
             )
 
+            try:
+                lowered = str_input.lower().decode('utf-8')
+            except AttributeError:
+                lowered = str_input.lower()
+
             if bool(str_input):
 
                 import live
@@ -59,7 +64,7 @@ class Indexer:
                 for item in self.data:
                     item.update({'action': 'play', 'isFolder': 'False'})
 
-                self.list = [item for item in self.data if str_input.lower().decode('utf-8') in item['title'].lower()]
+                self.list = [item for item in self.data if lowered in item['title'].lower()]
 
                 if self.list is None:
                     return
@@ -86,7 +91,10 @@ class Indexer:
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
             )
 
-            str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+            try:
+                str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+            except AttributeError:
+                str_input = cleantitle.strip_accents(str_input)
 
             if bool(str_input):
 

@@ -247,10 +247,14 @@ def gm_debris(link):
 
 def playlist_maker(hl, sl, title, image):
 
-    title = title.decode('utf-8')
+    try:
+        title = title.decode('utf-8')
+        image = image.decode('utf-8')
+    except AttributeError:
+        pass
 
     vids = [
-        sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + image.decode('utf-8') + '&title=' + title for i in sl
+        sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + image + '&title=' + title for i in sl
     ]
     videos = list(zip(hl, vids))
 
@@ -332,6 +336,11 @@ def items_directory(url, title, description, genre):
     except:
         description = description
 
+    try:
+        title = title.decode('utf-8')
+    except AttributeError:
+        pass
+
     for h, l in lists:
 
         html = client.request(l)
@@ -343,7 +352,7 @@ def items_directory(url, title, description, genre):
         plot = name + '\n' + control.lang(30090) + ': ' + year + '\n' + description
 
         data = dict(
-            label=title.decode('utf-8') + ' - ' + h, title=title.decode('utf-8'), url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
+            label=title + ' - ' + h, title=title, url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
         )
 
         items.append(data)

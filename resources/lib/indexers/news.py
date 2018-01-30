@@ -124,7 +124,12 @@ class Indexer:
 
         html = client.request(self.fp_link)
 
-        groups = client.parseDOM(html.decode('utf-8'), 'div', attrs={'class': 'tabbertab'})
+        try:
+            html = html.decode('utf-8')
+        except AttributeError:
+            pass
+
+        groups = client.parseDOM(html, 'div', attrs={'class': 'tabbertab'})
 
         for group, papers in list(enumerate(groups, start=1)):
 

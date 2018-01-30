@@ -305,10 +305,15 @@ def disclaimer():
 
     text = control.addonInfo('disclaimer')
 
+    try:
+        _disclaimer = text.decode('utf-8')
+    except AttributeError:
+        _disclaimer = text
+
     control.dialog.textviewer(
         control.addonInfo(
             'name'
-        ) + ', ' + control.lang(30129), ' ' * 3 + text.decode('utf-8') + '\n' * 2 + control.lang(30131)
+        ) + ', ' + control.lang(30129), ' ' * 3 + _disclaimer + '\n' * 2 + control.lang(30131)
     )
 
 
