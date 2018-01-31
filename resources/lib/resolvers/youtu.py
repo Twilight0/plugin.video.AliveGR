@@ -30,16 +30,26 @@ def traslate(url, add_base=False):
 
     html = client.request(url)
 
-    video_id = re.findall('videoId.+?"([\w-]{11})', html)[0]
+    if 'iframe' in html:
 
-    if not add_base:
+        iframes = client.parseDOM(html, 'iframe', ret='src')
 
-        return video_id
+        stream = [s for s in iframes if 'youtu' in s][0]
+
+        return stream
 
     else:
 
-        stream = yt_url + video_id
-        return stream
+        video_id = re.findall('videoId.+?"([\w-]{11})', html)[0]
+
+        if not add_base:
+
+            return video_id
+
+        else:
+
+            stream = yt_url + video_id
+            return stream
 
 
 def wrapper(url):

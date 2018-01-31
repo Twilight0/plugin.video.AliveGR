@@ -1,5 +1,9 @@
 + [B]1.8.0[/B] [COLOR yellow](02-02-2017)[/COLOR]
 - Rework of the addon in various aspects to support python 3
+- Added resolver for youtube based streams on various pages
+- Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
+- Cosmetics
+TODO: implement a function or improve existing for setting up mpeg-dash on youtube addon as well.
 
 + [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]
 - All logs are now in debug level only, also tweaks to it

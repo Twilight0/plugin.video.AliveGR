@@ -26,7 +26,7 @@ from tulip.log import *
 try:
     from urlparse import urljoin, urlparse
 except ImportError:
-    from urllib.parse import  urlparse, urljoin
+    from urllib.parse import urlparse, urljoin
 from ..modules.themes import iconname
 from ..modules.helpers import loader
 from ..modules.constants import sdik

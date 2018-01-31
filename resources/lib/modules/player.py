@@ -65,7 +65,7 @@ def router(url):
         #
         #     return stream
 
-    if 'youtu' in url:
+    if 'youtu' in url and not '#youtu_translator' in url:
 
         return yt_router(url)
 
@@ -97,13 +97,20 @@ def router(url):
         stream = url_resolver(url)
         return stream
 
+    elif '#youtu_translator' in url:
+
+        remove_fragment = url.partition('#')[0]
+        link = cache.get(youtu.traslate, 12, remove_fragment)
+        stream = youtu.wrapper(link)
+        return stream
+
     elif 'antenna' in url and not '/live' in url.lower():
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
     elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld2' in url:
         return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
-    elif 'skai.gr' in url and not 'TVLive' in url and not 'tvlive' in url:
+    elif 'skai.gr' in url and not 'tvlive' in url.lower():
         return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
 
     elif 'ant1iwo' in url:
@@ -121,13 +128,6 @@ def router(url):
     elif 'megatv.com.cy/live/' in url:
 
         stream = cache.get(various.megacy, 12, url)
-        return stream
-
-    elif 'megatv.com/webtv/' in url:
-
-        link = client.replaceHTMLCodes(url)
-        link = cache.get(various.megagr, 24, link)
-        stream = youtu.wrapper(link)
         return stream
 
     elif 'webtv.ert.gr' in url:
@@ -168,9 +168,10 @@ def router(url):
         stream = cache.get(various.ssh101, 48, url)
         return stream
 
-    elif 'ellinikosfm.tv' in url or 'lepantortv' in url:
+    elif '#dacast' in url:
 
-        stream = various.dacast(url)
+        remove_fragment = url.partition('#')[0]
+        stream = various.dacast(remove_fragment)
         return stream
 
     else:

@@ -27,9 +27,10 @@
         <setting id="show_settings" label="30165" type="bool" default="true"/>
     </category>
     <category label="30004">
+        <setting id="mpd_toggle" label="MPD Toggle" type="bool" default="false" visible="false"/>
         <setting type="lsep" label="30272"/>
-        <setting label="30275" type="action" action="RunPlugin(plugin://$ID/?action=rtmp_enable)"/>
-        <setting id="mpeg_dash" label="30274" type="bool" default="false"/>
+        <setting label="30275" type="action" action="RunPlugin(plugin://$ID/?action=rtmp_enable)" enable="eq(-2,true)"/>
+        <setting id="mpeg_dash" label="30274" type="bool" default="false" enable="eq(-3,true)"/>
         <setting label="30253" type="action" action="RunPlugin(plugin://$ID/?action=isa_enable)" visible="eq(-1,true)"/>
         <setting label="30273" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=inputstream.adaptive)" visible="eq(-2,true)" option="close"/>
         <setting type="lsep" label="30109"/>
