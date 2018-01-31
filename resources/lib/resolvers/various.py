@@ -36,11 +36,11 @@ def ant1gr(link):
         url = json.loads(result)['url']
 
         if url.endswith('.mp4'):
-            raise StandardError
+            raise BaseException
         else:
             return url
 
-    except StandardError:
+    except BaseException:
 
         pass
 
@@ -60,11 +60,11 @@ def ant1gr(link):
         url = json.loads(json_obj.strip('();'))['data']['stream']
 
         if url.endswith('.mp4'):
-            raise StandardError
+            raise BaseException
         else:
             return url
 
-    except (KeyError, ValueError, StandardError, TypeError):
+    except (KeyError, ValueError, BaseException, TypeError):
 
         if client.request(live_link_1, output='response')[0] == '200':
             return live_link_1
@@ -113,27 +113,6 @@ def megacy(url):
     return stream.strip() + client.spoofer()
 
 
-def megagr(url):
-
-    html = client.request(url)
-
-    try:
-
-        stream = client.parseDOM(html, 'iframe', ret='src')[0]
-
-        return stream
-
-    except:
-
-        from ..modules.constants import yt_url
-
-        pattern = re.compile('"https?://(?:www\.youtube\.com|youtu\.be)/(?:watch\?v=|embed/|)([\w-]*?)"')
-
-        yt_id = re.findall(pattern, html)[0]
-
-        return yt_url + yt_id
-
-
 def ert(url):
 
     from ..modules.helpers import geo_loc
@@ -172,11 +151,6 @@ def alphatv(url):
     link = client.request(link, output='geturl') + client.spoofer()
 
     return link
-
-
-# def epsilon(url):
-#
-#     pass
 
 
 def euronews(url):

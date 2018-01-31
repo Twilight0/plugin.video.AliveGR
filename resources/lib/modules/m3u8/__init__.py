@@ -15,8 +15,7 @@ from parser import parse, is_url, ParseError
 
 PYTHON_MAJOR_VERSION = sys.version_info
 
-__all__ = ('M3U8', 'Playlist', 'IFramePlaylist', 'Media',
-           'Segment', 'loads', 'load', 'parse', 'ParseError')
+__all__ = ('M3U8', 'Playlist', 'IFramePlaylist', 'Media', 'Segment', 'loads', 'load', 'parse', 'ParseError')
 
 
 def loads(content):
