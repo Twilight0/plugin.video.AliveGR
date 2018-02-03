@@ -2,7 +2,7 @@
 <addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.3~alpha1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
-        <import addon="resource.images.alivegr.artwork" version="3.0.0"/>
+        <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.urlresolver" version="4.00.17"/>
         <import addon="script.module.streamlink.base" version="2018.01.14"/>
