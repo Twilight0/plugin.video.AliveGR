@@ -109,10 +109,17 @@ class Indexer:
                 'url': 'plugin://plugin.video.montreal.greek-tv/',
                 'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='mgtv_fanart.jpg', media_subfolder=False)
             }
+            ,
+            {
+                'title': 'FAROS ON AIR',
+                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='faros_icon.png', media_subfolder=False),
+                'url': 'plugin://plugin.video.faros.on-air/',
+                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='faros_fanart.jpg', media_subfolder=False)
+            }
         ]
 
         if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-            del networks[-1]
+            del networks[-2]
 
         for network in networks:
 
