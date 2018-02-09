@@ -27,8 +27,8 @@ except ImportError:
     from urllib.parse import urljoin, quote_plus
 
 from tulip import directory, client, cache, control
-from urlresolver import resolve as url_resolver
-from urlresolver.hmf import HostedMediaFile as hmf
+from resolveurl import resolve as url_resolver
+from resolveurl.hmf import HostedMediaFile as hmf
 # import YDStreamExtractor
 from ..resolvers import stream_link
 from . import m3u8_loader

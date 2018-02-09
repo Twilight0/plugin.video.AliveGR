@@ -2,32 +2,7 @@
 - Rework of the addon in various aspects to support python 3
 - Added resolver for youtube based streams on various pages
 - Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
+- Replaced urlresolver with resolveurl by jsergio123
+- Improved youtube wizard by adding mpeg-dash enability prompt
+- Faros network addition
 - Cosmetics
-TODO: implement a function or improve existing for setting up mpeg-dash on youtube addon as well.
-
-+ [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]
-- All logs are now in debug level only, also tweaks to it
-- Added shortcuts to important info into root menu
-- Fixes and enhancements in playlist/auto action
-- Other minor fixes
-
-+ [B]1.7.1[/B] [COLOR yellow](18-01-2017)[/COLOR]
-- New function for changing languages directly from AliveGR addon
-- Fix for MPEG-DASH Vods, now properly passing stream properties
-- Fix for an icon url in music section
-- Various enhancements and fixes in music indexers
-
-+ [B]1.7.0[/B] [COLOR yellow](17-01-2017)[/COLOR]
-- New action for streams selection "Playlist" (Auto-pick an item)
-- New gm debris function improves performance bypassing greek movies extra window several times
-- Various enhancements in play m3u function
-- Re-applied DASH and improved behaviour
-- Removed first-time prompt for enabling inputstream adaptive addon
-- Added settings item pointing to inputstream adaptive & rtmp addon settings
-- Youtube resolver now has streamlink as fallback
-- Improved bookmarks behaviour and now it follows the type of action for stream selection
-- Top 50 music section added with my personal playlist.
-- Fix for Documentaries set #2
-- Changed location of blacklist module
-- Made old settings method available for developer mode only
-- Removed block check function for other addons' behaviour
