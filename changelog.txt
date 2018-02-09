@@ -1,6 +1,9 @@
 + [B]1.7.3[/B] [COLOR yellow](01-02-2017)[/COLOR]
 - Added resolver for youtube based streams on various pages
 - Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
+- Replaced urlresolver with resolveurl by jsergio123
+- Improved youtube wizard by adding mpeg-dash enability prompt
+- Faros network addition
 - Cosmetics
 
 + [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]

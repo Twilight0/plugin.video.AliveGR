@@ -50,7 +50,7 @@
         <setting id="randomize_items" type="bool" label="30282" default="true" visible="eq(-2,2)"/>
         <setting id="audio_only" label="30224" type="bool" default="false"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
-        <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.urlresolver)" option="close"/>
+        <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close"/>
         <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
         <setting id="yt_resolve" label="30038" type="bool" default="true"/>
     </category>

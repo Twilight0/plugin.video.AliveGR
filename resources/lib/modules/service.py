@@ -18,10 +18,13 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from tulip.control import setSetting
-from helpers import addon_version
+import xbmcaddon
+from xbmc import getInfoLabel
 
-if addon_version('xbmc.python') >= 225:
-    setSetting('mpd_toggle', 'true')
+if int(getInfoLabel('System.AddonVersion("xbmc.python")').replace('.', '')) >= 225:
+
+    xbmcaddon.Addon().setSetting('mpd_toggle', 'true')
+
 else:
-    setSetting('mpd_toggle', 'false')
+
+    xbmcaddon.Addon().setSetting('mpd_toggle', 'false')

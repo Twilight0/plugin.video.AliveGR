@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.3~alpha1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.3" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
-        <import addon="script.module.urlresolver" version="4.00.17"/>
+        <import addon="script.module.resolveurl" version="5.0.06"/>
         <import addon="script.module.streamlink.base" version="2018.01.14"/>
         <import addon="script.module.iso8601" version="0.1.11"/>
         <import addon="script.module.tulip" version="1.3.5"/>
@@ -39,6 +39,10 @@ Kindly note that AliveGR is not an official part of the media player you are run
 
 + [B]1.7.3[/B] [COLOR yellow](01-02-2017)[/COLOR]
 - Added resolver for youtube based streams on various pages
+- Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
+- Replaced urlresolver with resolveurl by jsergio123
+- Improved youtube wizard by adding mpeg-dash enability prompt
+- Faros network addition
 - Cosmetics</news>
         <assets>
             <icon>icon.png</icon>

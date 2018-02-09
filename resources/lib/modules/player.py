@@ -24,7 +24,7 @@ from urlparse import urljoin
 from urllib import quote_plus
 
 from tulip import directory, client, cache, control
-import urlresolver
+import resolveurl as urlresolver
 # import YDStreamExtractor
 from ..resolvers import stream_link
 import m3u8_loader
