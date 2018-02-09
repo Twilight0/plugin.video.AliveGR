@@ -104,10 +104,10 @@ class Indexer:
             }
             ,
             {
-                'title': 'URLResolver' + ': ' + (control.lang(30111).rpartition(' (')[0]),
+                'title': 'ResolveURL' + ': ' + control.lang(30111).rpartition(' (')[0],
                 'action': 'other_addon_settings',
-                'query': 'script.module.urlresolver',
-                'icon': control.addon(id='script.module.urlresolver').getAddonInfo('icon')
+                'query': 'script.module.resolveurl',
+                'icon': control.addon(id='script.module.resolveurl').getAddonInfo('icon')
             }
         ]
 
@@ -161,10 +161,10 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30264).format(control.addon('script.module.urlresolver').getAddonInfo('version')),
+                'title': control.lang(30264).format(control.addon('script.module.resolveurl').getAddonInfo('version')),
                 'action': 'force',
                 'plot': control.lang(30265),
-                'icon': control.addon('script.module.urlresolver').getAddonInfo('icon')
+                'icon': control.addon('script.module.resolveurl').getAddonInfo('icon')
             }
             ,
             {

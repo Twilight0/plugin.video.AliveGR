@@ -216,6 +216,12 @@ def yt_setup():
         control.addon('plugin.video.youtube').setSetting('youtube.region', 'GR')
         control.infoDialog(message=control.lang(30402), time=3000)
 
+    def yt_mpd():
+
+        control.addon('plugin.video.youtube').setSetting('kodion.video.quality.mpd', 'true')
+        control.addon('plugin.video.youtube').setSetting('kodion.mpd.proxy', 'true')
+        control.infoDialog(message=control.lang(30402), time=3000)
+
 ########################################################################################################################
 
     def process():
@@ -241,6 +247,12 @@ def yt_setup():
     if control.yesnoDialog(line1=control.lang(30132), line2='', line3=''):
 
         wizard()
+
+    else: pass
+
+    if control.yesnoDialog(line1=control.lang(30287), line2='', line3=''):
+
+        yt_mpd()
 
     else: pass
 

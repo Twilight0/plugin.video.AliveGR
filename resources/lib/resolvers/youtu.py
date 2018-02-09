@@ -26,8 +26,6 @@ from ..modules.constants import yt_url
 
 def traslate(url, add_base=False):
 
-    """Translate /user/some_user/live & /channel/some_channel_id/live youtube urls into video ids"""
-
     html = client.request(url)
 
     if 'iframe' in html:

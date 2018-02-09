@@ -295,8 +295,8 @@ msgid "This action will log you out if already logged in"
 msgstr "Αυτή η ενέργεια θα σας βγάλει εκτός συνδεδεμένης κατάστασης"
 
 msgctxt "#30071"
-msgid "Youtube API Keys Setup"
-msgstr "Ρύθμιση κλειδιών του Youtube API"
+msgid "Youtube Setup"
+msgstr "Γενικλη ρύθμιση Youtube"
 
 msgctxt "#30072"
 msgid "Cartoon Series"
@@ -455,8 +455,8 @@ msgid "Changelog"
 msgstr "Αρχείο καταγραφής αλλαγών"
 
 msgctxt "#30111"
-msgid "Stream Resolver Settings (URL Resolver)"
-msgstr "Ρυθμίσεις του επιλυτή ροών (URL Resolver)"
+msgid "Stream Resolver Settings (ResolveURL)"
+msgstr "Ρυθμίσεις του επιλυτή ροών (ResolveURL)"
 
 msgctxt "#30112"
 msgid "Stream not resolvable"
@@ -1041,6 +1041,10 @@ msgstr "Καλώς ήρθατε στο [COLOR white]A[/COLOR][COLOR blue]live[/C
 msgctxt "#30286"
 msgid "Do you want to also set the keyboard in dual layout English/Greek?"
 msgstr "Θέλετε να ρυθμίσετε και το πληκτρολόγιο σε διπλό χάρτη Αγγλικά/Ελληνικά;"
+
+msgctxt "#30287"
+msgid "Do you want to also enable MPEG-DASH setting on youtube addon?"
+msgstr "Θέλετε να ενεργοποιήσετε και την ρύθμιση MPEG-DASH στο πρόσθετο youtube;"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

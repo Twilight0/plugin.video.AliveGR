@@ -113,6 +113,13 @@ def router(url):
     elif 'skai.gr' in url and not 'tvlive' in url.lower():
         return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
 
+    elif '#youtu_translator' in url:
+
+        remove_fragment = url.partition('#')[0]
+        link = cache.get(youtu.traslate, 12, remove_fragment)
+        stream = youtu.wrapper(link)
+        return stream
+
     elif 'ant1iwo' in url:
 
         stream = cache.get(various.ant1cy, 12, url)
@@ -146,11 +153,6 @@ def router(url):
 
         stream = cache.get(various.alphatv, 12, url)
         return stream
-
-    # elif 'epsilontv' in url:
-    #
-    #     stream = cache.get(various.epsilon, 12, url)
-    #     return stream
 
     elif 'euronews.com' in url:
 
