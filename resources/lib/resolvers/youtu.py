@@ -24,6 +24,14 @@ from ..modules.helpers import stream_picker, addon_version
 from ..modules.constants import yt_url
 
 
+def thumb_maker(video_id, hq=False):
+
+    if not hq:
+        return 'http://img.youtube.com/vi/{0}/mqdefault.jpg'.format(video_id)
+    else:
+        return 'http://img.youtube.com/vi/{0}/maxresdefault.jpg'.format(video_id)
+
+
 def traslate(url, add_base=False):
 
     html = client.request(url)

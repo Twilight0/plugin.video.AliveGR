@@ -60,11 +60,3 @@ def yt_videos(url):
         v.update({'action': 'play', 'isFolder': 'False'})
 
     directory.add(video_list)
-
-
-def thumb_maker(video_id, hq=False):
-
-    if hq:
-        return 'http://img.youtube.com/vi/{0}/maxresdefault.jpg'.format(video_id)
-    else:
-        return 'http://img.youtube.com/vi/{0}/mqdefault.jpg'.format(video_id)

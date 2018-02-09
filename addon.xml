@@ -6,7 +6,6 @@
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.06"/>
         <import addon="script.module.streamlink.base" version="2018.02.07"/>
-        <import addon="script.module.iso8601" version="0.1.11"/>
         <import addon="script.module.tulip" version="1.4.0"/>
         <import addon="plugin.video.youtube" version="5.5.0"/>
     </requires>

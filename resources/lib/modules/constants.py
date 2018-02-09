@@ -49,3 +49,24 @@ live_groups = {
 }
 
 ########################################################################################################################
+
+radio_addons = [
+            {
+                'title': 'EPT PLAYER RADIO STATIONS',
+                'icon': 'http://alivegr.net/logos/ERT%20PLAYER.png',
+                'url': 'plugin://plugin.video.ert.gr/?action=radios'
+            }
+            ,
+            {
+                'title': 'E-RADIO ADDON',
+                'icon': 'http://alivegr.net/logos/ERADIO.png',
+                'url': 'plugin://plugin.audio.eradio.gr/'
+            }
+            ,
+            {
+                'title': 'SOMAFM ADDON',
+                'icon': 'http://alivegr.net/logos/SOMAFM.png',
+                'url': 'plugin://plugin.audio.somafm.com/'
+            }
+        ]
+

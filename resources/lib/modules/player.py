@@ -20,6 +20,7 @@
 
 import random
 import re
+
 try:
     from urlparse import urljoin
     from urllib import quote_plus
@@ -31,7 +32,7 @@ from resolveurl import resolve as url_resolver
 from resolveurl.hmf import HostedMediaFile as hmf
 # import YDStreamExtractor
 from ..resolvers import stream_link
-from . import m3u8_loader
+from ..modules.helpers import m3u8_picker
 from tulip.log import *
 from tulip.init import sysaddon
 from ..indexers.gm import base_link
@@ -483,7 +484,7 @@ def player(url, title, image):
                     resolved)
             ):
 
-                resolved = m3u8_loader.m3u8_picker(resolved)
+                resolved = m3u8_picker(resolved)
 
         except TypeError:
 

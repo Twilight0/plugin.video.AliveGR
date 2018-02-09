@@ -4,11 +4,11 @@
 # Use of this source code is governed by a MIT License
 # license that can be found in the LICENSE file.
 
-import iso8601
+from tulip.iso8601 import parse_date
 import datetime
 import itertools
 import re
-import protocol
+from . import protocol
 
 '''
 http://tools.ietf.org/html/draft-pantos-http-live-streaming-08#section-3.2
@@ -19,12 +19,11 @@ ATTRIBUTELISTPATTERN = re.compile(r'''((?:[^,"']|"[^"]*"|'[^']*')+)''')
 
 
 def cast_date_time(value):
-    return iso8601.parse_date(value)
+    return parse_date(value)
 
 
 def format_date_time(value):
     return value.isoformat()
-
 
 
 class ParseError(Exception):
@@ -35,7 +34,6 @@ class ParseError(Exception):
 
     def __str__(self):
         return 'Syntax error in manifest on line %d: %s' % (self.lineno, self.line)
-
 
 
 def parse(content, strict=False):

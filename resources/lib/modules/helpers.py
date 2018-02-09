@@ -22,6 +22,12 @@ from zlib import decompress, compress
 from base64 import b64decode
 from tulip import control, cache, client
 from tulip.log import *
+from . import m3u8
+
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 
@@ -64,6 +70,40 @@ def stream_picker(qualities, urls):
         return popped
     else:
         return 30403
+
+
+def m3u8_picker(url):
+
+    try:
+        m3u8_playlists = m3u8.load(url.rpartition('|')[0]).playlists
+    except:
+        m3u8_playlists = m3u8.load(url).playlists
+
+    if not m3u8_playlists:
+        return url
+
+    qualities = []
+    urls = []
+
+    for playlist in m3u8_playlists:
+
+        quality = repr(playlist.stream_info.resolution).strip('()').replace(', ', 'x')
+        if quality == 'None':
+            quality = 'Auto'
+        uri = playlist.uri
+        if not uri.startswith('http'):
+            uri = urljoin(playlist.base_uri, uri)
+        qualities.append(quality)
+        try:
+            urls.append(uri + '|' + url.rpartition('|')[2])
+        except:
+            urls.append(uri)
+
+    if len(qualities) == 1:
+        control.infoDialog(control.lang(30220).format(qualities[0]))
+        return url
+
+    return stream_picker(qualities, urls)
 
 
 def set_a_setting(setting, value):

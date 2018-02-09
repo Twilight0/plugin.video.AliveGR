@@ -24,25 +24,23 @@ from resources.lib import action, content, title, url, query, plot, genre, name,
 
 if content == 'video':
     from resources.lib.indexers import navigator
-    navigator.Indexer().root()
+    navigator.Main().root()
 
 elif content == 'audio':
     from resources.lib.indexers import navigator
-    navigator.Indexer().audio()
+    navigator.Main().audio()
 
 elif content == 'image':
-    from resources.lib.indexers import news
-    news.Indexer().papers_index()
+    from resources.lib.indexers import newspapers
+    newspapers.Indexer().papers_index()
 
 elif content == 'executable':
-    from resources.lib.indexers import settings
-    settings.Indexer().menu()
-
-########################################################################################################################
+    from resources.lib.indexers import navigator
+    navigator.Settings().menu()
 
 elif action is None:
     from resources.lib.indexers import navigator
-    navigator.Indexer().root()
+    navigator.Main().root()
 
 elif action == 'live_tv':
     from resources.lib.indexers import live
@@ -53,12 +51,12 @@ elif action == 'pvr_client':
     helpers.pvr_client(query)
 
 elif action == 'networks':
-    from resources.lib.indexers import networks
-    networks.Indexer().networks()
+    from resources.lib.indexers import navigator
+    navigator.Submenus().networks()
 
 elif action == 'news':
-    from resources.lib.indexers import news
-    news.Indexer().news()
+    from resources.lib.indexers import navigator
+    navigator.Submenus().news()
 
 elif action == 'movies':
     from resources.lib.indexers import gm
@@ -77,8 +75,8 @@ elif action == 'series':
     gm.Indexer().series()
 
 elif action == 'kids':
-    from resources.lib.indexers import kids
-    kids.Indexer().kids()
+    from resources.lib.indexers import navigator
+    navigator.Kids().kids()
 
 elif action == 'kids_live':
     from resources.lib.indexers import live
@@ -89,16 +87,16 @@ elif action == 'cartoon_series':
     gm.Indexer().cartoons_series()
 
 elif action == 'cartoon_collection':
-    from resources.lib.indexers import kids
-    kids.Indexer().cartoon_collection()
+    from resources.lib.indexers import navigator
+    navigator.Kids().cartoon_collection()
 
 elif action == 'educational':
-    from resources.lib.indexers import kids
-    kids.Indexer().educational()
+    from resources.lib.indexers import navigator
+    navigator.Kids().educational()
 
 elif action == 'kids_songs':
-    from resources.lib.indexers import kids
-    kids.Indexer().kids_songs()
+    from resources.lib.indexers import navigator
+    navigator.Kids().kids_songs()
 
 elif action == 'listing':
     from resources.lib.indexers import gm
@@ -129,20 +127,20 @@ elif action == 'theater':
     gm.Indexer().theater()
 
 elif action == 'documentaries':
-    from resources.lib.indexers import documentaries
-    documentaries.Indexer().documentaries()
+    from resources.lib.indexers import navigator
+    navigator.Submenus().documentaries()
 
 elif action == 'yt_documentaries':
     from resources.lib.indexers import documentaries
     documentaries.Indexer().yt_documentaries()
 
 elif action == 'miscellany':
-    from resources.lib.indexers import miscellany
-    miscellany.Indexer().miscellany()
+    from resources.lib.indexers import navigator
+    navigator.Submenus().miscellany()
 
 elif action == 'audio':
     from resources.lib.indexers import navigator
-    navigator.Indexer().audio()
+    navigator.Main().audio()
 
 elif action == 'music':
     from resources.lib.indexers import music
@@ -185,16 +183,16 @@ elif action == 'top50_list':
     music.Indexer().top50_list(url)
 
 elif action == 'radio':
-    from resources.lib.indexers import radios
-    radios.Indexer().radio()
+    from resources.lib.indexers import navigator
+    navigator.Submenus().radio()
 
 elif action == 'papers':
     from resources.lib.modules import helpers
     helpers.papers()
 
 elif action == 'papers_index':
-    from resources.lib.indexers import news
-    news.Indexer().papers_index()
+    from resources.lib.indexers import newspapers
+    newspapers.Indexer().papers_index()
 
 elif action == 'addBookmark':
     from tulip import bookmarks
@@ -205,16 +203,16 @@ elif action == 'deleteBookmark':
     bookmarks.delete(url)
 
 elif action == 'bookmarks':
-    from resources.lib.indexers import bookmarks
-    bookmarks.Indexer().bookmarks()
+    from resources.lib.indexers import navigator
+    navigator.Submenus().bookmarks()
 
 elif action == 'search':
     from resources.lib.indexers import search
     search.Indexer().search()
 
 elif action == 'settings':
-    from resources.lib.indexers import settings
-    settings.Indexer().menu()
+    from resources.lib.indexers import navigator
+    navigator.Settings().menu()
 
 elif action == 'tools_menu':
     from resources.lib.modules import helpers
@@ -254,8 +252,8 @@ elif action == 'vod_switcher':
     gm.Indexer().vod_switcher(url)
 
 elif action == 'papers_switcher':
-    from resources.lib.indexers import news
-    news.Indexer().switcher()
+    from resources.lib.indexers import newspapers
+    newspapers.Indexer.switcher()
 
 elif action == 'setup_iptv':
     from resources.lib.modules import tools

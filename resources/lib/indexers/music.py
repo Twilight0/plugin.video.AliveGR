@@ -28,7 +28,8 @@ except ImportError:
     from urllib.parse import urljoin
 from ..modules.themes import iconname
 from ..modules.constants import yt_url, art_id
-from ..indexers import you_tube
+from ..indexers.you_tube import yt_playlists
+from ..resolvers.youtu import thumb_maker
 from . import gm
 from datetime import datetime
 
@@ -260,7 +261,7 @@ class Indexer:
 
     def mgreekz_index(self):
 
-        self.list = you_tube.yt_playlists(self.mgreekz_id)
+        self.list = yt_playlists(self.mgreekz_id)
 
         if self.list is None:
             log_debug('Mad_greekz index section failed to load successfully')
@@ -304,7 +305,7 @@ class Indexer:
             url = item.partition('?')[0]
 
             # image = 'https://i.ytimg.com/vi/' + url.rpartition('/')[2] + '/mqdefault.jpg'
-            image = you_tube.thumb_maker(url.rpartition('/')[2])
+            image = thumb_maker(url.rpartition('/')[2])
 
             self.list.append(
                 {
@@ -404,7 +405,7 @@ class Indexer:
                 link = yt_url + vid
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
                 link = client.parseDOM(item, 'a', ret='href')[0]
-                image = you_tube.thumb_maker(link.partition('=')[2])
+                image = thumb_maker(link.partition('=')[2])
                 description = None
 
             self.list.append(
@@ -491,7 +492,7 @@ class Indexer:
 
             title = client.parseDOM(item, 'title')[0]
             url = client.parseDOM(item, 'url')[0]
-            image = you_tube.thumb_maker(url.rpartition('=')[2])
+            image = thumb_maker(url.rpartition('=')[2])
             plot = client.parseDOM(item, 'description')[0]
             duration = client.parseDOM(item, 'duration')[0].split(':')
             duration = (int(duration[0]) * 60) + int(duration[1])

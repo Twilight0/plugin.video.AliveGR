@@ -44,32 +44,6 @@ class Indexer:
         # self.youtube_link10 = 'UCXr6dzk36oq5zhiU-8SrWLA'
         self.youtube_extra = u'https://www.youtube.com/watch?v=oLjGJOP9Cb4'
 
-    def documentaries(self):
-
-        self.data = [
-            {
-                'title': control.lang(30041),
-                'url': 'plugin://plugin.video.AliveGR/?action=listing&url=http://greek-movies.com/movies.php?g=6&y=&l=&p=',
-                'icon': iconname('documentaries')
-            }
-            ,
-            {
-                'title': control.lang(30042),
-                'url': 'plugin://plugin.video.AliveGR/?action=yt_documentaries',
-                'icon': iconname('documentaries')
-            }
-            ]
-
-        for item in self.data:
-            list_item = control.item(label=item['title'])
-            list_item.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
-            _url_ = item['url']
-            isFolder = True
-            self.list.append((_url_, list_item, isFolder))
-
-        control.addItems(syshandle, self.list)
-        control.directory(syshandle)
-
     def items_list(self):
 
         key = thgiliwt(api_keys['api_key'])
