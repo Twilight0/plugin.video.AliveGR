@@ -70,8 +70,8 @@
         <setting visible="true" label="30408" type="action" action="RunPlugin(plugin://$ID/?action=enable_iptv)"/>
         <setting visible="true" label="30166" type="action" action="RunPlugin(plugin://$ID/?action=enable_proxy)"/>
         <setting type="lsep" label="30250"/>
-        <setting visible="true" label="30019" type="action" action="RunPlugin(plugin://$ID/?action=setup_previous_menu_key)"/>
-        <setting visible="true" label="30237" type="action" action="RunPlugin(plugin://$ID/?action=setup_mouse_keymap)"/>
+        <setting visible="true" label="30019" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=previous)"/>
+        <setting visible="true" label="30237" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=mouse)"/>
         <setting type="lsep" label="30251"/>
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
     </category>

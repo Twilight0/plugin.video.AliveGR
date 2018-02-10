@@ -24,9 +24,9 @@ from xbmc import getInfoLabel
 
 if int(getInfoLabel('System.AddonVersion("xbmc.python")').replace('.', '')) >= 225:
 
-    xbmcaddon.Addon().setSetting('mpd_toggle', 'true')
+    xbmcaddon.Addon('plugin.video.AliveGR').setSetting('mpd_toggle', 'true')
 
 else:
 
-    xbmcaddon.Addon().setSetting('mpd_toggle', 'false')
+    xbmcaddon.Addon('plugin.video.AliveGR').setSetting('mpd_toggle', 'false')
 

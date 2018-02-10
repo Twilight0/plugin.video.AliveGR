@@ -111,11 +111,11 @@ msgid "Process complete"
 msgstr ""
 
 msgctxt "#30025"
-msgid "This action will add a modified keyboard shortcut in the"
+msgid "This action will add a modified keyboard shortcut in the TV Guide window"
 msgstr ""
 
 msgctxt "#30026"
-msgid "TV Guide window"
+msgid "Does your remote have next and previous track buttons?"
 msgstr ""
 
 msgctxt "#30027"

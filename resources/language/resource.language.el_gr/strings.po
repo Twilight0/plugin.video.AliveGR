@@ -111,12 +111,12 @@ msgid "Process complete"
 msgstr "Η ενέργεια έχει πλέον ολοκληρωθεί"
 
 msgctxt "#30025"
-msgid "This action will add a modified keyboard shortcut in the"
-msgstr "Η τρέχουσα ενέργεια θα προσθέσει τροποποιήσεις στον χάρτη συντομεύσεων για"
+msgid "This action will add a modified keyboard shortcut in the TV Guide window"
+msgstr "Η τρέχουσα ενέργεια θα προσθέσει τροποποιήσεις στον χάρτη συντομεύσεων για το παράθυρο του Οδηγού Τηλεόρασης"
 
 msgctxt "#30026"
-msgid "TV Guide window"
-msgstr "το παράθυρο του Οδηγού Τηλεόρασης"
+msgid "Does your remote have next and previous track buttons?"
+msgstr "Έχει το τηλεχειριστήριό σας πλήκτρα επόμενου και προηγούμενου κομματιού;"
 
 msgctxt "#30027"
 msgid "If you use a program such as Keymap Editor"

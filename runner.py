@@ -267,13 +267,9 @@ elif action == 'enable_proxy':
     from resources.lib.modules import tools
     tools.enable_proxy_module()
 
-elif action == 'setup_previous_menu_key':
+elif action == 'setup_various_keymaps':
     from resources.lib.modules import tools
-    tools.setup_previous_menu_key()
-
-elif action == 'setup_mouse_keymap':
-    from resources.lib.modules import tools
-    tools.setup_mouse_keymap()
+    tools.setup_various_keymaps(query)
 
 elif action == 'add_to_playlist':
     from resources.lib.modules import helpers
