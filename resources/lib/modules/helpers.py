@@ -22,7 +22,7 @@ from zlib import decompress, compress
 from base64 import b64decode
 from tulip import control, cache, client
 from tulip.log import *
-from . import m3u8
+from tulip.m3u8 import load
 
 try:
     from urlparse import urljoin
@@ -38,12 +38,14 @@ def pvr_client(query='false'):
 
         if query is None or query == 'false':
 
-            selection = control.selectDialog([control.lang(30001), control.lang(30014)])
+            selection = control.selectDialog([control.lang(30001), control.lang(30014), control.lang(30002)])
 
             if selection == 0:
                 control.execute('ActivateWindow(TVChannels)')
             elif selection == 1:
                 control.execute('ActivateWindow(TVGuide)')
+            elif selection == 2:
+                control.execute('ActivateWindow(radiochannels)')
             else:
                 control.execute('Dialog.Close(all)')
 
@@ -53,7 +55,7 @@ def pvr_client(query='false'):
 
     else:
 
-        control.infoDialog(message=control.lang(30065))
+        control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30065))
 
 
 def papers():
@@ -75,9 +77,9 @@ def stream_picker(qualities, urls):
 def m3u8_picker(url):
 
     try:
-        m3u8_playlists = m3u8.load(url.rpartition('|')[0]).playlists
+        m3u8_playlists = load(url.rpartition('|')[0]).playlists
     except:
-        m3u8_playlists = m3u8.load(url).playlists
+        m3u8_playlists = load(url).playlists
 
     if not m3u8_playlists:
         return url

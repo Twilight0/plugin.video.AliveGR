@@ -196,15 +196,14 @@ def gm_source_maker(url):
 
     elif 'view' in url:
 
-        html = client.request(url)
-        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+        link = cache.get(gm_debris, 12, url, False)
 
         return 'view', link
 
     elif 'music' in url:
 
-        html = client.request(url)
-        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
+        link = cache.get(gm_debris, 12, url, False)
+
         return 'music', link
 
     else:
@@ -242,10 +241,20 @@ def gm_source_maker(url):
         return 'movies', hosts, links, plot, genre
 
 
-def gm_debris(link):
+def gm_debris(url, add_base=True):
 
-    html = client.request(urljoin(base_link, link))
-    button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+    if add_base:
+        link = urljoin(base_link, url)
+    else:
+        link = url
+
+    html = client.request(link)
+
+    if 'embed-responsive-item' and 'iframe' in html:
+        button = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
+    else:
+        button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+
     return button
 
 

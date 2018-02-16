@@ -164,9 +164,6 @@ class Main:
             }
         ]
 
-        if not control.condVisibility('Pvr.HasTVChannels'):
-            del self.list[1]
-
         if control.setting('show_live') == 'false':
             self.list = [d for d in self.list if d.get('id') != '30001']
         if control.setting('show_pvr') == 'false':

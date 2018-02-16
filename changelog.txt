@@ -2,4 +2,5 @@
 - Rework of the addon in various aspects to support python 3
 - Refactored most of the indexers
 - Improved keymaps setup function
+- Removed dependency for iso8601 module (moved to tulip libraries)
 - Cosmetics
