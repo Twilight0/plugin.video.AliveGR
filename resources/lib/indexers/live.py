@@ -191,7 +191,7 @@ class Indexer:
         if control.setting('show-switcher') == 'true':
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
-            li.setArt({'fanart': control.addonInfo('fanart')})
+            li.setArt({'fanart': control.fanart()})
             li.setInfo('video', {'plot': switch['plot'] + '\n' + control.lang(30035) + cache.get(self.live, 4)[2]})
             url = '{0}?action={1}'.format(sysaddon, switch['action'])
             control.addItem(syshandle, url, li)
@@ -212,7 +212,7 @@ class Indexer:
         elif group == '30032':
             fanart = 'http://cdn.iview.abc.net.au/thumbs/i/ls/LS1604H001S005786f5937ded19.22034349_1280.jpg'
         else:
-            fanart = control.addonInfo('fanart')
+            fanart = control.fanart()
 
         self.data = cache.get(self.live, 12)[0]
         self.list = [item for item in self.data if item['group'] == group]

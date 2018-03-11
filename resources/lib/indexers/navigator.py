@@ -422,7 +422,7 @@ class Submenus:
 
         for item in self.data:
             list_item = control.item(label=item['title'])
-            list_item.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
+            list_item.setArt({'icon': item['icon'], 'fanart': control.fanart()})
             _url_ = item['url']
             isFolder = True
             self.list.append((_url_, list_item, isFolder))
@@ -495,7 +495,7 @@ class Submenus:
             else:
                 li = control.item(label=item['title'])
 
-            li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
+            li.setArt({'icon': item['icon'], 'fanart': control.fanart()})
             url = item['url']
             isFolder = True
             self.list.append((url, li, isFolder))
@@ -511,7 +511,7 @@ class Submenus:
                 'title': control.lang(30230),
                 'icon': 'http://downloadicons.net/sites/default/files/news-icon-53570.png',
                 'url': '{0}?action=papers'.format(sysaddon),
-                'fanart': control.addonInfo('fanart')
+                'fanart': control.fanart()
             }
             ,
             {
@@ -573,7 +573,7 @@ class Submenus:
         for addon in radio_addons:
             li = control.item(label=addon['title'], iconImage=addon['icon'], thumbnailImage=addon['icon'])
             li.setInfo('music', {'title': addon['title']})
-            li.setArt({'fanart': control.addonInfo('fanart')})
+            li.setArt({'fanart': control.fanart()})
             url = addon['url']
             self.list.append((url, li, True))
 
@@ -651,7 +651,7 @@ class Settings:
 
         self.list = [
             {
-                'title': control.addonInfo('name') + ': ' + (control.lang(30255)),
+                'title': control.name() + ': ' + (control.lang(30255)),
                 'action': 'info',
                 'icon': control.addonInfo('icon')
             }
@@ -691,32 +691,32 @@ class Settings:
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + (control.lang(30115)),
+                'title': control.name() + ': ' + (control.lang(30115)),
                 'action': 'openSettings',
                 'query': '5.0',
                 'icon': iconname('godmode')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + (control.lang(30056)),
+                'title': control.name() + ': ' + (control.lang(30056)),
                 'action': 'cache_clear',
                 'icon': iconname('empty')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + (control.lang(30135)),
+                'title': control.name() + ': ' + (control.lang(30135)),
                 'action': 'purge_bookmarks',
                 'icon': iconname('empty')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + (control.lang(30134)),
+                'title': control.name() + ': ' + (control.lang(30134)),
                 'action': 'reset_idx',
                 'icon': iconname('settings')
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + (control.lang(30110)),
+                'title': control.name() + ': ' + (control.lang(30110)),
                 'action': 'changelog',
                 'icon': control.addonInfo('icon')
             }
@@ -855,7 +855,7 @@ class Kids:
 
         for item in self.data:
             li = control.item(label=item['title'])
-            li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
+            li.setArt({'icon': item['icon'], 'fanart': control.fanart()})
             self.list.append((item['url'], li, True))
 
         control.addItems(syshandle, self.list)
@@ -921,7 +921,7 @@ class Kids:
                 li = control.item(label=item['title'].partition(' - ')[2])
             else:
                 li = control.item(label=item['title'])
-            li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
+            li.setArt({'icon': item['icon'], 'fanart': control.fanart()})
             self.list.append((item['url'], li, True))
 
         control.addItems(syshandle, self.list)
@@ -1011,7 +1011,7 @@ class Kids:
                 li = control.item(label=item['title'].partition(' - ')[2])
             else:
                 li = control.item(label=item['title'])
-            li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
+            li.setArt({'icon': item['icon'], 'fanart': control.fanart()})
             self.list.append((item['url'], li, True))
 
         control.addItems(syshandle, self.list)
@@ -1083,7 +1083,7 @@ class Kids:
                 li = control.item(label=item['title'].partition(' - ')[2])
             else:
                 li = control.item(label=item['title'])
-            li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
+            li.setArt({'icon': item['icon'], 'fanart': control.fanart()})
             self.list.append((item['url'], li, True))
 
         control.addItems(syshandle, self.list)

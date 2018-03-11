@@ -149,6 +149,9 @@ class Indexer:
 
         self.data = cache.get(root, 24, movies_link)[0]
 
+        if self.data is None:
+            return
+
         self.list = [
             item for item in self.data if any(
                 group in item['group'] for group in [control.setting('vod_group')]
@@ -159,7 +162,7 @@ class Indexer:
             item.update({'icon': iconname('movies')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
+        li.setArt({'fanart': control.fanart()})
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(movies_link))
         control.addItem(syshandle, url, li)
 
@@ -179,7 +182,7 @@ class Indexer:
             item.update({'icon': iconname('series')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
+        li.setArt({'fanart': control.fanart()})
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(series_link))
         control.addItem(syshandle, url, li)
 
@@ -199,7 +202,7 @@ class Indexer:
             item.update({'icon': iconname('shows')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
+        li.setArt({'fanart': control.fanart()})
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(shows_link))
         control.addItem(syshandle, url, li)
 
@@ -219,7 +222,7 @@ class Indexer:
             item.update({'icon': iconname('cartoon_series')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
+        li.setArt({'fanart': control.fanart()})
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(animation_link))
         control.addItem(syshandle, url, li)
 
@@ -239,7 +242,7 @@ class Indexer:
             item.update({'icon': iconname('theater')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
+        li.setArt({'fanart': control.fanart()})
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(theater_link))
         control.addItem(syshandle, url, li)
 
@@ -259,7 +262,7 @@ class Indexer:
             item.update({'icon': iconname('short')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
+        li.setArt({'fanart': control.fanart()})
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(shortfilms_link))
         control.addItem(syshandle, url, li)
 

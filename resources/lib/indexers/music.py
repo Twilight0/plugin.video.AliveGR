@@ -440,7 +440,7 @@ class Indexer:
             fanart = 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             album = control.lang(30222)
         else:
-            fanart = control.addonInfo('fanart')
+            fanart = control.fanart()
             album = 'AliveGR \'s Top Music'
 
         if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':

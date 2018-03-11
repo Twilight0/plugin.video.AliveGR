@@ -55,7 +55,7 @@ def pvr_client(query='false'):
 
     else:
 
-        control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30065))
+        control.okDialog(heading=control.name(), line1=control.lang(30065))
 
 
 def papers():
@@ -126,6 +126,7 @@ def get_a_setting(setting):
     return control.json_rpc(json_cmd)
 
 
+#TODO: Add busy dialog
 def lang_choice():
 
     def set_other_options():
@@ -334,4 +335,4 @@ def dmca():
     with open(location) as f:
         text = f.read()
 
-    control.dialog.textviewer(control.addonInfo('name'), text)
+    control.dialog.textviewer(control.name(), text)

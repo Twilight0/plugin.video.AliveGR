@@ -172,9 +172,9 @@ def setup_various_keymaps(keymap):
 
             keys = [map_left, map_right, map_middle, map_up, map_down]
 
-            control.okDialog(control.addonInfo('name'), control.lang(30240))
+            control.okDialog(control.name(), control.lang(30240))
 
-            indices = control.dialog.multiselect(control.addonInfo('name'), keys)
+            indices = control.dialog.multiselect(control.name(), keys)
 
             if not indices:
 
@@ -237,7 +237,7 @@ def setup_various_keymaps(keymap):
 
                 seq()
                 control.execute('Action(reloadkeymaps)')
-                control.okDialog(control.addonInfo('name'), control.lang(30027) + ', ' + (control.lang(30028)))
+                control.okDialog(control.name(), control.lang(30027) + ', ' + (control.lang(30028)))
                 control.infoDialog(control.lang(30402))
 
             elif choice == 1:
@@ -253,7 +253,7 @@ def setup_various_keymaps(keymap):
         else:
 
             seq()
-            control.okDialog(control.addonInfo('name'), control.lang(30027) + ', ' + (control.lang(30028)))
+            control.okDialog(control.name(), control.lang(30027) + ', ' + (control.lang(30028)))
             control.infoDialog(control.lang(30402))
 
     else:
@@ -335,7 +335,7 @@ def changelog():
     with open(ch_txt) as text:
         result = text.read()
 
-    control.dialog.textviewer(control.addonInfo('name') + ', ' + control.lang(30110), result)
+    control.dialog.textviewer(control.name() + ', ' + control.lang(30110), result)
 
     text.close()
 
@@ -396,7 +396,7 @@ def repo_check():
 
     if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
 
-        control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
+        control.okDialog(heading=control.name(), line1=control.lang(30130))
         control.execute('Dialog.Close(all)')
         import sys; sys.exit()
 

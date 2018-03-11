@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.8.0" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.9.99.1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.06"/>
-        <import addon="script.module.streamlink.base" version="2018.02.07"/>
+        <import addon="script.module.streamlink.base" version="2018.02.15"/>
         <import addon="script.module.tulip" version="1.4.0"/>
         <import addon="plugin.video.youtube" version="5.5.0"/>
     </requires>
@@ -33,14 +33,17 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <!--<forum></forum>-->
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>404818</size>
-        <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR]GR, the BEST addon with everything greek related[/COLOR][/I]
+        <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.8.0[/B] [COLOR yellow](12-02-2017)[/COLOR]
++ [B]2.0.0[/B] [COLOR yellow](01-03-2017)[/COLOR]
 - Rework of the addon in various aspects to support python 3
 - Refactored most of the indexers
+- Revamped documentaries section
+- Improved the behaviour of the root menu by not checking for PVR channels existence
 - Improved keymaps setup function
 - Removed dependency for iso8601 module (moved to tulip libraries)
+- Added privacy policy text
 - Cosmetics</news>
         <assets>
             <icon>icon.png</icon>

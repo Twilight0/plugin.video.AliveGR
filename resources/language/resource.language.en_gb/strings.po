@@ -1046,6 +1046,10 @@ msgctxt "#30287"
 msgid "Do you want to also enable MPEG-DASH setting on youtube addon?"
 msgstr ""
 
+msgctxt "#30288"
+msgid "Loading..."
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

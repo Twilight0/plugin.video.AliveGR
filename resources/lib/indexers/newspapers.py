@@ -123,7 +123,7 @@ class Indexer:
         if control.setting('show-switcher') == 'true':
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
-            li.setArt({'fanart': control.addonInfo('fanart')})
+            li.setArt({'fanart': control.fanart()})
             url = '{0}?action={1}'.format(sysaddon, switch['action'])
             control.addItem(syshandle, url, li)
 
@@ -133,7 +133,7 @@ class Indexer:
         for i in self.list:
 
             li = control.item(label=i['title'], iconImage=i['image'])
-            li.setArt({'poster': i['image'], 'thumb': i['image'], 'fanart': control.addonInfo('fanart')})
+            li.setArt({'poster': i['image'], 'thumb': i['image'], 'fanart': control.fanart()})
             li.setInfo('image', {'title': i['title'], 'picturepath': i['url']})
             url = i['url']
             isFolder = False
