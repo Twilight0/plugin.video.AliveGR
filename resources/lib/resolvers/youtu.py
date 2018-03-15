@@ -69,7 +69,7 @@ def wrapper(url):
     yt_mpd_enabled = control.addon(id='plugin.video.youtube').getSetting('kodion.video.quality.mpd') == 'true'
     yt_proxy_enabled = control.addon(id='plugin.video.youtube').getSetting('kodion.mpd.proxy') == 'true'
 
-    if addon_version('xbmc.python') >= 225 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
+    if addon_version('xbmc.python') >= 2250 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
         choices = streams
     else:
         choices = [s for s in streams if 'dash' not in s['title'].lower()]
@@ -98,7 +98,7 @@ def wrapper(url):
 
         resolved = choices[0]['url']
 
-        if addon_version('xbmc.python') >= 225 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
+        if addon_version('xbmc.python') >= 2250 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
 
             return resolved, True
 

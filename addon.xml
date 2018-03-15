@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.3" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.4" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
@@ -7,8 +7,8 @@
         <import addon="script.module.resolveurl" version="5.0.06"/>
         <import addon="script.module.streamlink.base" version="2018.01.14"/>
         <import addon="script.module.iso8601" version="0.1.11"/>
-        <import addon="script.module.tulip" version="1.3.5"/>
-        <import addon="plugin.video.youtube" version="5.5.0"/>
+        <import addon="script.module.tulip" version="1.4.0"/>
+        <import addon="plugin.video.youtube" version="5.5.1"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
         <provides>video audio image executable</provides>
@@ -34,16 +34,12 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <!--<forum></forum>-->
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>404818</size>
-        <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR]GR, the BEST addon with everything greek related[/COLOR][/I]
+        <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.7.3[/B] [COLOR yellow](01-02-2017)[/COLOR]
-- Added resolver for youtube based streams on various pages
-- Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
-- Replaced urlresolver with resolveurl by jsergio123
-- Improved youtube wizard by adding mpeg-dash enability prompt
-- Faros network addition
-- Cosmetics</news>
++ [B]1.7.4[/B] [COLOR yellow](15-03-2017)[/COLOR]
+- Minor fixes into youtu wrapper
+- Bumped dependencies</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

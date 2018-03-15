@@ -1,3 +1,7 @@
++ [B]1.7.4[/B] [COLOR yellow](15-03-2017)[/COLOR]
+- Minor fixes into youtu wrapper
+- Bumped dependencies
+
 + [B]1.7.3[/B] [COLOR yellow](01-02-2017)[/COLOR]
 - Added resolver for youtube based streams on various pages
 - Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
