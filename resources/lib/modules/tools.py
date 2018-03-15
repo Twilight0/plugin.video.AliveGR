@@ -210,9 +210,9 @@ def setup_various_keymaps(keymap):
             context = ''
             string_end = '</keyboard></slideshow></keymap>'
 
-            yes = control.yesnoDialog(control.lang(30026))
+            yes_clicked = control.yesnoDialog(control.lang(30026))
 
-            if yes:
+            if yes_clicked:
 
                 to_write = string_start + ok_button + long_ok_button + next_pic + previous_pic + context + string_end
 

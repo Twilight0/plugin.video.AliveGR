@@ -108,7 +108,7 @@ def megacy(url):
     cookie = client.request(url, output='cookie', close=False)
     result = client.request(url, cookie=cookie)
 
-    stream = re.findall('\[\{sources:\[\{file: "(.*?)"', result)[0]
+    stream = re.findall('\[{sources:\[{file: "(.*?)"', result)[0]
 
     return stream.strip() + client.spoofer()
 
