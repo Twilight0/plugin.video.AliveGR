@@ -19,7 +19,7 @@
 '''
 
 from tulip import control
-import m3u8
+from tulip import m3u8
 from helpers import stream_picker
 from urlparse import urljoin
 
