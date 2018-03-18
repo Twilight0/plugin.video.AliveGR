@@ -19,6 +19,9 @@
 '''
 
 
+from tulip import client, control
+
+
 class Indexer:
 
     def __init__(self):
@@ -28,4 +31,11 @@ class Indexer:
 
     def root(self):
 
-        pass
+        self.list = [
+            {
+                'title': control.lang(30001),
+                'action': 'live_tv',
+                'icon': iconname('monitor'),
+                'id': '30001'
+            }
+        ]

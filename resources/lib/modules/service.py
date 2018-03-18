@@ -22,7 +22,7 @@
 import xbmcaddon
 from xbmc import getInfoLabel
 
-if int(getInfoLabel('System.AddonVersion("xbmc.python")').replace('.', '')) >= 225:
+if int(getInfoLabel('System.AddonVersion("xbmc.python")').replace('.', '')) >= 2250:
 
     xbmcaddon.Addon('plugin.video.AliveGR').setSetting('mpd_toggle', 'true')
 
