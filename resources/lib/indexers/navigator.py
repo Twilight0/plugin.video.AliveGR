@@ -220,7 +220,7 @@ class Main:
             reset(notify=False)
 
         directory.add(self.list, content='addons')
-
+#TODO: check audio indexers
     def audio(self):
 
         self.list = [

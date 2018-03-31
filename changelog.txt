@@ -1,11 +1,11 @@
 + [B]2.0.0[/B] [COLOR yellow](01-03-2017)[/COLOR]
 - Rework of the addon in various aspects to support python 3
 - Refactored most of the indexers
-- Revamped documentaries section
+- Revamped documentaries section #TODO
 - Improved the behaviour of the root menu by not checking for PVR channels existence
 - Improved keymaps setup function
 - Removed dependency for iso8601 module (moved to tulip libraries)
-- Added privacy policy text
+- Added privacy policy text #TODO
 - Cosmetics
 
 + [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]
