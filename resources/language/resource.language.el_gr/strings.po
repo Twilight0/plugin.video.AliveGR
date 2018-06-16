@@ -296,7 +296,7 @@ msgstr "Αυτή η ενέργεια θα σας βγάλει εκτός συν�
 
 msgctxt "#30071"
 msgid "Youtube Setup"
-msgstr "Γενικλη ρύθμιση Youtube"
+msgstr "Γενική ρύθμιση Youtube"
 
 msgctxt "#30072"
 msgid "Cartoon Series"

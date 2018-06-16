@@ -67,12 +67,7 @@ def router(url, title='', image=''):
 
         if any(['music' in sources[0], 'view' in sources[0]]):
 
-            if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsActive(music)') == 1:
-                link = sources[1] + '#audio_only'
-            else:
-                link = sources[1]
-
-            stream = youtu.wrapper(link)
+            stream = youtu.wrapper(sources[1])
 
             return stream
 
