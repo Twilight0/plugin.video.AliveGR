@@ -96,13 +96,13 @@ class Indexer:
                 'icon': iconname('theater'),
                 'id': '30068'
             }
-            ,
-            {
-                'title': control.lang(30079),
-                'action': 'documentaries',
-                'icon': iconname('documentaries'),
-                'id': '30079'
-            }
+            # ,
+            # {
+            #     'title': control.lang(30079),
+            #     'action': 'documentaries',
+            #     'icon': iconname('documentaries'),
+            #     'id': '30079'
+            # }
             ,
             {
                 'title': control.lang(30094),
@@ -182,8 +182,8 @@ class Indexer:
             self.list = [d for d in self.list if d.get('id') != '30063']
         if control.setting('show_theater') == 'false':
             self.list = [d for d in self.list if d.get('id') != '30068']
-        if control.setting('show_docs') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30079']
+        # if control.setting('show_docs') == 'false':
+        #     self.list = [d for d in self.list if d.get('id') != '30079']
         if control.setting('show_sports') == 'false':
             self.list = [d for d in self.list if d.get('id') != '30094']
         if control.setting('show_kids') == 'false':

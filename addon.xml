@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.5" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.6" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.06"/>
-        <import addon="script.module.streamlink.base" version="2018.01.14"/>
-        <import addon="script.module.tulip" version="1.4.0"/>
+        <import addon="script.module.streamlink.base" version="2018.06.12"/>
+        <import addon="script.module.tulip" version="2.0.0"/>
         <import addon="plugin.video.youtube" version="5.5.1"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
@@ -36,9 +36,13 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
 
-+ [B]1.7.5[/B] [COLOR yellow](18-03-2018)[/COLOR]
-- Minor fix into the service module
-- Removed m3u8 as in python 3 branch</news>
++ [B]1.7.6[/B] [COLOR yellow](16-06-2018)[/COLOR]
+- Tweaks and cosmetics into player module
+- Optimizations into streamlink and youtube wrapper modules
+- Fixed music indexers for audio only playback
+- Fixed Radiopolis Top 20 indexers
+- Temporarily disabled documentaries section
+- Based off tulip 2.0.0+ for future python 3 compatibility</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

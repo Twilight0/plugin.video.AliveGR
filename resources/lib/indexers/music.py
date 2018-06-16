@@ -40,8 +40,8 @@ class Indexer:
         self.mgreekz_url = 'http://mad.tv/mad-hits-top-10/'
         self.rythmos_url = 'https://www.rythmosfm.gr/'
         self.plus_url = 'http://plusradio.gr/top20'
-        self.radiopolis_url_gr = 'http://www.radiopolis.gr/top-20-gr/'
-        self.radiopolis_url_other = 'http://www.radiopolis.gr/kseno-polis-top-20/'
+        self.radiopolis_url_gr = 'http://www.radiopolis.gr/elliniko-radio-polis-top-20/'
+        self.radiopolis_url_other = 'http://www.radiopolis.gr/to-kseno-polis-top-20/'
         self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
 
     def menu(self):
@@ -125,7 +125,7 @@ class Indexer:
             }
         ]
 
-        if 'audio' in control.infoLabel('Container.FolderPath'):
+        if control.condVisibility('Window.IsVisible(music)'):
             del self.list[0]
 
         log_debug('Music section loaded')
@@ -234,11 +234,7 @@ class Indexer:
         else:
             log_debug('Song section list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
@@ -317,11 +313,7 @@ class Indexer:
         else:
             log_debug('Mad Greekz list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
@@ -361,9 +353,11 @@ class Indexer:
         elif url == self.plus_url:
             attributes = {'class': 'element element-itemname first last'}
         elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-            attributes = {'class': 'top20'}
+            attributes = {'class': 'thetopdata'}
 
-        items = client.parseDOM(html, 'div', attrs=attributes)
+        items = client.parseDOM(
+            html, 'td' if 'radiopolis' in url else 'div', attrs=attributes
+        )
 
         year = str(datetime.now().year)
 
@@ -382,8 +376,9 @@ class Indexer:
                 title = label.partition('-')[2]
                 artist = [label.partition('-')[0]]
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-                label = client.parseDOM(item, 'a')[0]
-                label = label.partition('. ')[2].replace('&#8211;', '-').replace('&#8217;', '\'').replace('&#038;', '&')
+                a_href = client.parseDOM(item, 'a')
+                a_href = ' - '.join(a_href) if len(a_href) == 2 else a_href[0]
+                label = client.stripTags(a_href.replace('\"', '').replace('&amp;', '&').replace('\n', ' - '))
                 title = label.partition(' - ')[2]
                 artist = [label.partition(' - ')[0]]
 
@@ -395,14 +390,15 @@ class Indexer:
                 image = search['snippet']['thumbnails']['default']['url']
                 link = yt_url + vid
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-                link = client.parseDOM(item, 'a', ret='href')[0]
+                links = client.parseDOM(item, 'a', ret='href')
+                link = links[1] if len(links) == 2 else links[0]
                 image = you_tube.thumb_maker(link.partition('=')[2])
                 description = None
 
             self.list.append(
                 {
-                    'label': label, 'url': link, 'image': image, 'title': title,
-                    'artist': artist, 'plot': description, 'year': int(year)
+                    'label': label, 'url': link, 'image': image, 'title': title, 'artist': artist, 'plot': description,
+                    'year': int(year)
                 }
             )
 
@@ -434,11 +430,7 @@ class Indexer:
             fanart = control.addonInfo('fanart')
             album = 'AliveGR \'s Top Music'
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
@@ -509,11 +501,7 @@ class Indexer:
         else:
             log_debug('Top 50 list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:

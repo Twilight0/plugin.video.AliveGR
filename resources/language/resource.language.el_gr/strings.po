@@ -163,8 +163,8 @@ msgid "More maintenance tools"
 msgstr "Περισσότερα εργαλεία συντήρησης"
 
 msgctxt "#30038"
-msgid "Resolve youtube streams with URLResolver"
-msgstr "Κάνε επίλυση ροών youtube με URLResolver"
+msgid "Resolve youtube streams with ResolveURL"
+msgstr "Κάνε επίλυση ροών youtube με ResolveURL"
 
 msgctxt "#30039"
 msgid "Appearance"
@@ -795,8 +795,8 @@ msgid "Music indexers play audio only"
 msgstr "Αναπαραγωγή ήχου μόνο στην ενότητα μουσικής"
 
 msgctxt "#30225"
-msgid ""
-msgstr ""
+msgid "Part "
+msgstr "Μέρος "
 
 msgctxt "#30226"
 msgid "Queue item to current playlist"
@@ -951,8 +951,8 @@ msgid "Thank you for using AliveGR addon"
 msgstr "Ευχαριστώ που χρησιμοποιείτε το AliveGR"
 
 msgctxt "#30264"
-msgid "[COLOR white]URLresolver, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
-msgstr "[COLOR white]URLresolver, έκδοση:[/COLOR] [COLOR purple]{0}[/COLOR]"
+msgid "[COLOR white]ResolveURL, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
+msgstr "[COLOR white]ResolveURL, έκδοση:[/COLOR] [COLOR purple]{0}[/COLOR]"
 
 msgctxt "#30265"
 msgid "Click on this item to force update local repos"

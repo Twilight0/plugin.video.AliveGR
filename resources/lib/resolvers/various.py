@@ -120,10 +120,17 @@ def ert(url):
 
     html = client.request(url)
 
-    if 'Greece' in geo_loc():
-        result = client.parseDOM(html, 'iframe', ret='src')[-1]
-    else:
-        result = client.parseDOM(html, 'iframe', ret='src')[0]
+    try:
+        if 'Greece' in geo_loc():
+            result = client.parseDOM(html, 'iframe', ret='src')[-1]
+        else:
+            result = client.parseDOM(html, 'iframe', ret='src')[0]
+        if not result:
+            raise IndexError
+    except IndexError:
+        result = client.parseDOM(html, 'script', attrs={'type': 'text/javascript'})[0]
+        result = re.search(r'HLSLink = \'(.+?)\'', result).group(1)
+        return result
 
     vid = result.rpartition('/')[2][:11]
 

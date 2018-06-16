@@ -36,7 +36,7 @@ from ..modules.constants import yt_url, play_action
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
-def router(url):
+def router(url, title='', image=''):
 
     def yt_router(uri):
 
@@ -61,7 +61,37 @@ def router(url):
         #
         #     return stream
 
-    if 'youtu' in url and not '#youtu_translator' in url:
+    if 'greek-movies.com' in url:
+
+        sources = cache.get(gm_source_maker, 6, url)
+
+        if any(['music' in sources[0], 'view' in sources[0]]):
+
+            if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsActive(music)') == 1:
+                link = sources[1] + '#audio_only'
+            else:
+                link = sources[1]
+
+            stream = youtu.wrapper(link)
+
+            return stream
+
+        else:
+
+            link = mini_picker(sources[1], sources[2], title, image)
+
+            if link is None:
+                control.execute('Dialog.Close(all)')
+            else:
+                stream = router(link)
+
+                try:
+                    return stream, sources[3]
+                except BaseException:
+                    control.execute('Dialog.Close(all)')
+                    control.infoDialog(control.lang(30112))
+
+    elif 'youtu' in url and not '#youtu_translator' in url:
 
         return yt_router(url)
 
@@ -130,7 +160,10 @@ def router(url):
 
         link = cache.get(various.ert, 12, url)
 
-        return yt_router(link)
+        if '.m3u8' in link:
+            return link
+        else:
+            return yt_router(link)
 
     elif 'skai.gr' in url:
 
@@ -211,13 +244,25 @@ def gm_source_maker(url):
             genre = control.lang(30147)
 
         links = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})
-        links = [urljoin(base_link, link) for link in links]
         hl = client.parseDOM(html, 'a', attrs={"class": "btn btn-primary"})
+        if not links or not hl:
+            buttons = client.parseDOM(html, 'div', attrs={"class": "btn-group"})
+            hl = [
+                client.stripTags(
+                    client.parseDOM(h, 'button', attrs={"type": "button"})[0]
+                ).strip('"') + p for h in buttons for p in client.parseDOM(
+                    h, 'a', attrs={'target': '_blank'}
+                )
+            ]
+            links = [client.parseDOM(l, 'a', ret='href')[0] for l in buttons]
+        links = [urljoin(base_link, link) for link in links]
 
         hosts = [host.replace(
             'προβολή στο '.decode('utf-8'), control.lang(30015)
         ).replace(
             'προβολή σε '.decode('utf-8'), control.lang(30015)
+        ).replace(
+            'μέρος '.decode('utf-8'), ', ' + control.lang(30225)
         ) for host in hl]
 
         if 'text-align: justify' in html:
@@ -396,88 +441,49 @@ def player(url, title, image):
 
     link = url.replace('&amp;', '&')
 
-    if 'greek-movies.com' in link:
+    stream = router(link, title, image)
 
-        sources = cache.get(gm_source_maker, 6, link)
+    dash = ('.mpd' in stream or 'dash' in stream)
 
-        if any(['music' in sources[0], 'view' in sources[0]]):
+    plot = None
 
-            if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsActive(music)') == 1:
-                link = sources[1] + '#audio_only'
-            else:
-                link = sources[1]
+    try:
 
-            stream = youtu.wrapper(link)
-
-            if len(stream) == 2:
-                directory.resolve(stream[0], dash=stream[1])
-            else:
-                directory.resolve(stream)
-
+        if len(stream) == 2:
+            resolved = stream[0]
+            plot = stream[1]
         else:
+            resolved = stream
 
-            link = mini_picker(sources[1], sources[2], title, image)
+    except TypeError:
 
-            if link is None:
-                control.execute('Dialog.Close(all)')
-            else:
-                stream = router(link)
+        resolved = stream
 
-                try:
-                    if len(stream) == 2:
-                        resolved = stream[0]
-                        dash = stream[1]
-                    else:
-                        resolved = stream
-                        dash = False
-                except TypeError:
-                    resolved = stream
-                    dash = False
+    try:
 
-                try:
-                    directory.resolve(resolved, meta={'plot': sources[3]}, dash=dash)
-                except IndexError:
-                    directory.resolve(resolved, dash=dash)
-                except:
-                    control.execute('Dialog.Close(all)')
-                    control.infoDialog(control.lang(30112))
+        if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(stream_link.sl_hosts(
+                resolved)
+        ):
+
+            resolved = m3u8_loader.m3u8_picker(resolved)
+
+    except TypeError:
+
+        pass
+
+    meta = {'title': title}
+    if plot:
+        meta.update({'plot': plot})
+
+    if resolved == 30403:
+
+        control.execute('Dialog.Close(all)')
+        control.infoDialog(control.lang(30403))
 
     else:
 
-        stream = router(link)
-
         try:
-            if len(stream) == 2:
-                resolved = stream[0]
-                dash = stream[1]
-            else:
-                resolved = stream
-                dash = False
-        except TypeError:
-            resolved = stream
-            dash = False
-
-        try:
-
-            if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(stream_link.sl_hosts(
-                    resolved)
-            ):
-
-                resolved = m3u8_loader.m3u8_picker(resolved)
-
-        except TypeError:
-
-            pass
-
-        if resolved == 30403:
-
+            directory.resolve(resolved, meta=meta, icon=image, dash=dash)
+        except:
             control.execute('Dialog.Close(all)')
-            control.infoDialog(control.lang(30403))
-
-        else:
-
-            try:
-                directory.resolve(resolved, meta={'title': title}, icon=image, dash=dash)
-            except:
-                control.execute('Dialog.Close(all)')
-                control.infoDialog(control.lang(30112))
+            control.infoDialog(control.lang(30112))

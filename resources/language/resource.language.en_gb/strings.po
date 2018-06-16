@@ -163,7 +163,7 @@ msgid "More maintenance tools"
 msgstr ""
 
 msgctxt "#30038"
-msgid "Resolve youtube streams with URLResolver"
+msgid "Resolve youtube streams with ResolveURL"
 msgstr ""
 
 msgctxt "#30039"
@@ -795,7 +795,7 @@ msgid "Music indexers play audio only"
 msgstr ""
 
 msgctxt "#30225"
-msgid ""
+msgid "Part "
 msgstr ""
 
 msgctxt "#30226"
@@ -951,7 +951,7 @@ msgid "Thank you for using AliveGR addon"
 msgstr ""
 
 msgctxt "#30264"
-msgid "[COLOR white]URLresolver, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
+msgid "[COLOR white]ResolveURL, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
 msgstr ""
 
 msgctxt "#30265"

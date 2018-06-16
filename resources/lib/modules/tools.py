@@ -282,7 +282,7 @@ def isa_enable():
     try:
         enabled = control.addon_details('inputstream.adaptive').get('enabled')
 
-        if addon_version('xbmc.python') >= 225 and not enabled:
+        if addon_version('xbmc.python') >= 2250 and not enabled:
             yes = control.yesnoDialog(control.lang(30252))
             if yes:
                 control.enable_addon('inputstream.adaptive')

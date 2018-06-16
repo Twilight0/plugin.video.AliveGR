@@ -1,3 +1,11 @@
++ [B]1.7.6[/B] [COLOR yellow](16-06-2018)[/COLOR]
+- Tweaks and cosmetics into player module
+- Optimizations into streamlink and youtube wrapper modules
+- Fixed music indexers for audio only playback
+- Fixed Radiopolis Top 20 indexers
+- Temporarily disabled documentaries section
+- Based off tulip 2.0.0+ for future python 3 compatibility
+
 + [B]1.7.5[/B] [COLOR yellow](18-03-2018)[/COLOR]
 - Minor fix into the service module
 - Removed m3u8 as in python 3 branch

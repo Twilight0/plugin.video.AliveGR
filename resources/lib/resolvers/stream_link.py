@@ -50,16 +50,16 @@ def sl_session(url):
     except KeyError:
         pass
 
-    keys = streams.keys()[::-1]
-    values = [u.url for u in streams.values()][::-1]
-
     if control.setting('sl_quality_picker') == '1':
+
+        keys = streams.keys()[::-1]
+        values = [u.to_url() for u in streams.values()][::-1]
 
         return stream_picker(keys, values)
 
     else:
 
-        return streams['best'].url
+        return streams['best'].to_url()
 
 
 def sl_hosts(url):
