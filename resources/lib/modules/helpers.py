@@ -21,13 +21,9 @@
 from zlib import decompress, compress
 from base64 import b64decode
 from tulip import control, cache, client
-from tulip.log import *
+from tulip.log import log_debug
 from tulip.m3u8 import load
-
-try:
-    from urlparse import urljoin
-except ImportError:
-    from urllib.parse import urljoin
+from tulip.compat import urljoin
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 

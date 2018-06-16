@@ -19,8 +19,8 @@
 '''
 
 from tulip import control, client
-from .helpers import thgiliwt, addon_version, cache_clear
-from .constants import api_keys
+from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear
+from resources.lib.modules.constants import api_keys
 
 
 ########################################################################################################################
@@ -466,7 +466,7 @@ def checkpoint():
 
 def dev():
 
-    from .helpers import leved
+    from resources.lib.modules.helpers import leved
     from tulip import cache
 
     if control.setting('toggler') == 'false':

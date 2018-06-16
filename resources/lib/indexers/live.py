@@ -22,17 +22,12 @@ import json, sys
 from datetime import datetime
 from base64 import b64decode
 from tulip import cache, control, directory, client
-from tulip.log import *
+from tulip.log import log_debug
 from tulip.init import sysaddon, syshandle
-from ..modules.themes import iconname
-from ..modules.helpers import thgiliwt, dexteni
-from ..modules.constants import live_groups
-
-
-if sys.version_info < (2, 7, 0):
-    from tulip.ordereddict import OrderedDict
-else:
-    from collections import OrderedDict
+from tulip.compat import OrderedDict
+from resources.lib.modules.themes import iconname
+from resources.lib.modules.helpers import thgiliwt, dexteni
+from resources.lib.modules.constants import live_groups
 
 
 class Indexer:

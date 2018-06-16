@@ -21,27 +21,21 @@
 import random
 import re
 
-try:
-    from urlparse import urljoin
-    from urllib import quote_plus
-except ImportError:
-    from urllib.parse import urljoin, quote_plus
-
 from tulip import directory, client, cache, control
-from resolveurl import resolve as url_resolver
-from resolveurl.hmf import HostedMediaFile as hmf
+from resolveurl import hmf, resolve as resolver
 # import YDStreamExtractor
-from ..resolvers import stream_link
-from ..modules.helpers import m3u8_picker
-from tulip.log import *
+from resources.lib.resolvers import stream_link
+from resources.lib.modules.m3u8_loader import m3u8_picker
+from tulip.log import log_debug
 from tulip.init import sysaddon
-from ..indexers.gm import base_link
-from ..resolvers import various, youtu
-from ..modules.constants import yt_url, play_action
+from tulip.compat import urljoin, quote_plus, izip
+from resources.lib.indexers.gm import base_link
+from resources.lib.resolvers import various, youtu
+from resources.lib.modules.constants import yt_url, play_action
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
-def router(url):
+def router(url, title='', image=''):
 
     def yt_router(uri):
 
@@ -66,7 +60,32 @@ def router(url):
         #
         #     return stream
 
-    if 'youtu' in url and not '#youtu_translator' in url:
+    if 'greek-movies.com' in url:
+
+        sources = cache.get(gm_source_maker, 6, url)
+
+        if any(['music' in sources[0], 'view' in sources[0]]):
+
+            stream = youtu.wrapper(sources[1])
+
+            return stream
+
+        else:
+
+            link = mini_picker(sources[1], sources[2], title, image)
+
+            if link is None:
+                control.execute('Dialog.Close(all)')
+            else:
+                stream = router(link)
+
+                try:
+                    return stream, sources[3]
+                except BaseException:
+                    control.execute('Dialog.Close(all)')
+                    control.infoDialog(control.lang(30112))
+
+    elif 'youtu' in url and not '#youtu_translator' in url:
 
         return yt_router(url)
 
@@ -93,16 +112,9 @@ def router(url):
         else:
             return stream
 
-    elif hmf(url).valid_url():
+    elif hmf.HostedMediaFile(url).valid_url():
 
-        stream = url_resolver(url)
-        return stream
-
-    elif '#youtu_translator' in url:
-
-        remove_fragment = url.partition('#')[0]
-        link = cache.get(youtu.traslate, 12, remove_fragment)
-        stream = youtu.wrapper(link)
+        stream = resolver(url)
         return stream
 
     elif 'antenna' in url and not '/live' in url.lower():
@@ -142,7 +154,10 @@ def router(url):
 
         link = cache.get(various.ert, 12, url)
 
-        return yt_router(link)
+        if '.m3u8' in link:
+            return link
+        else:
+            return yt_router(link)
 
     elif 'skai.gr' in url:
 
@@ -196,14 +211,15 @@ def gm_source_maker(url):
 
     elif 'view' in url:
 
-        link = cache.get(gm_debris, 12, url, False)
+        html = client.request(url)
+        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
 
         return 'view', link
 
     elif 'music' in url:
 
-        link = cache.get(gm_debris, 12, url, False)
-
+        html = client.request(url)
+        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
         return 'music', link
 
     else:
@@ -222,13 +238,25 @@ def gm_source_maker(url):
             genre = control.lang(30147)
 
         links = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})
-        links = [urljoin(base_link, link) for link in links]
         hl = client.parseDOM(html, 'a', attrs={"class": "btn btn-primary"})
+        if not links or not hl:
+            buttons = client.parseDOM(html, 'div', attrs={"class": "btn-group"})
+            hl = [
+                client.stripTags(
+                    client.parseDOM(h, 'button', attrs={"type": "button"})[0]
+                ).strip('"') + p for h in buttons for p in client.parseDOM(
+                    h, 'a', attrs={'target': '_blank'}
+                )
+            ]
+            links = [client.parseDOM(l, 'a', ret='href')[0] for l in buttons]
+        links = [urljoin(base_link, link) for link in links]
 
         hosts = [host.replace(
             u'προβολή στο ', control.lang(30015)
         ).replace(
             u'προβολή σε ', control.lang(30015)
+        ).replace(
+            u'μέρος‚ ', ', ' + control.lang(30225)
         ) for host in hl]
 
         if 'text-align: justify' in html:
@@ -241,20 +269,10 @@ def gm_source_maker(url):
         return 'movies', hosts, links, plot, genre
 
 
-def gm_debris(url, add_base=True):
+def gm_debris(link):
 
-    if add_base:
-        link = urljoin(base_link, url)
-    else:
-        link = url
-
-    html = client.request(link)
-
-    if 'embed-responsive-item' and 'iframe' in html:
-        button = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
-    else:
-        button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
-
+    html = client.request(urljoin(base_link, link))
+    button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
     return button
 
 
@@ -269,7 +287,7 @@ def playlist_maker(hl, sl, title, image):
     vids = [
         sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + image + '&title=' + title for i in sl
     ]
-    videos = list(zip(hl, vids))
+    videos = list(izip(hl, vids))
 
     if control.setting('randomize_items') == 'true':
         random.shuffle(videos)
@@ -291,7 +309,11 @@ def mini_picker(hl, sl, title, image):
 
         if control.setting('action_type') == '2':
             if control.setting('auto_play') == 'true':
-                play_url = sysaddon + play_action + quote_plus(stream) + '&image=' + quote_plus(image) + '&title=' + quote_plus(title)
+                play_url = sysaddon + play_action + quote_plus(
+                    stream
+                ) + '&image=' + quote_plus(
+                    image
+                ) + '&title=' + quote_plus(title)
                 control.execute('PlayMedia("{0}")'.format(play_url))
             else:
                 m3u_file = playlist_maker(hl, sl, title, image)
@@ -326,9 +348,14 @@ def mini_picker(hl, sl, title, image):
 
 def items_directory(url, title, description, genre):
 
+    try:
+        title = title.decode('utf-8')
+    except AttributeError:
+        pass
+
     sources = cache.get(gm_source_maker, 6, url)
 
-    lists = list(zip(sources[1], sources[2]))
+    lists = list(izip(sources[1], sources[2]))
 
     items = []
 
@@ -346,13 +373,8 @@ def items_directory(url, title, description, genre):
 
     try:
         description = description.decode('utf-8')
-    except:
-        description = description
-
-    try:
-        title = title.decode('utf-8')
     except AttributeError:
-        pass
+        description = description
 
     for h, l in lists:
 
@@ -365,7 +387,8 @@ def items_directory(url, title, description, genre):
         plot = name + '\n' + control.lang(30090) + ': ' + year + '\n' + description
 
         data = dict(
-            label=title + ' - ' + h, title=title, url=button, image=image, plot=plot, year=int(year), genre=genre, name=name
+            label=title + ' - ' + h, title=title, url=button, image=image, plot=plot,
+            year=int(year), genre=genre, name=name
         )
 
         items.append(data)
@@ -426,88 +449,49 @@ def player(url, title, image):
 
     link = url.replace('&amp;', '&')
 
-    if 'greek-movies.com' in link:
+    stream = router(link, title, image)
 
-        sources = cache.get(gm_source_maker, 6, link)
+    dash = ('.mpd' in stream or 'dash' in stream)
 
-        if any(['music' in sources[0], 'view' in sources[0]]):
+    plot = None
 
-            if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsActive(music)') == 1:
-                link = sources[1] + '#audio_only'
-            else:
-                link = sources[1]
+    try:
 
-            stream = youtu.wrapper(link)
-
-            if len(stream) == 2:
-                directory.resolve(stream[0], dash=stream[1])
-            else:
-                directory.resolve(stream)
-
+        if len(stream) == 2:
+            resolved = stream[0]
+            plot = stream[1]
         else:
+            resolved = stream
 
-            link = mini_picker(sources[1], sources[2], title, image)
+    except TypeError:
 
-            if link is None:
-                control.execute('Dialog.Close(all)')
-            else:
-                stream = router(link)
+        resolved = stream
 
-                try:
-                    if len(stream) == 2:
-                        resolved = stream[0]
-                        dash = stream[1]
-                    else:
-                        resolved = stream
-                        dash = False
-                except TypeError:
-                    resolved = stream
-                    dash = False
+    try:
 
-                try:
-                    directory.resolve(resolved, meta={'plot': sources[3]}, dash=dash)
-                except IndexError:
-                    directory.resolve(resolved, dash=dash)
-                except:
-                    control.execute('Dialog.Close(all)')
-                    control.infoDialog(control.lang(30112))
+        if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(stream_link.sl_hosts(
+                resolved)
+        ):
+
+            resolved = m3u8_picker(resolved)
+
+    except TypeError:
+
+        pass
+
+    meta = {'title': title}
+    if plot:
+        meta.update({'plot': plot})
+
+    if resolved == 30403:
+
+        control.execute('Dialog.Close(all)')
+        control.infoDialog(control.lang(30403))
 
     else:
 
-        stream = router(link)
-
         try:
-            if len(stream) == 2:
-                resolved = stream[0]
-                dash = stream[1]
-            else:
-                resolved = stream
-                dash = False
-        except TypeError:
-            resolved = stream
-            dash = False
-
-        try:
-
-            if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(stream_link.sl_hosts(
-                    resolved)
-            ):
-
-                resolved = m3u8_picker(resolved)
-
-        except TypeError:
-
-            pass
-
-        if resolved == 30403:
-
+            directory.resolve(resolved, meta=meta, icon=image, dash=dash)
+        except:
             control.execute('Dialog.Close(all)')
-            control.infoDialog(control.lang(30403))
-
-        else:
-
-            try:
-                directory.resolve(resolved, meta={'title': title}, icon=image, dash=dash)
-            except:
-                control.execute('Dialog.Close(all)')
-                control.infoDialog(control.lang(30112))
+            control.infoDialog(control.lang(30112))

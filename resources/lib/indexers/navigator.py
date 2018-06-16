@@ -809,6 +809,7 @@ class Kids:
             if control.condVisibility('System.HasAddon({0})'.format(sdik)):
                 import sys
                 sys.path.extend([control.join(control.addon(id=sdik).getAddonInfo('path'), 'resources', 'lib')])
+                # noinspection PyUnresolvedReferences
                 from extension import kids_indexer
         except:
             pass

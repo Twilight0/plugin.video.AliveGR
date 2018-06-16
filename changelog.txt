@@ -1,5 +1,5 @@
 + [B]2.0.0[/B] [COLOR yellow](01-03-2017)[/COLOR]
-- Rework of the addon in various aspects to support python 3
+- Rework of the addon in various aspects to support python 3 # TODO: WIP
 - Refactored most of the indexers
 - Revamped documentaries section #TODO
 - Improved the behaviour of the root menu by not checking for PVR channels existence

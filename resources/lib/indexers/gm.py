@@ -22,20 +22,17 @@ import re
 import json
 
 from tulip import cache, client, directory, control
-from tulip.log import *
-try:
-    from urlparse import urljoin, urlparse
-except ImportError:
-    from urllib.parse import urlparse, urljoin
-from ..modules.themes import iconname
-from ..modules.helpers import loader
-from ..modules.constants import sdik
+from tulip.log import log_debug
+from tulip.compat import urljoin, urlparse, izip
+from resources.lib.modules.themes import iconname
+from resources.lib.modules.helpers import loader
+from resources.lib.modules.constants import sdik
 from tulip.init import syshandle, sysaddon
 
 try:
     if not control.condVisibility('System.HasAddon({0})'.format(sdik)):
         loader('bl.py', 'indexers')
-        from .bl import bl
+        from resources.lib.indexers.bl import bl
     else:
         control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.py'))
         control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.pyo'))
@@ -352,50 +349,6 @@ class Indexer:
             link = urljoin(base_link, link)
             year = re.findall('.*?\((\d{4})', title, re.U)[0]
 
-            # Not normally used, available only on dev mode, as it creates a lot of traffic:
-            # if control.setting('debug') == 'true':
-            #
-            #     item_html = client.request(link)
-            #
-            #     if 'text-align: justify' in item_html:
-            #         plot = client.parseDOM(item_html, 'p', attrs={'style': 'text-align: justify'})[0]
-            #     elif 'text-justify' in item_html:
-            #         plot = client.parseDOM(item_html, 'p', attrs={'class': 'text-justify'})[0]
-            #     else:
-            #         plot = control.lang(30085)
-            #
-            #     info = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})
-            #
-            #     genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
-            #
-            #     if 'imdb.com' in item_html:
-            #         code = re.findall('(tt\d*)/?', info[3])[0]
-            #     else:
-            #         code = ''
-            #
-            #     if url.startswith((series_link, shows_link, animation_link)):
-            #
-            #         self.list.append(
-            #             {
-            #                 'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
-            #                 'genre': genre, 'code': code
-            #             }
-            #         )
-            #
-            #     else:
-            #
-            #         duration = int(info[2].lstrip('Διάρκεια:'.decode('utf-8')).strip(' \'')) * 60
-            #
-            #         self.list.append(
-            #             {
-            #                 'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
-            #                 'genre': genre, 'duration': duration, 'code': code
-            #             }
-            #         )
-
-            # Available to all users:
-            # else:
-
             self.list.append(
                 {
                     'title': title, 'url': link, 'image': icon.encode('utf-8'), 'year': int(year), 'name': name
@@ -567,7 +520,7 @@ class Indexer:
         icons = ['https://www.shareicon.net/data/256x256/2015/11/08/157712_sport_512x512.png',
                  'https://www.shareicon.net/data/256x256/2015/12/07/196797_ball_256x256.png']
 
-        items = list(zip(options, icons))
+        items = list(izip(options, icons))
 
         for item, icon in items:
 

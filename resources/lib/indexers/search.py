@@ -20,15 +20,10 @@
 
 
 from tulip import client, directory, control, cache, cleantitle
+from tulip.compat import unquote_plus, urljoin
 from tulip.init import sysaddon
-from . import gm
+from resources.lib.indexers import gm
 import re, json
-
-try:
-    from urlparse import urljoin, urlparse
-    from urllib import unquote_plus
-except ImportError:
-    from urllib.parse import urlparse, urljoin, unquote_plus
 
 
 class Indexer:

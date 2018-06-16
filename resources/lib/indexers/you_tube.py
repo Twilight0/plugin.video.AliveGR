@@ -21,9 +21,9 @@
 import json
 
 from tulip import cache, directory, youtube
-from tulip.log import *
-from ..modules.constants import api_keys
-from ..modules.helpers import thgiliwt
+from tulip.log import log_debug
+from resources.lib.modules.constants import api_keys
+from resources.lib.modules.helpers import thgiliwt
 
 
 def yt_playlists(pid):

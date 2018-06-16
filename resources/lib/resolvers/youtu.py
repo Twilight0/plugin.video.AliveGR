@@ -20,8 +20,8 @@
 
 import re, youtube_resolver
 from tulip import client, control
-from ..modules.helpers import stream_picker, addon_version
-from ..modules.constants import yt_url
+from resources.lib.modules.helpers import stream_picker, addon_version
+from resources.lib.modules.constants import yt_url
 
 
 def thumb_maker(video_id, hq=False):
@@ -60,14 +60,7 @@ def traslate(url, add_base=False):
 
 def wrapper(url):
 
-    if '#audio_only' in url:
-
-        no_fragment = url.replace('#audio_only', '')
-        streams = youtube_resolver.resolve(no_fragment)
-
-    else:
-
-        streams = youtube_resolver.resolve(url)
+    streams = youtube_resolver.resolve(url)
 
     try:
         addon_enabled = control.addon_details('inputstream.adaptive').get('enabled')
@@ -83,13 +76,11 @@ def wrapper(url):
     else:
         choices = [s for s in streams if 'dash' not in s['title'].lower()]
 
-    music_active = bool(control.condVisibility('Window.IsActive(music)'))
+    if control.condVisibility('Window.IsVisible(music)') or control.setting('audio_only') == 'true':
 
-    if '#audio_only' in url and control.setting('audio_only') == 'true' or music_active:
+        resolved = [u['url'] for u in choices if 'aac@128' in u['title'].lower()][0]
 
-        resolved = choices[-5]['url']
-
-        return resolved, False
+        return resolved
 
     elif control.setting('yt_quality_picker') == '1':
 
@@ -98,21 +89,13 @@ def wrapper(url):
 
         resolved = stream_picker(qualities, urls)
 
-        if 'dash' in resolved.lower() or resolved.lower().endswith('.mpd'):
-            return resolved, True
-        else:
-            return resolved, False
+        return resolved
 
     else:
 
         resolved = choices[0]['url']
 
-        if addon_version('xbmc.python') >= 2250 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
+        return resolved
 
-            return resolved, True
-
-        else:
-
-            return resolved, False
 
 

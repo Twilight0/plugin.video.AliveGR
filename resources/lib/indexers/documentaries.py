@@ -17,9 +17,10 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import
 
-
-from tulip import client, control
+from tulip import control
+from resources.lib.modules.themes import iconname
 
 
 class Indexer:

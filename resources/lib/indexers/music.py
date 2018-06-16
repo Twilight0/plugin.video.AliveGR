@@ -18,19 +18,18 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+from __future__ import absolute_import
+
 import json, re
 
 from tulip import control, directory, cache, client
-from tulip.log import *
-try:
-    from urlparse import urljoin
-except ImportError:
-    from urllib.parse import urljoin
-from ..modules.themes import iconname
-from ..modules.constants import yt_url, art_id
-from ..indexers.you_tube import yt_playlists
-from ..resolvers.youtu import thumb_maker
-from . import gm
+from tulip.log import log_debug
+from tulip.compat import urljoin
+from resources.lib.modules.themes import iconname
+from resources.lib.modules.constants import yt_url, art_id
+from resources.lib.indexers.you_tube import yt_playlists
+from resources.lib.resolvers.youtu import thumb_maker
+from resources.lib.indexers import gm
 from datetime import datetime
 
 
@@ -44,29 +43,29 @@ class Indexer:
         self.mgreekz_url = 'http://mad.tv/mad-hits-top-10/'
         self.rythmos_url = 'https://www.rythmosfm.gr/'
         self.plus_url = 'http://plusradio.gr/top20'
-        self.radiopolis_url_gr = 'http://www.radiopolis.gr/top-20-gr/'
-        self.radiopolis_url_other = 'http://www.radiopolis.gr/kseno-polis-top-20/'
+        self.radiopolis_url_gr = 'http://www.radiopolis.gr/elliniko-radio-polis-top-20/'
+        self.radiopolis_url_other = 'http://www.radiopolis.gr/to-kseno-polis-top-20/'
         self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
 
     def menu(self):
 
         self.list = [
             {
-                'title': 30170,
+                'title': control.lang(30170),
                 'action': 'music_live',
                 'image': iconname('monitor'),
                 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
             }
             ,
             {
-                'title': 30124,
+                'title': control.lang(30124),
                 'action': 'gm_music',
                 'image': iconname('music'),
                 'fanart': 'https://cdn.allwallpaper.in/wallpapers/1280x720/1895/music-hd-1280x720-wallpaper.jpg'
             }
             ,
             {
-                'title': 30126,
+                'title': control.lang(30126),
                 'action': 'mgreekz_index',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
                 'fanart': control.addonmedia(
@@ -75,7 +74,7 @@ class Indexer:
             }
             ,
             {
-                'title': 30127,
+                'title': control.lang(30127),
                 'action': 'mgreekz_top10',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
                 'fanart': control.addonmedia(
@@ -84,7 +83,7 @@ class Indexer:
             }
             ,
             {
-                'title': 30128,
+                'title': control.lang(30128),
                 'action': 'top20_list',
                 'url': self.rythmos_top20_url,
                 'image': 'https://is3-ssl.mzstatic.com/image/thumb/Purple62/v4/3e/a4/48/3ea44865-8cb2-5fec-be70-188a060b712c/source/256x256bb.jpg',
@@ -97,7 +96,7 @@ class Indexer:
             }
             ,
             {
-                'title': 30221,
+                'title': control.lang(30221),
                 'action': 'top20_list',
                 'url': self.plus_url,
                 'image': 'https://is5-ssl.mzstatic.com/image/thumb/Purple20/v4/e8/99/e8/e899e8ea-0df6-0f60-d66d-b82b8021e8af/source/256x256bb.jpg',
@@ -105,7 +104,7 @@ class Indexer:
             }
             ,
             {
-                'title': 30222,
+                'title': control.lang(30222),
                 'action': 'top20_list',
                 'url': self.radiopolis_url_gr,
                 'image': 'http://www.radiopolis.gr/wp-content/uploads/2017/11/noimageavailable.jpg',
@@ -113,7 +112,7 @@ class Indexer:
             }
             ,
             {
-                'title': 30223,
+                'title': control.lang(30223),
                 'action': 'top20_list',
                 'url': self.radiopolis_url_other,
                 'image': 'http://www.radiopolis.gr/wp-content/uploads/2017/11/noimageavailable.jpg',
@@ -121,7 +120,7 @@ class Indexer:
             }
             ,
             {
-                'title': 30269,
+                'title': control.lang(30269),
                 'action': 'top50_list',
                 'url': 'http://alivegr.net/raw/top50.xml',
                 'image': control.addonInfo('icon'),
@@ -129,7 +128,7 @@ class Indexer:
             }
         ]
 
-        if 'audio' in control.infoLabel('Container.FolderPath'):
+        if control.condVisibility('Window.IsVisible(music)'):
             del self.list[0]
 
         log_debug('Music section loaded')
@@ -238,11 +237,7 @@ class Indexer:
         else:
             log_debug('Song section list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
@@ -326,11 +321,7 @@ class Indexer:
         else:
             log_debug('Mad Greekz list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
@@ -370,9 +361,11 @@ class Indexer:
         elif url == self.plus_url:
             attributes = {'class': 'element element-itemname first last'}
         elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-            attributes = {'class': 'top20'}
+            attributes = {'class': 'thetopdata'}
 
-        items = client.parseDOM(html, 'div', attrs=attributes)
+        items = client.parseDOM(
+            html, 'td' if 'radiopolis' in url else 'div', attrs=attributes
+        )
 
         year = str(datetime.now().year)
 
@@ -391,27 +384,29 @@ class Indexer:
                 title = label.partition('-')[2]
                 artist = [label.partition('-')[0]]
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-                label = client.parseDOM(item, 'a')[0]
-                label = label.partition('. ')[2].replace('&#8211;', '-').replace('&#8217;', '\'').replace('&#038;', '&')
+                a_href = client.parseDOM(item, 'a')
+                a_href = ' - '.join(a_href) if len(a_href) == 2 else a_href[0]
+                label = client.stripTags(a_href.replace('\"', '').replace('&amp;', '&').replace('\n', ' - '))
                 title = label.partition(' - ')[2]
                 artist = [label.partition(' - ')[0]]
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
-                search = get_search(q=title + ' official', search_type='video')[0]
+                search = get_search(q=title + ' ' + 'official', search_type='video')[0]
                 description = search['snippet']['description']
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
                 link = yt_url + vid
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-                link = client.parseDOM(item, 'a', ret='href')[0]
+                links = client.parseDOM(item, 'a', ret='href')
+                link = links[1] if len(links) == 2 else links[0]
                 image = thumb_maker(link.partition('=')[2])
                 description = None
 
             self.list.append(
                 {
-                    'label': label, 'url': link, 'image': image, 'title': title,
-                    'artist': artist, 'plot': description, 'year': int(year)
+                    'label': label, 'url': link, 'image': image, 'title': title, 'artist': artist, 'plot': description,
+                    'year': int(year)
                 }
             )
 
@@ -443,11 +438,7 @@ class Indexer:
             fanart = control.fanart()
             album = 'AliveGR \'s Top Music'
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:
@@ -518,11 +509,7 @@ class Indexer:
         else:
             log_debug('Top 50 list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.infoLabel('Container.FolderPath') == 'plugin://plugin.video.AliveGR/?action=music':
-            self.list = [
-                dict((k, item[k] + '#audio_only' if (k == 'url') else v) for k, v in item.items())
-                for item in self.list
-            ]
+        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
             log_debug('Tracks loaded as audio only')
             content = 'songs'
         else:

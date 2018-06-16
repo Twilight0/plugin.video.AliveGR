@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.9.99.1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.0~alpha1" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.06"/>
-        <import addon="script.module.streamlink.base" version="2018.02.15"/>
-        <import addon="script.module.tulip" version="1.4.0"/>
-        <import addon="plugin.video.youtube" version="5.5.0"/>
+        <import addon="script.module.streamlink.base" version="2018.06.12"/>
+        <import addon="script.module.tulip" version="2.0.2"/>
+        <import addon="plugin.video.youtube" version="6.0.2"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
         <provides>video audio image executable</provides>

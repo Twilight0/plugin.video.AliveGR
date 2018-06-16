@@ -20,7 +20,7 @@
 
 import streamlink.session
 from tulip import control
-from ..modules.helpers import stream_picker
+from resources.lib.modules.helpers import stream_picker
 
 
 # try:
@@ -50,16 +50,16 @@ def sl_session(url):
     except KeyError:
         pass
 
-    keys = list(streams.keys()[::-1])
-    values = [u.url for u in list(streams.values())][::-1]
-
     if control.setting('sl_quality_picker') == '1':
+
+        keys = list(streams.keys()[::-1])
+        values = [u.to_url() for u in list(streams.values())][::-1]
 
         return stream_picker(keys, values)
 
     else:
 
-        return streams['best'].url
+        return streams['best'].to_url()
 
 
 def sl_hosts(url):
