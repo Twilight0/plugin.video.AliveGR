@@ -438,6 +438,11 @@ def player(url, title, image):
 
     stream = router(link, title, image)
 
+    if stream is None:
+        control.execute('Dialog.Close(all)')
+        control.infoDialog(control.lang(30112))
+        return
+
     dash = ('.mpd' in stream or 'dash' in stream)
 
     plot = None
