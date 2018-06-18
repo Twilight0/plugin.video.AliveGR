@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from resources.lib import action, content, title, url, query, plot, genre, name, image
+from resources.lib import action, content, title, url, query, name
 
 ########################################################################################################################
 
@@ -234,7 +234,7 @@ elif action == 'youtube':
 
 elif action == 'play':
     from resources.lib.modules.player import player
-    player(url, title, image)
+    player(url)
 
 elif action == 'play_m3u':
     from distutils.util import strtobool
@@ -243,7 +243,7 @@ elif action == 'play_m3u':
 
 elif action == 'directory':
     from resources.lib.modules.player import directory_picker
-    directory_picker(url, title, plot, genre)
+    directory_picker(url)
 
 elif action == 'live_switcher':
     from resources.lib.indexers import live

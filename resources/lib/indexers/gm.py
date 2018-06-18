@@ -108,7 +108,7 @@ def root(url):
             elif indexer.startswith('p='):
                 group = '30212'
             else:
-                group = ''.decode('utf-8')
+                group = ''
 
             root_list.append({'title': title, 'group': group, 'action': 'listing', 'url': index})
 
@@ -333,66 +333,19 @@ class Indexer:
             except:
                 pass
 
-            icon = client.parseDOM(item, 'img', ret='src')[0]
-
-            # unused for now:
-            # title = client.parseDOM(item, 'p')[0]
-            # icon = client.parseDOM(item, 'IMG', ret='SRC')[0]
+            image = client.parseDOM(item, 'img', ret='src')[0]
 
             name = title.rpartition(' (')[0]
 
-            icon = urljoin(base_link, icon)
+            image = urljoin(base_link, image)
             link = client.parseDOM(item, 'a', ret='href')[0]
             link = urljoin(base_link, link)
             year = re.findall('.*?\((\d{4})', title, re.U)[0]
 
-            # Not normally used, available only on dev mode, as it creates a lot of traffic:
-            # if control.setting('debug') == 'true':
-            #
-            #     item_html = client.request(link)
-            #
-            #     if 'text-align: justify' in item_html:
-            #         plot = client.parseDOM(item_html, 'p', attrs={'style': 'text-align: justify'})[0]
-            #     elif 'text-justify' in item_html:
-            #         plot = client.parseDOM(item_html, 'p', attrs={'class': 'text-justify'})[0]
-            #     else:
-            #         plot = control.lang(30085)
-            #
-            #     info = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})
-            #
-            #     genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
-            #
-            #     if 'imdb.com' in item_html:
-            #         code = re.findall('(tt\d*)/?', info[3])[0]
-            #     else:
-            #         code = ''
-            #
-            #     if url.startswith((series_link, shows_link, animation_link)):
-            #
-            #         self.list.append(
-            #             {
-            #                 'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
-            #                 'genre': genre, 'code': code
-            #             }
-            #         )
-            #
-            #     else:
-            #
-            #         duration = int(info[2].lstrip('Διάρκεια:'.decode('utf-8')).strip(' \'')) * 60
-            #
-            #         self.list.append(
-            #             {
-            #                 'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
-            #                 'genre': genre, 'duration': duration, 'code': code
-            #             }
-            #         )
-
-            # Available to all users:
-            # else:
-
             self.list.append(
                 {
-                    'title': title, 'url': link, 'image': icon.encode('utf-8'), 'year': int(year), 'name': name
+                    'title': title, 'url': link,
+                    'image': image, 'year': int(year), 'name': name
                 }
             )
 
@@ -502,8 +455,9 @@ class Indexer:
 
             self.list.append(
                 {
-                    'title': name + ' - ' + title, 'url': link, 'group': group, 'name': name,
-                    'image': image.encode('utf-8'), 'plot': plot, 'year': year, 'genre': genre
+                    'title': name + ' - ' + title, 'url': link, 'group': group,
+                    'name': name, 'image': image, 'plot': plot, 'year': year,
+                    'genre': genre
                 }
             )
 
@@ -565,14 +519,17 @@ class Indexer:
 
         items = zip(options, icons)
 
-        for item, icon in items:
+        for item, image in items:
 
             title = client.parseDOM(item, 'option')[0]
             url = client.parseDOM(item, 'option', ret='value')[0]
             url = client.replaceHTMLCodes(url)
             index = urljoin(base_link, url)
 
-            data = {'title': title.encode('utf-8'), 'action': 'listing', 'url': index, 'image': icon}
+            data = {
+                'title': title, 'action': 'listing', 'url': index,
+                'image': image
+            }
             self.list.append(data)
 
         directory.add(self.list)
@@ -591,7 +548,12 @@ class Indexer:
             link = urljoin(base_link, link)
             plot = client.parseDOM(item, 'span', attrs={'class': 'pull-right'})[0]
 
-            self.list.append({'title': title, 'url': link, 'plot': plot, 'image': image.encode('utf-8')})
+            self.list.append(
+                {
+                    'title': title, 'url': link, 'plot': plot,
+                    'image': image
+                }
+            )
 
         return self.list
 

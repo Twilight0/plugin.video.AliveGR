@@ -1,3 +1,9 @@
++ [B]1.7.7[/B] [COLOR yellow](18-06-2018)[/COLOR]
+- Fixed tv series/shows not playing links
+- Simplified params passing and loading of strings such as titles & image urls
+- Fix in gm indexers for images encoding
+- Minor other fixes
+
 + [B]1.7.6[/B] [COLOR yellow](16-06-2018)[/COLOR]
 - Tweaks and cosmetics into player module
 - Optimizations into streamlink and youtube wrapper modules

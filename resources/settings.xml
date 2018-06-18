@@ -45,7 +45,7 @@
         <setting id="show-switcher" type="bool" label="30061" default="true"/>
         <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
         <setting type="lsep" label="30009"/>
-        <setting id="action_type" type="enum" label="30144" lvalues="30145|30146|30216" default="0"/>
+        <setting id="action_type" type="enum" label="30144" lvalues="30145|30146|30284" default="0"/>
         <setting id="auto_play" type="bool" label="30280" default="true" visible="eq(-1,2)"/>
         <setting id="randomize_items" type="bool" label="30282" default="true" visible="eq(-2,2)"/>
         <setting id="audio_only" label="30224" type="bool" default="false"/>
