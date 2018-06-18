@@ -279,8 +279,6 @@ class Indexer:
 
         html = client.request(self.mgreekz_url)
 
-        # image = 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png'
-
         items = client.parseDOM(html, 'iframe', attrs={'class': 'youtube-player'}, ret='src')
 
         for item in items:

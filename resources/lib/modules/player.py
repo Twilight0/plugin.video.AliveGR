@@ -461,7 +461,7 @@ def player(url):
 
         pass
 
-    dash = '.mpd' in resolved or 'dash' in resolved
+    dash = '.mpd' in resolved or 'dash' in resolved or '.ism' in resolved or '.hls' in resolved
 
     image = params.get('image').encode('latin-1')
     title = params.get('title').encode('latin-1')

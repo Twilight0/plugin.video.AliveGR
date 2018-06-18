@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.7" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.8" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.06"/>
         <import addon="script.module.streamlink.base" version="2018.06.12"/>
-        <import addon="script.module.tulip" version="2.0.2"/>
+        <import addon="script.module.tulip" version="2.0.3"/>
         <import addon="plugin.video.youtube" version="5.5.1"/>
-        <import addon="script.module.chardet"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
         <provides>video audio image executable</provides>
@@ -36,6 +35,11 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <size>404818</size>
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR, the BEST addon with everything greek related[/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
+
++ [B]1.7.8[/B] [COLOR yellow](18-06-2018)[/COLOR]
+- Added more conditionals for dash
+- Remove forgotten chardet import
+- Bumped tulip dependency into 2.0.3
 
 + [B]1.7.7[/B] [COLOR yellow](18-06-2018)[/COLOR]
 - Fixed tv series/shows not playing links

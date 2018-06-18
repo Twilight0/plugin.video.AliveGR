@@ -58,12 +58,9 @@ class Indexer:
             title = client.parseDOM(item, 'title')[0]
             icon = client.parseDOM(item, 'icon')[0]
             url = client.parseDOM(item, 'url')[0]
+            url = url.replace('https://www.youtube.com/channel', '{0}/channel'.format(yt_addon))
 
-            item_data = (
-                dict(title=title, icon=icon, url=url.replace(
-                    'https://www.youtube.com/channel', '{0}/channel'.format(yt_addon)
-                ))
-            )
+            item_data = (dict(title=title, icon=icon, url=url))
 
             self.list.append(item_data)
 

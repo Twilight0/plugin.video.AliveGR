@@ -1,3 +1,8 @@
++ [B]1.7.8[/B] [COLOR yellow](18-06-2018)[/COLOR]
+- Added more conditionals for dash
+- Remove forgotten chardet import
+- Bumped tulip dependency into 2.0.3
+
 + [B]1.7.7[/B] [COLOR yellow](18-06-2018)[/COLOR]
 - Fixed tv series/shows not playing links
 - Simplified params passing and loading of strings such as titles & image urls
