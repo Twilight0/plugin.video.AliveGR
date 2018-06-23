@@ -27,8 +27,10 @@ from urlparse import urljoin
 def m3u8_picker(url):
 
     try:
+        if '|' not in url:
+            raise TypeError
         m3u8_playlists = m3u8.load(url.rpartition('|')[0]).playlists
-    except:
+    except TypeError:
         m3u8_playlists = m3u8.load(url).playlists
 
     if not m3u8_playlists:
@@ -47,8 +49,10 @@ def m3u8_picker(url):
             uri = urljoin(playlist.base_uri, uri)
         qualities.append(quality)
         try:
+            if '|' not in url:
+                raise TypeError
             urls.append(uri + '|' + url.rpartition('|')[2])
-        except:
+        except TypeError:
             urls.append(uri)
 
     if len(qualities) == 1:

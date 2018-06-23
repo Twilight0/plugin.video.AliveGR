@@ -1,3 +1,10 @@
++ [B]1.7.9[/B] [COLOR yellow](23-06-2018)[/COLOR]
+- Fixed directory indexer for episodes on some cases
+- Improved plot fetching to player
+- Added debug toggle in important info menu
+- Added debug messages into player module
+- 2 years anniversary!
+
 + [B]1.7.8[/B] [COLOR yellow](18-06-2018)[/COLOR]
 - Added more conditionals for dash
 - Remove forgotten chardet import

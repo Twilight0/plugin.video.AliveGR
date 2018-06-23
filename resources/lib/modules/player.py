@@ -247,7 +247,12 @@ def gm_source_maker(url):
         else:
             plot = control.lang(30085)
 
-        return 'movies', hosts, links, plot, genre
+        code = None
+        imdb_code = re.search('imdb.+?/title/([\w]+?)/', html)
+        if imdb_code:
+            code = imdb_code.group(1)
+
+        return 'movies', hosts, links, plot, genre, code
 
 
 def gm_debris(link):
@@ -332,7 +337,9 @@ def items_directory(url):
     try:
         description = sources[3]
     except IndexError:
-        description = control.lang(30085)
+        description = params.get('plot').encode('latin-1')
+        if not description:
+            description = control.lang(30085)
 
     try:
         genre = sources[4]
@@ -346,16 +353,13 @@ def items_directory(url):
         image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
         image = urljoin(base_link, image)
         title = client.parseDOM(html, 'h3')[0]
-        year = client.parseDOM(html, 'h4')[0][-4:]
         try:
-            episode = client.stripTags(client.parseDOM(html, 'h4')[1])
-            episode = episode.rpartition(' ')[2]
-            if '-' in episode:
-                episode = episode.split('-')[::-1]
-                episode = '-'.join(episode)
-            elif '.' in episode:
-                episode = episode.split('.')
-                episode = control.lang(30066) + ' ' + episode[0] + ', ' + control.lang(30067) + ' ' + episode[1]
+            year = client.parseDOM(html, 'h4')[-2][-4:]
+        except IndexError:
+            year = client.parseDOM(html, 'h4')[-1][-4:]
+        try:
+            episode = client.stripTags(client.parseDOM(html, 'h4')[-1])
+            episode = episode.partition(': ')[2]
             label = title + ' - ' + episode + ' - ' + h
             title = title + ' - ' + episode
         except IndexError:
@@ -415,8 +419,6 @@ def play_m3u(link, title, rename_titles=True, randomize=True):
 
 def player(url):
 
-    log_debug('Attempting to play this url: ' + url)
-
     if url is None:
         log_debug('Nothing playable was found')
         return
@@ -425,9 +427,12 @@ def player(url):
 
     link = url.replace('&amp;', '&')
 
+    log_debug('Attempting to play this url: ' + link)
+
     stream = router(link)
 
     if stream is None:
+        log_debug('Failed to resolve this url: ' + link)
         control.execute('Dialog.Close(all)')
         return
 
@@ -442,12 +447,22 @@ def player(url):
             resolved = stream
             try:
                 plot = params.get('plot').encode('latin-1')
+                if not plot:
+                    raise BaseException
             except BaseException:
                 pass
 
     except TypeError:
 
         resolved = stream
+
+    else:
+
+        log_debug('Plot obtained')
+
+    finally:
+
+        log_debug('Stream has been resolved: ' + link)
 
     try:
 
@@ -461,7 +476,27 @@ def player(url):
 
         pass
 
-    dash = '.mpd' in resolved or 'dash' in resolved or '.ism' in resolved or '.hls' in resolved
+    try:
+        addon_enabled = control.addon_details('inputstream.adaptive').get('enabled')
+    except KeyError:
+        addon_enabled = False
+
+    mpeg_dash_on = control.setting('mpeg_dash') == 'true' and addon_enabled
+
+    dash = ('.mpd' in resolved or 'dash' in resolved or '.ism' in resolved or '.hls' in resolved) and mpeg_dash_on
+
+    if dash:
+
+        if '.hls' in resolved:
+            manifest_type = 'hls'
+        elif '.ism' in resolved:
+            manifest_type = 'ism'
+        else:
+            manifest_type = 'mpd'
+
+        log_debug('Activating MPEG-DASH for this url: ' + resolved)
+
+    else: manifest_type = ''
 
     image = params.get('image').encode('latin-1')
     title = params.get('title').encode('latin-1')
@@ -478,7 +513,7 @@ def player(url):
     else:
 
         try:
-            directory.resolve(resolved, meta=meta, icon=image, dash=dash)
+            directory.resolve(resolved, meta=meta, icon=image, dash=dash, manifest_type=manifest_type)
         except:
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30112))

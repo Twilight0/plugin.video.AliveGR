@@ -67,7 +67,7 @@ def wrapper(url):
     else:
         choices = [s for s in streams if 'dash' not in s['title'].lower()]
 
-    if control.condVisibility('Window.IsVisible(music)') or control.setting('audio_only') == 'true':
+    if control.condVisibility('Window.IsVisible(music)') and control.setting('audio_only') == 'true':
 
         resolved = [u['url'] for u in choices if 'aac@128' in u['title'].lower()][0]
 

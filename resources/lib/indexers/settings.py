@@ -127,7 +127,7 @@ class Indexer:
             ,
             {
                 'title': control.lang(30260),
-                'action': 'none',
+                'action': 'toggle_debug',
                 'plot': 'Git repo',
                 'icon': control.addonmedia(
                     addonid=art_id, theme='icons', icon='bitbucket.png', media_subfolder=False

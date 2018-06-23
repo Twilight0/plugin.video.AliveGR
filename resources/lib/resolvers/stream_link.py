@@ -20,23 +20,15 @@
 
 import streamlink.session
 from tulip import control
-from ..modules.helpers import stream_picker
-
-
-try:
-    custom_plugins = control.join(control.addon('script.module.streamlink.plugins').getAddonInfo('path'), 'plugins')
-except:
-    pass
+from resources.lib.modules.helpers import stream_picker
 
 
 def sl_session(url):
 
-    session = streamlink.session.Streamlink()
+    # custom_plugins = control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'sl_plugins')
 
-    try:
-        session.load_plugins(custom_plugins)
-    except:
-        pass
+    session = streamlink.session.Streamlink()
+    # session.load_plugins(custom_plugins)
 
     plugin = session.resolve_url(url)
     streams = plugin.get_streams()

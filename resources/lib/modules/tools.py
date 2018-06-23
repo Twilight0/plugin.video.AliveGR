@@ -335,6 +335,7 @@ def repo_check():
     else: pass
 
 
+#Reserved might user later
 # def block_check():
 #
 #     if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
