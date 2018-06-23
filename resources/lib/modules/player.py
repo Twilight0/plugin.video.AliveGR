@@ -353,10 +353,7 @@ def items_directory(url):
         image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
         image = urljoin(base_link, image)
         title = client.parseDOM(html, 'h3')[0]
-        try:
-            year = client.parseDOM(html, 'h4')[-2][-4:]
-        except IndexError:
-            year = client.parseDOM(html, 'h4')[-1][-4:]
+        year = [y[-4:] for y in client.parseDOM(html, 'h4') if str(y[-4:]).isdigit()][0]
         try:
             episode = client.stripTags(client.parseDOM(html, 'h4')[-1])
             episode = episode.partition(': ')[2]
@@ -378,7 +375,8 @@ def items_directory(url):
 
 def directory_picker(url):
 
-    items = cache.get(items_directory, 12, url)
+    # items = cache.get(items_directory, 12, url)
+    items = items_directory(url)
 
     if items is None:
         return

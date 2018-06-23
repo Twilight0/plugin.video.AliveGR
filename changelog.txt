@@ -1,3 +1,6 @@
++ [B]1.7.10[/B] [COLOR yellow](23-06-2018)[/COLOR]
+- More fixes in directory mode for streams' picking
+
 + [B]1.7.9[/B] [COLOR yellow](23-06-2018)[/COLOR]
 - Fixed directory indexer for episodes on some cases
 - Improved plot fetching to player
