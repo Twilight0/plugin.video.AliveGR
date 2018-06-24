@@ -1,61 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.10" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.7.11" provider-name="Thgiliwt">
+    <reuselanguageinvoker>false</reuselanguageinvoker>
     <requires>
-        <import addon="xbmc.python" version="2.24.0"/>
-        <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
-        <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
-        <import addon="script.module.resolveurl" version="5.0.06"/>
-        <import addon="script.module.streamlink.base" version="2018.06.20"/>
-        <import addon="script.module.tulip" version="2.0.6"/>
-        <import addon="plugin.video.youtube" version="5.5.1"/>
+        <import addon="xbmc.python" version="2.1.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
-        <provides>video audio image executable</provides>
+        <provides>video</provides>
     </extension>
-    <extension point="xbmc.service" library="resources/lib/modules/service.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary lang="en">AliveGR addon</summary>
-        <description lang="en_GB">AliveGR is an addon offering streaming content available in Greece.</description>
-        <disclaimer lang="en_GB">AliveGR's author does not host, stream or distribute any of the content displayed inside this software and cannot be held responsible for the quality or availability of the listed streams.
-On demand content is scraped from various websites and are freely available on the internet. This software acts as indexer and not a linker.
-Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is" with no warranty.
-        </disclaimer>
-        <summary lang="el_GR">Πρόσθετο AliveGR</summary>
-        <description lang="el_GR">Το πρόσθετο AliveGR προσφέρει ροές περιεχομένου διαθέσιμες στην Ελλάδα.</description>
-        <disclaimer lang="el_GR">Ο δημιουργός του AliveGR δεν φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
-Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο. Το παρόν λογισμικό ενεργεί ως κατάλογος και όχι ως συνδεσμοποιητής.
-Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.
-        </disclaimer>
-        <language>en el</language>
-        <license>GNU GPL, version 2</license>
-        <website>https://twitter.com/TwilightZer0</website>
-        <!--<forum></forum>-->
-        <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
-        <size>404818</size>
-        <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR, the BEST addon with everything greek related[/COLOR][/I]
-[I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
-
-+ [B]1.7.10[/B] [COLOR yellow](23-06-2018)[/COLOR]
-- More fixes in directory mode for streams' picking
-
-+ [B]1.7.9[/B] [COLOR yellow](23-06-2018)[/COLOR]
-- Fixed directory indexer for episodes on some cases
-- Improved plot fetching to player
-- Added debug toggle in important info menu
-- Added debug messages into player module
-- 2 years anniversary!</news>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-            <!--<screenshot>resources/alivegr-1.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-2.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-3.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-4.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-5.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-6.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-7.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-8.jpg</screenshot>-->
-        </assets>
     </extension>
 </addon>
