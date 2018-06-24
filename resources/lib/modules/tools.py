@@ -18,10 +18,22 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+
 from tulip import control, client
 from helpers import thgiliwt, addon_version, cache_clear
-from constants import api_keys
 
+
+########################################################################################################################
+############### Please do not copy these keys, instead create your own with this tutorial: #############################
+############### http://forum.kodi.tv/showthread.php?tid=267160&pid=2299960#pid2299960      #############################
+########################################################################################################################
+
+api_keys = {
+    'enablement': 'true',
+    'id': '498788153161-pe356urhr0uu2m98od6f72k0vvcdsij0.apps.googleusercontent.com',
+    'api_key': '0I1Ry82VGNWOypWMxUDR5JGMs5kQINDMmdET59UMrhTQ5NVY6lUQ',
+    'secret': 'e6RBIFCVh1Fm-IX87PVJjgUu'
+}
 
 ########################################################################################################################
 
@@ -99,6 +111,7 @@ def enable_proxy_module():
             control.infoDialog(control.lang(30142))
     else:
         control.infoDialog(control.lang(30143))
+    control.addon('service.streamlink.proxy').setSetting('listen_port', '50165')
 
 
 def setup_previous_menu_key():
@@ -130,7 +143,7 @@ def setup_mouse_keymap():
         string_for_up = '<wheelup>ZoomIn</wheelup>'
         string_for_down = '<wheeldown>ZoomOut</wheeldown>'
 
-        classes = [string_for_left, string_for_right, string_for_middle, string_for_up, string_for_down]
+        strings = [string_for_left, string_for_right, string_for_middle, string_for_up, string_for_down]
 
         map_left = control.lang(30241)
         map_right = control.lang(30242)
@@ -153,7 +166,7 @@ def setup_mouse_keymap():
             finalized = []
 
             for i in indices:
-                finalized.append(classes[i])
+                finalized.append(strings[i])
 
             joined = ''.join(finalized)
 
@@ -216,12 +229,6 @@ def yt_setup():
         control.addon('plugin.video.youtube').setSetting('youtube.region', 'GR')
         control.infoDialog(message=control.lang(30402), time=3000)
 
-    def yt_mpd():
-
-        control.addon('plugin.video.youtube').setSetting('kodion.video.quality.mpd', 'true')
-        control.addon('plugin.video.youtube').setSetting('kodion.mpd.proxy', 'true')
-        control.infoDialog(message=control.lang(30402), time=3000)
-
 ########################################################################################################################
 
     def process():
@@ -247,12 +254,6 @@ def yt_setup():
     if control.yesnoDialog(line1=control.lang(30132), line2='', line3=''):
 
         wizard()
-
-    else: pass
-
-    if control.yesnoDialog(line1=control.lang(30287), line2='', line3=''):
-
-        yt_mpd()
 
     else: pass
 
@@ -282,7 +283,7 @@ def isa_enable():
     try:
         enabled = control.addon_details('inputstream.adaptive').get('enabled')
 
-        if addon_version('xbmc.python') >= 2250 and not enabled:
+        if addon_version('xbmc.python') > 224 and not enabled:
             yes = control.yesnoDialog(control.lang(30252))
             if yes:
                 control.enable_addon('inputstream.adaptive')
@@ -292,109 +293,41 @@ def isa_enable():
         elif enabled:
             control.infoDialog(control.lang(30254))
     except:
-        control.infoDialog(control.lang(30278))
-
-
-def rtmp_enable():
-
-    try:
-        enabled = control.addon_details('inputstream.rtmp').get('enabled')
-
-        if addon_version('xbmc.python') >= 225 and not enabled:
-            yes = control.yesnoDialog(control.lang(30277))
-            if yes:
-                control.enable_addon('inputstream.rtmp')
-                control.infoDialog(control.lang(30402))
-            else:
-                pass
-        elif enabled:
-            control.infoDialog(control.lang(30276))
-    except:
-        control.infoDialog(control.lang(30279))
-
-
-def disclaimer():
-
-    text = control.addonInfo('disclaimer')
-
-    control.dialog.textviewer(
-        control.addonInfo(
-            'name'
-        ) + ', ' + control.lang(30129), ' ' * 3 + text.decode('utf-8') + '\n' * 2 + control.lang(30131)
-    )
-
-
-def repo_check():
-
-    if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
-
-        control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
-        control.execute('Dialog.Close(all)')
-        import sys; sys.exit()
-
-    else: pass
-
-
-#Reserved might user later
-# def block_check():
-#
-#     if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
-#
-#         settings_xml = control.join(control.dataPath, 'settings.xml')
-#         control.deleteFile(settings_xml)
-#         control.okDialog(control.lang(30270), control.lang(30271))
-#
-#     else: pass
+        pass
 
 
 def checkpoint():
 
+    disclaimer = control.addonInfo('disclaimer')
+
     if control.setting('first_time') == 'true':
 
-        disclaimer()
+        control.dialog.textviewer(
+            control.addonInfo(
+                'name'
+            ) + ', ' + control.lang(30129),  ' ' * 3 + disclaimer.decode('utf-8') + '\n' * 2 + control.lang(30131)
+        )
 
-        if control.yesnoDialog(control.lang(30266)):
+        control.monitor.abortRequested()
 
-            control.setSetting('first_time', 'false')
-            control.aborted()
+    else: pass
 
-        else: pass
+    if not control.condVisibility('System.HasAddon(repository.thgiliwt)') or not control.addon_details('repository.thgiliwt').get('enabled'):
+
+        control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
+        control.execute('Dialog.Close(all)')
+        import sys
+        sys.exit(1)
 
     else: pass
 
     if control.exists(control.join(control.addonPath, 'DELETE_ME')):
-        if control.yesnoDialog(control.lang(30267)):
-            changelog()
-        else: pass
         cache_clear()
-        # block_check()
+        changelog()
+        isa_enable()
         control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
 
     else: pass
-
-
-#Reserved might user later, needs refinement:
-# def mailer(title):
-#
-#     import smtplib
-#
-#     sender = control.dialog.input()
-#     text = control.dialog.input()
-#     username = control.dialog.input()
-#     password = control.dialog.input()
-#
-#     smtpServer = 'smtp.{0}'.format(fromAddr.partition('@')[2])
-#     rcvr = thgiliwt('=' + 'I3ZuwWah1WZlJnZARHanlGbpdHd')
-#     text = '''Subject: {0}{1}
-#
-#     {2}
-#     '''.format(subject, title, text)
-#
-#     server = smtplib.SMTP(smtpServer)
-#     server.starttls()
-#     server.login(username, password)
-#     server.sendmail(sender, rcvr, text)
-#     server.quit()
 
 
 def dev():

@@ -27,7 +27,7 @@ msgid "Appearance"
 msgstr ""
 
 msgctxt "#30004"
-msgid "Streams"
+msgid "Live Streams"
 msgstr ""
 
 msgctxt "#30005"
@@ -35,11 +35,11 @@ msgid "Folders"
 msgstr ""
 
 msgctxt "#30006"
-msgid "Quality Choice"
+msgid ""
 msgstr ""
 
 msgctxt "#30007"
-msgid "Live"
+msgid ""
 msgstr ""
 
 msgctxt "#30008"
@@ -47,7 +47,7 @@ msgid "Networks"
 msgstr ""
 
 msgctxt "#30009"
-msgid "Video on demand"
+msgid ""
 msgstr ""
 
 msgctxt "#30010"
@@ -163,7 +163,7 @@ msgid "More maintenance tools"
 msgstr ""
 
 msgctxt "#30038"
-msgid "Resolve youtube streams with ResolveURL"
+msgid "Resolve youtube streams with URLResolver"
 msgstr ""
 
 msgctxt "#30039"
@@ -295,7 +295,7 @@ msgid "This action will log you out if already logged in"
 msgstr ""
 
 msgctxt "#30071"
-msgid "Youtube Setup"
+msgid "Youtube API Keys Setup"
 msgstr ""
 
 msgctxt "#30072"
@@ -431,11 +431,11 @@ msgid "Twilight"
 msgstr ""
 
 msgctxt "#30105"
-msgid "[COLOR white]AliveGR:[/COLOR] [COLOR red]Legal[/COLOR]"
+msgid "Dr.Azziw"
 msgstr ""
 
 msgctxt "#30106"
-msgid "Click to open a brief text by the developer"
+msgid "Toggle On/Off dark theme"
 msgstr ""
 
 msgctxt "#30107"
@@ -447,7 +447,7 @@ msgid "or via context menu -> Refresh"
 msgstr ""
 
 msgctxt "#30109"
-msgid "Language Choice"
+msgid "VOD Streams"
 msgstr ""
 
 msgctxt "#30110"
@@ -455,7 +455,7 @@ msgid "Changelog"
 msgstr ""
 
 msgctxt "#30111"
-msgid "Stream Resolver Settings (ResolveURL)"
+msgid "Stream Resolver Settings (URL Resolver)"
 msgstr ""
 
 msgctxt "#30112"
@@ -587,7 +587,7 @@ msgid "Local proxy module already installed"
 msgstr ""
 
 msgctxt "#30144"
-msgid "Action for streams' choice"
+msgid "Type of dialog for streams' choice"
 msgstr ""
 
 msgctxt "#30145"
@@ -679,7 +679,7 @@ msgid "Enable local proxy module"
 msgstr ""
 
 msgctxt "#30167"
-msgid "Streamlink (ustream, facebook, twitch, dailymotion)"
+msgid "Quality choice (streamlink)"
 msgstr ""
 
 msgctxt "#30168"
@@ -771,7 +771,7 @@ msgid "Greek"
 msgstr ""
 
 msgctxt "#30219"
-msgid "HLS (m3u8/ts)"
+msgid "Quality choice (HLS)"
 msgstr ""
 
 msgctxt "#30220"
@@ -795,7 +795,7 @@ msgid "Music indexers play audio only"
 msgstr ""
 
 msgctxt "#30225"
-msgid "Part "
+msgid "Quality choice (youtube)"
 msgstr ""
 
 msgctxt "#30226"
@@ -811,7 +811,7 @@ msgid "Toggle (un)watched status"
 msgstr ""
 
 msgctxt "#30229"
-msgid "Auto reset indexers"
+msgid "Toggle auto reset indexers"
 msgstr ""
 
 msgctxt "#30230"
@@ -907,7 +907,7 @@ msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30253"
-msgid "Activate inputstream adaptive (MPEG-DASH)"
+msgid "Enable inputstream adaptive addon (DASH)"
 msgstr ""
 
 msgctxt "#30254"
@@ -935,115 +935,11 @@ msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com
 msgstr ""
 
 msgctxt "#30260"
-msgid "[COLOR white]Source code & support:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgid "[COLOR white]Support, feature & pull requests:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
 msgstr ""
 
 msgctxt "#30261"
 msgid "Forced updating of addons repositories"
-msgstr ""
-
-msgctxt "#30262"
-msgid "Quality choice (Youtube-DL)"
-msgstr ""
-
-msgctxt "#30263"
-msgid "Thank you for using AliveGR addon"
-msgstr ""
-
-msgctxt "#30264"
-msgid "[COLOR white]ResolveURL, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
-msgstr ""
-
-msgctxt "#30265"
-msgid "Click on this item to force update local repos"
-msgstr ""
-
-msgctxt "#30266"
-msgid "Do you agree with these terms?"
-msgstr ""
-
-msgctxt "#30267"
-msgid "Display this version's changelog?"
-msgstr ""
-
-msgctxt "#30268"
-msgid "Randomize m3u playlists (pseudo-live streams)"
-msgstr ""
-
-msgctxt "#30269"
-msgid "Developer's top 50 picks"
-msgstr ""
-
-msgctxt "#30270"
-msgid "Warning"
-msgstr ""
-
-msgctxt "#30271"
-msgid "The author of G.K.N. Wizard has made some unauthorised changes to the settings of AliveGR, settings have been reset"
-msgstr ""
-
-msgctxt "#30272"
-msgid "MPEG-DASH (Adaptive Stream Quality) & RTMP addons (Krypton+)"
-msgstr ""
-
-msgctxt "#30273"
-msgid "Input stream addon settings"
-msgstr ""
-
-msgctxt "#30274"
-msgid "Utilize MPEG-DASH"
-msgstr ""
-
-msgctxt "#30275"
-msgid "Activate RTMP"
-msgstr ""
-
-msgctxt "#30276"
-msgid "RTMP has already been activated"
-msgstr ""
-
-msgctxt "#30277"
-msgid "RTMP addon is not enabled. Do you to enabled it now?"
-msgstr ""
-
-msgctxt "#30278"
-msgid "Inputstream adaptive addon could not be enabled"
-msgstr ""
-
-msgctxt "#30279"
-msgid "RTMP addon could not be enabled"
-msgstr ""
-
-msgctxt "#30280"
-msgid "Auto play"
-msgstr ""
-
-msgctxt "#30281"
-msgid "Youtube addon settings"
-msgstr ""
-
-msgctxt "#30282"
-msgid "Randomize playlist items"
-msgstr ""
-
-msgctxt "#30283"
-msgid "Addonid {0} was not found in your system"
-msgstr ""
-
-msgctxt "#30284"
-msgid "Playlist"
-msgstr ""
-
-msgctxt "#30285"
-msgid "Welcome to [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! The [COLOR red]best[/COLOR] addon for all the Greeks.[CR]Please do not hesitate to fiddle with the settings, they don't bite!"
-msgstr ""
-
-msgctxt "#30286"
-msgid "Do you want to also set the keyboard in dual layout English/Greek?"
-msgstr ""
-
-msgctxt "#30287"
-msgid "Do you want to also enable MPEG-DASH setting on youtube addon?"
 msgstr ""
 
 msgctxt "#30401"

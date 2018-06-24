@@ -17,3 +17,41 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+
+from tulip.control import infoLabel
+from tulip.init import params
+
+########################################################################################################################
+
+action = params.get('action', None)
+url = params.get('url')
+content = params.get('content_type')
+image = params.get('image')
+title = params.get('title')
+name = params.get('name')
+query = params.get('query')
+tvguide = params.get('tvguide')
+plot = params.get('plot')
+genre = params.get('genre')
+
+########################################################################################################################
+
+sleep = params.get('sleep')
+
+if sleep is None:
+    sleep = True
+else:
+    sleep = False
+
+########################################################################################################################
+
+fp = infoLabel('Container.FolderPath')
+
+if 'audio' in fp and action is None:
+    action = 'audio'
+elif 'image' in fp and action is None:
+    action = 'papers_index'
+elif 'executable' in fp and action is None:
+    action = 'settings'
+
+########################################################################################################################

@@ -20,15 +20,23 @@
 
 import streamlink.session
 from tulip import control
-from resources.lib.modules.helpers import stream_picker
+from ..modules.helpers import stream_picker
+
+
+try:
+    custom_plugins = control.join(control.addon('script.module.streamlink.plugins').getAddonInfo('path'), 'plugins')
+except:
+    pass
 
 
 def sl_session(url):
 
-    # custom_plugins = control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'sl_plugins')
-
     session = streamlink.session.Streamlink()
-    # session.load_plugins(custom_plugins)
+
+    try:
+        session.load_plugins(custom_plugins)
+    except:
+        pass
 
     plugin = session.resolve_url(url)
     streams = plugin.get_streams()
@@ -42,18 +50,13 @@ def sl_session(url):
     except KeyError:
         pass
 
-    if control.setting('sl_quality_picker') == '1':
+    keys = streams.keys()
+    values = [u.url for u in streams.values()]
 
-        keys = streams.keys()[::-1]
-        values = [u.to_url() for u in streams.values()][::-1]
+    if control.setting('sl_quality_picker') == '1':
 
         return stream_picker(keys, values)
 
     else:
 
-        return streams['best'].to_url()
-
-
-def sl_hosts(url):
-
-    return ['ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url, 'ttvnw' in url]
+        return streams['best'].url

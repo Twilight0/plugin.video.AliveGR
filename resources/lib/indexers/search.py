@@ -19,13 +19,13 @@
 '''
 
 
-from tulip import client, directory, control, cache, cleantitle
+from tulip import client, directory, control, cache
 from tulip.init import sysaddon
 import gm
 import re, urllib, urlparse, json
 
 
-class Indexer:
+class Main:
 
     def __init__(self):
 
@@ -35,12 +35,20 @@ class Indexer:
 
     def search(self):
 
-        choices = [control.lang(30096), control.lang(30097), control.lang(30098)]
+        def strip_accents(s):
+
+            import unicodedata
+
+            result = ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
+
+            return result
+
+        choices = [control.lang(30096), control.lang(30097), control.lang(30098), control.lang(30099)]
         choice = control.selectDialog(heading=control.lang(30095), list=choices)
 
         if choice == 0:
 
-            str_input = control.dialog.input(
+            str_input = control.inputDialog(
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096)
             )
 
@@ -48,7 +56,7 @@ class Indexer:
 
                 import live
 
-                self.data = cache.get(live.Indexer().live, 4)[0]
+                self.data = cache.get(live.Main().live, 4)[0]
 
                 for item in self.data:
                     item.update({'action': 'play', 'isFolder': 'False'})
@@ -76,11 +84,11 @@ class Indexer:
 
             import documentaries
 
-            str_input = control.dialog.input(
+            str_input = control.inputDialog(
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
             )
 
-            str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+            str_input = strip_accents(str_input.decode('utf-8'))
 
             if bool(str_input):
 
@@ -137,14 +145,14 @@ class Indexer:
 
                 dl = [
                     item for item in cache.get(
-                        documentaries.Indexer().items_list, 48
-                    ) if str_input.lower() in cleantitle.strip_accents(item['title'].decode('utf-8')).lower()
+                        documentaries.Main().items_list, 48
+                    ) if str_input.lower() in strip_accents(item['title'].decode('utf-8')).lower()
                 ]
 
                 for item in dl:
                     item.update({'action': 'play', 'isFolder': 'False'})
 
-                if control.setting('action_type') == '0' or control.setting('action_type') == '2':
+                if control.setting('dialog_type') == '0':
                     for item in self.data:
                         item.update({'action': 'play', 'isFolder': 'False'})
                 else:
@@ -171,9 +179,7 @@ class Indexer:
 
         elif choice == 2:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30098)
-            )
+            str_input = control.inputDialog(heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30098))
 
             if bool(str_input):
 
@@ -236,6 +242,96 @@ class Indexer:
                     bookmark['bookmark'] = item['url']
                     bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
                     item.update({'cm': [bookmark_cm]})
+
+                directory.add(self.list, content='movies')
+
+            else:
+                return
+
+        elif choice == 3:
+
+            str_input = control.inputDialog(
+                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30099)
+            )
+
+            str_input = strip_accents(str_input.decode('utf-8'))
+
+            if bool(str_input):
+
+                query = self.google.format(str_input.encode('utf-8'), gm.base_link)
+
+                html = client.request(query.replace(' ', '+'), headers=self.UA)
+
+                items = client.parseDOM(html, 'h3', attrs={'class': 'r'})
+
+                for item in items:
+
+                    title = client.parseDOM(item, 'a')[0].rstrip(u' ‒ Greek-Movies')
+                    title = client.replaceHTMLCodes(title)
+                    title = re.sub('</?b>', '', title)
+
+                    if '- Greek' in title:
+                        idx = title.rfind('- Greek')
+                        title = title[:idx].strip()
+                    elif u'‒ Greek' in title:
+                        idx = title.rfind(u'‒ Greek')
+                        title = title[:idx].strip()
+
+                    url = client.parseDOM(item, 'a', ret='href')[0]
+                    url = urllib.unquote_plus(url.partition('=')[2].partition('&amp;')[0])
+
+                    if 'animation.php?s=' not in url:
+                        continue
+
+                    item_html = client.request(url)
+
+                    try:
+                        thumb = client.parseDOM(item_html, 'img', attrs={'class': 'thumbnail.*?'}, ret='src')[0]
+                    except IndexError:
+                        thumb = client.parseDOM(item_html, 'IMG', ret='SRC')[0]
+
+                    image = urlparse.urljoin(gm.base_link, thumb)
+
+                    year = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
+                    year = int(year.strip(u'Έτος:').strip()[:4])
+
+                    if 'text-align: justify' in html:
+                        plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
+                    elif 'text-justify' in html:
+                        plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
+                    else:
+                        plot = control.lang(30085)
+
+                    self.list.append(
+                        {
+                            'title': title, 'url': url, 'image': image.encode('utf-8'), 'year': year, 'plot': plot,
+                            'action': 'episodes'
+                        }
+                    )
+
+                self.data = cache.get(gm.Main().items_list, 24, urlparse.urljoin(gm.Main().movies_link, '?g=8&y=&l=&p='))
+
+                cm = [item for item in self.data if str_input.lower() in item['title'].lower()]
+
+                if control.setting('dialog_type') == '0':
+                    for item in cm:
+                        item.update({'action': 'play', 'isFolder': 'False'})
+                else:
+                    for item in cm:
+                        item.update({'action': 'directory'})
+
+                self.list += cm
+
+                if self.list is None:
+                    return
+
+                for item in self.list:
+                    bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+                    bookmark['bookmark'] = item['url']
+                    bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+                    item.update({'cm': [bookmark_cm]})
+
+                self.list = sorted(self.list, key=lambda k: k['title'].lower())
 
                 directory.add(self.list, content='movies')
 

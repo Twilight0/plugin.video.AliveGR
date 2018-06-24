@@ -21,10 +21,9 @@
 
 from tulip import control
 from tulip.init import syshandle
-from ..modules.constants import art_id
 
 
-class Indexer:
+class Main:
 
     def __init__(self):
 
@@ -35,98 +34,92 @@ class Indexer:
         networks = [
             {
                 'title': 'EPT',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='ert_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ert_icon.png'),
                 'url': 'plugin://plugin.video.ert.gr/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='ert_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ert_fanart.jpg')
             }
             ,
             {
                 'title': 'ANT1',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='ant1_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ant1_icon.png'),
                 'url': 'plugin://plugin.video.antenna.gr/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='ant1_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='ant1_fanart.jpg')
             }
             ,
             {
                 'title': 'STAR',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='star_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='star_icon.png'),
                 'url': 'plugin://plugin.video.star.gr/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='star_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='star_fanart.jpg')
             }
             ,
             {
                 'title': 'ALPHA',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='alpha_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='alpha_icon.png'),
                 'url': 'plugin://plugin.video.alphatv.gr/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='alpha_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='alpha_fanart.jpg')
             }
             ,
             {
                 'title': 'SKAI',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='skai_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='skai_icon.png'),
                 'url': 'plugin://plugin.video.skai.gr/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='skai_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='skai_fanart.jpg')
             }
             ,
             {
                 'title': 'EURONEWS',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='euronews_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='euronews_icon.png'),
                 'url': 'plugin://plugin.video.euronews.com/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='euronews_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='euronews_fanart.jpg')
             }
             # ,
             # {
             #     'title': 'VICE',
-            #     'icon': control.addonmedia(addonid=art_id, theme='networks', icon='vice_icon.png', media_subfolder=False),
+            #     'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='vice_icon.png'),
             #     'url': 'plugin://plugin.video.vice/',
-            #     'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='vice_fanart.jpg', media_subfolder=False)
+            #     'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='vice_fanart.jpg')
             # }
             ,
             {
                 'title': 'NOVASPORTS',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='nova_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='nova_icon.png'),
                 'url': 'plugin://plugin.video.novasports.gr/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='nova_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='nova_fanart.jpg')
             }
             ,
             {
                 'title': 'GREEK VOICE',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='wzra48_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='wzra48_icon.png'),
                 'url': 'plugin://plugin.video.greekvoice/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='wzra48_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='wzra48_fanart.jpg')
             }
             ,
             {
                 'title': 'TORONTO CHANNELS',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='tc_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='tc_icon.png'),
                 'url': 'plugin://plugin.video.Toronto-Channels/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='tc_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='tc_fanart.jpg')
             }
             ,
             {
                 'title': 'MONTREAL GREEK TV',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='mg_icon.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='mg_icon.png'),
                 'url': 'plugin://plugin.video.montreal.greek-tv/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='mgtv_fanart.jpg', media_subfolder=False)
-            }
-            ,
-            {
-                'title': 'FAROS ON AIR',
-                'icon': control.addonmedia(addonid=art_id, theme='networks', icon='faros_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.faros.on-air/',
-                'fanart': control.addonmedia(addonid=art_id, theme='networks', icon='faros_fanart.jpg', media_subfolder=False)
+                'fanart': control.addonmedia(addonid='script.AliveGR.artwork', theme='networks', icon='mgtv_fanart.jpg')
             }
         ]
 
         if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-            del networks[-2]
+            del networks[-1]
 
         for network in networks:
 
             list_item = control.item(label=network['title'])
             list_item.setArt({'icon': network['icon'], 'fanart': network['fanart']})
             url = network['url']
-            self.list.append((url, list_item, True))
+            isFolder = True
+            self.list.append((url, list_item, isFolder))
 
         control.addItems(syshandle, self.list)
         control.directory(syshandle)

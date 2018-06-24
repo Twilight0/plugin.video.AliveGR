@@ -21,26 +21,15 @@
 import re
 import json
 
-from tulip import cache, client, directory, control
+from tulip import control, cache, client, directory
 from tulip.log import *
 from urlparse import urljoin, urlparse
 from ..modules.themes import iconname
-from ..modules.helpers import loader
-from ..modules.constants import sdik
 from tulip.init import syshandle, sysaddon
 
-try:
-    if not control.condVisibility('System.HasAddon({0})'.format(sdik)):
-        loader('bl.py', 'indexers')
-        from bl import bl
-    else:
-        control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.py'))
-        control.deleteFile(control.join(control.addonPath, 'resources', 'lib', 'indexers', 'bl.pyo'))
-        bl = []
-except ImportError:
-    pass
 
 base_link = 'http://greek-movies.com/'
+
 movies_link = urljoin(base_link, 'movies.php')
 shows_link = urljoin(base_link, 'shows.php')
 series_link = urljoin(base_link, 'series.php')
@@ -108,14 +97,14 @@ def root(url):
             elif indexer.startswith('p='):
                 group = '30212'
             else:
-                group = ''
+                group = ''.decode('utf-8')
 
             root_list.append({'title': title, 'group': group, 'action': 'listing', 'url': index})
 
         return root_list, groups_list
 
 
-class Indexer:
+class Main:
 
     def __init__(self):
 
@@ -135,7 +124,7 @@ class Indexer:
         choice = control.selectDialog(heading=control.lang(30062), list=translated)
 
         if choice <= len(self.data) and not choice == -1:
-            control.setSetting('vod_group', self.data[choice])
+            control.setSetting('vod_group', self.data.pop(choice))
             control.idle()
             control.sleep(50)  # ensure setting has been saved
             control.refresh()
@@ -266,18 +255,16 @@ class Indexer:
 
         indexer = urlparse(url).query
 
-        ################################################################################################
-        #                                                                                              #
-        if 'movies.php' in url:                                                                        #
-            length = 9                                                                                 #
-        elif all(['shortfilm.php' in url, 'theater.php' in url]):                                      #
-            length = 6                                                                                 #
-        elif 'animation' in url and not control.condVisibility('System.HasAddon({0})'.format(sdik)):   #
-            return                                                                                     #
-        else:                                                                                          #
-            length = 2                                                                                 #
-        #                                                                                              #
-        ################################################################################################
+        ############################################################
+        #                                                          #
+        if 'movies.php' in url:                                    #
+            length = 9                                             #
+        elif all(['shortfilm.php' in url, 'theater.php' in url]):  #
+            length = 6                                             #
+        else:                                                      #
+            length = 2                                             #
+        #                                                          #
+        ############################################################
 
         for year in range(1, length):
 
@@ -293,12 +280,6 @@ class Indexer:
                 equation = ''
 
             self.years.append(equation)
-
-        if control.condVisibility('System.HasAddon({0})'.format(sdik)):
-            pass
-        else:
-            if indexer.startswith('g=8') and 'movies' in url or indexer.startswith('g=8') and 'shortfilm' in url:
-                return
 
         if indexer.startswith(
                 ('l=', 'g=', 's=', 'p=', 'c=')
@@ -325,31 +306,68 @@ class Indexer:
         for item in items:
 
             title = client.parseDOM(item, 'h4')[0]
+            icon = client.parseDOM(item, 'img', ret='src')[0]
 
-            try:
-                # noinspection PyUnresolvedReferences
-                if title in bl:
-                    continue
-            except:
-                pass
-
-            image = client.parseDOM(item, 'img', ret='src')[0]
+            # unused for now:
+            # title = client.parseDOM(item, 'p')[0]
+            # icon = client.parseDOM(item, 'IMG', ret='SRC')[0]
 
             name = title.rpartition(' (')[0]
 
-            image = urljoin(base_link, image)
+            icon = urljoin(base_link, icon)
             link = client.parseDOM(item, 'a', ret='href')[0]
             link = urljoin(base_link, link)
             year = re.findall('.*?\((\d{4})', title, re.U)[0]
 
-            self.list.append(
-                {
-                    'title': title, 'url': link,
-                    'image': image, 'year': int(year), 'name': name
-                }
-            )
+            # Not normally used, available only on dev mode, as it creates a lot of traffic:
+            if control.setting('show_info') == 'true' and control.setting('debug') == 'true':
 
-        log_debug('List of vod items ~ ' + repr(self.list))
+                item_html = client.request(link)
+
+                if 'text-align: justify' in item_html:
+                    plot = client.parseDOM(item_html, 'p', attrs={'style': 'text-align: justify'})[0]
+                elif 'text-justify' in item_html:
+                    plot = client.parseDOM(item_html, 'p', attrs={'class': 'text-justify'})[0]
+                else:
+                    plot = control.lang(30085)
+
+                info = client.parseDOM(item_html, 'h4', attrs={'style': 'text-indent:10px;'})
+
+                genre = info[1].lstrip('Είδος:'.decode('utf-8')).strip()
+
+                if 'imdb.com' in item_html:
+                    code = re.findall('(tt\d*)/?', info[3])[0]
+                else:
+                    code = ''
+
+                if url.startswith((series_link, shows_link, animation_link)):
+
+                    self.list.append(
+                        {
+                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
+                            'genre': genre, 'code': code
+                        }
+                    )
+
+                else:
+
+                    duration = int(info[2].lstrip('Διάρκεια:'.decode('utf-8')).strip(' \'')) * 60
+
+                    self.list.append(
+                        {
+                            'title': title, 'url': link, 'image': icon.encode('utf-8'), 'plot': plot, 'year': int(year),
+                            'genre': genre, 'duration': duration, 'code': code
+                        }
+                    )
+
+            # Available to all users:
+            else:
+
+                self.list.append(
+                    {
+                        'title': title, 'url': link, 'image': icon.encode('utf-8'), 'year': int(year), 'name': name
+                    }
+                )
 
         return self.list
 
@@ -358,21 +376,13 @@ class Indexer:
         self.list = cache.get(self.items_list, 12, url)
 
         if self.list is None:
-            log_debug('Listing section failed to load, try resetting indexer methods')
+            log_error('Listing section failed to load, try resetting indexer methods')
             return
 
-        log_debug('Caching was successful, list of vod items ~ ' + repr(self.list))
-
         if url.startswith((movies_link, theater_link, shortfilms_link)):
-            if control.setting('action_type') == '0':
+            if control.setting('dialog_type') == '0':
                 for item in self.list:
                     item.update({'action': 'play', 'isFolder': 'False'})
-            elif control.setting('action_type') == '2':
-                for item in self.list:
-                    if control.setting('auto_play') == 'false':
-                        item.update({'action': 'play'})
-                    else:
-                        item.update({'action': 'play', 'isFolder': 'False'})
             else:
                 for item in self.list:
                     item.update({'action': 'directory'})
@@ -448,16 +458,14 @@ class Indexer:
                 y = re.findall('<h4.+?bold.+?(\d{4})', row, re.U)[-1]
                 m = re.findall('width:50px..?>(.+?)<', row, re.U)[-1]
                 m = dictionary[m.decode('utf-8')]
-                prefix = '0' + title if len(title) == 1 else title
-                title = prefix + '-' + m + '-' + y
+                title = title + '-' + m + '-' + y
             else:
                 group = '3bytitle'
 
             self.list.append(
                 {
-                    'title': name + ' - ' + title, 'url': link, 'group': group,
-                    'name': name, 'image': image, 'plot': plot, 'year': year,
-                    'genre': genre
+                    'title': name + ' - ' + title, 'url': link, 'group': group, 'name': name,
+                    'image': image, 'plot': plot, 'year': year, 'genre': genre
                 }
             )
 
@@ -468,20 +476,12 @@ class Indexer:
         self.list = cache.get(self.epeisodia, 12, url)
 
         if self.list is None:
-            log_debug('Episode section failed to load, try resetting indexer methods')
+            log_error('Episode section failed to load, try resetting indexer methods')
             return
-        else:
-            log_debug('List of vod items ~ ' + repr(self.list))
 
-        if control.setting('action_type') == '0':
+        if control.setting('dialog_type') == '0':
             for item in self.list:
                 item.update({'action': 'play', 'isFolder': 'False'})
-        elif control.setting('action_type') == '2':
-            for item in self.list:
-                if control.setting('auto_play') == 'false':
-                    item.update({'action': 'play'})
-                else:
-                    item.update({'action': 'play', 'isFolder': 'False'})
         else:
             for item in self.list:
                 item.update({'action': 'directory'})
@@ -498,20 +498,23 @@ class Indexer:
         if control.setting('episodes_reverse') == 'true':
             self.list = sorted(
                 self.list,
-                key=lambda k: k['group'] if k['group'] in ['1bynumber', '2bydate'] else k['title'], reverse=True
-            )[::-1]
+                key=lambda k: (k['group'], k['title']) if k['group'] in ['1bynumber', '3bytitle'] else k['group']
+            )
         else:
-            self.list = sorted(self.list, key=lambda k: k['group'])
+            self.list = sorted(
+                self.list,
+                key=lambda k: k['group']
+            )
 
-        # control.sortmethods('unsorted')
-        # control.sortmethods('title')
-        # control.sortmethods('year')
+        control.sortmethods('unsorted')
+        control.sortmethods('title')
+        control.sortmethods('year')
 
         directory.add(self.list, content='episodes')
 
     def gm_sports(self):
 
-        html = cache.get(root, 48, sports_link)
+        html = cache.get(self.root, 48, sports_link)
         options = re.compile('(<option value.+?</option>)', re.U).findall(html)
 
         icons = ['https://www.shareicon.net/data/256x256/2015/11/08/157712_sport_512x512.png',
@@ -519,17 +522,14 @@ class Indexer:
 
         items = zip(options, icons)
 
-        for item, image in items:
+        for item, icon in items:
 
             title = client.parseDOM(item, 'option')[0]
             url = client.parseDOM(item, 'option', ret='value')[0]
             url = client.replaceHTMLCodes(url)
             index = urljoin(base_link, url)
 
-            data = {
-                'title': title, 'action': 'listing', 'url': index,
-                'image': image
-            }
+            data = {'title': title.encode('utf-8'), 'action': 'listing', 'url': index, 'image': icon}
             self.list.append(data)
 
         directory.add(self.list)
@@ -548,12 +548,7 @@ class Indexer:
             link = urljoin(base_link, link)
             plot = client.parseDOM(item, 'span', attrs={'class': 'pull-right'})[0]
 
-            self.list.append(
-                {
-                    'title': title, 'url': link, 'plot': plot,
-                    'image': image
-                }
-            )
+            self.list.append({'title': title, 'url': link, 'plot': plot, 'image': image.encode('utf-8')})
 
         return self.list
 
@@ -562,7 +557,7 @@ class Indexer:
         self.list = cache.get(self.event_list, 12, url)
 
         if self.list is None:
-            log_debug('Events section failed to load, try resetting indexer methods')
+            log_error('Events section failed to load, try resetting indexer methods')
             return
 
         for item in self.list:

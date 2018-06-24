@@ -17,15 +17,3 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-
-from tulip.init import params
-
-content = params.get('content_type')
-action = params.get('action')
-url = params.get('url')
-image = params.get('image')
-title = params.get('title')
-name = params.get('name')
-query = params.get('query')
-plot = params.get('plot')
-genre = params.get('genre')

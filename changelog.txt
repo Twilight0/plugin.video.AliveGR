@@ -1,71 +1,106 @@
-+ [B]1.7.10[/B] [COLOR yellow](23-06-2018)[/COLOR]
-- More fixes in directory mode for streams' picking
++ [B]1.5.8[/B] [COLOR yellow](15-11-2017)[/COLOR]
+- Removed caching from ellinikosfm's url in player module
+- Added importand info items, tools submenu
+- Added function for forcing addons' repositories update (in important info menu)
+- Obfuscation of live channels list
 
-+ [B]1.7.9[/B] [COLOR yellow](23-06-2018)[/COLOR]
-- Fixed directory indexer for episodes on some cases
-- Improved plot fetching to player
-- Added debug toggle in important info menu
-- Added debug messages into player module
-- 2 years anniversary!
-
-+ [B]1.7.8[/B] [COLOR yellow](18-06-2018)[/COLOR]
-- Added more conditionals for dash
-- Remove forgotten chardet import
-- Bumped tulip dependency into 2.0.3
-
-+ [B]1.7.7[/B] [COLOR yellow](18-06-2018)[/COLOR]
-- Fixed tv series/shows not playing links
-- Simplified params passing and loading of strings such as titles & image urls
-- Fix in gm indexers for images encoding
-- Minor other fixes
-
-+ [B]1.7.6[/B] [COLOR yellow](16-06-2018)[/COLOR]
-- Tweaks and cosmetics into player module
-- Optimizations into streamlink and youtube wrapper modules
-- Fixed music indexers for audio only playback
-- Fixed Radiopolis Top 20 indexers
-- Temporarily disabled documentaries section
-- Based off tulip 2.0.0+ for future python 3 compatibility
-
-+ [B]1.7.5[/B] [COLOR yellow](18-03-2018)[/COLOR]
-- Minor fix into the service module
-- Removed m3u8 as in python 3 branch
-
-+ [B]1.7.4[/B] [COLOR yellow](15-03-2018)[/COLOR]
-- Minor fixes into youtu wrapper
++ [B]1.5.7[/B] [COLOR yellow](14-11-2017)[/COLOR]
+- Inputstream adaptive addon can now be enabled through actions tab in settings window
+- Added try/except block for inputstream adaptive which doesn't exist on Jarvis
 - Bumped dependencies
 
-+ [B]1.7.3[/B] [COLOR yellow](01-02-2018)[/COLOR]
-- Added resolver for youtube based streams on various pages
-- Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
-- Replaced urlresolver with resolveurl by jsergio123
-- Improved youtube wizard by adding mpeg-dash enability prompt
-- Faros network addition
++ [B]1.5.6[/B] [COLOR yellow](13-11-2017)[/COLOR]
+- New resolver for ellinikosfm.tv
+- Minor fix for youtube's setup function
+- Checkpoint function can now enable inputstream adaptive addon if necessary
+- Removed doubled log_notice for indexer reset function
+- Improved detection of dash streams for auto-deletion on Jarvis and Krypton+ when inputstream addon is disabled
+- Various cosmetics and bug fixes
+
++ [B]1.5.5[/B] [COLOR yellow](10-11-2017)[/COLOR]
+- Fixed typo in live indexer which prevented proper load of channels
+
++ [B]1.5.4[/B] [COLOR yellow](09-11-2017)[/COLOR]
+- Various changes/cosmetics in player module
+- Added context menu item to open settings (old method)
+- Added toggle debug function for developer mode
+- Added program addon extension point directing into tools menu
+- Enhanced headlines info for news papers
+- Added "default" sort method for tv series & shows episodes indexers
+- Added function for setting up enhanced mouse keymap for newspaper covers
+- Added a few debug log messages in various addon levels
+
++ [B]1.5.3[/B] [COLOR yellow](06-11-2017)[/COLOR]
+- Re-added urlresolver call in player's wrapper function
+
++ [B]1.5.2[/B] [COLOR yellow](05-11-2017)[/COLOR]
+- Fixed another bug which dash music videos could not playback when best quality was selected.
+
++ [B]1.5.1[/B] [COLOR yellow](05-11-2017)[/COLOR]
+- Fixed playback of audio-only streams other the gm indexer's
+- Added songs content type when audio-only streams are selected
+
++ [B]1.5.0[/B] [COLOR yellow](05-11-2017)[/COLOR]
+- Minor re-order in settings
+- Added option to reset indexers automatically
+- Tweaks for developer mode
+- Added logging to a few addon levels
+- Added audio-only option for music indexers
+- Fixed various sections in kids menu
+- Added newspapers' front pages in news section and as pictures addon
+- When AliveGR is selected as music addon it now points into a stripped down menu with music items only and audio only
 - Cosmetics
 
-+ [B]1.7.2[/B] [COLOR yellow](24-01-2018)[/COLOR]
-- All logs are now in debug level only, also tweaks to it
-- Added shortcuts to important info into root menu
-- Fixes and enhancements in playlist/auto action
-- Other minor fixes
++ [B]1.4.5[/B] [COLOR yellow](02-10-2017)[/COLOR]
+- Added "queue to playlist" & "clear playlist" context menu items in music indexers
+  > You can now create custom playlists and playback them
+- Added "queue to playlist" & "clear playlist" context menu items in video indexers when directory option is used
+  > You can now play episodes sequentially
+- Added toggle watched option in context menu
+- Improved displayed labels on directory mode
+- Added thumb_maker function for scraping thumbnails on youtube
+- Moved gm's indexers for music from main gm indexer to music one
+- Cosmetics
 
-+ [B]1.7.1[/B] [COLOR yellow](18-01-2018)[/COLOR]
-- New function for changing languages directly from AliveGR addon
-- Fix for MPEG-DASH Vods, now properly passing stream properties
-- Fix for an icon url in music section
-- Various enhancements and fixes in music indexers
++ [B]1.4.4[/B] [COLOR yellow](26-09-2017)[/COLOR]
+- Added spoofed UA into Alpha CY's stream resolver
+- Bug fixes in search module
+- Another music indexer added (Radiopolis's Greek songs)
+- Fixed ERT World's stream for incorrect plugin call
 
-+ [B]1.7.0[/B] [COLOR yellow](17-01-2018)[/COLOR]
-- New action for streams selection "Playlist" (Auto-pick an item)
-- New gm debris function improves performance bypassing greek movies extra window several times
-- Various enhancements in play m3u function
-- Re-applied DASH and improved behaviour
-- Removed first-time prompt for enabling inputstream adaptive addon
-- Added settings item pointing to inputstream adaptive & rtmp addon settings
-- Youtube resolver now has streamlink as fallback
-- Improved bookmarks behaviour and now it follows the type of action for stream selection
-- Top 50 music section added with my personal playlist.
-- Fix for Documentaries set #2
-- Changed location of blacklist module
-- Made old settings method available for developer mode only
-- Removed block check function for other addons' behaviour
++ [B]1.4.3[/B] [COLOR yellow](20-09-2017)[/COLOR]
+- Added random user agent into m3u8 loader
+- Changed url get method on streamlink's wrapper
+- More improvements to music indexers and added a new one (radiopolis's foreign tracks)
+- Improved IPTV Simple client activation function
+
++ [B]1.4.2[/B] [COLOR yellow](16-09-2017)[/COLOR]
+- Removed script.module.m3u8 dependency, package has now been integrated
+- Added iso8601 which is needed by m3u8 package
+- M3U8 stream resolution is now obtained in a more pythonic way
+- Auto pick quality if only one option is available
+- Deprecated logs on versions pre-1.4.0
+- Some enhancements and a new music indexer
+
++ [B]1.4.1[/B] [COLOR yellow](14-09-2017)[/COLOR]
+- Passed Alpha CY's stream to alpha's resolver (it was direct in previous versions)
+- Implemented for first run only, on every version bump:
+  > View changelog
+  > Reset indexers
+  > Clear function cache
+- Streamlink wrapper now returns None if it doesn't provide links
+- Added yesno dialog for bookmarks purge function
+- Added changelog for Greek language (post 1.4.0 versions)
+- Sort methods are now called earlier (hopefully to fix methods on Krypton)
+
++ [B]1.4.0[/B] [COLOR yellow](11-09-2017)[/COLOR]
+- Added live music channels in music menu
+- Tweaked music indexers
+- Minor re-ordering of settings menu items
+- Minor cosmetics here & there
+- Rebased dependencies
+- Added optional custom plugin imports for streamlink wrapper
+- Removed sort options from settings and now Kodi's native method is used (choice from sidebar)
+- Added translated strings for live groups, instead of hardcoded
+- Added translated strings for vod groups, taken from page and mapped to those strings
+- Changed geoloc provider for ert's resolvers

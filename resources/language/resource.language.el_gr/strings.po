@@ -27,28 +27,28 @@ msgid "Appearance"
 msgstr "Εμφάνιση"
 
 msgctxt "#30004"
-msgid "Streams"
-msgstr "Ροές"
+msgid "Live Streams"
+msgstr "Ζωντανές Ροές"
 
 msgctxt "#30005"
 msgid "Folders"
 msgstr "Φάκελοι"
 
 msgctxt "#30006"
-msgid "Quality Choice"
-msgstr "Επιλογές ποιότητας"
+msgid ""
+msgstr ""
 
 msgctxt "#30007"
-msgid "Live"
-msgstr "Ζωντανές"
+msgid ""
+msgstr ""
 
 msgctxt "#30008"
 msgid "Networks"
 msgstr "Δίκτυα"
 
 msgctxt "#30009"
-msgid "Video on demand"
-msgstr "Κατα παραγγελία"
+msgid "Content switcher"
+msgstr "Εναλλάκτης περιεχομένου"
 
 msgctxt "#30010"
 msgid "Display"
@@ -163,8 +163,8 @@ msgid "More maintenance tools"
 msgstr "Περισσότερα εργαλεία συντήρησης"
 
 msgctxt "#30038"
-msgid "Resolve youtube streams with ResolveURL"
-msgstr "Κάνε επίλυση ροών youtube με ResolveURL"
+msgid "Resolve youtube streams with URLResolver"
+msgstr "Κάνε επίλυση ροών youtube με URLResolver"
 
 msgctxt "#30039"
 msgid "Appearance"
@@ -295,8 +295,8 @@ msgid "This action will log you out if already logged in"
 msgstr "Αυτή η ενέργεια θα σας βγάλει εκτός συνδεδεμένης κατάστασης"
 
 msgctxt "#30071"
-msgid "Youtube Setup"
-msgstr "Γενική ρύθμιση Youtube"
+msgid "Youtube API Keys Setup"
+msgstr "Ρύθμιση κλειδιών του Youtube API"
 
 msgctxt "#30072"
 msgid "Cartoon Series"
@@ -431,12 +431,12 @@ msgid "Twilight"
 msgstr "Twilight"
 
 msgctxt "#30105"
-msgid "[COLOR white]AliveGR:[/COLOR] [COLOR red]Legal[/COLOR]"
-msgstr "[COLOR white]AliveGR:[/COLOR] [COLOR red]Πνευματικά δικαιώματα[/COLOR]"
+msgid "Dr.Azziw"
+msgstr "Dr.Azziw"
 
 msgctxt "#30106"
-msgid "Click to open a brief text by the developer"
-msgstr "Επιλέξτε για διαβάσετε ένα σύντοκο κείμενο από τον δημιουργό"
+msgid "Toggle On/Off dark theme"
+msgstr "Εναλλαγή σκουρόχρωμου θέματος"
 
 msgctxt "#30107"
 msgid "Restart AliveGR for theme to be applied"
@@ -447,16 +447,16 @@ msgid "or via context menu -> Refresh"
 msgstr "ή μέσω του εναλλακτικού μενού -> Ανανέωση"
 
 msgctxt "#30109"
-msgid "Language Choice"
-msgstr "Επιλογή Γλώσσας"
+msgid "VOD Streams"
+msgstr "Επιλεκτικές Ροές"
 
 msgctxt "#30110"
 msgid "Changelog"
 msgstr "Αρχείο καταγραφής αλλαγών"
 
 msgctxt "#30111"
-msgid "Stream Resolver Settings (ResolveURL)"
-msgstr "Ρυθμίσεις του επιλυτή ροών (ResolveURL)"
+msgid "Stream Resolver Settings (URL Resolver)"
+msgstr "Ρυθμίσεις του επιλυτή ροών (URL Resolver)"
 
 msgctxt "#30112"
 msgid "Stream not resolvable"
@@ -587,8 +587,8 @@ msgid "Local proxy module already installed"
 msgstr "Το πρόσθετο τοπικής επίλυσης ροών είναι ήδη εγκατεστημένο"
 
 msgctxt "#30144"
-msgid "Action for streams' choice"
-msgstr "Ενέργεια για την επιλογή ροών"
+msgid "Type of dialog for streams' choice"
+msgstr "Τύπος διαλόγου για την επιλογή ροής"
 
 msgctxt "#30145"
 msgid "Dialog"
@@ -679,8 +679,8 @@ msgid "Enable local proxy module"
 msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
 msgctxt "#30167"
-msgid "Streamlink (ustream, facebook, twitch, dailymotion)"
-msgstr "Streamlink (ustream, facebook, twitch, dailymotion)"
+msgid "Quality choice (streamlink)"
+msgstr "Επιλογή ποιότητας (streamlink)"
 
 msgctxt "#30168"
 msgid "Best"
@@ -771,8 +771,8 @@ msgid "Greek"
 msgstr "Ελληνικά"
 
 msgctxt "#30219"
-msgid "HLS (m3u8/ts)"
-msgstr "HLS (m3u8/ts)"
+msgid "Quality choice (HLS)"
+msgstr "Επιλογή ποιότητας (HLS)"
 
 msgctxt "#30220"
 msgid "Quality {0}"
@@ -795,8 +795,8 @@ msgid "Music indexers play audio only"
 msgstr "Αναπαραγωγή ήχου μόνο στην ενότητα μουσικής"
 
 msgctxt "#30225"
-msgid "Part "
-msgstr "Μέρος "
+msgid "Quality choice (youtube)"
+msgstr "Επιλογή ποιότητας (youtube)"
 
 msgctxt "#30226"
 msgid "Queue item to current playlist"
@@ -811,8 +811,8 @@ msgid "Toggle (un)watched status"
 msgstr "Εναλλαγή (μη)προβληθέντος κατάστασης"
 
 msgctxt "#30229"
-msgid "Auto reset indexers"
-msgstr "Αυτόματη επαναφορά ομαδοποιητών"
+msgid "Toggle auto reset indexers"
+msgstr "Εναλλαγή αυτόματης επαναφοράς ομαδοποιητών"
 
 msgctxt "#30230"
 msgid "News front pages"
@@ -907,8 +907,8 @@ msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr "Το πρόσθετο inputstream adaptive δεν είναι ενεργοποιημένο. Θέλετε να το ενεργοποιήσετε τώρα;"
 
 msgctxt "#30253"
-msgid "Activate inputstream adaptive (MPEG-DASH)"
-msgstr "Ενεργοποίηση προσθέτου inputstream adaptive (MPEG-DASH)"
+msgid "Enable inputstream adaptive addon (DASH)"
+msgstr "Ενεργοποίηση προσθέτου inputstream adaptive (DASH)"
 
 msgctxt "#30254"
 msgid "Inputstream adaptive addon is already enabled"
@@ -932,119 +932,15 @@ msgstr "[COLOR white]Kodi, έκδοση:[/COLOR] [COLOR cyan]{0}[/COLOR]"
 
 msgctxt "#30259"
 msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
-msgstr "[COLOR white]Ακολουθήστε με στο Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
+msgstr "[COLOR white]Ακολουθήστε με στο Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]""
 
 msgctxt "#30260"
-msgid "[COLOR white]Source code & support:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
-msgstr "[COLOR white]Πηγαίος κώδικας & υποστήριξη:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgid "[COLOR white]Support, feature & pull requests:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgstr "[COLOR white]Υποστήριξη, αιτήσεις δυνατοτήτων και κώδικα:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
 
 msgctxt "#30261"
 msgid "Forced updating of addons repositories"
 msgstr "Επιβολή ενημέρωσης αποθετηρίων προσθέτων"
-
-msgctxt "#30262"
-msgid "Quality choice (Youtube-DL)"
-msgstr "Επιλογή ποιότητας (Youtube-DL)"
-
-msgctxt "#30263"
-msgid "Thank you for using AliveGR addon"
-msgstr "Ευχαριστώ που χρησιμοποιείτε το AliveGR"
-
-msgctxt "#30264"
-msgid "[COLOR white]ResolveURL, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
-msgstr "[COLOR white]ResolveURL, έκδοση:[/COLOR] [COLOR purple]{0}[/COLOR]"
-
-msgctxt "#30265"
-msgid "Click on this item to force update local repos"
-msgstr "Πατήστε πάνω του για επιβολή ενημέρωσης τοπικών αποθετηρίων"
-
-msgctxt "#30266"
-msgid "Do you agree with these terms?"
-msgstr "Συμφωνείτε με αυτούς τους όρους χρήσης;"
-
-msgctxt "#30267"
-msgid "Display this version's changelog?"
-msgstr "Θέλετε να δείτε το αρχείο καταγραφής αλλαγών αυτής της έκδοσης;"
-
-msgctxt "#30268"
-msgid "Randomize m3u playlists (pseudo-live streams)"
-msgstr "Ανακάτεμα λιστών αναπαραγωγής m3u (ψευδο-ζωντανές ροές)"
-
-msgctxt "#30269"
-msgid "Developer's top 50 picks"
-msgstr "Οι 50 κορυφαίες επιλογές του προγραμματιστή"
-
-msgctxt "#30270"
-msgid "Warning"
-msgstr "Ειδοποίηση"
-
-msgctxt "#30271"
-msgid "The author of G.K.N. Wizard has made some unauthorised changes to the settings of AliveGR, settings have been reset"
-msgstr "Ο δημιουργός του G.K.N. Wizard πραγματοποίησε μη αδειοδοτημένες τροποποιήσεις στο AliveGR, οι ρυθμίσεις έχουν επαναφερθεί στις αρχικές"
-
-msgctxt "#30272"
-msgid "MPEG-DASH (Adaptive Stream Quality) & RTMP addons  (Krypton+)"
-msgstr "MPEG-DASH (Μεταβλητή ποιότητα ροής) & RTMP πρόσθετα  (Krypton+)"
-
-msgctxt "#30273"
-msgid "Input stream addon settings"
-msgstr "Ρυθμίσεις προσθέτου μεταβλητής ποιότητας"
-
-msgctxt "#30274"
-msgid "Utilize MPEG-DASH"
-msgstr "Κάνε χρήση του MPEG-DASH"
-
-msgctxt "#30275"
-msgid "Activate RTMP"
-msgstr "Ενεργοποίηση RTMP"
-
-msgctxt "#30276"
-msgid "RTMP has already been activated"
-msgstr "Το RTMP πρόσθετο είναι ήδη ενεργοποιημένο"
-
-msgctxt "#30277"
-msgid "RTMP addon is not enabled. Do you to enabled it now?"
-msgstr "Το πρόσθετο RTMP δεν είναι ενεργοποιημένο. Ενεργοποίηση τώρα;"
-
-msgctxt "#30278"
-msgid "Inputstream adaptive addon could not be enabled"
-msgstr "Αδυναμία ενεργοποίησης προσθέτου inputstream adaptive"
-
-msgctxt "#30279"
-msgid "RTMP addon could not be enabled"
-msgstr "Αδυναμία ενεργοποίησης προσθέτου RTMP"
-
-msgctxt "#30280"
-msgid "Auto play"
-msgstr "Αυτόματη αναπαραγωγή"
-
-msgctxt "#30281"
-msgid "Youtube addon settings"
-msgstr "Ρυθμίσεις προσθέτου Youtube"
-
-msgctxt "#30282"
-msgid "Randomize playlist items"
-msgstr "Ανακάτεμα αντικειμένων αναπαραγωγής"
-
-msgctxt "#30283"
-msgid "Addonid {0} was not found in your system"
-msgstr "Το πρόσθετο {0} δεν βρέθηκε στο σύστημά σας"
-
-msgctxt "#30284"
-msgid "Playlist"
-msgstr "Λίστα Αναπαραγωγής"
-
-msgctxt "#30285"
-msgid "Welcome to [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! The [COLOR red]best[/COLOR] addon for all the Greeks.[CR]Please do not hesitate to fiddle with the settings, they don't bite!"
-msgstr "Καλώς ήρθατε στο [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! Το καλύτερο [COLOR red]πρόσθετο[/COLOR] για όλους τους Έλληνες.[CR]Παρακαλώ μην διστάσετε να πειράξετε τις ρυθμίσεις, δεν δαγκώνουν!"
-
-msgctxt "#30286"
-msgid "Do you want to also set the keyboard in dual layout English/Greek?"
-msgstr "Θέλετε να ρυθμίσετε και το πληκτρολόγιο σε διπλό χάρτη Αγγλικά/Ελληνικά;"
-
-msgctxt "#30287"
-msgid "Do you want to also enable MPEG-DASH setting on youtube addon?"
-msgstr "Θέλετε να ενεργοποιήσετε και την ρύθμιση MPEG-DASH στο πρόσθετο youtube;"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

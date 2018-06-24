@@ -18,43 +18,41 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import json
-from datetime import datetime
+import json, datetime
 from base64 import b64decode
 from tulip import cache, control, directory, client, ordereddict
 from tulip.log import *
 from tulip.init import sysaddon, syshandle
 from ..modules.themes import iconname
-from ..modules.helpers import thgiliwt, dexteni
-from ..modules.constants import live_groups
+from ..modules.helpers import thgiliwt, xteni, dexteni
 
 
-class Indexer:
+class Main:
 
     def __init__(self):
 
         self.list = []; self.data = []; self.groups = []
-        self.alivegr = 'lZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
+        self.alivegr = 'zxWZu5WYoN2XlZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
 
     def switcher(self):
 
-        def seq(group):
+        def seq(choose):
 
-            control.setSetting('live_group', str(group))
+            control.setSetting('live_group', choose)
             control.idle()
             control.sleep(50)
             control.refresh()
 
         self.groups = cache.get(self.live, 24)[1]
-        translated = [control.lang(i) for i in self.groups]
+        translated = [control.lang(int(i)) for i in self.groups]
         self.data = [control.lang(30048)] + self.groups
         choice = control.selectDialog(heading=control.lang(30049), list=[control.lang(30048)] + translated)
 
         if choice == 0:
             seq('ALL')
         elif choice <= len(self.data) and not choice == -1:
-            seq(self.data[choice])
+            seq(self.data.pop(choice))
         else:
             control.execute('Dialog.Close(all)')
 
@@ -87,35 +85,19 @@ class Indexer:
 
         for channel in channels:
 
-            title = client.parseDOM(channel, 'name')[0]
+            name = client.parseDOM(channel, 'name')[0]
             logo = client.parseDOM(channel, 'logo')[0]
             group = client.parseDOM(channel, 'group')[0]
-            group = live_groups[group]
             url = client.parseDOM(channel, 'url')[0]
 
             info = client.parseDOM(channel, 'info')[0]
             if len(info) == 5 and info[:5].isdigit():
                 info = control.lang(int(info))
 
-            if ' - ' in info:
-                if control.setting('lang_split') == '0':
-                    if 'Greek' in control.infoLabel('System.Language'):
-                        info = info.partition(' - ')[2]
-                    elif 'English' in control.infoLabel('System.Language'):
-                        info = info.partition(' - ')[0]
-                    else:
-                        info = info
-                elif control.setting('lang_split') == '1':
-                    info = info.partition(' - ')[0]
-                elif control.setting('lang_split') == '2':
-                    info = info.partition(' - ')[2]
-                else:
-                    info = info
-
             data = (
                 {
-                    'title': title, 'image': logo, 'group': str(group), 'url': url,
-                    'genre': control.lang(group), 'plot': info
+                    'title': name, 'image': logo, 'group': group, 'url': url,
+                    'genre': control.lang(int(group)), 'plot': info
                 }
             )
 
@@ -124,22 +106,27 @@ class Indexer:
 
         self.groups = list(ordereddict.OrderedDict.fromkeys(self.data))
 
-        log_debug('Live list uncached' + repr(self.list))
+        log_notice('Number of live channels available: ' + str(len(self.list)) + ', cached for 4 hours')
+
+        if control.setting('debug') == 'true':
+            log_debug('Live list uncached' + repr(self.list))
 
         return self.list, self.groups, updated
 
     def live_tv(self):
 
         if control.setting('debug') == 'false':
-            self.list = cache.get(self.live, 8)[0]
+            self.list = cache.get(self.live, 4)[0]
         else:
             self.list = cache.get(self.live, int(control.setting('cache_period')))[0]
 
         if self.list is None:
-            log_debug('Live channels list did not load successfully')
+            log_error('Live channels list did not load successfully')
             return
-        else:
+        elif control.setting('debug') == 'true':
             log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
+        else:
+            log_notice('Cached live channels available: ' + str(len(self.list)))
 
         switch = {
             'title': control.lang(30047).format(
@@ -163,7 +150,7 @@ class Indexer:
         else:
             pass
 
-        year = datetime.now().year
+        year = datetime.datetime.now().year
 
         for count, item in list(enumerate(self.list, start=1)):
             item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
@@ -175,7 +162,7 @@ class Indexer:
 
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
-            pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'query': 'true'}}
+            pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'tvguide': 'true'}}
 
             if control.condVisibility('Pvr.HasTVChannels'):
                 item.update({'cm': [bookmark_cm, r_and_c_cm, pvr_client_cm]})
@@ -211,10 +198,8 @@ class Indexer:
         self.data = cache.get(self.live, 12)[0]
         self.list = [item for item in self.data if item['group'] == group]
 
-        year = datetime.now().year
-
-        for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False'})
+        import datetime
+        year = datetime.datetime.now().year
 
         for item in self.list:
             bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
@@ -223,7 +208,8 @@ class Indexer:
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
             item.update(
                 {
-                    'cm': [bookmark_cm, r_and_c_cm], 'year': year, 'duration': None, 'fanart': fanart
+                    'cm': [bookmark_cm, r_and_c_cm], 'action': 'play', 'isFolder': 'False', 'year': year,
+                    'duration': None, 'fanart': fanart
                 }
             )
 

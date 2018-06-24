@@ -19,13 +19,13 @@
 '''
 
 
-from tulip import control, directory
+from tulip import control, bookmarks, directory
 from tulip.log import *
 from ..modules.themes import iconname
 from ..modules.helpers import reset_idx as reset
 
 
-class Indexer:
+class Main:
 
     def __init__(self):
 
@@ -35,129 +35,111 @@ class Indexer:
 
         self.list = [
             {
-                'title': control.lang(30001),
+                'title': 30001,
                 'action': 'live_tv',
-                'icon': iconname('monitor'),
-                'id': '30001'
+                'icon': iconname('monitor')
             }
             ,
             {
-                'title': control.lang(30036),
+                'title': 30036,
                 'action': 'pvr_client',
-                'icon': iconname('guide'),
-                'id': '30036'
+                'icon': iconname('guide')
             }
             ,
             {
-                'title': control.lang(30008),
+                'title': 30008,
                 'action': 'networks',
-                'icon': iconname('networks'),
-                'id': '30008'
+                'icon': iconname('networks')
             }
             ,
             {
-                'title': control.lang(30123),
+                'title': 30123,
                 'action': 'news',
-                'icon': iconname('news'),
-                'id': '30123'
+                'icon': iconname('news')
             }
             ,
             {
-                'title': control.lang(30031),
+                'title': 30031,
                 'action': 'movies',
-                'icon': iconname('movies'),
-                'id': '30031'
+                'icon': iconname('movies')
             }
             ,
             {
-                'title': control.lang(30083),
+                'title': 30083,
                 'action': 'short_films',
-                'icon': iconname('short'),
-                'id': '30083'
+                'icon': iconname('short')
             }
             ,
             {
-                'title': control.lang(30030),
+                'title': 30030,
                 'action': 'series',
-                'icon': iconname('series'),
-                'id': '30030'
+                'icon': iconname('series')
             }
             ,
             {
-                'title': control.lang(30063),
+                'title': 30063,
                 'action': 'shows',
-                'icon': iconname('shows'),
-                'id': '30063'
+                'icon': iconname('shows')
             }
             ,
             {
-                'title': control.lang(30068),
+                'title': 30068,
                 'action': 'theater',
-                'icon': iconname('theater'),
-                'id': '30068'
+                'icon': iconname('theater')
             }
-            # ,
-            # {
-            #     'title': control.lang(30079),
-            #     'action': 'documentaries',
-            #     'icon': iconname('documentaries'),
-            #     'id': '30079'
-            # }
             ,
             {
-                'title': control.lang(30094),
+                'title': 30079,
+                'action': 'documentaries',
+                'icon': iconname('documentaries')
+            }
+            ,
+            {
+                'title': 30094,
                 'action': 'sports',
-                'icon': iconname('sports'),
-                'id': '30094'
+                'icon': iconname('sports')
             }
             ,
             {
-                'title': control.lang(30032),
+                'title': 30032,
                 'action': 'kids',
-                'icon': iconname('kids'),
-                'id': '30032'
+                'icon': iconname('kids')
             }
             ,
             {
-                'title': control.lang(30012),
+                'title': 30012,
                 'action': 'miscellany',
-                'icon': iconname('miscellany'),
-                'id': '30012'
+                'icon': iconname('miscellany')
             }
             ,
             {
-                'title': control.lang(30002),
+                'title': 30002,
                 'action': 'radio',
-                'icon': iconname('radios'),
-                'id': '30002'
+                'icon': iconname('radios')
             }
             ,
             {
-                'title': control.lang(30125),
+                'title': 30125,
                 'action': 'music',
-                'icon': iconname('music'),
-                'id': '30125'
+                'icon': iconname('music')
             }
             ,
             {
                 'title': control.lang(30095).partition(' ')[0],
                 'action': 'search',
-                'icon': iconname('search'),
-                'id': '30095'
+                'icon': iconname('search')
             }
             ,
             {
-                'title': control.lang(30055),
+                'title': 30055,
                 'action': 'bookmarks',
-                'icon': iconname('bookmarks'),
-                'id': '30055'
+                'icon': iconname('bookmarks')
             }
             ,
             {
-                'title': control.lang(30137),
-                'action': 'openSettings&query=0.0' if control.setting('old_settings') == 'true' else 'settings',
-                'icon': iconname('settings'),
-                'id': '30137'
+                'title': 30137,
+                'action': 'openSettings&query=0.0' if control.setting('settings_method') == 'true' else 'settings',
+                'icon': iconname('settings')
             }
         ]
 
@@ -165,56 +147,54 @@ class Indexer:
             del self.list[1]
 
         if control.setting('show_live') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30001']
+            self.list = [d for d in self.list if d.get('title') != 30001]
         if control.setting('show_pvr') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30036']
+            self.list = [d for d in self.list if d.get('title') != 30036]
         if control.setting('show_networks') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30008']
+            self.list = [d for d in self.list if d.get('title') != 30008]
         if control.setting('show_news') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30123']
+            self.list = [d for d in self.list if d.get('title') != 30123]
         if control.setting('show_movies') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30031']
+            self.list = [d for d in self.list if d.get('title') != 30031]
         if control.setting('show_short_films') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30083']
+            self.list = [d for d in self.list if d.get('title') != 30083]
         if control.setting('show_series') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30030']
+            self.list = [d for d in self.list if d.get('title') != 30030]
         if control.setting('show_shows') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30063']
+            self.list = [d for d in self.list if d.get('title') != 30063]
         if control.setting('show_theater') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30068']
-        # if control.setting('show_docs') == 'false':
-        #     self.list = [d for d in self.list if d.get('id') != '30079']
+            self.list = [d for d in self.list if d.get('title') != 30068]
+        if control.setting('show_docs') == 'false':
+            self.list = [d for d in self.list if d.get('title') != 30079]
         if control.setting('show_sports') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30094']
+            self.list = [d for d in self.list if d.get('title') != 30094]
         if control.setting('show_kids') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30032']
+            self.list = [d for d in self.list if d.get('title') != 30032]
         if control.setting('show_misc') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30012']
+            self.list = [d for d in self.list if d.get('title') != 30012]
         if control.setting('show_radio') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30002']
+            self.list = [d for d in self.list if d.get('title') != 30002]
         if control.setting('show_music') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30125']
+            self.list = [d for d in self.list if d.get('title') != 30125]
         if control.setting('show_search') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30095']
+            self.list = [d for d in self.list if d.get('action') != 'search']
         if control.setting('show_bookmarks') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30055']
+            self.list = [d for d in self.list if d.get('title') != 30055]
         if control.setting('show_settings') == 'false':
-            self.list = [d for d in self.list if d.get('id') != '30137']
+            self.list = [d for d in self.list if d.get('title') != 30137]
 
         for item in self.list:
             refresh = {'title': 30054, 'query': {'action': 'refresh'}}
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
-            tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
-            ii_cm = {'title': 30255, 'query': {'action': 'call_info'}}
-            item.update({'cm': [ii_cm, refresh, cache_clear, reset_idx, settings, tools]})
+            item.update({'cm': [refresh, cache_clear, reset_idx, settings]})
 
         from ..modules.tools import checkpoint
         checkpoint()
 
-        log_debug('Main menu loaded, have fun...')
-        log_debug('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
+        log_notice('Main menu loaded, have fun...')
+        log_notice('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
 
         if control.setting('reset-idx') == 'true':
             reset(notify=False)
@@ -242,10 +222,9 @@ class Indexer:
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
-            tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
-            item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
+            item.update({'cm': [refresh, cache_clear, reset_idx, settings]})
 
-        log_debug('Plugin started as music addon, have fun...')
-        log_debug('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
+        log_notice('Plugin started as music addon, have fun...')
+        log_notice('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
 
         directory.add(self.list)

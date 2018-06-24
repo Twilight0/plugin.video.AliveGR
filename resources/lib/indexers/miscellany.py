@@ -19,14 +19,13 @@
 '''
 
 
-from tulip import cache, client, control
+from tulip import cache, control, client
 from tulip.log import *
 from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
-from ..modules.constants import yt_addon
 
 
-class Indexer:
+class Main:
 
     def __init__(self):
 
@@ -49,7 +48,7 @@ class Indexer:
             elif control.setting('local_remote') == '1':
                 playlists = client.request(control.setting('misc_remote'))
             else:
-                playlists = client.request(thgiliwt('==' + self.misc))
+                playlists = client.request(thgiliwt(self.misc))
 
         self.data = client.parseDOM(playlists, 'item')
 
@@ -58,10 +57,12 @@ class Indexer:
             title = client.parseDOM(item, 'title')[0]
             icon = client.parseDOM(item, 'icon')[0]
             url = client.parseDOM(item, 'url')[0]
-            url = url.replace('https://www.youtube.com/channel', '{0}/channel'.format(yt_addon))
 
-            item_data = (dict(title=title, icon=icon, url=url))
-
+            item_data = (dict(
+                title=title, icon=icon, url=url.replace(
+                    'https://www.youtube.com/channel', 'plugin://plugin.video.youtube/channel'
+                )
+            ))
             self.list.append(item_data)
 
         return self.list
@@ -74,32 +75,23 @@ class Indexer:
             self.data = cache.get(self.misc_list, 24)
 
         if self.data is None:
-            log_debug('Misc channels list did not load successfully')
+            log_error('Misc channels list did not load successfully')
             return
 
         self.list = []
 
         for item in self.data:
-
-            if control.setting('lang_split') == '0':
-                if 'Greek' in control.infoLabel('System.Language'):
-                    li = control.item(label=item['title'].partition(' - ')[2])
-                elif 'English' in control.infoLabel('System.Language'):
-                    li = control.item(label=item['title'].partition(' - ')[0])
-                else:
-                    li = control.item(label=item['title'])
-            elif control.setting('lang_split') == '1':
-                li = control.item(label=item['title'].partition(' - ')[0])
-            elif control.setting('lang_split') == '2':
-                li = control.item(label=item['title'].partition(' - ')[2])
+            if control.setting('splitter') == 'true':
+                if control.setting('lang_split') == '0':
+                    li = control.item(label=item['title'].partition('-')[0].strip())
+                elif control.setting('lang_split') == '1':
+                    li = control.item(label=item['title'].partition('-')[2].strip())
             else:
                 li = control.item(label=item['title'])
-
             li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
             url = item['url']
             isFolder = True
             self.list.append((url, li, isFolder))
 
-        control.execute('Container.SetViewMode(50)')
         control.addItems(syshandle, self.list)
         control.directory(syshandle)

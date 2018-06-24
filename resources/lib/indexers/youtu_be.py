@@ -21,8 +21,8 @@
 import json
 
 from tulip import cache, directory, youtube
-from tulip.log import log_debug
-from ..modules.constants import api_keys
+from tulip.log import *
+from ..modules.tools import api_keys
 from ..modules.helpers import thgiliwt
 
 
@@ -31,7 +31,7 @@ def yt_playlists(pid):
     playlists = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key'])).playlists, 48, pid)
 
     if playlists is None:
-        log_debug('Playlist indexer failed to load successfully')
+        log_error('Playlist indexer failed to load successfully')
         return
 
     for playlist in playlists:
@@ -53,7 +53,7 @@ def yt_videos(url):
     video_list = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key'])).playlist, 48, url)
 
     if video_list is None:
-        log_debug('Videos\' list indexer failed to load successfully')
+        log_error('Videos\' list indexer failed to load successfully')
         return
 
     for v in video_list:

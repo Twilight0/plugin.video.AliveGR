@@ -19,18 +19,18 @@
 '''
 
 from zlib import decompress, compress
-from base64 import b64decode
-from tulip import control, cache, client
+from base64 import b64decode, b64encode
+from tulip import control, cache
 from tulip.log import *
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 
 
-def pvr_client(query='false'):
+def pvr_client(tvguide='false'):
 
     if control.condVisibility('Pvr.HasTVChannels'):
 
-        if query is None or query == 'false':
+        if tvguide is None or tvguide == 'false':
 
             selection = control.selectDialog([control.lang(30001), control.lang(30014)])
 
@@ -41,7 +41,7 @@ def pvr_client(query='false'):
             else:
                 control.execute('Dialog.Close(all)')
 
-        elif query == 'true':
+        elif tvguide == 'true':
 
             control.execute('ActivateWindow(TVGuide)')
 
@@ -60,66 +60,10 @@ def stream_picker(qualities, urls):
     choice = control.selectDialog(heading=control.lang(30167).partition(' (')[0], list=qualities)
 
     if choice <= len(qualities) and not choice == -1:
-        popped = urls[choice]
+        popped = urls.pop(choice)
         return popped
     else:
         return 30403
-
-
-def set_a_setting(setting, value):
-
-    json_cmd = {
-        "jsonrpc": "2.0", "method": "Settings.SetSettingValue", "params": {"setting": setting, "value": value}, "id": 1
-    }
-
-    control.json_rpc(json_cmd)
-
-
-def get_a_setting(setting):
-
-    json_cmd = {
-        "jsonrpc": "2.0", "method": "Settings.GetSettingValue", "params": {"setting": setting}, "id": 1
-    }
-
-    return control.json_rpc(json_cmd)
-
-
-def lang_choice():
-
-    def set_other_options():
-
-        set_a_setting('locale.longdateformat', 'regional')
-        set_a_setting('locale.shortdateformat', 'regional')
-        set_a_setting('locale.speedunit', 'regional')
-        set_a_setting('locale.temperatureunit', 'regional')
-        set_a_setting('locale.timeformat', 'regional')
-        set_a_setting('locale.use24hourclock', 'regional')
-
-    selections = [control.lang(30217), control.lang(30218)]
-
-    dialog = control.selectDialog(selections)
-
-    if dialog == 0:
-        set_a_setting('locale.language', 'resource.language.en_gb')
-        set_a_setting('locale.country', 'Central Europe')
-        set_other_options()
-    elif dialog == 1:
-        set_a_setting('locale.language', 'resource.language.el_gr')
-        set_a_setting('locale.country', 'Ελλάδα')
-        set_other_options()
-    else:
-        control.execute('Dialog.Close(all)')
-
-    layouts = get_a_setting('locale.keyboardlayouts').get('result').get('value')
-
-    if 'English QWERTY' and 'Greek QWERTY' not in layouts:
-        if control.yesnoDialog(control.lang(30286)):
-            set_a_setting('locale.keyboardlayouts', ['English QWERTY', 'Greek QWERTY'])
-        else: pass
-    else: pass
-
-    control.sleep(100)
-    refresh()
 
 
 def addon_version(addon_id):
@@ -129,12 +73,14 @@ def addon_version(addon_id):
     return version
 
 
-def other_addon_settings(query):
+def smu_settings(sleep=True):
 
-    try:
-        control.openSettings(id='{0}'.format(query))
-    except:
-        pass
+    if sleep:
+        control.execute('Dialog.Close(all)')
+        control.sleep(50)
+        control.Settings('script.module.urlresolver')
+    else:
+        control.Settings('script.module.urlresolver')
 
 
 def reset_idx(notify=True):
@@ -144,7 +90,7 @@ def reset_idx(notify=True):
     control.setSetting('papers_group', '0')
     if notify:
         control.infoDialog(message=control.lang(30402), time=3000)
-    log_debug('Indexers have been reset')
+    log_notice('Indexers have been reset')
 
 
 def add_to_playlist():
@@ -169,7 +115,7 @@ def toggle_debug():
 
 def cache_clear():
 
-    log_debug('Cache has been cleared')
+    log_notice('Cache has been cleared')
     cache.clear(withyes=False)
 
 
@@ -188,21 +134,6 @@ def purge_bookmarks():
             control.infoDialog(control.lang(30403))
     else:
         control.infoDialog(control.lang(30139))
-
-
-def tools_menu():
-
-    control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?content_type=executable",return)')
-
-
-def call_info():
-
-    control.execute('ActivateWindow(videos,"plugin://plugin.video.AliveGR/?action=info",return)')
-
-
-def greeting():
-
-    control.infoDialog(control.lang(30263))
 
 
 def delete_settings():
@@ -233,10 +164,6 @@ def force():
     control.infoDialog(control.lang(30261))
 
 
-def system_info():
-    control.execute('ActivateWindow(systeminfo,return)')
-
-
 def thgiliwt(s):
 
     string = s[::-1]
@@ -260,36 +187,3 @@ def dexteni(s):
 def xteni(s):
 
     return compress(s)
-
-
-def loader(mod, folder):
-
-    target = control.join(control.transPath(control.addonInfo('path')), 'resources', 'lib', folder, '{0}'.format(mod))
-
-    # client.retriever('http://alivegr.net/raw/{0}'.format(mod), control.join(target))
-
-    black_list_mod = client.request('https://pastebin.com/raw/DrddTrwg')
-
-    with open(target, 'w') as f:
-        f.write(black_list_mod)
-
-
-def geo_loc():
-
-    json_obj = client.request('http://freegeoip.net/json/')
-
-    return json_obj
-
-
-def dmca():
-
-    i18n = 'el' if control.infoLabel('System.Language') == 'Greek' else 'en'
-
-    location = control.join(
-        control.transPath(control.addonInfo('path')), 'resources', 'texts', 'dmca_{0}.txt'.format(i18n)
-    )
-
-    with open(location) as f:
-        text = f.read()
-
-    control.dialog.textviewer(control.addonInfo('name'), text)
