@@ -37,6 +37,7 @@ class Indexer:
         self.list = []; self.data = []; self.groups = []
         self.alivegr = 'lZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
         self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
+        self.alivegr = 'QjNi5SZ2lGbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
 
     def switcher(self):
 
@@ -63,7 +64,7 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            result = client.request(thgiliwt(self.alivegr))
+            result = client.request(thgiliwt('=' + self.alivegr))
             result = dexteni(b64decode(result))
 
         else:

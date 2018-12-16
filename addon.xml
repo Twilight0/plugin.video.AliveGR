@@ -4,15 +4,14 @@
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
-        <import addon="script.module.resolveurl" version="5.0.06"/>
-        <import addon="script.module.streamlink.base" version="2018.06.12"/>
-        <import addon="script.module.tulip" version="2.0.2"/>
-        <import addon="plugin.video.youtube" version="6.0.2"/>
+        <import addon="script.module.resolveurl" version="5.0.20"/>
+        <import addon="script.module.streamlink.base" version="2018.12.05"/>
+        <import addon="script.module.tulip" version="2.1.0"/>
+        <import addon="plugin.video.youtube" version="6.2.2"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
         <provides>video audio image executable</provides>
     </extension>
-    <extension point="xbmc.service" library="resources/lib/modules/service.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary lang="en">AliveGR addon</summary>
@@ -45,6 +44,16 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Removed dependency for iso8601 module (moved to tulip libraries)
 - Added privacy policy text
 - Cosmetics</news>
+        <size>523425</size>
+        <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR![/COLOR][/I]
+[I][COLOR white]Television of the[/COLOR] [COLOR blue]greek[/COLOR] [COLOR red]generation[/COLOR][/I]
+
++ [B]1.10[/B] [COLOR green](16-12-2018)[/COLOR]
+- Removed service module and accompanying extension point as it is no longer needed.
+- Changed live list link
+- Bumped to tulip 2.1.0
+- Changed the way radio/music addons are opened
+- Various other minor tweaks</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

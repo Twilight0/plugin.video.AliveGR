@@ -359,6 +359,18 @@ elif action == 'lang_choice':
     from resources.lib.modules import helpers
     helpers.lang_choice()
 
+elif action == 'quit':
+    from tulip.control import quit_kodi
+    quit_kodi()
+
+elif action == 'global_settings':
+    from resources.lib.modules import helpers
+    helpers.global_settings()
+
+elif action == 'activate_audio_addon':
+    from resources.lib.modules import helpers
+    helpers.activate_audio_addon(url, query=query)
+
 # Reserved might use later:
 # elif action == 'report':
 #     from resources.lib.modules import tools

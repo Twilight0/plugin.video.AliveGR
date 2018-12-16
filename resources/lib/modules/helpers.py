@@ -206,6 +206,33 @@ def toggle_debug():
     control.execute('ToggleDebug')
 
 
+def skin_debug():
+
+    control.execute('Skin.ToggleDebug')
+
+
+def skin_choice():
+
+    control.execute('Addon.Default.Set(xbmc.gui.skin)')
+
+
+def activate_audio_addon(url, query=None):
+
+    from tulip import directory
+
+    directory.run_builtin(addon_id=url, action=query if query is not None else None, content_type='audio')
+
+
+def global_settings():
+
+    control.execute('ActivateWindow(settings)')
+
+
+def reload_skin():
+
+    control.execute('ReloadSkin()')
+
+
 def cache_clear():
 
     log_debug('Cache has been cleared')
