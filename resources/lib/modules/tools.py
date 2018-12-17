@@ -438,7 +438,7 @@ def checkpoint():
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
         # block_check()
-        control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
+        control.deleteFile(control.join(control.addonPath, 'UPDATED'))
 
 
 # Reserved might user later
