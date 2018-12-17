@@ -31,7 +31,7 @@ from resources.lib.modules import m3u8_loader
 from tulip.log import log_debug
 from tulip.init import sysaddon
 from resources.lib.indexers.gm import base_link
-from resources.lib.resolvers import various, youtu
+from resources.lib.resolvers import various, youtube
 from resources.lib.modules.constants import yt_url, play_action
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
@@ -48,7 +48,7 @@ def router(url, params):
             uri = yt_url + uri
 
         try:
-            yt_stream = youtu.wrapper(uri)
+            yt_stream = youtube.wrapper(uri)
         except YouTubeException as exp:
             log_debug('Youtube resolver failure, reason: ' + repr(exp))
             yt_stream = None
@@ -72,7 +72,7 @@ def router(url, params):
 
         if any(['music' in sources[0], 'view' in sources[0]]):
 
-            stream = youtu.wrapper(sources[1])
+            stream = youtube.wrapper(sources[1])
 
             return stream
 
@@ -138,7 +138,7 @@ def router(url, params):
     elif 'skaitv.gr' in url:
 
         vid = cache.get(various.skai, 6, url)
-        stream = youtu.wrapper(vid)
+        stream = youtube.wrapper(vid)
         return stream
 
     elif 'alphatv.gr/live' in url or 'alphacyprus.com.cy' in url:

@@ -1,3 +1,8 @@
++ [B]1.11[/B] [COLOR green](17-12-2018)[/COLOR]
+- Fixed techno choices music section
+- Reordered youtube related functions
+- Bumped to youtube 6.2.3
+
 + [B]1.10[/B] [COLOR green](17-12-2018)[/COLOR]
 - Removed service module and accompanying extension point as it is no longer needed.
 - Changed live list link

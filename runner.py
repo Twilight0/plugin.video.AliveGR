@@ -23,7 +23,7 @@
 # TODO: Re-apply Documentaries section with new indexer-scraper
 # TODO: fix proxy enabler
 # TODO: Fix application of pvr simple client settings
-# TODO: Implement ability to install inputstream & IPTV addons
+# TODO: Implement ability to install inputstream & IPTV Simple Client addons
 # TODO: Finish keymap for remote
 # TODO: Complete Python 3 support
 
@@ -226,6 +226,10 @@ elif action == 'top20_list':
 elif action == 'top50_list':
     from resources.lib.indexers import music
     music.Indexer(argv=argv).top50_list(url)
+
+elif action == 'techno_choices':
+    from resources.lib.indexers import music
+    music.Indexer(argv=argv).techno_choices(url)
 
 elif action == 'radio':
     from resources.lib.indexers import radios

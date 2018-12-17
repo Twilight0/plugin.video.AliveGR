@@ -26,7 +26,8 @@ from tulip.compat import urljoin, iteritems
 from resources.lib.modules.themes import iconname
 from resources.lib.modules.constants import yt_url, art_id, api_keys
 from resources.lib.modules.helpers import thgiliwt
-from resources.lib.resolvers.youtu import thumb_maker, replace_url
+from resources.lib.resolvers.youtube import replace_url
+from resources.lib.modules.youtube import thumb_maker, yt_playlist_videos
 from resources.lib.indexers import gm
 from datetime import datetime
 
@@ -128,7 +129,7 @@ class Indexer:
             ,
             {
                 'title': control.lang(30292),
-                'action': 'yt_playlist_videos',
+                'action': 'techno_choices',
                 'url': 'PLZF-_NNdxpb5s1vjh6YSMTyjjlfiZhgbp',
                 'image': control.addonInfo('icon'),
                 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
@@ -531,3 +532,9 @@ class Indexer:
 
         control.sortmethods('tracknum', mask='%A')
         directory.add(self.list, content=content, argv=self.argv)
+
+    def techno_choices(self, url):
+
+        self.list = yt_playlist_videos(url)
+
+        directory.add(self.list, argv=self.argv)

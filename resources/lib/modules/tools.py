@@ -425,7 +425,7 @@ def repo_check():
 
 def checkpoint():
 
-    if control.exists(control.join(control.addonPath, 'UPDATED')):
+    if control.exists(control.join(control.addonPath, 'UPDATE')):
 
         if control.yesnoDialog(control.lang(30267)):
             changelog()
@@ -438,7 +438,7 @@ def checkpoint():
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
         # block_check()
-        control.deleteFile(control.join(control.addonPath, 'UPDATED'))
+        control.deleteFile(control.join(control.addonPath, 'UPDATE'))
 
 
 # Reserved might user later
