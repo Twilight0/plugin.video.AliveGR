@@ -19,7 +19,7 @@
 '''
 
 from tulip import control, client
-from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear
+from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx
 from resources.lib.modules.constants import api_keys
 
 
@@ -51,7 +51,7 @@ def setup_iptv():
     if control.exists(control.join(iptv_folder, 'settings.xml')):
         if control.yesnoDialog(line1=control.lang(30021), line2='', line3=control.lang(30022)):
             control.deleteFile(control.join(iptv_folder, 'settings.xml'))
-            client.retriever('http://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, "settings.xml"))
+            client.retriever('https://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, "settings.xml"))
             control.infoDialog(message=control.lang(30024), time=2000)
             enable_iptv()
             enable_proxy_module()
@@ -62,7 +62,7 @@ def setup_iptv():
         if control.yesnoDialog(line1=control.lang(30023), line2='', line3=control.lang(30022)):
             if not control.exists(iptv_folder):
                 control.makeFile(iptv_folder)
-            client.retriever('http://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, 'settings.xml'))
+            client.retriever('https://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, 'settings.xml'))
             control.infoDialog(message=control.lang(30024), time=2000)
             enable_iptv()
             enable_proxy_module()
@@ -99,7 +99,6 @@ def enable_iptv():
         else: pass
 
 
-#TODO: fix proxy enabler
 def enable_proxy_module():
 
     if not control.condVisibility('System.HasAddon(service.streamlink.proxy)'):
@@ -123,7 +122,7 @@ def setup_various_keymaps(keymap):
 
     if keymap == 'previous':
 
-        location = control.join(keymap_settings_folder, 'tvguide.xml')
+        location = control.join(keymap_settings_folder, 'alivegr_tvguide.xml')
 
         lang_int = 30025
 
@@ -282,7 +281,8 @@ def yt_setup():
     def yt_mpd():
 
         control.addon('plugin.video.youtube').setSetting('kodion.video.quality.mpd', 'true')
-        control.addon('plugin.video.youtube').setSetting('kodion.mpd.proxy', 'true')
+        control.addon('plugin.video.youtube').setSetting('kodion.mpd.videos', 'true')
+        control.addon('plugin.video.youtube').setSetting('kodion.mpd.live_streams', 'true')
         control.infoDialog(message=control.lang(30402), time=3000)
 
 ########################################################################################################################
@@ -313,13 +313,21 @@ def yt_setup():
 
     else: pass
 
-    if control.yesnoDialog(line1=control.lang(30287), line2='', line3=''):
+    if control.condVisibility('System.HasAddon(inputstream.adaptive)') and control.yesnoDialog(line1=control.lang(30287), line2='', line3=''):
 
         yt_mpd()
 
     else: pass
 
 ########################################################################################################################
+
+
+def file_to_text(file_):
+
+    with open(file_) as text:
+        result = text.read()
+
+    return result
 
 
 def changelog():
@@ -331,13 +339,27 @@ def changelog():
     else:
         change_txt = 'changelog.el.txt'
 
-    ch_txt = control.join(control.addonPath, change_txt)
-    with open(ch_txt) as text:
-        result = text.read()
+    change_txt = control.join(control.addonPath, change_txt)
 
-    control.dialog.textviewer(control.name() + ', ' + control.lang(30110), result)
+    control.dialog.textviewer(control.addonInfo('name') + ', ' + control.lang(30110), file_to_text(change_txt))
 
-    text.close()
+
+def dmca():
+
+    location = control.join(
+        control.transPath(control.addonInfo('path')), 'resources', 'texts', 'dmca_{0}.txt'.format(i18n())
+    )
+
+    control.dialog.textviewer(control.addonInfo('name'), file_to_text(location))
+
+
+def pp():
+
+    location = control.join(
+        control.transPath(control.addonInfo('path')), 'resources', 'texts', 'pp_{0}.txt'.format(i18n())
+    )
+
+    control.dialog.textviewer(control.addonInfo('name'), file_to_text(location))
 
 
 def isa_enable():
@@ -363,7 +385,7 @@ def rtmp_enable():
     try:
         enabled = control.addon_details('inputstream.rtmp').get('enabled')
 
-        if addon_version('xbmc.python') >= 2250 and not enabled:
+        if addon_version('xbmc.python') >= 225 and not enabled:
             yes = control.yesnoDialog(control.lang(30277))
             if yes:
                 control.enable_addon('inputstream.rtmp')
@@ -378,17 +400,15 @@ def rtmp_enable():
 
 def disclaimer():
 
-    text = control.addonInfo('disclaimer')
-
     try:
-        _disclaimer = text.decode('utf-8')
-    except AttributeError:
-        _disclaimer = text
+        text = control.addonInfo('disclaimer').decode('utf-8')
+    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+        text = control.addonInfo('disclaimer')
 
     control.dialog.textviewer(
         control.addonInfo(
             'name'
-        ) + ', ' + control.lang(30129), ' ' * 3 + _disclaimer + '\n' * 2 + control.lang(30131)
+        ) + ', ' + control.lang(30129), ' ' * 3 + text + '\n' * 2 + control.lang(30131)
     )
 
 
@@ -396,13 +416,32 @@ def repo_check():
 
     if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
 
-        control.okDialog(heading=control.name(), line1=control.lang(30130))
+        control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
         control.execute('Dialog.Close(all)')
         import sys; sys.exit()
 
     else: pass
 
 
+def checkpoint():
+
+    if control.exists(control.join(control.addonPath, 'UPDATED')):
+
+        if control.yesnoDialog(control.lang(30267)):
+            changelog()
+
+        cache_clear()
+        reset_idx(notify=False)
+        if control.setting('debug') == 'true' or control.setting('toggler') == 'true':
+            from tulip.log import log_notice
+            log_notice('Debug settings have been reset, please do not touch these settings manually, they are meant *only* to help developer test various things.')
+            control.setSetting('debug', 'false')
+            control.setSetting('toggler', 'false')
+        # block_check()
+        control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
+
+
+# Reserved might user later
 # def block_check():
 #
 #     if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
@@ -413,34 +452,7 @@ def repo_check():
 #
 #     else: pass
 
-
-def checkpoint():
-
-    if control.setting('first_time') == 'true':
-
-        disclaimer()
-
-        if control.yesnoDialog(control.lang(30266)):
-
-            control.setSetting('first_time', 'false')
-            control.aborted()
-
-        else: pass
-
-    else: pass
-
-    if control.exists(control.join(control.addonPath, 'DELETE_ME')):
-        if control.yesnoDialog(control.lang(30267)):
-            changelog()
-        else: pass
-        cache_clear()
-        # block_check()
-        control.deleteFile(control.join(control.addonPath, 'DELETE_ME'))
-
-    else: pass
-
-
-#Reserved might user later, needs refinement:
+# Reserved might user later, needs refinement:
 # def mailer(title):
 #
 #     import smtplib

@@ -20,35 +20,40 @@
 
 from tulip import control
 from tulip import m3u8
-from tulip.compat import urljoin
-from resources.lib.modules.helpers import stream_picker
+from helpers import stream_picker
+from tulip.compat import urljoin, parse_qsl
 
 
 def m3u8_picker(url):
 
     try:
-        m3u8_playlists = m3u8.load(url.rpartition('|')[0]).playlists
-    except:
-        m3u8_playlists = m3u8.load(url).playlists
+        if '|' not in url:
+            raise TypeError
+        headers = dict(parse_qsl(url.rpartition('|')[2]))
+        streams = m3u8.load(url.rpartition('|')[0], headers=headers).playlists
+    except TypeError:
+        streams = m3u8.load(url).playlists
 
-    if not m3u8_playlists:
+    if not streams:
         return url
 
     qualities = []
     urls = []
 
-    for playlist in m3u8_playlists:
+    for stream in streams:
 
-        quality = repr(playlist.stream_info.resolution).strip('()').replace(', ', 'x')
+        quality = repr(stream.stream_info.resolution).strip('()').replace(', ', 'x')
         if quality == 'None':
             quality = 'Auto'
-        uri = playlist.uri
+        uri = stream.uri
         if not uri.startswith('http'):
-            uri = urljoin(playlist.base_uri, uri)
+            uri = urljoin(stream.base_uri, uri)
         qualities.append(quality)
         try:
-            urls.append(uri + '|' + url.rpartition('|')[2])
-        except:
+            if '|' not in url:
+                raise TypeError
+            urls.append(uri + ''.join(url.rpartition('|')[1:]))
+        except TypeError:
             urls.append(uri)
 
     if len(qualities) == 1:

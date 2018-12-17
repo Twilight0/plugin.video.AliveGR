@@ -20,7 +20,7 @@
 
 
 from tulip import control
-from .constants import art_id
+from resources.lib.modules.constants import art_id
 
 
 def theme():

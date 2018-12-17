@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import json, sys
+import re
 from datetime import datetime
 from base64 import b64decode
 from tulip import cache, control, directory, client
@@ -27,17 +27,16 @@ from tulip.init import sysaddon, syshandle
 from tulip.compat import OrderedDict
 from resources.lib.modules.themes import iconname
 from resources.lib.modules.helpers import thgiliwt, dexteni
-from resources.lib.modules.constants import live_groups
+from resources.lib.modules.constants import live_groups, logos_id
 
 
 class Indexer:
 
-    def __init__(self):
+    def __init__(self, argv):
 
         self.list = []; self.data = []; self.groups = []
-        self.alivegr = 'lZXas9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
-        self.alt_str = ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)', 'BUP']
         self.alivegr = 'QjNi5SZ2lGbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
+        self.argv = argv
 
     def switcher(self):
 
@@ -48,7 +47,7 @@ class Indexer:
             control.sleep(50)
             control.refresh()
 
-        self.groups = cache.get(self.live, 24)[1]
+        self.groups = cache.get(self.live, 8)[1]
         translated = [control.lang(i) for i in self.groups]
         self.data = [control.lang(30048)] + self.groups
         choice = control.selectDialog(heading=control.lang(30049), list=[control.lang(30048)] + translated)
@@ -58,7 +57,7 @@ class Indexer:
         elif choice <= len(self.data) and not choice == -1:
             seq(self.data[choice])
         else:
-            control.execute('Dialog.Close(all)')
+            control.idle()
 
     def live(self):
 
@@ -77,7 +76,7 @@ class Indexer:
             elif control.setting('local_remote') == '1':
                 result = client.request(control.setting('live_remote'))
             else:
-                result = client.request(thgiliwt(self.alivegr))
+                result = client.request(thgiliwt('==' + self.alivegr))
                 result = dexteni(b64decode(result))
 
         if control.setting('debug') == 'false':
@@ -90,10 +89,14 @@ class Indexer:
         for channel in channels:
 
             title = client.parseDOM(channel, 'name')[0]
-            logo = client.parseDOM(channel, 'logo')[0]
+            image = client.parseDOM(channel, 'logo')[0]
+            if not image.startswith('http'):
+                image = control.addonmedia(image, logos_id, theme='logos', media_subfolder=False)
             group = client.parseDOM(channel, 'group')[0]
             group = live_groups[group]
             url = client.parseDOM(channel, 'url')[0]
+
+            website = client.parseDOM(channel, 'website')[0].replace('&amp;', '&')
 
             info = client.parseDOM(channel, 'info')[0]
             if len(info) == 5 and info[:5].isdigit():
@@ -116,8 +119,8 @@ class Indexer:
 
             data = (
                 {
-                    'title': title, 'image': logo, 'group': str(group), 'url': url,
-                    'genre': control.lang(group), 'plot': info
+                    'title': title, 'image': image, 'group': str(group), 'url': url,
+                    'genre': control.lang(group), 'plot': info, 'website': website
                 }
             )
 
@@ -130,10 +133,10 @@ class Indexer:
 
         return self.list, self.groups, updated
 
-    def live_tv(self):
+    def live_tv(self, zapping=False):
 
         if control.setting('debug') == 'false':
-            self.list = cache.get(self.live, 8)[0]
+            self.list = self.live()[0]
         else:
             self.list = cache.get(self.live, int(control.setting('cache_period')))[0]
 
@@ -161,34 +164,43 @@ class Indexer:
         ] if not control.setting('live_group') == 'ALL' else self.list
 
         if control.setting('show-alt') == 'false':
-            self.list = [item for item in self.list if not any(alt in item['title'] for alt in self.alt_str)]
-        else:
-            pass
+            self.list = [
+                item for item in self.list if not any(['BUP' in item['title'], re.search('\(\d\)', item['title'])])
+            ]
 
         year = datetime.now().year
 
         for count, item in list(enumerate(self.list, start=1)):
             item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
 
+        if zapping:
+            m3u = directory.m3u_maker(self.list, argv=self.argv)
+            return m3u
+
         for item in self.list:
 
-            bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
-            bookmark['bookmark'] = item['url']
-
-            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            # bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
+            # bookmark['bookmark'] = item['url']
+            #
+            # bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
             pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'query': 'true'}}
+            zapping_cm = {'title': 30293, 'query': {'action': 'zapping_mode'}}
+            if item['website'] != 'None':
+                web_cm = {'title': 30316, 'query': {'action': 'open_link', 'url': item['website']}}
+            else:
+                web_cm = None
 
             if control.condVisibility('Pvr.HasTVChannels'):
-                item.update({'cm': [bookmark_cm, r_and_c_cm, pvr_client_cm]})
+                item.update({'cm': [r_and_c_cm, pvr_client_cm, zapping_cm, web_cm]})
             else:
-                item.update({'cm': [bookmark_cm, r_and_c_cm]})
+                item.update({'cm': [r_and_c_cm, zapping_cm, web_cm]})
 
         if control.setting('show-switcher') == 'true':
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
-            li.setArt({'fanart': control.fanart()})
-            li.setInfo('video', {'plot': switch['plot'] + '\n' + control.lang(30035) + cache.get(self.live, 4)[2]})
+            li.setArt({'fanart': control.addonInfo('fanart')})
+            li.setInfo('video', {'plot': switch['plot'] + '\n' + control.lang(30035) + cache.get(self.live, 8)[2]})
             url = '{0}?action={1}'.format(sysaddon, switch['action'])
             control.addItem(syshandle, url, li)
 
@@ -199,7 +211,7 @@ class Indexer:
         control.sortmethods('title')
         control.sortmethods('genre')
 
-        directory.add(self.list, content='movies')
+        directory.add(self.list, content='movies', argv=self.argv)
 
     def modular(self, group):
 
@@ -208,9 +220,9 @@ class Indexer:
         elif group == '30032':
             fanart = 'http://cdn.iview.abc.net.au/thumbs/i/ls/LS1604H001S005786f5937ded19.22034349_1280.jpg'
         else:
-            fanart = control.fanart()
+            fanart = control.addonInfo('fanart')
 
-        self.data = cache.get(self.live, 12)[0]
+        self.data = cache.get(self.live, 8)[0]
         self.list = [item for item in self.data if item['group'] == group]
 
         year = datetime.now().year
@@ -219,16 +231,16 @@ class Indexer:
             item.update({'action': 'play', 'isFolder': 'False'})
 
         for item in self.list:
-            bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
-            bookmark['bookmark'] = item['url']
-            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            # bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+            # bookmark['bookmark'] = item['url']
+            # bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
             item.update(
                 {
-                    'cm': [bookmark_cm, r_and_c_cm], 'year': year, 'duration': None, 'fanart': fanart
+                    'cm': [r_and_c_cm], 'year': year, 'duration': None, 'fanart': fanart
                 }
             )
 
         self.list = sorted(self.list, key=lambda k: k['title'].lower())
 
-        directory.add(self.list)
+        directory.add(self.list, argv=self.argv)

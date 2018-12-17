@@ -111,11 +111,11 @@ msgid "Process complete"
 msgstr ""
 
 msgctxt "#30025"
-msgid "This action will add a modified keyboard shortcut in the TV Guide window"
+msgid "This action will add a modified keyboard shortcut in the"
 msgstr ""
 
 msgctxt "#30026"
-msgid "Does your remote have next and previous track buttons?"
+msgid "TV Guide window"
 msgstr ""
 
 msgctxt "#30027"
@@ -163,7 +163,7 @@ msgid "More maintenance tools"
 msgstr ""
 
 msgctxt "#30038"
-msgid "Resolve youtube streams with URLResolver"
+msgid "Resolve youtube streams"
 msgstr ""
 
 msgctxt "#30039"
@@ -295,7 +295,7 @@ msgid "This action will log you out if already logged in"
 msgstr ""
 
 msgctxt "#30071"
-msgid "Youtube Setup"
+msgid "Set up addon with common settings"
 msgstr ""
 
 msgctxt "#30072"
@@ -419,7 +419,7 @@ msgid "Actor/Actress"
 msgstr ""
 
 msgctxt "#30102"
-msgid "Icons set"
+msgid "AliveGR's Icons set"
 msgstr ""
 
 msgctxt "#30103"
@@ -431,7 +431,7 @@ msgid "Twilight"
 msgstr ""
 
 msgctxt "#30105"
-msgid "[COLOR white]AliveGR:[/COLOR] [COLOR red]Legal[/COLOR]"
+msgid "[COLOR red]Legal[/COLOR]"
 msgstr ""
 
 msgctxt "#30106"
@@ -455,7 +455,7 @@ msgid "Changelog"
 msgstr ""
 
 msgctxt "#30111"
-msgid "Stream Resolver Settings (ResolveURL)"
+msgid "Open ResolveURL's settings window"
 msgstr ""
 
 msgctxt "#30112"
@@ -679,7 +679,7 @@ msgid "Enable local proxy module"
 msgstr ""
 
 msgctxt "#30167"
-msgid "Streamlink (ustream, facebook, twitch, dailymotion)"
+msgid "Streamlink (secondary resolvers)"
 msgstr ""
 
 msgctxt "#30168"
@@ -687,7 +687,7 @@ msgid "Best"
 msgstr ""
 
 msgctxt "#30169"
-msgid "Ask (dialog)"
+msgid "Manual (via dialog)"
 msgstr ""
 
 msgctxt "#30170"
@@ -795,7 +795,7 @@ msgid "Music indexers play audio only"
 msgstr ""
 
 msgctxt "#30225"
-msgid ""
+msgid "Part "
 msgstr ""
 
 msgctxt "#30226"
@@ -915,27 +915,27 @@ msgid "Inputstream adaptive addon is already enabled"
 msgstr ""
 
 msgctxt "#30255"
-msgid "[COLOR red]Importand information[/COLOR]"
+msgid "[COLOR red]Important information[/COLOR]"
 msgstr ""
 
 msgctxt "#30256"
-msgid "[COLOR white]AliveGR, version:[/COLOR] [COLOR lime]{0}[/COLOR]"
+msgid "[COLOR white]AliveGR version:[/COLOR]{0}[COLOR lime]{1}[/COLOR]"
 msgstr ""
 
 msgctxt "#30257"
-msgid "[COLOR white]Tulip Libraries, version:[/COLOR] [COLOR darkorange]{0}[/COLOR]"
+msgid "[COLOR white]Tulip Libraries version:[/COLOR]{0}[COLOR darkorange]{1}[/COLOR]"
 msgstr ""
 
 msgctxt "#30258"
-msgid "[COLOR white]Kodi, version:[/COLOR] [COLOR cyan]{0}[/COLOR]"
+msgid "[COLOR white]Kodi version:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
 msgstr ""
 
 msgctxt "#30259"
-msgid "[COLOR white]Follow me on Twitter:[/COLOR] [COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
+msgid "[COLOR white]Follow me on Twitter:[/COLOR]{0}[COLOR blue]http://twitter.com/TwilightZer0[/COLOR]"
 msgstr ""
 
 msgctxt "#30260"
-msgid "[COLOR white]Source code & support:[/COLOR] [COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
+msgid "[COLOR white]Source code & support:[/COLOR]{0}[COLOR blue]http://bit.ly/alivegr-support[/COLOR]"
 msgstr ""
 
 msgctxt "#30261"
@@ -951,7 +951,7 @@ msgid "Thank you for using AliveGR addon"
 msgstr ""
 
 msgctxt "#30264"
-msgid "[COLOR white]URLresolver, version:[/COLOR] [COLOR purple]{0}[/COLOR]"
+msgid "[COLOR white]ResolveURL version:[/COLOR]{0}[COLOR purple]{1}[/COLOR]"
 msgstr ""
 
 msgctxt "#30265"
@@ -959,11 +959,11 @@ msgid "Click on this item to force update local repos"
 msgstr ""
 
 msgctxt "#30266"
-msgid "Do you agree with these terms?"
+msgid ""
 msgstr ""
 
 msgctxt "#30267"
-msgid "Display this version's changelog?"
+msgid "Addon has been updated. Do you want to view changelog?"
 msgstr ""
 
 msgctxt "#30268"
@@ -979,7 +979,7 @@ msgid "Warning"
 msgstr ""
 
 msgctxt "#30271"
-msgid "The author of G.K.N. Wizard has made some unauthorised changes to the settings of AliveGR, settings have been reset"
+msgid ""
 msgstr ""
 
 msgctxt "#30272"
@@ -1019,7 +1019,7 @@ msgid "Auto play"
 msgstr ""
 
 msgctxt "#30281"
-msgid "Youtube addon settings"
+msgid "Open Youtube addon settings window"
 msgstr ""
 
 msgctxt "#30282"
@@ -1035,7 +1035,7 @@ msgid "Playlist"
 msgstr ""
 
 msgctxt "#30285"
-msgid "Welcome to [COLOR white]A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR[/COLOR]! The [COLOR red]best[/COLOR] addon for all the Greeks.[CR]Please do not hesitate to fiddle with the settings, they don't bite!"
+msgid ""
 msgstr ""
 
 msgctxt "#30286"
@@ -1047,7 +1047,131 @@ msgid "Do you want to also enable MPEG-DASH setting on youtube addon?"
 msgstr ""
 
 msgctxt "#30288"
-msgid "Loading..."
+msgid "Quit"
+msgstr ""
+
+msgctxt "#30289"
+msgid "Show Quit"
+msgstr ""
+
+msgctxt "#30290"
+msgid "[COLOR yellow]Privacy Policy[/COLOR]"
+msgstr ""
+
+msgctxt "#30291"
+msgid ""
+msgstr ""
+
+msgctxt "#30292"
+msgid "Developer's Techno Picks"
+msgstr ""
+
+msgctxt "#30293"
+msgid "Switch to zapping mode"
+msgstr ""
+
+msgctxt "#30294"
+msgid "[COLOR white]Streamlink version:[/COLOR]{0}[COLOR gray]{1}[/COLOR]"
+msgstr ""
+
+msgctxt "#30295"
+msgid "[COLOR white][B]Toggle Debug[/B][/COLOR]"
+msgstr "[COLOR white][B]Εναλλαγή αποσφαλμάτωσης[/B][/COLOR]"
+
+msgctxt "#30296"
+msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
+msgstr ""
+
+msgctxt "#30297"
+msgid "Resolve ustream"
+msgstr ""
+
+msgctxt "#30298"
+msgid "Resolvers"
+msgstr ""
+
+msgctxt "#30299"
+msgid ""
+msgstr ""
+
+msgctxt "#30300"
+msgid "Resolve openload with"
+msgstr ""
+
+msgctxt "#30301"
+msgid "Internally"
+msgstr ""
+
+msgctxt "#30302"
+msgid "Externally"
+msgstr ""
+
+msgctxt "#30303"
+msgid "ResolveURL"
+msgstr ""
+
+msgctxt "#30304"
+msgid "Streamlink"
+msgstr ""
+
+msgctxt "#30305"
+msgid "Externally via browser window"
+msgstr ""
+
+msgctxt "#30306"
+msgid "[COLOR white]Like us on facebook:[/COLOR]{0}[COLOR blue]https://www.facebook.com/alivegr/[/COLOR]"
+msgstr ""
+
+msgctxt "#30307"
+msgid "Go to root menu"
+msgstr ""
+
+msgctxt "#30308"
+msgid "Geo loc function override"
+msgstr ""
+
+msgctxt "#30309"
+msgid "Force Greece"
+msgstr ""
+
+msgctxt "#30310"
+msgid "Force Worldwide"
+msgstr ""
+
+msgctxt "#30311"
+msgid "Do not force"
+msgstr ""
+
+msgctxt "#30312"
+msgid ""
+msgstr ""
+
+msgctxt "#30313"
+msgid "Label formatting and displaying (where supported)"
+msgstr ""
+
+msgctxt "#30314"
+msgid "Use two lines"
+msgstr ""
+
+msgctxt "#30315"
+msgid "Use one long line"
+msgstr ""
+
+msgctxt "#30316"
+msgid "Open website in browser window"
+msgstr ""
+
+msgctxt "#30317"
+msgid "Hide cartoons from movies section"
+msgstr ""
+
+msgctxt "#30318"
+msgid "Change skin"
+msgstr ""
+
+msgctxt "#30319"
+msgid "Open global settings"
 msgstr ""
 
 msgctxt "#30401"

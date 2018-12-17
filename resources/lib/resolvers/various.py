@@ -18,9 +18,9 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
-from tulip import client
+from tulip import client, cache
 import re, json
+from streamlink.plugin.api.utils import itertags
 
 
 def ant1gr(link):
@@ -48,8 +48,8 @@ def ant1gr(link):
 
     get_live = 'http://mservices.antenna.gr/services/mobile/getLiveStream.ashx?'
 
-    live_link_1 = 'http://antglantennatv-lh.akamaihd.net/i/live_1@421307/master.m3u8'
-    live_link_2 = 'http://antglantennatv-lh.akamaihd.net/i/live_2@421307/master.m3u8'
+    live_link_1 = 'https://antennalivesp-lh.akamaihd.net/i/live_1@715138/master.m3u8'
+    live_link_2 = 'https://antennalivesp-lh.akamaihd.net/i/live_2@715138/master.m3u8'
 
     ###########
 
@@ -72,58 +72,37 @@ def ant1gr(link):
             return live_link_2
 
 
-def ant1cy(url):
+def omegacy(link):
 
-    token = 'http://www.ant1iwo.com/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL='
-    failsafe_live_url = 'http://l2.cloudskep.com/antl2/abr/playlist.m3u8'
+    """ ALternative method"""
 
-    if '#' in url:
-        referer = url.partition('#')[0]
-    else:
-        referer = url
+    cookie = client.request(link, close=False, output='cookie')
+    html = client.request(link, cookie=cookie)
+    tags = list(itertags(html, 'script'))
 
-    cookie = client.request(url, output='cookie', close=False, referer=referer)
-    result = client.request(url, cookie=cookie, referer=referer)
+    m3u8 = [i for i in tags if i.text.startswith(u'var playerInstance')][0].text
 
-    video = client.parseDOM(result, 'a', attrs={'class': 'playVideo'}, ret='data-video')[0]
-    video = client.replaceHTMLCodes(video).strip('[]"')
+    stream = re.findall('"(.+?)"', m3u8)[1]
 
-    if url == token + failsafe_live_url:
-        video = url
-    else:
-        if not video:
-            video = re.findall('\'(http.+?\.m3u8)\'', result)[0]
-        if not video:
-            video = failsafe_live_url
-
-    link = token + video
-
-    generated = client.request(link)
-
-    return generated.strip() + client.spoofer(referer=True, ref_str=referer)
-
-
-def megacy(url):
-
-    cookie = client.request(url, output='cookie', close=False)
-    result = client.request(url, cookie=cookie)
-
-    stream = re.findall('\[{sources:\[{file: "(.*?)"', result)[0]
-
-    return stream.strip() + client.spoofer()
+    return client.spoofer(url=stream, referer=True, ref_str=link)
 
 
 def ert(url):
-    from ..modules.helpers import geo_loc
-    from ..modules.constants import yt_url
+
+    from resources.lib.modules.helpers import geo_loc
+    from resources.lib.modules.constants import yt_url
 
     html = client.request(url)
 
+    iframes = client.parseDOM(html, 'iframe', ret='src')
+
     try:
-        if 'Greece' in geo_loc():
-            result = client.parseDOM(html, 'iframe', ret='src')[-1]
+        if geo_loc() == 'Greece' and 'HLSLink' in html:
+            raise IndexError
+        elif geo_loc() != 'Greece':
+            result = iframes[0]
         else:
-            result = client.parseDOM(html, 'iframe', ret='src')[0]
+            result = iframes[-1]
         if not result:
             raise IndexError
     except IndexError:
@@ -140,17 +119,38 @@ def ert(url):
 
 def skai(url):
 
-    # Keeping xml url for reference
-    # http://www.skai.gr/ajax.aspx?m=NewModules.LookupMultimedia&amp;mmid=/Root/TVLive
-
     html = client.request(url)
 
-    vid = client.parseDOM(html, 'span', attrs={'itemprop': 'contentUrl'}, ret='href')[0]
+    settings_url = re.search('url:"(.+?settings\.php)"', html)
 
-    return vid
+    if settings_url:
+
+        live_json = client.request(settings_url.group(1))
+
+        youtu_id = json.loads(live_json)['live_url']
+
+    else:
+
+        xml_url = 'http://www.skai.gr/ajax.aspx?m=NewModules.LookupMultimedia&amp;mmid=/Root/TVLive'
+
+        xml_file = client.request(xml_url)
+
+        xml = client.parseDOM(xml_file, 'File')
+
+        youtu_id = re.search(r'\[([\w-]{11})\]', xml)
+
+        if not youtu_id:
+
+            raise Exception
+
+        youtu_id = youtu_id.group(1)
+
+    return youtu_id
 
 
 def alphatv(url):
+
+    """ Deprecated method"""
 
     link = client.request(url)
     link = re.findall('(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[-1]
@@ -161,16 +161,26 @@ def alphatv(url):
 
 def euronews(url):
 
+    """ Deprecated method"""
+
     result = client.request(url)
     result = json.loads(result)['url']
 
+    if result.startswith('//'):
+        result = 'http:' + result
+
     result = client.request(result)
     primary = json.loads(result)['primary']
+
+    if primary.startswith('//'):
+        primary = 'http:' + primary
 
     return primary
 
 
 def ssh101(url):
+
+    """Deprecated method"""
 
     html = client.request(url)
     stream = client.parseDOM(html, 'source', attrs={'type': 'application/x-mpegurl'}, ret='src')[0]
@@ -178,34 +188,29 @@ def ssh101(url):
     return stream
 
 
-def visioniptv():
-
-    UA = {'User-Agent': 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36'
-                        ' (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'}
-
-    url = 'http://tvnetwork.new.visionip.tv/Hellenic_TV'
-
-    cookie = client.request(url, output='cookie', headers=UA)
-
-    return '?' + cookie
-
-
-def dacast(url):
+def periscope_search(url):
 
     html = client.request(url)
 
-    if 'iframe.dacast' in html:
-        combined_id = client.parseDOM(html, 'iframe', ret='src')[0].partition('/b/')[2]
-    else:
-        combined_id = client.parseDOM(html, 'script', attrs={'class': 'dacast-video'}, ret='id')[0].replace('_', '/')
+    container = client.parseDOM(html, 'div', attrs={'id': 'page-container'}, ret='data-store')[0]
 
-    services_url = 'https://services.dacast.com/token/i/b/' + combined_id
-    json_url = 'https://json.dacast.com/b/' + combined_id
+    search = re.search('https?://www\.pscp\.tv/w/(\w+)', container)
 
-    json_token = client.request(services_url, output='response')[1]
+    link = search.group()
 
-    token = json.loads(json_token)['token']
-    json_obj = client.request(json_url)
-    hls_url = 'http:' + json.loads(json_obj)['hls'].replace('\\', '')
+    return link
 
-    return hls_url + token
+
+def kineskop(url):
+
+    """Deprecated method"""
+
+    html = client.request(url)
+
+    stream = re.search(r"getURLParam\('src','(.+?)'", html).group(1)
+
+    headers = {'User-Agent': cache.get(client.randomagent, 12), 'Origin': 'http://kineskop.tv', 'Referer': url}
+
+    output = stream + client.spoofer(headers=headers)
+
+    return output

@@ -20,16 +20,19 @@
 
 
 from tulip import control, client, cache
-from tulip.init import syshandle, sysaddon
-from ..modules.themes import iconname
+from resources.lib.modules.themes import iconname
+from resources.lib.modules.constants import art_id
 
 
 class Indexer:
 
-    def __init__(self):
+    def __init__(self, argv):
 
         self.list = []; self.data = []; self.directory = []
         self.fp_link = 'http://www.frontpages.gr'
+        self.argv = argv
+        self.syshandle = int(self.argv[1])
+        self.sysaddon = self.argv[0]
 
     def news(self):
 
@@ -37,7 +40,7 @@ class Indexer:
             {
                 'title': control.lang(30230),
                 'icon': 'https://www.iconexperience.com/_img/v_collection_png/256x256/shadow/newspaper.png',
-                'url': '{0}?action=papers'.format(sysaddon),
+                'url': '{0}?action=papers'.format(self.sysaddon),
                 'fanart': control.addonInfo('fanart')
             }
             ,
@@ -92,8 +95,8 @@ class Indexer:
             isFolder = True
             self.list.append((url, list_item, isFolder))
 
-        control.addItems(syshandle, self.list)
-        control.directory(syshandle)
+        control.addItems(self.syshandle, self.list)
+        control.directory(self.syshandle)
 
     @staticmethod
     def switcher():
@@ -124,11 +127,9 @@ class Indexer:
         html = client.request(self.fp_link)
 
         try:
-            html = html.decode('utf-8')
-        except AttributeError:
-            pass
-
-        groups = client.parseDOM(html, 'div', attrs={'class': 'tabbertab'})
+            groups = client.parseDOM(html.decode('utf-8'), 'div', attrs={'class': 'tabbertab'})
+        except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+            groups = client.parseDOM(html, 'div', attrs={'class': 'tabbertab'})
 
         for group, papers in list(enumerate(groups, start=1)):
 
@@ -187,9 +188,9 @@ class Indexer:
         if control.setting('show-switcher') == 'true':
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
-            li.setArt({'fanart': control.fanart()})
-            url = '{0}?action={1}'.format(sysaddon, switch['action'])
-            control.addItem(syshandle, url, li)
+            li.setArt({'fanart': control.addonInfo('fanart')})
+            url = '{0}?action={1}'.format(self.sysaddon, switch['action'])
+            control.addItem(self.syshandle, url, li)
 
         else:
             pass
@@ -197,11 +198,11 @@ class Indexer:
         for i in self.list:
 
             li = control.item(label=i['title'], iconImage=i['image'])
-            li.setArt({'poster': i['image'], 'thumb': i['image'], 'fanart': control.fanart()})
+            li.setArt({'poster': i['image'], 'thumb': i['image'], 'fanart': control.addonInfo('fanart')})
             li.setInfo('image', {'title': i['title'], 'picturepath': i['url']})
             url = i['url']
             isFolder = False
             self.directory.append((url, li, isFolder))
 
-        control.addItems(syshandle, self.directory)
-        control.directory(syshandle)
+        control.addItems(self.syshandle, self.directory)
+        control.directory(self.syshandle)

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.0~alpha1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.10" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
-        <import addon="resource.images.alivegr.artwork" version="3.0.1"/>
+        <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
+        <import addon="resource.images.alivegr.logos" version="1.0.2"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.20"/>
         <import addon="script.module.streamlink.base" version="2018.12.05"/>
-        <import addon="script.module.tulip" version="2.1.0"/>
+        <import addon="script.module.tulip" version="2.1.1"/>
         <import addon="plugin.video.youtube" version="6.2.2"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
@@ -14,45 +15,39 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
+        <reuselanguageinvoker>true</reuselanguageinvoker>
         <summary lang="en">AliveGR addon</summary>
         <description lang="en_GB">AliveGR is an addon offering streaming content available in Greece.</description>
         <disclaimer lang="en_GB">AliveGR's author does not host, stream or distribute any of the content displayed inside this software and cannot be held responsible for the quality or availability of the listed streams.
-On demand content is scraped from various websites and are freely available on the internet. This software acts as indexer and not a linker.
+On demand content is scraped from various websites and is freely available on the internet on public domains. This software acts only as a search engine.
 Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is" with no warranty.
         </disclaimer>
         <summary lang="el_GR">Πρόσθετο AliveGR</summary>
         <description lang="el_GR">Το πρόσθετο AliveGR προσφέρει ροές περιεχομένου διαθέσιμες στην Ελλάδα.</description>
         <disclaimer lang="el_GR">Ο δημιουργός του AliveGR δεν φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
-Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο. Το παρόν λογισμικό ενεργεί ως κατάλογος και όχι ως συνδεσμοποιητής.
-Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή plugin που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.
+Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο σε δημόσιους ιστότοπους. Το παρόν λογισμικό ενεργεί μόνο ως μηχανή αναζήτησης.
+Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.
         </disclaimer>
         <language>en el</language>
         <license>GNU GPL, version 2</license>
         <website>https://twitter.com/TwilightZer0</website>
         <!--<forum></forum>-->
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
-        <size>404818</size>
-        <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR, the BEST addon with everything greek related[/COLOR][/I]
-[I][COLOR white]Television of the[/COLOR] [COLOR red]new generation[/COLOR][/I]
-
-+ [B]2.0.0[/B] [COLOR yellow](01-03-2017)[/COLOR]
-- Rework of the addon in various aspects to support python 3
-- Refactored most of the indexers
-- Revamped documentaries section
-- Improved the behaviour of the root menu by not checking for PVR channels existence
-- Improved keymaps setup function
-- Removed dependency for iso8601 module (moved to tulip libraries)
-- Added privacy policy text
-- Cosmetics</news>
         <size>523425</size>
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR![/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR blue]greek[/COLOR] [COLOR red]generation[/COLOR][/I]
 
-+ [B]1.10[/B] [COLOR green](16-12-2018)[/COLOR]
++ [B]1.10[/B] [COLOR green](17-12-2018)[/COLOR]
 - Removed service module and accompanying extension point as it is no longer needed.
 - Changed live list link
-- Bumped to tulip 2.1.0
+- Bumped to tulip 2.1.X (new functions)
 - Changed the way radio/music addons are opened
+- Backported keymap setup function from AliveGR 2.X.X~alpha master branch into legacy (will merge as soon as Python 3 compatibility is also completed)
+- WIP: Python 3 support
+- Params and argv are now passing through runner module allowing python builtin caching to work properly
+- Reuselanguageinvoker on by default
+- Added blank lines into settings window to make them more distinguishable
+- Removed first time prompt
 - Various other minor tweaks</news>
         <assets>
             <icon>icon.png</icon>

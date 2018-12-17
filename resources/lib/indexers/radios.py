@@ -19,12 +19,12 @@
 '''
 
 from tulip import control, directory
-from ..modules.constants import art_id, logos_id
+from resources.lib.modules.constants import art_id, logos_id
 
 
 class Indexer:
 
-    def __init__(self):
+    def __init__(self, argv):
 
         self.list = []
         self.addons = [
@@ -48,6 +48,8 @@ class Indexer:
             }
         ]
 
+        self.argv = argv
+
     def radio(self):
 
         stations = self.addons
@@ -55,4 +57,4 @@ class Indexer:
         for station in stations:
             station.update({'action': 'activate_audio_addon', 'isFolder': 'False', 'isPlayable': 'False' })
 
-        directory.add(stations)
+        directory.add(stations, argv=self.argv)

@@ -21,15 +21,9 @@
 import re, youtube_resolver
 from tulip import client, control
 from resources.lib.modules.helpers import stream_picker, addon_version
-from resources.lib.modules.constants import yt_url
+from resources.lib.modules.constants import yt_url, yt_prefix
 
-
-def thumb_maker(video_id, hq=False):
-
-    if not hq:
-        return 'http://img.youtube.com/vi/{0}/mqdefault.jpg'.format(video_id)
-    else:
-        return 'http://img.youtube.com/vi/{0}/maxresdefault.jpg'.format(video_id)
+replace_url = control.setting('yt_resolve') == '1'
 
 
 def traslate(url, add_base=False):
@@ -39,7 +33,6 @@ def traslate(url, add_base=False):
     if 'iframe' in html:
 
         iframes = client.parseDOM(html, 'iframe', ret='src')
-
         stream = [s for s in iframes if 'youtu' in s][0]
 
         return stream
@@ -60,6 +53,15 @@ def traslate(url, add_base=False):
 
 def wrapper(url):
 
+    if replace_url:
+
+        url = re.sub(
+            r'''https?://(?:[0-9A-Z-]+\.)?(?:(youtu\.be|youtube(?:-nocookie)?\.com)/?\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|</a>))[?=&+%\w.-]*''',
+            yt_prefix + r'\2', url, flags=re.I
+        )
+
+        return url
+
     streams = youtube_resolver.resolve(url)
 
     try:
@@ -67,18 +69,24 @@ def wrapper(url):
     except KeyError:
         addon_enabled = False
 
-    mpeg_dash_on = control.setting('mpeg_dash') == 'true'
     yt_mpd_enabled = control.addon(id='plugin.video.youtube').getSetting('kodion.video.quality.mpd') == 'true'
-    yt_proxy_enabled = control.addon(id='plugin.video.youtube').getSetting('kodion.mpd.proxy') == 'true'
 
-    if addon_version('xbmc.python') >= 2250 and addon_enabled and mpeg_dash_on and yt_mpd_enabled and yt_proxy_enabled:
+    if addon_version('xbmc.python') >= 2250 and addon_enabled and yt_mpd_enabled:
         choices = streams
     else:
-        choices = [s for s in streams if 'dash' not in s['title'].lower()]
+        choices = [s for s in streams if s['container'] != 'mpd']
 
-    if control.condVisibility('Window.IsVisible(music)') or control.setting('audio_only') == 'true':
+    if control.condVisibility('Window.IsVisible(music)') and control.setting('audio_only') == 'true':
 
-        resolved = [u['url'] for u in choices if 'aac@128' in u['title'].lower()][0]
+        audio_choices = [u for u in choices if 'dash/audio' in u and 'dash/video' not in u]
+
+        if control.setting('yt_quality_picker') == '0':
+            resolved = audio_choices[0]['url']
+        else:
+            qualities = [i['title'] for i in audio_choices]
+            urls = [i['url'] for i in audio_choices]
+
+            resolved = stream_picker(qualities, urls)
 
         return resolved
 
@@ -98,4 +106,9 @@ def wrapper(url):
         return resolved
 
 
+def thumb_maker(video_id, hq=False):
 
+    if hq:
+        return 'http://img.youtube.com/vi/' + video_id + '/maxresdefault.jpg'
+    else:
+        return 'http://img.youtube.com/vi/' + video_id + '/mqdefault.jpg'

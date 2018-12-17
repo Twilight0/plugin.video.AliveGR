@@ -1,36 +1,12 @@
-+ [B]2.0.0[/B] [COLOR yellow](01-03-2017)[/COLOR]
-- Rework of the addon in various aspects to support python 3 # TODO: WIP
-- Refactored most of the indexers
-- Revamped documentaries section #TODO
-- Improved the behaviour of the root menu by not checking for PVR channels existence
-- Improved keymaps setup function
-- Removed dependency for iso8601 module (moved to tulip libraries)
-- Added privacy policy text #TODO
-- Cosmetics
-
-+ [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]
-- All logs are now in debug level only, also tweaks to it
-- Added shortcuts to important info into root menu
-- Fixes and enhancements in playlist/auto action
-- Other minor fixes
-
-+ [B]1.7.1[/B] [COLOR yellow](18-01-2017)[/COLOR]
-- New function for changing languages directly from AliveGR addon
-- Fix for MPEG-DASH Vods, now properly passing stream properties
-- Fix for an icon url in music section
-- Various enhancements and fixes in music indexers
-
-+ [B]1.7.0[/B] [COLOR yellow](17-01-2017)[/COLOR]
-- New action for streams selection "Playlist" (Auto-pick an item)
-- New gm debris function improves performance bypassing greek movies extra window several times
-- Various enhancements in play m3u function
-- Re-applied DASH and improved behaviour
-- Removed first-time prompt for enabling inputstream adaptive addon
-- Added settings item pointing to inputstream adaptive & rtmp addon settings
-- Youtube resolver now has streamlink as fallback
-- Improved bookmarks behaviour and now it follows the type of action for stream selection
-- Top 50 music section added with my personal playlist.
-- Fix for Documentaries set #2
-- Changed location of blacklist module
-- Made old settings method available for developer mode only
-- Removed block check function for other addons' behaviour
++ [B]1.10[/B] [COLOR green](17-12-2018)[/COLOR]
+- Removed service module and accompanying extension point as it is no longer needed.
+- Changed live list link
+- Bumped to tulip 2.1.X (new functions)
+- Changed the way radio/music addons are opened
+- Backported keymap setup function from AliveGR 2.X.X~alpha master branch into legacy (will merge as soon as Python 3 compatibility is also completed)
+- WIP: Python 3 support
+- Params and argv are now passing through runner module allowing python builtin caching to work properly
+- Reuselanguageinvoker on by default
+- Added blank lines into settings window to make them more distinguishable
+- Removed first time prompt
+- Various other minor tweaks

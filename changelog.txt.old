@@ -1,4 +1,215 @@
-+ [B]1.7.3[/B] [COLOR yellow](01-02-2017)[/COLOR]
++ [B]1.9.6[/B] [COLOR green](15-12-2018)[/COLOR]
+- Various fixes for MPEG-DASH on youtube setup wizard
+- Tweaked settings conditionals for MPEG-DASH availability and youtube quality choices
+
++ [B]1.9.5[/B] [COLOR green](14-12-2018)[/COLOR]
+- New global settings menu item in tools window
+- Alivegr's developer toggles are now reset on every update (if necessary according to a conditional)
+- Adjusted live's cache integers
+- Removed okdialog with developer's message when addon gets updated
+
++ [B]1.9.4[/B] [COLOR green](08-12-2018)[/COLOR]
+- Added reload skin developer option
+- Allow user to change skin through appearance tab in settings menu
+
++ [B]1.9.3[/B] [COLOR green](04-12-2018)[/COLOR]
+- Apply dual/single line separators to other addon menus (defaults to off)
+- Removed mistakenly applied non-directory flag from tools menu
+- Various changes in translation strings
+- Various tweaks into directory mode labels
+- Updated bl obtain function
+
++ [B]1.9.2.X[/B] [COLOR green](02-12-2018)[/COLOR]
+- Changed from http unsecured calls to https on alivegr.net server
+- Removed vidto plugin for streamlink and accompanying setting
+- Added non-directory flags for some items on root menu
+
++ [B]1.9.1[/B] [COLOR green](25-11-2018)[/COLOR]
+- Added some new hosts for streamlink's wrapper and deprecated non-api methods in various resolvers.
+- Added generic plugin for streamlink resolver, thanks to back-to for creating it
+- Added context menu to open websites and pages from live channels, when they are available
+- Removed bookmarking feature from live channels list
+- Improved filtering of live streams for various cases
+
++ [B]1.9.0.X[/B] [COLOR green](22-11-2018)[/COLOR]
+- Updated resolver for Ant1 CY. Now as a streamlink plugin.
+- Removed resolver for megacy
+- Removed unicode decoding functions from gm indexers. Replaced by unicode strings were necessary
+- New dual line label formatting and displaying for skins supporting it. Applied only on episodes section and stream selection in directory mode.
+
++ [B]1.8.6[/B] [COLOR green](09-11-2018)[/COLOR]
+- Updated resolver for official Skai live
+
++ [B]1.8.5[/B] [COLOR green](08-11-2018)[/COLOR]
+- Bumped dependencies, especially in regards to the youtube addon
+- Some alterations on translation strings
+- Removed tune-in radio menu item as this addon is no longer available
+
++ [B]1.8.4[/B] [COLOR green](31-10-2018)[/COLOR]
+- Bumped dependencies
+- Replaced deprecated get_streams function on streamlink wrapper
+- Updated openload resolver into new streamlink standard
+- Updated conditionals for various resolvers
+
++ [B]1.8.3[/B] [COLOR green](24-10-2018)[/COLOR]
+- Bumped dependencies
+- Updated ant1 live resolver
+- Updated openload's resolver
+- A few minor other tweaks here & there
+
++ [B]1.8.2[/B] [COLOR green](16-09-2018)[/COLOR]
+- Removed visioniptv resolver
+- New default setting is alternative streams to be disabled.
+
++ [B]1.8.1[/B] [COLOR green](15-09-2018)[/COLOR]
+- Fixed music indexers for audio-only streams, again
+- Youtube manual stream choice also available in audio-only choices
+
++ [B]1.8.0[/B] [COLOR green](14-09-2018)[/COLOR]
+- New artwork
+- Added geo loc override option (primarily for tests, but can prove useful for various cases)
+- Player function: Reversed boolean failure detection
+- Improved openload streamlink plugin code
+
++ [B]1.7.31[/B] [COLOR green](13-09-2018)[/COLOR]
+- Removed streamlink as fallback resolver for youtube streams
+- New method for obtaining audio only stream on music indexers
+- Updated youtube setup function for newer settings' ids on youtube addon
+
++ [B]1.7.30[/B] [COLOR green](13-09-2018)[/COLOR]
+- Re-ordering of a few settings items
+- Reduced caching for official euronews stream
+
++ [B]1.7.29[/B] [COLOR green](12-09-2018)[/COLOR]
+- Removal of obselete and redundant boolean checking for DASH proxy
+- Fixed forgotten boolean checking relative positions for youtube's resolver
+- Bumped dependencies' versions
+
++ [B]1.7.28[/B] [COLOR green](10-09-2018)[/COLOR]
+- Openload is now resolvable also through streamlink
+- Gracefully fail even when stream object has length of two stream url is None
+- Various cosmetics
+
++ [B]1.7.27[/B] [COLOR green](05-09-2018)[/COLOR]
+- Addition of facebook link into info submenu
+- Improved behaviour of some items from various menu items by not flooding the log
+
++ [B]1.7.26[/B] [COLOR green](01-09-2018)[/COLOR]
+- Added resolver for kineskop alternative livestreams provider
+- Added conditional for tv channels logos in case some are remotely provided
+- Removal of dacast resolver
+- Various other minor fixes
+
++ [B]1.7.25[/B] [COLOR green](27-08-2018)[/COLOR]
+- TV Channels logos are now provided as a dependency addon
+
++ [B]1.7.24[/B] [COLOR green](26-08-2018)[/COLOR]
+- Fixed euronews live resolver
+- Added a forgotten translation string
+- Bumped dependencies
+
++ [B]1.7.23[/B] [COLOR green](05-08-2018)[/COLOR]
+- Bug fix for dash streams addon-wide
+- Tweaks in translation strings
+- Conditional visibility tweaks for some settings
+
++ [B]1.7.22[/B] [COLOR green](03-08-2018)[/COLOR]
+- Behavioural change in some resolvers' settings
+  > User is now given choice on how to resolve overlapped resolvable streams for certain hosters
+- Simplified main menu's boolean toggles for items appearance
+- Added reuselanguageinvoker tag and set to false by default
+- Added skin debugging for developer's mode
+
++ [B]1.7.21[/B] [COLOR green](10-07-2018)[/COLOR]
+- Added resolver for vidto through streamlink
+- Added ability to load headers from streamlink
+
++ [B]1.7.20[/B] [COLOR green](06-07-2018)[/COLOR]
+- Yet another fix for ert's live resolvers
+
++ [B]1.7.19[/B] [COLOR green](05-07-2018)[/COLOR]
+- Fix for ert's live resolvers
+- Added a conditional for audio indexers to audio only function in settings
+- Removed AliveGR's own MPEG-DASH setting (on by default, with no-opt out)
+
++ [B]1.7.18[/B] [COLOR green](04-07-2018)[/COLOR]
+- Ustream links are now opened in a browser window by default (until a better solution can be found)
+  > Option added to have former behaviour (stream times out after 30 or so seconds)
+- Respect yt_resolve setting within youtu.wrapper function (setting is now made global)
+
++ [B]1.7.17[/B] [COLOR green](01-07-2018)[/COLOR]
+- Tweaks to adjust to the new yt_resolve way for youtube streams
+- Minor settings menu re-ordering
+- Added streamlink version info
+- Toggle Debug & Force check updates are now clearly visible
+- Importand info urls can now be opened in a web browser
+
++ [B]1.7.16[/B] [COLOR green](28-06-2018)[/COLOR]
+- Added periscope search function for live channels, converting to the latest id for their respective streams
+  > Result is passed into streamlink resolver
+- Improved m3u8 picker function by respecting custom headers
+- Added new zapping mode for Live TV (access through context menu)
+
++ [B]1.7.15[/B] [COLOR green](28-06-2018)[/COLOR]
+- Various bug fixes into directory stream picking mode
+- Bug fix into radiopolis' indexer
+- Restored forgotten caching passthrough for directory stream picking mode
+
++ [B]1.7.14[/B] [COLOR green](27-06-2018)[/COLOR]
+- Simplified/fixed the youtube wrapper function for playlists &amp; videos
+- Added techno picks section in music section
+- Various other minor tweaks
+
++ [B]1.7.13[/B] [COLOR green](26-06-2018)[/COLOR]
+- Minor fix for Kodi Jarvis
+
++ [B]1.7.12[/B] [COLOR green](26-06-2018)[/COLOR]
+- Added quit button, defaults to being disabled
+- Added secondary minimal disclaimer
+- Added privacy policy text
+- Minor other tweaks
+
++ [B]1.7.11[/B] [COLOR green](24-06-2018)[/COLOR]
+- Blank version
+
++ [B]1.7.10[/B] [COLOR green](23-06-2018)[/COLOR]
+- More fixes in directory mode for streams' picking
+
++ [B]1.7.9[/B] [COLOR green](23-06-2018)[/COLOR]
+- Fixed directory indexer for episodes on some cases
+- Improved plot fetching to player
+- Added debug toggle in important info menu
+- Added debug messages into player module
+- 2 years anniversary!
+
++ [B]1.7.8[/B] [COLOR green](18-06-2018)[/COLOR]
+- Added more conditionals for dash
+- Remove forgotten chardet import
+- Bumped tulip dependency into 2.0.3
+
++ [B]1.7.7[/B] [COLOR green](18-06-2018)[/COLOR]
+- Fixed tv series/shows not playing links
+- Simplified params passing and loading of strings such as titles & image urls
+- Fix in gm indexers for images encoding
+- Minor other fixes
+
++ [B]1.7.6[/B] [COLOR green](16-06-2018)[/COLOR]
+- Tweaks and cosmetics into player module
+- Optimizations into streamlink and youtube wrapper modules
+- Fixed music indexers for audio only playback
+- Fixed Radiopolis Top 20 indexers
+- Temporarily disabled documentaries section
+- Based off tulip 2.0.0+ for future python 3 compatibility
+
++ [B]1.7.5[/B] [COLOR green](18-03-2018)[/COLOR]
+- Minor fix into the service module
+- Removed m3u8 as in python 3 branch
+
++ [B]1.7.4[/B] [COLOR green](15-03-2018)[/COLOR]
+- Minor fixes into youtu wrapper
+- Bumped dependencies
+
++ [B]1.7.3[/B] [COLOR green](01-02-2018)[/COLOR]
 - Added resolver for youtube based streams on various pages
 - Added service module to enable/disable setting for mpeg-dash (similar to the one found on youtube addon)
 - Replaced urlresolver with resolveurl by jsergio123
@@ -6,19 +217,19 @@
 - Faros network addition
 - Cosmetics
 
-+ [B]1.7.2[/B] [COLOR yellow](24-01-2017)[/COLOR]
++ [B]1.7.2[/B] [COLOR green](24-01-2018)[/COLOR]
 - All logs are now in debug level only, also tweaks to it
 - Added shortcuts to important info into root menu
 - Fixes and enhancements in playlist/auto action
 - Other minor fixes
 
-+ [B]1.7.1[/B] [COLOR yellow](18-01-2017)[/COLOR]
++ [B]1.7.1[/B] [COLOR green](18-01-2018)[/COLOR]
 - New function for changing languages directly from AliveGR addon
 - Fix for MPEG-DASH Vods, now properly passing stream properties
 - Fix for an icon url in music section
 - Various enhancements and fixes in music indexers
 
-+ [B]1.7.0[/B] [COLOR yellow](17-01-2017)[/COLOR]
++ [B]1.7.0[/B] [COLOR green](17-01-2018)[/COLOR]
 - New action for streams selection "Playlist" (Auto-pick an item)
 - New gm debris function improves performance bypassing greek movies extra window several times
 - Various enhancements in play m3u function
@@ -100,7 +311,7 @@
 + [B]1.6.3[/B] [COLOR yellow](26-11-2017)[/COLOR]
 - A few alteration in language strings
 - Main menu folder filteration re-work
-- Verious enhancemens in "important info" menu
+- Various enhancemens in "important info" menu
 - Lang split re-work
 - Changed geoloc provider and moved to helpers
 - Cosmetics

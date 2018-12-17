@@ -33,12 +33,13 @@ api_keys = {
 ########################################################################################################################
 
 art_id = 'resource.images.alivegr.artwork'
+logos_id = 'resource.images.alivegr.logos'
 yt_addon = 'plugin://plugin.video.youtube'
 yt_url = 'https://www.youtube.com/watch?v='
 yt_prefix = yt_addon + '/play/?video_id='
 sdik = 'script.alivegr.kids'
-tenmilf = 'script.alivegr.filmnet'
 play_action = '?action=play&url='
+bl = 'rFGNl5UQuJ2L3Fmcv02bj5ibpJWZ0NXYw9yL6MHc0RHa'
 
 ########################################################################################################################
 
@@ -49,24 +50,3 @@ live_groups = {
 }
 
 ########################################################################################################################
-
-radio_addons = [
-            {
-                'title': 'EPT PLAYER RADIO STATIONS',
-                'icon': 'http://alivegr.net/logos/ERT%20PLAYER.png',
-                'url': 'plugin://plugin.video.ert.gr/?action=radios'
-            }
-            ,
-            {
-                'title': 'E-RADIO ADDON',
-                'icon': 'http://alivegr.net/logos/ERADIO.png',
-                'url': 'plugin://plugin.audio.eradio.gr/'
-            }
-            ,
-            {
-                'title': 'SOMAFM ADDON',
-                'icon': 'http://alivegr.net/logos/SOMAFM.png',
-                'url': 'plugin://plugin.audio.somafm.com/'
-            }
-        ]
-

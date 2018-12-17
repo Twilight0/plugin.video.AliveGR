@@ -20,19 +20,20 @@
 
 
 from tulip import client, directory, control, cache, cleantitle
-from tulip.compat import unquote_plus, urljoin
 from tulip.init import sysaddon
+from tulip.compat import urljoin, unquote_plus, iteritems
 from resources.lib.indexers import gm
 import re, json
 
 
 class Indexer:
 
-    def __init__(self):
+    def __init__(self, argv):
 
         self.list = [] ; self.data = []
         self.google = 'https://encrypted.google.com/search?as_q={0}&as_sitesearch={1}'
         self.UA = {'User-Agent': 'Mozilla/5.0 (Android 4.4; Mobile; rv:18.0) Gecko/18.0 Firefox/18.0'}
+        self.argv = argv
 
     def search(self):
 
@@ -46,9 +47,9 @@ class Indexer:
             )
 
             try:
-                lowered = str_input.lower().decode('utf-8')
-            except AttributeError:
-                lowered = str_input.lower()
+                str_input = str_input.decode('utf-8')
+            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                pass
 
             if bool(str_input):
 
@@ -59,20 +60,20 @@ class Indexer:
                 for item in self.data:
                     item.update({'action': 'play', 'isFolder': 'False'})
 
-                self.list = [item for item in self.data if lowered in item['title'].lower()]
+                self.list = [item for item in self.data if str_input.lower() in item['title'].lower()]
 
                 if self.list is None:
                     return
 
                 for item in self.list:
-                    bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+                    bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
                     bookmark['bookmark'] = item['url']
                     bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
                     item.update({'cm': [bookmark_cm]})
 
                 self.list = sorted(self.list, key=lambda k: k['title'].lower())
 
-                directory.add(self.list)
+                directory.add(self.list, argv=self.argv)
 
             else:
 
@@ -80,7 +81,7 @@ class Indexer:
 
         elif choice == 1:
 
-            from . import documentaries
+            import documentaries
 
             str_input = control.dialog.input(
                 heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
@@ -88,7 +89,7 @@ class Indexer:
 
             try:
                 str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-            except AttributeError:
+            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
                 str_input = cleantitle.strip_accents(str_input)
 
             if bool(str_input):
@@ -144,11 +145,18 @@ class Indexer:
                         }
                     )
 
-                dl = [
-                    item for item in cache.get(
-                        documentaries.Indexer().items_list, 48
-                    ) if str_input.lower() in cleantitle.strip_accents(item['title'].decode('utf-8')).lower()
-                ]
+                try:
+                    dl = [
+                        item for item in cache.get(
+                            documentaries.Indexer().items_list, 48
+                        ) if str_input.lower() in cleantitle.strip_accents(item['title'].decode('utf-8')).lower()
+                    ]
+                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                    dl = [
+                        item for item in cache.get(
+                            documentaries.Indexer().items_list, 48
+                        ) if str_input.lower() in cleantitle.strip_accents(item['title']).lower()
+                    ]
 
                 for item in dl:
                     item.update({'action': 'play', 'isFolder': 'False'})
@@ -163,7 +171,7 @@ class Indexer:
                 self.list = self.data + dl
 
                 for item in self.list:
-                    bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+                    bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
                     bookmark['bookmark'] = item['url']
                     bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
                     item.update({'cm': [bookmark_cm]})
@@ -173,7 +181,7 @@ class Indexer:
 
                 self.list = sorted(self.list, key=lambda k: k['title'])
 
-                directory.add(self.list, content='movies')
+                directory.add(self.list, content='movies', argv=self.argv)
 
             else:
                 return
@@ -241,12 +249,12 @@ class Indexer:
                     return
 
                 for item in self.list:
-                    bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+                    bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
                     bookmark['bookmark'] = item['url']
                     bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
                     item.update({'cm': [bookmark_cm]})
 
-                directory.add(self.list, content='movies')
+                directory.add(self.list, content='movies', argv=self.argv)
 
             else:
                 return

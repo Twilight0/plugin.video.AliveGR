@@ -18,17 +18,15 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from __future__ import absolute_import
-
 import json, re
 
-from tulip import control, directory, cache, client
+from tulip import control, directory, cache, client, youtube
 from tulip.log import log_debug
-from tulip.compat import urljoin
+from tulip.compat import urljoin, iteritems
 from resources.lib.modules.themes import iconname
-from resources.lib.modules.constants import yt_url, art_id
-from resources.lib.indexers.you_tube import yt_playlists
-from resources.lib.resolvers.youtu import thumb_maker
+from resources.lib.modules.constants import yt_url, art_id, api_keys
+from resources.lib.modules.helpers import thgiliwt
+from resources.lib.resolvers.youtu import thumb_maker, replace_url
 from resources.lib.indexers import gm
 from datetime import datetime
 
@@ -36,7 +34,7 @@ from datetime import datetime
 # noinspection PyUnboundLocalVariable
 class Indexer:
 
-    def __init__(self):
+    def __init__(self, argv):
 
         self.list = []; self.data = []
         self.mgreekz_id = 'UClMj1LyMRBMu_TG1B1BirqQ'
@@ -46,6 +44,7 @@ class Indexer:
         self.radiopolis_url_gr = 'http://www.radiopolis.gr/elliniko-radio-polis-top-20/'
         self.radiopolis_url_other = 'http://www.radiopolis.gr/to-kseno-polis-top-20/'
         self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
+        self.argv = argv
 
     def menu(self):
 
@@ -91,7 +90,7 @@ class Indexer:
                     addonid=art_id,
                     theme='networks',
                     icon='rythmos_fanart.jpg',
-                    media_subfolder = False
+                    media_subfolder=False
                 )
             }
             ,
@@ -122,7 +121,15 @@ class Indexer:
             {
                 'title': control.lang(30269),
                 'action': 'top50_list',
-                'url': 'http://alivegr.net/raw/top50.xml',
+                'url': 'https://alivegr.net/raw/top50.xml',
+                'image': control.addonInfo('icon'),
+                'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
+            }
+            ,
+            {
+                'title': control.lang(30292),
+                'action': 'yt_playlist_videos',
+                'url': 'PLZF-_NNdxpb5s1vjh6YSMTyjjlfiZhgbp',
                 'image': control.addonInfo('icon'),
                 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
             }
@@ -132,7 +139,7 @@ class Indexer:
             del self.list[0]
 
         log_debug('Music section loaded')
-        directory.add(self.list)
+        directory.add(self.list, argv=self.argv)
 
     def gm_music(self):
 
@@ -150,7 +157,7 @@ class Indexer:
 
             self.list.append(data)
 
-        directory.add(self.list)
+        directory.add(self.list, argv=self.argv)
 
     def music_list(self, url):
 
@@ -200,12 +207,12 @@ class Indexer:
             log_debug('Artist index section list:' + ' ' + str(self.list))
 
         for item in self.list:
-            bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
+            bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             item.update({'cm': [bookmark_cm], 'action': 'album_index'})
 
-        directory.add(self.list)
+        directory.add(self.list, argv=self.argv)
 
     def album_index(self, url):
 
@@ -225,7 +232,7 @@ class Indexer:
                 }
             )
 
-        directory.add(self.list, content='musicvideos')
+        directory.add(self.list, content='musicvideos', argv=self.argv)
 
     def songs_index(self, url, album):
 
@@ -250,50 +257,45 @@ class Indexer:
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist], 'album': album, 'tracknumber': count})
+            item.update({'cm': [add_to_playlist, clear_playlist], 'album': album.encode('latin-1'), 'tracknumber': count})
 
-        directory.add(self.list, content=content)
+        directory.add(self.list, content=content, argv=self.argv)
 
     def mgreekz_index(self):
 
-        self.list = yt_playlists(self.mgreekz_id)
+        self.data = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key']), replace_url=replace_url).playlists, 48, self.mgreekz_id)
 
-        if self.list is None:
-            log_debug('Mad_greekz index section failed to load successfully')
-            return
-        else:
-            log_debug('Mad Greekz index section:' + ' ' + str(self.list))
-
-        for item in self.list:
-            item.update(
+        for i in self.data:
+            i.update(
                 {
-                    'fanart': control.addonmedia(
-                        addonid=art_id,
-                        theme='networks',
-                        icon='mgz_fanart.jpg',
-                        media_subfolder=False
-                    )
+                    'action': 'yt_playlist_videos', 'fanart': control.addonmedia(
+                    addonid=art_id, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
+                )
                 }
             )
 
-        directory.add(self.list)
+        for item in self.data:
+            bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
+            bookmark['bookmark'] = item['url']
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            item.update({'cm': [bookmark_cm]})
+
+        self.list = sorted(self.data, key=lambda k: k['title'].lower())
+
+        directory.add(self.list, argv=self.argv)
 
     def _top10(self):
 
         html = client.request(self.mgreekz_url)
 
-        try:
-            decoded = html.decode('utf-8')
-        except AttributeError:
-            decoded = html
-
-        # image = 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png'
-
         items = client.parseDOM(html, 'iframe', attrs={'class': 'youtube-player'}, ret='src')
 
         for item in items:
 
-            title = decoded.split(item)[0]
+            try:
+                title = html.decode('utf-8').split(item)[0]
+            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                title = html.split(item)[0]
             title = client.parseDOM(title, 'strong')[-1].strip()
             title = client.replaceHTMLCodes(title)
 
@@ -347,7 +349,7 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=content)
+        directory.add(self.list, content=content, argv=self.argv)
 
     def _top20(self, url):
 
@@ -400,7 +402,7 @@ class Indexer:
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
                 links = client.parseDOM(item, 'a', ret='href')
                 link = links[1] if len(links) == 2 else links[0]
-                image = thumb_maker(link.partition('=')[2])
+                image = thumb_maker(link.rpartition('/' if 'youtu.be' in link else '=')[2])
                 description = None
 
             self.list.append(
@@ -420,7 +422,7 @@ class Indexer:
             log_debug('Top 20 list section failed to load')
             return
         else:
-            log_debug('Top 20 list section list: {0}'.format(str(self.list)))
+            log_debug('Top 20 list section list:' + ' ' + str(self.list))
 
         if url == self.rythmos_top20_url:
             fanart = control.addonmedia(
@@ -435,7 +437,7 @@ class Indexer:
             fanart = 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             album = control.lang(30222)
         else:
-            fanart = control.fanart()
+            fanart = control.addonInfo('fanart')
             album = 'AliveGR \'s Top Music'
 
         if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
@@ -457,7 +459,7 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=content)
+        directory.add(self.list, content=content, argv=self.argv)
 
     def _top50(self, url):
 
@@ -528,4 +530,4 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=content)
+        directory.add(self.list, content=content, argv=self.argv)

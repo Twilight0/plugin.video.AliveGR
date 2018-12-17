@@ -18,12 +18,11 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+import json
 from zlib import decompress, compress
 from base64 import b64decode
 from tulip import control, cache, client
-from tulip.log import log_debug
-from tulip.m3u8 import load
-from tulip.compat import urljoin
+from tulip.log import *
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 
@@ -34,14 +33,12 @@ def pvr_client(query='false'):
 
         if query is None or query == 'false':
 
-            selection = control.selectDialog([control.lang(30001), control.lang(30014), control.lang(30002)])
+            selection = control.selectDialog([control.lang(30001), control.lang(30014)])
 
             if selection == 0:
                 control.execute('ActivateWindow(TVChannels)')
             elif selection == 1:
                 control.execute('ActivateWindow(TVGuide)')
-            elif selection == 2:
-                control.execute('ActivateWindow(radiochannels)')
             else:
                 control.execute('Dialog.Close(all)')
 
@@ -51,7 +48,7 @@ def pvr_client(query='false'):
 
     else:
 
-        control.okDialog(heading=control.name(), line1=control.lang(30065))
+        control.infoDialog(message=control.lang(30065))
 
 
 def papers():
@@ -61,7 +58,7 @@ def papers():
 
 def stream_picker(qualities, urls):
 
-    choice = control.selectDialog(heading=control.lang(30167).partition(' (')[0], list=qualities)
+    choice = control.selectDialog(heading=control.lang(30006), list=qualities)
 
     if choice <= len(qualities) and not choice == -1:
         popped = urls[choice]
@@ -70,95 +67,49 @@ def stream_picker(qualities, urls):
         return 30403
 
 
-def m3u8_picker(url):
-
-    try:
-        m3u8_playlists = load(url.rpartition('|')[0]).playlists
-    except:
-        m3u8_playlists = load(url).playlists
-
-    if not m3u8_playlists:
-        return url
-
-    qualities = []
-    urls = []
-
-    for playlist in m3u8_playlists:
-
-        quality = repr(playlist.stream_info.resolution).strip('()').replace(', ', 'x')
-        if quality == 'None':
-            quality = 'Auto'
-        uri = playlist.uri
-        if not uri.startswith('http'):
-            uri = urljoin(playlist.base_uri, uri)
-        qualities.append(quality)
-        try:
-            urls.append(uri + '|' + url.rpartition('|')[2])
-        except:
-            urls.append(uri)
-
-    if len(qualities) == 1:
-        control.infoDialog(control.lang(30220).format(qualities[0]))
-        return url
-
-    return stream_picker(qualities, urls)
-
-
-def set_a_setting(setting, value):
-
-    json_cmd = {
-        "jsonrpc": "2.0", "method": "Settings.SetSettingValue", "params": {"setting": setting, "value": value}, "id": 1
-    }
-
-    control.json_rpc(json_cmd)
-
-
-def get_a_setting(setting):
-
-    json_cmd = {
-        "jsonrpc": "2.0", "method": "Settings.GetSettingValue", "params": {"setting": setting}, "id": 1
-    }
-
-    return control.json_rpc(json_cmd)
-
-
-#TODO: Add busy dialog
 def lang_choice():
 
     def set_other_options():
 
-        set_a_setting('locale.longdateformat', 'regional')
-        set_a_setting('locale.shortdateformat', 'regional')
-        set_a_setting('locale.speedunit', 'regional')
-        set_a_setting('locale.temperatureunit', 'regional')
-        set_a_setting('locale.timeformat', 'regional')
-        set_a_setting('locale.use24hourclock', 'regional')
+        control.set_gui_setting('locale.longdateformat', 'regional')
+        control.set_gui_setting('locale.shortdateformat', 'regional')
+        control.set_gui_setting('locale.speedunit', 'regional')
+        control.set_gui_setting('locale.temperatureunit', 'regional')
+        control.set_gui_setting('locale.timeformat', 'regional')
+        control.set_gui_setting('locale.use24hourclock', 'regional')
 
     selections = [control.lang(30217), control.lang(30218)]
 
     dialog = control.selectDialog(selections)
 
     if dialog == 0:
-        set_a_setting('locale.language', 'resource.language.en_gb')
-        set_a_setting('locale.country', 'Central Europe')
+        control.set_gui_setting('locale.language', 'resource.language.en_gb')
+        control.set_gui_setting('locale.country', 'Central Europe')
         set_other_options()
     elif dialog == 1:
-        set_a_setting('locale.language', 'resource.language.el_gr')
-        set_a_setting('locale.country', 'Ελλάδα')
+        control.set_gui_setting('locale.language', 'resource.language.el_gr')
+        control.set_gui_setting('locale.country', 'Ελλάδα')
         set_other_options()
     else:
         control.execute('Dialog.Close(all)')
 
-    layouts = get_a_setting('locale.keyboardlayouts').get('result').get('value')
+    layouts = control.get_a_setting('locale.keyboardlayouts').get('result').get('value')
 
     if 'English QWERTY' and 'Greek QWERTY' not in layouts:
         if control.yesnoDialog(control.lang(30286)):
-            set_a_setting('locale.keyboardlayouts', ['English QWERTY', 'Greek QWERTY'])
+            control.set_gui_setting('locale.keyboardlayouts', ['English QWERTY', 'Greek QWERTY'])
         else: pass
     else: pass
 
     control.sleep(100)
     refresh()
+
+
+def i18n():
+
+    lang = 'el' if control.infoLabel('System.Language') == 'Greek' else 'en'
+
+    return lang
 
 
 def addon_version(addon_id):
@@ -271,16 +222,6 @@ def greeting():
     control.infoDialog(control.lang(30263))
 
 
-def delete_settings():
-
-    if control.exists(control.dataPath):
-        from shutil import rmtree
-        rmtree(control.dataPath, ignore_errors=True)
-        control.infoDialog(control.lang(30402).encode('utf-8'))
-    else:
-        control.infoDialog(control.lang(30140))
-
-
 def refresh():
 
     control.refresh()
@@ -332,7 +273,7 @@ def loader(mod, folder):
 
     target = control.join(control.transPath(control.addonInfo('path')), 'resources', 'lib', folder, '{0}'.format(mod))
 
-    # client.retriever('http://alivegr.net/raw/{0}'.format(mod), control.join(target))
+    # client.retriever('https://alivegr.net/raw/{0}'.format(mod), control.join(target))
 
     black_list_mod = client.request('https://pastebin.com/raw/DrddTrwg')
 
@@ -342,20 +283,15 @@ def loader(mod, folder):
 
 def geo_loc():
 
-    json_obj = client.request('http://freegeoip.net/json/')
+    json_obj = client.request('http://extreme-ip-lookup.com/json/')
 
-    return json_obj
+    if not json_obj or 'error' in json_obj:
+        json_obj = client.request('http://ip-api.com/json/')
 
-
-def dmca():
-
-    i18n = 'el' if control.infoLabel('System.Language') == 'Greek' else 'en'
-
-    location = control.join(
-        control.transPath(control.addonInfo('path')), 'resources', 'texts', 'dmca_{0}.txt'.format(i18n)
-    )
-
-    with open(location) as f:
-        text = f.read()
-
-    control.dialog.textviewer(control.name(), text)
+    if control.setting('geoloc_override') == '0':
+        country = json.loads(json_obj)['country']
+        return country
+    elif control.setting('geoloc_override') == '1':
+        return 'Greece'
+    else:
+        return 'Worldwide'

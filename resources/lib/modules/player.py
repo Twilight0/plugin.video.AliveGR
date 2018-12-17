@@ -20,24 +20,28 @@
 
 import random
 import re
+from tulip.compat import urljoin, quote, parse_qsl
 
 from tulip import directory, client, cache, control
-from resolveurl import hmf, resolve as resolver
+from resolveurl import resolve as resolve_url
+from resolveurl.hmf import HostedMediaFile
 # import YDStreamExtractor
 from resources.lib.resolvers import stream_link
-from resources.lib.modules.m3u8_loader import m3u8_picker
+from resources.lib.modules import m3u8_loader
 from tulip.log import log_debug
 from tulip.init import sysaddon
-from tulip.compat import urljoin, quote_plus, izip
 from resources.lib.indexers.gm import base_link
 from resources.lib.resolvers import various, youtu
 from resources.lib.modules.constants import yt_url, play_action
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
-def router(url, title='', image=''):
+def router(url, params):
 
     def yt_router(uri):
+
+        if uri.startswith('plugin://'):
+            return uri
 
         if len(uri) == 11:
 
@@ -45,11 +49,9 @@ def router(url, title='', image=''):
 
         try:
             yt_stream = youtu.wrapper(uri)
-        except YouTubeException:
-            try:
-                yt_stream = stream_link.sl_session(uri)
-            except:
-                return
+        except YouTubeException as exp:
+            log_debug('Youtube resolver failure, reason: ' + repr(exp))
+            yt_stream = None
 
         return yt_stream
 
@@ -60,7 +62,11 @@ def router(url, title='', image=''):
         #
         #     return stream
 
-    if 'greek-movies.com' in url:
+    if 'youtu' in url:
+
+        return yt_router(url)
+
+    elif 'greek-movies.com' in url:
 
         sources = cache.get(gm_source_maker, 6, url)
 
@@ -72,35 +78,17 @@ def router(url, title='', image=''):
 
         else:
 
-            link = mini_picker(sources[1], sources[2], title, image)
+            link = mini_picker(sources[1], sources[2], params)
 
             if link is None:
                 control.execute('Dialog.Close(all)')
             else:
-                stream = router(link)
+                stream = router(link, params)
 
                 try:
                     return stream, sources[3]
-                except BaseException:
-                    control.execute('Dialog.Close(all)')
-                    control.infoDialog(control.lang(30112))
-
-    elif 'youtu' in url and not '#youtu_translator' in url:
-
-        return yt_router(url)
-
-        # Alternative method reserved:
-        # if 'user' in url or 'channel' in url:
-        #
-        #     from ..resolvers import youtu
-        #     stream = youtu.traslate(url, add_base=True)
-        #     stream = urlresolver.resolve(stream)
-        #     directory.resolve(stream)
-        #
-        # else:
-        #
-        #     stream = urlresolver.resolve(url)
-        #     directory.resolve(stream, meta={'title': name})
+                except IndexError:
+                    return stream
 
     elif any(stream_link.sl_hosts(url)):
 
@@ -112,32 +100,19 @@ def router(url, title='', image=''):
         else:
             return stream
 
-    elif hmf.HostedMediaFile(url).valid_url():
+    elif HostedMediaFile(url).valid_url():
 
-        stream = resolver(url)
+        stream = resolve_url(url)
         return stream
 
     elif 'antenna' in url and not '/live' in url.lower():
         return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
     elif 'alphatv' in url and not 'live' in url:
         return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
-    elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld2' in url:
+    elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld' in url:
         return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
-    elif 'skai.gr' in url and not 'tvlive' in url.lower():
+    elif 'skaitv.gr' in url and not 'live' in url.lower():
         return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
-
-    elif '#youtu_translator' in url:
-
-        remove_fragment = url.partition('#')[0]
-        link = cache.get(youtu.traslate, 12, remove_fragment)
-        stream = youtu.wrapper(link)
-        return stream
-
-    elif 'ant1iwo' in url:
-
-        stream = cache.get(various.ant1cy, 12, url)
-
-        return stream
 
     elif 'antenna.gr' in url:
 
@@ -145,10 +120,11 @@ def router(url, title='', image=''):
 
         return stream
 
-    elif 'megatv.com.cy/live/' in url:
-
-        stream = cache.get(various.megacy, 12, url)
-        return stream
+    # elif 'omegatv.com.cy/live/' in url:
+    #
+    #     stream = various.omegacy(url)
+    #
+    #     return stream
 
     elif 'webtv.ert.gr' in url:
 
@@ -159,38 +135,38 @@ def router(url, title='', image=''):
         else:
             return yt_router(link)
 
-    elif 'skai.gr' in url:
+    elif 'skaitv.gr' in url:
 
         vid = cache.get(various.skai, 6, url)
         stream = youtu.wrapper(vid)
         return stream
 
-    elif 'alphatv.gr/webtv/live' in url or 'alphacyprus.com.cy' in url:
+    elif 'alphatv.gr/live' in url or 'alphacyprus.com.cy' in url:
 
         stream = cache.get(various.alphatv, 12, url)
         return stream
 
-    elif 'euronews.com' in url:
+    elif 'euronews.com' in url and 'watchlive.json' in url:
 
-        stream = cache.get(various.euronews, 12, url)
+        stream = cache.get(various.euronews, 6, url)
         return stream
 
-    elif 'visionip.tv' in url:
+    # elif 'ssh101.com/securelive/' in url:
+    #
+    #     stream = cache.get(various.ssh101, 48, url)
+    #     return stream
 
-        sid = cache.get(various.visioniptv, 12)
-        stream = url + sid
+    elif 'periscope' in url and 'search' in url:
+
+        stream = stream_link.sl_session(cache.get(various.periscope_search, 6, url))
+
         return stream
 
-    elif 'ssh101.com/securelive/' in url:
-
-        stream = cache.get(various.ssh101, 48, url)
-        return stream
-
-    elif '#dacast' in url:
-
-        remove_fragment = url.partition('#')[0]
-        stream = various.dacast(remove_fragment)
-        return stream
+    # elif 'kineskop' in url:
+    #
+    #     stream = various.kineskop(url)
+    #
+    #     return stream
 
     else:
 
@@ -248,7 +224,7 @@ def gm_source_maker(url):
                     h, 'a', attrs={'target': '_blank'}
                 )
             ]
-            links = [client.parseDOM(l, 'a', ret='href')[0] for l in buttons]
+            links = [l for b in buttons for l in client.parseDOM(b, 'a', ret='href')]
         links = [urljoin(base_link, link) for link in links]
 
         hosts = [host.replace(
@@ -256,7 +232,7 @@ def gm_source_maker(url):
         ).replace(
             u'προβολή σε ', control.lang(30015)
         ).replace(
-            u'μέρος‚ ', ', ' + control.lang(30225)
+            u'μέρος ', ', ' + control.lang(30225)
         ) for host in hl]
 
         if 'text-align: justify' in html:
@@ -266,7 +242,12 @@ def gm_source_maker(url):
         else:
             plot = control.lang(30085)
 
-        return 'movies', hosts, links, plot, genre
+        code = None
+        imdb_code = re.search('imdb.+?/title/([\w]+?)/', html)
+        if imdb_code:
+            code = imdb_code.group(1)
+
+        return 'movies', hosts, links, plot, genre, code
 
 
 def gm_debris(link):
@@ -276,32 +257,56 @@ def gm_debris(link):
     return button
 
 
-def playlist_maker(hl, sl, title, image):
+def playlist_maker(hl=None, sl=None, title=None, image=None, m3u_playlist=None):
 
     try:
         title = title.decode('utf-8')
-        image = image.decode('utf-8')
-    except AttributeError:
+    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
         pass
 
-    vids = [
-        sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + image + '&title=' + title for i in sl
-    ]
-    videos = list(izip(hl, vids))
+    if not m3u_playlist:
 
-    if control.setting('randomize_items') == 'true':
-        random.shuffle(videos)
-    play_list = [u'#EXTM3U\n'] + [u'#EXTINF:0,{0}\n'.format(title + u' - ' + h) + v + u'\n' for h, v in videos]
-    m3u_playlist = u''.join(play_list)
+        vids = [
+            sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + quote(image) + '&title=' + quote(title)
+            for i in sl
+        ]
+
+        videos = zip(hl, vids)
+
+        if control.setting('randomize_items') == 'true':
+            random.shuffle(videos)
+        play_list = [u'#EXTM3U\n'] + [
+            u'#EXTINF:0,{0}\n'.format(title + u' - ' + h) + v + u'\n' for h, v in videos
+        ]
+        m3u_playlist = u''.join(play_list)
 
     m3u_file = control.join(control.transPath('special://temp'), 'pl_action.m3u')
+
     with open(m3u_file, 'w') as f:
-        f.write(m3u_playlist.encode('utf-8'))
+        try:
+            f.write(m3u_playlist.encode('utf-8'))
+        except Exception:
+            f.write(m3u_playlist)
 
     return m3u_file
 
 
-def mini_picker(hl, sl, title, image):
+def zapping_mode(m3u):
+
+    m3u_file = playlist_maker(m3u_playlist=m3u)
+    control.playlist.load(m3u_file)
+    control.idle()
+    control.openPlaylist()
+
+
+def mini_picker(hl, sl, params):
+
+    try:
+        image = params.get('image').encode('latin-1')
+        title = params.get('title').encode('latin-1')
+    except UnicodeDecodeError:
+        image = params.get('image')
+        title = params.get('title')
 
     if len(hl) == 1:
 
@@ -309,11 +314,7 @@ def mini_picker(hl, sl, title, image):
 
         if control.setting('action_type') == '2':
             if control.setting('auto_play') == 'true':
-                play_url = sysaddon + play_action + quote_plus(
-                    stream
-                ) + '&image=' + quote_plus(
-                    image
-                ) + '&title=' + quote_plus(title)
+                play_url = sysaddon + play_action + quote(stream) + '&image=' + quote(image) + '&title=' + quote(title)
                 control.execute('PlayMedia("{0}")'.format(play_url))
             else:
                 m3u_file = playlist_maker(hl, sl, title, image)
@@ -346,49 +347,54 @@ def mini_picker(hl, sl, title, image):
             return
 
 
-def items_directory(url, title, description, genre):
-
-    try:
-        title = title.decode('utf-8')
-    except AttributeError:
-        pass
+def items_directory(url, params):
 
     sources = cache.get(gm_source_maker, 6, url)
 
-    lists = list(izip(sources[1], sources[2]))
+    lists = zip(sources[1], sources[2])
 
     items = []
 
-    if description is None:
+    try:
+        description = sources[3]
+    except IndexError:
+        description = params.get('plot').encode('latin-1')
         try:
-            description = sources[3]
-        except IndexError:
+            description = description.decode('utf-8')
+        except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+            pass
+        if not description:
             description = control.lang(30085)
 
-    if genre is None:
-        try:
-            genre = sources[4]
-        except IndexError:
-            genre = control.lang(30147)
-
     try:
-        description = description.decode('utf-8')
-    except AttributeError:
-        description = description
+        genre = sources[4]
+    except IndexError:
+        genre = control.lang(30147)
+
+    separator = ' - ' if control.setting('wrap_labels') == '1' else '[CR]'
 
     for h, l in lists:
 
         html = client.request(l)
         button = client.parseDOM(html, 'a', attrs={'role': 'button'}, ret='href')[0]
         image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
-        image = urljoin(base_link, image.encode('utf-8'))
-        name = client.parseDOM(html, 'h3')[0]
-        year = re.findall('[ΈΕ]τος: ?(\d{4})', html, re.U)[0]
-        plot = name + '\n' + control.lang(30090) + ': ' + year + '\n' + description
+        image = urljoin(base_link, image)
+        title = client.parseDOM(html, 'h3')[0]
+        year = [y[-4:] for y in client.parseDOM(html, 'h4') if str(y[-4:]).isdigit()][0]
+        try:
+            episode = client.stripTags(client.parseDOM(html, 'h4')[-1])
+            if episode[-4:].isdigit():
+                raise IndexError
+            episode = episode.partition(': ')[2]
+            label = title + ' - ' + episode + separator + h
+            title = title + ' - ' + episode
+        except IndexError:
+            label = title + separator + h
+        plot = title + '[CR]' + control.lang(30090) + ': ' + year + '[CR]' + description
 
         data = dict(
-            label=title + ' - ' + h, title=title, url=button, image=image, plot=plot,
-            year=int(year), genre=genre, name=name
+            label=label, title=title + ' ({})'.format(year), url=button, image=image, plot=plot,
+            year=int(year), genre=genre, name=title
         )
 
         items.append(data)
@@ -396,9 +402,11 @@ def items_directory(url, title, description, genre):
     return items
 
 
-def directory_picker(url, title, description, genre):
+def directory_picker(url, argv):
 
-    items = cache.get(items_directory, 12, url, title, description, genre)
+    params = dict(parse_qsl(argv[2].replace('?','')))
+
+    items = cache.get(items_directory, 12, url, params)
 
     if items is None:
         return
@@ -409,7 +417,7 @@ def directory_picker(url, title, description, genre):
         clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
         i.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False'})
 
-    directory.add(items, content='movies')
+    directory.add(items, content='movies', argv=argv)
 
 
 def play_m3u(link, title, rename_titles=True, randomize=True):
@@ -437,9 +445,7 @@ def play_m3u(link, title, rename_titles=True, randomize=True):
     control.execute('Action(Play)')
 
 
-def player(url, title, image):
-
-    log_debug('Attempting to play this url: ' + url)
+def player(url, params):
 
     if url is None:
         log_debug('Nothing playable was found')
@@ -449,9 +455,28 @@ def player(url, title, image):
 
     link = url.replace('&amp;', '&')
 
-    stream = router(link, title, image)
+    log_debug('Attempting to play this url: ' + link)
 
-    dash = ('.mpd' in stream or 'dash' in stream)
+    if 'ustream' in link and control.setting('ustream_resolve') == '1':
+
+        control.open_web_browser(link)
+
+        while not control.wait(1):
+
+            if control.condVisibility('Window.IsActive(okdialog)'):
+                control.execute('Dialog.Close(all)')
+                break
+
+            return
+
+    stream = router(link, params)
+
+    if stream is None or (len(stream) == 2 and stream[0] is None):
+
+        log_debug('Failed to resolve this url: ' + link)
+        control.execute('Dialog.Close(all)')
+
+        return
 
     plot = None
 
@@ -462,22 +487,71 @@ def player(url, title, image):
             plot = stream[1]
         else:
             resolved = stream
+            try:
+                plot = params.get('plot').encode('latin-1')
+                if not plot:
+                    raise ValueError
+            except ValueError:
+                pass
 
     except TypeError:
 
         resolved = stream
 
+    else:
+
+        log_debug('Plot obtained')
+
+    finally:
+
+        if stream != link:
+
+            log_debug('Stream has been resolved: ' + resolved)
+
+    if '|' in resolved:
+        from tulip.compat import parse_qsl
+        log_debug('Appending custom headers: ' + repr(dict(parse_qsl(resolved.rpartition('|')[2]))))
+
     try:
 
-        if 'm3u8' in resolved and control.setting('m3u8_quality_picker') == '1' and not any(stream_link.sl_hosts(
-                resolved)
+        bool_m3u8_quality_picker = control.setting('m3u8_quality_picker') == '1'
+
+        if 'm3u8' in resolved and bool_m3u8_quality_picker and not (
+                    any(stream_link.sl_hosts(resolved)) or any(stream_link.sl_hosts(link)) or 'omegatv.com.cy' in link
         ):
 
-            resolved = m3u8_picker(resolved)
+            resolved = m3u8_loader.m3u8_picker(resolved)
 
     except TypeError:
 
         pass
+
+    try:
+        addon_enabled = control.addon_details('inputstream.adaptive').get('enabled')
+    except KeyError:
+        addon_enabled = False
+
+    dash = ('.mpd' in resolved or 'dash' in resolved or '.ism' in resolved or '.hls' in resolved) and addon_enabled
+
+    if dash:
+
+        if '.hls' in resolved:
+            manifest_type = 'hls'
+        elif '.ism' in resolved:
+            manifest_type = 'ism'
+        else:
+            manifest_type = 'mpd'
+
+        log_debug('Activating MPEG-DASH for this url: ' + resolved)
+
+    else: manifest_type = ''
+
+    try:
+        image = params.get('image').encode('latin-1')
+        title = params.get('title').encode('latin-1')
+    except UnicodeDecodeError:
+        image = params.get('image')
+        title = params.get('title')
 
     meta = {'title': title}
     if plot:
@@ -491,7 +565,7 @@ def player(url, title, image):
     else:
 
         try:
-            directory.resolve(resolved, meta=meta, icon=image, dash=dash)
+            directory.resolve(resolved, meta=meta, icon=image, dash=dash, manifest_type=manifest_type)
         except:
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30112))
