@@ -304,7 +304,7 @@ def mini_picker(hl, sl, params):
     try:
         image = params.get('image').encode('latin-1')
         title = params.get('title').encode('latin-1')
-    except UnicodeDecodeError:
+    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
         image = params.get('image')
         title = params.get('title')
 
@@ -358,11 +358,10 @@ def items_directory(url, params):
     try:
         description = sources[3]
     except IndexError:
-        description = params.get('plot').encode('latin-1')
         try:
-            description = description.decode('utf-8')
+            description = params.get('plot').encode('latin-1')
         except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-            pass
+            description = params.get('plot')
         if not description:
             description = control.lang(30085)
 
@@ -390,10 +389,10 @@ def items_directory(url, params):
             title = title + ' - ' + episode
         except IndexError:
             label = title + separator + h
-        plot = title + '[CR]' + control.lang(30090) + ': ' + year + '[CR]' + description
+        # plot = title + '[CR]' + control.lang(30090) + ': ' + year + '[CR]' + description
 
         data = dict(
-            label=label, title=title + ' ({})'.format(year), url=button, image=image, plot=plot,
+            label=label, title=title + ' ({})'.format(year), url=button, image=image, plot=description,
             year=int(year), genre=genre, name=title
         )
 
@@ -489,10 +488,8 @@ def player(url, params):
             resolved = stream
             try:
                 plot = params.get('plot').encode('latin-1')
-                if not plot:
-                    raise ValueError
-            except ValueError:
-                pass
+            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                plot = params.get('plot')
 
     except TypeError:
 
@@ -549,7 +546,7 @@ def player(url, params):
     try:
         image = params.get('image').encode('latin-1')
         title = params.get('title').encode('latin-1')
-    except UnicodeDecodeError:
+    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
         image = params.get('image')
         title = params.get('title')
 

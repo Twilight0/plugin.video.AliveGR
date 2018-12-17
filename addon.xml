@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.11" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.12" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -36,6 +36,10 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <size>523425</size>
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR![/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR blue]greek[/COLOR] [COLOR red]generation[/COLOR][/I]
+
++ [B]1.12[/B] [COLOR green](18-12-2018)[/COLOR]
+- Added more exception types into some string conversions on player module
+- Tweaked plot text for directory mode
 
 + [B]1.11[/B] [COLOR green](17-12-2018)[/COLOR]
 - Fixed techno choices music section
