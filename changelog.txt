@@ -1,4 +1,4 @@
-+ [B]1.11.1[/B] [COLOR green](18-12-2018)[/COLOR]
++ [B]1.12[/B] [COLOR green](18-12-2018)[/COLOR]
 - Added more exception types into some string conversions on player module
 - Tweaked plot text for directory mode
 
