@@ -1,13 +1,20 @@
-+ [B]1.12[/B] [COLOR green](18-12-2018)[/COLOR]
++ [B]1.13[/B] [COLOR green](18-12-2018)[/COLOR]
+- Youtube replace_url from resolvers also passed into modules' youtube for consistency (respect yt_resolve setting and audio only boolean)
+- Tweaked changelog appearance
+
+============================================
+[I]Past versions:[/I]
+
++ [B]1.12[/B] [COLOR yellow](18-12-2018)[/COLOR]
 - Added more exception types into some string conversions on player module
 - Tweaked plot text for directory mode
 
-+ [B]1.11[/B] [COLOR green](17-12-2018)[/COLOR]
++ [B]1.11[/B] [COLOR yellow](17-12-2018)[/COLOR]
 - Fixed techno choices music section
 - Reordered youtube related functions
 - Bumped to youtube 6.2.3
 
-+ [B]1.10[/B] [COLOR green](17-12-2018)[/COLOR]
++ [B]1.10[/B] [COLOR yellow](17-12-2018)[/COLOR]
 - Removed service module and accompanying extension point as it is no longer needed.
 - Changed live list link
 - Bumped to tulip 2.1.X (new functions)
