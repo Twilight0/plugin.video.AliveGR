@@ -27,7 +27,7 @@ from resources.lib.modules.themes import iconname
 from resources.lib.modules.constants import yt_url, art_id, api_keys
 from resources.lib.modules.helpers import thgiliwt
 from resources.lib.resolvers.youtube import replace_url
-from resources.lib.modules.youtube import thumb_maker, yt_playlist_videos
+from resources.lib.modules.youtube import thumb_maker
 from resources.lib.indexers import gm
 from datetime import datetime
 
@@ -45,6 +45,12 @@ class Indexer:
         self.radiopolis_url_gr = 'http://www.radiopolis.gr/elliniko-radio-polis-top-20/'
         self.radiopolis_url_other = 'http://www.radiopolis.gr/to-kseno-polis-top-20/'
         self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
+        if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+            self.content = 'songs'
+            self.infotype = 'music'
+        else:
+            self.content = 'musicvideos'
+            self.infotype = 'video'
         self.argv = argv
 
     def menu(self):
@@ -233,7 +239,7 @@ class Indexer:
                 }
             )
 
-        directory.add(self.list, content='musicvideos', argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def songs_index(self, url, album):
 
@@ -245,13 +251,6 @@ class Indexer:
         else:
             log_debug('Song section list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
-            log_debug('Tracks loaded as audio only')
-            content = 'songs'
-        else:
-            log_debug('Normal playback of tracks')
-            content = 'musicvideos'
-
         for item in self.list:
             item.update({'action': 'play', 'isFolder': 'False'})
 
@@ -260,7 +259,7 @@ class Indexer:
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
             item.update({'cm': [add_to_playlist, clear_playlist], 'album': album.encode('latin-1'), 'tracknumber': count})
 
-        directory.add(self.list, content=content, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def mgreekz_index(self):
 
@@ -269,7 +268,7 @@ class Indexer:
         for i in self.data:
             i.update(
                 {
-                    'action': 'yt_playlist_videos', 'fanart': control.addonmedia(
+                    'action': 'mgreekz_list', 'fanart': control.addonmedia(
                     addonid=art_id, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
                 )
                 }
@@ -284,6 +283,23 @@ class Indexer:
         self.list = sorted(self.data, key=lambda k: k['title'].lower())
 
         directory.add(self.list, argv=self.argv)
+
+    def mgreekz_list(self, url):
+
+        self.list = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key']), replace_url=replace_url).playlist, 12, url)
+
+        if self.list is None:
+
+            return
+
+        for i in self.list:
+            i.update(
+                {
+                    'action': 'play', 'isFolder': 'False',
+                }
+            )
+
+        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def _top10(self):
 
@@ -324,13 +340,6 @@ class Indexer:
         else:
             log_debug('Mad Greekz list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
-            log_debug('Tracks loaded as audio only')
-            content = 'songs'
-        else:
-            log_debug('Normal playback of tracks')
-            content = 'musicvideos'
-
         self.list = self.list[::-1]
 
         for item in self.list:
@@ -350,7 +359,7 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=content, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def _top20(self, url):
 
@@ -441,13 +450,6 @@ class Indexer:
             fanart = control.addonInfo('fanart')
             album = 'AliveGR \'s Top Music'
 
-        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
-            log_debug('Tracks loaded as audio only')
-            content = 'songs'
-        else:
-            log_debug('Normal playback of tracks')
-            content = 'musicvideos'
-
         for count, item in list(enumerate(self.list, start=1)):
 
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
@@ -460,7 +462,7 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=content, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def _top50(self, url):
 
@@ -512,13 +514,6 @@ class Indexer:
         else:
             log_debug('Top 50 list:' + ' ' + str(self.list))
 
-        if control.setting('audio_only') == 'true' or control.condVisibility('Window.IsVisible(music)'):
-            log_debug('Tracks loaded as audio only')
-            content = 'songs'
-        else:
-            log_debug('Normal playback of tracks')
-            content = 'musicvideos'
-
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
@@ -531,10 +526,31 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=content, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def techno_choices(self, url):
 
-        self.list = yt_playlist_videos(url)
+        self.list = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key']), replace_url=replace_url).playlist, 12, url)
 
-        directory.add(self.list, argv=self.argv)
+        if self.list is None:
+
+            return
+
+        for i in self.list:
+            i['label'] = i.pop('title')
+
+        for count, i in list(enumerate(self.list, start=1)):
+
+            title = i['label'].partition(':' if ':' in i['label'] else '-')[2].strip()
+            artist = i['label'].partition(':' if ':' in i['label'] else '-')[0].strip()
+
+            i.update(
+                {
+                    'action': 'play', 'isFolder': 'False', 'title': title,
+                    'album': control.lang(30292), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
+                    'tracknumber': count, 'code': count, 'artist': [artist]
+                }
+            )
+
+        control.sortmethods('tracknum', mask='%A')
+        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)

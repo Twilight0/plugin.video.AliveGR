@@ -215,6 +215,10 @@ elif action == 'mgreekz_index':
     from resources.lib.indexers import music
     music.Indexer(argv=argv).mgreekz_index()
 
+elif action == 'mgreekz_list':
+    from resources.lib.indexers import music
+    music.Indexer(argv=argv).mgreekz_list(url)
+
 elif action == 'mgreekz_top10':
     from resources.lib.indexers import music
     music.Indexer(argv=argv).mgreekz_top10()

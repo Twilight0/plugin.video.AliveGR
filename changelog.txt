@@ -1,4 +1,13 @@
-+ [B]1.14[/B] [COLOR green](19-12-2018)[/COLOR]
++ [B]1.15[/B] [COLOR green](20-12-2018)[/COLOR]
+- Music indexer has class specific variable for setting content and info types.
+- Fixed Mad Greekz playlists
+- Removed yt_playlist_videos function
+
+============================================
+
+[I]Past versions:[/I]
+
++ [B]1.14[/B] [COLOR yellow](19-12-2018)[/COLOR]
 - Moved inputstream related actions from streams tab in settings into tools menu, nested directory
 - Existing leftover on related inputstream settings are now pointing to the above mentioned nested directory
 - Added the ability to install inputstream type addons (not supported on some Linux distributions where you have to install them through their respective repositories)
@@ -6,10 +15,6 @@
 - Re-ordered setting items in streams tab
 - Fix language application for changelog on Leia
 - On new installations PVR root menu item is off by default
-
-============================================
-
-[I]Past versions:[/I]
 
 + [B]1.13[/B] [COLOR yellow](18-12-2018)[/COLOR]
 - Youtube replace_url from resolvers also passed into modules' youtube for consistency (respect yt_resolve setting and audio only boolean)

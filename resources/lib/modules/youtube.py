@@ -20,25 +20,7 @@
 
 import re
 from resources.lib.modules.constants import yt_url
-from tulip import cache, youtube, client
-from tulip.log import log_debug
-from resources.lib.modules.tools import api_keys
-from resources.lib.modules.helpers import thgiliwt
-from resources.lib.resolvers.youtube import replace_url
-
-
-def yt_playlist_videos(url):
-
-    video_list = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key']), replace_url=replace_url).playlist, 48, url)
-
-    if video_list is None:
-        log_debug('Videos\' list indexer failed to load successfully')
-        return
-
-    for v in video_list:
-        v.update({'action': 'play', 'isFolder': 'False'})
-
-    return video_list
+from tulip import client
 
 
 def thumb_maker(video_id, hq=False):
