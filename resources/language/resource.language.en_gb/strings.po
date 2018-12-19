@@ -907,7 +907,7 @@ msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30253"
-msgid "Activate inputstream adaptive (MPEG-DASH)"
+msgid "Activate (or install) inputstream adaptive (MPEG-DASH)"
 msgstr ""
 
 msgctxt "#30254"
@@ -983,11 +983,11 @@ msgid ""
 msgstr ""
 
 msgctxt "#30272"
-msgid "MPEG-DASH (Adaptive Stream Quality) & RTMP addons (Krypton+)"
+msgid "Inputstream Adaptive & RTMP addons"
 msgstr ""
 
 msgctxt "#30273"
-msgid "Input stream addon settings"
+msgid "Input stream addon settings (Krypton+)"
 msgstr ""
 
 msgctxt "#30274"
@@ -995,7 +995,7 @@ msgid "Utilize MPEG-DASH"
 msgstr ""
 
 msgctxt "#30275"
-msgid "Activate RTMP"
+msgid "Activate (or install) RTMP addon"
 msgstr ""
 
 msgctxt "#30276"
@@ -1172,6 +1172,22 @@ msgstr ""
 
 msgctxt "#30319"
 msgid "Open global settings"
+msgstr ""
+
+msgctxt "#30320"
+msgid "System"
+msgstr ""
+
+msgctxt "#30321"
+msgid "Switch to music mode"
+msgstr ""
+
+msgctxt "#30322"
+msgid "System is not compatible with inputstream type addons"
+msgstr ""
+
+msgctxt "#30323"
+msgid "Could not install requested addon, to install it you have to try another way such as your distribution's repositories."
 msgstr ""
 
 msgctxt "#30401"

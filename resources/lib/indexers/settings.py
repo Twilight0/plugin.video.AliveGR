@@ -27,7 +27,7 @@ class Indexer:
 
     def __init__(self, argv):
 
-        self.list = []; self.data = []
+        self.list = []
         self.argv = argv
 
     def menu(self):
@@ -141,6 +141,16 @@ class Indexer:
                 'isPlayable': 'False'
             }
         ]
+
+        if float(control.addon('xbmc.addon').getAddonInfo('version')[:4]) >= 17.0:
+
+            inputstream = {
+                'title': control.lang(30320) + ': ' + control.lang(30272),
+                'action': 'input_stream_addons',
+                'icon': iconname('monitor')
+            }
+
+            self.list.insert(4, inputstream)
 
         if control.condVisibility('Window.IsVisible(programs)'):
 
@@ -273,4 +283,31 @@ class Indexer:
 
         directory.add(self.list, content='movies', argv=self.argv)
 
+    def input_stream_addons(self):
 
+        self.list = [
+            {
+                'title': control.lang(30253),
+                'action': 'isa_enable',
+                'isFolder': 'False',
+                'isPlayable': 'False',
+                'cm': [{'title': 30253, 'query': {'action': 'other_addon_settings', 'query': 'inputstream.adaptive'}}]
+            }
+            ,
+            {
+                'title': control.lang(30273).replace(' (Krypton+)', ''),
+                'action': 'other_addon_settings',
+                'query': 'inputstream.adaptive',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30275),
+                'action': 'rtmp_enable',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+        ]
+
+        directory.add(self.list, argv=self.argv)

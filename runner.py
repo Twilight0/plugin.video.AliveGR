@@ -23,7 +23,7 @@
 # TODO: Re-apply Documentaries section with new indexer-scraper
 # TODO: fix proxy enabler
 # TODO: Fix application of pvr simple client settings
-# TODO: Implement ability to install inputstream & IPTV Simple Client addons
+# TODO: Implement ability to install IPTV Simple Client addon
 # TODO: Finish keymap for remote
 # TODO: Complete Python 3 support
 
@@ -398,6 +398,10 @@ elif action == 'developer_mode':
 elif action == 'info':
     from resources.lib.indexers import settings
     settings.Indexer(argv=argv).info()
+
+elif action == 'input_stream_addons':
+    from resources.lib.indexers import settings
+    settings.Indexer(argv=argv).input_stream_addons()
 
 elif action == 'call_info':
     from resources.lib.modules import helpers

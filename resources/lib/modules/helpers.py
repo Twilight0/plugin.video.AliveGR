@@ -122,7 +122,7 @@ def addon_version(addon_id):
 def other_addon_settings(query):
 
     try:
-        control.openSettings(id='{0}'.format(query))
+        control.Settings(id='{0}'.format(query))
     except:
         pass
 

@@ -332,9 +332,9 @@ def file_to_text(file_):
 
 def changelog():
 
-    if control.setting('changelog_lang') == '0' and control.infoLabel('System.Language') == 'Greek':
+    if control.setting('changelog_lang') == '0' and 'Greek' in control.infoLabel('System.Language'):
         change_txt = 'changelog.el.txt'
-    elif control.setting('changelog_lang') == '0' and control.infoLabel('System.Language') != 'Greek' or control.setting('changelog_lang') == '1':
+    elif (control.setting('changelog_lang') == '0' and  'Greek' not in control.infoLabel('System.Language')) or control.setting('changelog_lang') == '1':
         change_txt = 'changelog.txt'
     else:
         change_txt = 'changelog.el.txt'
@@ -364,37 +364,103 @@ def pp():
 
 def isa_enable():
 
+    if addon_version('xbmc.python') < 2250:
+
+        control.infoDialog(control.lang(30322))
+        return
+
     try:
+
         enabled = control.addon_details('inputstream.adaptive').get('enabled')
 
-        if addon_version('xbmc.python') >= 2250 and not enabled:
-            yes = control.yesnoDialog(control.lang(30252))
-            if yes:
-                control.enable_addon('inputstream.adaptive')
-                control.infoDialog(control.lang(30402))
-            else:
-                pass
-        elif enabled:
+    except Exception:
+
+        enabled = False
+
+    try:
+
+        if enabled:
+
             control.infoDialog(control.lang(30254))
-    except:
+            return
+
+        elif not enabled:
+
+            xbmc_path = control.join('special://xbmc' ,'addons', 'inputstream.adaptive')
+            home_path = control.join('special://home', 'addons', 'inputstream.adaptive')
+
+            if control.exists(control.transPath(xbmc_path)) or control.exists(control.transPath(home_path)):
+
+                yes = control.yesnoDialog(control.lang(30252))
+
+                if yes:
+
+                    control.enable_addon('inputstream.adaptive')
+                    control.infoDialog(control.lang(30402))
+
+            else:
+
+                try:
+
+                    control.execute('InstallAddon(inputstream.adaptive)')
+
+                except Exception:
+
+                    control.okDialog(heading='AliveGR', line1=control.lang(30323))
+
+    except Exception:
+
         control.infoDialog(control.lang(30278))
 
 
 def rtmp_enable():
 
+    if addon_version('xbmc.python') < 2250:
+
+        control.infoDialog(control.lang(30322))
+        return
+
     try:
+
         enabled = control.addon_details('inputstream.rtmp').get('enabled')
 
-        if addon_version('xbmc.python') >= 225 and not enabled:
-            yes = control.yesnoDialog(control.lang(30277))
-            if yes:
-                control.enable_addon('inputstream.rtmp')
-                control.infoDialog(control.lang(30402))
-            else:
-                pass
-        elif enabled:
+    except Exception:
+
+        enabled = False
+
+    try:
+
+        if enabled:
+
             control.infoDialog(control.lang(30276))
-    except:
+            return
+
+        elif not enabled:
+
+            xbmc_path = control.join('special://xbmc', 'addons', 'inputstream.rtmp')
+            home_path = control.join('special://home', 'addons', 'inputstream.rtmp')
+
+            if control.exists(control.transPath(xbmc_path)) or control.exists(control.transPath(home_path)):
+
+                yes = control.yesnoDialog(control.lang(30277))
+
+                if yes:
+
+                    control.enable_addon('inputstream.rtmp')
+                    control.infoDialog(control.lang(30402))
+
+            else:
+
+                try:
+
+                    control.execute('InstallAddon(inputstream.rtmp)')
+
+                except Exception:
+
+                    control.okDialog(heading='AliveGR', line1=control.lang(30323))
+
+    except Exception:
+
         control.infoDialog(control.lang(30279))
 
 

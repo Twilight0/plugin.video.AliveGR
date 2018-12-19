@@ -172,9 +172,6 @@ class Indexer:
             }
         ]
 
-        if not control.condVisibility('Pvr.HasTVChannels'):
-            del self.list[1]
-
         self.menu = [i for i in self.list if i['boolean']]
 
         for item in self.menu:
@@ -183,9 +180,10 @@ class Indexer:
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
+            go_to_audio = {'title': 30321, 'query': {'action': 'activate_audio_addon', 'url': 'plugin.video.AliveGR'}}
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
             ii_cm = {'title': 30255, 'query': {'action': 'call_info'}}
-            item.update({'cm': [ii_cm, refresh, cache_clear, reset_idx, settings, tools]})
+            item.update({'cm': [ii_cm, refresh, cache_clear, reset_idx, settings, go_to_audio, tools]})
 
         log_debug('Main menu loaded, have fun...')
         log_debug('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))

@@ -907,8 +907,8 @@ msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
 msgstr "Το πρόσθετο inputstream adaptive δεν είναι ενεργοποιημένο. Θέλετε να το ενεργοποιήσετε τώρα;"
 
 msgctxt "#30253"
-msgid "Activate inputstream adaptive (MPEG-DASH)"
-msgstr "Ενεργοποίηση προσθέτου inputstream adaptive (MPEG-DASH)"
+msgid "Activate (or install) inputstream adaptive (MPEG-DASH)"
+msgstr "Ενεργοποίηση (ή εγκατάσταση) προσθέτου inputstream adaptive (MPEG-DASH)"
 
 msgctxt "#30254"
 msgid "Inputstream adaptive addon is already enabled"
@@ -983,20 +983,20 @@ msgid ""
 msgstr ""
 
 msgctxt "#30272"
-msgid "MPEG-DASH (Adaptive Stream Quality) & RTMP addons  (Krypton+)"
-msgstr "MPEG-DASH (Μεταβλητή ποιότητα ροής) & RTMP πρόσθετα  (Krypton+)"
+msgid "Inputstream Adaptive & RTMP addons"
+msgstr "Πρόσθετα μεταβλητής ποιότητα ροής & RTMP "
 
 msgctxt "#30273"
-msgid "Input stream addon settings"
-msgstr "Ρυθμίσεις προσθέτου μεταβλητής ποιότητας"
+msgid "Input stream addon settings (Krypton+)"
+msgstr "Ρυθμίσεις προσθέτου μεταβλητής ποιότητας (Krypton+)"
 
 msgctxt "#30274"
 msgid "Utilize MPEG-DASH"
 msgstr "Κάνε χρήση του MPEG-DASH"
 
 msgctxt "#30275"
-msgid "Activate RTMP"
-msgstr "Ενεργοποίηση RTMP"
+msgid "Activate (or install) RTMP addon"
+msgstr "Ενεργοποίηση (ή εγκατάσταση) προσθέτου RTMP"
 
 msgctxt "#30276"
 msgid "RTMP has already been activated"
@@ -1173,6 +1173,22 @@ msgstr "Αλλαγή κελύφους"
 msgctxt "#30319"
 msgid "Open global settings"
 msgstr "Άνοιγμα καθολικών ρυθμίσεων"
+
+msgctxt "#30320"
+msgid "System"
+msgstr "Σύστημα"
+
+msgctxt "#30321"
+msgid "Switch to music mode"
+msgstr "Αλλαγή σε λειτουργία μουσικής"
+
+msgctxt "#30322"
+msgid "System is not compatible with inputstream type addons"
+msgstr "Το σύστημα δεν είναι συμβατό με πρόσθετα τύπου inputstream"
+
+msgctxt "#30323"
+msgid "Could not install requested addon, you have to try another way to such as your distribution's repositories."
+msgstr "Αδυναμία εγκατάστασης προσθέτου που ζητήθηκε, πρέπει να προσπαθήσετε μέσω των αποθετηρίων της διανομής σας."
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"
