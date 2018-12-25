@@ -46,18 +46,18 @@
         <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(16,0)"/>
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
         <setting id="m3u8_quality_picker" type="enum" label="30219" lvalues="30168|30169" default="0"/>
-        <setting type="lsep" label=""/>
+        <setting type="sep"/>
         <setting type="lsep" label="30007"/>
-        <setting id="show-alt" type="bool" label="30046" default="false"/>
-        <setting id="show-switcher" type="bool" label="30061" default="true"/>
+        <setting id="show_alt" type="bool" label="30046" default="false"/>
+        <setting id="show_switcher" type="bool" label="30061" default="true"/>
         <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
-        <setting type="lsep" label=""/>
+        <setting type="sep"/>
         <setting type="lsep" label="30009"/>
         <setting id="action_type" type="enum" label="30144" lvalues="30145|30146|30284" default="0"/>
         <setting id="auto_play" type="bool" label="30280" default="true" enable="eq(-1,2)"/>
         <setting id="randomize_items" type="bool" label="30282" default="true" enable="eq(-2,2)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
-        <setting type="lsep" label=""/>
+        <setting type="sep"/>
         <setting type="lsep" label="30298"/>
         <setting id="yt_resolve" label="30038" type="enum" lvalues="30301|30302" default="0"/>
         <setting id="audio_only" label="30224" type="bool" default="false" enable="eq(-1,0)"/>
@@ -65,7 +65,7 @@
         <setting id="ol_resolve" label="30300" type="enum" lvalues="30303|30304" default="0"/>
         <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close"/>
         <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
-        <setting type="lsep" label=""/>
+        <setting type="sep"/>
         <setting type="lsep" label="30272"/>
         <setting label="30273" type="action" action="RunPlugin(plugin://$ID/?action=input_stream_addons)" enable="System.HasAddon(inputstream.adaptive) + System.HasAddon(inputstream.rtmp)" option="close"/>
     </category>
@@ -74,6 +74,7 @@
 
     <category label="30138">
         <setting id="reset-idx" type="bool" label="30229" default="true"/>
+        <setting id="reset-live" type="bool" label="30266" default="true" visible="eq(-1,true)"/>
         <setting visible="true" label="30134" type="action" action="RunPlugin(plugin://$ID/?action=reset_idx)"/>
         <setting type="sep"/>
         <setting visible="true" label="30056" type="action" action="RunPlugin(plugin://$ID/?action=cache_clear)"/>

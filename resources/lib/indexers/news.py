@@ -185,7 +185,7 @@ class Indexer:
             'action': 'papers_switcher'
         }
 
-        if control.setting('show-switcher') == 'true':
+        if control.setting('show_switcher') == 'true':
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
             li.setArt({'fanart': control.addonInfo('fanart')})

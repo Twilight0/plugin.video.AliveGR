@@ -39,7 +39,7 @@ class Indexer:
 
         self.list = []; self.data = []
         self.mgreekz_id = 'UClMj1LyMRBMu_TG1B1BirqQ'
-        self.mgreekz_url = 'http://mad.tv/mad-hits-top-10/'
+        self.mgreekz_url = 'http://mad.tv/'
         self.rythmos_url = 'https://www.rythmosfm.gr/'
         self.plus_url = 'http://plusradio.gr/top20'
         self.radiopolis_url_gr = 'http://www.radiopolis.gr/elliniko-radio-polis-top-20/'
@@ -301,30 +301,41 @@ class Indexer:
 
         directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
-    def _top10(self):
+    def _mgreekz_top10(self):
+
+        from youtube_requests import get_search
 
         html = client.request(self.mgreekz_url)
 
-        items = client.parseDOM(html, 'iframe', attrs={'class': 'youtube-player'}, ret='src')
+        spotify_playlist_url = client.parseDOM(html, 'iframe', ret='src')[0]
 
-        for item in items:
+        spotify_html = client.request(spotify_playlist_url)
 
-            try:
-                title = html.decode('utf-8').split(item)[0]
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                title = html.split(item)[0]
-            title = client.parseDOM(title, 'strong')[-1].strip()
-            title = client.replaceHTMLCodes(title)
+        spotify_object = client.parseDOM(spotify_html, 'script', attrs={'id': 'resource', 'type': 'application/json'})[0]
 
-            url = item.partition('?')[0]
+        _json_ = json.loads(spotify_object)
 
-            # image = 'https://i.ytimg.com/vi/' + url.rpartition('/')[2] + '/mqdefault.jpg'
-            image = thumb_maker(url.rpartition('/')[2])
+        comment = plot = _json_.get('description')
+
+        tracks = _json_.get('tracks').get('items')
+
+        for track in tracks:
+
+            song = track.get('track')
+
+            title = song.get('name')
+
+            artists = [i['name'] for i in song.get('artists')]
+
+            search = get_search(q=title + ' ' + 'official', search_type='video')[0]
+            vid = search['id']['videoId']
+            link = yt_url + vid
+            image = thumb_maker(link.rpartition('/' if 'youtu.be' in link else '=')[2])
 
             self.list.append(
                 {
-                    'label': title, 'title': title.partition(u' – ')[0], 'url': url,
-                    'image': image, 'artist': [title.partition(u' – ')[2]]
+                    'label': title + ' - ' + ' & '.join(artists), 'url': link, 'album': 'Mad Greek Top 10',
+                    'image': image, 'artist': artists, 'comment': comment, 'plot': plot, 'title': title
                 }
             )
 
@@ -332,15 +343,13 @@ class Indexer:
 
     def mgreekz_top10(self):
 
-        self.list = cache.get(self._top10, 24)
+        self.list = cache.get(self._mgreekz_top10, 24)
 
         if self.list is None:
             log_debug('Mad Greekz top 10 section failed to load')
             return
         else:
             log_debug('Mad Greekz list:' + ' ' + str(self.list))
-
-        self.list = self.list[::-1]
 
         for item in self.list:
             item.update({'action': 'play', 'isFolder': 'False'})
@@ -538,15 +547,16 @@ class Indexer:
 
         for i in self.list:
             i['label'] = i.pop('title')
+            if 'PREMIERE:' in i['label']:
+                i['label'] = i['label'].replace('PREMIERE:', '').strip()
 
         for count, i in list(enumerate(self.list, start=1)):
 
-            title = i['label'].partition(':' if ':' in i['label'] else '-')[2].strip()
-            artist = i['label'].partition(':' if ':' in i['label'] else '-')[0].strip()
+            artist, separator, title = (t.strip() for t in list(i['label'].partition(':' if ':' in i['label'] and not '-' in i['label'] else '-')))
 
             i.update(
                 {
-                    'action': 'play', 'isFolder': 'False', 'title': title,
+                    'action': 'play', 'isFolder': 'False', 'title': title, 'label': ''.join([artist, ' ' + separator + ' ', title]),
                     'album': control.lang(30292), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
                     'tracknumber': count, 'code': count, 'artist': [artist]
                 }

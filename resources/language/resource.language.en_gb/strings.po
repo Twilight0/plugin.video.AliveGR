@@ -523,7 +523,7 @@ msgid "Mad Greekz Top 10"
 msgstr ""
 
 msgctxt "#30128"
-msgid "Rythmos 949 Top 20"
+msgid "Rythmos 94.9 Top 20"
 msgstr ""
 
 msgctxt "#30129"
@@ -959,7 +959,7 @@ msgid "Click on this item to force update local repos"
 msgstr ""
 
 msgctxt "#30266"
-msgid ""
+msgid "Also reset live channel groups"
 msgstr ""
 
 msgctxt "#30267"

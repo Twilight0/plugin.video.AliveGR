@@ -523,8 +523,8 @@ msgid "Mad Greekz Top 10"
 msgstr "Τα 10 κορυφαία του Mad Greekz"
 
 msgctxt "#30128"
-msgid "Rythmos 949 Top 20"
-msgstr "Τα 20 κορυφαία του Ρυθμός 949"
+msgid "Rythmos 94.9 Top 20"
+msgstr "Τα 20 κορυφαία του Ρυθμός 94.9"
 
 msgctxt "#30129"
 msgid "Disclaimer"
@@ -959,8 +959,8 @@ msgid "Click on this item to force update local repos"
 msgstr "Πατήστε πάνω του για επιβολή ενημέρωσης τοπικών αποθετηρίων"
 
 msgctxt "#30266"
-msgid ""
-msgstr ""
+msgid "Also reset live channel groups"
+msgstr "Κάνε επαναφορά και στις ομάδες ζωντανών ροών"
 
 msgctxt "#30267"
 msgid "Addon has been updated. Do you want to view changelog?"
@@ -979,8 +979,8 @@ msgid "Warning"
 msgstr "Ειδοποίηση"
 
 msgctxt "#30271"
-msgid ""
-msgstr ""
+msgid "Disable quality selection on Leia+"
+msgstr "Απενεργοποίηση επιλογής ποιότητας σε Leia+"
 
 msgctxt "#30272"
 msgid "Inputstream Adaptive & RTMP addons"

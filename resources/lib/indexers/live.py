@@ -163,7 +163,7 @@ class Indexer:
             )
         ] if not control.setting('live_group') == 'ALL' else self.list
 
-        if control.setting('show-alt') == 'false':
+        if control.setting('show_alt') == 'false':
             self.list = [
                 item for item in self.list if not any(['BUP' in item['title'], re.search('\(\d\)', item['title'])])
             ]
@@ -196,7 +196,7 @@ class Indexer:
             else:
                 item.update({'cm': [r_and_c_cm, zapping_cm, web_cm]})
 
-        if control.setting('show-switcher') == 'true':
+        if control.setting('show_switcher') == 'true':
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
             li.setArt({'fanart': control.addonInfo('fanart')})

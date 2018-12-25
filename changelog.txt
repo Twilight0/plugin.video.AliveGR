@@ -1,11 +1,18 @@
-+ [B]1.15[/B] [COLOR green](20-12-2018)[/COLOR]
-- Music indexer has class specific variable for setting content and info types.
-- Fixed Mad Greekz playlists
-- Removed yt_playlist_videos function
++ [B]1.16[/B] [COLOR green](25-12-2018)[/COLOR]
+- Reuselanguageinvoker set to false. Behaviour on true does not respect settings changes, unfortunately.
+- Added independent setting for live groups indexer reset
+- Updated Mad TV's top 10 indexer (hybrid: spotify for metadata and youtube for video + thumbnails)
+- Some other minor enhancements in music indexers
 
 ============================================
 
 [I]Past versions:[/I]
+
++ [B]1.15[/B] [COLOR yellow](20-12-2018)[/COLOR]
+- Music indexer has class specific variable for setting content and info types.
+- Fixed Mad Greekz playlists
+- Removed yt_playlist_videos function
+- Option to disable auto quality selection for m3u8 (hls) streams on Leia and later versions
 
 + [B]1.14[/B] [COLOR yellow](19-12-2018)[/COLOR]
 - Moved inputstream related actions from streams tab in settings into tools menu, nested directory

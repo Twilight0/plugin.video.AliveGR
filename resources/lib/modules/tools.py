@@ -478,17 +478,6 @@ def disclaimer():
     )
 
 
-def repo_check():
-
-    if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
-
-        control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
-        control.execute('Dialog.Close(all)')
-        import sys; sys.exit()
-
-    else: pass
-
-
 def checkpoint():
 
     if control.exists(control.join(control.addonPath, 'UPDATE')):
@@ -505,6 +494,16 @@ def checkpoint():
             control.setSetting('toggler', 'false')
         # block_check()
         control.deleteFile(control.join(control.addonPath, 'UPDATE'))
+
+
+# Reserved might use later
+# def repo_check():
+#
+#     if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
+#
+#         control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
+#         control.execute('Dialog.Close(all)')
+#         import sys; sys.exit()
 
 
 # Reserved might user later

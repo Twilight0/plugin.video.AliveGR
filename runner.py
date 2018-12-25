@@ -32,14 +32,11 @@ from __future__ import absolute_import
 
 ########################################################################################################################
 
+import sys
 from resources.lib.modules.tools import checkpoint
-
-checkpoint()
+from tulip.compat import parse_qsl
 
 ########################################################################################################################
-
-import sys
-from tulip.compat import parse_qsl
 
 argv = sys.argv
 syshandle = int(argv[1])
@@ -455,3 +452,8 @@ elif action == 'activate_audio_addon':
 else:
     from resources.lib.modules import helpers
     helpers.greeting()
+
+
+if __name__ == '__main__':
+
+    checkpoint()

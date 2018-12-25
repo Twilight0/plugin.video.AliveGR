@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.15" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.16" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -7,7 +7,7 @@
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.20"/>
         <import addon="script.module.streamlink.base" version="2018.12.05"/>
-        <import addon="script.module.tulip" version="2.1.2"/>
+        <import addon="script.module.tulip" version="2.2.1"/>
         <import addon="plugin.video.youtube" version="6.2.3"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
@@ -15,7 +15,7 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
-        <reuselanguageinvoker>true</reuselanguageinvoker>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
         <summary lang="en">AliveGR addon</summary>
         <description lang="en_GB">AliveGR is an addon offering streaming content available in Greece.</description>
         <disclaimer lang="en_GB">AliveGR's author does not host, stream or distribute any of the content displayed inside this software and cannot be held responsible for the quality or availability of the listed streams.
@@ -37,14 +37,20 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR![/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR blue]greek[/COLOR] [COLOR red]generation[/COLOR][/I]
 
-+ [B]1.15[/B] [COLOR green](20-12-2018)[/COLOR]
-- Music indexer has class specific variable for setting content and info types.
-- Fixed Mad Greekz playlists
-- Removed yt_playlist_videos function
++ [B]1.16[/B] [COLOR green](25-12-2018)[/COLOR]
+- Reuselanguageinvoker set to false. Behaviour on true does not respect settings changes, unfortunately.
+- Added independent setting for live groups indexer reset
+- Updated Mad TV's top 10 indexer (hybrid: spotify for metadata and youtube for video + thumbnails)
+- Some other minor enhancements in music indexers
 
 ============================================
 
 [I]Past versions:[/I]
+
++ [B]1.15[/B] [COLOR yellow](20-12-2018)[/COLOR]
+- Music indexer has class specific variable for setting content and info types.
+- Fixed Mad Greekz playlists
+- Removed yt_playlist_videos function
 
 + [B]1.14[/B] [COLOR yellow](19-12-2018)[/COLOR]
 - Moved inputstream related actions from streams tab in settings into tools menu, nested directory
