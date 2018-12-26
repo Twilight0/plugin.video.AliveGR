@@ -755,7 +755,7 @@ class Generic(Plugin):
 
     def _res_text(self, url):
         try:
-            res = self.session.http.get(url, allow_redirects=True)
+            res = self.session.http.get(url, allow_redirects=True, timeout=30.0)
         except Exception as e:
             if 'Received response with content-encoding: gzip' in str(e):
                 headers = {

@@ -276,7 +276,7 @@ elif action == 'other_addon_settings':
     from resources.lib.modules import helpers
     helpers.other_addon_settings(query)
 
-elif action == 'play' or action == 'play_direct':
+elif action in ['play', 'play_direct']:
     from resources.lib.modules.player import player
     player(url, params, do_not_resolve=action == 'play_direct')
 

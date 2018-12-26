@@ -177,14 +177,12 @@ class Indexer:
         if zapping:
             if control.setting('zapping_preresolve') == 'true':
                 from resources.lib.modules.player import router
-                self.list = [
-                    dict(
-                        (
-                             k, router(item[k], params=self.params) if (k == 'url') else v
-                        ) for k, v in item.items()
-                    ) for item in self.list
-                ]
-
+                for item in self.list:
+                    try:
+                        item.update({'url': router(item['url'], params=self.params)})
+                    except Exception as e:
+                        log_debug('Skipped ' + item['title'] + ' from resolve, reason: ' + repr(e))
+                        continue
             m3u = directory.m3u_maker(self.list, argv=self.argv)
             return m3u
 
