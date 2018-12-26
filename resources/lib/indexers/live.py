@@ -172,7 +172,7 @@ class Indexer:
         year = datetime.now().year
 
         for count, item in list(enumerate(self.list, start=1)):
-            item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
+            item.update({'action': 'play_direct' if zapping else 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
 
         if zapping:
             if control.setting('zapping_preresolve') == 'true':

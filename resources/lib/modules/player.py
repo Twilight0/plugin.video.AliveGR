@@ -100,7 +100,7 @@ def router(url, params):
         else:
             return stream
 
-    elif HostedMediaFile(url).valid_url() and not 'manifest.googlevideo.com/api/' in url:
+    elif HostedMediaFile(url).valid_url():
 
         stream = resolve_url(url)
         return stream
@@ -444,7 +444,7 @@ def play_m3u(link, title, rename_titles=True, randomize=True):
     control.execute('Action(Play)')
 
 
-def player(url, params):
+def player(url, params, do_not_resolve=False):
 
     if url is None:
         log_debug('Nothing playable was found')
@@ -468,7 +468,10 @@ def player(url, params):
 
             return
 
-    stream = router(link, params)
+    if do_not_resolve:
+        stream = link
+    else:
+        stream = router(link, params)
 
     if stream is None or (len(stream) == 2 and stream[0] is None):
 
