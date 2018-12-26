@@ -193,9 +193,9 @@ def setup_various_keymaps(keymap):
                 with open(location, 'w') as f:
                     f.write(to_write)
 
-    elif keymap == 'remote':
+    elif keymap == 'remote_slideshow':
 
-        location = control.transPath(control.join('special://profile', 'keymaps', 'alivegr_remote.xml'))
+        location = control.transPath(control.join('special://profile', 'keymaps', 'alivegr_remote_slideshow.xml'))
 
         lang_int = 30238
 

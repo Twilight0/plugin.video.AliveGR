@@ -979,8 +979,8 @@ msgid "Warning"
 msgstr "Ειδοποίηση"
 
 msgctxt "#30271"
-msgid "Disable quality selection on Leia+"
-msgstr "Απενεργοποίηση επιλογής ποιότητας σε Leia+"
+msgid "Pre-resolve streams in zapping mode"
+msgstr "Προ-επίλυση ροών σε λειτουργία ζάπινγκ"
 
 msgctxt "#30272"
 msgid "Inputstream Adaptive & RTMP addons"

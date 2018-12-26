@@ -979,7 +979,7 @@ msgid "Warning"
 msgstr ""
 
 msgctxt "#30271"
-msgid ""
+msgid "Pre-resolve streams in zapping mode"
 msgstr ""
 
 msgctxt "#30272"

@@ -100,7 +100,7 @@ def router(url, params):
         else:
             return stream
 
-    elif HostedMediaFile(url).valid_url():
+    elif HostedMediaFile(url).valid_url() and not 'manifest.googlevideo.com/api/' in url:
 
         stream = resolve_url(url)
         return stream

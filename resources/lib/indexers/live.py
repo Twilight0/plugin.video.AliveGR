@@ -32,11 +32,12 @@ from resources.lib.modules.constants import live_groups, logos_id
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self, argv, params=None):
 
         self.list = []; self.data = []; self.groups = []
         self.alivegr = 'QjNi5SZ2lGbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
         self.argv = argv
+        self.params = params
 
     def switcher(self):
 
@@ -174,6 +175,16 @@ class Indexer:
             item.update({'action': 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
 
         if zapping:
+            if control.setting('zapping_preresolve') == 'true':
+                from resources.lib.modules.player import router
+                self.list = [
+                    dict(
+                        (
+                             k, router(item[k], params=self.params) if (k == 'url') else v
+                        ) for k, v in item.items()
+                    ) for item in self.list
+                ]
+
             m3u = directory.m3u_maker(self.list, argv=self.argv)
             return m3u
 

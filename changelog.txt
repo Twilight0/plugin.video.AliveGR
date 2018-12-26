@@ -1,12 +1,15 @@
-+ [B]1.16[/B] [COLOR green](25-12-2018)[/COLOR]
-- Reuselanguageinvoker set to false. Behaviour on true does not respect settings changes, unfortunately.
-- Added independent setting for live groups indexer reset
-- Updated Mad TV's top 10 indexer (hybrid: spotify for metadata and youtube for video + thumbnails)
-- Some other minor enhancements in music indexers
++ [B]1.17[/B] [COLOR green](26-12-2018)[/COLOR]
+- Zapping mode gets a pre-resolve capability (defaults to off, enable from the settings menu)
 
 ============================================
 
 [I]Past versions:[/I]
+
++ [B]1.16[/B] [COLOR yellow](25-12-2018)[/COLOR]
+- Reuselanguageinvoker set to false. Behaviour on true does not respect settings changes, unfortunately.
+- Added independent setting for live groups indexer reset
+- Updated Mad TV's top 10 indexer (hybrid: spotify for metadata and youtube for video + thumbnails)
+- Some other minor enhancements in music indexers
 
 + [B]1.15[/B] [COLOR yellow](20-12-2018)[/COLOR]
 - Music indexer has class specific variable for setting content and info types.

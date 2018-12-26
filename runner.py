@@ -290,7 +290,7 @@ elif action == 'zapping_mode':
     busy()
     from resources.lib.modules.player import zapping_mode
     from resources.lib.indexers import live
-    zapping_mode(live.Indexer(argv=argv).live_tv(zapping=True))
+    zapping_mode(live.Indexer(argv=argv, params=params).live_tv(zapping=True))
 
 elif action == 'directory':
     from resources.lib.modules.player import directory_picker
