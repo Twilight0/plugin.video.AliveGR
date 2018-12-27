@@ -547,8 +547,8 @@ class Indexer:
 
         for i in self.list:
             i['label'] = i.pop('title')
-            if 'PREMIERE:' in i['label']:
-                i['label'] = i['label'].replace('PREMIERE:', '').strip()
+            # process stupid descriptions/comments put up by uploaders on labels
+            i['label'] = re.sub(r'PREMIERE ?:|\(full version\)\.mp4|\(?[Un]?Official.+?\) ?(?:HD)?|HD 1080p', '', i['label'], flags=re.IGNORECASE).strip()
 
         for count, i in list(enumerate(self.list, start=1)):
 

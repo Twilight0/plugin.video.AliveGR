@@ -181,7 +181,7 @@ class Indexer:
                     try:
                         item.update({'url': router(item['url'], params=self.params)})
                     except Exception as e:
-                        log_debug('Skipped ' + item['title'] + ' from resolve, reason: ' + repr(e))
+                        log_debug('Failed to resolve ' + item['title'] + ' , reason: ' + repr(e))
                         continue
             m3u = directory.m3u_maker(self.list, argv=self.argv)
             return m3u
