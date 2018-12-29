@@ -27,7 +27,7 @@
         <setting id="show_series" label="30154" type="bool" default="true"/>
         <setting id="show_shows" label="30155" type="bool" default="true"/>
         <setting id="show_theater" label="30156" type="bool" default="true"/>
-        <!--<setting id="show_docs" label="30157" type="bool" default="true"/>-->
+        <setting id="show_docs" label="30157" type="bool" default="true"/>
         <setting id="show_sports" label="30158" type="bool" default="true"/>
         <setting id="show_kids" label="30159" type="bool" default="true"/>
         <setting id="show_misc" label="30160" type="bool" default="true"/>

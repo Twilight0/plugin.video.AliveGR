@@ -175,12 +175,12 @@ msgid "Show {0}"
 msgstr "Δείξε {0}"
 
 msgctxt "#30041"
-msgid "Documentaties - Set 1"
-msgstr "Ντοκυμαντέρ - Σετ 1"
+msgid ""
+msgstr ""
 
 msgctxt "#30042"
-msgid "Documentaties - Set 2"
-msgstr "Ντοκυμαντέρ - Σετ 2"
+msgid ""
+msgstr ""
 
 msgctxt "#30043"
 msgid "Reverse episodes order"

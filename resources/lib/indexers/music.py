@@ -548,17 +548,44 @@ class Indexer:
         for i in self.list:
             i['label'] = i.pop('title')
             # process stupid descriptions/comments put up by uploaders on labels
-            i['label'] = re.sub(r'PREMIERE ?:|\(full version\)\.mp4|\(?[Un]?Official.+?\) ?(?:HD)?|HD 1080p', '', i['label'], flags=re.IGNORECASE).strip()
+            i['label'] = re.sub(r'PREMIERE ?:|\(full version\)\.mp4|\(?[Un]?Official.+?\) ?(?:HD)?|\[?HD (?:108|72)0p\]?', '', i['label'], flags=re.IGNORECASE)
 
         for count, i in list(enumerate(self.list, start=1)):
 
-            artist, separator, title = (t.strip() for t in list(i['label'].partition(':' if ':' in i['label'] and not '-' in i['label'] else '-')))
+            if '–' in i['label']:
+                sep = '–'
+            elif ':' in i['label'] and not '-' in i['label']:
+                sep = ':'
+            else:
+                sep = '-'
+
+            artist, separator, title = (t.strip() for t in list(i['label'].partition(sep)))
+
+            if '&' in artist:
+                artists_separator = '&'
+            elif ',' in artist:
+                artists_separator = ','
+            elif 'feat.' in artist:
+                artists_separator = 'feat.'
+            elif 'feat' in artist:
+                artists_separator = 'feat'
+            elif 'Feat' in artist:
+                artists_separator = 'Feat'
+            else:
+                artists_separator = None
+
+            if artists_separator:
+                artist = artist.split(artists_separator)
+                on_label = ' / '.join(artist)
+            else:
+                on_label = artist
+                artist = [artist]
 
             i.update(
                 {
-                    'action': 'play', 'isFolder': 'False', 'title': title, 'label': ''.join([artist, ' ' + separator + ' ', title]),
+                    'action': 'play', 'isFolder': 'False', 'title': title, 'label': ' '.join([on_label, separator , title]),
                     'album': control.lang(30292), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
-                    'tracknumber': count, 'code': count, 'artist': [artist]
+                    'tracknumber': count, 'code': count, 'artist': artist
                 }
             )
 

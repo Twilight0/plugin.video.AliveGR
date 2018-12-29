@@ -175,11 +175,11 @@ msgid "Show {0}"
 msgstr ""
 
 msgctxt "#30041"
-msgid "Documentaties - Set 1"
+msgid ""
 msgstr ""
 
 msgctxt "#30042"
-msgid "Documentaties - Set 2"
+msgid ""
 msgstr ""
 
 msgctxt "#30043"

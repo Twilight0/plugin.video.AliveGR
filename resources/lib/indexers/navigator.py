@@ -98,13 +98,14 @@ class Indexer:
                 'icon': iconname('theater'),
                 'boolean': control.setting('show_theater') == 'true'
             }
-            # ,
-            # {
-            #     'title': control.lang(30079),
-            #     'action': 'documentaries',
-            #     'icon': iconname('documentaries'),
-            #     'boolean': control.setting('show_docs') == 'true'
-            # }
+            ,
+            {
+                'title': control.lang(30079),
+                'action': 'listing',
+                'url': 'http://greek-movies.com/movies.php?g=6&y=&l=&p=',
+                'icon': iconname('documentaries'),
+                'boolean': control.setting('show_docs') == 'true'
+            }
             ,
             {
                 'title': control.lang(30094),

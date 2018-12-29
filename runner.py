@@ -20,7 +20,7 @@
 # TODO: Examine the possibility of creating resolver for swiftstreamz (tvone11)
 # TODO: Re-examine kids variety section
 # TODO: Fix search
-# TODO: Re-apply Documentaries section with new indexer-scraper
+# TODO: Implement new indexer for documentaries
 # TODO: fix proxy enabler
 # TODO: Fix application of pvr simple client settings
 # TODO: Implement ability to install IPTV Simple Client addon

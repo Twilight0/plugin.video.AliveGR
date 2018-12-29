@@ -1,6 +1,7 @@
 + [B]1.17[/B] [COLOR green](26-12-2018)[/COLOR]
 - Zapping mode gets a pre-resolve capability (defaults to off, enable from the settings menu)
 - Added label processor to remove stupid comments from titles on techno picks indexer
+- Re-included documentaries section (once labeled as Documentaries Set 1)
 
 ============================================
 
