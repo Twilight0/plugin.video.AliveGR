@@ -107,7 +107,7 @@ def lang_choice():
 
 def i18n():
 
-    lang = 'el' if control.infoLabel('System.Language') == 'Greek' else 'en'
+    lang = 'el_GR' if 'Greek' in control.infoLabel('System.Language') else 'en_GB'
 
     return lang
 

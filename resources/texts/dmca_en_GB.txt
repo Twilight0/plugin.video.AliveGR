@@ -1,0 +1,12 @@
+Additionally to disclaimer, the following words from the developer:
+
+Dear copyright holders,
+
+If you feel your rights or your intellectual property is being violated by this software kindly note that I do not make any profit from it and it is just a hobby involving myself in my spare time.
+It is open source software and it does not come with any warranty whatsoever. What it does is find freely available sources in the vast world on the internet and deliver them as non-downloadable samples to end users.
+
+If you still want to report particular items inside respective sections, feel free to send an email to this e-mail address: twilight {AT} freemail {DOT} gr
+Please state briefly your position and items that potentially infringe your rights.
+
+The developer
+~Thgiliwt

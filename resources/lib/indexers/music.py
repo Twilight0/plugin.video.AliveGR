@@ -171,9 +171,12 @@ class Indexer:
         html = client.request(url)
 
         if 'albumlist' in html:
-            artist = client.parseDOM(html, 'h4')[0].partition(' <a')[0]
+            artist = [client.parseDOM(html, 'h4')[0].partition(' <a')[0]]
         else:
             artist = None
+
+        if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)') and artist is not None:
+            artist = ''.join(artist)
 
         if 'songlist' in html:
             songlist = client.parseDOM(html, 'div', attrs={'class': 'songlist'})[0]
@@ -197,7 +200,7 @@ class Indexer:
             link = client.parseDOM(item, 'a', ret='href')[0]
             link = urljoin(gm.base_link, link)
 
-            data = {'title': title, 'url': link, 'image': icon, 'artist': [artist]}
+            data = {'title': title, 'url': link, 'image': icon, 'artist': artist}
 
             self.list.append(data)
 
@@ -313,11 +316,11 @@ class Indexer:
 
         spotify_object = client.parseDOM(spotify_html, 'script', attrs={'id': 'resource', 'type': 'application/json'})[0]
 
-        _json_ = json.loads(spotify_object)
+        json_object = json.loads(spotify_object)
 
-        comment = plot = _json_.get('description')
+        comment = plot = json_object.get('description')
 
-        tracks = _json_.get('tracks').get('items')
+        tracks = json_object.get('tracks').get('items')
 
         for track in tracks:
 
@@ -325,7 +328,10 @@ class Indexer:
 
             title = song.get('name')
 
-            artists = [i['name'] for i in song.get('artists')]
+            artists = on_label = [i['name'] for i in song.get('artists')]
+
+            if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+                artists = ' / '.join(artists)
 
             search = get_search(q=title + ' ' + 'official', search_type='video')[0]
             vid = search['id']['videoId']
@@ -334,7 +340,7 @@ class Indexer:
 
             self.list.append(
                 {
-                    'label': title + ' - ' + ' & '.join(artists), 'url': link, 'album': 'Mad Greek Top 10',
+                    'label': title + ' - ' + ' & '.join(on_label), 'url': link, 'album': 'Mad Greek Top 10',
                     'image': image, 'artist': artists, 'comment': comment, 'plot': plot, 'title': title
                 }
             )
@@ -399,17 +405,26 @@ class Indexer:
                 image = client.parseDOM(item, 'img', ret='src')[0]
                 image = image.replace(' ', '%20')
                 title = label.partition(' - ')[2]
-                artist = [label.partition(' - ')[0]]
+                if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+                    artist = label.partition(' - ')[0]
+                else:
+                    artist = [label.partition(' - ')[0]]
             elif url == self.plus_url:
                 label = item.partition('.')[2].strip()
                 title = label.partition('-')[2]
-                artist = [label.partition('-')[0]]
+                if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+                    artist = label.partition('-')[0]
+                else:
+                    artist = [label.partition('-')[0]]
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
                 a_href = client.parseDOM(item, 'a')
                 a_href = ' - '.join(a_href) if len(a_href) == 2 else a_href[0]
                 label = client.stripTags(a_href.replace('\"', '').replace('&amp;', '&').replace('\n', ' - '))
                 title = label.partition(' - ')[2]
-                artist = [label.partition(' - ')[0]]
+                if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+                    artist = label.partition(' - ')[0]
+                else:
+                    artist = [label.partition(' - ')[0]]
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
                 search = get_search(q=title + ' ' + 'official', search_type='video')[0]
@@ -534,6 +549,9 @@ class Indexer:
                 }
             )
 
+            if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+                item['artist'] = item['artist'][0]
+
         control.sortmethods('tracknum', mask='%A')
         directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
@@ -559,7 +577,7 @@ class Indexer:
             else:
                 sep = '-'
 
-            artist, separator, title = (t.strip() for t in list(i['label'].partition(sep)))
+            artist, separator, title = i['label'].partition(sep)
 
             if '&' in artist:
                 artists_separator = '&'
@@ -575,19 +593,23 @@ class Indexer:
                 artists_separator = None
 
             if artists_separator:
-                artist = artist.split(artists_separator)
+                artist = [a.strip() for a in artist.split(artists_separator)]
                 on_label = ' / '.join(artist)
             else:
-                on_label = artist
-                artist = [artist]
+                on_label = artist.strip()
+                artist = [artist.strip()]
 
             i.update(
                 {
                     'action': 'play', 'isFolder': 'False', 'title': title, 'label': ' '.join([on_label, separator , title]),
                     'album': control.lang(30292), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
-                    'tracknumber': count, 'code': count, 'artist': artist
+                    'tracknumber': count, 'count': count, 'artist': artist
                 }
             )
 
+            if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+                i['artist'] = on_label
+
         control.sortmethods('tracknum', mask='%A')
+
         directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)

@@ -294,7 +294,7 @@ def playlist_maker(hl=None, sl=None, title=None, image=None, m3u_playlist=None):
 def zapping_mode(m3u):
 
     m3u_file = playlist_maker(m3u_playlist=m3u)
-    control.playlist.load(m3u_file)
+    control.playlist().load(m3u_file)
     control.idle()
     control.openPlaylist()
 
@@ -318,7 +318,7 @@ def mini_picker(hl, sl, params):
                 control.execute('PlayMedia("{0}")'.format(play_url))
             else:
                 m3u_file = playlist_maker(hl, sl, title, image)
-                control.playlist.load(m3u_file)
+                control.playlist().load(m3u_file)
                 control.openPlaylist()
         else:
             control.infoDialog(hl[0])
@@ -328,7 +328,7 @@ def mini_picker(hl, sl, params):
 
         m3u_file = playlist_maker(hl, sl, title, image)
 
-        control.playlist.load(m3u_file)
+        control.playlist().load(m3u_file)
 
         if control.setting('auto_play') == 'true':
             control.execute('Action(Play)')
@@ -440,7 +440,7 @@ def play_m3u(link, title, rename_titles=True, randomize=True):
 
     with open(m3u_file, 'w') as f: f.write(m3u_playlist)
 
-    control.playlist.load(m3u_file)
+    control.playlist().load(m3u_file)
     control.execute('Action(Play)')
 
 
