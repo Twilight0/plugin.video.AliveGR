@@ -1,10 +1,14 @@
-+ [B]1.18[/B] [COLOR yellow](08-01-2018)[/COLOR]
-- Some tweaks in music indexers to properly show artists when on music mode
-- Various other tweaks
++ [B]1.19[/B] [COLOR green](10-01-2019)[/COLOR]
+- Fix caching argument on live_tv function
+- Changed method for inserting group switcher
 
 ============================================
 
 [I]Past versions:[/I]
+
++ [B]1.18[/B] [COLOR yellow](08-01-2019)[/COLOR]
+- Some tweaks in music indexers to properly show artists when on music mode
+- Various other tweaks
 
 + [B]1.17.X[/B] [COLOR yellow](29-12-2018)[/COLOR]
 - Zapping mode gets a pre-resolve capability (defaults to off, enable from the settings menu)

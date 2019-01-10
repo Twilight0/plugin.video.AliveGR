@@ -23,7 +23,6 @@ from datetime import datetime
 from base64 import b64decode
 from tulip import cache, control, directory, client
 from tulip.log import log_debug
-from tulip.init import sysaddon, syshandle
 from tulip.compat import OrderedDict
 from resources.lib.modules.themes import iconname
 from resources.lib.modules.helpers import thgiliwt, dexteni
@@ -137,26 +136,17 @@ class Indexer:
     def live_tv(self, zapping=False):
 
         if control.setting('debug') == 'false':
-            self.list = self.live()[0]
+            live_data = cache.get(self.live, 8)
         else:
-            self.list = cache.get(self.live, int(control.setting('cache_period')))[0]
+            live_data = cache.get(self.live, int(control.setting('cache_period')))
+
+        self.list = live_data[0]
 
         if self.list is None:
             log_debug('Live channels list did not load successfully')
             return
         else:
             log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
-
-        switch = {
-            'title': control.lang(30047).format(
-                control.lang(30048) if control.setting('live_group') == 'ALL' else control.lang(
-                    int(control.setting('live_group'))
-                )
-            ),
-            'icon': iconname('switcher'),
-            'action': 'live_switcher',
-            'plot': control.lang(30034)
-        }
 
         self.list = [
             item for item in self.list if any(
@@ -207,14 +197,18 @@ class Indexer:
 
         if control.setting('show_switcher') == 'true':
 
-            li = control.item(label=switch['title'], iconImage=switch['icon'])
-            li.setArt({'fanart': control.addonInfo('fanart')})
-            li.setInfo('video', {'plot': switch['plot'] + '\n' + control.lang(30035) + cache.get(self.live, 8)[2]})
-            url = '{0}?action={1}'.format(sysaddon, switch['action'])
-            control.addItem(syshandle, url, li)
+            switch = {
+                'title': control.lang(30047).format(
+                    control.lang(30048) if control.setting('live_group') == 'ALL' else control.lang(
+                        int(control.setting('live_group'))
+                    )
+                ),
+                'image': iconname('switcher'),
+                'action': 'live_switcher',
+                'plot': control.lang(30034) + '\n' + control.lang(30035) + live_data[2]
+            }
 
-        else:
-            pass
+            self.list.insert(0, switch)
 
         control.sortmethods('production_code')
         control.sortmethods('title')
