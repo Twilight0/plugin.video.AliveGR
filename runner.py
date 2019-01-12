@@ -276,9 +276,9 @@ elif action == 'other_addon_settings':
     from resources.lib.modules import helpers
     helpers.other_addon_settings(query)
 
-elif action in ['play', 'play_direct']:
+elif action in ['play', 'play_resolved']:
     from resources.lib.modules.player import player
-    player(url, params, do_not_resolve=action == 'play_direct')
+    player(url, params, do_not_resolve=action == 'play_resolved')
 
 elif action == 'play_m3u':
     from distutils.util import strtobool
@@ -286,11 +286,14 @@ elif action == 'play_m3u':
     play_m3u(url, title, randomize=True if query is None else bool(strtobool(query)))
 
 elif action == 'zapping_mode':
-    from tulip.control import busy
+    from tulip.control import busy, setting
     busy()
-    from resources.lib.modules.player import zapping_mode
     from resources.lib.indexers import live
-    zapping_mode(live.Indexer(argv=argv, params=params).live_tv(zapping=True))
+    if setting('zapping_m3u') == 'true':
+        from resources.lib.modules.player import zapping_mode
+        zapping_mode(live.Indexer(argv=argv, params=params).live_tv(zapping=True))
+    else:
+        live.Indexer(argv=argv).live_tv(zapping=True)
 
 elif action == 'directory':
     from resources.lib.modules.player import directory_picker

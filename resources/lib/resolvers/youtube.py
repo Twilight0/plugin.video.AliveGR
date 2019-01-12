@@ -20,7 +20,7 @@
 
 import re, youtube_resolver
 from tulip import control
-from resources.lib.modules.helpers import stream_picker, addon_version
+from resources.lib.modules.helpers import stream_picker
 from resources.lib.modules.constants import yt_prefix
 
 replace_url = control.setting('yt_resolve') == '1'
@@ -39,21 +39,9 @@ def wrapper(url):
 
     streams = youtube_resolver.resolve(url)
 
-    try:
-        addon_enabled = control.addon_details('inputstream.adaptive').get('enabled')
-    except KeyError:
-        addon_enabled = False
-
-    yt_mpd_enabled = control.addon(id='plugin.video.youtube').getSetting('kodion.video.quality.mpd') == 'true'
-
-    if addon_version('xbmc.python') >= 2250 and addon_enabled and yt_mpd_enabled:
-        choices = streams
-    else:
-        choices = [s for s in streams if s['container'] != 'mpd']
-
     if control.condVisibility('Window.IsVisible(music)') and control.setting('audio_only') == 'true':
 
-        audio_choices = [u for u in choices if 'dash/audio' in u and 'dash/video' not in u]
+        audio_choices = [u for u in streams if 'dash/audio' in u and 'dash/video' not in u]
 
         if control.setting('yt_quality_picker') == '0':
             resolved = audio_choices[0]['url']
@@ -67,8 +55,8 @@ def wrapper(url):
 
     elif control.setting('yt_quality_picker') == '1':
 
-        qualities = [i['title'] for i in choices]
-        urls = [i['url'] for i in choices]
+        qualities = [i['title'] for i in streams]
+        urls = [i['url'] for i in streams]
 
         resolved = stream_picker(qualities, urls)
 
@@ -76,6 +64,6 @@ def wrapper(url):
 
     else:
 
-        resolved = choices[0]['url']
+        resolved = streams[0]['url']
 
         return resolved

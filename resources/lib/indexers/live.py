@@ -162,19 +162,48 @@ class Indexer:
         year = datetime.now().year
 
         for count, item in list(enumerate(self.list, start=1)):
-            item.update({'action': 'play_direct' if zapping else 'play', 'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)})
+
+            item.update(
+                {
+                    'action': 'play_resolved' if zapping and control.setting('zapping_preresolve') == 'true' else 'play',
+                    'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)
+                }
+            )
 
         if zapping:
+
             if control.setting('zapping_preresolve') == 'true':
+
                 from resources.lib.modules.player import router
+
+                pd = control.progressDialogGB
+                pd.create(control.name())
+
                 for item in self.list:
+
                     try:
+                        percent = control.percent(int(item['code']), len(self.list))
+                        pd.update(percent)
                         item.update({'url': router(item['url'], params=self.params)})
                     except Exception as e:
                         log_debug('Failed to resolve ' + item['title'] + ' , reason: ' + repr(e))
                         continue
-            m3u = directory.m3u_maker(self.list, argv=self.argv)
-            return m3u
+
+                pd.update(100)
+                pd.close()
+
+            if control.setting('zapping_m3u') == 'true':
+
+                m3u = directory.playlist_maker(self.list, argv=self.argv)
+
+                return m3u
+
+            else:
+
+                directory.add(self.list, argv=self.argv, as_playlist=True, progress=len(self.list) >= 50)
+                control.idle()
+
+                return
 
         for item in self.list:
 
@@ -214,7 +243,7 @@ class Indexer:
         control.sortmethods('title')
         control.sortmethods('genre')
 
-        directory.add(self.list, content='movies', argv=self.argv)
+        directory.add(self.list, content='movies', argv=self.argv, progress=len(self.list) >= 50)
 
     def modular(self, group):
 

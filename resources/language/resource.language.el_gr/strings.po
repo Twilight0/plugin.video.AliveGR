@@ -1190,6 +1190,10 @@ msgctxt "#30323"
 msgid "Could not install requested addon, you have to try another way to such as your distribution's repositories."
 msgstr "Αδυναμία εγκατάστασης προσθέτου που ζητήθηκε, πρέπει να προσπαθήσετε μέσω των αποθετηρίων της διανομής σας."
 
+msgctxt "#30324"
+msgid "Load m3u playlist instead of native"
+msgstr "Φόρτωση λίστας μορφής m3u αντί εγγενούς"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

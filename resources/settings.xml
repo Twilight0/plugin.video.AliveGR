@@ -43,7 +43,7 @@
 
     <category label="30004">
         <setting type="lsep" label="30006"/>
-        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(17,0)"/>
+        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(18,0)"/>
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
         <setting id="m3u8_quality_picker" type="enum" label="30219" lvalues="30168|30169" default="0"/>
         <setting type="sep"/>
@@ -51,6 +51,7 @@
         <setting id="show_alt" type="bool" label="30046" default="false"/>
         <setting id="show_switcher" type="bool" label="30061" default="true"/>
         <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
+        <setting id="zapping_m3u" type="bool" label="30324" default="false"/>
         <setting id="zapping_preresolve" type="bool" label="30271" default="false"/>
         <setting type="sep"/>
         <setting type="lsep" label="30009"/>

@@ -1190,6 +1190,10 @@ msgctxt "#30323"
 msgid "Could not install requested addon, to install it you have to try another way such as your distribution's repositories."
 msgstr ""
 
+msgctxt "#30324"
+msgid "Load m3u playlist instead of native"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

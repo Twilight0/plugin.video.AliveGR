@@ -259,12 +259,12 @@ def gm_debris(link):
 
 def playlist_maker(hl=None, sl=None, title=None, image=None, m3u_playlist=None):
 
-    try:
-        title = title.decode('utf-8')
-    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-        pass
-
     if not m3u_playlist:
+
+        try:
+            title = title.decode('utf-8')
+        except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+            pass
 
         vids = [
             sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + quote(image) + '&title=' + quote(title)

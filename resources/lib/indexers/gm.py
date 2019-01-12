@@ -401,10 +401,12 @@ class Indexer:
         control.sortmethods('title')
         control.sortmethods('year')
 
+        progress = len(self.list) >= 50
+
         if url.startswith((movies_link, theater_link, shortfilms_link)):
-            directory.add(self.list, content='movies', argv=self.argv)
+            directory.add(self.list, content='movies', argv=self.argv, progress=progress)
         else:
-            directory.add(self.list, content='tvshows', argv=self.argv)
+            directory.add(self.list, content='tvshows', argv=self.argv, progress=progress)
 
     def epeisodia(self, url):
 
@@ -514,7 +516,7 @@ class Indexer:
         # control.sortmethods('title')
         # control.sortmethods('year')
 
-        directory.add(self.list, content='episodes', argv=self.argv)
+        directory.add(self.list, content='episodes', argv=self.argv, progress=len(self.list) >= 50)
 
     def gm_sports(self):
 
