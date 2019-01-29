@@ -175,11 +175,11 @@ msgid "Show {0}"
 msgstr ""
 
 msgctxt "#30041"
-msgid ""
+msgid "Pictures"
 msgstr ""
 
 msgctxt "#30042"
-msgid ""
+msgid "Show switcher on newspapers section"
 msgstr ""
 
 msgctxt "#30043"
@@ -711,7 +711,7 @@ msgid "International"
 msgstr ""
 
 msgctxt "#30204"
-msgid "Any"
+msgid ""
 msgstr ""
 
 msgctxt "#30205"
@@ -979,7 +979,7 @@ msgid "Warning"
 msgstr ""
 
 msgctxt "#30271"
-msgid "Pre-resolve streams in zapping mode"
+msgid "Pre-resolve streams"
 msgstr ""
 
 msgctxt "#30272"
@@ -1035,7 +1035,7 @@ msgid "Playlist"
 msgstr ""
 
 msgctxt "#30285"
-msgid ""
+msgid "Live TV Mode"
 msgstr ""
 
 msgctxt "#30286"
@@ -1059,7 +1059,7 @@ msgid "[COLOR yellow]Privacy Policy[/COLOR]"
 msgstr ""
 
 msgctxt "#30291"
-msgid ""
+msgid "Group"
 msgstr ""
 
 msgctxt "#30292"
@@ -1191,7 +1191,23 @@ msgid "Could not install requested addon, to install it you have to try another 
 msgstr ""
 
 msgctxt "#30324"
-msgid "Load m3u playlist instead of native"
+msgid "SD"
+msgstr ""
+
+msgctxt "#30325"
+msgid "HD"
+msgstr ""
+
+msgctxt "#30326"
+msgid "Dash only"
+msgstr ""
+
+msgctxt "#30327"
+msgid ""
+msgstr ""
+
+msgctxt "#30328"
+msgid ""
 msgstr ""
 
 msgctxt "#30401"

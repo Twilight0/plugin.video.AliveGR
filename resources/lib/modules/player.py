@@ -290,15 +290,6 @@ def playlist_maker(hl=None, sl=None, title=None, image=None, m3u_playlist=None):
 
     return m3u_file
 
-
-def zapping_mode(m3u):
-
-    m3u_file = playlist_maker(m3u_playlist=m3u)
-    control.playlist().load(m3u_file)
-    control.idle()
-    control.openPlaylist()
-
-
 def mini_picker(hl, sl, params):
 
     try:

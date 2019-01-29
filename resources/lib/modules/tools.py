@@ -161,7 +161,10 @@ def setup_various_keymaps(keymap):
             string_for_up = '<wheelup>ZoomIn</wheelup>'
             string_for_down = '<wheeldown>ZoomOut</wheeldown>'
 
-            classes = [string_for_left, string_for_right, string_for_middle, string_for_up, string_for_down]
+            classes = [
+                string_for_left, string_for_right, string_for_middle,
+                string_for_up, string_for_down
+            ]
 
             map_left = control.lang(30241)
             map_right = control.lang(30242)
@@ -169,7 +172,9 @@ def setup_various_keymaps(keymap):
             map_up = control.lang(30244)
             map_down = control.lang(30245)
 
-            keys = [map_left, map_right, map_middle, map_up, map_down]
+            keys = [
+                map_left, map_right, map_middle, map_up, map_down
+            ]
 
             control.okDialog(control.name(), control.lang(30240))
 

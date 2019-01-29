@@ -43,16 +43,17 @@
 
     <category label="30004">
         <setting type="lsep" label="30006"/>
-        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(18,0)"/>
+        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(19,0)"/>
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
         <setting id="m3u8_quality_picker" type="enum" label="30219" lvalues="30168|30169" default="0"/>
         <setting type="sep"/>
         <setting type="lsep" label="30007"/>
+        <setting id="live_tv_mode" type="enum" label="30285" lvalues="30146|30284" default="0"/>
         <setting id="show_alt" type="bool" label="30046" default="false"/>
-        <setting id="show_switcher" type="bool" label="30061" default="true"/>
+        <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-2,0)"/>
+        <setting id="live_group_switcher" type="select" label="30291" lvalues="30048|30201|30202|30203|30205|30206|30207|30208|30209|30210|30032|30125|30094" default="0" enable="eq(-2,1) | eq(-1,false)"/>
+        <setting id="preresolve_streams" type="bool" label="30271" default="false"/>
         <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
-        <setting id="zapping_m3u" type="bool" label="30324" default="false"/>
-        <setting id="zapping_preresolve" type="bool" label="30271" default="false"/>
         <setting type="sep"/>
         <setting type="lsep" label="30009"/>
         <setting id="action_type" type="enum" label="30144" lvalues="30145|30146|30284" default="0"/>
@@ -70,13 +71,16 @@
         <setting type="sep"/>
         <setting type="lsep" label="30272"/>
         <setting label="30273" type="action" action="RunPlugin(plugin://$ID/?action=input_stream_addons)" enable="System.HasAddon(inputstream.adaptive) + System.HasAddon(inputstream.rtmp)" option="close"/>
+        <setting type="sep"/>
+        <setting type="lsep" label="30041"/>
+        <setting id="show_pic_switcher" type="bool" label="30042" default="true"/>
     </category>
 
     <!--Maintenance-->
 
     <category label="30138">
         <setting id="reset-idx" type="bool" label="30229" default="true"/>
-        <setting id="reset-live" type="bool" label="30266" default="true" visible="eq(-1,true)"/>
+        <setting id="reset_live" type="bool" label="30266" default="true" visible="eq(-1,true)"/>
         <setting visible="true" label="30134" type="action" action="RunPlugin(plugin://$ID/?action=reset_idx)"/>
         <setting type="sep"/>
         <setting visible="true" label="30056" type="action" action="RunPlugin(plugin://$ID/?action=cache_clear)"/>
@@ -128,3 +132,4 @@
         <!--<setting id="ytdl_quality_picker" type="enum" label="30262" lvalues="30168|30169" default="0"/>-->
     </category>
 </settings>
+

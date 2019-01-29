@@ -19,13 +19,12 @@
 '''
 # TODO: Examine the possibility of creating resolver for swiftstreamz (tvone11)
 # TODO: Re-examine kids variety section
-# TODO: Fix search
-# TODO: Implement new indexer for documentaries
 # TODO: fix proxy enabler
 # TODO: Fix application of pvr simple client settings
 # TODO: Implement ability to install IPTV Simple Client addon
 # TODO: Finish keymap for remote
 # TODO: Complete Python 3 support
+# TODO: Set custom user agent for some requests
 
 from __future__ import absolute_import
 
@@ -284,16 +283,6 @@ elif action == 'play_m3u':
     from distutils.util import strtobool
     from resources.lib.modules.player import play_m3u
     play_m3u(url, title, randomize=True if query is None else bool(strtobool(query)))
-
-elif action == 'zapping_mode':
-    from tulip.control import busy, setting
-    busy()
-    from resources.lib.indexers import live
-    if setting('zapping_m3u') == 'true':
-        from resources.lib.modules.player import zapping_mode
-        zapping_mode(live.Indexer(argv=argv, params=params).live_tv(zapping=True))
-    else:
-        live.Indexer(argv=argv).live_tv(zapping=True)
 
 elif action == 'directory':
     from resources.lib.modules.player import directory_picker

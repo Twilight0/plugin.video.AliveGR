@@ -30,14 +30,25 @@ def wrapper(url):
 
     if replace_url:
 
-        url = re.sub(
+        result = re.sub(
             r'''https?://(?:[0-9A-Z-]+\.)?(?:(youtu\.be|youtube(?:-nocookie)?\.com)/?\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|</a>))[?=&+%\w.-]*''',
             yt_prefix + r'\2', url, flags=re.I
         )
 
-        return url
+        if url != result:
+
+            return result
 
     streams = youtube_resolver.resolve(url)
+
+    try:
+        addon_enabled = control.addon_details('inputstream.adaptive').get('enabled')
+    except KeyError:
+        addon_enabled = False
+
+    if not addon_enabled:
+
+        streams = [s for s in streams if 'dash' not in s['title'].lower()]
 
     if control.condVisibility('Window.IsVisible(music)') and control.setting('audio_only') == 'true':
 

@@ -175,12 +175,12 @@ msgid "Show {0}"
 msgstr "Δείξε {0}"
 
 msgctxt "#30041"
-msgid ""
-msgstr ""
+msgid "Pictures"
+msgstr "Εικόνες"
 
 msgctxt "#30042"
-msgid ""
-msgstr ""
+msgid "Show switcher on newspapers section"
+msgstr "Δείξε τον εναλλάκτη στην ενότητα των εφημερίδων"
 
 msgctxt "#30043"
 msgid "Reverse episodes order"
@@ -711,8 +711,8 @@ msgid "International"
 msgstr "Διεθνή δίκτυα"
 
 msgctxt "#30204"
-msgid "Any"
-msgstr "Οποιοδήποτε"
+msgid ""
+msgstr ""
 
 msgctxt "#30205"
 msgid "Cinema"
@@ -979,8 +979,8 @@ msgid "Warning"
 msgstr "Ειδοποίηση"
 
 msgctxt "#30271"
-msgid "Pre-resolve streams in zapping mode"
-msgstr "Προ-επίλυση ροών σε λειτουργία ζάπινγκ"
+msgid "Pre-resolve streams"
+msgstr "Προ-επίλυση ροών"
 
 msgctxt "#30272"
 msgid "Inputstream Adaptive & RTMP addons"
@@ -1035,8 +1035,8 @@ msgid "Playlist"
 msgstr "Λίστα Αναπαραγωγής"
 
 msgctxt "#30285"
-msgid ""
-msgstr ""
+msgid "Live TV Mode"
+msgstr "Τρόπος εμφάνισης ζωντανών ροών"
 
 msgctxt "#30286"
 msgid "Do you want to also set the keyboard in dual layout English/Greek?"
@@ -1059,8 +1059,8 @@ msgid "[COLOR yellow]Privacy Policy[/COLOR]"
 msgstr "[COLOR yellow]Πολιτική απορρήτου[/COLOR]"
 
 msgctxt "#30291"
-msgid ""
-msgstr ""
+msgid "Group"
+msgstr "Γκρουπ"
 
 msgctxt "#30292"
 msgid "Developer's Techno Picks"
@@ -1191,8 +1191,24 @@ msgid "Could not install requested addon, you have to try another way to such as
 msgstr "Αδυναμία εγκατάστασης προσθέτου που ζητήθηκε, πρέπει να προσπαθήσετε μέσω των αποθετηρίων της διανομής σας."
 
 msgctxt "#30324"
-msgid "Load m3u playlist instead of native"
-msgstr "Φόρτωση λίστας μορφής m3u αντί εγγενούς"
+msgid "SD"
+msgstr "ΧΠ"
+
+msgctxt "#30325"
+msgid "HD"
+msgstr "ΥΠ"
+
+msgctxt "#30326"
+msgid "Dash only"
+msgstr "Μόνο dash"
+
+msgctxt "#30327"
+msgid ""
+msgstr ""
+
+msgctxt "#30328"
+msgid ""
+msgstr ""
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

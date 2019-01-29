@@ -129,8 +129,9 @@ def other_addon_settings(query):
 
 def reset_idx(notify=True):
 
-    if control.setting('reset-live') == 'true':
+    if control.setting('reset_live') == 'true':
         control.setSetting('live_group', 'ALL')
+        control.setSetting('live_group_switcher', '0')
     control.setSetting('vod_group', '30213')
     control.setSetting('papers_group', '0')
     if notify:

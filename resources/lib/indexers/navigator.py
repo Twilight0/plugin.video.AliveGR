@@ -146,8 +146,7 @@ class Indexer:
                 'title': control.lang(30095).partition(' ')[0],
                 'action': 'search',
                 'icon': iconname('search'),
-                'boolean': control.setting('show_search') == 'true',
-                'isFolder': 'False', 'isPlayable': 'False'
+                'boolean': control.setting('show_search') == 'true'
             }
             ,
             {
@@ -186,9 +185,6 @@ class Indexer:
             ii_cm = {'title': 30255, 'query': {'action': 'call_info'}}
             item.update({'cm': [ii_cm, refresh, cache_clear, reset_idx, settings, go_to_audio, tools]})
 
-        log_debug('Main menu loaded, have fun...')
-        log_debug('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
-
         if control.setting('reset-idx') == 'true':
             reset(notify=False)
 
@@ -217,8 +213,5 @@ class Indexer:
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
-
-        log_debug('Plugin started as music addon, have fun...')
-        log_debug('Tulip libraries version ~' + ' ' + control.addon('script.module.tulip').getAddonInfo('version'))
 
         directory.add(self.list, argv=self.argv)

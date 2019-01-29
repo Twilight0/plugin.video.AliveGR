@@ -133,7 +133,10 @@ class Indexer:
 
         return self.list, self.groups, updated
 
-    def live_tv(self, zapping=False):
+    def live_tv(self, zapping=False, query=None):
+
+        if control.setting('live_tv_mode') == '1' and query is None:
+            zapping = True
 
         if control.setting('debug') == 'false':
             live_data = cache.get(self.live, 8)
@@ -148,15 +151,34 @@ class Indexer:
         else:
             log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
 
-        self.list = [
-            item for item in self.list if any(
-                item['group'] == group for group in [control.setting('live_group')]
-            )
-        ] if not control.setting('live_group') == 'ALL' else self.list
+        if zapping and control.setting('live_group_switcher') != '0':
+
+            value = int(control.setting('live_group_switcher')) - 1
+
+            group = str(live_groups.values()[value])
+
+            self.list = [item for item in self.list if item['group'] == group]
+
+        elif control.setting('show_live_switcher') == 'true':
+
+            if control.setting('live_group') != 'ALL' and query is None:
+
+                self.list = [item for item in self.list if item['group'] == control.setting('live_group')]
+
+        elif not zapping:
+
+            if control.setting('live_group_switcher') != '0' and query is None:
+
+                value = int(control.setting('live_group_switcher')) - 1
+
+                group = str(live_groups.values()[value])
+
+                self.list = [item for item in self.list if item['group'] == group]
 
         if control.setting('show_alt') == 'false':
+
             self.list = [
-                item for item in self.list if not any(['BUP' in item['title'], re.search('\(\d\)', item['title'])])
+                item for item in self.list if not any(['BUP' in item['title'], re.search(r'\(\d\)', item['title'])])
             ]
 
         year = datetime.now().year
@@ -165,45 +187,10 @@ class Indexer:
 
             item.update(
                 {
-                    'action': 'play_resolved' if zapping and control.setting('zapping_preresolve') == 'true' else 'play',
+                    'action': 'play_resolved' if zapping and control.setting('preresolve_streams') == 'true' else 'play',
                     'isFolder': 'False', 'year': year, 'duration': None, 'code': str(count)
                 }
             )
-
-        if zapping:
-
-            if control.setting('zapping_preresolve') == 'true':
-
-                from resources.lib.modules.player import router
-
-                pd = control.progressDialogGB
-                pd.create(control.name())
-
-                for item in self.list:
-
-                    try:
-                        percent = control.percent(int(item['code']), len(self.list))
-                        pd.update(percent)
-                        item.update({'url': router(item['url'], params=self.params)})
-                    except Exception as e:
-                        log_debug('Failed to resolve ' + item['title'] + ' , reason: ' + repr(e))
-                        continue
-
-                pd.update(100)
-                pd.close()
-
-            if control.setting('zapping_m3u') == 'true':
-
-                m3u = directory.playlist_maker(self.list, argv=self.argv)
-
-                return m3u
-
-            else:
-
-                directory.add(self.list, argv=self.argv, as_playlist=True, progress=len(self.list) >= 50)
-                control.idle()
-
-                return
 
         for item in self.list:
 
@@ -211,20 +198,22 @@ class Indexer:
             # bookmark['bookmark'] = item['url']
             #
             # bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
+            if not zapping:
+                r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
+            else:
+                r_and_c_cm = None
             pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'query': 'true'}}
-            zapping_cm = {'title': 30293, 'query': {'action': 'zapping_mode'}}
             if item['website'] != 'None':
                 web_cm = {'title': 30316, 'query': {'action': 'open_link', 'url': item['website']}}
             else:
                 web_cm = None
 
             if control.condVisibility('Pvr.HasTVChannels'):
-                item.update({'cm': [r_and_c_cm, pvr_client_cm, zapping_cm, web_cm]})
+                item.update({'cm': [r_and_c_cm, pvr_client_cm, web_cm]})
             else:
-                item.update({'cm': [r_and_c_cm, zapping_cm, web_cm]})
+                item.update({'cm': [r_and_c_cm, web_cm]})
 
-        if control.setting('show_switcher') == 'true':
+        if control.setting('show_live_switcher') == 'true' and zapping is False:
 
             switch = {
                 'title': control.lang(30047).format(
@@ -239,11 +228,39 @@ class Indexer:
 
             self.list.insert(0, switch)
 
-        control.sortmethods('production_code')
-        control.sortmethods('title')
-        control.sortmethods('genre')
+        if control.setting('preresolve_streams') == 'true':
 
-        directory.add(self.list, content='movies', argv=self.argv, progress=len(self.list) >= 50)
+            from resources.lib.modules.player import router
+
+            pd = control.progressDialogGB
+            pd.create(control.name())
+
+            for item in self.list:
+
+                try:
+                    percent = control.percent(int(item['code']), len(self.list))
+                    pd.update(percent)
+                    item.update({'url': router(item['url'], params=self.params)})
+                except Exception as e:
+                    log_debug('Failed to resolve ' + item['title'] + ' , reason: ' + repr(e))
+                    continue
+
+            pd.update(100)
+            pd.close()
+
+        if query:
+
+            self.list = [i for i in self.list if query in i['title'].lower()]
+
+            return self.list
+
+        if not zapping:
+
+            control.sortmethods('production_code')
+            control.sortmethods('title')
+            control.sortmethods('genre')
+
+        directory.add(self.list, content='movies', argv=self.argv, as_playlist=zapping, progress=len(self.list) >= 50)
 
     def modular(self, group):
 

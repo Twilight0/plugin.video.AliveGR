@@ -43,10 +43,14 @@ bl = 'rFGNl5UQuJ2L3Fmcv02bj5ibpJWZ0NXYw9yL6MHc0RHa'
 
 ########################################################################################################################
 
-live_groups = {
-    'Panhellenic': 30201, 'Pancypriot': 30202, 'International': 30203, 'Any': 30204, 'Cinema': 30205, 'Misc': 30206,
-    'Regional': 30207, 'Thematic': 30208, 'Toronto Channels': 30209, 'Web TV': 30210, 'Kids': 30032, 'Music': 30125,
-    'Sports': 30094
-}
+from tulip.compat import OrderedDict
+
+live_groups = OrderedDict(
+    [
+        ('Panhellenic', 30201), ('Pancypriot', 30202), ('International', 30203), ('Cinema', 30205), ('Misc', 30206),
+        ('Regional', 30207), ('Thematic', 30208), ('Toronto Channels', 30209), ('Web TV', 30210), ('Kids', 30032),
+        ('Music', 30125), ('Sports', 30094)
+    ]
+)
 
 ########################################################################################################################
