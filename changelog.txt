@@ -7,6 +7,7 @@
 - Simplified group switching functions
 - Fixed search function and improved by caching search queries
 - Re-added dash conditional since youtube addon's setting is independent from its resolved streams
+- Increased sleep time to the minimum allowed (100 ms) for switching functions
 
 
 =====================

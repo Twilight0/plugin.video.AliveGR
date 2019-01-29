@@ -145,7 +145,7 @@ class Indexer:
         if choice <= len(self.data) and not choice == -1:
             control.setSetting('vod_group', self.data[choice])
             control.idle()
-            control.sleep(50)  # ensure setting has been saved
+            control.sleep(100)  # ensure setting has been saved
             control.refresh()
         else:
             control.execute('Dialog.Close(all)')

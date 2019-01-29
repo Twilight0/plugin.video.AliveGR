@@ -105,7 +105,7 @@ class Indexer:
 
             control.setSetting('papers_group', choose)
             control.idle()
-            control.sleep(50)
+            control.sleep(100)
             control.refresh()
 
         groups = (

@@ -44,7 +44,7 @@ class Indexer:
 
             control.setSetting('live_group', str(group))
             control.idle()
-            control.sleep(50)
+            control.sleep(100)
             control.refresh()
 
         self.groups = cache.get(self.live, 8)[1]

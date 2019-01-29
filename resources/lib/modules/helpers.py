@@ -232,7 +232,7 @@ def refresh():
 def refresh_and_clear():
 
     cache_clear()
-    control.sleep(50)
+    control.sleep(100)
     refresh()
 
 
