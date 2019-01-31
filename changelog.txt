@@ -1,4 +1,15 @@
-+ [B]1.21[/B] [COLOR green](29-01-2019)[/COLOR]
++ [B]1.22[/B] [COLOR green](01-02-2019)[/COLOR]
+- Replaced control.exists with path.exists (from standard python library, fixes bahaviour on Leia)
+- Enhanced language setup/choice function
+- Changed some settings types from enum to select
+- Fixed and improved option to activate window for inputstream type addon actions
+
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.21[/B] [COLOR yellow](29-01-2019)[/COLOR]
 - Turning off group switcher for live tv section will enable a setting to change groups from the settings menu
 - Group switcher will only be available for live tv in directory mode, zapping mode can switch groups via settings
 - Removed m3u type of zapping mode
@@ -9,12 +20,7 @@
 - Re-added dash conditional since youtube addon's setting is independent from its resolved streams
 - Increased sleep time to the minimum allowed (100 ms) for switching functions
 
-
-=====================
-
-[I]Past versions:[/I]
-
-+ [B]1.20[/B] [COLOR yellow](13-01-2019)[/COLOR]
++ [B]1.20[/B] [COLOR red](13-01-2019)[/COLOR]
 - Removed redundant youtube-resolver object conditional from its wrapper
 - Zapping function now loads playlist into native mode by default, m3u kept as optional
 - Create background progress dialod if length of directory items are equal or more than 50

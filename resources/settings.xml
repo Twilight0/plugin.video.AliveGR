@@ -8,10 +8,10 @@
         <setting id="theme" type="enum" label="30102" lvalues="30103|30104" default="0"/>
         <setting label="30318" type="action" action="RunPlugin(plugin://$ID/?action=skin_choice)"/>
         <setting type="lsep" label=""/>
-        <setting id="lang_split" type="enum" label="30057" lvalues="30216|30058|30059|30060" default="0"/>
+        <setting id="lang_split" type="select" label="30057" lvalues="30216|30058|30059|30060" default="0"/>
         <setting label="30109" type="action" action="RunPlugin(plugin://$ID/?action=lang_choice)" option="close"/>
         <setting type="lsep" label=""/>
-        <setting id="wrap_labels" type="enum" label="30313" lvalues="30314|30315" default="1"/>
+        <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="1"/>
         <setting id="hide_cartoons" label="30317" type="bool" default="true"/>
     </category>
 
@@ -70,7 +70,7 @@
         <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
         <setting type="sep"/>
         <setting type="lsep" label="30272"/>
-        <setting label="30273" type="action" action="RunPlugin(plugin://$ID/?action=input_stream_addons)" enable="System.HasAddon(inputstream.adaptive) + System.HasAddon(inputstream.rtmp)" option="close"/>
+        <setting label="30273" type="action" action="ActivateWindow(videos,plugin://$ID/?action=input_stream_addons)" enable="String.StartsWith(System.AddonVersion(xbmc.python),2.25) | String.StartsWith(System.AddonVersion(xbmc.python),2.26)" option="close"/>
         <setting type="sep"/>
         <setting type="lsep" label="30041"/>
         <setting id="show_pic_switcher" type="bool" label="30042" default="true"/>

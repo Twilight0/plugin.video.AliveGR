@@ -20,6 +20,7 @@
 
 import json
 from zlib import decompress, compress
+from os import path
 from base64 import b64decode
 from tulip import control, cache, client
 from tulip.log import *
@@ -69,40 +70,24 @@ def stream_picker(qualities, urls):
 
 def lang_choice():
 
-    def set_other_options():
-
-        control.set_gui_setting('locale.longdateformat', 'regional')
-        control.set_gui_setting('locale.shortdateformat', 'regional')
-        control.set_gui_setting('locale.speedunit', 'regional')
-        control.set_gui_setting('locale.temperatureunit', 'regional')
-        control.set_gui_setting('locale.timeformat', 'regional')
-        control.set_gui_setting('locale.use24hourclock', 'regional')
-
-    selections = [control.lang(30217), control.lang(30218)]
+    selections = [control.lang(30217), control.lang(30218), control.lang(30312), control.lang(30327)]
 
     dialog = control.selectDialog(selections)
 
     if dialog == 0:
-        control.set_gui_setting('locale.language', 'resource.language.en_gb')
-        control.set_gui_setting('locale.country', 'Central Europe')
-        set_other_options()
+        control.execute('Addon.Default.Set(kodi.resource.language)')
     elif dialog == 1:
-        control.set_gui_setting('locale.language', 'resource.language.el_gr')
-        control.set_gui_setting('locale.country', 'Ελλάδα')
-        set_other_options()
+        languages = [control.lang(30286), control.lang(30299)]
+        layouts = ['English QWERTY', 'Greek QWERTY']
+        indices = control.dialog.multiselect(control.name(), languages)
+        control.set_gui_setting('locale.keyboardlayouts', [layouts[i] for i in indices])
+    elif dialog == 2:
+        control.set_gui_setting('locale.charset', 'CP1253')
+        control.set_gui_setting('subtitles.charset', 'CP1253')
+    elif dialog == 3:
+        control.execute('ActivateWindow(interfacesettings)')
     else:
         control.execute('Dialog.Close(all)')
-
-    layouts = control.get_a_setting('locale.keyboardlayouts').get('result').get('value')
-
-    if 'English QWERTY' and 'Greek QWERTY' not in layouts:
-        if control.yesnoDialog(control.lang(30286)):
-            control.set_gui_setting('locale.keyboardlayouts', ['English QWERTY', 'Greek QWERTY'])
-        else: pass
-    else: pass
-
-    control.sleep(100)
-    refresh()
 
 
 def i18n():
@@ -199,7 +184,7 @@ def cache_delete():
 
 def purge_bookmarks():
 
-    if control.exists(control.bookmarksFile):
+    if path.exists(control.bookmarksFile):
         if control.yesnoDialog(line1=control.lang(30214)):
             control.deleteFile(control.bookmarksFile)
             control.infoDialog(control.lang(30402))

@@ -21,6 +21,7 @@
 from tulip import control, client
 from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx
 from resources.lib.modules.constants import api_keys
+from os import path
 
 
 ########################################################################################################################
@@ -48,7 +49,7 @@ liveon = {
 
 def setup_iptv():
 
-    if control.exists(control.join(iptv_folder, 'settings.xml')):
+    if path.exists(control.join(iptv_folder, 'settings.xml')):
         if control.yesnoDialog(line1=control.lang(30021), line2='', line3=control.lang(30022)):
             control.deleteFile(control.join(iptv_folder, 'settings.xml'))
             client.retriever('https://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, "settings.xml"))
@@ -58,9 +59,9 @@ def setup_iptv():
         else:
             control.infoDialog(message=control.lang(30029), time=2000)
 
-    elif not control.exists(control.join(iptv_folder, 'settings.xml')):
+    elif not path.exists(control.join(iptv_folder, 'settings.xml')):
         if control.yesnoDialog(line1=control.lang(30023), line2='', line3=control.lang(30022)):
-            if not control.exists(iptv_folder):
+            if not path.exists(iptv_folder):
                 control.makeFile(iptv_folder)
             client.retriever('https://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, 'settings.xml'))
             control.infoDialog(message=control.lang(30024), time=2000)
@@ -87,7 +88,7 @@ def enable_iptv():
                 control.json_rpc(liveon)
         else: pass
 
-    elif not control.exists(control.join(iptv_folder, 'settings.xml')):
+    elif not path.exists(control.join(iptv_folder, 'settings.xml')):
         control.infoDialog(message=control.lang(30409), time=4000)
 
     else:
@@ -117,7 +118,7 @@ def setup_various_keymaps(keymap):
 
     keymap_settings_folder = control.transPath('special://profile/keymaps')
 
-    if not control.exists(keymap_settings_folder):
+    if not path.exists(keymap_settings_folder):
         control.makeFile(keymap_settings_folder)
 
     if keymap == 'previous':
@@ -231,7 +232,7 @@ def setup_various_keymaps(keymap):
 
     if yes:
 
-        if control.exists(location):
+        if path.exists(location):
 
             choices = [control.lang(30248), control.lang(30249)]
 
@@ -389,12 +390,12 @@ def isa_enable():
             control.infoDialog(control.lang(30254))
             return
 
-        elif not enabled:
+        else:
 
-            xbmc_path = control.join('special://xbmc' ,'addons', 'inputstream.adaptive')
+            xbmc_path = control.join('special://xbmc', 'addons', 'inputstream.adaptive')
             home_path = control.join('special://home', 'addons', 'inputstream.adaptive')
 
-            if control.exists(control.transPath(xbmc_path)) or control.exists(control.transPath(home_path)):
+            if path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path)):
 
                 yes = control.yesnoDialog(control.lang(30252))
 
@@ -440,12 +441,12 @@ def rtmp_enable():
             control.infoDialog(control.lang(30276))
             return
 
-        elif not enabled:
+        else:
 
             xbmc_path = control.join('special://xbmc', 'addons', 'inputstream.rtmp')
             home_path = control.join('special://home', 'addons', 'inputstream.rtmp')
 
-            if control.exists(control.transPath(xbmc_path)) or control.exists(control.transPath(home_path)):
+            if path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path)):
 
                 yes = control.yesnoDialog(control.lang(30277))
 
@@ -485,7 +486,7 @@ def disclaimer():
 
 def checkpoint():
 
-    if control.exists(control.join(control.addonPath, 'UPDATE')):
+    if path.exists(control.join(control.addonPath, 'UPDATE')):
 
         if control.yesnoDialog(control.lang(30267)):
             changelog()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.21.1" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.22" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -37,29 +37,27 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR![/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR blue]greek[/COLOR] [COLOR red]generation[/COLOR][/I]
 
-+ [B]1.21.X[/B] [COLOR green](29-01-2019)[/COLOR]
++ [B]1.22[/B] [COLOR green](01-02-2019)[/COLOR]
+- Replaced control.exists with path.exists (from standard python library, fixes bahaviour on Leia)
+- Enhanced language setup/choice function
+- Changed some settings types from enum to select
+- Fixed and improved option to activate window for inputstream type addon actions
+
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.21[/B] [COLOR yellow](29-01-2019)[/COLOR]
 - Turning off group switcher for live tv section will enable a setting to change groups from the settings menu
 - Group switcher will only be available for live tv in directory mode, zapping mode can switch groups via settings
 - Removed m3u type of zapping mode
 - Zapping mode (playlist) is now available as toggle on settings window (defaults to directory mode)
 - Preresolve function made available also for directory mode
 - Simplified group switching functions
-- Fixed search function
+- Fixed search function and improved by caching search queries
 - Re-added dash conditional since youtube addon's setting is independent from its resolved streams
-- Increased sleep time to the minimum allowed (100 ms) for switching functions
-
-=====================
-
-[I]Past versions:[/I]
-
-+ [B]1.20[/B] [COLOR yellow](13-01-2019)[/COLOR]
-- Removed redundant youtube-resolver object conditional from its wrapper
-- Zapping function now loads playlist into native mode by default, m3u kept as optional
-- Create background progress dialod if length of directory items are equal or more than 50
-
-+ [B]1.19[/B] [COLOR red](10-01-2019)[/COLOR]
-- Fix caching argument on live_tv function
-- Changed method for inserting group switcher</news>
+- Increased sleep time to the minimum allowed (100 ms) for switching functions</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

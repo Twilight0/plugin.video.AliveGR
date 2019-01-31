@@ -447,7 +447,7 @@ msgid "or via context menu -> Refresh"
 msgstr ""
 
 msgctxt "#30109"
-msgid "Language Choice"
+msgid "Locale"
 msgstr ""
 
 msgctxt "#30110"
@@ -763,11 +763,11 @@ msgid "Auto"
 msgstr ""
 
 msgctxt "#30217"
-msgid "English"
+msgid "Change system language"
 msgstr ""
 
 msgctxt "#30218"
-msgid "Greek"
+msgid "Change keyboard layouts"
 msgstr ""
 
 msgctxt "#30219"
@@ -1039,7 +1039,7 @@ msgid "Live TV Mode"
 msgstr ""
 
 msgctxt "#30286"
-msgid "Do you want to also set the keyboard in dual layout English/Greek?"
+msgid "English"
 msgstr ""
 
 msgctxt "#30287"
@@ -1091,7 +1091,7 @@ msgid "Resolvers"
 msgstr ""
 
 msgctxt "#30299"
-msgid ""
+msgid "Greek"
 msgstr ""
 
 msgctxt "#30300"
@@ -1143,7 +1143,7 @@ msgid "Do not force"
 msgstr ""
 
 msgctxt "#30312"
-msgid ""
+msgid "Set default encoding to Greek (Windows)"
 msgstr ""
 
 msgctxt "#30313"
@@ -1203,7 +1203,7 @@ msgid "Dash only"
 msgstr ""
 
 msgctxt "#30327"
-msgid ""
+msgid "More settings..."
 msgstr ""
 
 msgctxt "#30328"
