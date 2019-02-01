@@ -401,7 +401,7 @@ class Indexer:
         control.sortmethods('title')
         control.sortmethods('year')
 
-        progress = len(self.list) >= 50
+        progress = len(self.list) >= 100
 
         if url.startswith((movies_link, theater_link, shortfilms_link)):
             directory.add(self.list, content='movies', argv=self.argv, progress=progress)
@@ -516,7 +516,7 @@ class Indexer:
         # control.sortmethods('title')
         # control.sortmethods('year')
 
-        directory.add(self.list, content='episodes', argv=self.argv, progress=len(self.list) >= 50)
+        directory.add(self.list, content='episodes', argv=self.argv, progress=len(self.list) >= 100)
 
     def gm_sports(self):
 

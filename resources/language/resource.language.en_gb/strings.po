@@ -963,7 +963,7 @@ msgid "Also reset live channel groups"
 msgstr ""
 
 msgctxt "#30267"
-msgid "Addon has been updated. Do you want to view changelog?"
+msgid "AliveGR was updated. Do you want to view changelog?"
 msgstr ""
 
 msgctxt "#30268"

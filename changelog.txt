@@ -1,15 +1,20 @@
-+ [B]1.22[/B] [COLOR green](01-02-2019)[/COLOR]
-- Replaced control.exists with path.exists (from standard python library, fixes bahaviour on Leia)
-- Enhanced language setup/choice function
-- Changed some settings types from enum to select
-- Fixed and improved option to activate window for inputstream type addon actions
++ [B]1.23[/B] [COLOR green](01-02-2019)[/COLOR]
+- Changelog prompt now says "AliveGR updated" not "addon updated"
+- Group switch action in live channels gets "isFolder-False" parameter to fix switching on some platforms.
+- Increased length of items to 100 when triggering background progress dialog.
 
 
 =====================
 
 [I]Past versions:[/I]
 
-+ [B]1.21[/B] [COLOR yellow](29-01-2019)[/COLOR]
++ [B]1.22[/B] [COLOR yellow](31-02-2019)[/COLOR]
+- Replaced control.exists with path.exists (from standard python library, fixes bahaviour on Leia)
+- Enhanced language setup/choice function
+- Changed some settings types from enum to select
+- Fixed and improved option to activate window for inputstream type addon actions
+
++ [B]1.21[/B] [COLOR red](29-01-2019)[/COLOR]
 - Turning off group switcher for live tv section will enable a setting to change groups from the settings menu
 - Group switcher will only be available for live tv in directory mode, zapping mode can switch groups via settings
 - Removed m3u type of zapping mode

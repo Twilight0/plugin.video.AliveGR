@@ -963,8 +963,8 @@ msgid "Also reset live channel groups"
 msgstr "Κάνε επαναφορά και στις ομάδες ζωντανών ροών"
 
 msgctxt "#30267"
-msgid "Addon has been updated. Do you want to view changelog?"
-msgstr "Το πρόσθετο ενημερώθηκε. Θέλετε να δείτε το αρχείο καταγραφής;"
+msgid "AliveGR was updated. Do you want to view changelog?"
+msgstr "Το AliveGR ενημερώθηκε. Θέλετε να δείτε το αρχείο καταγραφής;"
 
 msgctxt "#30268"
 msgid "Randomize m3u playlists (pseudo-live streams)"

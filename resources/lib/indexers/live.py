@@ -56,8 +56,6 @@ class Indexer:
             seq('ALL')
         elif choice <= len(self.data) and not choice == -1:
             seq(self.data[choice])
-        else:
-            control.idle()
 
     def live(self):
 
@@ -223,7 +221,8 @@ class Indexer:
                 ),
                 'image': iconname('switcher'),
                 'action': 'live_switcher',
-                'plot': control.lang(30034) + '\n' + control.lang(30035) + live_data[2]
+                'plot': control.lang(30034) + '\n' + control.lang(30035) + live_data[2],
+                'isFolder': 'False', 'isPlayable': 'False'
             }
 
             self.list.insert(0, switch)
@@ -260,7 +259,7 @@ class Indexer:
             control.sortmethods('title')
             control.sortmethods('genre')
 
-        directory.add(self.list, content='movies', argv=self.argv, as_playlist=zapping, progress=len(self.list) >= 50)
+        directory.add(self.list, content='movies', argv=self.argv, as_playlist=zapping, progress=len(self.list) >= 100)
 
     def modular(self, group):
 
