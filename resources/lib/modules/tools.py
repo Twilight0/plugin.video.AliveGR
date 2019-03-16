@@ -22,6 +22,7 @@ from tulip import control, client
 from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx
 from resources.lib.modules.constants import api_keys
 from os import path
+import pyxbmct
 
 
 ########################################################################################################################
@@ -484,12 +485,59 @@ def disclaimer():
     )
 
 
+class Prompt(pyxbmct.AddonDialogWindow):
+
+    def __init__(self):
+
+        # noinspection PyArgumentList
+        super(Prompt, self).__init__(control.lang(30267))
+
+        self.changelog_button = None
+        self.disclaimer_button = None
+        self.close_button = None
+        self.setGeometry(854, 480, 7, 5)
+        self.set_controls()
+        self.connect(pyxbmct.ACTION_NAV_BACK, self.close)
+        self.set_navigation()
+
+    def set_controls(self):
+
+        image = pyxbmct.Image('https://pbs.twimg.com/media/D1DUCwXWwAE5Ga8.jpg', aspectRatio=2)
+        self.placeControl(image, 0, 0, 5, 5)
+        description = pyxbmct.TextBox()
+        self.placeControl(description, 5, 0, 2, 5)
+        description.setText(control.lang(30328))
+        self.close_button = pyxbmct.Button(control.lang(30329))
+        self.placeControl(self.close_button, 6, 2)
+        self.connect(self.close_button, self.close)
+        self.changelog_button = pyxbmct.Button(control.lang(30114))
+        self.placeControl(self.changelog_button, 6, 0, 1, 2)
+        self.connect(self.changelog_button, lambda: changelog())
+        self.disclaimer_button = pyxbmct.Button(control.lang(30330))
+        self.placeControl(self.disclaimer_button, 6, 3, 1, 2)
+        self.connect(self.disclaimer_button, lambda: disclaimer())
+
+    def set_navigation(self):
+
+        self.close_button.controlLeft(self.changelog_button)
+        self.close_button.controlRight(self.disclaimer_button)
+        self.changelog_button.controlRight(self.close_button)
+        self.disclaimer_button.controlLeft(self.close_button)
+
+        self.setFocus(self.close_button)
+
+
 def checkpoint():
 
     if path.exists(control.join(control.addonPath, 'UPDATE')):
 
-        if control.yesnoDialog(control.lang(30267)):
-            changelog()
+        # if control.yesnoDialog(control.lang(30267)):
+            # changelog()
+        window = Prompt()
+
+        window.doModal()
+
+        del window
 
         cache_clear()
         reset_idx(notify=False)
@@ -498,53 +546,7 @@ def checkpoint():
             log_notice('Debug settings have been reset, please do not touch these settings manually, they are meant *only* to help developer test various things.')
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
-        # block_check()
         control.deleteFile(control.join(control.addonPath, 'UPDATE'))
-
-
-# Reserved might use later
-# def repo_check():
-#
-#     if not control.condVisibility('System.HasAddon(repository.thgiliwt)'):
-#
-#         control.okDialog(heading=control.addonInfo('name'), line1=control.lang(30130))
-#         control.execute('Dialog.Close(all)')
-#         import sys; sys.exit()
-
-
-# Reserved might user later
-# def block_check():
-#
-#     if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
-#
-#         settings_xml = control.join(control.dataPath, 'settings.xml')
-#         control.deleteFile(settings_xml)
-#         control.okDialog(control.lang(30270), control.lang(30271))
-#
-#     else: pass
-
-# Reserved might user later, needs refinement:
-# def mailer(title):
-#
-#     import smtplib
-#
-#     sender = control.dialog.input()
-#     text = control.dialog.input()
-#     username = control.dialog.input()
-#     password = control.dialog.input()
-#
-#     smtpServer = 'smtp.{0}'.format(fromAddr.partition('@')[2])
-#     rcvr = thgiliwt('=' + 'I3ZuwWah1WZlJnZARHanlGbpdHd')
-#     text = '''Subject: {0}{1}
-#
-#     {2}
-#     '''.format(subject, title, text)
-#
-#     server = smtplib.SMTP(smtpServer)
-#     server.starttls()
-#     server.login(username, password)
-#     server.sendmail(sender, rcvr, text)
-#     server.quit()
 
 
 def dev():

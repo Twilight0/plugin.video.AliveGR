@@ -76,7 +76,6 @@ def sl_hosts(url):
     return [
         'ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url, 'ttvnw' in url,
         'periscope' in url and not 'search' in url, 'pscp' in url, 'ant1.com.cy' in url,
-        'vidto' in url and control.setting('vidto_resolve') == '1',
         'openload' in url and control.setting('ol_resolve') == '1', 'gr.euronews.com' in url and not 'watchlive.json' in url,
-        'filmon.com' in url, 'ellinikosfm.com' in url, 'alphatv.gr' in url, 'kineskop.tv' in url
+        'filmon.com' in url, 'ellinikosfm.com' in url, 'alphatv.gr' in url, 'kineskop.tv' in url  #, 'player.vimeo.com' in url
     ]

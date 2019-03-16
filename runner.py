@@ -17,14 +17,16 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-# TODO: Examine the possibility of creating resolver for swiftstreamz (tvone11)
-# TODO: Re-examine kids variety section
+
 # TODO: fix proxy enabler
 # TODO: Fix application of pvr simple client settings
 # TODO: Implement ability to install IPTV Simple Client addon
 # TODO: Finish keymap for remote
 # TODO: Complete Python 3 support
 # TODO: Set custom user agent for some requests
+# TODO: Add search as actor/director
+# TODO: Replace google with native greek-movies as agent for searches
+# TODO: Add resolver for vimeo live
 
 from __future__ import absolute_import
 

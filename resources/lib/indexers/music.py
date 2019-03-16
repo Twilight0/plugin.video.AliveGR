@@ -574,8 +574,10 @@ class Indexer:
                 sep = '–'
             elif ':' in i['label'] and not '-' in i['label']:
                 sep = ':'
-            else:
+            elif '-' in i['label']:
                 sep = '-'
+            else:
+                sep = ' '
 
             artist, separator, title = i['label'].partition(sep)
 

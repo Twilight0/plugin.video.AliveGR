@@ -27,7 +27,7 @@ try:
         import sys
         sys.path.extend([control.join(control.addon(id=sdik).getAddonInfo('path'), 'resources', 'lib')])
         import extension
-except:
+except Exception:
     pass
 
 
@@ -94,18 +94,6 @@ class Indexer:
 
         self.data = [
             {
-                'title': u'Collection Miscellaneous 1 - Συλλογή Διάφορα 1',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL4075DA390F6E82B1/'.format(yt_addon),
-                'icon': 'https://i.ytimg.com/vi/MPtZ_VHNg34/mqdefault.jpg'
-            }
-            ,
-            {
-                'title': u'Collection Miscellaneous 2 - Συλλογή Διάφορα 2',
-                'url': '{0}/channel/UCzU4decItAYA0omjxNiIHbg/playlists/'.format(yt_addon),
-                'icon': 'https://yt3.ggpht.com/-W3Asi5ry2Rs/AAAAAAAAAAI/AAAAAAAAAAA/QzJaKZpLEtw/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
-            }
-            ,
-            {
                 'title': u'Classical Films - Κλασσικά Κινηματογραφημένα',
                 'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PLF0A5359586D57FE8/'.format(yt_addon),
                 'icon': 'https://i.ytimg.com/vi/X9RxumkELfE/mqdefault.jpg'
@@ -133,6 +121,12 @@ class Indexer:
                 'title': u'Fairy Tales & Songs - Παραμύθια και Τραγούδια',
                 'url': '{0}/channel/UCClAFTnbGditvz9_7_7eumw/playlists/'.format(yt_addon),
                 'icon': 'https://yt3.ggpht.com/-mBPhzUcDIHM/AAAAAAAAAAI/AAAAAAAAAAA/pNQi44zsLq8/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
+            }
+            ,
+            {
+                'title': u'Collection Miscellaneous - Συλλογή Διάφορα',
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL4075DA390F6E82B1/'.format(yt_addon),
+                'icon': 'https://i.ytimg.com/vi/MPtZ_VHNg34/mqdefault.jpg'
             }
         ]
 
@@ -265,18 +259,6 @@ class Indexer:
                 'title': u'Greek songs with lyrics No.2 - Ελληνικά παιδικά τραγούδια με στίχους No.2',
                 'url': '{0}/channel/UCyENiZwRYzfXzbwP-Mxk9oA/'.format(yt_addon),
                 'icon': 'https://yt3.ggpht.com/-Jdrq5I2r5Tc/AAAAAAAAAAI/AAAAAAAAAAA/z7IPqFS7jqA/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
-            }
-            ,
-            {
-                'title': u'Christmas songs - Χριστουγεννιάτικα Τραγούδια',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LQJIp9hY-4ESH6P1PVW34uB/'.format(yt_addon),
-                'icon': 'https://i.ytimg.com/vi/WhQy0aZ22Tc/mqdefault.jpg'
-            }
-            ,
-            {
-                'title': u'The party\'s songs - Τα τραγούδια της παρέας',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LRsQ-umYdnXPrTzclN0vsPh/'.format(yt_addon),
-                'icon': 'https://i.ytimg.com/vi/V1pdBZaF3cc/mqdefault.jpg'
             }
             ,
             {

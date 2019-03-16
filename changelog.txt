@@ -1,14 +1,21 @@
-+ [B]1.23[/B] [COLOR green](01-02-2019)[/COLOR]
-- Changelog prompt now says "AliveGR updated" not "addon updated"
-- Group switch action in live channels gets "isFolder-False" parameter to fix switching on some platforms.
-- Increased length of items to 100 when triggering background progress dialog.
-
++ [B]1.24[/B] [COLOR green](16-03-2019)[/COLOR]
+- Version dedicated to the memory of my beloved mother who recently passed away. May she rest in peace.
+- Utilize pyxbmct for various dialogs
+- Updated kids variety section
+- Updated skai live resolver
+- Added space separator for techno music indexer
+- Fixed some translation strings
 
 =====================
 
 [I]Past versions:[/I]
 
-+ [B]1.22[/B] [COLOR yellow](31-02-2019)[/COLOR]
++ [B]1.23[/B] [COLOR yellow](01-02-2019)[/COLOR]
+- Changelog prompt now says "AliveGR updated" not "addon updated"
+- Group switch action in live channels gets "isFolder-False" parameter to fix switching on some platforms.
+- Increased length of items to 100 when triggering background progress dialog.
+
++ [B]1.22[/B] [COLOR red](31-01-2019)[/COLOR]
 - Replaced control.exists with path.exists (from standard python library, fixes bahaviour on Leia)
 - Enhanced language setup/choice function
 - Changed some settings types from enum to select

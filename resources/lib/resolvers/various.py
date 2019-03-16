@@ -19,6 +19,7 @@
 """
 
 from tulip import client, cache
+from tulip.log import log_debug
 import re, json
 from streamlink.plugin.api.utils import itertags
 
@@ -119,31 +120,29 @@ def ert(url):
 
 def skai(url):
 
-    html = client.request(url)
+    log_debug('Playing Skai TV channel: ' + url)
 
-    settings_url = re.search('url:"(.+?settings\.php)"', html)
+    # html = client.request(url)
+    #
+    # settings_url = re.search(r'url:"(.+?settings\.php)"', html)
+    #
+    # if settings_url:
+    #
+    #     live_json = client.request(settings_url.group(1))
+    #
+    #     youtu_id = json.loads(live_json)['live_url']
+    #
+    # else:
 
-    if settings_url:
+    xml_url = 'http://www.skai.gr/ajax.aspx?m=NewModules.LookupMultimedia&amp;mmid=/Root/TVLive'
 
-        live_json = client.request(settings_url.group(1))
+    xml_file = client.request(xml_url)
 
-        youtu_id = json.loads(live_json)['live_url']
+    cdata = client.parseDOM(xml_file, 'File')[0]
 
-    else:
+    youtu_id = re.search(r'([\w-]{11})', cdata)
 
-        xml_url = 'http://www.skai.gr/ajax.aspx?m=NewModules.LookupMultimedia&amp;mmid=/Root/TVLive'
-
-        xml_file = client.request(xml_url)
-
-        xml = client.parseDOM(xml_file, 'File')
-
-        youtu_id = re.search(r'\[([\w-]{11})\]', xml)
-
-        if not youtu_id:
-
-            raise Exception
-
-        youtu_id = youtu_id.group(1)
+    youtu_id = youtu_id.group(1)
 
     return youtu_id
 

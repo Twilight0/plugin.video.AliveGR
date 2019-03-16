@@ -963,7 +963,7 @@ msgid "Also reset live channel groups"
 msgstr ""
 
 msgctxt "#30267"
-msgid "AliveGR was updated. Do you want to view changelog?"
+msgid "AliveGR updated"
 msgstr ""
 
 msgctxt "#30268"
@@ -1207,7 +1207,15 @@ msgid "More settings..."
 msgstr ""
 
 msgctxt "#30328"
-msgid ""
+msgid "This version is dedicated to the memory of my beloved mother, who recently passed away. May she rest in peace."
+msgstr ""
+
+msgctxt "#30329"
+msgid "Close"
+msgstr ""
+
+msgctxt "#30330"
+msgid "Read disclaimer"
 msgstr ""
 
 msgctxt "#30401"
