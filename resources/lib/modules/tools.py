@@ -22,97 +22,134 @@ from tulip import control, client
 from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx
 from resources.lib.modules.constants import api_keys
 from os import path
-import pyxbmct
+import pyxbmct, re
 
 
 ########################################################################################################################
 
 iptv_folder = control.transPath('special://profile/addon_data/pvr.iptvsimple')
-iscoff = {
-    "jsonrpc":"2.0", "method": "Addons.SetAddonEnabled", "params": {"addonid": "pvr.iptvsimple", "enabled": False},
-    "id": 1
-}
-iscon = {
-    "jsonrpc":"2.0", "method": "Addons.SetAddonEnabled", "params": {"addonid": "pvr.iptvsimple", "enabled": True},
-    "id": 1
-}
-liveoff = {
-    "jsonrpc":"2.0", "method": "Settings.SetSettingValue", "params": {"setting": "pvrmanager.enabled", "value": False},
-    "id": 1
-}
-liveon = {
-    "jsonrpc":"2.0", "method": "Settings.SetSettingValue", "params": {"setting": "pvrmanager.enabled", "value": True},
-    "id": 1
-}
-
-########################################################################################################################
+vtpi = 'wWb45ycn5Wa0RXZz9ld0BXavcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
 
 
 def setup_iptv():
 
-    if path.exists(control.join(iptv_folder, 'settings.xml')):
-        if control.yesnoDialog(line1=control.lang(30021), line2='', line3=control.lang(30022)):
-            control.deleteFile(control.join(iptv_folder, 'settings.xml'))
-            client.retriever('https://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, "settings.xml"))
-            control.infoDialog(message=control.lang(30024), time=2000)
-            enable_iptv()
-            enable_proxy_module()
-        else:
-            control.infoDialog(message=control.lang(30029), time=2000)
+    xbmc_path = control.join('special://xbmc', 'addons', 'pvr.iptvsimple')
+    home_path = control.join('special://home', 'addons', 'pvr.iptvsimple')
 
-    elif not path.exists(control.join(iptv_folder, 'settings.xml')):
-        if control.yesnoDialog(line1=control.lang(30023), line2='', line3=control.lang(30022)):
+    def install():
+
+        if control.conditional_visibility('System.Platform.Linux') and not (path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path))):
+
+            control.okDialog(heading='AliveGR', line1=control.lang(30323))
+
+            return False
+
+        elif path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path)):
+
+            return True
+
+        elif addon_version('xbmc.python') >= 2260 and not control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
+
+            control.execute('InstallAddon(pvr.iptvsimple)')
+
+            return True
+
+        elif control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
+
+            return 'enabled'
+
+        else:
+
+            return False
+
+    def setup_client(apply=False):
+
+        url = thgiliwt('=' + vtpi)
+
+        if apply:
+
+            xml = client.request(url)
+
+            settings = re.findall(r'id="(\w*?)" value="(\S*?)"', xml)
+
+            for k, v in settings:
+
+                control.addon('pvr.iptvsimple').setSetting(k, v)
+
+        else:
+
             if not path.exists(iptv_folder):
                 control.makeFile(iptv_folder)
-            client.retriever('https://alivegr.net/raw/iptv_settings.xml', control.join(iptv_folder, 'settings.xml'))
+
+            client.retriever(url, control.join(iptv_folder, "settings.xml"))
+
+    if path.exists(control.join(iptv_folder, 'settings.xml')):
+
+        integer = 30021
+
+    else:
+
+        integer = 30023
+
+    if control.yesnoDialog(line1=control.lang(integer), line2='', line3=control.lang(30022)):
+
+        success = install()
+
+        if success:
+
+            setup_client(apply=success == 'enabled')
             control.infoDialog(message=control.lang(30024), time=2000)
             enable_iptv()
             enable_proxy_module()
+
         else:
-            control.infoDialog(message=control.lang(30029), time=2000)
+
+            control.okDialog('AliveGR', control.lang(30410))
+
+    else:
+
+        control.infoDialog(message=control.lang(30029), time=2000)
 
 
 def enable_iptv():
 
-    if control.condVisibility('Pvr.HasTVChannels'):
+    xbmc_path = control.join('special://xbmc', 'addons', 'pvr.iptvsimple')
+    home_path = control.join('special://home', 'addons', 'pvr.iptvsimple')
+
+    if control.condVisibility('Pvr.HasTVChannels') and (path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path))) and control.addon_details('pvr.iptvsimple').get('enabled'):
+
         control.infoDialog(message=control.lang(30407), time=4000)
-        if control.yesnoDialog(line1=control.lang(30410), line2='', line3=''):
-            control.json_rpc(iscoff)
-            try:
-                control.deleteFile(control.join(iptv_folder, 'iptv.m3u.cache'))
-                control.deleteFile(control.join(iptv_folder, 'xmltv.xml.cache'))
-            except:
-                pass
-            control.jsonrpc(iscon)
-            if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-                control.json_rpc(liveoff)
-                control.json_rpc(liveon)
-        else: pass
 
     elif not path.exists(control.join(iptv_folder, 'settings.xml')):
+
         control.infoDialog(message=control.lang(30409), time=4000)
 
     else:
 
         if control.yesnoDialog(line1=control.lang(30406), line2='', line3=''):
-            control.json_rpc(iscon)
+
+            control.enable_addon('pvr.iptvsimple')
+
             if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-                control.json_rpc(liveon)
-        else: pass
+
+                control.execute('StartPVRManager')
 
 
 def enable_proxy_module():
 
-    if not control.condVisibility('System.HasAddon(service.streamlink.proxy)'):
-        if control.yesnoDialog(line1=control.lang(30141), line2='', line3=''):
-            if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-                control.execute('RunPlugin(plugin://service.streamlink.proxy/)')
-            else:
-                control.execute('InstallAddon(service.streamlink.proxy)')
-        else:
-            control.infoDialog(control.lang(30142))
-    else:
+    if control.condVisibility('System.HasAddon(service.streamlink.proxy)'):
+
         control.infoDialog(control.lang(30143))
+
+    else:
+
+        if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
+
+            control.execute('RunPlugin(plugin://service.streamlink.proxy/)')
+
+        else:
+
+            control.execute('InstallAddon(service.streamlink.proxy)')
 
 
 def setup_various_keymaps(keymap):
@@ -481,7 +518,7 @@ def disclaimer():
     control.dialog.textviewer(
         control.addonInfo(
             'name'
-        ) + ', ' + control.lang(30129), ' ' * 3 + text + '\n' * 2 + control.lang(30131)
+        ) + ', ' + control.lang(30129), text + '\n' * 2 + control.lang(30131)
     )
 
 
@@ -527,25 +564,34 @@ class Prompt(pyxbmct.AddonDialogWindow):
         self.setFocus(self.close_button)
 
 
+def welcome():
+
+    window = Prompt()
+    window.doModal()
+
+    del window
+
+
 def checkpoint():
 
     if path.exists(control.join(control.addonPath, 'UPDATE')):
 
         # if control.yesnoDialog(control.lang(30267)):
             # changelog()
-        window = Prompt()
-
-        window.doModal()
-
-        del window
+        welcome()
 
         cache_clear()
         reset_idx(notify=False)
+
         if control.setting('debug') == 'true' or control.setting('toggler') == 'true':
+
             from tulip.log import log_notice
+
             log_notice('Debug settings have been reset, please do not touch these settings manually, they are meant *only* to help developer test various things.')
+
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
+
         control.deleteFile(control.join(control.addonPath, 'UPDATE'))
 
 

@@ -18,6 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from tulip.user_agents import randomagent, spoofer
 from tulip import client, cache
 from tulip.log import log_debug
 import re, json
@@ -85,7 +86,7 @@ def omegacy(link):
 
     stream = re.findall('"(.+?)"', m3u8)[1]
 
-    return client.spoofer(url=stream, referer=True, ref_str=link)
+    return spoofer(url=stream, referer=True, ref_str=link)
 
 
 def ert(url):
@@ -153,7 +154,7 @@ def alphatv(url):
 
     link = client.request(url)
     link = re.findall('(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[-1]
-    link = client.request(link, output='geturl') + client.spoofer()
+    link = client.request(link, output='geturl') + spoofer()
 
     return link
 
@@ -208,8 +209,8 @@ def kineskop(url):
 
     stream = re.search(r"getURLParam\('src','(.+?)'", html).group(1)
 
-    headers = {'User-Agent': cache.get(client.randomagent, 12), 'Origin': 'http://kineskop.tv', 'Referer': url}
+    headers = {'User-Agent': cache.get(randomagent, 12), 'Origin': 'http://kineskop.tv', 'Referer': url}
 
-    output = stream + client.spoofer(headers=headers)
+    output = stream + spoofer(headers=headers)
 
     return output

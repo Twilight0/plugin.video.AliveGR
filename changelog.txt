@@ -1,4 +1,14 @@
-+ [B]1.24[/B] [COLOR green](16-03-2019)[/COLOR]
++ [B]1.25[/B] [COLOR green](18-03-2019)[/COLOR]
+- Added welcome note item in important info menu
+- Improved iptv simple client setup function
+- Some other minor tweaks
+- Bumped dependencies
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.24[/B] [COLOR yellow](16-03-2019)[/COLOR]
 - Version dedicated to the memory of my beloved mother who recently passed away. May she rest in peace.
 - Utilize pyxbmct for various dialogs
 - Updated kids variety section
@@ -6,11 +16,7 @@
 - Added space separator for techno music indexer
 - Fixed some translation strings
 
-=====================
-
-[I]Past versions:[/I]
-
-+ [B]1.23[/B] [COLOR yellow](01-02-2019)[/COLOR]
++ [B]1.23[/B] [COLOR red](01-02-2019)[/COLOR]
 - Changelog prompt now says "AliveGR updated" not "addon updated"
 - Group switch action in live channels gets "isFolder-False" parameter to fix switching on some platforms.
 - Increased length of items to 100 when triggering background progress dialog.

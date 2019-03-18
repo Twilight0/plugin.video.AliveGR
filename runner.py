@@ -19,8 +19,6 @@
 '''
 
 # TODO: fix proxy enabler
-# TODO: Fix application of pvr simple client settings
-# TODO: Implement ability to install IPTV Simple Client addon
 # TODO: Finish keymap for remote
 # TODO: Complete Python 3 support
 # TODO: Set custom user agent for some requests
@@ -434,9 +432,17 @@ elif action == 'global_settings':
     from resources.lib.modules import helpers
     helpers.global_settings()
 
+elif action == 'pvrsettings':
+    from resources.lib.modules import helpers
+    helpers.pvrsettings()
+
 elif action == 'activate_audio_addon':
     from resources.lib.modules import helpers
     helpers.activate_audio_addon(url, query=query)
+
+elif action == 'welcome':
+    from resources.lib.modules import tools
+    tools.welcome()
 
 # Reserved might use later:
 # elif action == 'report':

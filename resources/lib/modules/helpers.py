@@ -166,6 +166,11 @@ def global_settings():
     control.execute('ActivateWindow(settings)')
 
 
+def pvrsettings():
+
+    control.execute('ActivateWindow(pvrsettings)')
+
+
 def reload_skin():
 
     control.execute('ReloadSkin()')
@@ -228,6 +233,7 @@ def force():
 
 
 def system_info():
+
     control.execute('ActivateWindow(systeminfo,return)')
 
 

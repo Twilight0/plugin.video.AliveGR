@@ -575,11 +575,11 @@ msgid "Settings folder no longer exists"
 msgstr ""
 
 msgctxt "#30141"
-msgid "Local proxy module for IPTV simple client streams' resolving does not exist. Do you want to install it?"
+msgid ""
 msgstr ""
 
 msgctxt "#30142"
-msgid "Local proxy module was not installed"
+msgid ""
 msgstr ""
 
 msgctxt "#30143"
@@ -1171,7 +1171,7 @@ msgid "Change skin"
 msgstr ""
 
 msgctxt "#30319"
-msgid "Open global settings"
+msgid "Open system settings"
 msgstr ""
 
 msgctxt "#30320"
@@ -1218,6 +1218,14 @@ msgctxt "#30330"
 msgid "Read disclaimer"
 msgstr ""
 
+msgctxt "#30331"
+msgid "[COLOR white][I]Welcome note[/I][/COLOR]"
+msgstr ""
+
+msgctxt "#30332"
+msgid "Open PVR Settings"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""
@@ -1255,7 +1263,7 @@ msgid "Please run IPTV Simple Client setup function first"
 msgstr ""
 
 msgctxt "#30410"
-msgid "Do you want to restart IPTV Simple Client & clear its cache?"
+msgid "Could not enable PVR manager"
 msgstr ""
 
 msgctxt "#30411"

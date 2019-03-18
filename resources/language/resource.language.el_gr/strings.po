@@ -575,12 +575,12 @@ msgid "Settings folder no longer exists"
 msgstr "Δεν υπάρχει φάκελος ρυθμίσεων"
 
 msgctxt "#30141"
-msgid "Local proxy module for IPTV simple client streams' resolving does not exist. Do you want to install it?"
-msgstr "Το πρόσθετο τοπικής επίλυσης ροών για τον πελάτη IPTV δεν είναι εγκατεστημένο. Θέλετε να το εγκαταστήσετε;"
+msgid ""
+msgstr ""
 
 msgctxt "#30142"
-msgid "Local proxy module was not installed"
-msgstr "Το πρόσθετο τοπικής επίλυσης ροών δεν εγκαταστάθηκε"
+msgid ""
+msgstr ""
 
 msgctxt "#30143"
 msgid "Local proxy module already installed"
@@ -1171,8 +1171,8 @@ msgid "Change skin"
 msgstr "Αλλαγή κελύφους"
 
 msgctxt "#30319"
-msgid "Open global settings"
-msgstr "Άνοιγμα καθολικών ρυθμίσεων"
+msgid "Open system settings"
+msgstr "Άνοιγμα ρυθμίσεων συστήματος"
 
 msgctxt "#30320"
 msgid "System"
@@ -1218,6 +1218,14 @@ msgctxt "#30330"
 msgid "Read disclaimer"
 msgstr "Ανάγνωση αποποίησης ευθυνών"
 
+msgctxt "#30331"
+msgid "[COLOR white][I]Welcome note[/I][/COLOR]"
+msgstr "[COLOR white][I]Μήνυμα καλωσορίσματος[/I][/COLOR]"
+
+msgctxt "#30332"
+msgid "Open PVR Settings"
+msgstr "Άνοιγμα ρυθμίσεων PVR"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"
@@ -1255,8 +1263,8 @@ msgid "Please run IPTV Simple Client setup function first"
 msgstr "Παρακαλώ εκτελέστε την ενέργεια ρύθμισης του πελάτη IPTV Simple πρώτα"
 
 msgctxt "#30410"
-msgid "Do you want to restart IPTV Simple Client & clear its cache?"
-msgstr "Θέλετε να επανεκκινήσετε τον απλό πελάτη IPTV & καθαρισμό της μνήμης του;"
+msgid "Could not enable PVR manager"
+msgstr "Αδυναμία ενεργοποίησης διαχειριστή PVR"
 
 msgctxt "#30411"
 msgid ""

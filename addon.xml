@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.24" provider-name="Thgiliwt">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.25" provider-name="Thgiliwt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
         <import addon="resource.images.alivegr.logos" version="1.0.2"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.20"/>
-        <import addon="script.module.streamlink.base" version="2018.12.05"/>
-        <import addon="script.module.tulip" version="2.3.0"/>
-        <import addon="plugin.video.youtube" version="6.2.3"/>
+        <import addon="script.module.streamlink.base" version="2019.03.17"/>
+        <import addon="script.module.tulip" version="2.3.2"/>
+        <import addon="plugin.video.youtube" version="6.4.0"/>
         <import addon="script.module.pyxbmct" version="1.3.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="runner.py">
@@ -38,22 +38,23 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <news>[I][COLOR white]Welcome to A[/COLOR][COLOR blue]live[/COLOR][COLOR white]GR![/COLOR][/I]
 [I][COLOR white]Television of the[/COLOR] [COLOR blue]greek[/COLOR] [COLOR red]generation[/COLOR][/I]
 
-+ [B]1.24[/B] [COLOR green](16-03-2019)[/COLOR]
-- Version dedicated to the memory of my beloved mother who recently passed away. May she rest in peace.
-- Utilize pyxbmct for various dialogs
-- Updated kids variety section
-- Updated skai live resolver
-- Added space separator for techno music indexer
-- Fixed some translation strings
++ [B]1.25[/B] [COLOR green](18-03-2019)[/COLOR]
+- Added welcome note item in important info menu
+- Improved iptv simple client setup function
+- Some other minor tweaks
+- Bumped dependencies
 
 =====================
 
 [I]Past versions:[/I]
 
-+ [B]1.23[/B] [COLOR yellow](01-02-2019)[/COLOR]
-- Changelog prompt now says "AliveGR updated" not "addon updated"
-- Group switch action in live channels gets "isFolder-False" parameter to fix switching on some platforms.
-- Increased length of items to 100 when triggering background progress dialog.</news>
++ [B]1.24[/B] [COLOR yellow](16-03-2019)[/COLOR]
+- Version dedicated to the memory of my beloved mother who recently passed away. May she rest in peace.
+- Utilize pyxbmct for various dialogs
+- Updated kids variety section
+- Updated skai live resolver
+- Added space separator for techno music indexer
+- Fixed some translation strings</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

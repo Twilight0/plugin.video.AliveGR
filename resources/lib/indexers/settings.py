@@ -150,7 +150,7 @@ class Indexer:
                 'icon': iconname('monitor')
             }
 
-            self.list.insert(4, inputstream)
+            self.list.insert(6, inputstream)
 
         if control.condVisibility('Window.IsVisible(programs)'):
 
@@ -169,6 +169,14 @@ class Indexer:
             disclaimer = control.addonInfo('disclaimer')
 
         self.list = [
+            {
+                'title': control.lang(30331),
+                'action': 'welcome',
+                'icon': control.addonInfo('icon'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
             {
                 'title': control.lang(30105),
                 'action': 'dmca',
