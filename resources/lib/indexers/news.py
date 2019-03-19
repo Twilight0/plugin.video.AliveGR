@@ -127,9 +127,9 @@ class Indexer:
         html = client.request(self.fp_link)
 
         try:
-            groups = client.parseDOM(html.decode('utf-8'), 'div', attrs={'class': 'tabbertab'})
+            groups = client.parseDOM(html.decode('utf-8'), 'div', attrs={'class': 'tabbertab.+?'})
         except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-            groups = client.parseDOM(html, 'div', attrs={'class': 'tabbertab'})
+            groups = client.parseDOM(html, 'div', attrs={'class': 'tabbertab.+?'})
 
         for group, papers in list(enumerate(groups, start=1)):
 
@@ -137,12 +137,8 @@ class Indexer:
 
             for i in items:
 
-                name = client.parseDOM(i, 'a', attrs={'style': 'font-size:12px;color:white;'})[0]
-                headline = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='alt')[0]
-                if headline == '':
-                    headline = u'Πρωτοσέλιδο εφημερίδας'
-                title = name + ': ' + headline
-                image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px 0;'}, ret='src')[0]
+                image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='src')[0]
+                title = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='alt')[0]
                 image = self.fp_link + image
                 link = image.replace('B.jpg', 'I.jpg')
 
@@ -154,7 +150,8 @@ class Indexer:
 
     def papers_index(self):
 
-        self.data = cache.get(self.front_pages, 12)
+        # self.data = cache.get(self.front_pages, 12)
+        self.data = self.front_pages()
 
         if not self.data:
             return
