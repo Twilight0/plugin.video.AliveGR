@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.27.0" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.27.1" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -34,7 +34,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>584908</size>
         <news>[I]Current version:[/I]
-+ [B]1.27.0[/B] [COLOR green](04-05-2019)[/COLOR]
++ [B]1.27.X[/B] [COLOR green](04-05-2019)[/COLOR]
 - Updated addon updated/welcome message
 - Add headers for various requests on alivegr server
 - Updated addon info

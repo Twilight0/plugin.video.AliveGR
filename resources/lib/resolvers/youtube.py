@@ -31,7 +31,7 @@ def generic(url, add_base=False):
 
     html = client.request(url)
 
-    if 'iframe' in html:
+    if '<iframe' in html:
 
         iframes = client.parseDOM(html, 'iframe', ret='src')
         stream = [s for s in iframes if 'youtu' in s][0]
@@ -40,7 +40,7 @@ def generic(url, add_base=False):
 
     else:
 
-        video_id = re.findall('videoId.+?"([\w-]{11})', html)[0]
+        video_id = re.findall(r"videoId.+?['\"]([\w-]{11})['\"]", html)[0]
 
         if not add_base:
 

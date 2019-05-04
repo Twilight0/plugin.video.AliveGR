@@ -1,4 +1,4 @@
-+ [B]1.27.0[/B] [COLOR green](04-05-2019)[/COLOR]
++ [B]1.27.X[/B] [COLOR green](04-05-2019)[/COLOR]
 - Updated addon updated/welcome message
 - Add headers for various requests on alivegr server
 - Ammended addon info
