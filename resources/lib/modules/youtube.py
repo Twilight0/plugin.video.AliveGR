@@ -18,39 +18,9 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import re
-from resources.lib.modules.constants import yt_url
-from tulip import client
-
-
 def thumb_maker(video_id, hq=False):
 
     if hq:
         return 'http://img.youtube.com/vi/' + video_id + '/maxresdefault.jpg'
     else:
         return 'http://img.youtube.com/vi/' + video_id + '/mqdefault.jpg'
-
-
-def traslate(url, add_base=False):
-
-    html = client.request(url)
-
-    if 'iframe' in html:
-
-        iframes = client.parseDOM(html, 'iframe', ret='src')
-        stream = [s for s in iframes if 'youtu' in s][0]
-
-        return stream
-
-    else:
-
-        video_id = re.findall('videoId.+?"([\w-]{11})', html)[0]
-
-        if not add_base:
-
-            return video_id
-
-        else:
-
-            stream = yt_url + video_id
-            return stream

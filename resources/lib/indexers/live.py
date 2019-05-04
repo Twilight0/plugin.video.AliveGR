@@ -61,7 +61,10 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            result = client.request(thgiliwt('=' + self.alivegr))
+            result = client.request(
+                thgiliwt('=' + self.alivegr), headers={'User-Agent': 'AliveGR, version: ' + control.version()}
+            )
+
             result = dexteni(b64decode(result))
 
         else:

@@ -9,7 +9,7 @@
 - News
 - Movies
 - Kids
-- Documentaries (Temporarily disabled)
+- Documentaries
 - Sports
 - Music on demand
 - TV Series & TV Shows
@@ -18,18 +18,18 @@
 **Primary OSes tested:**
 
 - Windows 10 64 bit
-- Debian Linux 64 bit
+- Ubuntu Linux 64 bit
 - Android 7.1.2 & 4.2.2
 
 **Kodi Versions tested:**
 
-- Jarvis 16.1 (deprecated)
-- Krypton 17.6 (current primary platform)
-- Leia 18.0 RC (x64, _reuselanguageinvoker_ set to __true__)
+- Jarvis 16.1 (deprecated support for this version)
+- Krypton 17.6 (deprecated support for this version)
+- Leia 18.1 (x64)
 
 **Repository zip for updates:**
 
-[repository.thgiliwt-1.6.0.zip](https://bitbucket.org/thgiliwt/plugin.video.alivegr/downloads/repository.thgiliwt-1.6.0.zip "Repo ZIP")
+[repository.thgiliwt-1.8.0.zip](https://bitbucket.org/thgiliwt/plugin.video.alivegr/downloads/repository.thgiliwt-1.8.0.zip "Repo ZIP")
 
 **Source url for the same zip to add into Kodi's file manager sources:**
 

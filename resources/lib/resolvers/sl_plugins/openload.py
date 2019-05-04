@@ -52,7 +52,7 @@ class Openload(Plugin):
             _0x1a873b = 0
             _0x3c9d8e = 0
 
-            while True:
+            while 1:
 
                 if _0x439a49 + 1 >= len(code[9 * 8:]):
                     _0x5eb93a = 143
@@ -101,9 +101,9 @@ class Openload(Plugin):
             raise NoStreamsError
 
         code = [i.text for i in list(itertags(data, 'p')) if 'style' in i.attributes][0]
-        _0x59ce16 = eval(re.search('_0x59ce16=(0x\w{8})', data).group(1))
+        _0x59ce16 = eval(re.search(r'_0x59ce16=(0x\w{8})', data).group(1))
         _1x4bfb36 = eval(re.search(r'_1x4bfb36=(parseInt[()\',\d-]+?);', data).group(1).replace('parseInt', 'int'))
-        integer = eval(re.search('_0x30725e,(\(parseInt.*?)\),', data).group(1).replace('parseInt', 'int'))
+        integer = eval(re.search(r'_0x30725e,(\(parseInt.*?)\),', data).group(1).replace('parseInt', 'int'))
         link = self._compute(code, integer, _0x59ce16, _1x4bfb36)
         video = self._location(link)
 

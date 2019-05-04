@@ -89,6 +89,17 @@ def omegacy(link):
     return spoofer(url=stream, referer=True, ref_str=link)
 
 
+def risegr(link):
+
+    html = client.request(link)
+
+    vimeo_id = re.search(r'data-vimeoid="(\d+)"', html).group(1)
+
+    vimeo_url = 'https://player.vimeo.com/video/' + vimeo_id
+
+    return vimeo_url
+
+
 def ert(url):
 
     from resources.lib.modules.helpers import geo_loc
@@ -153,7 +164,7 @@ def alphatv(url):
     """ Deprecated method"""
 
     link = client.request(url)
-    link = re.findall('(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[-1]
+    link = re.findall(r'(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[-1]
     link = client.request(link, output='geturl') + spoofer()
 
     return link

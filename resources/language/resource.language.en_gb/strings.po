@@ -535,7 +535,7 @@ msgid "In order to use AliveGR addon please install respective repository zip ad
 msgstr ""
 
 msgctxt "#30131"
-msgid "Please press back button on your remote or backspace on your keyboard to exit from this message"
+msgid "[COLOR blue]Links:[/COLOR]"
 msgstr ""
 
 msgctxt "#30132"
@@ -575,11 +575,11 @@ msgid "Settings folder no longer exists"
 msgstr ""
 
 msgctxt "#30141"
-msgid ""
+msgid "Paypal"
 msgstr ""
 
 msgctxt "#30142"
-msgid ""
+msgid "Patreon"
 msgstr ""
 
 msgctxt "#30143"
@@ -711,7 +711,7 @@ msgid "International"
 msgstr ""
 
 msgctxt "#30204"
-msgid ""
+msgid "Allow m3u8 streams to be adaptive"
 msgstr ""
 
 msgctxt "#30205"
@@ -1207,11 +1207,11 @@ msgid "More settings..."
 msgstr ""
 
 msgctxt "#30328"
-msgid "This version is dedicated to the memory of my beloved mother, who recently passed away. May she rest in peace."
+msgid "Μedia center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
 msgstr ""
 
 msgctxt "#30329"
-msgid "Close"
+msgid "[B]Close[/B]"
 msgstr ""
 
 msgctxt "#30330"

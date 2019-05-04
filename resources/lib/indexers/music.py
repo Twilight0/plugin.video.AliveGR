@@ -128,7 +128,7 @@ class Indexer:
             {
                 'title': control.lang(30269),
                 'action': 'top50_list',
-                'url': 'https://alivegr.net/raw/top50.xml',
+                'url': 's1GeuATNw9GdvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa',
                 'image': control.addonInfo('icon'),
                 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
             }
@@ -492,7 +492,7 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            playlists = client.request(url)
+            playlists = client.request(thgiliwt(url), headers={'User-Agent': 'AliveGR, version: ' + control.version()})
 
         else:
 

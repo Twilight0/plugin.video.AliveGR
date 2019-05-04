@@ -535,8 +535,8 @@ msgid "In order to use AliveGR addon please install respective repository zip ad
 msgstr "Για να επιτραπεί η χρήση της μικροεφαρμογής AliveGR παρακαλώ εγκαταστείστε το zip αποθετήριό του από την διεύθυνση [COLOR yellow]http://alivegr.net/master[/COLOR]"
 
 msgctxt "#30131"
-msgid "Please press back button on your remote or backspace on your keyboard to exit from this message"
-msgstr "Παρακαλώ πατήστε το κουμπί τηλεχειριστηρίου 'προς τα πίσω' ή το backspace στο πληκτρολόγιό σας για να ακυρώσετε αυτό το μήνυμα"
+msgid "[COLOR blue]Links:[/COLOR]"
+msgstr "[COLOR blue]Σύνδεσμοι:[/COLOR]"
 
 msgctxt "#30132"
 msgid "Do you want to disable first time prompt and set Greek Language & Region?"
@@ -575,11 +575,11 @@ msgid "Settings folder no longer exists"
 msgstr "Δεν υπάρχει φάκελος ρυθμίσεων"
 
 msgctxt "#30141"
-msgid ""
+msgid "Paypal"
 msgstr ""
 
 msgctxt "#30142"
-msgid ""
+msgid "Patreon"
 msgstr ""
 
 msgctxt "#30143"
@@ -679,7 +679,7 @@ msgid "Enable local proxy module"
 msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
 msgctxt "#30167"
-msgid "Streamlink  (secondary resolvers)"
+msgid "Streamlink (secondary resolvers)"
 msgstr "Streamlink (δευτερεύοντες επιλυτές)"
 
 msgctxt "#30168"
@@ -711,8 +711,8 @@ msgid "International"
 msgstr "Διεθνή δίκτυα"
 
 msgctxt "#30204"
-msgid ""
-msgstr ""
+msgid "Allow m3u8 streams to be adaptive"
+msgstr "Επέτρεψε τις ροές m3u8 να είναι μεταβλητές"
 
 msgctxt "#30205"
 msgid "Cinema"
@@ -1207,12 +1207,12 @@ msgid "More settings..."
 msgstr "Περισσότερες ρυθμίσεις..."
 
 msgctxt "#30328"
-msgid "This version is dedicated to the memory of my beloved mother, who recently passed away. May she rest in peace."
-msgstr "Αυτή η έκδοση είναι αφιερωμένη στην μνήμη της αγαπημένης μου μητέρας, που έφυγε πρόσφατα από τούτον τον κόσμο. Η ψυχή της πλέον αναπαύεται στην αιωνιότητα."
+msgid "Μedia center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
+msgstr "Μικροεφαρμογή κέντρου πολυμέσων[CR]Δημιουργός: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
 
 msgctxt "#30329"
-msgid "Close"
-msgstr "Κλείσιμο"
+msgid "[B]Close[/B]"
+msgstr "[B]Κλείσιμο[/B]"
 
 msgctxt "#30330"
 msgid "Read disclaimer"
@@ -1225,6 +1225,18 @@ msgstr "[COLOR white][I]Μήνυμα καλωσορίσματος[/I][/COLOR]"
 msgctxt "#30332"
 msgid "Open PVR Settings"
 msgstr "Άνοιγμα ρυθμίσεων PVR"
+
+msgctxt "#30333"
+msgid "SD"
+msgstr "ΧΕ"
+
+msgctxt "#30334"
+msgid "HD"
+msgstr "ΥΕ"
+
+msgctxt "#30335"
+msgid "FHD"
+msgstr "ΠΥΕ"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

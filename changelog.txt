@@ -1,11 +1,21 @@
-+ [B]1.26[/B] [COLOR yellow](20-03-2019)[/COLOR]
-- Updated news frontpages main indexer
++ [B]1.27.0[/B] [COLOR green](04-05-2019)[/COLOR]
+- Updated addon updated/welcome message
+- Add headers for various requests on alivegr server
+- Ammended addon info
+- Utilize alternative omegacy resolver
+- Added resolver for ONE TV
+- Added resolver for RISE TV & Vimeo live
+- Moved TODO text to dedicated file
+- Various other tweaks
 
 =====================
 
 [I]Past versions:[/I]
 
-+ [B]1.25[/B] [COLOR yellow](18-03-2019)[/COLOR]
++ [B]1.26[/B] [COLOR red](20-03-2019)[/COLOR]
+- Updated news frontpages main indexer
+
++ [B]1.25[/B] [COLOR red](18-03-2019)[/COLOR]
 - Added welcome note item in important info menu
 - Improved iptv simple client setup function
 - Some other minor tweaks

@@ -18,12 +18,38 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+from resources.lib.modules.constants import yt_url
 import re, youtube_resolver
-from tulip import control
+from tulip import control, client
 from resources.lib.modules.helpers import stream_picker
 from resources.lib.modules.constants import yt_prefix
 
 replace_url = control.setting('yt_resolve') == '1'
+
+
+def generic(url, add_base=False):
+
+    html = client.request(url)
+
+    if 'iframe' in html:
+
+        iframes = client.parseDOM(html, 'iframe', ret='src')
+        stream = [s for s in iframes if 'youtu' in s][0]
+
+        return stream
+
+    else:
+
+        video_id = re.findall('videoId.+?"([\w-]{11})', html)[0]
+
+        if not add_base:
+
+            return video_id
+
+        else:
+
+            stream = yt_url + video_id
+            return stream
 
 
 def wrapper(url):

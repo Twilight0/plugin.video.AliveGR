@@ -27,11 +27,15 @@ from tulip.compat import urljoin, parse_qsl
 def m3u8_picker(url):
 
     try:
+
         if '|' not in url:
             raise TypeError
+
         headers = dict(parse_qsl(url.rpartition('|')[2]))
         streams = m3u8.load(url.rpartition('|')[0], headers=headers).playlists
+
     except TypeError:
+
         streams = m3u8.load(url).playlists
 
     if not streams:
@@ -43,21 +47,31 @@ def m3u8_picker(url):
     for stream in streams:
 
         quality = repr(stream.stream_info.resolution).strip('()').replace(', ', 'x')
+
         if quality == 'None':
             quality = 'Auto'
+
         uri = stream.uri
+
         if not uri.startswith('http'):
             uri = urljoin(stream.base_uri, uri)
+
         qualities.append(quality)
+
         try:
+
             if '|' not in url:
                 raise TypeError
+
             urls.append(uri + ''.join(url.rpartition('|')[1:]))
+
         except TypeError:
             urls.append(uri)
 
     if len(qualities) == 1:
+
         control.infoDialog(control.lang(30220).format(qualities[0]))
+
         return url
 
     return stream_picker(qualities, urls)

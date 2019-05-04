@@ -18,14 +18,6 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-# TODO: fix proxy enabler
-# TODO: Finish keymap for remote
-# TODO: Complete Python 3 support
-# TODO: Set custom user agent for some requests
-# TODO: Add search as actor/director
-# TODO: Replace google with native greek-movies as agent for searches
-# TODO: Add resolver for vimeo live
-
 from __future__ import absolute_import
 
 
@@ -38,8 +30,6 @@ from tulip.compat import parse_qsl
 ########################################################################################################################
 
 argv = sys.argv
-syshandle = int(argv[1])
-sysaddon = argv[0]
 params = dict(parse_qsl(argv[2].replace('?','')))
 
 ########################################################################################################################
@@ -53,7 +43,6 @@ name = params.get('name')
 query = params.get('query')
 plot = params.get('plot')
 genre = params.get('genre')
-
 
 ########################################################################################################################
 
@@ -78,6 +67,8 @@ elif content == 'executable':
 elif action is None:
     from resources.lib.indexers import navigator
     navigator.Indexer(argv=argv).root()
+
+########################################################################################################################
 
 elif action == 'root':
     from tulip import control
@@ -448,10 +439,6 @@ elif action == 'welcome':
 # elif action == 'report':
 #     from resources.lib.modules import tools
 #     tools.mailer(text=title)
-
-else:
-    from resources.lib.modules import helpers
-    helpers.greeting()
 
 
 if __name__ == '__main__':

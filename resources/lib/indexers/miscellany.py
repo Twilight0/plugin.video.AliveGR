@@ -38,7 +38,9 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            playlists = client.request(thgiliwt('=' + self.misc))
+            playlists = client.request(
+                thgiliwt('=' + self.misc), headers={'User-Agent': 'AliveGR, version: ' + control.version()}
+            )
 
         else:
 
