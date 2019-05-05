@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.27.1" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.28.0" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -33,8 +33,14 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <forum>https://www.facebook.com/alivegr/</forum>
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>584908</size>
-        <news>[I]Current version:[/I]
-+ [B]1.27.X[/B] [COLOR green](04-05-2019)[/COLOR]
+        <news>+ [B]1.28.X[/B] [COLOR green](05-05-2019)[/COLOR]
+- Moved streamlink's quality choice after dash boolean conditions on player module
+- Improved quality choice overall capabilities
+- Made HLS quality setting more clear
+
+[I]Past version:[/I]
+
++ [B]1.27.X[/B] [COLOR red](04-05-2019)[/COLOR]
 - Updated addon updated/welcome message
 - Add headers for various requests on alivegr server
 - Updated addon info
@@ -42,12 +48,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Added resolver for ONE TV
 - Added resolver for RISE TV &amp; Vimeo live
 - Moved TODO text to dedicated file
-- Various other tweaks
-
-[I]Past version:[/I]
-
-+ [B]1.26[/B] [COLOR red](20-03-2019)[/COLOR]
-- Updated news frontpages main indexer</news>
+- Various other tweaks</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

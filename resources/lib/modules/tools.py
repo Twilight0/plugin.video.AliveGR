@@ -2,7 +2,7 @@
 
 '''
     AliveGR Addon
-    Author Thgiliwt
+    Author Twilight0
 
         License summary below, for more details please read license.txt file
 

@@ -2,7 +2,7 @@
 
 '''
     AliveGR Addon
-    Author Thgiliwt
+    Author Twilight0
 
         License summary below, for more details please read license.txt file
 
@@ -20,7 +20,7 @@
 
 import random
 import re
-from tulip.compat import urljoin, quote, parse_qsl
+from tulip.compat import urljoin, quote, parse_qsl, OrderedDict, urlencode
 
 from tulip import directory, client, cache, control
 from resolveurl import resolve as resolve_url
@@ -32,7 +32,7 @@ from tulip.init import sysaddon
 from resources.lib.indexers.gm import base_link
 from resources.lib.resolvers import various, youtube, stream_link
 from resources.lib.modules.constants import yt_url, play_action
-from resources.lib.modules.helpers import addon_version
+from resources.lib.modules.helpers import addon_version, stream_picker
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
@@ -98,7 +98,7 @@ def router(url, params):
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30403))
         else:
-            return stream, False
+            return stream
 
     elif HostedMediaFile(url).valid_url():
 
@@ -458,13 +458,13 @@ def player(url, params, do_not_resolve=False):
     else:
         log_debug('Invoked player method')
 
-    link = url.replace('&amp;', '&')
+    url = url.replace('&amp;', '&')
 
-    log_debug('Attempting to play this url: ' + link)
+    log_debug('Attempting to play this url: ' + url)
 
-    if 'ustream' in link and control.setting('ustream_resolve') == '1':
+    if 'ustream' in url and control.setting('ustream_resolve') == '1':
 
-        control.open_web_browser(link)
+        control.open_web_browser(url)
 
         while not control.wait(1):
 
@@ -475,43 +475,27 @@ def player(url, params, do_not_resolve=False):
             return
 
     if do_not_resolve:
-        stream = link
+        stream = url
     else:
-        stream = router(link, params)
+        stream = router(url, params)
 
     if stream is None or (len(stream) == 2 and stream[0] is None):
 
-        log_debug('Failed to resolve this url: ' + link)
+        log_debug('Failed to resolve this url: ' + url)
         control.execute('Dialog.Close(all)')
 
         return
 
     plot = None
 
-    m3u8_passthrough = control.setting('m3u8_passthrough') == 'true' and addon_version('xbmc.python') >= 2260
-    m3u8_quality_picker = control.setting('m3u8_quality_picker') == '1' and not m3u8_passthrough
-
-    try:
-        addon_enabled = control.addon_details('inputstream.adaptive').get('enabled')
-    except KeyError:
-        addon_enabled = False
-
     try:
 
-        if len(stream) == 2:
+        if isinstance(stream, tuple):
 
-            resolved = stream[0]
-
-            if isinstance(stream[1], bool):
-                dash = stream[1]
-            else:
-                dash = ('.mpd' in resolved or 'dash' in resolved or '.ism' in resolved or '.hls' in resolved or '.m3u8' in resolved) and m3u8_passthrough and addon_enabled
-                plot = stream[1]
+            stream = stream[0]
+            plot = stream[1]
 
         else:
-
-            resolved = stream
-            dash = ('.mpd' in resolved or 'dash' in resolved or '.ism' in resolved or '.hls' in resolved or '.m3u8' in resolved) and m3u8_passthrough and addon_enabled
 
             try:
                 plot = params.get('plot').encode('latin-1')
@@ -520,52 +504,87 @@ def player(url, params, do_not_resolve=False):
 
     except TypeError:
 
-        resolved = stream
-        dash = ('.mpd' in resolved or 'dash' in resolved or '.ism' in resolved or '.hls' in resolved or '.m3u8' in resolved) and m3u8_passthrough and addon_enabled
+        pass
 
     else:
 
         log_debug('Plot obtained')
 
-    finally:
-
-        if stream != link:
-
-            log_debug('Stream has been resolved: ' + resolved)
-
-    if '|' in resolved:
+    if '|' in stream:
 
         from tulip.compat import parse_qsl
 
-        log_debug('Appending custom headers: ' + repr(dict(parse_qsl(resolved.rpartition('|')[2]))))
-
-    try:
-
-        if '.m3u8' in resolved and m3u8_quality_picker and not (
-                any(stream_link.sl_hosts(resolved)) or any(stream_link.sl_hosts(link))
-        ):
-
-            resolved = m3u8_loader.m3u8_picker(resolved)
-            dash = False
-
-    except TypeError:
-
-        pass
+        log_debug('Appending custom headers: ' + repr(dict(parse_qsl(stream.rpartition('|')[2]))))
 
     mimetype = None
     manifest_type = None
 
+    try:
+
+        inputstream_adaptive = control.addon_details('inputstream.adaptive').get('enabled')
+
+    except KeyError:
+
+        inputstream_adaptive = False
+
+    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and addon_version('xbmc.python') >= 2260
+
+    dash = ('.mpd' in stream or 'dash' in stream or '.ism' in stream or m3u8_dash) and inputstream_adaptive
+
     if dash:
 
-        if '.hls' in resolved or 'm3u8' in resolved and m3u8_passthrough:
+        if '.hls' in stream or '.m3u8' in stream:
             manifest_type = 'hls'
             mimetype = 'application/vnd.apple.mpegurl'
-        elif '.ism' in resolved:
+        elif '.ism' in stream:
             manifest_type = 'ism'
         else:
             manifest_type = 'mpd'
 
-        log_debug('Activating MPEG-DASH for this url: ' + resolved)
+        log_debug('Activating adaptive parameters for this url: ' + stream)
+
+    elif not m3u8_dash and control.setting('m3u8_quality_picker') == '1' and '.m3u8' in stream:
+
+        try:
+
+            stream = m3u8_loader.m3u8_picker(stream)
+
+        except TypeError:
+
+            pass
+
+    if isinstance(stream, OrderedDict):
+
+        try:
+
+            args = stream['best'].args
+
+            append = '|'
+
+            if 'headers' in args:
+                headers = stream['best'].args['headers']
+                append += urlencode(headers)
+            else:
+                append = ''
+
+        except AttributeError:
+
+            append = ''
+
+        if control.setting('sl_quality_picker') == '0' or len(stream) == 3:
+
+            stream = stream['best'].to_url() + append
+
+        else:
+
+            keys = stream.keys()[::-1]
+            values = [u.to_url() + append for u in stream.values()][::-1]
+
+            stream = stream_picker(keys, values)
+
+    if stream != url:
+
+        log_debug('Stream has been stream: ' + stream)
 
     try:
 
@@ -583,7 +602,7 @@ def player(url, params, do_not_resolve=False):
 
         meta.update({'plot': plot})
 
-    if resolved == 30403:
+    if stream == 30403:
 
         control.execute('Dialog.Close(all)')
         control.infoDialog(control.lang(30403))
@@ -591,7 +610,7 @@ def player(url, params, do_not_resolve=False):
     else:
 
         try:
-            directory.resolve(resolved, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype)
+            directory.resolve(stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype)
         except:
             control.execute('Dialog.Close(all)')
             control.infoDialog(control.lang(30112))

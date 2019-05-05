@@ -1,4 +1,13 @@
-+ [B]1.27.X[/B] [COLOR green](04-05-2019)[/COLOR]
++ [B]1.28.X[/B] [COLOR green](05-05-2019)[/COLOR]
+- Moved streamlink's quality choice after dash boolean conditions on player module
+- Improved quality choice overall capabilities
+- Made HLS quality setting more clear
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.27.X[/B] [COLOR red](04-05-2019)[/COLOR]
 - Updated addon updated/welcome message
 - Add headers for various requests on alivegr server
 - Ammended addon info
@@ -7,10 +16,6 @@
 - Added resolver for RISE TV & Vimeo live
 - Moved TODO text to dedicated file
 - Various other tweaks
-
-=====================
-
-[I]Past versions:[/I]
 
 + [B]1.26[/B] [COLOR red](20-03-2019)[/COLOR]
 - Updated news frontpages main indexer

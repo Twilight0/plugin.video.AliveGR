@@ -54,10 +54,9 @@
 
         <setting type="lsep" label="30006"/>
 
-        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(20,0)"/>
+        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(19,0)"/>
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
-        <setting id="m3u8_passthrough" type="bool" label="30204" default="false" enable="String.StartsWith(System.AddonVersion(xbmc.python),2.26)"/>
-        <setting id="m3u8_quality_picker" type="enum" label="30219" lvalues="30168|30169" default="0" enable="eq(-1,false)"/>
+        <setting id="m3u8_quality_picker" type="select" label="30219" lvalues="30168|30169|30204" default="0"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30007"/>

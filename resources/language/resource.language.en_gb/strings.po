@@ -711,7 +711,7 @@ msgid "International"
 msgstr ""
 
 msgctxt "#30204"
-msgid "Allow m3u8 streams to be adaptive"
+msgid "Adaptive"
 msgstr ""
 
 msgctxt "#30205"

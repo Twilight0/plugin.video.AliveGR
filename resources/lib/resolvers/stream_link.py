@@ -20,8 +20,6 @@
 
 import streamlink.session
 from tulip import control
-from tulip.compat import urlencode
-from resources.lib.modules.helpers import stream_picker
 
 
 def sl_session(url):
@@ -34,41 +32,9 @@ def sl_session(url):
     plugin = session.resolve_url(url)
     streams = plugin.streams()
 
-    if not streams:
-        return
+    if streams:
 
-    try:
-        del streams['audio_webm']
-        del streams['audio_mp4']
-    except KeyError:
-        pass
-
-    try:
-
-        args = streams['best'].args
-
-        append = '|'
-
-        if 'headers' in args:
-            headers = streams['best'].args['headers']
-            append += urlencode(headers)
-        else:
-            append = ''
-
-    except AttributeError:
-
-        append = ''
-
-    if control.setting('sl_quality_picker') == '0' or len(streams) == 3:
-
-        return streams['best'].to_url() + append
-
-    else:
-
-        keys = streams.keys()[::-1]
-        values = [u.to_url() + append for u in streams.values()][::-1]
-
-        return stream_picker(keys, values)
+        return streams
 
 
 def sl_hosts(url):
@@ -77,5 +43,5 @@ def sl_hosts(url):
         'ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url, 'ttvnw' in url,
         'periscope' in url and not 'search' in url, 'pscp' in url, 'ant1.com.cy' in url,
         'openload' in url and control.setting('ol_resolve') == '1', 'gr.euronews.com' in url and not 'watchlive.json' in url,
-        'filmon.com' in url, 'ellinikosfm.com' in url, 'alphatv.gr' in url, 'kineskop.tv' in url  #, 'player.vimeo.com' in url
+        'filmon.com' in url, 'ellinikosfm.com' in url, 'alphatv.gr' in url, 'kineskop.tv' in url, 'player.vimeo.com' in url
     ]
