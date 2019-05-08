@@ -455,8 +455,6 @@ def player(url, params, do_not_resolve=False):
     if url is None:
         log_debug('Nothing playable was found')
         return
-    else:
-        log_debug('Invoked player method')
 
     url = url.replace('&amp;', '&')
 
@@ -543,7 +541,7 @@ def player(url, params, do_not_resolve=False):
 
         log_debug('Activating adaptive parameters for this url: ' + stream)
 
-    elif not m3u8_dash and control.setting('m3u8_quality_picker') == '1' and '.m3u8' in stream:
+    elif not m3u8_dash and control.setting('m3u8_quality_picker') in ['1', '2'] and '.m3u8' in stream:
 
         try:
 

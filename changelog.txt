@@ -2,6 +2,8 @@
 - Moved streamlink's quality choice after dash boolean conditions on player module
 - Improved quality choice overall capabilities
 - Made HLS quality setting more clear
+- Minor player module fixes
+- Removed vimeo streamlink plugin
 
 =====================
 

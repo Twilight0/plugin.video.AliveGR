@@ -711,7 +711,7 @@ msgid "International"
 msgstr ""
 
 msgctxt "#30204"
-msgid "Adaptive"
+msgid "Adaptive (Leia+)"
 msgstr ""
 
 msgctxt "#30205"

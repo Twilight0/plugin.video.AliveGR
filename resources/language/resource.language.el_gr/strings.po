@@ -711,8 +711,8 @@ msgid "International"
 msgstr "Διεθνή δίκτυα"
 
 msgctxt "#30204"
-msgid "Adaptive"
-msgstr "Μεταβλητή"
+msgid "Adaptive (Leia+)"
+msgstr "Μεταβλητή (Leia+)"
 
 msgctxt "#30205"
 msgid "Cinema"
