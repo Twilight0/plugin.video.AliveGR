@@ -4,6 +4,7 @@
 - Made HLS quality setting more clear
 - Minor player module fixes
 - Removed vimeo streamlink plugin
+- Updated resolver for SKAI official
 
 =====================
 

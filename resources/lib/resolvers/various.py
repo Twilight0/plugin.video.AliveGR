@@ -20,7 +20,6 @@
 
 from tulip.user_agents import randomagent, spoofer
 from tulip import client, cache
-from tulip.log import log_debug
 import re, json
 from streamlink.plugin.api.utils import itertags
 
@@ -132,31 +131,11 @@ def ert(url):
 
 def skai(url):
 
-    log_debug('Playing Skai TV channel: ' + url)
+    json_object = json.loads(client.request(url))
 
-    # html = client.request(url)
-    #
-    # settings_url = re.search(r'url:"(.+?settings\.php)"', html)
-    #
-    # if settings_url:
-    #
-    #     live_json = client.request(settings_url.group(1))
-    #
-    #     youtu_id = json.loads(live_json)['live_url']
-    #
-    # else:
+    stream = json_object['now']['livestream']
 
-    xml_url = 'http://www.skai.gr/ajax.aspx?m=NewModules.LookupMultimedia&amp;mmid=/Root/TVLive'
-
-    xml_file = client.request(xml_url)
-
-    cdata = client.parseDOM(xml_file, 'File')[0]
-
-    youtu_id = re.search(r'([\w-]{11})', cdata)
-
-    youtu_id = youtu_id.group(1)
-
-    return youtu_id
+    return stream
 
 
 def alphatv(url):
