@@ -107,7 +107,14 @@ def addon_version(addon_id):
 def other_addon_settings(query):
 
     try:
-        control.Settings(id='{0}'.format(query))
+
+        if query == 'script.module.resolveurl':
+
+            from resolveurl import display_settings
+
+        else:
+
+            control.Settings(id='{0}'.format(query))
     except:
         pass
 

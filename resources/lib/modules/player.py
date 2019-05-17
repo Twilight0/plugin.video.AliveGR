@@ -135,12 +135,6 @@ def router(url, params):
         else:
             return yt_router(link)
 
-    elif 'onetv.gr' in url:
-
-        link = cache.get(youtube.generic, 12, url)
-
-        return yt_router(link)
-
     elif 'skaitv.gr' in url:
 
         vid = cache.get(various.skai, 6, url)

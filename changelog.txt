@@ -1,14 +1,18 @@
-+ [B]1.28.X[/B] [COLOR green](05-05-2019)[/COLOR]
++ [B]1.29.X[/B] [COLOR green](17-05-2019)[/COLOR]
+- Removed ONETV resolver
+- Fix call to ResolveURL settings
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.28.X[/B] [COLOR red](05-05-2019)[/COLOR]
 - Moved streamlink's quality choice after dash boolean conditions on player module
 - Improved quality choice overall capabilities
 - Made HLS quality setting more clear
 - Minor player module fixes
 - Removed vimeo streamlink plugin
 - Updated resolver for SKAI official
-
-=====================
-
-[I]Past versions:[/I]
 
 + [B]1.27.X[/B] [COLOR red](04-05-2019)[/COLOR]
 - Updated addon updated/welcome message
@@ -63,63 +67,3 @@
 - Removed redundant youtube-resolver object conditional from its wrapper
 - Zapping function now loads playlist into native mode by default, m3u kept as optional
 - Create background progress dialod if length of directory items are equal or more than 50
-
-+ [B]1.19[/B] [COLOR red](10-01-2019)[/COLOR]
-- Fix caching argument on live_tv function
-- Changed method for inserting group switcher
-
-+ [B]1.18[/B] [COLOR red](08-01-2019)[/COLOR]
-- Some tweaks in music indexers to properly show artists when on music mode
-- Various other tweaks
-
-+ [B]1.17.X[/B] [COLOR red](29-12-2018)[/COLOR]
-- Zapping mode gets a pre-resolve capability (defaults to off, enable from the settings menu)
-- Added label processor to remove stupid comments from titles on techno picks indexer
-- Re-included documentaries section (once labeled as Documentaries Set 1)
-
-+ [B]1.16[/B] [COLOR red](25-12-2018)[/COLOR]
-- Reuselanguageinvoker set to false. Behaviour on true does not respect settings changes, unfortunately.
-- Added independent setting for live groups indexer reset
-- Updated Mad TV's top 10 indexer (hybrid: spotify for metadata and youtube for video + thumbnails)
-- Some other minor enhancements in music indexers
-
-+ [B]1.15[/B] [COLOR red](20-12-2018)[/COLOR]
-- Music indexer has class specific variable for setting content and info types.
-- Fixed Mad Greekz playlists
-- Removed yt_playlist_videos function
-- Option to disable auto quality selection for m3u8 (hls) streams on Leia and later versions
-
-+ [B]1.14[/B] [COLOR red](19-12-2018)[/COLOR]
-- Moved inputstream related actions from streams tab in settings into tools menu, nested directory
-- Existing leftover on related inputstream settings are now pointing to the above mentioned nested directory
-- Added the ability to install inputstream type addons (not supported on some Linux distributions where you have to install them through their respective repositories)
-- Added new context menu item in root directory pointing to music mode
-- Re-ordered setting items in streams tab
-- Fix language application for changelog on Leia
-- On new installations PVR root menu item is off by default
-
-+ [B]1.13[/B] [COLOR red](18-12-2018)[/COLOR]
-- Youtube replace_url from resolvers also passed into modules' youtube for consistency (respect yt_resolve setting and audio only boolean)
-- Tweaked changelog appearance
-
-+ [B]1.12[/B] [COLOR red](18-12-2018)[/COLOR]
-- Added more exception types into some string conversions on player module
-- Tweaked plot text for directory mode
-
-+ [B]1.11[/B] [COLOR red](17-12-2018)[/COLOR]
-- Fixed techno choices music section
-- Reordered youtube related functions
-- Bumped to youtube 6.2.3
-
-+ [B]1.10[/B] [COLOR red](17-12-2018)[/COLOR]
-- Removed service module and accompanying extension point as it is no longer needed.
-- Changed live list link
-- Bumped to tulip 2.1.X (new functions)
-- Changed the way radio/music addons are opened
-- Backported keymap setup function from AliveGR 2.X.X~alpha master branch into legacy (will merge as soon as Python 3 compatibility is also completed)
-- WIP: Python 3 support
-- Params and argv are now passing through runner module allowing python builtin caching to work properly
-- Reuselanguageinvoker on by default
-- Added blank lines into settings window to make them more distinguishable
-- Removed first time prompt
-- Various other minor tweaks

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.28.2" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.29.0" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -33,25 +33,19 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <forum>https://www.facebook.com/alivegr/</forum>
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>584908</size>
-        <news>+ [B]1.28.X[/B] [COLOR green](05-05-2019)[/COLOR]
+        <news>+ [B]1.29.X[/B] [COLOR green](17-05-2019)[/COLOR]
+- Removed ONETV resolver
+- Fix call to ResolveURL settings
+
+[I]Past version:[/I]
+
++ [B]1.28.X[/B] [COLOR red](05-05-2019)[/COLOR]
 - Moved streamlink's quality choice after dash boolean conditions on player module
 - Improved quality choice overall capabilities
 - Made HLS quality setting more clear
 - Minor player module fixes
 - Removed vimeo streamlink plugin
-- Updated resolver for SKAI official
-
-[I]Past version:[/I]
-
-+ [B]1.27.X[/B] [COLOR red](04-05-2019)[/COLOR]
-- Updated addon updated/welcome message
-- Add headers for various requests on alivegr server
-- Updated addon info
-- Utilize alternative omegacy resolver
-- Added resolver for ONE TV
-- Added resolver for RISE TV &amp; Vimeo live
-- Moved TODO text to dedicated file
-- Various other tweaks</news>
+- Updated resolver for SKAI official</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
