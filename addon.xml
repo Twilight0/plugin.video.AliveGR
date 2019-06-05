@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.29.0" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.29.1" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
         <import addon="resource.images.alivegr.logos" version="1.0.2"/>
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
-        <import addon="script.module.resolveurl" version="5.0.20"/>
+        <import addon="script.module.resolveurl" version="5.0.31"/>
         <import addon="script.module.streamlink.base" version="2019.05.08"/>
-        <import addon="script.module.tulip" version="2.3.6"/>
-        <import addon="plugin.video.youtube" version="6.4.0"/>
+        <import addon="script.module.tulip" version="2.3.7"/>
+        <import addon="plugin.video.youtube" version="6.4.1"/>
         <import addon="script.module.pyxbmct" version="1.2.0"/>
     </requires>
-    <extension point="xbmc.python.pluginsource" library="router.py">
+    <extension point="xbmc.python.pluginsource" library="loader.py">
         <provides>video audio image executable</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
@@ -33,9 +33,12 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <forum>https://www.facebook.com/alivegr/</forum>
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <size>584908</size>
-        <news>+ [B]1.29.X[/B] [COLOR green](17-05-2019)[/COLOR]
+        <news>+ [B]1.29.X[/B] [COLOR green](05-06-2019)[/COLOR]
 - Removed ONETV resolver
 - Fix call to ResolveURL settings
+- Re-route omegacy resolver through streamlink plugin
+- Added new tlds for openload's regex on its streamlink plugin
+- Bump dependencies
 
 [I]Past version:[/I]
 

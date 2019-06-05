@@ -1,4 +1,4 @@
-# _Size indicates importance_
+# Size indicates importance
 
 
 
@@ -18,7 +18,15 @@
 
 ---
 
-##### Replace google with native greek-movies as agent for searches
+### Replace google with native greek-movies as agent for searches
+
+---
+
+#### Add search music
+
+---
+
+#### Implement resolver for STAR
 
 ---
 
@@ -35,3 +43,15 @@
 ---
 
 #### Add genre info on top 50 tracks directory
+
+---
+
+### Add menu item for uploading debug log
+
+---
+
+#### Add version number in welcome prompt
+
+---
+
+### Add main menu item for live movies & pseudo live

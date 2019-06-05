@@ -1,6 +1,9 @@
 + [B]1.29.X[/B] [COLOR green](17-05-2019)[/COLOR]
 - Removed ONETV resolver
 - Fix call to ResolveURL settings
+- Re-route omegacy resolver through streamlink plugin
+- Added new tlds for openload's regex on its streamlink plugin
+- Bump dependencies
 
 =====================
 

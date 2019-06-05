@@ -120,11 +120,11 @@ def router(url, params):
 
         return stream
 
-    elif 'omegatv.com.cy/live/' in url:
-
-        stream = various.omegacy(url)
-
-        return stream
+    # elif 'omegatv.com.cy/live/' in url:
+    #
+    #     stream = various.omegacy(url)
+    #
+    #     return stream
 
     elif 'webtv.ert.gr' in url:
 

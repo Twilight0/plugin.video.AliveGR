@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+
 """
     generic streamlink plugin
 
     source: https://github.com/back-to/generic
     issues: https://github.com/back-to/generic/issues
 """
+
 import argparse
 import base64
 import logging
