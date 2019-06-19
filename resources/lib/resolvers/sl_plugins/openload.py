@@ -31,7 +31,7 @@ class Openload(Plugin):
 
     def _location(self, url):
 
-        url = quote(url, safe="%/:=&?~#+!$,;'@()*[]")
+        url = quote(url.replace('openload.co', 'oload.stream'), safe="%/:=&?~#+!$,;'@()*[]")
         req = self.session.http.get(url, headers=self.HEADERS, allow_redirects=False)
 
         return dict(req.headers).get('Location')
@@ -95,7 +95,7 @@ class Openload(Plugin):
 
     def _get_streams(self):
 
-        data = self.session.http.get(self.url, headers={'User-Agent': CHROME})
+        data = self.session.http.get(self.url.replace('openload.co', 'oload.stream'), headers={'User-Agent': CHROME})
 
         data = data.text
 
@@ -112,7 +112,7 @@ class Openload(Plugin):
         del self.HEADERS['Accept-Charset']
         del self.HEADERS['Accept']
 
-        self.HEADERS.update({'Referer': self.url})
+        self.HEADERS.update({'Referer': self.url.replace('openload.co', 'oload.stream')})
 
         return dict(vod=HTTPStream(self.session, video, headers=self.HEADERS))
 

@@ -452,9 +452,6 @@ def player(url, params, do_not_resolve=False):
 
     url = url.replace('&amp;', '&')
 
-    # Temporarily replace inactive domain with an alternative one
-    url = url.replace('openload.co', 'oload.stream')
-
     log_debug('Attempting to play this url: ' + url)
 
     if 'ustream' in url and control.setting('ustream_resolve') == '1':
@@ -487,8 +484,8 @@ def player(url, params, do_not_resolve=False):
 
         if isinstance(stream, tuple):
 
-            stream = stream[0]
             plot = stream[1]
+            stream = stream[0]
 
         else:
 
