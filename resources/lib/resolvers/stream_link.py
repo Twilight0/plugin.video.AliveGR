@@ -44,5 +44,5 @@ def sl_hosts(url):
         'periscope' in url and not 'search' in url, 'pscp' in url, 'ant1.com.cy' in url and 'web-tv-live' in url,
         'openload' in url and control.setting('ol_resolve') == '1', 'gr.euronews.com' in url and not 'watchlive.json' in url,
         'filmon.com' in url, 'ellinikosfm.com' in url, 'alphatv.gr' in url, 'kineskop.tv' in url, 'player.vimeo.com' in url,
-        'omegatv' in url and 'live' in url
+        'omegatv' in url and 'live' in url, 'oload.stream' in url and control.setting('ol_resolve') == '1'
     ]

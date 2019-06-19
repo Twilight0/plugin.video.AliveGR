@@ -3,6 +3,7 @@
 - Fix call to ResolveURL settings
 - Re-route omegacy resolver through streamlink plugin
 - Added new tlds for openload's regex on its streamlink plugin
+- Replace main openload.co with the alternative oload.stream to work-around the former being disabled
 - Bump dependencies
 
 =====================

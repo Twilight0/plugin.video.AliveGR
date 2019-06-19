@@ -240,7 +240,7 @@ class Indexer:
             for item in self.list:
 
                 try:
-                    percent = control.percent(int(item['code']), len(self.list))
+                    percent = control.per_cent(int(item['code']), len(self.list))
                     pd.update(percent)
                     item.update({'url': router(item['url'], params=self.params)})
                 except Exception as e:

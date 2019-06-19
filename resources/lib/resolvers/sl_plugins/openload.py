@@ -13,7 +13,8 @@ from streamlink.plugin.api.utils import itertags
 class Openload(Plugin):
 
     url_re = re.compile(r'https?://o(?:pen)?load\.(?:io|co|tv|stream|win|download|info|icu|fun|pw)/(?:embed|f)/([\w-]+)')
-    web_url = 'https://openload.co/stream/{0}?mime=true'
+    # web_url = 'https://openload.co/stream/{0}?mime=true'
+    web_url = 'https://oload.stream/stream/{0}?mime=true'
 
     HEADERS = {
         'User-Agent': CHROME,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.29.1" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.29.3" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -7,7 +7,7 @@
         <!--<import addon="script.module.youtube.dl" version="17.709.0"/>-->
         <import addon="script.module.resolveurl" version="5.0.31"/>
         <import addon="script.module.streamlink.base" version="2019.05.08"/>
-        <import addon="script.module.tulip" version="2.3.7"/>
+        <import addon="script.module.tulip" version="2.3.8"/>
         <import addon="plugin.video.youtube" version="6.4.1"/>
         <import addon="script.module.pyxbmct" version="1.2.0"/>
     </requires>
@@ -38,6 +38,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Fix call to ResolveURL settings
 - Re-route omegacy resolver through streamlink plugin
 - Added new tlds for openload's regex on its streamlink plugin
+- Replace main openload.co with the alternative oload.stream to work-around the former being disabled
 - Bump dependencies
 
 [I]Past version:[/I]
