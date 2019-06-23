@@ -963,7 +963,7 @@ msgid "Also reset live channel groups"
 msgstr ""
 
 msgctxt "#30267"
-msgid "AliveGR updated"
+msgid "AliveGR updated to {0}"
 msgstr ""
 
 msgctxt "#30268"
@@ -1083,7 +1083,7 @@ msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
 msgstr ""
 
 msgctxt "#30297"
-msgid "Resolve ustream"
+msgid "Resolve dailymotion with"
 msgstr ""
 
 msgctxt "#30298"

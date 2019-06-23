@@ -1,14 +1,24 @@
-+ [B]1.29.X[/B] [COLOR green](17-05-2019)[/COLOR]
++ [B]1.30.X[/B] [COLOR green](23-06-2019)[/COLOR]
+- Tweaked openload plugin
+- Updated generic streamlink plugin
+- Added youtube-dl as optional dependency to augment generic plugin
+- Disabled first time prompt temporarily
+- Added setting to attempt to resolve dailymotion streams with resolveurl
+- Removed ustream setting and resolving, it is now playable only via browser window
+- Bump dependencies
+- 3 years anniversary!!
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.29.X[/B] [COLOR red](17-05-2019)[/COLOR]
 - Removed ONETV resolver
 - Fix call to ResolveURL settings
 - Re-route omegacy resolver through streamlink plugin
 - Added new tlds for openload's regex on its streamlink plugin
 - Replace main openload.co with the alternative oload.stream to work-around the former being disabled
 - Bump dependencies
-
-=====================
-
-[I]Past versions:[/I]
 
 + [B]1.28.X[/B] [COLOR red](05-05-2019)[/COLOR]
 - Moved streamlink's quality choice after dash boolean conditions on player module

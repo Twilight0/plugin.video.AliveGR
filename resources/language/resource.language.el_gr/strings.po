@@ -963,8 +963,8 @@ msgid "Also reset live channel groups"
 msgstr "Κάνε επαναφορά και στις ομάδες ζωντανών ροών"
 
 msgctxt "#30267"
-msgid "AliveGR updated"
-msgstr "Το AliveGR ενημερώθηκε"
+msgid "AliveGR updated to {0}"
+msgstr "Το AliveGR ενημερώθηκε στην {0}"
 
 msgctxt "#30268"
 msgid "Randomize m3u playlists (pseudo-live streams)"
@@ -1083,8 +1083,8 @@ msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
 msgstr "[COLOR white][B]Επιβολή ελέγχου ενημερώσεων[/B][/COLOR]"
 
 msgctxt "#30297"
-msgid "Resolve ustream"
-msgstr "Επίλυση ροών ustream"
+msgid "Resolve dailymotion with"
+msgstr "Επίλυση ροών dailymotion με το"
 
 msgctxt "#30298"
 msgid "Resolvers"

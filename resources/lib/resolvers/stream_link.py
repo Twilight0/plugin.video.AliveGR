@@ -18,8 +18,11 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import re
 import streamlink.session
 from tulip import control
+
+openload_regex = r'https?://(?P<domain>o(?:pen)?load\.(?:io|co|tv|stream|win|download|info|icu|fun|pw))/(?:embed|f)/(?P<streamid>[\w-]+)'
 
 
 def sl_session(url):
@@ -39,10 +42,13 @@ def sl_session(url):
 
 def sl_hosts(url):
 
-    return [
-        'ustream' in url, 'dailymotion' in url, 'twitch' in url, 'facebook' in url, 'ttvnw' in url,
-        'periscope' in url and not 'search' in url, 'pscp' in url, 'ant1.com.cy' in url and 'web-tv-live' in url,
-        'openload' in url and control.setting('ol_resolve') == '1', 'gr.euronews.com' in url and not 'watchlive.json' in url,
-        'filmon.com' in url, 'ellinikosfm.com' in url, 'alphatv.gr' in url, 'kineskop.tv' in url, 'player.vimeo.com' in url,
-        'omegatv' in url and 'live' in url, 'oload.stream' in url and control.setting('ol_resolve') == '1'
-    ]
+    return any(
+        [
+            'dailymotion' in url and control.setting('dm_resolve') == '1', 'twitch' in url, 'facebook' in url, 'ttvnw' in url,
+            'periscope' in url and not 'search' in url,
+            'pscp' in url, 'ant1.com.cy' in url and 'web-tv-live' in url,
+            'gr.euronews.com' in url and not 'watchlive.json' in url, 'filmon.com' in url, 'ellinikosfm.com' in url,
+            'alphatv.gr' in url, 'kineskop.tv' in url, 'player.vimeo.com' in url,
+            'omegatv' in url and 'live' in url, control.setting('ol_resolve') == '1' and re.search(openload_regex, url)
+        ]
+    )

@@ -524,7 +524,7 @@ class Prompt(pyxbmct.AddonDialogWindow):
     def __init__(self):
 
         # noinspection PyArgumentList
-        super(Prompt, self).__init__(control.lang(30267))
+        super(Prompt, self).__init__(control.lang(30267).format(control.version()))
 
         self.changelog_button = None
         self.disclaimer_button = None
@@ -622,7 +622,7 @@ def checkpoint():
 
         # if control.yesnoDialog(control.lang(30267)):
             # changelog()
-        welcome()
+        # welcome()
 
         cache_clear()
         reset_idx(notify=False)

@@ -24,7 +24,13 @@ from streamlink.plugin.plugin import HIGH_PRIORITY, NO_PRIORITY
 from streamlink.stream import HDSStream, HLSStream, HTTPStream, DASHStream
 from streamlink.utils import update_scheme
 
-GENERIC_VERSION = '2018-10-12'
+try:
+    import youtube_dl
+    HAS_YTDL = True
+except ImportError:
+    HAS_YTDL = False
+
+GENERIC_VERSION = '2019-05-14'
 
 log = logging.getLogger(__name__)
 
@@ -311,6 +317,7 @@ class Generic(Plugin):
             (?P<bitrate>\d{1,4})(?:k)?
             |
             (?P<resolution>\d{1,4}p)
+            (?:\.h26(?:4|5))?
         )
         \.mp(?:3|4)
     ''')
@@ -324,10 +331,9 @@ class Generic(Plugin):
     ''')
     # obviously ad paths
     _ads_path_re = re.compile(r'''(?x)
-        (?:/(?:static|\d+))?
         /ads?/?(?:\w+)?
         (?:\d+x\d+)?
-        (?:_\w+)?\.(?:html?|php)
+        (?:_\w+)?\.(?:html?|php)$
     ''')
 
     # START - _make_url_list
@@ -346,6 +352,7 @@ class Generic(Plugin):
     # Not allowed at the end of the parsed url netloc
     blacklist_netloc = (
         '127.0.0.1',
+        'a.adtng.com',
         'about:blank',
         'abv.bg',
         'adfox.ru',
@@ -447,6 +454,20 @@ class Generic(Plugin):
             where the main iframe always has the same path.
             '''
         ),
+        PluginArgument(
+            'ytdl-disable',
+            action='store_true',
+            help='''
+            Disable youtube-dl fallback.
+            '''
+        ),
+        PluginArgument(
+            'ytdl-only',
+            action='store_true',
+            help='''
+            Disable generic plugin and use only youtube-dl.
+            '''
+        ),
     )
 
     def __init__(self, url):
@@ -519,10 +540,11 @@ class Generic(Plugin):
             new_url = 'http:' + new_url[9:]
         elif new_url.startswith('https&#58;//'):
             new_url = 'https:' + new_url[10:]
+        new_url = unquote(new_url)
         # creates a valid url from path only urls
         # and adds missing scheme for // urls
-        if stream_base and new_url[1] is not '/':
-            if new_url[0] is '/':
+        if stream_base and new_url[1] != '/':
+            if new_url[0] == '/':
                 new_url = new_url[1:]
             new_url = urljoin(stream_base, new_url)
         else:
@@ -626,7 +648,7 @@ class Generic(Plugin):
                 # Removes blacklisted file paths
                 # --generic-blacklist-filepath
                 REMOVE = 'BL-filepath'
-            elif (self._ads_path_re.match(parse_new_url.path)):
+            elif (self._ads_path_re.search(parse_new_url.path) or parse_new_url.netloc.startswith(('ads.'))):
                 # Removes obviously AD URL
                 REMOVE = 'ADS'
             elif (self.compare_url_path(parse_new_url, blacklist_path_same, path_status='==') is True):
@@ -658,8 +680,9 @@ class Generic(Plugin):
         match = self._window_location_re.search(self.html_text)
         if match:
             temp_url = urljoin(self.url, match.group('url'))
-            log.debug('Found window_location: {0}'.format(temp_url))
-            return temp_url
+            if temp_url not in GenericCache.cache_url_list:
+                log.debug('Found window_location: {0}'.format(temp_url))
+                return temp_url
 
         log.trace('No window_location')
         return False
@@ -757,7 +780,7 @@ class Generic(Plugin):
 
     def _res_text(self, url):
         try:
-            res = self.session.http.get(url, allow_redirects=True, timeout=30.0)
+            res = self.session.http.get(url, allow_redirects=True)
         except Exception as e:
             if 'Received response with content-encoding: gzip' in str(e):
                 headers = {
@@ -817,16 +840,73 @@ class Generic(Plugin):
         if self.title is None:
             if not self.html_text:
                 self.html_text = self._res_text(self.url)
-            _title_re = re.compile(r'<title>(?P<title>[^<>]+)</title>')
-            m = _title_re.search(self.html_text)
+            _og_title_re = re.compile(r'<meta\s*property="og:title"\s*content="(?P<title>[^<>]+)"\s*/?>')
+            _title_re = re.compile(r'<title[^<>]*>(?P<title>[^<>]+)</title>')
+            m = _og_title_re.search(self.html_text) or _title_re.search(self.html_text)
             if m:
-                self.title = m.group('title')
+                self.title = re.sub(r'[\s]+', ' ', m.group('title'))
+                self.title = re.sub(r'^\s*|\s*$', '', self.title)
             if self.title is None:
                 # fallback if there is no <title>
                 self.title = self.url
         return self.title
 
+    def ytdl_fallback(self):
+        '''Basic support for m3u8 URLs with youtube-dl'''
+        log.debug('Fallback youtube-dl')
+
+        class YTDL_Logger(object):
+            def debug(self, msg):
+                log.debug(msg)
+
+            def warning(self, msg):
+                log.warning(msg)
+
+            def error(self, msg):
+                log.trace(msg)
+
+        ydl_opts = {
+            'call_home': False,
+            'forcejson': True,
+            'logger': YTDL_Logger(),
+            'no_color': True,
+            'noplaylist': True,
+            'no_warnings': True,
+            'verbose': False,
+            'quiet': True,
+        }
+
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            try:
+                info = ydl.extract_info(self.url, download=False)
+            except Exception:
+                return
+
+            if not info or not info.get('formats'):
+                return
+
+        self.title = info['title']
+
+        streams = []
+        for stream in info['formats']:
+            if stream['protocol'] in ['m3u8', 'm3u8_native'] and stream['ext'] == 'mp4':
+                log.trace('{0!r}'.format(stream))
+                name = stream.get('height') or stream.get('width')
+                if name:
+                    name = '{0}p'.format(name)
+                    streams.append((name, HLSStream(self.session,
+                                                    stream['url'],
+                                                    headers=stream['http_headers'])))
+        return streams
+
     def _get_streams(self):
+        if HAS_YTDL and not self.get_option('ytdl-disable') and self.get_option('ytdl-only'):
+            ___streams = self.ytdl_fallback()
+            if ___streams and len(___streams) >= 1:
+                return (s for s in ___streams)
+            if self.get_option('ytdl-only'):
+                return
+
         self.settings_url()
 
         if self._run <= 1:
@@ -901,6 +981,11 @@ class Generic(Plugin):
                 del self.session.http.headers['Referer']
 
             return self.session.streams(new_url)
+
+        if HAS_YTDL and not self.get_option('ytdl-disable') and not self.get_option('ytdl-only'):
+            ___streams = self.ytdl_fallback()
+            if ___streams and len(___streams) >= 1:
+                return (s for s in ___streams)
 
         raise NoPluginError
 

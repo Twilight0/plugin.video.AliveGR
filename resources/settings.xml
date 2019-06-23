@@ -81,7 +81,7 @@
 
         <setting id="yt_resolve" label="30038" type="enum" lvalues="30301|30302" default="0"/>
         <setting id="audio_only" label="30224" type="bool" default="false" enable="eq(-1,0)"/>
-        <setting id="ustream_resolve" label="30297" type="enum" lvalues="30301|30305" default="1"/>
+        <setting id="dm_resolve" label="30297" type="enum" lvalues="30303|30304" default="1"/>
         <setting id="ol_resolve" label="30300" type="enum" lvalues="30303|30304" default="0"/>
         <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close"/>
         <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>

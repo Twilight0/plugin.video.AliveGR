@@ -20,6 +20,7 @@
 
 import random
 import re
+import json
 from tulip.compat import urljoin, quote, parse_qsl, OrderedDict, urlencode
 
 from tulip import directory, client, cache, control
@@ -90,7 +91,7 @@ def router(url, params):
                 except IndexError:
                     return stream
 
-    elif any(stream_link.sl_hosts(url)):
+    elif stream_link.sl_hosts(url):
 
         stream = stream_link.sl_session(url)
 
@@ -454,7 +455,9 @@ def player(url, params, do_not_resolve=False):
 
     log_debug('Attempting to play this url: ' + url)
 
-    if 'ustream' in url and control.setting('ustream_resolve') == '1':
+    if 'ustream' in url:
+
+        log_debug('Opening browser window for this url: {0}'.format(url))
 
         control.open_web_browser(url)
 
@@ -471,7 +474,7 @@ def player(url, params, do_not_resolve=False):
     else:
         stream = router(url, params)
 
-    if stream is None or (len(stream) == 2 and stream[0] is None):
+    if not stream or (len(stream) == 2 and not stream[0]):
 
         log_debug('Failed to resolve this url: ' + url)
         control.execute('Dialog.Close(all)')
@@ -501,12 +504,6 @@ def player(url, params, do_not_resolve=False):
     else:
 
         log_debug('Plot obtained')
-
-    if '|' in stream:
-
-        from tulip.compat import parse_qsl
-
-        log_debug('Appending custom headers: ' + repr(dict(parse_qsl(stream.rpartition('|')[2]))))
 
     mimetype = None
     manifest_type = None
@@ -549,14 +546,37 @@ def player(url, params, do_not_resolve=False):
 
         try:
 
-            args = stream['best'].args
+            try:
+                args = stream['best'].args
+            except Exception:
+                args = None
 
-            append = '|'
+            try:
+                json_dict = json.loads(stream['best'].json)
+            except Exception:
+                json_dict = None
 
-            if 'headers' in args:
-                headers = stream['best'].args['headers']
-                append += urlencode(headers)
+            for h in args, json_dict:
+
+                if 'headers' in h:
+                    headers = h['headers']
+                    break
+                else:
+                    headers = None
+
+            if headers:
+
+                try:
+                    del headers['Connection']
+                    del headers['Accept-Encoding']
+                    del headers['Accept']
+                except KeyError:
+                    pass
+
+                append = ''.join(['|', urlencode(headers)])
+
             else:
+
                 append = ''
 
         except AttributeError:
@@ -576,7 +596,13 @@ def player(url, params, do_not_resolve=False):
 
     if stream != url:
 
-        log_debug('Stream has been stream: ' + stream)
+        log_debug('Stream has been resolved: ' + stream)
+
+    if '|' in stream or '|' in url:
+
+        from tulip.compat import parse_qsl
+
+        log_debug('Appending custom headers: ' + repr(dict(parse_qsl(stream.rpartition('|')[2]))))
 
     try:
 
