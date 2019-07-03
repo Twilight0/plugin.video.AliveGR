@@ -26,56 +26,40 @@ from streamlink.plugin.api.utils import itertags
 
 def ant1gr(link):
 
-    try:
+    """ALternative method"""
 
-        html = client.request(link)
+    html = client.request(link)
 
-        param = re.findall('\$.getJSON\(\'(.+?)\?', html)[0]
-        get_json = 'http://www.antenna.gr' + param
-        cookie = client.request(get_json, output='cookie', close=False, referer=link)
-        result = client.request(get_json, cookie=cookie, referer=link)
-        url = json.loads(result)['url']
+    param = re.search(r'\$.getJSON\(\'(?P<param>.+?)\?', html).group('param')
+    get_json = 'http://www.antenna.gr' + param
+    cookie = client.request(get_json, output='cookie', close=False, referer=link)
+    result = client.request(get_json, cookie=cookie, referer=link)
+    url = json.loads(result)['url']
 
-        if url.endswith('.mp4'):
-            raise BaseException
-        else:
-            return url
+    if url.endswith('.mp4'):
+        return
+    else:
+        return url
 
-    except BaseException:
 
-        pass
+def ant1cy(link):
 
-    # Carry on:
+    """Alternative method"""
 
-    get_live = 'http://mservices.antenna.gr/services/mobile/getLiveStream.ashx?'
+    api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
 
-    live_link_1 = 'https://antennalivesp-lh.akamaihd.net/i/live_1@715138/master.m3u8'
-    live_link_2 = 'https://antennalivesp-lh.akamaihd.net/i/live_2@715138/master.m3u8'
+    html = client.request(link)
 
-    ###########
+    m3u8 = re.findall("'(.+?)'", list(itertags(html.text, 'script'))[-2].text)[1]
 
-    try:
+    stream = client.request(api_url.format(m3u8))
 
-        json_obj = client.request(get_live)
-
-        url = json.loads(json_obj.strip('();'))['data']['stream']
-
-        if url.endswith('.mp4'):
-            raise BaseException
-        else:
-            return url
-
-    except (KeyError, ValueError, BaseException, TypeError):
-
-        if client.request(live_link_1, output='response')[0] == '200':
-            return live_link_1
-        else:
-            return live_link_2
+    return stream + spoofer()
 
 
 def omegacy(link):
 
-    """ ALternative method"""
+    """ALternative method"""
 
     cookie = client.request(link, close=False, output='cookie')
     html = client.request(link, cookie=cookie)
@@ -138,20 +122,28 @@ def skai(url):
     return stream
 
 
+def stargr(url):
+
+    """Alternative method"""
+
+    html = client.request(url)
+
+    script = client.parseDOM(html, 'script')[5]
+
+    return re.search(r"'(?P<url>.+?\.m3u8)'", script).group('url')
+
+
 def alphatv(url):
 
-    """ Deprecated method"""
-
     link = client.request(url)
-    link = re.findall(r'(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[-1]
-    link = client.request(link, output='geturl') + spoofer()
+    link = re.findall(r'(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[0]
 
-    return link
+    return link + spoofer()
 
 
 def euronews(url):
 
-    """ Deprecated method"""
+    """ Alternative method"""
 
     result = client.request(url)
     result = json.loads(result)['url']
@@ -168,23 +160,13 @@ def euronews(url):
     return primary
 
 
-def ssh101(url):
-
-    """Deprecated method"""
-
-    html = client.request(url)
-    stream = client.parseDOM(html, 'source', attrs={'type': 'application/x-mpegurl'}, ret='src')[0]
-
-    return stream
-
-
 def periscope_search(url):
 
     html = client.request(url)
 
     container = client.parseDOM(html, 'div', attrs={'id': 'page-container'}, ret='data-store')[0]
 
-    search = re.search('https?://www\.pscp\.tv/w/(\w+)', container)
+    search = re.search(r'https?://www\.pscp\.tv/w/(\w+)', container)
 
     link = search.group()
 

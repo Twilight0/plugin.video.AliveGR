@@ -130,8 +130,6 @@ class Indexer:
 
         self.groups = list(OrderedDict.fromkeys(self.data))
 
-        log_debug('Live list uncached' + repr(self.list))
-
         return self.list, self.groups, updated
 
     def live_tv(self, zapping=False, query=None):
@@ -149,8 +147,6 @@ class Indexer:
         if self.list is None:
             log_debug('Live channels list did not load successfully')
             return
-        else:
-            log_debug('Caching was successful, list of channels ~ ' + repr(self.list))
 
         if zapping and control.setting('live_group_switcher') != '0':
 
@@ -232,7 +228,7 @@ class Indexer:
 
         if control.setting('preresolve_streams') == 'true':
 
-            from resources.lib.modules.player import router
+            from resources.lib.modules.player import conditionals
 
             pd = control.progressDialogGB
             pd.create(control.name())
@@ -242,7 +238,7 @@ class Indexer:
                 try:
                     percent = control.per_cent(int(item['code']), len(self.list))
                     pd.update(percent)
-                    item.update({'url': router(item['url'], params=self.params)})
+                    item.update({'url': conditionals(item['url'], params=self.params)})
                 except Exception as e:
                     log_debug('Failed to resolve ' + item['title'] + ' , reason: ' + repr(e))
                     continue

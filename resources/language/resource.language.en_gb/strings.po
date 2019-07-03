@@ -467,7 +467,7 @@ msgid "Delete cache file"
 msgstr ""
 
 msgctxt "#30114"
-msgid "View Changelog"
+msgid ""
 msgstr ""
 
 msgctxt "#30115"
@@ -963,7 +963,7 @@ msgid "Also reset live channel groups"
 msgstr ""
 
 msgctxt "#30267"
-msgid "AliveGR updated to {0}"
+msgid "AliveGR, version: {0}"
 msgstr ""
 
 msgctxt "#30268"
@@ -1207,7 +1207,7 @@ msgid "More settings..."
 msgstr ""
 
 msgctxt "#30328"
-msgid "Μedia center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
+msgid "Kodi media center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
 msgstr ""
 
 msgctxt "#30329"
@@ -1224,6 +1224,10 @@ msgstr ""
 
 msgctxt "#30332"
 msgid "Open PVR Settings"
+msgstr ""
+
+msgctxt "#30333"
+msgid "Website"
 msgstr ""
 
 msgctxt "#30401"

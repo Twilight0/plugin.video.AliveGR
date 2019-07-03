@@ -1,17 +1,18 @@
+# -*- coding: utf-8 -*-
+
 import re
 
+from streamlink.plugin.api.utils import itertags
 from distutils.util import strtobool
 from streamlink.plugin import Plugin, PluginArguments, PluginArgument
 from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
 from streamlink.exceptions import NoStreamsError
 
 
-class Ant1Cy(Plugin):
+class StarGr(Plugin):
 
-    _url_re = re.compile(r'https?://www\.ant1\.com\.cy/web-tv-live/')
-    _live_api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
+    _url_re = re.compile(r'https?://www\.star\.gr/tv/live-stream/')
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
@@ -23,14 +24,14 @@ class Ant1Cy(Plugin):
 
         headers = {'User-Agent': CHROME}
 
-        get_page = self.session.http.get(self.url, headers=headers)
+        res = self.session.http.get(self.url, headers=headers)
 
-        try:
-            m3u8 = re.findall("'(.+?)'", list(itertags(get_page.text, 'script'))[-2].text)[1]
-        except IndexError:
-            raise NoStreamsError
+        script = [i.text for i in list(itertags(res.text, 'script'))][16]
 
-        stream = self.session.http.post(self._live_api_url.format(m3u8), headers=headers).text
+        stream = re.search(r"'(?P<url>.+?\.m3u8)'", script).group('url')
+
+        if self.session.http.head(stream).status_code == 404:
+            raise NoStreamsError('Live stream is disabled due to 3rd party broacasts with no rights for web streams')
 
         headers.update({"Referer": self.url})
 
@@ -42,4 +43,4 @@ class Ant1Cy(Plugin):
             return dict(live=HTTPStream(self.session, stream, headers=headers))
 
 
-__plugin__ = Ant1Cy
+__plugin__ = StarGr

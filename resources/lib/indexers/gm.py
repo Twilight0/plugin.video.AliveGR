@@ -354,8 +354,6 @@ class Indexer:
                 }
             )
 
-        log_debug('List of vod items ~ ' + repr(self.list))
-
         return self.list
 
     def listing(self, url):
@@ -366,7 +364,7 @@ class Indexer:
             log_debug('Listing section failed to load, try resetting indexer methods')
             return
 
-        log_debug('Caching was successful, list of vod items ~ ' + repr(self.list))
+        log_debug('List of vod items ~ ' + repr(self.list))
 
         if url.startswith((movies_link, theater_link, shortfilms_link)):
             if control.setting('action_type') == '0':
@@ -479,8 +477,6 @@ class Indexer:
         if self.list is None:
             log_debug('Episode section failed to load, try resetting indexer methods')
             return
-        else:
-            log_debug('List of vod items ~ ' + repr(self.list))
 
         if control.setting('action_type') == '0':
             for item in self.list:

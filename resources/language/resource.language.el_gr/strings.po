@@ -467,8 +467,8 @@ msgid "Delete cache file"
 msgstr "Διαγραφή αρχείου προσωρινής μνήμης"
 
 msgctxt "#30114"
-msgid "View Changelog"
-msgstr "Δείξε την καταγραφή αλλαγών"
+msgid ""
+msgstr ""
 
 msgctxt "#30115"
 msgid "Developer"
@@ -963,8 +963,8 @@ msgid "Also reset live channel groups"
 msgstr "Κάνε επαναφορά και στις ομάδες ζωντανών ροών"
 
 msgctxt "#30267"
-msgid "AliveGR updated to {0}"
-msgstr "Το AliveGR ενημερώθηκε στην {0}"
+msgid "AliveGR, version:{0}"
+msgstr "AliveGR, έκδοση {0}"
 
 msgctxt "#30268"
 msgid "Randomize m3u playlists (pseudo-live streams)"
@@ -1207,16 +1207,16 @@ msgid "More settings..."
 msgstr "Περισσότερες ρυθμίσεις..."
 
 msgctxt "#30328"
-msgid "Μedia center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
-msgstr "Μικροεφαρμογή κέντρου πολυμέσων[CR]Δημιουργός: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
+msgid "Kodi media center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
+msgstr "Μικροεφαρμογή κέντρου πολυμέσων για το Kodi[CR]Δημιουργός: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
 
 msgctxt "#30329"
 msgid "[B]Close[/B]"
 msgstr "[B]Κλείσιμο[/B]"
 
 msgctxt "#30330"
-msgid "Read disclaimer"
-msgstr "Ανάγνωση αποποίησης ευθυνών"
+msgid ""
+msgstr ""
 
 msgctxt "#30331"
 msgid "[COLOR white][I]Welcome note[/I][/COLOR]"
@@ -1227,16 +1227,8 @@ msgid "Open PVR Settings"
 msgstr "Άνοιγμα ρυθμίσεων PVR"
 
 msgctxt "#30333"
-msgid "SD"
-msgstr "ΧΕ"
-
-msgctxt "#30334"
-msgid "HD"
-msgstr "ΥΕ"
-
-msgctxt "#30335"
-msgid "FHD"
-msgstr "ΠΥΕ"
+msgid "Website"
+msgstr "Ιστοσελίδα"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

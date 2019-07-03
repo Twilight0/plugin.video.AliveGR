@@ -31,8 +31,10 @@ def m3u8_picker(url):
         if '|' not in url:
             raise TypeError
 
-        headers = dict(parse_qsl(url.rpartition('|')[2]))
-        streams = m3u8.load(url.rpartition('|')[0], headers=headers).playlists
+        link, sep, head = url.rpartition('|')
+
+        headers = dict(parse_qsl(head))
+        streams = m3u8.load(link, headers=headers).playlists
 
     except TypeError:
 

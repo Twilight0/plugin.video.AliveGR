@@ -20,24 +20,39 @@
 
 import re
 import streamlink.session
-from tulip import control
+from streamlink.exceptions import NoPluginError, NoStreamsError
+from tulip import control, log
 
 openload_regex = r'https?://(?P<domain>o(?:pen)?load\.(?:io|co|tv|stream|win|download|info|icu|fun|pw))/(?:embed|f)/(?P<streamid>[\w-]+)'
 
 
 def sl_session(url):
 
-    custom_plugins = control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'sl_plugins')
-
     session = streamlink.session.Streamlink()
+
+    custom_plugins = control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'sl_plugins')
     session.load_plugins(custom_plugins)
+
+    if 'omegatv' in url:
+        session.set_plugin_option('omegacy', 'parse_hls', 'false')
+    elif 'ant1.com.cy' in url:
+        session.set_plugin_option('ant1cy', 'parse_hls', 'false')
+    elif 'antenna.gr/Live' in url:
+        session.set_plugin_option('ant1gr', 'parse_hls', 'false')
+    elif 'star.gr/tv/live-stream/' in url:
+        session.set_plugin_option('stargr', 'parse_hls', 'false')
 
     plugin = session.resolve_url(url)
     streams = plugin.streams()
 
-    if streams:
+    try:
 
         return streams
+
+    except (NoPluginError, NoStreamsError) as e:
+
+        log.log_debug('Streamlink failed due to following reason: ' + e)
+        return
 
 
 def sl_hosts(url):
@@ -45,10 +60,9 @@ def sl_hosts(url):
     return any(
         [
             'dailymotion' in url and control.setting('dm_resolve') == '1', 'twitch' in url, 'facebook' in url, 'ttvnw' in url,
-            'periscope' in url and not 'search' in url,
-            'pscp' in url, 'ant1.com.cy' in url and 'web-tv-live' in url,
+            'periscope' in url and not 'search' in url, 'pscp' in url, 'ant1.com.cy' in url and 'web-tv-live' in url,
             'gr.euronews.com' in url and not 'watchlive.json' in url, 'filmon.com' in url, 'ellinikosfm.com' in url,
-            'alphatv.gr' in url, 'kineskop.tv' in url, 'player.vimeo.com' in url,
+            'kineskop.tv' in url, 'player.vimeo.com' in url, 'antenna.gr' in url and 'Live' in url, 'star.gr/tv/live-stream/' in url,
             'omegatv' in url and 'live' in url, control.setting('ol_resolve') == '1' and re.search(openload_regex, url)
         ]
     )

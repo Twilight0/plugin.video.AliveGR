@@ -19,7 +19,7 @@
 '''
 
 from tulip import control, client
-from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx
+from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx, skin_name
 from resources.lib.modules.constants import api_keys
 from os import path
 import pyxbmct, re
@@ -521,6 +521,8 @@ def disclaimer():
 
 class Prompt(pyxbmct.AddonDialogWindow):
 
+    pyxbmct.skin.estuary = False if 'onfluence' in skin_name().lower() or 'aeon' in skin_name().lower() else True
+
     def __init__(self):
 
         # noinspection PyArgumentList
@@ -535,6 +537,7 @@ class Prompt(pyxbmct.AddonDialogWindow):
         self.paypal_button = None
         self.facebook_button = None
         self.twitter_button = None
+        self.website_button = None
         self.setGeometry(854, 480, 8, 5)
         self.set_controls()
         self.connect(pyxbmct.ACTION_NAV_BACK, self.close)
@@ -548,8 +551,11 @@ class Prompt(pyxbmct.AddonDialogWindow):
         self.description = pyxbmct.Label(control.lang(30328), alignment=2)
         self.placeControl(self.description, 5, 0, 2, 5)
         # Click to open label
-        self.external_label = pyxbmct.Label(control.lang(30131), alignment=pyxbmct.ALIGN_CENTER_Y | pyxbmct.ALIGN_CENTER_X)
-        self.placeControl(self.external_label, 6, 0, 1, 1)
+        # self.external_label = pyxbmct.Label(control.lang(30131), alignment=pyxbmct.ALIGN_CENTER_Y | pyxbmct.ALIGN_CENTER_X)
+        # self.placeControl(self.external_label, 6, 0, 1, 1)
+        self.website_button = pyxbmct.Button(control.lang(30333))
+        self.placeControl(self.website_button, 6, 0, 1, 1)
+        self.connect(self.website_button, lambda: control.open_web_browser('https://www.alivegr.net'))
         # Paypal button
         self.paypal_button = pyxbmct.Button(control.lang(30141))
         self.placeControl(self.paypal_button, 6, 2, 1, 1)
@@ -571,16 +577,20 @@ class Prompt(pyxbmct.AddonDialogWindow):
         self.placeControl(self.close_button, 7, 2)
         self.connect(self.close_button, self.close)
         # Changelog button
-        self.changelog_button = pyxbmct.Button(control.lang(30114))
+        self.changelog_button = pyxbmct.Button(control.lang(30110))
         self.placeControl(self.changelog_button, 7, 0, 1, 2)
         self.connect(self.changelog_button, lambda: changelog())
         # Disclaimer button
-        self.disclaimer_button = pyxbmct.Button(control.lang(30330))
+        self.disclaimer_button = pyxbmct.Button(control.lang(30129))
         self.placeControl(self.disclaimer_button, 7, 3, 1, 2)
         self.connect(self.disclaimer_button, lambda: disclaimer())
 
     def set_navigation(self):
 
+        self.website_button.controlRight(self.patreon_button)
+        self.website_button.controlDown(self.changelog_button)
+
+        self.patreon_button.controlLeft(self.website_button)
         self.patreon_button.controlRight(self.paypal_button)
         self.patreon_button.controlDown(self.changelog_button)
 
@@ -608,6 +618,32 @@ class Prompt(pyxbmct.AddonDialogWindow):
         self.setFocus(self.close_button)
 
 
+def new_version(new=False):
+
+    version_file = control.join(control.dataPath, 'version.txt')
+
+    if not path.exists(version_file) or new:
+
+        if not path.exists(control.dataPath):
+
+            control.makeFile(control.dataPath)
+
+        with open(version_file, 'w') as f:
+            f.write(control.version())
+
+        return True
+
+    else:
+
+        with open(version_file) as f:
+            version = f.read()
+
+        if version != control.version():
+            return new_version(new=True)
+        else:
+            return False
+
+
 def welcome():
 
     window = Prompt()
@@ -618,11 +654,11 @@ def welcome():
 
 def checkpoint():
 
-    if path.exists(control.join(control.addonPath, 'UPDATE')):
+    if new_version():
 
         # if control.yesnoDialog(control.lang(30267)):
-            # changelog()
-        # welcome()
+        #     changelog()
+        welcome()
 
         cache_clear()
         reset_idx(notify=False)
@@ -636,8 +672,6 @@ def checkpoint():
 
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
-
-        control.deleteFile(control.join(control.addonPath, 'UPDATE'))
 
 
 def dev():

@@ -1,4 +1,18 @@
-+ [B]1.30.X[/B] [COLOR green](23-06-2019)[/COLOR]
++ [B]1.31.X[/B] [COLOR green](04-07-2019)[/COLOR]
+- Updated Ant1 live resolver as a new streamlink plugin
+- Added resolver for startv official live stream as plugin for streamlink
+- Tweaked ant1cy and omegacy plugins to return parent m3u8 urls with a plugin option as conditional
+- Tweaked resolvers conditionals
+- Updated welcome message, showing confluence skin for aeon nox, confluence and other similar skins
+- Some cleanup on debug messages
+- Use different method for new version detection
+- Many other insignificant tweaks
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.30.X[/B] [COLOR red](23-06-2019)[/COLOR]
 - Tweaked openload plugin
 - Updated generic streamlink plugin
 - Added youtube-dl as optional dependency to augment generic plugin
@@ -7,10 +21,6 @@
 - Removed ustream setting and resolving, it is now playable only via browser window
 - Bump dependencies
 - 3 years anniversary!!
-
-=====================
-
-[I]Past versions:[/I]
 
 + [B]1.29.X[/B] [COLOR red](17-05-2019)[/COLOR]
 - Removed ONETV resolver

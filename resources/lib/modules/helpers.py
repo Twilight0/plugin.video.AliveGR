@@ -57,6 +57,18 @@ def papers():
     control.execute('ActivateWindow(10002,"plugin://plugin.video.AliveGR/?content_type=image",return)')
 
 
+def skin_name():
+
+    xml = control.join(control.transPath('special://skin/'), 'addon.xml')
+
+    with open(xml) as f:
+
+        xml_file = f.read()
+        name = client.parseDOM(xml_file, 'addon', ret='name')[0]
+
+        return name
+
+
 def stream_picker(qualities, urls):
 
     choice = control.selectDialog(heading=control.lang(30006), list=qualities)
@@ -64,8 +76,6 @@ def stream_picker(qualities, urls):
     if choice <= len(qualities) and not choice == -1:
         popped = urls[choice]
         return popped
-    else:
-        return 30403
 
 
 def lang_choice():

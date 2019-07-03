@@ -1,17 +1,17 @@
 import re
 
+from streamlink.compat import urljoin
 from distutils.util import strtobool
 from streamlink.plugin import Plugin, PluginArguments, PluginArgument
 from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
 from streamlink.exceptions import NoStreamsError
 
+class Ant1Gr(Plugin):
 
-class Ant1Cy(Plugin):
-
-    _url_re = re.compile(r'https?://www\.ant1\.com\.cy/web-tv-live/')
-    _live_api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
+    _url_re = re.compile(r'https?://www\.antenna\.gr/Live')
+    _param_re = re.compile(r'\$.getJSON\(\'(?P<param>.+?)\?')
+    _base_link = 'http://www.antenna.gr'
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
@@ -23,14 +23,18 @@ class Ant1Cy(Plugin):
 
         headers = {'User-Agent': CHROME}
 
-        get_page = self.session.http.get(self.url, headers=headers)
+        res = self.session.http.get(self.url, headers=headers)
 
-        try:
-            m3u8 = re.findall("'(.+?)'", list(itertags(get_page.text, 'script'))[-2].text)[1]
-        except IndexError:
-            raise NoStreamsError
+        param = self._param_re.search(res.text).group('param')
 
-        stream = self.session.http.post(self._live_api_url.format(m3u8), headers=headers).text
+        _json_url = urljoin(self._base_link, param)
+
+        _json_object = self.session.http.get(_json_url, headers=headers).json()
+
+        stream = _json_object.get('url')
+
+        if stream.endswith('.mp4'):
+            raise NoStreamsError('Stream is probably geo-locked to Greece')
 
         headers.update({"Referer": self.url})
 
@@ -42,4 +46,4 @@ class Ant1Cy(Plugin):
             return dict(live=HTTPStream(self.session, stream, headers=headers))
 
 
-__plugin__ = Ant1Cy
+__plugin__ = Ant1Gr

@@ -37,9 +37,9 @@ from resources.lib.modules.helpers import addon_version, stream_picker
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
-def router(url, params):
+def conditionals(url, params):
 
-    def yt_router(uri):
+    def yt_conditional(uri):
 
         if uri.startswith('plugin://'):
             return uri
@@ -49,23 +49,16 @@ def router(url, params):
             uri = yt_url + uri
 
         try:
-            yt_stream = youtube.wrapper(uri)
+            return youtube.wrapper(uri)
         except YouTubeException as exp:
             log_debug('Youtube resolver failure, reason: ' + repr(exp))
-            yt_stream = None
-
-        return yt_stream
-
-        # Reserved as failsafe:
-        # if YDStreamExtractor.mightHaveVideo(url):
-        #
-        #     stream = ytdl_wrapper.session(url)
-        #
-        #     return stream
+            return
 
     if 'youtu' in url:
 
-        return yt_router(url)
+        log_debug('Resolved with youtube addon')
+
+        return yt_conditional(url)
 
     elif 'greek-movies.com' in url:
 
@@ -84,7 +77,7 @@ def router(url, params):
             if link is None:
                 control.execute('Dialog.Close(all)')
             else:
-                stream = router(link, params)
+                stream = conditionals(link, params)
 
                 try:
                     return stream, sources[3]
@@ -93,15 +86,20 @@ def router(url, params):
 
     elif stream_link.sl_hosts(url):
 
+        log_debug('Resolved with streamlink')
+
         stream = stream_link.sl_session(url)
 
-        if stream == 30403:
-            control.execute('Dialog.Close(all)')
-            control.infoDialog(control.lang(30403))
-        else:
-            return stream
+        if 'kineskop' in url:
+
+            from tulip.user_agents import spoofer
+            return stream + spoofer()
+
+        return stream
 
     elif HostedMediaFile(url).valid_url():
+
+        log_debug('Resolved with resolveurl')
 
         stream = resolve_url(url)
         return stream
@@ -114,13 +112,21 @@ def router(url, params):
         return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
     elif 'skaitv.gr' in url and not 'live' in url.lower():
         return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
+    elif 'star.gr' in url and not 'live' in url.lower():
+        return 'plugin://plugin.video.star.gr/?action=play&url={}'.format(url)
 
-    elif 'antenna.gr' in url:
+    # elif 'antenna.gr' in url:
+    #
+    #     stream = cache.get(various.ant1gr, 12, url)
+    #
+    #     return stream
 
-        stream = cache.get(various.ant1gr, 12, url)
-
-        return stream
-
+    # elif 'ant1.com.cy/web-tv-live' in url:
+    #
+    #     stream = cache.get(various.ant1cy, 1, url)
+    #
+    #     return stream
+    #
     # elif 'omegatv.com.cy/live/' in url:
     #
     #     stream = various.omegacy(url)
@@ -134,11 +140,15 @@ def router(url, params):
         if '.m3u8' in link:
             return link
         else:
-            return yt_router(link)
+            return yt_conditional(link)
+
+    # elif 'star.gr' in url:
+    #
+    #     return cache.get(various.stargr, 6, url)
 
     elif 'skaitv.gr' in url:
 
-        vid = cache.get(various.skai, 6, url)
+        vid = cache.get(various.skai, 3, url)
         stream = youtube.wrapper(vid)
         return stream
 
@@ -151,11 +161,6 @@ def router(url, params):
 
         stream = cache.get(various.euronews, 6, url)
         return stream
-
-    # elif 'ssh101.com/securelive/' in url:
-    #
-    #     stream = cache.get(various.ssh101, 48, url)
-    #     return stream
 
     elif 'periscope' in url and 'search' in url:
 
@@ -170,12 +175,6 @@ def router(url, params):
         stream = stream_link.sl_session(link)
 
         return stream
-
-    # elif 'kineskop' in url:
-    #
-    #     stream = various.kineskop(url)
-    #
-    #     return stream
 
     else:
 
@@ -445,6 +444,38 @@ def play_m3u(link, title, rename_titles=True, randomize=True):
     control.execute('Action(Play)')
 
 
+def dash_conditionals(stream):
+
+    try:
+
+        inputstream_adaptive = control.addon_details('inputstream.adaptive').get('enabled')
+
+    except KeyError:
+
+        inputstream_adaptive = False
+
+    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and addon_version('xbmc.python') >= 2260
+
+    dash = ('.mpd' in stream or 'dash' in stream or '.ism' in stream or m3u8_dash) and inputstream_adaptive
+
+    mimetype = None
+    manifest_type = None
+
+    if dash:
+
+        if '.hls' in stream or '.m3u8' in stream:
+            manifest_type = 'hls'
+            mimetype = 'application/vnd.apple.mpegurl'
+        elif '.ism' in stream:
+            manifest_type = 'ism'
+        else:
+            manifest_type = 'mpd'
+
+        log_debug('Activating adaptive parameters for this url: ' + stream)
+
+    return dash, m3u8_dash, mimetype, manifest_type
+
+
 def player(url, params, do_not_resolve=False):
 
     if url is None:
@@ -472,11 +503,11 @@ def player(url, params, do_not_resolve=False):
     if do_not_resolve:
         stream = url
     else:
-        stream = router(url, params)
+        stream = conditionals(url, params)
 
     if not stream or (len(stream) == 2 and not stream[0]):
 
-        log_debug('Failed to resolve this url: ' + url)
+        log_debug('Failed to resolve this url: {0}'.format(url))
         control.execute('Dialog.Close(all)')
 
         return
@@ -505,34 +536,9 @@ def player(url, params, do_not_resolve=False):
 
         log_debug('Plot obtained')
 
-    mimetype = None
-    manifest_type = None
+    dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
 
-    try:
-
-        inputstream_adaptive = control.addon_details('inputstream.adaptive').get('enabled')
-
-    except KeyError:
-
-        inputstream_adaptive = False
-
-    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and addon_version('xbmc.python') >= 2260
-
-    dash = ('.mpd' in stream or 'dash' in stream or '.ism' in stream or m3u8_dash) and inputstream_adaptive
-
-    if dash:
-
-        if '.hls' in stream or '.m3u8' in stream:
-            manifest_type = 'hls'
-            mimetype = 'application/vnd.apple.mpegurl'
-        elif '.ism' in stream:
-            manifest_type = 'ism'
-        else:
-            manifest_type = 'mpd'
-
-        log_debug('Activating adaptive parameters for this url: ' + stream)
-
-    elif not m3u8_dash and control.setting('m3u8_quality_picker') in ['1', '2'] and '.m3u8' in stream:
+    if not m3u8_dash and control.setting('m3u8_quality_picker') in ['1', '2'] and '.m3u8' in stream:
 
         try:
 
@@ -594,6 +600,8 @@ def player(url, params, do_not_resolve=False):
 
             stream = stream_picker(keys, values)
 
+        dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
+
     if stream != url:
 
         log_debug('Stream has been resolved: ' + stream)
@@ -620,15 +628,8 @@ def player(url, params, do_not_resolve=False):
 
         meta.update({'plot': plot})
 
-    if stream == 30403:
-
+    try:
+        directory.resolve(stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype)
+    except:
         control.execute('Dialog.Close(all)')
-        control.infoDialog(control.lang(30403))
-
-    else:
-
-        try:
-            directory.resolve(stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype)
-        except:
-            control.execute('Dialog.Close(all)')
-            control.infoDialog(control.lang(30112))
+        control.infoDialog(control.lang(30112))

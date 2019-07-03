@@ -1,7 +1,8 @@
 import re
 
-from streamlink.plugin import Plugin
-from streamlink.stream import HLSStream
+from distutils.util import strtobool
+from streamlink.plugin import Plugin, PluginArgument, PluginArguments
+from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
 from streamlink.plugin.api.utils import itertags
 from streamlink.compat import urlencode
@@ -10,6 +11,8 @@ from streamlink.compat import urlencode
 class OmegaCy(Plugin):
 
     _url_re = re.compile(r'https?://www\.omegatv\.com\.cy/live/')
+
+    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
     @classmethod
     def can_handle_url(cls, url):
@@ -31,9 +34,12 @@ class OmegaCy(Plugin):
         headers.update({"Referer": self.url})
         del headers['Cookie']
 
-        for s in HLSStream.parse_variant_playlist(self.session, stream, headers=headers).items():
+        parse_hls = bool(strtobool(self.get_option('parse_hls')))
 
-            yield s
+        if parse_hls:
+            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        else:
+            return dict(live=HTTPStream(self.session, stream, headers=headers))
 
 
 __plugin__ = OmegaCy
