@@ -64,7 +64,10 @@ def skin_name():
     with open(xml) as f:
 
         xml_file = f.read()
-        name = client.parseDOM(xml_file, 'addon', ret='name')[0]
+        try:
+            name = client.parseDOM(xml_file, 'addon', ret='name')[0]
+        except IndexError:
+            name = 'not found'
 
         return name
 
