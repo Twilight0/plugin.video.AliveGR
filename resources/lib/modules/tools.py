@@ -20,7 +20,7 @@
 
 from tulip import control, client
 from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx, skin_name
-from resources.lib.modules.constants import api_keys
+from resources.lib.modules import constants
 from os import path
 import pyxbmct, re
 from random import choice
@@ -309,10 +309,10 @@ def yt_setup():
 
     def seq():
 
-        control.addon('plugin.video.youtube').setSetting('youtube.api.enable', api_keys['enablement'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.id', api_keys['id'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(api_keys['api_key']))
-        control.addon('plugin.video.youtube').setSetting('youtube.api.secret', api_keys['secret'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.enable', constants.api_keys['enablement'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.id', constants.api_keys['id'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(constants.api_keys['api_key']))
+        control.addon('plugin.video.youtube').setSetting('youtube.api.secret', constants.api_keys['secret'])
 
         control.infoDialog(message=control.lang(30402), time=3000)
 
@@ -555,23 +555,23 @@ class Prompt(pyxbmct.AddonDialogWindow):
         # self.placeControl(self.external_label, 6, 0, 1, 1)
         self.website_button = pyxbmct.Button(control.lang(30333))
         self.placeControl(self.website_button, 6, 0, 1, 1)
-        self.connect(self.website_button, lambda: control.open_web_browser('https://www.alivegr.net'))
+        self.connect(self.website_button, lambda: control.open_web_browser(constants.website))
         # Paypal button
         self.paypal_button = pyxbmct.Button(control.lang(30141))
         self.placeControl(self.paypal_button, 6, 2, 1, 1)
-        self.connect(self.paypal_button, lambda: control.open_web_browser('https://www.paypal.me/AliveGR'))
+        self.connect(self.paypal_button, lambda: control.open_web_browser(constants.paypal))
         # Patreon button
         self.patreon_button = pyxbmct.Button(control.lang(30142))
         self.placeControl(self.patreon_button, 6, 1, 1, 1)
-        self.connect(self.patreon_button, lambda: control.open_web_browser('https://www.patreon.com/twilight0'))
+        self.connect(self.patreon_button, lambda: control.open_web_browser(constants.patreon))
         # Facebook button
         self.facebook_button = pyxbmct.Button('Facebook')
         self.placeControl(self.facebook_button, 6, 3, 1, 1)
-        self.connect(self.facebook_button, lambda: control.open_web_browser('https://www.facebook.com/alivegr/'))
+        self.connect(self.facebook_button, lambda: control.open_web_browser(constants.facebook))
         # Twitter button
         self.twitter_button = pyxbmct.Button('Twitter')
         self.placeControl(self.twitter_button, 6, 4, 1, 1)
-        self.connect(self.twitter_button, lambda: control.open_web_browser('https://twitter.com/TwilightZer0'))
+        self.connect(self.twitter_button, lambda: control.open_web_browser(constants.twitter))
         # Close button
         self.close_button = pyxbmct.Button(control.lang(30329))
         self.placeControl(self.close_button, 7, 2)

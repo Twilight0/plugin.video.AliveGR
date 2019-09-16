@@ -43,6 +43,14 @@ bl = 'rFGNl5UQuJ2L3Fmcv02bj5ibpJWZ0NXYw9yL6MHc0RHa'
 
 ########################################################################################################################
 
+website = 'https://www.alivegr.net'
+facebook = 'https://www.facebook.com/alivegr/'
+paypal = 'https://www.paypal.me/AliveGR'
+patreon = 'https://www.patreon.com/twilight0'
+twitter = 'https://twitter.com/TwilightZer0'
+
+########################################################################################################################
+
 from tulip.compat import OrderedDict
 
 live_groups = OrderedDict(
