@@ -963,8 +963,8 @@ msgid "Also reset live channel groups"
 msgstr "Κάνε επαναφορά και στις ομάδες ζωντανών ροών"
 
 msgctxt "#30267"
-msgid "AliveGR, version:{0}"
-msgstr "AliveGR, έκδοση {0}"
+msgid "AliveGR, version: {0}"
+msgstr "AliveGR, έκδοση: {0}"
 
 msgctxt "#30268"
 msgid "Randomize m3u playlists (pseudo-live streams)"

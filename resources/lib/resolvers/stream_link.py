@@ -33,8 +33,8 @@ def wrapper(url):
     custom_plugins = control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'sl_plugins')
     session.load_plugins(custom_plugins)
 
-    if 'omegatv' in url:
-        session.set_plugin_option('omegatv.com.cy', 'parse_hls', 'false')
+    if 'omegatv.com.cy' in url:
+        session.set_plugin_option('omegacy', 'parse_hls', 'false')
     elif 'ant1.com.cy' in url:
         session.set_plugin_option('ant1cy', 'parse_hls', 'false')
     elif 'antenna.gr' in url:
