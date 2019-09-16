@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.31.1" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="1.32.0" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
@@ -34,7 +34,20 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <website>https://alivegr.net/</website>
         <size>584908</size>
-        <news>+ [B]1.31.X[/B] [COLOR green](04-07-2019)[/COLOR]
+        <news>+ [B]1.32.X[/B] [COLOR green](16-09-2019)[/COLOR]
+- Fixed ERT's live resolver
+- Fixed generic youtube /live endpoint converter and deploy for those urls
+- Removed capability for calling other player addons for playback
+- Enhanced streamlink plugin for Ant1 CY &amp; Ant1 GR. Now capable to resolve VOD content as well.
+- Fixed Star's live resolver as streamlink plugin
+- New streamlink plugin for OpenTV
+- Moved old changelog text files into resources/texts folder
+
+=====================
+
+[I]Past version:[/I]
+
++ [B]1.31.X[/B] [COLOR red](04-07-2019)[/COLOR]
 - Updated Ant1 live resolver as a new streamlink plugin
 - Added resolver for startv official live stream as plugin for streamlink
 - Tweaked ant1cy and omegacy plugins to return parent m3u8 urls with a plugin option as conditional
@@ -42,21 +55,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Updated welcome message, showing confluence skin for aeon nox, confluence and other similar skins
 - Some cleanup on debug messages
 - Use different method for new version detection
-- Many other insignificant tweaks
-
-=====================
-
-[I]Past version:[/I]
-
-+ [B]1.30.X[/B] [COLOR green](23-06-2019)[/COLOR]
-- Tweaked openload plugin
-- Updated generic streamlink plugin
-- Added youtube-dl as optional dependency to augment generic plugin
-- Disabled first time prompt temporarily
-- Added setting to attempt to resolve dailymotion streams with resolveurl
-- Removed ustream setting and resolving, it is now playable only via browser window
-- Bump dependencies
-- 3 years anniversary!!</news>
+- Many other insignificant tweaks</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

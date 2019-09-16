@@ -90,9 +90,14 @@ def ert(url):
 
     html = client.request(url)
 
+    iframe = client.parseDOM(html, 'iframe', ret='src')[0]
+
+    html = client.request(iframe)
+
     iframes = client.parseDOM(html, 'iframe', ret='src')
 
     try:
+
         if geo_loc() == 'Greece' and 'HLSLink' in html:
             raise IndexError
         elif geo_loc() != 'Greece':
@@ -101,9 +106,12 @@ def ert(url):
             result = iframes[-1]
         if not result:
             raise IndexError
+
     except IndexError:
+
         result = client.parseDOM(html, 'script', attrs={'type': 'text/javascript'})[0]
         result = re.search(r'HLSLink = \'(.+?)\'', result).group(1)
+
         return result
 
     vid = result.rpartition('/')[2][:11]

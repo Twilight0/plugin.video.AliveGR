@@ -1,4 +1,17 @@
-+ [B]1.31.X[/B] [COLOR green](04-07-2019)[/COLOR]
++ [B]1.32.X[/B] [COLOR green](16-09-2019)[/COLOR]
+- Fixed ERT's live resolver
+- Fixed generic youtube /live endpoint converter and deploy for those urls
+- Removed capability for calling other player addons for playback
+- Enhanced streamlink plugin for Ant1 CY & Ant1 GR. Now capable to resolve VOD content as well.
+- Fixed Star's live resolver as streamlink plugin
+- New streamlink plugin for OpenTV
+- Moved old changelog text files into resources/texts folder
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.31.X[/B] [COLOR red](04-07-2019)[/COLOR]
 - Updated Ant1 live resolver as a new streamlink plugin
 - Added resolver for startv official live stream as plugin for streamlink
 - Tweaked ant1cy and omegacy plugins to return parent m3u8 urls with a plugin option as conditional
@@ -7,10 +20,6 @@
 - Some cleanup on debug messages
 - Use different method for new version detection
 - Many other insignificant tweaks
-
-=====================
-
-[I]Past versions:[/I]
 
 + [B]1.30.X[/B] [COLOR red](23-06-2019)[/COLOR]
 - Tweaked openload plugin

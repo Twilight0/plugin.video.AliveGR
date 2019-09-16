@@ -1,18 +1,19 @@
 import re
 
+from streamlink.compat import urljoin
 from distutils.util import strtobool
 from streamlink.plugin import Plugin, PluginArguments, PluginArgument
 from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
 from streamlink.exceptions import NoStreamsError
 
 
-class Ant1Cy(Plugin):
+class OpenTV(Plugin):
 
-    _url_re = re.compile(r'https?://w{3}\.ant1\.com\.cy/(?:web-tv-live|webtv/show-page/(?:episodes|episodeinner)/\?show=\d+&episodeID=\d+)/?')
+    _url_re = re.compile(r'https?://www\.tvopen\.gr/(?P<path>live|watch)(?:/\d+/[\w-]+)?')
 
-    _api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
+    _param_re = re.compile(r"\$.getJSON\(\'(?P<param>.+?)[\?'](?:.+?cid: '(?P<id>\d+)')?")
+    _base_link = 'https://www.tvopen.gr'
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
@@ -22,28 +23,29 @@ class Ant1Cy(Plugin):
 
     def _get_streams(self):
 
+        print self.url
+
         headers = {'User-Agent': CHROME}
 
-        if 'web-tv-live' in self.url:
+        if self.url.endswith('/live'):
             live = True
         else:
             live = False
-            self.url = self.url.replace('episodeinner', 'episodes')
 
-        get_page = self.session.http.get(self.url, headers=headers)
+        res = self.session.http.get(self.url, headers=headers)
 
-        if live:
+        match = self._param_re.search(res.text)
 
-            try:
-                m3u8 = re.search("'(.+?)'", list(itertags(get_page.text, 'script'))[-2].text).group(2)
-            except IndexError:
-                raise NoStreamsError
+        param = match.group('param')
 
-        else:
+        if not live:
+            param = '?'.join([param, 'cid={0}'.format(match.group('id'))])
 
-            m3u8 = re.search("&quot;(http.+?master\.m3u8)&quot;", get_page.text).group(1)
+        _json_url = urljoin(self._base_link, param)
 
-        stream = self.session.http.get(self._api_url.format(m3u8), headers=headers).text
+        _json_object = self.session.http.get(_json_url, headers=headers).json()
+
+        stream = _json_object.get('stream')
 
         headers.update({"Referer": self.url})
 
@@ -58,4 +60,4 @@ class Ant1Cy(Plugin):
             return dict(live=HTTPStream(self.session, stream, headers=headers))
 
 
-__plugin__ = Ant1Cy
+__plugin__ = OpenTV

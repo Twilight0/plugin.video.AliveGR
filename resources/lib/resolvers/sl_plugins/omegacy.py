@@ -34,7 +34,10 @@ class OmegaCy(Plugin):
         headers.update({"Referer": self.url})
         del headers['Cookie']
 
-        parse_hls = bool(strtobool(self.get_option('parse_hls')))
+        try:
+            parse_hls = bool(strtobool(self.get_option('parse_hls')))
+        except AttributeError:
+            parse_hls = True
 
         if parse_hls:
             return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)

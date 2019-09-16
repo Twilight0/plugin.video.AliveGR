@@ -26,7 +26,7 @@ from tulip import control, log
 openload_regex = r'https?://(?P<domain>o(?:pen)?load\.(?:io|co|tv|stream|win|download|info|icu|fun|pw))/(?:embed|f)/(?P<streamid>[\w-]+)'
 
 
-def sl_session(url):
+def wrapper(url):
 
     session = streamlink.session.Streamlink()
 
@@ -34,20 +34,21 @@ def sl_session(url):
     session.load_plugins(custom_plugins)
 
     if 'omegatv' in url:
-        session.set_plugin_option('omegacy', 'parse_hls', 'false')
+        session.set_plugin_option('omegatv.com.cy', 'parse_hls', 'false')
     elif 'ant1.com.cy' in url:
         session.set_plugin_option('ant1cy', 'parse_hls', 'false')
-    elif 'antenna.gr/Live' in url:
+    elif 'antenna.gr' in url:
         session.set_plugin_option('ant1gr', 'parse_hls', 'false')
+    elif 'tvopen.gr' in url:
+        session.set_plugin_option('opentv', 'parse_hls', 'false')
     elif 'star.gr/tv/live-stream/' in url:
         session.set_plugin_option('stargr', 'parse_hls', 'false')
 
-    plugin = session.resolve_url(url)
-    streams = plugin.streams()
-
     try:
 
-        return streams
+        plugin = session.resolve_url(url)
+
+        return plugin.streams()
 
     except (NoPluginError, NoStreamsError) as e:
 
@@ -55,14 +56,14 @@ def sl_session(url):
         return
 
 
-def sl_hosts(url):
+def hosts(url):
 
     return any(
         [
             'dailymotion' in url and control.setting('dm_resolve') == '1', 'twitch' in url, 'facebook' in url, 'ttvnw' in url,
-            'periscope' in url and not 'search' in url, 'pscp' in url, 'ant1.com.cy' in url and 'web-tv-live' in url,
-            'gr.euronews.com' in url and not 'watchlive.json' in url, 'filmon.com' in url, 'ellinikosfm.com' in url,
-            'kineskop.tv' in url, 'player.vimeo.com' in url, 'antenna.gr' in url and 'Live' in url, 'star.gr/tv/live-stream/' in url,
+            'periscope' in url and 'search' not in url, 'pscp' in url, 'ant1.com.cy' in url, 'netwix.gr' in url, 'tvopen.gr' in url,
+            'gr.euronews.com' in url and 'watchlive.json' not in url, 'filmon.com' in url, 'ellinikosfm.com' in url,
+            'kineskop.tv' in url, 'player.vimeo.com' in url, 'antenna.gr' in url, 'star.gr/tv/live-stream/' in url,
             'omegatv' in url and 'live' in url, control.setting('ol_resolve') == '1' and re.search(openload_regex, url)
         ]
     )

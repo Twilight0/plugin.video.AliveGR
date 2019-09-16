@@ -24,18 +24,25 @@ class StarGr(Plugin):
 
         headers = {'User-Agent': CHROME}
 
+        # if 'live-stream' in self.url:
+        #     live = True
+        # else:
+        #     live = False
+
         res = self.session.http.get(self.url, headers=headers)
 
-        script = [i.text for i in list(itertags(res.text, 'script'))][16]
+        script = [i.text for i in list(itertags(res.text, 'script'))]
 
-        stream = re.search(r"'(?P<url>.+?\.m3u8)'", script).group('url')
+        script = [i for i in script if 'm3u8' in i][0]
 
-        if self.session.http.head(stream).status_code == 404:
-            raise NoStreamsError('Live stream is disabled due to 3rd party broacasts with no rights for web streams')
+        stream = re.search(r"(?P<url>http.+?\.m3u8)", script).group('url')
 
         headers.update({"Referer": self.url})
 
-        parse_hls = bool(strtobool(self.get_option('parse_hls')))
+        try:
+            parse_hls = bool(strtobool(self.get_option('parse_hls')))
+        except AttributeError:
+            parse_hls = True
 
         if parse_hls:
             return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)

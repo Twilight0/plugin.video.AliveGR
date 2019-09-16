@@ -20,7 +20,7 @@
 
 from resources.lib.modules.constants import yt_url
 import re, youtube_resolver
-from tulip import control, client
+from tulip import control, client, cache
 from resources.lib.modules.helpers import stream_picker
 from resources.lib.modules.constants import yt_prefix
 
@@ -31,25 +31,19 @@ def generic(url, add_base=False):
 
     html = client.request(url)
 
-    if '<iframe' in html:
+    try:
+        video_id = re.search('videoId.+?([\w-]{11})', html).group(1)
+    except AttributeError:
+        return
 
-        iframes = client.parseDOM(html, 'iframe', ret='src')
-        stream = [s for s in iframes if 'youtu' in s][0]
+    if not add_base:
 
-        return stream
+        return video_id
 
     else:
 
-        video_id = re.findall(r"videoId.+?['\"]([\w-]{11})['\"]", html)[0]
-
-        if not add_base:
-
-            return video_id
-
-        else:
-
-            stream = yt_url + video_id
-            return stream
+        stream = yt_url + video_id
+        return stream
 
 
 def wrapper(url):
@@ -57,13 +51,21 @@ def wrapper(url):
     if replace_url:
 
         result = re.sub(
-            r'''https?://(?:[0-9A-Z-]+\.)?(?:(youtu\.be|youtube(?:-nocookie)?\.com)/?\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|</a>))[?=&+%\w.-]*''',
+            r'''https?://(?:[\w-]+\.)?(?:(youtu\.be|youtube(?:-nocookie)?\.com)/?\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|</a>))[?=&+%\w.-]*''',
             yt_prefix + r'\2', url, flags=re.I
         )
 
         if url != result:
 
             return result
+
+    if url.endswith('/live'):
+
+        url = cache.get(generic, 6, url)
+
+        if not url:
+
+            return
 
     streams = youtube_resolver.resolve(url)
 

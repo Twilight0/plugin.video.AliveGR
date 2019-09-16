@@ -21,9 +21,12 @@
 import random
 import re
 import json
-from tulip.compat import urljoin, quote, parse_qsl, OrderedDict, urlencode
 
-from tulip import directory, client, cache, control
+from tulip.compat import (
+    urljoin, quote, parse_qsl, OrderedDict, urlencode, urlparse
+)
+
+from tulip import directory, client, cache, control, user_agents
 from resolveurl import resolve as resolve_url
 from resolveurl.hmf import HostedMediaFile
 # import YDStreamExtractor
@@ -84,36 +87,21 @@ def conditionals(url, params):
                 except IndexError:
                     return stream
 
-    elif stream_link.sl_hosts(url):
+    elif stream_link.hosts(url):
+
+        stream = stream_link.wrapper(url)
 
         log_debug('Resolved with streamlink')
-
-        stream = stream_link.sl_session(url)
-
-        if 'kineskop' in url:
-
-            from tulip.user_agents import spoofer
-            return stream + spoofer()
 
         return stream
 
     elif HostedMediaFile(url).valid_url():
 
-        log_debug('Resolved with resolveurl')
-
         stream = resolve_url(url)
-        return stream
 
-    elif 'antenna' in url and not '/live' in url.lower():
-        return 'plugin://plugin.video.antenna.gr/?action=play&url={}'.format(url)
-    elif 'alphatv' in url and not 'live' in url:
-        return 'plugin://plugin.video.alphatv.gr/?action=play&url={}'.format(url)
-    elif 'ert.gr' in url and not 'ipinfo-geo' in url and not 'ertworld' in url:
-        return 'plugin://plugin.video.ert.gr/?action=play&url={}'.format(url)
-    elif 'skaitv.gr' in url and not 'live' in url.lower():
-        return 'plugin://plugin.video.skai.gr/?action=play&url={}'.format(url)
-    elif 'star.gr' in url and not 'live' in url.lower():
-        return 'plugin://plugin.video.star.gr/?action=play&url={}'.format(url)
+        log_debug('Resolved with resolveurl')
+    
+        return stream
 
     # elif 'antenna.gr' in url:
     #
@@ -564,11 +552,21 @@ def player(url, params, do_not_resolve=False):
 
             for h in args, json_dict:
 
-                if 'headers' in h:
-                    headers = h['headers']
-                    break
-                else:
+                try:
+                    if 'headers' in h:
+                        headers = h['headers']
+                        break
+                    else:
+                        headers = None
+                except Exception:
                     headers = None
+
+            if 'kineskop' in url:
+
+                headers = {
+                    'User-Agent': user_agents.CHROME,
+                    'Referer': '{0}://{0}/'.format(urlparse(url).scheme, urlparse(url).netloc)
+                    }
 
             if headers:
 
@@ -588,6 +586,8 @@ def player(url, params, do_not_resolve=False):
         except AttributeError:
 
             append = ''
+
+        print stream
 
         if control.setting('sl_quality_picker') == '0' or len(stream) == 3:
 
