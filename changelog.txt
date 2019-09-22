@@ -1,4 +1,13 @@
-+ [B]1.32.X[/B] [COLOR green](16-09-2019)[/COLOR]
++ [B]1.33.X[/B] [COLOR green](16-09-2019)[/COLOR]
+- Fixed ERT's live resolver (again!)
+- Tweak Ant1 CY streamlink plugin
+- New plugin for RIK (streams are geolocked to Cyprus exclusively)
+
+=====================
+
+[I]Past versions:[/I]
+
++ [B]1.32.X[/B] [COLOR red](16-09-2019)[/COLOR]
 - Fixed ERT's live resolver
 - Fixed generic youtube /live endpoint converter and deploy for those urls
 - Removed capability for calling other player addons for playback
@@ -6,10 +15,6 @@
 - Fixed Star's live resolver as streamlink plugin
 - New streamlink plugin for OpenTV
 - Moved old changelog text files into resources/texts folder
-
-=====================
-
-[I]Past versions:[/I]
 
 + [B]1.31.X[/B] [COLOR red](04-07-2019)[/COLOR]
 - Updated Ant1 live resolver as a new streamlink plugin

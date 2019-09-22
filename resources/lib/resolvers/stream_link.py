@@ -43,6 +43,8 @@ def wrapper(url):
         session.set_plugin_option('opentv', 'parse_hls', 'false')
     elif 'star.gr/tv/live-stream/' in url:
         session.set_plugin_option('stargr', 'parse_hls', 'false')
+    elif 'cybc.com.cy' in url:
+        session.set_plugin_option('rikcy', 'parse_hls', 'false')
 
     try:
 
@@ -63,7 +65,7 @@ def hosts(url):
             'dailymotion' in url and control.setting('dm_resolve') == '1', 'twitch' in url, 'facebook' in url, 'ttvnw' in url,
             'periscope' in url and 'search' not in url, 'pscp' in url, 'ant1.com.cy' in url, 'netwix.gr' in url, 'tvopen.gr' in url,
             'gr.euronews.com' in url and 'watchlive.json' not in url, 'filmon.com' in url, 'ellinikosfm.com' in url,
-            'kineskop.tv' in url, 'player.vimeo.com' in url, 'antenna.gr' in url, 'star.gr/tv/live-stream/' in url,
+            'kineskop.tv' in url, 'player.vimeo.com' in url, 'antenna.gr' in url, 'star.gr/tv/live-stream/' in url, 'cybc.com.cy' in url,
             'omegatv' in url and 'live' in url, control.setting('ol_resolve') == '1' and re.search(openload_regex, url)
         ]
     )

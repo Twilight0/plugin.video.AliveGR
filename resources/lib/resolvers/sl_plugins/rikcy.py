@@ -1,6 +1,7 @@
 import re
 
 from distutils.util import strtobool
+from streamlink.compat import quote
 from streamlink.plugin import Plugin, PluginArguments, PluginArgument
 from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
@@ -8,11 +9,9 @@ from streamlink.plugin.api.utils import itertags
 from streamlink.exceptions import NoStreamsError
 
 
-class Ant1Cy(Plugin):
+class RikCy(Plugin):
 
-    _url_re = re.compile(r'https?://w{3}\.ant1\.com\.cy/(?:web-tv-live|webtv/show-page/(?:episodes|episodeinner)/\?show=\d+&episodeID=\d+)/?')
-
-    _api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
+    _url_re = re.compile(r'https?://cybc\.com\.cy/live-tv/(?:\u03c1\u03b9\u03ba|\xcf\x81\xce\xb9\xce\xba|%CF%81%CE%B9%CE%BA)-\w+/')
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
@@ -24,32 +23,18 @@ class Ant1Cy(Plugin):
 
         headers = {'User-Agent': CHROME}
 
-        if 'web-tv-live' in self.url:
-            live = True
-        else:
-            live = False
-            self.url = self.url.replace('episodeinner', 'episodes')
+        self.url = self.url.replace(u'ρικ', quote(u'ρικ'.encode('utf-8')))
 
         get_page = self.session.http.get(self.url, headers=headers)
 
-        if live:
+        tags = list(itertags(get_page.text, 'script'))
 
-            tags = list(itertags(get_page.text, 'script'))
+        tag = [i for i in tags if 'm3u8' in i.text][0].text
 
-            tag = [i for i in tags if 'm3u8' in i.text][0].text
-
-            m3u8 = re.search(r'''["'](http.+?\.m3u8)['"]''', tag)
-
-            if m3u8:
-                m3u8 = m3u8.group(1)
-            else:
-                raise NoStreamsError('Ant1 CY Broadcast is currently disabled')
-
-        else:
-
-            m3u8 = re.search("&quot;(http.+?master\.m3u8)&quot;", get_page.text).group(1)
-
-        stream = self.session.http.get(self._api_url.format(m3u8), headers=headers).text
+        try:
+            stream = re.search(r'''["'](http.+?\.m3u8)['"]''', tag).group(1)
+        except IndexError:
+            raise NoStreamsError('RIK Broadcast is currently disabled')
 
         headers.update({"Referer": self.url})
 
@@ -64,4 +49,4 @@ class Ant1Cy(Plugin):
             return dict(live=HTTPStream(self.session, stream, headers=headers))
 
 
-__plugin__ = Ant1Cy
+__plugin__ = RikCy

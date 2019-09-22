@@ -2,3 +2,4 @@
 \.idea/*
 \.vscode/*
 Alivegr.code-workspace
+.pylintrc

@@ -85,40 +85,18 @@ def risegr(link):
 
 def ert(url):
 
-    from resources.lib.modules.helpers import geo_loc
-    from resources.lib.modules.constants import yt_url
-
     html = client.request(url)
 
     iframe = client.parseDOM(html, 'iframe', ret='src')[0]
 
     html = client.request(iframe)
 
-    iframes = client.parseDOM(html, 'iframe', ret='src')
+    if '.m3u8' in html:
+        stream = re.findall(r'http.+?\.m3u8', html)[0]
+    else:
+        stream = client.parseDOM(html, 'iframe', ret='src')[-1]
 
-    try:
-
-        if geo_loc() == 'Greece' and 'HLSLink' in html:
-            raise IndexError
-        elif geo_loc() != 'Greece':
-            result = iframes[0]
-        else:
-            result = iframes[-1]
-        if not result:
-            raise IndexError
-
-    except IndexError:
-
-        result = client.parseDOM(html, 'script', attrs={'type': 'text/javascript'})[0]
-        result = re.search(r'HLSLink = \'(.+?)\'', result).group(1)
-
-        return result
-
-    vid = result.rpartition('/')[2][:11]
-
-    video = yt_url + vid
-
-    return video
+    return stream
 
 
 def skai(url):
