@@ -71,8 +71,8 @@ msgid "TV Guide"
 msgstr "Οδηγός Τηλεόρασης"
 
 msgctxt "#30015"
-msgid "watch at "
-msgstr "προβολή στο "
+msgid "Watch at "
+msgstr "Προβολή στο "
 
 msgctxt "#30016"
 msgid "Currently Down"
@@ -195,8 +195,8 @@ msgid "Index by '{0}'"
 msgstr "Ταξινόμιση κατά '{0}'"
 
 msgctxt "#30046"
-msgid "Show Alternative Streams"
-msgstr "Δείξε τις Εναλλακτικές Ροές"
+msgid "Toggle unofficial streams"
+msgstr "Εναλλαγή ανεπίσημων ροών"
 
 msgctxt "#30047"
 msgid "Group '{0}'"
@@ -399,12 +399,12 @@ msgid "Live TV Channel"
 msgstr "Ζωντανό τηλεοπτικό κανάλι"
 
 msgctxt "#30097"
-msgid "Movies/Documentary/Theater"
-msgstr "Ταινίες/Ντοκυμαντέρ/Θεατρικές παραστάσεις"
+msgid "Cartoon"
+msgstr "Κινούμενο σχέδιο"
 
 msgctxt "#30098"
-msgid "TV Series/TV Shows"
-msgstr "Σειρές/Εκπομπές"
+msgid "Various cartoon movies"
+msgstr "Διάφορες παιδικές ταινίες"
 
 msgctxt "#30099"
 msgid "Cartoon Movies & Series"
@@ -467,8 +467,8 @@ msgid "Delete cache file"
 msgstr "Διαγραφή αρχείου προσωρινής μνήμης"
 
 msgctxt "#30114"
-msgid ""
-msgstr ""
+msgid "This action will enable additional unofficial streams. Enable at your own risk.[CR]Proceed?"
+msgstr "Αυτή η ενέργεια θα ενεργοποιήσει επιπλέον ανεπίσημες ροές. Ενεργοποιείτε με δική σας ευθύνη.[CR]Εκτέλεση;"
 
 msgctxt "#30115"
 msgid "Developer"
@@ -711,8 +711,8 @@ msgid "International"
 msgstr "Διεθνή δίκτυα"
 
 msgctxt "#30204"
-msgid "Adaptive (Leia+)"
-msgstr "Μεταβλητή (Leia+)"
+msgid "Adaptive"
+msgstr "Μεταβλητή"
 
 msgctxt "#30205"
 msgid "Cinema"
@@ -987,8 +987,8 @@ msgid "Inputstream Adaptive & RTMP addons"
 msgstr "Πρόσθετα μεταβλητής ποιότητα ροής & RTMP "
 
 msgctxt "#30273"
-msgid "Input stream addon settings (Krypton+)"
-msgstr "Ρυθμίσεις προσθέτου μεταβλητής ποιότητας (Krypton+)"
+msgid "Input stream addon settings"
+msgstr "Ρυθμίσεις προσθέτου μεταβλητής ποιότητας"
 
 msgctxt "#30274"
 msgid "Utilize MPEG-DASH"
@@ -1000,7 +1000,7 @@ msgstr "Ενεργοποίηση (ή εγκατάσταση) προσθέτου 
 
 msgctxt "#30276"
 msgid "RTMP has already been activated"
-msgstr "Το RTMP πρόσθετο είναι ήδη ενεργοποιημένο"
+msgstr "Το πρόσθετο RTMP είναι ήδη ενεργοποιημένο"
 
 msgctxt "#30277"
 msgid "RTMP addon is not enabled. Do you to enabled it now?"
@@ -1023,8 +1023,8 @@ msgid "Open Youtube addon settings window"
 msgstr "Άνοιγμα ρυθμίσεων προσθέτου Youtube"
 
 msgctxt "#30282"
-msgid "Randomize playlist items"
-msgstr "Ανακάτεμα αντικειμένων αναπαραγωγής"
+msgid "Pinned"
+msgstr "Καρφιτσωμένα"
 
 msgctxt "#30283"
 msgid "Addonid {0} was not found in your system"
@@ -1163,8 +1163,8 @@ msgid "Open website in browser window"
 msgstr "Άνοιγμα σελίδας σε παράθυρο φυλλομετρητή"
 
 msgctxt "#30317"
-msgid "Hide cartoons from movies section"
-msgstr "Κρύψε τα παιδικά από την ενότητα ταινιών"
+msgid "Toggle unofficial live channels (Currently: {0})"
+msgstr "Εναλλαγή ανεπίσημων ζωντανων ροών (Τωρα ειναι: {0})"
 
 msgctxt "#30318"
 msgid "Change skin"
@@ -1215,8 +1215,8 @@ msgid "[B]Close[/B]"
 msgstr "[B]Κλείσιμο[/B]"
 
 msgctxt "#30330"
-msgid ""
-msgstr ""
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
 
 msgctxt "#30331"
 msgid "[COLOR white][I]Welcome note[/I][/COLOR]"
@@ -1229,6 +1229,34 @@ msgstr "Άνοιγμα ρυθμίσεων PVR"
 msgctxt "#30333"
 msgid "Website"
 msgstr "Ιστοσελίδα"
+
+msgctxt "#30334"
+msgid "Next page"
+msgstr "Επόμενη σελίδα"
+
+msgctxt "#30335"
+msgid "Disabled"
+msgstr "Απενεργοποιημένο"
+
+msgctxt "#30336"
+msgid "Pin this channel"
+msgstr "Καρφίτσωμα αυτού του καναλιού"
+
+msgctxt "#30337"
+msgid "Unpin this channel"
+msgstr "Ξεκαρφιτσωμα αυτού του καναλιού"
+
+msgctxt "#30338"
+msgid "Done"
+msgstr "Έγινε"
+
+msgctxt "#30339"
+msgid "ResolveURL has already been activated"
+msgstr "Το πρόσθετο ResolveURL είναι ήδη ενεργοποιημένο"
+
+msgctxt "#30340"
+msgid "View changelog"
+msgstr "Ανάγνωση αρχείου καταγραφής"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"
@@ -1243,12 +1271,12 @@ msgid "Cancelled"
 msgstr "Ακύρωση"
 
 msgctxt "#30404"
-msgid ""
-msgstr ""
+msgid "Disable additional streams or menu items?"
+msgstr "Απενεργοποιηση επιπλέον ροών ή αντικειμενων μενού;"
 
 msgctxt "#30405"
-msgid ""
-msgstr ""
+msgid "Toggle additional vod streams (Currently: {0})"
+msgstr "Εναλλαγή επιπλέον ροών on demand (Τώρα είναι: {0})"
 
 msgctxt "#30406"
 msgid "Enable PVR Simple Client menu now?"

@@ -18,7 +18,6 @@
         <setting type="lsep" label=""/>
 
         <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="1"/>
-        <setting id="hide_cartoons" label="30317" type="bool" default="true"/>
 
     </category>
 
@@ -54,17 +53,16 @@
 
         <setting type="lsep" label="30006"/>
 
-        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0" enable="eq(19,0)"/>
+        <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0"/>
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
-        <setting id="m3u8_quality_picker" type="select" label="30219" lvalues="30168|30169|30204" default="0"/>
+        <setting id="m3u8_quality_picker" type="select" label="30219" lvalues="30168|30169|30204" default="2"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30007"/>
 
         <setting id="live_tv_mode" type="enum" label="30285" lvalues="30146|30284" default="0"/>
-        <setting id="show_alt" type="bool" label="30046" default="false"/>
         <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-2,0)"/>
-        <setting id="live_group_switcher" type="select" label="30291" lvalues="30048|30201|30202|30203|30205|30206|30207|30208|30209|30210|30032|30125|30094" default="0" enable="eq(-2,1) | eq(-1,false)"/>
+        <setting id="live_group_switcher" type="select" label="30291" lvalues="30048|30201|30202|30203|30205|30206|30207|30208|30209|30210|30032|30125|30094|30282" default="0" enable="eq(-2,1) | eq(-1,false)"/>
         <setting id="preresolve_streams" type="bool" label="30271" default="false"/>
         <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
 
@@ -72,24 +70,22 @@
         <setting type="lsep" label="30009"/>
 
         <setting id="action_type" type="select" label="30144" lvalues="30145|30146|30284" default="0"/>
-        <setting id="auto_play" type="bool" label="30280" default="true" enable="eq(-1,2)"/>
-        <setting id="randomize_items" type="bool" label="30282" default="true" enable="eq(-2,2)"/>
+        <setting id="auto_play" label="30280" type="bool" default="true" enable="eq(-1,2)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30298"/>
 
-        <setting id="yt_resolve" label="30038" type="enum" lvalues="30301|30302" default="0"/>
-        <setting id="audio_only" label="30224" type="bool" default="false" enable="eq(-1,0)"/>
+        <setting id="audio_only" label="30224" type="bool" default="false"/>
         <setting id="dm_resolve" label="30297" type="enum" lvalues="30303|30304" default="1"/>
-        <setting id="ol_resolve" label="30300" type="enum" lvalues="30303|30304" default="0"/>
-        <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close"/>
+        <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close" enable="System.HasAddon(script.module.resolveurl)"/>
         <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
+        <setting label="30046" type="action" action="RunPlugin(plugin://$ID/?action=toggle_alt)" option="close"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30272"/>
 
-        <setting label="30273" type="action" action="ActivateWindow(videos,plugin://$ID/?action=input_stream_addons)" enable="String.StartsWith(System.AddonVersion(xbmc.python),2.25) | String.StartsWith(System.AddonVersion(xbmc.python),2.26)" option="close"/>
+        <setting label="30273" type="action" action="ActivateWindow(videos,plugin://$ID/?action=input_stream_addons)" option="close"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30041"/>
@@ -102,7 +98,7 @@
 
     <category label="30138">
 
-        <setting id="reset-idx" type="bool" label="30229" default="true"/>
+        <setting id="reset_idx" type="bool" label="30229" default="true"/>
         <setting id="reset_live" type="bool" label="30266" default="true" visible="eq(-1,true)"/>
         <setting visible="true" label="30134" type="action" action="RunPlugin(plugin://$ID/?action=reset_idx)"/>
 
@@ -141,7 +137,7 @@
     <category label="30115">
 
         <setting id="changelog_lang" type="enum" label="30215" lvalues="30216|30286|30299" default="0"/>
-        <setting visible="true" label="30114" type="action" action="RunPlugin(plugin://$ID/?action=changelog)"/>
+        <setting visible="true" label="30340" type="action" action="RunPlugin(plugin://$ID/?action=changelog)"/>
 
         <setting type="sep"/>
 
@@ -164,6 +160,11 @@
         <setting id="top50_remote" label="Remote top 50 playlist url" type="text" default="" visible="eq(-10,true) + eq(-6,1)"/>
         <setting id="cache_period" type="number" label="Custom cache period" default="4" visible="eq(-11,true)"/>
         <setting id="old_settings" type="bool" label="30133" default="false" visible="eq(-12,true)"/>
+
+        <setting id="kids_menu" type="bool" label="Kids menu items" default="false" visible="false"/>
+        <setting id="show_alt_live" type="bool" label="Show alternative live streams" default="false" visible="false"/>
+        <setting id="show_alt_vod" type="bool" label="Show alternative vod streams" default="false" visible="false"/>
+
         <setting id="live_group" label="Live Group" type="text" default="ALL" visible="false"/>
         <setting id="vod_group" label="VOD Group" type="text" default="30213" visible="false"/>
         <setting id="papers_group" label="Papers Group" type="text" default="0" visible="false"/>

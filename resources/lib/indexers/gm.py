@@ -17,30 +17,28 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
 import re
 import json
-from ast import literal_eval as evaluate
-from base64 import b64decode
 
 from tulip import cache, client, directory, control
 from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
-from resources.lib.modules.themes import iconname
-from resources.lib.modules.constants import sdik, bl
-from resources.lib.modules.helpers import thgiliwt, dexteni
+from ..modules.themes import iconname
 from tulip.init import syshandle, sysaddon
 
-base_link = 'http://greek-movies.com/'
-movies_link = urljoin(base_link, 'movies.php')
-shows_link = urljoin(base_link, 'shows.php')
-series_link = urljoin(base_link, 'series.php')
-animation_link = urljoin(base_link, 'animation.php')
-theater_link = urljoin(base_link, 'theater.php')
-sports_link = urljoin(base_link, 'sports.php')
-shortfilms_link = urljoin(base_link, 'shortfilm.php')
-music_link = urljoin(base_link, 'music.php')
-episode_link = urljoin(base_link, 'ajax.php?type=episode&epid={0}&view={1}')
+GM_BASE = 'http://greek-movies.com/'
+MOVIES = urljoin(GM_BASE, 'movies.php')
+SHOWS = urljoin(GM_BASE, 'shows.php')
+SERIES = urljoin(GM_BASE, 'series.php')
+ANIMATION = urljoin(GM_BASE, 'animation.php')
+THEATER = urljoin(GM_BASE, 'theater.php')
+SPORTS = urljoin(GM_BASE, 'sports.php')
+SHORTFILMS = urljoin(GM_BASE, 'shortfilm.php')
+MUSIC = urljoin(GM_BASE, 'music.php')
+SEARCH = urljoin(GM_BASE, 'search.php')
+EPISODE = urljoin(GM_BASE, 'ajax.php?type=episode&epid={0}&view={1}')
 
 
 def root(url):
@@ -50,12 +48,12 @@ def root(url):
 
     html = client.request(url)
 
-    if url == sports_link:
+    if url == SPORTS:
 
         sports_index = client.parseDOM(html, 'div', attrs={'class': 'col-xs-6 text-center'})[0]
         return sports_index
 
-    elif url == music_link:
+    elif url == MUSIC:
 
         music_index = client.parseDOM(html, 'div', attrs={'class': 'col-sm-5 col-md-4'})[0]
         return music_index
@@ -86,7 +84,7 @@ def root(url):
             title = name[0].capitalize() + name[1:]
             link = client.parseDOM(item, 'option', ret='value')[0]
             indexer = urlparse(link).query
-            index = urljoin(base_link, link)
+            index = urljoin(GM_BASE, link)
 
             if indexer.startswith('l='):
                 group = '30213'
@@ -104,21 +102,6 @@ def root(url):
             root_list.append({'title': title, 'group': group, 'action': 'listing', 'url': index})
 
         return root_list, groups_list
-
-
-def sdik_exist():
-
-    return bool(control.condVisibility('System.HasAddon({0})'.format(sdik)))
-
-
-def bl_loader():
-
-    comp = client.request(thgiliwt(bl))
-    result = dexteni(b64decode(comp))
-
-    bl_list = evaluate(result)
-
-    return bl_list
 
 
 class Indexer:
@@ -152,131 +135,101 @@ class Indexer:
 
     def movies(self):
 
-        self.data = cache.get(root, 24, movies_link)[0]
+        self.data = cache.get(root, 24, MOVIES)[0]
 
-        self.list = [
-            item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group')]
-            )
-        ]
-
-        if (sdik_exist() and control.setting('hide_cartoons') == 'true') or not sdik_exist():
-            self.list = [i for i in self.list if u'Κινουμένων σχεδίων' not in i['title']]
+        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
 
         for item in self.list:
             item.update({'icon': iconname('movies')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
         li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(movies_link))
+        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(MOVIES))
         control.addItem(syshandle, url, li)
 
         directory.add(self.list, argv=self.argv)
 
     def short_films(self):
 
-        self.data = cache.get(root, 24, shortfilms_link)[0]
+        self.data = cache.get(root, 24, SHORTFILMS)[0]
 
-        self.list = [
-            item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group')]
-            )
-        ]
-
-        if (sdik_exist() and control.setting('hide_cartoons') == 'true') or not sdik_exist():
-            self.list = [i for i in self.list if u'Κινουμένων σχεδίων' not in i['title']]
+        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
 
         for item in self.list:
             item.update({'icon': iconname('short')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
         li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(shortfilms_link))
+        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SHORTFILMS))
         control.addItem(syshandle, url, li)
 
         directory.add(self.list, argv=self.argv)
 
     def series(self):
 
-        self.data = cache.get(root, 24, series_link)[0]
+        self.data = cache.get(root, 24, SERIES)[0]
 
-        self.list = [
-            item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group')]
-            )
-        ]
+        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
 
         for item in self.list:
             item.update({'icon': iconname('series')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
         li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(series_link))
+        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SERIES))
         control.addItem(syshandle, url, li)
 
         directory.add(self.list, argv=self.argv)
 
     def shows(self):
 
-        self.data = cache.get(root, 24, shows_link)[0]
+        self.data = cache.get(root, 24, SHOWS)[0]
 
-        self.list = [
-            item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group')]
-            )
-        ]
+        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
 
         for item in self.list:
             item.update({'icon': iconname('shows')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
         li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(shows_link))
+        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SHOWS))
         control.addItem(syshandle, url, li)
 
         directory.add(self.list, argv=self.argv)
 
     def cartoons_series(self):
 
-        self.data = cache.get(root, 24, animation_link)[0]
+        self.data = cache.get(root, 24, ANIMATION)[0]
 
-        self.list = [
-            item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group')]
-            )
-        ]
+        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
 
         for item in self.list:
             item.update({'icon': iconname('cartoon_series')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
         li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(animation_link))
+        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(ANIMATION))
         control.addItem(syshandle, url, li)
 
         directory.add(self.list, argv=self.argv)
 
     def theater(self):
 
-        self.data = cache.get(root, 24, theater_link)[0]
+        self.data = cache.get(root, 24, THEATER)[0]
 
-        self.list = [
-            item for item in self.data if any(
-                group in item['group'] for group in [control.setting('vod_group')]
-            )
-        ]
+        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
 
         for item in self.list:
             item.update({'icon': iconname('theater')})
 
         li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
         li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(theater_link))
+        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(THEATER))
         control.addItem(syshandle, url, li)
 
         directory.add(self.list, argv=self.argv)
 
-    def items_list(self, url):
+    def items_list(self, url, post=None):
 
         indexer = urlparse(url).query
 
@@ -285,9 +238,7 @@ class Indexer:
         if 'movies.php' in url:                                                                        #
             length = 9                                                                                 #
         elif all(['shortfilm.php' in url, 'theater.php' in url]):                                      #
-            length = 6                                                                                 #
-        elif 'animation' in url and not sdik_exist():                                                  #
-            return                                                                                     #
+            length = 6                                                                                 #                                                                                    #
         else:                                                                                          #
             length = 2                                                                                 #
         #                                                                                              #
@@ -296,56 +247,55 @@ class Indexer:
         for year in list(range(1, length)):
 
             if indexer.startswith('l='):
-                equation = 'y=' + str(year) + '&g=&p='
+                p = 'y=' + str(year) + '&g=&p='
             elif indexer.startswith('g='):
-                equation = 'y=' + str(year) + '&l=&p='
+                p = 'y=' + str(year) + '&l=&p='
             elif indexer.startswith('p='):
-                equation = 'y=' + str(year) + '&l=&g='
+                p = 'y=' + str(year) + '&l=&g='
             elif indexer.startswith('c='):
-                equation = 'y=' + str(year) + '&l=&g='
+                p = 'y=' + str(year) + '&l=&g='
             else:
-                equation = ''
+                p = ''
 
-            self.years.append(equation)
+            self.years.append(p)
 
         if indexer.startswith(
                 ('l=', 'g=', 's=', 'p=', 'c=')
         ) and 'movies.php' in url or 'shortfilm.php' in url or 'theater.php' in url:
 
             for content in self.years:
-                links = base_link + url.rpartition('/')[2].partition('&')[0] + '&' + content
-                htmls = client.request(links)
+                links = GM_BASE + url.rpartition('/')[2].partition('&')[0] + '&' + content
+                try:
+                    htmls = client.request(links).decode('utf-8')
+                except AttributeError:
+                    htmls = client.request(links)
                 self.data.append(htmls)
 
-            result = ''.join(self.data)
+            result = u''.join(self.data)
 
             content = client.parseDOM(result, 'div', attrs={'class': 'col-xs-6 col-sm-4 col-md-3'})
 
         else:
 
-            html = client.request(url)
+            html = client.request(url, post=post)
 
             content = client.parseDOM(html, 'div', attrs={'class': 'col-xs-6 col-sm-4 col-md-3'})
 
-        content = ''.join(content)
-        items = re.findall('(<a.*?href.*?div.*?</a>)', content, re.U)
+        contents = ''.join(content)
+        items = re.findall('(<a.*?href.*?div.*?</a>)', contents, re.U)
 
         for item in items:
 
             title = client.parseDOM(item, 'h4')[0]
 
-            if (control.setting('hide_cartoons') == 'true' or not sdik_exist()) and title in cache.get(
-                    bl_loader, 24) and all(['movies.php?g=8' not in url, 'shortfilm.php?g=8' not in url]):
-                continue
-
             image = client.parseDOM(item, 'img', ret='src')[0]
 
             name = title.rpartition(' (')[0]
 
-            image = urljoin(base_link, image)
+            image = urljoin(GM_BASE, image)
             link = client.parseDOM(item, 'a', ret='href')[0]
-            link = urljoin(base_link, link)
-            year = re.findall('.*?\((\d{4})', title, re.U)[0]
+            link = urljoin(GM_BASE, link)
+            year = re.findall(r'.*?\((\d{4})', title, re.U)[0]
 
             self.list.append(
                 {
@@ -356,9 +306,9 @@ class Indexer:
 
         return self.list
 
-    def listing(self, url):
+    def listing(self, url, post=None, get_listing=False):
 
-        self.list = cache.get(self.items_list, 12, url)
+        self.list = cache.get(self.items_list, 12, url, post)
 
         if self.list is None:
             log_debug('Listing section failed to load, try resetting indexer methods')
@@ -366,21 +316,16 @@ class Indexer:
 
         log_debug('List of vod items ~ ' + repr(self.list))
 
-        if url.startswith((movies_link, theater_link, shortfilms_link)):
-            if control.setting('action_type') == '0':
-                for item in self.list:
+        if url.startswith((MOVIES, THEATER, SHORTFILMS)):
+
+            for item in self.list:
+
+                if control.setting('action_type') == '0':
                     item.update({'action': 'play', 'isFolder': 'False'})
-            elif control.setting('action_type') == '2':
-                for item in self.list:
-                    if control.setting('auto_play') == 'false':
-                        item.update({'action': 'play'})
-                    else:
-                        item.update({'action': 'play', 'isFolder': 'False'})
-            else:
-                for item in self.list:
+                else:
                     item.update({'action': 'directory'})
 
-        elif url.startswith(sports_link):
+        elif url.startswith(SPORTS):
             for item in self.list:
                 item.update({'action': 'events'})
 
@@ -396,12 +341,16 @@ class Indexer:
             unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
             item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
 
+        if get_listing:
+
+            return self.list
+
         control.sortmethods('title')
         control.sortmethods('year')
 
         progress = len(self.list) >= 100
 
-        if url.startswith((movies_link, theater_link, shortfilms_link)):
+        if url.startswith((MOVIES, THEATER, SHORTFILMS)):
             directory.add(self.list, content='movies', argv=self.argv, progress=progress)
         else:
             directory.add(self.list, content='tvshows', argv=self.argv, progress=progress)
@@ -410,7 +359,7 @@ class Indexer:
 
         html = client.request(url)
         image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail.*?'}, ret='src')[0]
-        image = urljoin(base_link, image)
+        image = urljoin(GM_BASE, image)
         year = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
         year = int(re.findall('\d{4}', year, re.U)[0])
         name = client.parseDOM(html, 'h2')[0]
@@ -419,7 +368,7 @@ class Indexer:
 
         episodes = re.compile('onclick="loadEpisode(.*?)">(.*?)</button>').findall(result)
 
-        if 'text-justify' in html:
+        if b'text-justify' in html:
             plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
         else:
             plot = control.lang(30085)
@@ -437,7 +386,7 @@ class Indexer:
         for eid, title in episodes:
 
             link = re.compile("'(.+?)'").findall(eid)
-            link = episode_link.format(link[0], link[1])
+            link = EPISODE.format(link[0], link[1])
 
             if '\'n\')' in eid:
                 group = '1bynumber'
@@ -481,12 +430,6 @@ class Indexer:
         if control.setting('action_type') == '0':
             for item in self.list:
                 item.update({'action': 'play', 'isFolder': 'False'})
-        elif control.setting('action_type') == '2':
-            for item in self.list:
-                if control.setting('auto_play') == 'false':
-                    item.update({'action': 'play'})
-                else:
-                    item.update({'action': 'play', 'isFolder': 'False'})
         else:
             for item in self.list:
                 item.update({'action': 'directory'})
@@ -516,7 +459,7 @@ class Indexer:
 
     def gm_sports(self):
 
-        html = cache.get(root, 48, sports_link)
+        html = cache.get(root, 48, SPORTS)
         options = re.compile('(<option value.+?</option>)', re.U).findall(html)
 
         icons = ['https://www.shareicon.net/data/256x256/2015/11/08/157712_sport_512x512.png',
@@ -529,7 +472,7 @@ class Indexer:
             title = client.parseDOM(item, 'option')[0]
             url = client.parseDOM(item, 'option', ret='value')[0]
             url = client.replaceHTMLCodes(url)
-            index = urljoin(base_link, url)
+            index = urljoin(GM_BASE, url)
 
             data = {
                 'title': title, 'action': 'listing', 'url': index,
@@ -548,9 +491,9 @@ class Indexer:
 
             title = client.parseDOM(item, 'a', attrs={'class': 'btn btn-default'})[0]
             image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive pull-right'}, ret='src')[0]
-            image = urljoin(base_link, image)
+            image = urljoin(GM_BASE, image)
             link = client.parseDOM(item, 'a', attrs={'class': 'btn btn-default'}, ret='href')[0]
-            link = urljoin(base_link, link)
+            link = urljoin(GM_BASE, link)
             plot = client.parseDOM(item, 'span', attrs={'class': 'pull-right'})[0]
 
             self.list.append(
@@ -577,3 +520,46 @@ class Indexer:
             item.update({'cm': [bookmark_cm], 'action': 'play', 'isFolder': 'False'})
 
         directory.add(self.list, argv=self.argv)
+
+    def persons_listing(self, url, post):
+
+        html = client.request(url, post=post)
+
+        content = client.parseDOM(html, 'div', attrs={'style': 'margin-left:20px;'})[0]
+
+        persons = client.parseDOM(content, 'h4')
+
+        for person in persons:
+
+            title = client.parseDOM(person, 'a')[0]
+            url = urljoin(GM_BASE, client.parseDOM(person, 'a', ret='href')[0])
+            icon = iconname('user')
+
+            i = {'title': title, 'url': url, 'icon': icon}
+
+            self.list.append(i)
+
+        return self.list
+
+    def persons_index(self, url, post, get_list=True):
+
+        self.list = cache.get(self.persons_listing, 48, url, post)
+
+        if self.list is None:
+            return
+
+        for item in self.list:
+
+            item.update({'action': 'listing'})
+
+            bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
+            bookmark['bookmark'] = item['url']
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
+            unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
+            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
+
+        if get_list:
+            return self.list
+        else:
+            directory.add(self.list, argv=self.argv)

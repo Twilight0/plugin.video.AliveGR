@@ -17,59 +17,26 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
 import json
 from zlib import decompress, compress
+from .constants import PINNED
+from .kodi import rurl_enable
 from os import path
 from base64 import b64decode
-from tulip import control, cache, client
-from tulip.log import *
+from tulip import control, cache, client, m3u8
+from tulip.compat import parse_qsl, urljoin
+from tulip.log import log_debug
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 
 
-def pvr_client(query='false'):
-
-    if control.condVisibility('Pvr.HasTVChannels'):
-
-        if query is None or query == 'false':
-
-            selection = control.selectDialog([control.lang(30001), control.lang(30014)])
-
-            if selection == 0:
-                control.execute('ActivateWindow(TVChannels)')
-            elif selection == 1:
-                control.execute('ActivateWindow(TVGuide)')
-            else:
-                control.execute('Dialog.Close(all)')
-
-        elif query == 'true':
-
-            control.execute('ActivateWindow(TVGuide)')
-
-    else:
-
-        control.infoDialog(message=control.lang(30065))
-
-
 def papers():
 
+    control.execute('Dialog.Close(all)')
+
     control.execute('ActivateWindow(10002,"plugin://plugin.video.AliveGR/?content_type=image",return)')
-
-
-def skin_name():
-
-    xml = control.join(control.transPath('special://skin/'), 'addon.xml')
-
-    with open(xml) as f:
-
-        xml_file = f.read()
-        try:
-            name = client.parseDOM(xml_file, 'addon', ret='name')[0]
-        except IndexError:
-            name = 'not found'
-
-        return name
 
 
 def stream_picker(qualities, urls):
@@ -81,26 +48,105 @@ def stream_picker(qualities, urls):
         return popped
 
 
-def lang_choice():
+def m3u8_picker(url):
 
-    selections = [control.lang(30217), control.lang(30218), control.lang(30312), control.lang(30327)]
+    try:
 
-    dialog = control.selectDialog(selections)
+        if '|' not in url:
+            raise TypeError
 
-    if dialog == 0:
-        control.execute('Addon.Default.Set(kodi.resource.language)')
-    elif dialog == 1:
-        languages = [control.lang(30286), control.lang(30299)]
-        layouts = ['English QWERTY', 'Greek QWERTY']
-        indices = control.dialog.multiselect(control.name(), languages)
-        control.set_gui_setting('locale.keyboardlayouts', [layouts[i] for i in indices])
-    elif dialog == 2:
-        control.set_gui_setting('locale.charset', 'CP1253')
-        control.set_gui_setting('subtitles.charset', 'CP1253')
-    elif dialog == 3:
-        control.execute('ActivateWindow(interfacesettings)')
-    else:
-        control.execute('Dialog.Close(all)')
+        link, sep, head = url.rpartition('|')
+
+        headers = dict(parse_qsl(head))
+        streams = m3u8.load(link, headers=headers).playlists
+
+    except TypeError:
+
+        streams = m3u8.load(url).playlists
+
+    if not streams:
+        return url
+
+    qualities = []
+    urls = []
+
+    for stream in streams:
+
+        quality = repr(stream.stream_info.resolution).strip('()').replace(', ', 'x')
+
+        if quality == 'None':
+            quality = 'Auto'
+
+        uri = stream.uri
+
+        if not uri.startswith('http'):
+            uri = urljoin(stream.base_uri, uri)
+
+        qualities.append(quality)
+
+        try:
+
+            if '|' not in url:
+                raise TypeError
+
+            urls.append(uri + ''.join(url.rpartition('|')[1:]))
+
+        except TypeError:
+            urls.append(uri)
+
+    if len(qualities) == 1:
+
+        control.infoDialog(control.lang(30220).format(qualities[0]))
+
+        return url
+
+    return stream_picker(qualities, urls)
+
+
+def toggle_alt():
+
+    live_enability = control.lang(30330) if control.setting('show_alt_live') == 'true' else control.lang(30335)
+    vod_enability = control.lang(30330) if control.setting('show_alt_vod') == 'true' else control.lang(30335)
+
+    option = control.selectDialog(
+        [control.lang(30317).format(live_enability), control.lang(30405).format(vod_enability)]
+        )
+
+    if option == 0:
+
+        if control.setting('show_alt_live') == 'false':
+
+            yes = control.yesnoDialog(control.lang(30114))
+
+            if yes:
+
+                control.setSetting('show_alt_live', 'true')
+        else:
+
+            yes = control.yesnoDialog(control.lang(30404))
+
+            if yes:
+
+                control.setSetting('show_alt_live', 'false')
+
+    elif option == 1:
+
+        if control.setting('show_alt_vod') == 'false':
+
+            yes = control.yesnoDialog(control.lang(30114))
+
+            if yes:
+
+                control.setSetting('show_alt_vod', 'true')
+                rurl_enable()
+
+        else:
+
+            yes = control.yesnoDialog(control.lang(30404))
+
+            if yes:
+
+                control.setSetting('show_alt_vod', 'false')
 
 
 def i18n():
@@ -110,11 +156,9 @@ def i18n():
     return lang
 
 
-def addon_version(addon_id):
+def thumb_maker(video_id, hq=False):
 
-    version = int(control.infoLabel('System.AddonVersion({0})'.format(addon_id)).replace('.', ''))
-
-    return version
+    return 'http://img.youtube.com/vi/{0}/{1}.jpg'.format(video_id, 'mqdefault' if not hq else 'maxresdefault')
 
 
 def other_addon_settings(query):
@@ -132,46 +176,22 @@ def other_addon_settings(query):
         pass
 
 
-def reset_idx(notify=True):
+def reset_idx(notify=True, force=False):
 
-    if control.setting('reset_live') == 'true':
-        control.setSetting('live_group', 'ALL')
-        control.setSetting('live_group_switcher', '0')
-    control.setSetting('vod_group', '30213')
-    control.setSetting('papers_group', '0')
-    if notify:
-        control.infoDialog(message=control.lang(30402), time=3000)
-    log_debug('Indexers have been reset')
+    if control.setting('reset_idx') == 'true' or force:
 
+        if control.setting('reset_live') == 'true' or force:
 
-def add_to_playlist():
+            control.setSetting('live_group', 'ALL')
+            control.setSetting('live_group_switcher', '0')
 
-    control.execute('Action(Queue)')
+        control.setSetting('vod_group', '30213')
+        control.setSetting('papers_group', '0')
 
+        if notify:
+            control.infoDialog(message=control.lang(30402), time=3000)
 
-def clear_playlist():
-
-    control.execute('Playlist.Clear')
-
-
-def toggle_watched():
-
-    control.execute('Action(ToggleWatched)')
-
-
-def toggle_debug():
-
-    control.execute('ToggleDebug')
-
-
-def skin_debug():
-
-    control.execute('Skin.ToggleDebug')
-
-
-def skin_choice():
-
-    control.execute('Addon.Default.Set(xbmc.gui.skin)')
+        log_debug('Indexers have been reset')
 
 
 def activate_audio_addon(url, query=None):
@@ -179,21 +199,6 @@ def activate_audio_addon(url, query=None):
     from tulip import directory
 
     directory.run_builtin(addon_id=url, action=query if query is not None else None, content_type='audio')
-
-
-def global_settings():
-
-    control.execute('ActivateWindow(settings)')
-
-
-def pvrsettings():
-
-    control.execute('ActivateWindow(pvrsettings)')
-
-
-def reload_skin():
-
-    control.execute('ReloadSkin()')
 
 
 def cache_clear():
@@ -221,10 +226,14 @@ def purge_bookmarks():
 
 def tools_menu():
 
+    control.execute('Dialog.Close(all)')
+
     control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?content_type=executable",return)')
 
 
 def call_info():
+
+    control.execute('Dialog.Close(all)')
 
     control.execute('ActivateWindow(videos,"plugin://plugin.video.AliveGR/?action=info",return)')
 
@@ -246,17 +255,6 @@ def refresh_and_clear():
     refresh()
 
 
-def force():
-
-    control.execute('UpdateAddonRepos')
-    control.infoDialog(control.lang(30261))
-
-
-def system_info():
-
-    control.execute('ActivateWindow(systeminfo,return)')
-
-
 def thgiliwt(s):
 
     string = s[::-1]
@@ -272,7 +270,7 @@ def pawsesac(s, ison=''):
     return string
 
 
-def dexteni(s):
+def bourtsa(s):
 
     return decompress(s)
 
@@ -280,18 +278,6 @@ def dexteni(s):
 def xteni(s):
 
     return compress(s)
-
-
-def loader(mod, folder):
-
-    target = control.join(control.transPath(control.addonInfo('path')), 'resources', 'lib', folder, '{0}'.format(mod))
-
-    # client.retriever('https://alivegr.net/raw/{0}'.format(mod), control.join(target))
-
-    black_list_mod = client.request('https://pastebin.com/raw/DrddTrwg')
-
-    with open(target, 'w') as f:
-        f.write(black_list_mod)
 
 
 def geo_loc():
@@ -308,3 +294,65 @@ def geo_loc():
         return 'Greece'
     else:
         return 'Worldwide'
+
+
+def add_to_file(file_, txt):
+
+    if not control.exists(file_):
+        control.makeFiles(control.dataPath)
+
+    if not txt:
+        return
+
+    if txt not in read_from_file(file_):
+
+        with open(file_, 'a') as f:
+            f.writelines(txt + '\n')
+
+
+def read_from_file(file_):
+
+    if control.exists(file_):
+
+        with open(file_, 'r') as f:
+            text = [i.rstrip('\n') for i in f.readlines()][::-1]
+
+        return text
+
+    else:
+
+        return ['']
+
+
+def delete_from_file(file_, txt):
+
+    with open(file_, 'r') as f:
+        text = [i.rstrip('\n') for i in f.readlines()]
+
+    text.remove(txt)
+
+    with open(file_, 'w') as f:
+        if not text:
+            text = ''
+        else:
+            text = '\n'.join(text) + '\n'
+        f.write(text)
+
+
+def pin():
+
+    title = control.infoLabel('ListItem.Title')
+
+    add_to_file(PINNED, title)
+
+    control.infoDialog(control.lang(30338), time=750)
+
+
+def unpin():
+
+    title = control.infoLabel('ListItem.Title')
+
+    delete_from_file(PINNED, title)
+
+    control.sleep(200)
+    control.refresh()

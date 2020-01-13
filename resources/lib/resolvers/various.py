@@ -26,7 +26,7 @@ from streamlink.plugin.api.utils import itertags
 
 def ant1gr(link):
 
-    """ALternative method"""
+    """Alternative method"""
 
     html = client.request(link)
 
@@ -85,40 +85,24 @@ def risegr(link):
 
 def ert(url):
 
-    from resources.lib.modules.helpers import geo_loc
-    from resources.lib.modules.constants import yt_url
-
     html = client.request(url)
-
+    html = client.parseDOM(html, 'div', attrs={'class': 'videoWrapper'})[-1]
     iframe = client.parseDOM(html, 'iframe', ret='src')[0]
 
-    html = client.request(iframe)
+    result = client.request(iframe)
 
-    iframes = client.parseDOM(html, 'iframe', ret='src')
+    url = re.search(r'var (?:HLSLink|stream) = [\'"](.+?)[\'"]', result)
 
-    try:
+    if url:
 
-        if geo_loc() == 'Greece' and 'HLSLink' in html:
-            raise IndexError
-        elif geo_loc() != 'Greece':
-            result = iframes[0]
-        else:
-            result = iframes[-1]
-        if not result:
-            raise IndexError
+        url = url.group(1)
+        return url
 
-    except IndexError:
+    else:
 
-        result = client.parseDOM(html, 'script', attrs={'type': 'text/javascript'})[0]
-        result = re.search(r'HLSLink = \'(.+?)\'', result).group(1)
+        iframes = client.parseDOM(result, 'iframe', ret='src')
 
-        return result
-
-    vid = result.rpartition('/')[2][:11]
-
-    video = yt_url + vid
-
-    return video
+        return iframes
 
 
 def skai(url):

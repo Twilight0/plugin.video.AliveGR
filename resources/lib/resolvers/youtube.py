@@ -18,13 +18,10 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from resources.lib.modules.constants import yt_url
+from ..modules.constants import YT_URL
 import re, youtube_resolver
 from tulip import control, client, cache
-from resources.lib.modules.helpers import stream_picker
-from resources.lib.modules.constants import yt_prefix
-
-replace_url = control.setting('yt_resolve') == '1'
+from ..modules.helpers import stream_picker
 
 
 def generic(url, add_base=False):
@@ -32,7 +29,7 @@ def generic(url, add_base=False):
     html = client.request(url)
 
     try:
-        video_id = re.search('videoId.+?([\w-]{11})', html).group(1)
+        video_id = re.search(r'videoId.+?([\w-]{11})', html).group(1)
     except AttributeError:
         return
 
@@ -42,22 +39,11 @@ def generic(url, add_base=False):
 
     else:
 
-        stream = yt_url + video_id
+        stream = YT_URL + video_id
         return stream
 
 
 def wrapper(url):
-
-    if replace_url:
-
-        result = re.sub(
-            r'''https?://(?:[\w-]+\.)?(?:(youtu\.be|youtube(?:-nocookie)?\.com)/?\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|</a>))[?=&+%\w.-]*''',
-            yt_prefix + r'\2', url, flags=re.I
-        )
-
-        if url != result:
-
-            return result
 
     if url.endswith('/live'):
 

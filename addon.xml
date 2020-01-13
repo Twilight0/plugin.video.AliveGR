@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="1.32.1" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.0~alpha1" provider-name="Twilight0">
     <requires>
-        <import addon="xbmc.python" version="2.24.0"/>
-        <import addon="resource.images.alivegr.artwork" version="3.0.3"/>
+        <import addon="xbmc.python" version="2.26.0"/>
+        <import addon="resource.images.alivegr.artwork" version="3.0.4"/>
         <import addon="resource.images.alivegr.logos" version="1.0.2"/>
-        <import addon="script.module.youtube.dl" version="18.619.0" optional="true"/>
-        <import addon="script.module.resolveurl" version="5.0.31"/>
-        <import addon="script.module.streamlink.base" version="2019.06.23"/>
-        <import addon="script.module.tulip" version="2.3.8"/>
-        <import addon="plugin.video.youtube" version="6.4.1"/>
+<!--        <import addon="script.module.youtube.dl" version="18.619.0" optional="true"/>-->
+        <import addon="script.module.resolveurl" version="5.0.37"/>
+        <import addon="script.module.streamlink.base" version="2019.11.11"/>
+        <import addon="script.module.tulip" version="2.5.0"/>
+        <import addon="plugin.video.youtube" version="6.5.2"/>
         <import addon="script.module.pyxbmct" version="1.2.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
@@ -29,44 +29,25 @@ Kindly note that AliveGR is not an official part of the media player you are run
 Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.</disclaimer>
         <language>en el</language>
         <license>GNU GPL, version 2</license>
-        <twitter>https://twitter.com/TwilightZer0</twitter>
         <forum>https://www.facebook.com/alivegr/</forum>
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <website>https://alivegr.net/</website>
         <size>584908</size>
-        <news>+ [B]1.32.X[/B] [COLOR green](16-09-2019)[/COLOR]
-- Fixed ERT's live resolver
-- Fixed generic youtube /live endpoint converter and deploy for those urls
-- Removed capability for calling other player addons for playback
-- Enhanced streamlink plugin for Ant1 CY &amp; Ant1 GR. Now capable to resolve VOD content as well.
-- Fixed Star's live resolver as streamlink plugin
-- New streamlink plugin for OpenTV
-- Moved old changelog text files into resources/texts folder
-
-=====================
-
-[I]Past version:[/I]
-
-+ [B]1.31.X[/B] [COLOR red](04-07-2019)[/COLOR]
-- Updated Ant1 live resolver as a new streamlink plugin
-- Added resolver for startv official live stream as plugin for streamlink
-- Tweaked ant1cy and omegacy plugins to return parent m3u8 urls with a plugin option as conditional
-- Tweaked resolvers conditionals
-- Updated welcome message, showing confluence skin for aeon nox, confluence and other similar skins
-- Some cleanup on debug messages
-- Use different method for new version detection
-- Many other insignificant tweaks</news>
+        <news>+ [B]2.0.X[/B] [COLOR green](14-01-2020)[/COLOR]
+- Complete Python 3 support (Kodi ver.19+)
+- Rework of several modules and functions
+- Removed donation links from welcome message
+- Re-added several menu items in kids section, including the addition of a new one
+- Changed the way alternative/unofficial live/vod streams are enabled
+- Removed openload streamlink plugin and accompanying settings
+- Removed resolving capability on youtube externally
+- Added several plugins for streamlink to resolve videos from official sources
+- Simplified some settings items
+- Several bug fixes</news>
         <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
+            <icon>resources/media/icon.png</icon>
+            <fanart>resources/media/fanart.jpg</fanart>
             <!--<screenshot>resources/alivegr-1.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-2.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-3.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-4.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-5.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-6.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-7.jpg</screenshot>-->
-            <!--<screenshot>resources/alivegr-8.jpg</screenshot>-->
         </assets>
     </extension>
 </addon>

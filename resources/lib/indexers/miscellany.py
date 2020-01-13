@@ -17,12 +17,12 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-
+from __future__ import absolute_import, unicode_literals
 
 from tulip import cache, client, control
 from tulip.log import log_debug
-from resources.lib.modules.helpers import thgiliwt
-from resources.lib.modules.constants import yt_addon
+from ..modules.helpers import thgiliwt
+from ..modules.constants import YT_ADDON
 
 
 class Indexer:
@@ -46,9 +46,12 @@ class Indexer:
 
             if control.setting('local_remote') == '0':
                 local = control.setting('misc_local')
-                with open(local) as xml:
-                    playlists = xml.read()
-                    xml.close()
+                try:
+                    with open(local, encoding='utf-8') as xml:
+                        playlists = xml.read()
+                except Exception:
+                    with open(local) as xml:
+                        playlists = xml.read()
             elif control.setting('local_remote') == '1':
                 playlists = client.request(control.setting('misc_remote'))
             else:
@@ -61,7 +64,7 @@ class Indexer:
             title = client.parseDOM(item, 'title')[0]
             icon = client.parseDOM(item, 'icon')[0]
             url = client.parseDOM(item, 'url')[0]
-            url = url.replace('https://www.youtube.com/channel', '{0}/channel'.format(yt_addon))
+            url = url.replace('https://www.youtube.com/channel', '{0}/channel'.format(YT_ADDON))
 
             item_data = (dict(title=title, icon=icon, url=url))
 

@@ -17,26 +17,26 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
 from tulip import control, directory
-from resources.lib.modules.constants import art_id, logos_id
+from ..modules.constants import ART_ID, LOGOS_ID
 
 
 class Indexer:
 
     def __init__(self, argv):
 
-        self.list = []
         self.addons = [
             {
                 'title': 'E-RADIO ADDON',
-                'image': control.addonmedia('ERADIO.png', logos_id, theme='logos', media_subfolder=False),
+                'image': control.addonmedia('ERADIO.png', LOGOS_ID, theme='logos', media_subfolder=False),
                 'url': 'plugin.audio.eradio.gr'
             }
             ,
             {
                 'title': 'EPT PLAYER RADIO STATIONS',
-                'image': control.addonmedia(addonid=art_id, theme='networks', icon='ert_fanart.jpg', media_subfolder=False),
+                'image': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_fanart.jpg', media_subfolder=False),
                 'url': 'plugin.video.ert.gr',
                 'query': 'radios'
             }
@@ -52,9 +52,7 @@ class Indexer:
 
     def radio(self):
 
-        stations = self.addons
-
-        for station in stations:
+        for station in self.addons:
             station.update({'action': 'activate_audio_addon', 'isFolder': 'False', 'isPlayable': 'False' })
 
-        directory.add(stations, argv=self.argv)
+        directory.add(self.addons, argv=self.argv)

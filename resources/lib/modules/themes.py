@@ -17,10 +17,10 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-
+from __future__ import absolute_import, unicode_literals
 
 from tulip import control
-from resources.lib.modules.constants import art_id
+from .constants import ART_ID
 
 
 def theme():
@@ -36,7 +36,7 @@ def theme():
 def iconname(name):
 
     icon = control.addonmedia(
-        addonid=art_id, theme=theme()[0], icon=name + theme()[1], media_subfolder=False
+        addonid=ART_ID, theme=theme()[0], icon=name + theme()[1], media_subfolder=False
     )
 
     return icon

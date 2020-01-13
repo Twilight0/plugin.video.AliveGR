@@ -17,14 +17,15 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
 import json
 
 from tulip.compat import iteritems
 from tulip import bookmarks, directory, control
 from tulip.log import log_debug
-from resources.lib.modules.themes import iconname
-from resources.lib.indexers.gm import movies_link, theater_link, shortfilms_link
+from ..modules.themes import iconname
+from .gm import MOVIES, THEATER, SHORTFILMS
 
 
 class Indexer:
@@ -48,19 +49,13 @@ class Indexer:
 
             for i in self.data:
 
-                if i['url'].startswith((movies_link, theater_link, shortfilms_link)):
+                if i['url'].startswith((MOVIES, THEATER, SHORTFILMS)):
                     if control.setting('action_type') == '1':
                         try:
                             del i['isFolder']
                         except:
                             pass
                         action = 'directory'
-                    elif control.setting('action_type') == '2' and control.setting('auto_play') == 'false':
-                        try:
-                            del i['isFolder']
-                        except:
-                            pass
-                        action = i['action']
                     else:
                         action = i['action']
                 else:

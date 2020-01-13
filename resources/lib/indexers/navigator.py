@@ -17,12 +17,11 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 from tulip import control, directory
-from tulip.log import log_debug
-from resources.lib.modules.themes import iconname
-from resources.lib.modules.helpers import reset_idx as reset
+from ..modules.themes import iconname
+from ..modules.helpers import reset_idx as reset
 
 
 class Indexer:
@@ -178,14 +177,14 @@ class Indexer:
 
             refresh = {'title': 30054, 'query': {'action': 'refresh'}}
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
-            reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
+            reset_idx = {'title': 30134, 'query': {'action': 'reset_idx', 'query': 'force'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
             go_to_audio = {'title': 30321, 'query': {'action': 'activate_audio_addon', 'url': 'plugin.video.AliveGR'}}
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
             ii_cm = {'title': 30255, 'query': {'action': 'call_info'}}
             item.update({'cm': [ii_cm, refresh, cache_clear, reset_idx, settings, go_to_audio, tools]})
 
-        if control.setting('reset-idx') == 'true':
+        if control.setting('reset_idx') == 'true':
             reset(notify=False)
 
         directory.add(self.menu, argv=self.argv)

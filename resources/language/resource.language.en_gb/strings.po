@@ -71,7 +71,7 @@ msgid "TV Guide"
 msgstr ""
 
 msgctxt "#30015"
-msgid "watch at "
+msgid "Watch at "
 msgstr ""
 
 msgctxt "#30016"
@@ -195,7 +195,7 @@ msgid "Index by '{0}'"
 msgstr ""
 
 msgctxt "#30046"
-msgid "Show Alternative Streams"
+msgid "Toggle unofficial streams"
 msgstr ""
 
 msgctxt "#30047"
@@ -399,11 +399,11 @@ msgid "Live TV Channel"
 msgstr ""
 
 msgctxt "#30097"
-msgid "Movies/Documentary/Theater"
+msgid "Cartoon"
 msgstr ""
 
 msgctxt "#30098"
-msgid "TV Series/TV Shows"
+msgid "Various cartoon movies"
 msgstr ""
 
 msgctxt "#30099"
@@ -467,7 +467,7 @@ msgid "Delete cache file"
 msgstr ""
 
 msgctxt "#30114"
-msgid ""
+msgid "This action will enable additional unofficial streams. Enable at your own risk.[CR]Proceed?"
 msgstr ""
 
 msgctxt "#30115"
@@ -711,7 +711,7 @@ msgid "International"
 msgstr ""
 
 msgctxt "#30204"
-msgid "Adaptive (Leia+)"
+msgid "Adaptive"
 msgstr ""
 
 msgctxt "#30205"
@@ -987,7 +987,7 @@ msgid "Inputstream Adaptive & RTMP addons"
 msgstr ""
 
 msgctxt "#30273"
-msgid "Input stream addon settings (Krypton+)"
+msgid "Input stream addon settings"
 msgstr ""
 
 msgctxt "#30274"
@@ -1023,7 +1023,7 @@ msgid "Open Youtube addon settings window"
 msgstr ""
 
 msgctxt "#30282"
-msgid "Randomize playlist items"
+msgid "Pinned"
 msgstr ""
 
 msgctxt "#30283"
@@ -1076,7 +1076,7 @@ msgstr ""
 
 msgctxt "#30295"
 msgid "[COLOR white][B]Toggle Debug[/B][/COLOR]"
-msgstr "[COLOR white][B]Εναλλαγή αποσφαλμάτωσης[/B][/COLOR]"
+msgstr ""
 
 msgctxt "#30296"
 msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
@@ -1163,7 +1163,7 @@ msgid "Open website in browser window"
 msgstr ""
 
 msgctxt "#30317"
-msgid "Hide cartoons from movies section"
+msgid "Toggle unofficial live channels (Currently: {0})"
 msgstr ""
 
 msgctxt "#30318"
@@ -1215,7 +1215,7 @@ msgid "[B]Close[/B]"
 msgstr ""
 
 msgctxt "#30330"
-msgid "Read disclaimer"
+msgid "Enabled"
 msgstr ""
 
 msgctxt "#30331"
@@ -1228,6 +1228,34 @@ msgstr ""
 
 msgctxt "#30333"
 msgid "Website"
+msgstr ""
+
+msgctxt "#30334"
+msgid "Next page"
+msgstr ""
+
+msgctxt "#30335"
+msgid "Disabled"
+msgstr ""
+
+msgctxt "#30336"
+msgid "Pin this channel"
+msgstr ""
+
+msgctxt "#30337"
+msgid "Unpin this channel"
+msgstr ""
+
+msgctxt "#30338"
+msgid "Done"
+msgstr ""
+
+msgctxt "#30339"
+msgid "ResolveURL has already been activated"
+msgstr ""
+
+msgctxt "#30340"
+msgid "View changelog"
 msgstr ""
 
 msgctxt "#30401"
@@ -1243,11 +1271,11 @@ msgid "Cancelled"
 msgstr ""
 
 msgctxt "#30404"
-msgid ""
+msgid "Disable additional streams or menu items?"
 msgstr ""
 
 msgctxt "#30405"
-msgid ""
+msgid "Toggle additional vod streams (Currently: {0})"
 msgstr ""
 
 msgctxt "#30406"

@@ -17,30 +17,33 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
 import random
 import re
 import json
-
-from tulip.compat import (
-    urljoin, quote, parse_qsl, OrderedDict, urlencode, urlparse
-)
-
-from tulip import directory, client, cache, control, user_agents
-from resolveurl import resolve as resolve_url
-from resolveurl.hmf import HostedMediaFile
 # import YDStreamExtractor
-from resources.lib.modules import m3u8_loader
+from tulip.compat import urljoin, parse_qsl, OrderedDict, urlencode, zip
+
+try:
+    from resolveurl import resolve as resolve_url
+    from resolveurl.hmf import HostedMediaFile
+except Exception:
+    resolve_url = None
+    HostedMediaFile = None
+
+from tulip import directory, client, cache, control
 from tulip.log import log_debug
-from tulip.init import sysaddon
-from resources.lib.indexers.gm import base_link
-from resources.lib.resolvers import various, youtube, stream_link
-from resources.lib.modules.constants import yt_url, play_action
-from resources.lib.modules.helpers import addon_version, stream_picker
+
+from ..indexers.gm import GM_BASE
+from ..resolvers import various, youtube, sl
+from .constants import YT_URL
+from .helpers import stream_picker, m3u8_picker
+from .kodi import addon_version
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
-def conditionals(url, params):
+def conditionals(url):
 
     def yt_conditional(uri):
 
@@ -49,7 +52,7 @@ def conditionals(url, params):
 
         if len(uri) == 11:
 
-            uri = yt_url + uri
+            uri = YT_URL + uri
 
         try:
             return youtube.wrapper(uri)
@@ -67,92 +70,63 @@ def conditionals(url, params):
 
         sources = cache.get(gm_source_maker, 6, url)
 
-        if any(['music' in sources[0], 'view' in sources[0]]):
+        link = mini_picker(sources['hosts'], sources['links'])
 
-            stream = youtube.wrapper(sources[1])
-
-            return stream
-
+        if link is None:
+            control.execute('Dialog.Close(all)')
         else:
+            stream = conditionals(link)
 
-            link = mini_picker(sources[1], sources[2], params)
-
-            if link is None:
-                control.execute('Dialog.Close(all)')
+            if 'plot' in sources:
+                return stream, sources['plot']
             else:
-                stream = conditionals(link, params)
+                return stream
 
-                try:
-                    return stream, sources[3]
-                except IndexError:
-                    return stream
+    elif 'gamatokid.com/movies/' in url:
 
-    elif stream_link.hosts(url):
+        source = cache.get(gk_debris, 24, url)
 
-        stream = stream_link.wrapper(url)
+        return conditionals(source)
+
+    elif sl.StreamLink(url).hosts:
+
+        stream = sl.StreamLink(url).wrapper()
 
         log_debug('Resolved with streamlink')
 
         return stream
 
-    elif HostedMediaFile(url).valid_url():
+    elif HostedMediaFile is not None and HostedMediaFile(url).valid_url() and control.setting('show_alt_vod') == 'true':
 
         stream = resolve_url(url)
 
         log_debug('Resolved with resolveurl')
-    
+
         return stream
 
-    # elif 'antenna.gr' in url:
-    #
-    #     stream = cache.get(various.ant1gr, 12, url)
-    #
-    #     return stream
-
-    # elif 'ant1.com.cy/web-tv-live' in url:
-    #
-    #     stream = cache.get(various.ant1cy, 1, url)
-    #
-    #     return stream
-    #
-    # elif 'omegatv.com.cy/live/' in url:
-    #
-    #     stream = various.omegacy(url)
-    #
-    #     return stream
-
-    elif 'webtv.ert.gr' in url:
+    elif 'webtv.ert.gr' in url and 'live' in url:
 
         link = cache.get(various.ert, 12, url)
 
-        if '.m3u8' in link:
-            return link
+        if isinstance(link, list):
+            try:
+                stream = yt_conditional(link[0])
+                if not stream:
+                    raise YouTubeException
+            except YouTubeException:
+                return yt_conditional(link[1])
         else:
-            return yt_conditional(link)
+            return link
 
-    # elif 'star.gr' in url:
-    #
-    #     return cache.get(various.stargr, 6, url)
-
-    elif 'skaitv.gr' in url:
+    elif 'skaitv.gr' in url and 'episode' not in url:
 
         vid = cache.get(various.skai, 3, url)
         stream = youtube.wrapper(vid)
         return stream
 
-    elif 'alphatv.gr/live' in url or 'alphacyprus.com.cy' in url:
-
-        stream = cache.get(various.alphatv, 12, url)
-        return stream
-
-    elif 'euronews.com' in url and 'watchlive.json' in url:
-
-        stream = cache.get(various.euronews, 6, url)
-        return stream
-
     elif 'periscope' in url and 'search' in url:
 
-        stream = stream_link.sl_session(cache.get(various.periscope_search, 6, url))
+        stream = sl.wrapper(cache.get(various.periscope_search, 6, url))
 
         return stream
 
@@ -160,7 +134,7 @@ def conditionals(url, params):
 
         link = cache.get(various.risegr, 24, url)
 
-        stream = stream_link.sl_session(link)
+        stream = sl.wrapper(link)
 
         return stream
 
@@ -174,54 +148,123 @@ def gm_source_maker(url):
     if 'episode' in url:
 
         html = client.request(url=url.partition('?')[0], post=url.partition('?')[2])
-        links = client.parseDOM(html, 'a', ret='href')
-        links = [urljoin(base_link, link) for link in links]
-        hl = client.parseDOM(html, 'a')
-        hosts = [host.replace(u'προβολή στο ', control.lang(30015)) for host in hl]
-
-        return 'episode', hosts, links
-
-    elif 'view' in url:
-
-        html = client.request(url)
-        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
-
-        return 'view', link
-
-    elif 'music' in url:
-
-        html = client.request(url)
-        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
-        return 'music', link
-
+    
     else:
 
         html = client.request(url)
 
+    try:
+
+        html = html.decode('utf-8')
+    
+    except Exception:
+
+        pass
+
+    if 'episode' in url:
+
+        episodes = re.findall('''(?:<a.+?/a>|<p.+?/p>)''', html)
+
+        hl = []
+        links = []
+
+        for episode in episodes:
+
+            if '<p style="margin-top:0px; margin-bottom:4px;">' in episode:
+
+                host = client.parseDOM(episode, 'p')[0].split('<')[0]
+
+                pts = client.parseDOM(episode, 'a')
+                lks = client.parseDOM(episode, 'a', ret='href')
+
+                for p in pts:
+                    hl.append(u''.join([host, control.lang(30225), p]))
+
+                for l in lks:
+                    links.append(l)
+
+            else:
+
+                pts = client.parseDOM(episode, 'a')
+                lks = client.parseDOM(episode, 'a', ret='href')
+
+                for p in pts:
+                    hl.append(p)
+
+                for l in lks:
+                    links.append(l)
+
+        links = [urljoin(GM_BASE, link) for link in links]
+        hosts = [host.replace(u'προβολή στο ', control.lang(30015)) for host in hl]
+
+        data = {'links': links, 'hosts': hosts}
+
+        if '<p class="text-muted text-justify">' in html:
+            plot = client.parseDOM(html, 'p')[0]
+            data.update({'plot': plot})
+
+        return data
+
+    elif 'view' in url:
+
+        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+
+        return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
+
+    elif 'music' in url:
+
+        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
+
+        return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
+
+    else:
+
         try:
+
             info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
+
             if ',' in info[1]:
+
                 genre = info[1].lstrip(u'Είδος:').split(',')
                 genre = random.choice(genre)
                 genre = genre.strip()
+
             else:
+
                 genre = info[1].lstrip(u'Είδος:').strip()
+
         except:
+
             genre = control.lang(30147)
 
-        links = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})
-        hl = client.parseDOM(html, 'a', attrs={"class": "btn btn-primary"})
-        if not links or not hl:
-            buttons = client.parseDOM(html, 'div', attrs={"class": "btn-group"})
-            hl = [
-                client.stripTags(
-                    client.parseDOM(h, 'button', attrs={"type": "button"})[0]
-                ).strip('"') + p for h in buttons for p in client.parseDOM(
-                    h, 'a', attrs={'target': '_blank'}
-                )
-            ]
-            links = [l for b in buttons for l in client.parseDOM(b, 'a', ret='href')]
-        links = [urljoin(base_link, link) for link in links]
+        buttons = client.parseDOM(html, 'div', attrs={"style": "margin: 0px 0px 10px 10px;"})
+
+        links = []
+        hl = []
+
+        for button in buttons:
+
+            if '<ul class="dropdown-menu pull-right">' in button:
+
+                h = client.stripTags(client.parseDOM(button, 'button')).strip()
+                parts = client.parseDOM(button, 'li')
+
+                for part in parts:
+
+                    p = client.parseDOM(part, 'a')[0]
+                    link = client.parseDOM(part, 'a', ret='href')[0]
+                    hl.append(', '.join([h, p]))
+                    links.append(link)
+
+            else:
+
+                h = client.parseDOM(button, 'a')[0]
+                link = client.parseDOM(button, 'a', ret='href')[0]
+
+                hl.append(h)
+                links.append(link)
+
+        links = [urljoin(GM_BASE, link) for link in links]
 
         hosts = [host.replace(
             u'προβολή στο ', control.lang(30015)
@@ -231,6 +274,8 @@ def gm_source_maker(url):
             u'μέρος ', ', ' + control.lang(30225)
         ) for host in hl]
 
+        data = {'links': links, 'hosts': hosts, 'genre': genre}
+
         if 'text-align: justify' in html:
             plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
         elif 'text-justify' in html:
@@ -238,91 +283,38 @@ def gm_source_maker(url):
         else:
             plot = control.lang(30085)
 
-        code = None
-        imdb_code = re.search('imdb.+?/title/([\w]+?)/', html)
+        data.update({'plot': plot})
+
+        imdb_code = re.search(r'imdb.+?/title/([\w]+?)/', html)
         if imdb_code:
             code = imdb_code.group(1)
+            data.update({'code': code})
 
-        return 'movies', hosts, links, plot, genre, code
+        return data
 
 
 def gm_debris(link):
 
-    html = client.request(urljoin(base_link, link))
+    html = client.request(urljoin(GM_BASE, link))
     button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
     return button
 
 
-def playlist_maker(hl=None, sl=None, title=None, image=None, m3u_playlist=None):
+def gk_debris(link):
 
-    if not m3u_playlist:
-
-        try:
-            title = title.decode('utf-8')
-        except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-            pass
-
-        vids = [
-            sysaddon + play_action + cache.get(gm_debris, 12, i) + '&image=' + quote(image) + '&title=' + quote(title)
-            for i in sl
-        ]
-
-        videos = zip(hl, vids)
-
-        if control.setting('randomize_items') == 'true':
-            random.shuffle(videos)
-        play_list = [u'#EXTM3U\n'] + [
-            u'#EXTINF:0,{0}\n'.format(title + u' - ' + h) + v + u'\n' for h, v in videos
-        ]
-        m3u_playlist = u''.join(play_list)
-
-    m3u_file = control.join(control.transPath('special://temp'), 'pl_action.m3u')
-
-    with open(m3u_file, 'w') as f:
-        try:
-            f.write(m3u_playlist.encode('utf-8'))
-        except Exception:
-            f.write(m3u_playlist)
-
-    return m3u_file
+    html = client.request(link)
+    source = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})[0]
+    return source
 
 
-def mini_picker(hl, sl, params):
-
-    try:
-        image = params.get('image').encode('latin-1')
-        title = params.get('title').encode('latin-1')
-    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-        image = params.get('image')
-        title = params.get('title')
+def mini_picker(hl, sl):
 
     if len(hl) == 1:
 
         stream = cache.get(gm_debris, 12, sl[0])
 
-        if control.setting('action_type') == '2':
-            if control.setting('auto_play') == 'true':
-                play_url = sysaddon + play_action + quote(stream) + '&image=' + quote(image) + '&title=' + quote(title)
-                control.execute('PlayMedia("{0}")'.format(play_url))
-            else:
-                m3u_file = playlist_maker(hl, sl, title, image)
-                control.playlist().load(m3u_file)
-                control.openPlaylist()
-        else:
-            control.infoDialog(hl[0])
-            return stream
-
-    elif control.setting('action_type') == '2':
-
-        m3u_file = playlist_maker(hl, sl, title, image)
-
-        control.playlist().load(m3u_file)
-
-        if control.setting('auto_play') == 'true':
-            control.execute('Action(Play)')
-        else:
-            control.openPlaylist()
-        return
+        control.infoDialog(hl[0])
+        return stream
 
     else:
 
@@ -339,7 +331,7 @@ def items_directory(url, params):
 
     sources = cache.get(gm_source_maker, 6, url)
 
-    lists = zip(sources[1], sources[2])
+    lists = list(zip(sources[1], sources[2]))
 
     items = []
 
@@ -365,7 +357,7 @@ def items_directory(url, params):
         html = client.request(l)
         button = client.parseDOM(html, 'a', attrs={'role': 'button'}, ret='href')[0]
         image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
-        image = urljoin(base_link, image)
+        image = urljoin(GM_BASE, image)
         title = client.parseDOM(html, 'h3')[0]
         year = [y[-4:] for y in client.parseDOM(html, 'h4') if str(y[-4:]).isdigit()][0]
         try:
@@ -391,7 +383,7 @@ def items_directory(url, params):
 
 def directory_picker(url, argv):
 
-    params = dict(parse_qsl(argv[2].replace('?','')))
+    params = dict(parse_qsl(argv[2].replace('?', '')))
 
     items = cache.get(items_directory, 12, url, params)
 
@@ -404,32 +396,10 @@ def directory_picker(url, argv):
         clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
         i.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False'})
 
-    directory.add(items, content='movies', argv=argv)
-
-
-def play_m3u(link, title, rename_titles=True, randomize=True):
-
-    m3u_file = control.join(control.transPath('special://temp'), link.rpartition('/')[2])
-
-    play_list = client.request(link)
-
-    if rename_titles:
-        videos = play_list.splitlines()[1:][1::2]
-    else:
-        videos = re.findall('#.+?$\n.+?$', play_list[1:], re.M)
-
-    if randomize and control.setting('randomize_m3u') == 'true':
-        random.shuffle(videos)
-
-    if rename_titles:
-        m3u_playlist = '#EXTM3U\n#EXTINF:0,{0}\n'.format(title) + '\n#EXTINF:0,{0}\n'.format(title).join(videos)
-    else:
-        m3u_playlist = '#EXTM3U\n' + '\n'.join(videos)
-
-    with open(m3u_file, 'w') as f: f.write(m3u_playlist)
-
-    control.playlist().load(m3u_file)
-    control.execute('Action(Play)')
+    directory.add(
+        items, content='movies', argv=argv, as_playlist=control.setting('action_type') == '2',
+        auto_play=control.setting('auto_play') == 'true'
+    )
 
 
 def dash_conditionals(stream):
@@ -442,7 +412,7 @@ def dash_conditionals(stream):
 
         inputstream_adaptive = False
 
-    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and addon_version('xbmc.python') >= 2260
+    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and addon_version('xbmc.python') >= 2260 and not 'dailymotion.com' in stream
 
     dash = ('.mpd' in stream or 'dash' in stream or '.ism' in stream or m3u8_dash) and inputstream_adaptive
 
@@ -474,24 +444,10 @@ def player(url, params, do_not_resolve=False):
 
     log_debug('Attempting to play this url: ' + url)
 
-    if 'ustream' in url:
-
-        log_debug('Opening browser window for this url: {0}'.format(url))
-
-        control.open_web_browser(url)
-
-        while not control.wait(1):
-
-            if control.condVisibility('Window.IsActive(okdialog)'):
-                control.execute('Dialog.Close(all)')
-                break
-
-            return
-
     if do_not_resolve:
         stream = url
     else:
-        stream = conditionals(url, params)
+        stream = conditionals(url)
 
     if not stream or (len(stream) == 2 and not stream[0]):
 
@@ -526,11 +482,11 @@ def player(url, params, do_not_resolve=False):
 
     dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
 
-    if not m3u8_dash and control.setting('m3u8_quality_picker') in ['1', '2'] and '.m3u8' in stream:
+    if not m3u8_dash and control.setting('m3u8_quality_picker') == '1' and '.m3u8' in stream:
 
         try:
 
-            stream = m3u8_loader.m3u8_picker(stream)
+            stream = m3u8_picker(stream)
 
         except TypeError:
 
@@ -561,13 +517,6 @@ def player(url, params, do_not_resolve=False):
                 except Exception:
                     headers = None
 
-            if 'kineskop' in url:
-
-                headers = {
-                    'User-Agent': user_agents.CHROME,
-                    'Referer': '{0}://{0}/'.format(urlparse(url).scheme, urlparse(url).netloc)
-                    }
-
             if headers:
 
                 try:
@@ -587,16 +536,14 @@ def player(url, params, do_not_resolve=False):
 
             append = ''
 
-        print stream
-
         if control.setting('sl_quality_picker') == '0' or len(stream) == 3:
 
             stream = stream['best'].to_url() + append
 
         else:
 
-            keys = stream.keys()[::-1]
-            values = [u.to_url() + append for u in stream.values()][::-1]
+            keys = list(stream.keys())[::-1]
+            values = [u.to_url() + append for u in list(stream.values())][::-1]
 
             stream = stream_picker(keys, values)
 

@@ -17,16 +17,17 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
 import re
 from datetime import datetime
 from base64 import b64decode
 from tulip import cache, control, directory, client
 from tulip.log import log_debug
-from tulip.compat import OrderedDict
-from resources.lib.modules.themes import iconname
-from resources.lib.modules.helpers import thgiliwt, dexteni
-from resources.lib.modules.constants import live_groups, logos_id
+from tulip.compat import OrderedDict, str, is_py3
+from ..modules.themes import iconname
+from ..modules.helpers import thgiliwt, bourtsa, read_from_file
+from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED
 
 
 class Indexer:
@@ -45,40 +46,52 @@ class Indexer:
             control.setSetting('live_group', str(group))
             control.idle()
             control.sleep(100)
-            control.refresh()
 
         self.groups = cache.get(self.live, 8)[1]
         translated = [control.lang(i) for i in self.groups]
-        self.data = [control.lang(30048)] + self.groups
-        choice = control.selectDialog(heading=control.lang(30049), list=[control.lang(30048)] + translated)
+        self.data = [control.lang(30048)] + self.groups + [control.lang(30282)]
+        choice = control.selectDialog(
+            heading=control.lang(30049), list=[control.lang(30048)] + translated + [control.lang(30282)]
+        )
 
         if choice == 0:
             seq('ALL')
+        elif choice == 13:
+            seq('PINNED')
         elif choice <= len(self.data) and not choice == -1:
             seq(self.data[choice])
+
+        if choice != -1:
+            control.refresh()
 
     def live(self):
 
         if control.setting('debug') == 'false':
 
             result = client.request(
-                thgiliwt('=' + self.alivegr), headers={'User-Agent': 'AliveGR, version: ' + control.version()}
+                thgiliwt('=' + self.alivegr), headers={'User-Agent': 'AliveGR, version: ' + control.version()}, as_bytes=True
             )
 
-            result = dexteni(b64decode(result))
+            result = bourtsa(b64decode(result))
 
         else:
 
             if control.setting('local_remote') == '0':
                 local = control.setting('live_local')
-                with open(local) as xml:
-                    result = xml.read()
-                    xml.close()
+                try:
+                    with open(local, encoding='utf-8') as xml:
+                        result = xml.read()
+                except Exception:
+                    with open(local) as xml:
+                        result = xml.read()
             elif control.setting('local_remote') == '1':
                 result = client.request(control.setting('live_remote'))
             else:
-                result = client.request(thgiliwt('==' + self.alivegr))
-                result = dexteni(b64decode(result))
+                result = client.request(thgiliwt('==' + self.alivegr), as_bytes=True)
+                result = bourtsa(b64decode(result))
+
+        if is_py3 and isinstance(result, bytes):
+            result = result.decode('utf-8')
 
         if control.setting('debug') == 'false':
             channels = client.parseDOM(result, 'channel', attrs={'enable': '1'})
@@ -92,9 +105,9 @@ class Indexer:
             title = client.parseDOM(channel, 'name')[0]
             image = client.parseDOM(channel, 'logo')[0]
             if not image.startswith('http'):
-                image = control.addonmedia(image, logos_id, theme='logos', media_subfolder=False)
+                image = control.addonmedia(image, LOGOS_ID, theme='logos', media_subfolder=False)
             group = client.parseDOM(channel, 'group')[0]
-            group = live_groups[group]
+            group = LIVE_GROUPS[group]
             url = client.parseDOM(channel, 'url')[0]
 
             website = client.parseDOM(channel, 'website')[0].replace('&amp;', '&')
@@ -142,37 +155,41 @@ class Indexer:
         else:
             live_data = cache.get(self.live, int(control.setting('cache_period')))
 
-        self.list = live_data[0]
-
-        if self.list is None:
+        if live_data is None:
             log_debug('Live channels list did not load successfully')
             return
 
-        if zapping and control.setting('live_group_switcher') != '0':
+        self.list = live_data[0]
+
+        if zapping and control.setting('live_group_switcher') not in ['0', '12']:
 
             value = int(control.setting('live_group_switcher')) - 1
 
-            group = str(live_groups.values()[value])
+            group = str(list(LIVE_GROUPS.values())[value])
 
             self.list = [item for item in self.list if item['group'] == group]
 
         elif control.setting('show_live_switcher') == 'true':
 
-            if control.setting('live_group') != 'ALL' and query is None:
+            if control.setting('live_group') not in ['ALL', 'PINNED'] and query is None:
 
                 self.list = [item for item in self.list if item['group'] == control.setting('live_group')]
 
         elif not zapping:
 
-            if control.setting('live_group_switcher') != '0' and query is None:
+            if control.setting('live_group_switcher') not in ['0', '12'] and query is None:
 
                 value = int(control.setting('live_group_switcher')) - 1
 
-                group = str(live_groups.values()[value])
+                group = str(list(LIVE_GROUPS.values())[value])
 
                 self.list = [item for item in self.list if item['group'] == group]
 
-        if control.setting('show_alt') == 'false':
+        if control.setting('live_group') == 'PINNED' and query is None:
+
+            self.list = [item for item in self.list if item['title'] in read_from_file(PINNED)]
+
+        if control.setting('show_alt_live') == 'false':
 
             self.list = [
                 item for item in self.list if not any(['BUP' in item['title'], re.search(r'\(\d\)', item['title'])])
@@ -191,36 +208,43 @@ class Indexer:
 
         for item in self.list:
 
-            # bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
-            # bookmark['bookmark'] = item['url']
-            #
-            # bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            if not zapping:
-                r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
+            if control.setting('live_group') == 'PINNED':
+                pin_cm = {'title': 30337, 'query': {'action': 'unpin'}}
             else:
-                r_and_c_cm = None
-            pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'query': 'true'}}
+                pin_cm = {'title': 30336, 'query': {'action': 'pin'}}
+
+            menu = [pin_cm]
+
+            r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
+
+            if not zapping:
+                menu.insert(1, r_and_c_cm)
+
             if item['website'] != 'None':
                 web_cm = {'title': 30316, 'query': {'action': 'open_link', 'url': item['website']}}
-            else:
-                web_cm = None
+                menu.insert(2, web_cm)
+
+            pvr_client_cm = {'title': 30084, 'query': {'action': 'pvr_client', 'query': 'true'}}
 
             if control.condVisibility('Pvr.HasTVChannels'):
-                item.update({'cm': [r_and_c_cm, pvr_client_cm, web_cm]})
-            else:
-                item.update({'cm': [r_and_c_cm, web_cm]})
+                menu.insert(3, pvr_client_cm)
+
+            item.update({'cm': menu})
 
         if control.setting('show_live_switcher') == 'true' and zapping is False:
 
+            if control.setting('live_group') == 'ALL':
+                label = control.lang(30048)
+            elif control.setting('live_group') == 'PINNED':
+                label = control.lang(30282)
+            else:
+                label = control.lang(int(control.setting('live_group')))
+
             switch = {
-                'title': control.lang(30047).format(
-                    control.lang(30048) if control.setting('live_group') == 'ALL' else control.lang(
-                        int(control.setting('live_group'))
-                    )
-                ),
+                'title': label,
                 'image': iconname('switcher'),
                 'action': 'live_switcher',
-                'plot': control.lang(30034) + '\n' + control.lang(30035) + live_data[2],
+                'plot': control.lang(30034) + '[CR]' + control.lang(30035) + live_data[2],
                 'isFolder': 'False', 'isPlayable': 'False'
             }
 
@@ -238,7 +262,7 @@ class Indexer:
                 try:
                     percent = control.per_cent(int(item['code']), len(self.list))
                     pd.update(percent)
-                    item.update({'url': conditionals(item['url'], params=self.params)})
+                    item.update({'url': conditionals(item['url'])})
                 except Exception as e:
                     log_debug('Failed to resolve ' + item['title'] + ' , reason: ' + repr(e))
                     continue
@@ -278,13 +302,12 @@ class Indexer:
             item.update({'action': 'play', 'isFolder': 'False'})
 
         for item in self.list:
-            # bookmark = dict((k, v) for k, v in item.iteritems() if not k == 'next')
-            # bookmark['bookmark'] = item['url']
-            # bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+
             r_and_c_cm = {'title': 30082, 'query': {'action': 'refresh_and_clear'}}
+            pin_cm = {'title': 30336, 'query': {'action': 'pin'}}
             item.update(
                 {
-                    'cm': [r_and_c_cm], 'year': year, 'duration': None, 'fanart': fanart
+                    'cm': [pin_cm, r_and_c_cm], 'year': year, 'duration': None, 'fanart': fanart
                 }
             )
 

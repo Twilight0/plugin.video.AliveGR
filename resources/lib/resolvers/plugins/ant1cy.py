@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 
 from distutils.util import strtobool
@@ -10,7 +11,7 @@ from streamlink.exceptions import NoStreamsError
 
 class Ant1Cy(Plugin):
 
-    _url_re = re.compile(r'https?://w{3}\.ant1\.com\.cy/(?:web-tv-live|webtv/show-page/(?:episodes|episodeinner)/\?show=\d+&episodeID=\d+)/?')
+    _url_re = re.compile(r'https?://w{3}\.ant1\.com\.cy/(?:web-tv-live|webtv/show-page/(?:episodes|episodeinner)/\?(?:show|showID)=\d+&episodeID=\d+)/?')
 
     _api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
 
@@ -28,20 +29,26 @@ class Ant1Cy(Plugin):
             live = True
         else:
             live = False
-            self.url = self.url.replace('episodeinner', 'episodes')
+            self.url = self.url.replace('episodeinner', 'episodes').replace('showID', 'show')
 
         get_page = self.session.http.get(self.url, headers=headers)
 
         if live:
 
-            try:
-                m3u8 = re.search("'(.+?)'", list(itertags(get_page.text, 'script'))[-2].text).group(2)
-            except IndexError:
-                raise NoStreamsError
+            tags = list(itertags(get_page.text, 'script'))
+
+            tag = [i for i in tags if 'm3u8' in i.text][0].text
+
+            m3u8 = re.search(r'''["'](http.+?\.m3u8)['"]''', tag)
+
+            if m3u8:
+                m3u8 = m3u8.group(1)
+            else:
+                raise NoStreamsError('Ant1 CY Broadcast is currently disabled')
 
         else:
 
-            m3u8 = re.search("&quot;(http.+?master\.m3u8)&quot;", get_page.text).group(1)
+            m3u8 = re.search(r"&quot;(http.+?master\.m3u8)&quot;", get_page.text).group(1)
 
         stream = self.session.http.get(self._api_url.format(m3u8), headers=headers).text
 
@@ -55,7 +62,7 @@ class Ant1Cy(Plugin):
         if parse_hls:
             return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
         else:
-            return dict(live=HTTPStream(self.session, stream, headers=headers))
+            return dict(stream=HTTPStream(self.session, stream, headers=headers))
 
 
 __plugin__ = Ant1Cy

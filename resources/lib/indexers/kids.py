@@ -17,18 +17,13 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
-from tulip import control
-from resources.lib.modules.themes import iconname
-from resources.lib.modules.constants import yt_addon, sdik
-
-try:
-    if control.condVisibility('System.HasAddon({0})'.format(sdik)):
-        import sys
-        sys.path.extend([control.join(control.addon(id=sdik).getAddonInfo('path'), 'resources', 'lib')])
-        import extension
-except Exception:
-    pass
+import json, re
+from tulip.compat import iteritems
+from tulip import control, client, cache, directory
+from ..modules.themes import iconname
+from ..modules.constants import YT_ADDON
 
 
 class Indexer:
@@ -45,8 +40,26 @@ class Indexer:
         self.data = [
             {
                 'title': control.lang(30078),
-                'url': 'plugin://plugin.video.AliveGR/?action=kids_live',
+                'url': '{0}?action={1}'.format(self.sysaddon, 'kids_live'),
                 'icon': iconname('kids_live')
+            }
+            ,
+            {
+                'title': control.lang(30073),
+                'url': '{0}?action={1}&url={2}'.format(self.sysaddon, 'listing', 'http://greek-movies.com/movies.php?g=8&y=&l=&p='),
+                'icon': iconname('cartoon_movies')
+            }
+            ,
+            {
+                'title': control.lang(30092),
+                'url': '{0}?action={1}&url={2}'.format(self.sysaddon, 'listing', 'http://greek-movies.com/shortfilm.php?g=8&y=&l=&p='),
+                'icon': iconname('cartoon_short')
+            }
+            ,
+            {
+                'title': control.lang(30072),
+                'url': '{0}?action={1}'.format(self.sysaddon, 'cartoon_series'),
+                'icon': iconname('cartoon_series')
             }
             ,
             {
@@ -68,20 +81,6 @@ class Indexer:
             }
         ]
 
-        try:
-            if control.condVisibility('System.HasAddon({0})'.format(sdik)):
-                extended = [
-                    dict(
-                        (k, control.lang(v) if (k == 'title') else v) for k, v in item.items()
-                    ) for item in extension.kids_indexer
-                ]
-                extended = [
-                    dict((k, iconname(v) if (k == 'icon') else v) for k, v in item.items()) for item in extended
-                ]
-                self.data = [self.data[0]] + extended + self.data[1:]
-        except:
-            pass
-
         for item in self.data:
             li = control.item(label=item['title'])
             li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
@@ -95,40 +94,49 @@ class Indexer:
         self.data = [
             {
                 'title': u'Classical Films - Κλασσικά Κινηματογραφημένα',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PLF0A5359586D57FE8/'.format(yt_addon),
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PLF0A5359586D57FE8/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/X9RxumkELfE/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Mythology - Μυθολογία',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL3E1C926284F12F32/'.format(yt_addon),
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL3E1C926284F12F32/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/kpd-Z_VK6Jc/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Aesop\'s Fables - Αισώπου Μύθοι',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL4FF9F773D3596E60/'.format(yt_addon),
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL4FF9F773D3596E60/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/Gkr-pV_gY48/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Greek Fairy Tales - Ελληνικά Παραμύθια',
-                'url': '{0}/channel/UC9VmWb5Wd5sc4E4k1CevEug/'.format(yt_addon),
+                'url': '{0}/channel/UC9VmWb5Wd5sc4E4k1CevEug/'.format(YT_ADDON),
                 'icon': 'https://yt3.ggpht.com/-n8KoGQ6U_zc/AAAAAAAAAAI/AAAAAAAAAAA/SoUWvy5-Tb8/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
             }
             ,
             {
                 'title': u'Fairy Tales & Songs - Παραμύθια και Τραγούδια',
-                'url': '{0}/channel/UCClAFTnbGditvz9_7_7eumw/playlists/'.format(yt_addon),
+                'url': '{0}/channel/UCClAFTnbGditvz9_7_7eumw/playlists/'.format(YT_ADDON),
                 'icon': 'https://yt3.ggpht.com/-mBPhzUcDIHM/AAAAAAAAAAI/AAAAAAAAAAA/pNQi44zsLq8/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
             }
             ,
             {
                 'title': u'Collection Miscellaneous - Συλλογή Διάφορα',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL4075DA390F6E82B1/'.format(yt_addon),
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL4075DA390F6E82B1/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/MPtZ_VHNg34/mqdefault.jpg'
             }
         ]
+
+        additional = {
+                'title': u'Various full length movies - Διάφορες ταινίες πλήρους μήκους',
+                'url': '{0}?action={1}'.format(self.sysaddon, 'cartoon_various'),
+                'icon': iconname('kids')
+            }
+
+        if control.setting('show_alt_vod') == 'true':
+            self.data.insert(0, additional)
 
         for item in self.data:
             if control.setting('lang_split') == '0':
@@ -155,67 +163,67 @@ class Indexer:
         self.data = [
             {
                 'title': u'Learn about animals - Μάθε για τα ζώα',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LRboPyGr30sIRMnc20C77ui/'.format(yt_addon),
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LRboPyGr30sIRMnc20C77ui/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/_fDdVYJA9Vk/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Secondary school education - Εκπαίδευση Δημοτικού Σχολείου',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LQvxn7RyUySvQy6C6hTUTXf/'.format(yt_addon),
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LQvxn7RyUySvQy6C6hTUTXf/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/isxjo7M2h74/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Sexual Education for children - Σεξουαλική Αγωγή για παιδιά',
-                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LRy-LRQEeRdT_kf5iFdofsu/'.format(yt_addon),
+                'url': '{0}/channel/UCsKQX1G7XQO2a5nD9nrse-Q/playlist/PL7Adbo89X3LRy-LRQEeRdT_kf5iFdofsu/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/l9gN1F6S3bc/mqdefault.jpg'
             }
             ,
             {
                 'title': u'World\'s Seven Ancient Miracles - Τα Επτά Θαύματα του Αρχαίου Κόσμου',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeThKG7GK1k2DRgB5im-vPHc/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeThKG7GK1k2DRgB5im-vPHc/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/5nEDQ_jYJIo/mqdefault.jpg'
             }
             ,
             {
                 'title': u'The land of Knowledge - Η Χώρα των Γνώσεων',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeS-ZVlk0vgNdx5igsFvYN8s/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeS-ZVlk0vgNdx5igsFvYN8s/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/K-Ba9l2uDDk/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Ancient Egypt - Αρχαία Αίγυπτος',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeTrRcdIHjtziNEkqPqalUOa/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeTrRcdIHjtziNEkqPqalUOa/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/pV8EMy8gaXI/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Explorers & Seafarers - Εξερευνητές και Θαλασσοπόροι',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeQRBb7ayyynWgYEUbkQKPpJ/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeQRBb7ayyynWgYEUbkQKPpJ/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/SPdnnVNZgwc/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Mini Encyclopaedia - Μικρή Εγκυκλοπαίδεια',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeTLMi1bFqLC_cn5ZAtqSvlV/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeTLMi1bFqLC_cn5ZAtqSvlV/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/o31_SNQFYhc/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Miscellaneous Documentaties - Διάφορα Ντοκυμαντέρ',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeRY94Yga82ZYsPJ9Xbe3OiZ/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeRY94Yga82ZYsPJ9Xbe3OiZ/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/Vf_o_Q5ZQRg/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Learn Ancient Greek - Μάθετε Αρχαία Ελληνικά',
-                'url': '{0}/channel/UC5quWsvOBNUaR-Duv3K-JFA/playlist/PLxqCshQO3A1HnlHwxda3wX_kzY-C0gpZq/'.format(yt_addon),
+                'url': '{0}/channel/UC5quWsvOBNUaR-Duv3K-JFA/playlist/PLxqCshQO3A1HnlHwxda3wX_kzY-C0gpZq/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/st01jb_Xb7g/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Drawings - Ζωγραφιές',
-                'url': '{0}/channel/UC5quWsvOBNUaR-Duv3K-JFA/playlist/PLxqCshQO3A1FmjzGXbfIjTSXcysLfPfKM/'.format(yt_addon),
+                'url': '{0}/channel/UC5quWsvOBNUaR-Duv3K-JFA/playlist/PLxqCshQO3A1FmjzGXbfIjTSXcysLfPfKM/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/GdiLSXePno8/mqdefault.jpg'
             }
         ]
@@ -251,31 +259,31 @@ class Indexer:
             ,
             {
                 'title': u'Greek songs with lyrics No.1 - Ελληνικά παιδικά τραγούδια με στίχους No.1',
-                'url': '{0}/channel/UCUmGu9Ncu5NeaEjwpLXW0PQ/'.format(yt_addon),
+                'url': '{0}/channel/UCUmGu9Ncu5NeaEjwpLXW0PQ/'.format(YT_ADDON),
                 'icon': 'https://yt3.ggpht.com/-MVbyrB7DJrY/AAAAAAAAAAI/AAAAAAAAAAA/WjLUCzyX3zI/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
             }
             ,
             {
                 'title': u'Greek songs with lyrics No.2 - Ελληνικά παιδικά τραγούδια με στίχους No.2',
-                'url': '{0}/channel/UCyENiZwRYzfXzbwP-Mxk9oA/'.format(yt_addon),
+                'url': '{0}/channel/UCyENiZwRYzfXzbwP-Mxk9oA/'.format(YT_ADDON),
                 'icon': 'https://yt3.ggpht.com/-Jdrq5I2r5Tc/AAAAAAAAAAI/AAAAAAAAAAA/z7IPqFS7jqA/s256-c-k-no-mo-rj-c0xffffff/photo.jpg'
             }
             ,
             {
                 'title': u'Greek Karaoke - Ελληνικό Καραόκε',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeRlD0w1GXbitRL6sbyMscVi/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeRlD0w1GXbitRL6sbyMscVi/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/Iz5P8xJel-U/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Karaoke for English Learning - Μαθαίνω Αγγλικά με καραόκε',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeSL-M5Q0qG3Eszj0I1O98bT/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeSL-M5Q0qG3Eszj0I1O98bT/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/L2atYpQ7Zbg/mqdefault.jpg'
             }
             ,
             {
                 'title': u'Learning Music for Kids - Μαθαίνω Μουσική, για παιδιά',
-                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeRr5VH-HylSX89MHXQ_KyS0/'.format(yt_addon),
+                'url': '{0}/channel/UCp_0VMwvn5LeJMhtreBFIcA/playlist/PLP25S0MkvCeRr5VH-HylSX89MHXQ_KyS0/'.format(YT_ADDON),
                 'icon': 'https://i.ytimg.com/vi/w5tF5J_BNfI/mqdefault.jpg'
             }
         ]
@@ -299,3 +307,66 @@ class Indexer:
 
         control.addItems(self.syshandle, self.list)
         control.directory(self.syshandle)
+
+    def _cartoon_various(self, url):
+
+        if url is None:
+            url = 'https://gamatokid.com/genre/%CE%BC%CE%B5%CF%84%CE%B1%CE%B3%CE%BB%CF%89%CF%84%CE%B9%CF%83%CE%BC%CE%AD%CE%BD%CE%B1/'
+
+        html = client.request(url)
+
+        next_link = client.parseDOM(html, 'a', attrs={'class': 'arrow_pag'}, ret='href')[-1]
+
+        html = client.parseDOM(html, 'div', attrs={'class': 'items'})[0]
+
+        items = client.parseDOM(html, 'article', attrs={'id': r'post-\d+'})
+
+        for item in items:
+
+            h3 = client.parseDOM(item, 'h3')[0]
+            title = client.parseDOM(h3, 'a')[0]
+            title = title.replace('&#8211;', '-').replace('&#038;', '&').replace('&#8217;', '\'').replace('&#8230;', '...')
+            url = client.parseDOM(h3, 'a', ret='href')[0]
+            meta = client.parseDOM(item, 'div', attrs={'class': 'metadata'})[0]
+            try:
+                span = client.parseDOM(meta, 'span')
+                etos = [s for s in span if len(s) == 4][0]
+                plot = client.parseDOM(item, 'div', attrs={'class': 'texto'})[0]
+                duration = [s for s in span if s.endswith('min')][0]
+                duration = int(re.search(r'(\d+)', duration).group(1)) * 60
+            except IndexError:
+                plot = u'Μεταγλωτισμένο'
+                etos = '2019'
+                duration = 3600
+            year = ''.join(['(', etos, ')'])
+            label = ' '.join([title, year])
+            image = client.parseDOM(item, 'img', ret='src')[0]
+
+            i = {
+                'title': label, 'url': url, 'image': image, 'nextlabel': 30334, 'next': next_link,
+                'plot': plot, 'duration': duration, 'year': int(etos), 'nexticon': iconname('next')
+            }
+
+            self.list.append(i)
+
+        return self.list
+
+    def cartoon_various(self, url):
+
+        self.list = cache.get(self._cartoon_various, 3, url)
+
+        if self.list is None:
+            return
+
+        for item in self.list:
+
+            item.update({'action': 'play', 'isFolder': 'False', 'nextaction': 'cartoon_various'})
+
+            bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
+            bookmark['bookmark'] = item['url']
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
+            unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
+            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
+
+        directory.add(self.list, argv=self.argv)

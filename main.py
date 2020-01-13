@@ -18,12 +18,13 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
 
 ########################################################################################################################
 
 import sys
+# noinspection PyUnresolvedReferences
 from resources.lib.modules.tools import checkpoint
 from tulip.compat import parse_qsl
 
@@ -79,8 +80,8 @@ elif action == 'live_tv':
     live.Indexer(argv=argv).live_tv()
 
 elif action == 'pvr_client':
-    from resources.lib.modules import helpers
-    helpers.pvr_client(query)
+    from resources.lib.modules import kodi
+    kodi.pvr_client(query)
 
 elif action == 'networks':
     from resources.lib.indexers import networks
@@ -121,6 +122,10 @@ elif action == 'cartoon_series':
 elif action == 'cartoon_collection':
     from resources.lib.indexers import kids
     kids.Indexer(argv=argv).cartoon_collection()
+
+elif action == 'cartoon_various':
+    from resources.lib.indexers import kids
+    kids.Indexer(argv=argv).cartoon_various(url)
 
 elif action == 'educational':
     from resources.lib.indexers import kids
@@ -242,6 +247,14 @@ elif action == 'deleteBookmark':
     from tulip import bookmarks
     bookmarks.delete(url)
 
+elif action == 'pin':
+    from resources.lib.modules import helpers
+    helpers.pin()
+
+elif action == 'unpin':
+    from resources.lib.modules import helpers
+    helpers.unpin()
+
 elif action == 'bookmarks':
     from resources.lib.indexers import bookmarks
     bookmarks.Indexer(argv=argv).bookmarks()
@@ -267,15 +280,12 @@ elif action == 'other_addon_settings':
     helpers.other_addon_settings(query)
 
 elif action in ['play', 'play_resolved']:
+    # noinspection PyUnresolvedReferences
     from resources.lib.modules.player import player
     player(url, params, do_not_resolve=action == 'play_resolved')
 
-elif action == 'play_m3u':
-    from distutils.util import strtobool
-    from resources.lib.modules.player import play_m3u
-    play_m3u(url, title, randomize=True if query is None else bool(strtobool(query)))
-
 elif action == 'directory':
+    # noinspection PyUnresolvedReferences
     from resources.lib.modules.player import directory_picker
     directory_picker(url, argv=argv)
 
@@ -308,32 +318,32 @@ elif action == 'setup_various_keymaps':
     tools.setup_various_keymaps(query)
 
 elif action == 'add_to_playlist':
-    from resources.lib.modules import helpers
-    helpers.add_to_playlist()
+    from resources.lib.modules import kodi
+    kodi.add_to_playlist()
 
 elif action == 'clear_playlist':
-    from resources.lib.modules import helpers
-    helpers.clear_playlist()
+    from resources.lib.modules import kodi
+    kodi.clear_playlist()
 
 elif action == 'toggle_watched':
-    from resources.lib.modules import helpers
-    helpers.toggle_watched()
+    from resources.lib.modules import kodi
+    kodi.toggle_watched()
 
 elif action == 'toggle_debug':
-    from resources.lib.modules import helpers
-    helpers.toggle_debug()
+    from resources.lib.modules import kodi
+    kodi.toggle_debug()
 
 elif action == 'skin_debug':
-    from resources.lib.modules import helpers
-    helpers.skin_debug()
+    from resources.lib.modules import kodi
+    kodi.skin_debug()
 
 elif action == 'reload_skin':
-    from resources.lib.modules import helpers
-    helpers.reload_skin()
+    from resources.lib.modules import kodi
+    kodi.reload_skin()
 
 elif action == 'skin_choice':
-    from resources.lib.modules import helpers
-    helpers.skin_choice()
+    from resources.lib.modules import kodi
+    kodi.skin_choice()
 
 elif action == 'cache_clear':
     from resources.lib.modules import helpers
@@ -357,7 +367,7 @@ elif action == 'refresh_and_clear':
 
 elif action == 'reset_idx':
     from resources.lib.modules import helpers
-    helpers.reset_idx()
+    helpers.reset_idx(force=query == 'force')
 
 elif action == 'yt_setup':
     from resources.lib.modules import tools
@@ -396,8 +406,8 @@ elif action == 'open_link':
     control.open_web_browser(url)
 
 elif action == 'force':
-    from resources.lib.modules import helpers
-    helpers.force()
+    from resources.lib.modules import kodi
+    kodi.force()
 
 elif action == 'dmca':
     from resources.lib.modules import tools
@@ -408,24 +418,28 @@ elif action == 'pp':
     tools.pp()
 
 elif action == 'system_info':
-    from resources.lib.modules import helpers
-    helpers.system_info()
+    from resources.lib.modules import kodi
+    kodi.system_info()
 
 elif action == 'lang_choice':
+    from resources.lib.modules import kodi
+    kodi.lang_choice()
+
+elif action == 'toggle_alt':
     from resources.lib.modules import helpers
-    helpers.lang_choice()
+    helpers.toggle_alt()
 
 elif action == 'quit':
     from tulip.control import quit_kodi
     quit_kodi()
 
 elif action == 'global_settings':
-    from resources.lib.modules import helpers
-    helpers.global_settings()
+    from resources.lib.modules import kodi
+    kodi.global_settings()
 
 elif action == 'pvrsettings':
-    from resources.lib.modules import helpers
-    helpers.pvrsettings()
+    from resources.lib.modules import kodi
+    kodi.pvrsettings()
 
 elif action == 'activate_audio_addon':
     from resources.lib.modules import helpers

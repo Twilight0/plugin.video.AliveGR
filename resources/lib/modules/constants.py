@@ -18,12 +18,15 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+from tulip.compat import OrderedDict
+from tulip.control import dataPath, join
+
 ########################################################################################################################
 ############### Please do not copy these keys, instead create your own with this tutorial: #############################
 ###############   http://forum.kodi.tv/showthread.php?tid=267160&pid=2299960#pid2299960    #############################
 ########################################################################################################################
 
-api_keys = {
+API_KEYS = {
     'enablement': 'true',
     'id': '498788153161-pe356urhr0uu2m98od6f72k0vvcdsij0.apps.googleusercontent.com',
     'api_key': '0I1Ry82VGNWOypWMxUDR5JGMs5kQINDMmdET59UMrhTQ5NVY6lUQ',
@@ -32,33 +35,31 @@ api_keys = {
 
 ########################################################################################################################
 
-art_id = 'resource.images.alivegr.artwork'
-logos_id = 'resource.images.alivegr.logos'
-yt_addon = 'plugin://plugin.video.youtube'
-yt_url = 'https://www.youtube.com/watch?v='
-yt_prefix = yt_addon + '/play/?video_id='
-sdik = 'script.alivegr.kids'
-play_action = '?action=play&url='
-bl = 'rFGNl5UQuJ2L3Fmcv02bj5ibpJWZ0NXYw9yL6MHc0RHa'
+ART_ID = 'resource.images.alivegr.artwork'
+LOGOS_ID = 'resource.images.alivegr.logos'
+YT_ADDON = 'plugin://plugin.video.youtube'
+YT_URL = 'https://www.youtube.com/watch?v='
+YT_PREFIX = YT_ADDON + '/play/?video_id='
+PLAY_ACTION = '?action=play&url='
 
 ########################################################################################################################
 
-website = 'https://www.alivegr.net'
-facebook = 'https://www.facebook.com/alivegr/'
-paypal = 'https://www.paypal.me/AliveGR'
-patreon = 'https://www.patreon.com/twilight0'
-twitter = 'https://twitter.com/TwilightZer0'
+WEBSITE = 'https://www.alivegr.net'
+FACEBOOK = 'https://www.facebook.com/alivegr/'
+TWITTER = 'https://twitter.com/TwilightZer0'
 
 ########################################################################################################################
 
-from tulip.compat import OrderedDict
-
-live_groups = OrderedDict(
+LIVE_GROUPS = OrderedDict(
     [
         ('Panhellenic', 30201), ('Pancypriot', 30202), ('International', 30203), ('Cinema', 30205), ('Misc', 30206),
         ('Regional', 30207), ('Thematic', 30208), ('Toronto Channels', 30209), ('Web TV', 30210), ('Kids', 30032),
         ('Music', 30125), ('Sports', 30094)
     ]
 )
+
+########################################################################################################################
+
+PINNED = join(dataPath, 'pinned.txt')
 
 ########################################################################################################################

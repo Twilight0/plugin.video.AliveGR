@@ -17,9 +17,10 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
-from resources.lib.modules.themes import iconname
-from resources.lib.modules.constants import art_id
+from ..modules.themes import iconname
+from ..modules.constants import ART_ID
 from tulip import control, directory
 
 
@@ -136,7 +137,7 @@ class Indexer:
             {
                 'title': control.lang(30319),
                 'action': 'global_settings',
-                'icon': control.addonmedia(addonid=art_id, theme='icons', icon='kodi.png', media_subfolder=False),
+                'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
@@ -182,7 +183,7 @@ class Indexer:
                 'action': 'dmca',
                 'plot': disclaimer,
                 'icon': control.addonmedia(
-                    addonid=art_id, theme='icons', icon='dmca.png', media_subfolder=False
+                    addonid=ART_ID, theme='icons', icon='dmca.png', media_subfolder=False
                 ),
                 'isFolder': 'False',
                 'isPlayable': 'False'
@@ -215,30 +216,8 @@ class Indexer:
                 'url': 'https://bitbucket.org/thgiliwt/plugin.video.alivegr/issues',
                 'plot': 'Git repo',
                 'icon': control.addonmedia(
-                    addonid=art_id, theme='icons', icon='bitbucket.png', media_subfolder=False
+                    addonid=ART_ID, theme='icons', icon='bitbucket.png', media_subfolder=False
                 ),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
-                'title': control.lang(30306).format(separator),
-                'action': 'open_link',
-                'url': 'https://www.facebook.com/alivegr/',
-                'plot': 'Facebook page',
-                'icon': control.addonmedia(
-                    addonid=art_id, theme='icons', icon='facebook.png', media_subfolder=False
-                ),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
-                'title': control.lang(30259).format(separator),
-                'action': 'open_link',
-                'url': 'https://twitter.com/TwilightZer0',
-                'plot': 'RSS feed: https://twitrss.me/twitter_user_to_rss/?user=TwilightZer0',
-                'icon': control.addonmedia(addonid=art_id, theme='icons', icon='twitter.png', media_subfolder=False),
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
@@ -271,23 +250,35 @@ class Indexer:
             }
             ,
             {
+                'title': control.lang(30258).format(separator, control.addon('xbmc.addon').getAddonInfo('version').rpartition('.')[0]),
+                'action': 'system_info',
+                'plot': control.lang(30263),
+                'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+        ]
+
+        resolveurl = {
                 'title': control.lang(30264).format(separator, control.addon('script.module.resolveurl').getAddonInfo('version')),
-                'action': 'force',
+                'action': 'other_addon_settings',
+                'query': 'script.module.resolveurl',
                 'plot': control.lang(30265),
                 'icon': control.addon('script.module.resolveurl').getAddonInfo('icon'),
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
-            ,
-            {
-                'title': control.lang(30258).format(separator, control.addon('xbmc.addon').getAddonInfo('version').rpartition('.')[0]),
-                'action': 'system_info',
-                'plot': control.lang(30263),
-                'icon': control.addonmedia(addonid=art_id, theme='icons', icon='kodi.png', media_subfolder=False),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-        ]
+
+        try:
+
+            rurl_enabled = control.addon_details('script.module.resolveurl').get('enabled')
+
+        except Exception:
+
+            rurl_enabled = False
+
+        if rurl_enabled:
+            self.list.insert(-2, resolveurl)
 
         directory.add(self.list, content='movies', argv=self.argv)
 
@@ -303,7 +294,7 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30273).replace(' (Krypton+)', ''),
+                'title': control.lang(30273),
                 'action': 'other_addon_settings',
                 'query': 'inputstream.adaptive',
                 'isFolder': 'False',

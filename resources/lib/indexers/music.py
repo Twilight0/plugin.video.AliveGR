@@ -17,19 +17,19 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+from __future__ import absolute_import, unicode_literals
 
 import json, re
 
 from tulip import control, directory, cache, client, youtube
 from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
-from resources.lib.modules.themes import iconname
-from resources.lib.modules.constants import yt_url, art_id, api_keys
-from resources.lib.modules.helpers import thgiliwt
-from resources.lib.resolvers.youtube import replace_url
-from resources.lib.modules.youtube import thumb_maker
+from ..modules.themes import iconname
+from ..modules.constants import YT_URL, ART_ID, API_KEYS
+from ..modules.helpers import thgiliwt, thumb_maker
 from resources.lib.indexers import gm
 from datetime import datetime
+from youtube_requests import get_search
 
 
 # noinspection PyUnboundLocalVariable
@@ -75,7 +75,7 @@ class Indexer:
                 'action': 'mgreekz_index',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
                 'fanart': control.addonmedia(
-                    addonid=art_id, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
+                    addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
                 )
             }
             ,
@@ -84,7 +84,7 @@ class Indexer:
                 'action': 'mgreekz_top10',
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
                 'fanart': control.addonmedia(
-                    addonid=art_id, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
+                    addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
                 )
             }
             ,
@@ -94,7 +94,7 @@ class Indexer:
                 'url': self.rythmos_top20_url,
                 'image': 'https://is3-ssl.mzstatic.com/image/thumb/Purple62/v4/3e/a4/48/3ea44865-8cb2-5fec-be70-188a060b712c/source/256x256bb.jpg',
                 'fanart': control.addonmedia(
-                    addonid=art_id,
+                    addonid=ART_ID,
                     theme='networks',
                     icon='rythmos_fanart.jpg',
                     media_subfolder=False
@@ -150,7 +150,7 @@ class Indexer:
 
     def gm_music(self):
 
-        html = cache.get(gm.root, 96, gm.music_link)
+        html = cache.get(gm.root, 96, gm.MUSIC)
 
         options = re.compile('(<option  value=.+?</option>)', re.U).findall(html)
 
@@ -158,7 +158,7 @@ class Indexer:
 
             title = client.parseDOM(option, 'option')[0]
             link = client.parseDOM(option, 'option', ret='value')[0]
-            link = urljoin(gm.base_link, link)
+            link = urljoin(gm.GM_BASE, link)
 
             data = {'title': title, 'url': link, 'image': iconname('music'), 'action': 'artist_index'}
 
@@ -190,7 +190,7 @@ class Indexer:
 
         if 'icon/music' in html:
             icon = client.parseDOM(html, 'img', attrs={'class': 'img-responsive'}, ret='src')[-1]
-            icon = urljoin(gm.base_link, icon)
+            icon = urljoin(gm.GM_BASE, icon)
         else:
             icon = iconname('music')
 
@@ -198,7 +198,7 @@ class Indexer:
 
             title = client.parseDOM(item, 'a')[0]
             link = client.parseDOM(item, 'a', ret='href')[0]
-            link = urljoin(gm.base_link, link)
+            link = urljoin(gm.GM_BASE, link)
 
             data = {'title': title, 'url': link, 'image': icon, 'artist': artist}
 
@@ -206,7 +206,7 @@ class Indexer:
 
         return self.list
 
-    def artist_index(self, url):
+    def artist_index(self, url, get_list=False):
 
         self.list = cache.get(self.music_list, 48, url)
 
@@ -215,12 +215,16 @@ class Indexer:
             return
 
         for item in self.list:
+            item.update({'action': 'album_index'})
             bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            item.update({'cm': [bookmark_cm], 'action': 'album_index'})
+            item.update({'cm': [bookmark_cm]})
 
-        directory.add(self.list, argv=self.argv)
+        if get_list:
+            return self.list
+        else:
+            directory.add(self.list, argv=self.argv)
 
     def album_index(self, url):
 
@@ -260,13 +264,13 @@ class Indexer:
 
     def mgreekz_index(self):
 
-        self.data = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key']), replace_url=replace_url).playlists, 48, self.mgreekz_id)
+        self.data = cache.get(youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlists, 48, self.mgreekz_id)
 
         for i in self.data:
             i.update(
                 {
                     'action': 'mgreekz_list', 'fanart': control.addonmedia(
-                    addonid=art_id, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
+                    addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
                 )
                 }
             )
@@ -283,7 +287,7 @@ class Indexer:
 
     def mgreekz_list(self, url):
 
-        self.list = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key']), replace_url=replace_url).playlist, 12, url)
+        self.list = cache.get(youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlist, 12, url)
 
         if self.list is None:
 
@@ -299,8 +303,6 @@ class Indexer:
         directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def _mgreekz_top10(self):
-
-        from youtube_requests import get_search
 
         html = client.request(self.mgreekz_url)
 
@@ -329,7 +331,7 @@ class Indexer:
 
             search = get_search(q=title + ' ' + 'official', search_type='video')[0]
             vid = search['id']['videoId']
-            link = yt_url + vid
+            link = YT_URL + vid
             image = thumb_maker(link.rpartition('/' if 'youtu.be' in link else '=')[2])
 
             self.list.append(
@@ -359,7 +361,7 @@ class Indexer:
                 {
                     'cm': [add_to_playlist, clear_playlist], 'album': control.lang(30127),
                     'fanart': control.addonmedia(
-                        addonid=art_id, theme='networks', icon='mgz_fanart.jpg',
+                        addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg',
                         media_subfolder=False
                     ), 'tracknumber': count, 'code': count
                 }
@@ -369,8 +371,6 @@ class Indexer:
         directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
 
     def _top20(self, url):
-
-        from youtube_requests import get_search
 
         cookie = client.request(url, close=False, output='cookie')
         html = client.request(url, cookie=cookie)
@@ -424,7 +424,7 @@ class Indexer:
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
                 image = search['snippet']['thumbnails']['default']['url']
-                link = yt_url + vid
+                link = YT_URL + vid
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
                 links = client.parseDOM(item, 'a', ret='href')
                 link = links[1] if len(links) == 2 else links[0]
@@ -450,7 +450,7 @@ class Indexer:
 
         if url == self.rythmos_top20_url:
             fanart = control.addonmedia(
-                addonid=art_id, theme='networks', icon='rythmos_fanart.jpg',
+                addonid=ART_ID, theme='networks', icon='rythmos_fanart.jpg',
                 media_subfolder=False
             )
             album = control.lang(30128)
@@ -488,9 +488,12 @@ class Indexer:
 
             if control.setting('local_remote') == '0':
                 local = control.setting('top50_local')
-                with open(local) as xml:
-                    playlists = xml.read()
-                    xml.close()
+                try:
+                    with open(local, encoding='utf-8') as xml:
+                        playlists = xml.read()
+                except Exception:
+                    with open(local) as xml:
+                        playlists = xml.read()
             elif control.setting('local_remote') == '1':
                 playlists = client.request(control.setting('top50_remote'))
             else:
@@ -501,6 +504,7 @@ class Indexer:
         for item in self.data:
 
             title = client.parseDOM(item, 'title')[0]
+            genre = client.parseDOM(item, 'genre')[0]
             url = client.parseDOM(item, 'url')[0]
             image = thumb_maker(url.rpartition('=')[2])
             plot = client.parseDOM(item, 'description')[0]
@@ -510,7 +514,7 @@ class Indexer:
             item_data = (
                 {
                     'label': title, 'title': title.partition(' - ')[2], 'image': image, 'url': url, 'plot': plot,
-                    'comment': plot, 'duration': duration
+                    'comment': plot, 'duration': duration, 'genre': genre
                 }
             )
 
@@ -545,7 +549,7 @@ class Indexer:
 
     def techno_choices(self, url):
 
-        self.list = cache.get(youtube.youtube(key=thgiliwt(api_keys['api_key']), replace_url=replace_url).playlist, 12, url)
+        self.list = cache.get(youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlist, 12, url)
 
         if self.list is None:
 
@@ -554,12 +558,20 @@ class Indexer:
         for i in self.list:
             i['label'] = i.pop('title')
             # process stupid descriptions/comments put up by uploaders on labels
-            i['label'] = re.sub(r'PREMIERE ?:|\(full version\)\.mp4|\(?(?:Un)?Official.*\)? ?(?:HD)?|\[?HD (?:108|72)0p\]?', '', i['label'], flags=re.IGNORECASE)
+            i['label'] = re.sub(
+                r'PREMIERE ?:|\(full version\)\.mp4|\(?(?:Un)?Official.*\)? ?(?:HD)?|\[?HD (?:108|72)0p\]?|\[HQ\]|\\\\ Free Download',
+                '', i['label'], flags=re.IGNORECASE
+            )
 
         for count, i in list(enumerate(self.list, start=1)):
 
-            if '–' in i['label']:
-                sep = '–'
+            try:
+                i['label'] = i['label'].decode('utf-8')
+            except Exception:
+                pass
+
+            if u'–' in i['label']:
+                sep = u'–'
             elif ':' in i['label'] and not '-' in i['label']:
                 sep = ':'
             elif '-' in i['label']:
@@ -568,6 +580,10 @@ class Indexer:
                 sep = ' '
 
             artist, separator, title = i['label'].partition(sep)
+
+            if sep not in i['label']:
+
+                title = i['label']
 
             if '&' in artist:
                 artists_separator = '&'

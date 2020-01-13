@@ -1,0 +1,15 @@
++ [B]2.0.X[/B] [COLOR green](14-01-2020)[/COLOR]
+- Complete Python 3 support (Kodi ver.19+)
+- Rework of several modules and functions
+- Removed donation links from welcome message
+- Re-added several menu items in kids section, including the addition of a new one
+- Changed the way alternative/unofficial live/vod streams are enabled
+- Removed openload streamlink plugin and accompanying settings
+- Removed resolving capability on youtube externally
+- Added several plugins for streamlink to resolve videos from official sources
+- Simplified some settings items
+- Several bug fixes
+
+=====================
+
+[I]Past versions:[/I]
