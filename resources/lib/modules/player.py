@@ -23,7 +23,7 @@ import random
 import re
 import json
 # import YDStreamExtractor
-from tulip.compat import urljoin, parse_qsl, OrderedDict, urlencode, zip
+from tulip.compat import urljoin, parse_qsl, OrderedDict, zip
 
 try:
     from resolveurl import resolve as resolve_url
@@ -38,7 +38,7 @@ from tulip.log import log_debug
 from ..indexers.gm import GM_BASE
 from ..resolvers import various, youtube, sl
 from .constants import YT_URL
-from .helpers import stream_picker, m3u8_picker
+from .helpers import m3u8_picker
 from .kodi import addon_version
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
@@ -331,13 +331,13 @@ def items_directory(url, params):
 
     sources = cache.get(gm_source_maker, 6, url)
 
-    lists = list(zip(sources[1], sources[2]))
+    lists = list(zip(sources['hosts'], sources['links']))
 
     items = []
 
     try:
-        description = sources[3]
-    except IndexError:
+        description = sources['plot']
+    except KeyError:
         try:
             description = params.get('plot').encode('latin-1')
         except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
@@ -346,8 +346,8 @@ def items_directory(url, params):
             description = control.lang(30085)
 
     try:
-        genre = sources[4]
-    except IndexError:
+        genre = sources['genre']
+    except KeyError:
         genre = control.lang(30147)
 
     separator = ' - ' if control.setting('wrap_labels') == '1' else '[CR]'
@@ -452,9 +452,8 @@ def player(url, params, do_not_resolve=False):
     if not stream or (len(stream) == 2 and not stream[0]):
 
         log_debug('Failed to resolve this url: {0}'.format(url))
-        control.execute('Dialog.Close(all)')
 
-        return
+        return control.execute('Dialog.Close(all)')
 
     plot = None
 
@@ -480,74 +479,25 @@ def player(url, params, do_not_resolve=False):
 
         log_debug('Plot obtained')
 
-    dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
-
-    if not m3u8_dash and control.setting('m3u8_quality_picker') == '1' and '.m3u8' in stream:
-
-        try:
-
-            stream = m3u8_picker(stream)
-
-        except TypeError:
-
-            pass
-
     if isinstance(stream, OrderedDict):
 
-        try:
-
-            try:
-                args = stream['best'].args
-            except Exception:
-                args = None
-
-            try:
-                json_dict = json.loads(stream['best'].json)
-            except Exception:
-                json_dict = None
-
-            for h in args, json_dict:
-
-                try:
-                    if 'headers' in h:
-                        headers = h['headers']
-                        break
-                    else:
-                        headers = None
-                except Exception:
-                    headers = None
-
-            if headers:
-
-                try:
-                    del headers['Connection']
-                    del headers['Accept-Encoding']
-                    del headers['Accept']
-                except KeyError:
-                    pass
-
-                append = ''.join(['|', urlencode(headers)])
-
-            else:
-
-                append = ''
-
-        except AttributeError:
-
-            append = ''
-
-        if control.setting('sl_quality_picker') == '0' or len(stream) == 3:
-
-            stream = stream['best'].to_url() + append
-
-        else:
-
-            keys = list(stream.keys())[::-1]
-            values = [u.to_url() + append for u in list(stream.values())][::-1]
-
-            stream = stream_picker(keys, values)
+        stream = sl.stream_processor(stream)
 
         dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
+
+    else:
+
+        dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
+
+        if not m3u8_dash and control.setting('m3u8_quality_picker') == '1' and '.m3u8' in stream:
+
+            try:
+
+                stream = m3u8_picker(stream)
+
+            except TypeError:
+
+                pass
 
     if stream != url:
 

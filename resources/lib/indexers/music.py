@@ -35,7 +35,7 @@ from youtube_requests import get_search
 # noinspection PyUnboundLocalVariable
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = []; self.data = []
         self.mgreekz_id = 'UClMj1LyMRBMu_TG1B1BirqQ'
@@ -51,7 +51,6 @@ class Indexer:
         else:
             self.content = 'musicvideos'
             self.infotype = 'video'
-        self.argv = argv
 
     def menu(self):
 
@@ -146,7 +145,7 @@ class Indexer:
             del self.list[0]
 
         log_debug('Music section loaded')
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def gm_music(self):
 
@@ -164,7 +163,7 @@ class Indexer:
 
             self.list.append(data)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def music_list(self, url):
 
@@ -224,7 +223,7 @@ class Indexer:
         if get_list:
             return self.list
         else:
-            directory.add(self.list, argv=self.argv)
+            directory.add(self.list)
 
     def album_index(self, url):
 
@@ -242,7 +241,7 @@ class Indexer:
                 }
             )
 
-        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype)
 
     def songs_index(self, url, album):
 
@@ -260,7 +259,7 @@ class Indexer:
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
             item.update({'cm': [add_to_playlist, clear_playlist], 'album': album.encode('latin-1'), 'tracknumber': count})
 
-        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype)
 
     def mgreekz_index(self):
 
@@ -283,7 +282,7 @@ class Indexer:
 
         self.list = sorted(self.data, key=lambda k: k['title'].lower())
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def mgreekz_list(self, url):
 
@@ -300,7 +299,7 @@ class Indexer:
                 }
             )
 
-        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype)
 
     def _mgreekz_top10(self):
 
@@ -368,7 +367,7 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype)
 
     def _top20(self, url):
 
@@ -476,7 +475,7 @@ class Indexer:
             )
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype)
 
     def _top50(self, url):
 
@@ -545,7 +544,7 @@ class Indexer:
                 item['artist'] = item['artist'][0]
 
         control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype)
 
     def techno_choices(self, url):
 
@@ -618,4 +617,4 @@ class Indexer:
 
         control.sortmethods('tracknum', mask='%A')
 
-        directory.add(self.list, content=self.content, infotype=self.infotype, argv=self.argv)
+        directory.add(self.list, content=self.content, infotype=self.infotype)

@@ -26,10 +26,9 @@ from tulip import control, directory
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = []
-        self.argv = argv
 
     def menu(self):
 
@@ -158,7 +157,7 @@ class Indexer:
             for i in self.list:
                 i.update({'cm': [{'title': 30307, 'query': {'action': 'root'}}]})
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def info(self):
 
@@ -280,7 +279,7 @@ class Indexer:
         if rurl_enabled:
             self.list.insert(-2, resolveurl)
 
-        directory.add(self.list, content='movies', argv=self.argv)
+        directory.add(self.list, content='movies')
 
     def input_stream_addons(self):
 
@@ -309,4 +308,4 @@ class Indexer:
             }
         ]
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)

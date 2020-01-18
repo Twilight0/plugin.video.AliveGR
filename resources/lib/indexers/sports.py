@@ -20,17 +20,16 @@
 from __future__ import absolute_import, unicode_literals
 
 from tulip import control, directory
+from tulip.init import syshandle
 from ..modules.themes import iconname
 from ..modules.constants import ART_ID
 
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = []; self.data = []
-        self.argv = argv
-        self.syshandle = int(self.argv[1])
 
     def sports(self):
 
@@ -48,7 +47,7 @@ class Indexer:
             }
             ]
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def sports_news(self):
 
@@ -98,5 +97,5 @@ class Indexer:
 
             self.list.append((_url_, list_item, isFolder))
 
-        control.addItems(self.syshandle, self.list)
-        control.directory(self.syshandle)
+        control.addItems(syshandle, self.list)
+        control.directory(syshandle)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.0~alpha1" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.0~alpha2" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.4"/>
@@ -17,19 +17,19 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <reuselanguageinvoker>false</reuselanguageinvoker>
-        <summary lang="en">AliveGR, Kodi media center addon</summary>
+        <summary lang="en">AliveGR addon for Kodi media center</summary>
         <description lang="en_GB">AliveGR is an addon allowing streaming content available mostly in Greek language.</description>
         <disclaimer lang="en_GB">AliveGR's author does not host, stream or distribute any of the content displayed inside this software and cannot be held responsible for the quality or availability of the listed streams.
 On demand content is scraped from various websites and is freely available on the internet on public domains. This software acts only as a search engine.
 Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is" with no warranty.</disclaimer>
-        <summary lang="el_GR">AliveGR, Μικροεφαρμογή κέντρου πολυμέσων για το Kodi</summary>
+        <summary lang="el_GR">AliveGR, Μικροεφαρμογή για το Kodi κέντρου πολυμέσων</summary>
         <description lang="el_GR">Το πρόσθετο AliveGR επιτρέπει την θέαση ροών με περιεχόμενο κυρίως εις την Ελληνική γλώσσα.</description>
         <disclaimer lang="el_GR">Ο δημιουργός του AliveGR δεν φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
 Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο σε δημόσιους ιστότοπους. Το παρόν λογισμικό ενεργεί μόνο ως μηχανή αναζήτησης.
 Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του Kodi αναπαραγωγέα πολυμέσων ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς εγγύηση.</disclaimer>
         <language>en el</language>
         <license>GNU GPL, version 2</license>
-        <forum>https://www.facebook.com/alivegr/</forum>
+        <forum>https://bitbucket.org/thgiliwt/plugin.video.alivegr/issues</forum>
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <website>https://alivegr.net/</website>
         <size>584908</size>

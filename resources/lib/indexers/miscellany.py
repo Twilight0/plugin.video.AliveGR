@@ -21,18 +21,17 @@ from __future__ import absolute_import, unicode_literals
 
 from tulip import cache, client, control
 from tulip.log import log_debug
+from tulip.init import syshandle
 from ..modules.helpers import thgiliwt
 from ..modules.constants import YT_ADDON
 
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = [] ; self.data = []
         self.misc = 'wWb45SeuFGbsV2YzlWbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
-        self.argv = argv
-        self.syshandle = int(self.argv[1])
 
     def misc_list(self):
 
@@ -106,5 +105,5 @@ class Indexer:
             isFolder = True
             self.list.append((url, li, isFolder))
 
-        control.addItems(self.syshandle, self.list)
-        control.directory(self.syshandle)
+        control.addItems(syshandle, self.list)
+        control.directory(syshandle)

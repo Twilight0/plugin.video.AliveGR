@@ -49,25 +49,25 @@ genre = params.get('genre')
 
 if content == 'video':
     from resources.lib.indexers import navigator
-    navigator.Indexer(argv=argv).root()
+    navigator.Indexer().root()
 
 elif content == 'audio':
     from resources.lib.indexers import navigator
-    navigator.Indexer(argv=argv).audio()
+    navigator.Indexer().audio()
 
 elif content == 'image':
     from resources.lib.indexers import news
-    news.Indexer(argv=argv).papers_index()
+    news.Indexer().papers_index()
 
 elif content == 'executable':
     from resources.lib.indexers import settings
-    settings.Indexer(argv=argv).menu()
+    settings.Indexer().menu()
 
 ########################################################################################################################
 
 elif action is None:
     from resources.lib.indexers import navigator
-    navigator.Indexer(argv=argv).root()
+    navigator.Indexer().root()
 
 ########################################################################################################################
 
@@ -77,7 +77,7 @@ elif action == 'root':
 
 elif action == 'live_tv':
     from resources.lib.indexers import live
-    live.Indexer(argv=argv).live_tv()
+    live.Indexer().live_tv()
 
 elif action == 'pvr_client':
     from resources.lib.modules import kodi
@@ -85,83 +85,83 @@ elif action == 'pvr_client':
 
 elif action == 'networks':
     from resources.lib.indexers import networks
-    networks.Indexer(argv=argv).networks()
+    networks.Indexer().networks()
 
 elif action == 'news':
     from resources.lib.indexers import news
-    news.Indexer(argv=argv).news()
+    news.Indexer().news()
 
 elif action == 'movies':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).movies()
+    gm.Indexer().movies()
 
 elif action == 'short_films':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).short_films()
+    gm.Indexer().short_films()
 
 elif action == 'shows':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).shows()
+    gm.Indexer().shows()
 
 elif action == 'series':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).series()
+    gm.Indexer().series()
 
 elif action == 'kids':
     from resources.lib.indexers import kids
-    kids.Indexer(argv=argv).kids()
+    kids.Indexer().kids()
 
 elif action == 'kids_live':
     from resources.lib.indexers import live
-    live.Indexer(argv=argv).modular('30032')
+    live.Indexer().modular('30032')
 
 elif action == 'cartoon_series':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).cartoons_series()
+    gm.Indexer().cartoons_series()
 
 elif action == 'cartoon_collection':
     from resources.lib.indexers import kids
-    kids.Indexer(argv=argv).cartoon_collection()
+    kids.Indexer().cartoon_collection()
 
 elif action == 'cartoon_various':
     from resources.lib.indexers import kids
-    kids.Indexer(argv=argv).cartoon_various(url)
+    kids.Indexer().cartoon_various(url)
 
 elif action == 'educational':
     from resources.lib.indexers import kids
-    kids.Indexer(argv=argv).educational()
+    kids.Indexer().educational()
 
 elif action == 'kids_songs':
     from resources.lib.indexers import kids
-    kids.Indexer(argv=argv).kids_songs()
+    kids.Indexer().kids_songs()
 
 elif action == 'listing':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).listing(url)
+    gm.Indexer().listing(url)
 
 elif action == 'episodes':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).episodes(url)
+    gm.Indexer().episodes(url)
 
 elif action == 'sports':
     from resources.lib.indexers import sports
-    sports.Indexer(argv=argv).sports()
+    sports.Indexer().sports()
 
 elif action == 'gm_sports':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).gm_sports()
+    gm.Indexer().gm_sports()
 
 elif action == 'sports_news':
     from resources.lib.indexers import sports
-    sports.Indexer(argv=argv).sports_news()
+    sports.Indexer().sports_news()
 
 elif action == 'events':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).events(url)
+    gm.Indexer().events(url)
 
 elif action == 'theater':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).theater()
+    gm.Indexer().theater()
 
 # elif action == 'documentaries':
 #     from resources.lib.indexers import documentaries
@@ -173,63 +173,63 @@ elif action == 'theater':
 
 elif action == 'miscellany':
     from resources.lib.indexers import miscellany
-    miscellany.Indexer(argv=argv).miscellany()
+    miscellany.Indexer().miscellany()
 
 elif action == 'audio':
     from resources.lib.indexers import navigator
-    navigator.Indexer(argv=argv).audio()
+    navigator.Indexer().audio()
 
 elif action == 'music':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).menu()
+    music.Indexer().menu()
 
 elif action == 'music_live':
     from resources.lib.indexers import live
-    live.Indexer(argv=argv).modular('30125')
+    live.Indexer().modular('30125')
 
 elif action == 'gm_music':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).gm_music()
+    music.Indexer().gm_music()
 
 elif action == 'artist_index':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).artist_index(url)
+    music.Indexer().artist_index(url)
 
 elif action == 'album_index':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).album_index(url)
+    music.Indexer().album_index(url)
 
 elif action == 'songs_index':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).songs_index(url, name)
+    music.Indexer().songs_index(url, name)
 
 elif action == 'mgreekz_index':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).mgreekz_index()
+    music.Indexer().mgreekz_index()
 
 elif action == 'mgreekz_list':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).mgreekz_list(url)
+    music.Indexer().mgreekz_list(url)
 
 elif action == 'mgreekz_top10':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).mgreekz_top10()
+    music.Indexer().mgreekz_top10()
 
 elif action == 'top20_list':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).top20_list(url)
+    music.Indexer().top20_list(url)
 
 elif action == 'top50_list':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).top50_list(url)
+    music.Indexer().top50_list(url)
 
 elif action == 'techno_choices':
     from resources.lib.indexers import music
-    music.Indexer(argv=argv).techno_choices(url)
+    music.Indexer().techno_choices(url)
 
 elif action == 'radio':
     from resources.lib.indexers import radios
-    radios.Indexer(argv=argv).radio()
+    radios.Indexer().radio()
 
 elif action == 'papers':
     from resources.lib.modules import helpers
@@ -237,7 +237,7 @@ elif action == 'papers':
 
 elif action == 'papers_index':
     from resources.lib.indexers import news
-    news.Indexer(argv=argv).papers_index()
+    news.Indexer().papers_index()
 
 elif action == 'addBookmark':
     from tulip import bookmarks
@@ -257,15 +257,15 @@ elif action == 'unpin':
 
 elif action == 'bookmarks':
     from resources.lib.indexers import bookmarks
-    bookmarks.Indexer(argv=argv).bookmarks()
+    bookmarks.Indexer().bookmarks()
 
 elif action == 'search':
     from resources.lib.indexers import search
-    search.Indexer(argv=argv).search()
+    search.Indexer().search()
 
 elif action == 'settings':
     from resources.lib.indexers import settings
-    settings.Indexer(argv=argv).menu()
+    settings.Indexer().menu()
 
 elif action == 'tools_menu':
     from resources.lib.modules import helpers
@@ -291,15 +291,15 @@ elif action == 'directory':
 
 elif action == 'live_switcher':
     from resources.lib.indexers import live
-    live.Indexer(argv=argv).switcher()
+    live.Indexer().switcher()
 
 elif action == 'vod_switcher':
     from resources.lib.indexers import gm
-    gm.Indexer(argv=argv).vod_switcher(url)
+    gm.Indexer().vod_switcher(url)
 
 elif action == 'papers_switcher':
     from resources.lib.indexers import news
-    news.Indexer(argv=argv).switcher()
+    news.Indexer().switcher()
 
 elif action == 'setup_iptv':
     from resources.lib.modules import tools
@@ -391,11 +391,11 @@ elif action == 'developer_mode':
 
 elif action == 'info':
     from resources.lib.indexers import settings
-    settings.Indexer(argv=argv).info()
+    settings.Indexer().info()
 
 elif action == 'input_stream_addons':
     from resources.lib.indexers import settings
-    settings.Indexer(argv=argv).input_stream_addons()
+    settings.Indexer().input_stream_addons()
 
 elif action == 'call_info':
     from resources.lib.modules import helpers

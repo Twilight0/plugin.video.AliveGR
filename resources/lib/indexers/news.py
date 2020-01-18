@@ -20,19 +20,17 @@
 from __future__ import absolute_import, unicode_literals
 
 from tulip import control, client, cache
+from tulip.init import syshandle
 from ..modules.themes import iconname
-from ..modules.constants import ART_ID
+from ..modules.constants import ART_ID, SYSADDON
 
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = []; self.data = []; self.directory = []
         self.fp_link = 'http://www.frontpages.gr'
-        self.argv = argv
-        self.syshandle = int(self.argv[1])
-        self.sysaddon = self.argv[0]
 
     def news(self):
 
@@ -40,7 +38,7 @@ class Indexer:
             {
                 'title': control.lang(30230),
                 'icon': 'https://www.iconexperience.com/_img/v_collection_png/256x256/shadow/newspaper.png',
-                'url': '{0}?action=papers'.format(self.sysaddon),
+                'url': '{0}?action=papers'.format(SYSADDON),
                 'fanart': control.addonInfo('fanart')
             }
             ,
@@ -95,8 +93,8 @@ class Indexer:
             isFolder = True
             self.list.append((url, list_item, isFolder))
 
-        control.addItems(self.syshandle, self.list)
-        control.directory(self.syshandle)
+        control.addItems(syshandle, self.list)
+        control.directory(syshandle)
 
     @staticmethod
     def switcher():
@@ -185,8 +183,8 @@ class Indexer:
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
             li.setArt({'fanart': control.addonInfo('fanart')})
-            url = '{0}?action={1}'.format(self.sysaddon, switch['action'])
-            control.addItem(self.syshandle, url, li)
+            url = '{0}?action={1}'.format(SYSADDON, switch['action'])
+            control.addItem(syshandle, url, li)
 
         for i in self.list:
 
@@ -197,5 +195,5 @@ class Indexer:
             isFolder = False
             self.directory.append((url, li, isFolder))
 
-        control.addItems(self.syshandle, self.directory)
-        control.directory(self.syshandle)
+        control.addItems(syshandle, self.directory)
+        control.directory(syshandle)

@@ -19,17 +19,16 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
+from tulip.init import syshandle
 from tulip import control
 from ..modules.constants import ART_ID
 
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = []
-        self.argv = argv
-        self.syshandle = int(self.argv[1])
 
     def networks(self):
 
@@ -119,5 +118,5 @@ class Indexer:
             url = network['url']
             self.list.append((url, list_item, True))
 
-        control.addItems(self.syshandle, self.list)
-        control.directory(self.syshandle)
+        control.addItems(syshandle, self.list)
+        control.directory(syshandle)

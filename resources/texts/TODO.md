@@ -28,9 +28,6 @@
 
 ### Add main menu item for live movies & pseudo live
 
----
-
-## Announcements menu implementation
 
 #######################################################################################
 

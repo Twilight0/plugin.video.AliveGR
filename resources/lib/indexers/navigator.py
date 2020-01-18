@@ -26,10 +26,9 @@ from ..modules.helpers import reset_idx as reset
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = []; self.menu = []
-        self.argv = argv
 
     def root(self):
 
@@ -187,7 +186,7 @@ class Indexer:
         if control.setting('reset_idx') == 'true':
             reset(notify=False)
 
-        directory.add(self.menu, argv=self.argv)
+        directory.add(self.menu)
 
     def audio(self):
 
@@ -213,4 +212,4 @@ class Indexer:
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)

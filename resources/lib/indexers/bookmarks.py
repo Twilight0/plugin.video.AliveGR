@@ -30,10 +30,9 @@ from .gm import MOVIES, THEATER, SHORTFILMS
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = [] ; self.data = []
-        self.argv = argv
 
     def bookmarks(self):
 
@@ -69,4 +68,4 @@ class Indexer:
 
             self.list = sorted(self.data, key=lambda k: k['title'].lower())
 
-            directory.add(self.list, argv=self.argv)
+            directory.add(self.list)

@@ -32,12 +32,10 @@ from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED
 
 class Indexer:
 
-    def __init__(self, argv, params=None):
+    def __init__(self):
 
         self.list = []; self.data = []; self.groups = []
         self.alivegr = 'QjNi5SZ2lGbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
-        self.argv = argv
-        self.params = params
 
     def switcher(self):
 
@@ -282,7 +280,7 @@ class Indexer:
             control.sortmethods('title')
             control.sortmethods('genre')
 
-        directory.add(self.list, content='movies', argv=self.argv, as_playlist=zapping, progress=len(self.list) >= 100)
+        directory.add(self.list, content='movies', as_playlist=zapping, progress=len(self.list) >= 100)
 
     def modular(self, group):
 
@@ -313,4 +311,4 @@ class Indexer:
 
         self.list = sorted(self.list, key=lambda k: k['title'].lower())
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)

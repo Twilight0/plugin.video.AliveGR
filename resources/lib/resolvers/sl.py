@@ -21,6 +21,8 @@
 import streamlink.session
 from streamlink.exceptions import NoPluginError, NoStreamsError
 from tulip import control, log
+from tulip.compat import urlencode
+from ..modules.helpers import stream_picker
 
 
 class StreamLink:
@@ -106,3 +108,61 @@ class StreamLink:
     
             log.log_debug('Streamlink cannot resolve this url')
             return False
+
+
+def stream_processor(stream):
+
+    try:
+
+        try:
+            args = stream['best'].args
+        except Exception:
+            args = None
+
+        try:
+            json_dict = json.loads(stream['best'].json)
+        except Exception:
+            json_dict = None
+
+        for h in args, json_dict:
+
+            try:
+                if 'headers' in h:
+                    headers = h['headers']
+                    break
+                else:
+                    headers = None
+            except Exception:
+                headers = None
+
+        if headers:
+
+            try:
+                del headers['Connection']
+                del headers['Accept-Encoding']
+                del headers['Accept']
+            except KeyError:
+                pass
+
+            append = ''.join(['|', urlencode(headers)])
+
+        else:
+
+            append = ''
+
+    except AttributeError:
+
+        append = ''
+
+    if control.setting('sl_quality_picker') == '0' or len(stream) == 3:
+
+        stream = stream['best'].to_url() + append
+
+    else:
+
+        keys = list(stream.keys())[::-1]
+        values = [u.to_url() + append for u in list(stream.values())][::-1]
+
+        stream = stream_picker(keys, values)
+
+    return stream

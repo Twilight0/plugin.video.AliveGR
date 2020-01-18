@@ -35,6 +35,7 @@ API_KEYS = {
 
 ########################################################################################################################
 
+SYSADDON = 'plugin.video.AliveGR'
 ART_ID = 'resource.images.alivegr.artwork'
 LOGOS_ID = 'resource.images.alivegr.logos'
 YT_ADDON = 'plugin://plugin.video.youtube'

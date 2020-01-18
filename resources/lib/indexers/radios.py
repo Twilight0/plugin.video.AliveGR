@@ -25,7 +25,7 @@ from ..modules.constants import ART_ID, LOGOS_ID
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.addons = [
             {
@@ -48,11 +48,9 @@ class Indexer:
             }
         ]
 
-        self.argv = argv
-
     def radio(self):
 
         for station in self.addons:
             station.update({'action': 'activate_audio_addon', 'isFolder': 'False', 'isPlayable': 'False' })
 
-        directory.add(self.addons, argv=self.argv)
+        directory.add(self.addons)

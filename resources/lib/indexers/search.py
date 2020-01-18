@@ -28,19 +28,18 @@ from . import live
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = [] ; self.data = []
-        self.argv = argv
 
     def wrapper(self, str_input, category):
 
         post = 'searchcategory={0}&searchtext={1}'.format(category, quote(str_input.encode('utf-8')))
 
         if category == 'person':
-            self.list = gm.Indexer(self.argv).persons_index(gm.SEARCH, post=post)
+            self.list = gm.Indexer().persons_index(gm.SEARCH, post=post)
         else:
-            self.list = gm.Indexer(self.argv).listing(gm.SEARCH, post=post, get_listing=True)
+            self.list = gm.Indexer().listing(gm.SEARCH, post=post, get_listing=True)
 
         return self.list
 
@@ -62,9 +61,9 @@ class Indexer:
             if not str_input:
                 return
 
-            self.list = live.Indexer(argv=self.argv).live_tv(zapping=False, query=str_input.lower())
+            self.list = live.Indexer().live_tv(zapping=False, query=str_input.lower())
 
-            directory.add(self.list, argv=self.argv)
+            directory.add(self.list)
 
         elif choice == 1:
 
@@ -82,7 +81,7 @@ class Indexer:
 
             self.list = self.wrapper(str_input, 'movies')
 
-            directory.add(self.list, content='movies', argv=self.argv)
+            directory.add(self.list, content='movies')
 
         elif choice == 2:
 
@@ -101,7 +100,7 @@ class Indexer:
 
             self.list = self.wrapper(str_input, 'series')
 
-            directory.add(self.list, content='tvshows', argv=self.argv)
+            directory.add(self.list, content='tvshows')
 
         elif choice == 3:
 
@@ -120,7 +119,7 @@ class Indexer:
 
             self.list = self.wrapper(str_input, 'shows')
 
-            directory.add(self.list, content='tvshows', argv=self.argv)
+            directory.add(self.list, content='tvshows')
 
         elif choice == 4:
 
@@ -139,7 +138,7 @@ class Indexer:
 
             self.list = self.wrapper(str_input, 'theater')
 
-            directory.add(self.list, content='tvshows', argv=self.argv)
+            directory.add(self.list, content='tvshows')
 
         elif choice == 5:
 
@@ -158,7 +157,7 @@ class Indexer:
 
             self.list = self.wrapper(str_input, 'animation')
 
-            directory.add(self.list, content='tvshows', argv=self.argv)
+            directory.add(self.list, content='tvshows')
 
         elif choice == 6:
 
@@ -177,7 +176,7 @@ class Indexer:
 
             self.list = self.wrapper(str_input, 'person')
 
-            directory.add(self.list, argv=self.argv)
+            directory.add(self.list)
 
         # Will implement later
         # elif choice == 7:
@@ -197,7 +196,7 @@ class Indexer:
         #
         #     self.list = cache.get(self.wrapper, 12, str_input, 'music')
         #
-        #     directory.add(self.list, content='tvshows', argv=self.argv)
+        #     directory.add(self.list, content='tvshows', )
 
         else:
 

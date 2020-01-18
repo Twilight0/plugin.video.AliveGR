@@ -106,7 +106,7 @@ def root(url):
 
 class Indexer:
 
-    def __init__(self, argv):
+    def __init__(self):
 
         self.list = []; self.data = []; self.years = []
 
@@ -114,8 +114,6 @@ class Indexer:
             'title': control.lang(30045).format(control.lang(int(control.setting('vod_group')))),
             'icon': iconname('switcher'), 'action': 'vod_switcher&url={0}'
         }
-
-        self.argv = argv
 
     def vod_switcher(self, url):
 
@@ -147,7 +145,7 @@ class Indexer:
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(MOVIES))
         control.addItem(syshandle, url, li)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def short_films(self):
 
@@ -163,7 +161,7 @@ class Indexer:
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SHORTFILMS))
         control.addItem(syshandle, url, li)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def series(self):
 
@@ -179,7 +177,7 @@ class Indexer:
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SERIES))
         control.addItem(syshandle, url, li)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def shows(self):
 
@@ -195,7 +193,7 @@ class Indexer:
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SHOWS))
         control.addItem(syshandle, url, li)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def cartoons_series(self):
 
@@ -211,7 +209,7 @@ class Indexer:
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(ANIMATION))
         control.addItem(syshandle, url, li)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def theater(self):
 
@@ -227,7 +225,7 @@ class Indexer:
         url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(THEATER))
         control.addItem(syshandle, url, li)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def items_list(self, url, post=None):
 
@@ -351,9 +349,9 @@ class Indexer:
         progress = len(self.list) >= 100
 
         if url.startswith((MOVIES, THEATER, SHORTFILMS)):
-            directory.add(self.list, content='movies', argv=self.argv, progress=progress)
+            directory.add(self.list, content='movies', progress=progress)
         else:
-            directory.add(self.list, content='tvshows', argv=self.argv, progress=progress)
+            directory.add(self.list, content='tvshows', progress=progress)
 
     def epeisodia(self, url):
 
@@ -455,7 +453,7 @@ class Indexer:
         # control.sortmethods('title')
         # control.sortmethods('year')
 
-        directory.add(self.list, content='episodes', argv=self.argv, progress=len(self.list) >= 100)
+        directory.add(self.list, content='episodes', progress=len(self.list) >= 100)
 
     def gm_sports(self):
 
@@ -480,7 +478,7 @@ class Indexer:
             }
             self.list.append(data)
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def event_list(self, url):
 
@@ -519,7 +517,7 @@ class Indexer:
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             item.update({'cm': [bookmark_cm], 'action': 'play', 'isFolder': 'False'})
 
-        directory.add(self.list, argv=self.argv)
+        directory.add(self.list)
 
     def persons_listing(self, url, post):
 
@@ -562,4 +560,4 @@ class Indexer:
         if get_list:
             return self.list
         else:
-            directory.add(self.list, argv=self.argv)
+            directory.add(self.list)
