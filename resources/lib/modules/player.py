@@ -19,9 +19,6 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-import random
-import re
-import json
 # import YDStreamExtractor
 from tulip.compat import urljoin, parse_qsl, OrderedDict, zip
 
@@ -35,8 +32,8 @@ except Exception:
 from tulip import directory, client, cache, control
 from tulip.log import log_debug
 
-from ..indexers.gm import GM_BASE
-from ..resolvers import various, youtube, sl
+from ..indexers.gm import GM_BASE, source_maker
+from ..resolvers import various, youtube, stream_link
 from .constants import YT_URL
 from .helpers import m3u8_picker
 from .kodi import addon_version
@@ -55,7 +52,7 @@ def conditionals(url):
             uri = YT_URL + uri
 
         try:
-            return youtube.wrapper(uri)
+            return youtube.passthrough(uri)
         except YouTubeException as exp:
             log_debug('Youtube resolver failure, reason: ' + repr(exp))
             return
@@ -68,7 +65,7 @@ def conditionals(url):
 
     elif 'greek-movies.com' in url:
 
-        sources = cache.get(gm_source_maker, 6, url)
+        sources = cache.get(source_maker, 6, url)
 
         link = mini_picker(sources['hosts'], sources['links'])
 
@@ -88,9 +85,9 @@ def conditionals(url):
 
         return conditionals(source)
 
-    elif sl.StreamLink(url).hosts:
+    elif stream_link.StreamLink(url).hosts:
 
-        stream = sl.StreamLink(url).wrapper()
+        stream = stream_link.StreamLink(url).passthrough()
 
         log_debug('Resolved with streamlink')
 
@@ -126,7 +123,7 @@ def conditionals(url):
 
     elif 'periscope' in url and 'search' in url:
 
-        stream = sl.wrapper(cache.get(various.periscope_search, 6, url))
+        stream = stream_link.StreamLink(cache.get(various.periscope_search, 6, url)).passthrough()
 
         return stream
 
@@ -134,163 +131,13 @@ def conditionals(url):
 
         link = cache.get(various.risegr, 24, url)
 
-        stream = sl.wrapper(link)
+        stream = stream_link.StreamLink(link).passthrough()
 
         return stream
 
     else:
 
         return url
-
-
-def gm_source_maker(url):
-
-    if 'episode' in url:
-
-        html = client.request(url=url.partition('?')[0], post=url.partition('?')[2])
-    
-    else:
-
-        html = client.request(url)
-
-    try:
-
-        html = html.decode('utf-8')
-    
-    except Exception:
-
-        pass
-
-    if 'episode' in url:
-
-        episodes = re.findall('''(?:<a.+?/a>|<p.+?/p>)''', html)
-
-        hl = []
-        links = []
-
-        for episode in episodes:
-
-            if '<p style="margin-top:0px; margin-bottom:4px;">' in episode:
-
-                host = client.parseDOM(episode, 'p')[0].split('<')[0]
-
-                pts = client.parseDOM(episode, 'a')
-                lks = client.parseDOM(episode, 'a', ret='href')
-
-                for p in pts:
-                    hl.append(u''.join([host, control.lang(30225), p]))
-
-                for l in lks:
-                    links.append(l)
-
-            else:
-
-                pts = client.parseDOM(episode, 'a')
-                lks = client.parseDOM(episode, 'a', ret='href')
-
-                for p in pts:
-                    hl.append(p)
-
-                for l in lks:
-                    links.append(l)
-
-        links = [urljoin(GM_BASE, link) for link in links]
-        hosts = [host.replace(u'προβολή στο ', control.lang(30015)) for host in hl]
-
-        data = {'links': links, 'hosts': hosts}
-
-        if '<p class="text-muted text-justify">' in html:
-            plot = client.parseDOM(html, 'p')[0]
-            data.update({'plot': plot})
-
-        return data
-
-    elif 'view' in url:
-
-        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
-
-        return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
-
-    elif 'music' in url:
-
-        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
-
-        return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
-
-    else:
-
-        try:
-
-            info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
-
-            if ',' in info[1]:
-
-                genre = info[1].lstrip(u'Είδος:').split(',')
-                genre = random.choice(genre)
-                genre = genre.strip()
-
-            else:
-
-                genre = info[1].lstrip(u'Είδος:').strip()
-
-        except:
-
-            genre = control.lang(30147)
-
-        buttons = client.parseDOM(html, 'div', attrs={"style": "margin: 0px 0px 10px 10px;"})
-
-        links = []
-        hl = []
-
-        for button in buttons:
-
-            if '<ul class="dropdown-menu pull-right">' in button:
-
-                h = client.stripTags(client.parseDOM(button, 'button')).strip()
-                parts = client.parseDOM(button, 'li')
-
-                for part in parts:
-
-                    p = client.parseDOM(part, 'a')[0]
-                    link = client.parseDOM(part, 'a', ret='href')[0]
-                    hl.append(', '.join([h, p]))
-                    links.append(link)
-
-            else:
-
-                h = client.parseDOM(button, 'a')[0]
-                link = client.parseDOM(button, 'a', ret='href')[0]
-
-                hl.append(h)
-                links.append(link)
-
-        links = [urljoin(GM_BASE, link) for link in links]
-
-        hosts = [host.replace(
-            u'προβολή στο ', control.lang(30015)
-        ).replace(
-            u'προβολή σε ', control.lang(30015)
-        ).replace(
-            u'μέρος ', ', ' + control.lang(30225)
-        ) for host in hl]
-
-        data = {'links': links, 'hosts': hosts, 'genre': genre}
-
-        if 'text-align: justify' in html:
-            plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
-        elif 'text-justify' in html:
-            plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
-        else:
-            plot = control.lang(30085)
-
-        data.update({'plot': plot})
-
-        imdb_code = re.search(r'imdb.+?/title/([\w]+?)/', html)
-        if imdb_code:
-            code = imdb_code.group(1)
-            data.update({'code': code})
-
-        return data
 
 
 def gm_debris(link):
@@ -311,7 +158,7 @@ def mini_picker(hl, sl):
 
     if len(hl) == 1:
 
-        stream = cache.get(gm_debris, 12, sl[0])
+        stream = cache.get(gm_debris, 480, sl[0])
 
         control.infoDialog(hl[0])
         return stream
@@ -322,14 +169,14 @@ def mini_picker(hl, sl):
 
         if choice <= len(sl) and not choice == -1:
             popped = sl[choice]
-            return cache.get(gm_debris, 12, popped)
+            return cache.get(gm_debris, 480, popped)
         else:
             return
 
 
 def items_directory(url, params):
 
-    sources = cache.get(gm_source_maker, 6, url)
+    sources = cache.get(source_maker, 6, url)
 
     lists = list(zip(sources['hosts'], sources['links']))
 
@@ -371,10 +218,10 @@ def items_directory(url, params):
             label = title + separator + h
         # plot = title + '[CR]' + control.lang(30090) + ': ' + year + '[CR]' + description
 
-        data = dict(
-            label=label, title=title + ' ({})'.format(year), url=button, image=image, plot=description,
-            year=int(year), genre=genre, name=title
-        )
+        data = {
+            'label': label, 'title': title + ' ({})'.format(year), 'url': button, 'image': image, 'plot': description,
+            'year': int(year), 'genre': genre, 'name': title
+        }
 
         items.append(data)
 
@@ -481,7 +328,7 @@ def player(url, params, do_not_resolve=False):
 
     if isinstance(stream, OrderedDict):
 
-        stream = sl.stream_processor(stream)
+        stream = stream_link.stream_processor(stream)
 
         dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
 

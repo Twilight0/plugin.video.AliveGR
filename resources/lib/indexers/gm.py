@@ -21,6 +21,7 @@ from __future__ import absolute_import, unicode_literals
 
 import re
 import json
+import random
 
 from tulip import cache, client, directory, control
 from tulip.log import log_debug
@@ -561,3 +562,152 @@ class Indexer:
             return self.list
         else:
             directory.add(self.list)
+
+
+def source_maker(url):
+
+    if 'episode' in url:
+
+        html = client.request(url=url.partition('?')[0], post=url.partition('?')[2])
+
+    else:
+
+        html = client.request(url)
+
+    try:
+
+        html = html.decode('utf-8')
+
+    except Exception:
+
+        pass
+
+    if 'episode' in url:
+
+        episodes = re.findall('''(?:<a.+?/a>|<p.+?/p>)''', html)
+
+        hl = []
+        links = []
+
+        for episode in episodes:
+
+            if '<p style="margin-top:0px; margin-bottom:4px;">' in episode:
+
+                host = client.parseDOM(episode, 'p')[0].split('<')[0]
+
+                pts = client.parseDOM(episode, 'a')
+                lks = client.parseDOM(episode, 'a', ret='href')
+
+                for p in pts:
+                    hl.append(u''.join([host, control.lang(30225), p]))
+
+                for l in lks:
+                    links.append(l)
+
+            else:
+
+                pts = client.parseDOM(episode, 'a')
+                lks = client.parseDOM(episode, 'a', ret='href')
+
+                for p in pts:
+                    hl.append(p)
+
+                for l in lks:
+                    links.append(l)
+
+        links = [urljoin(GM_BASE, link) for link in links]
+        hosts = [host.replace(u'προβολή στο ', control.lang(30015)) for host in hl]
+
+        data = {'links': links, 'hosts': hosts}
+
+        if '<p class="text-muted text-justify">' in html:
+            plot = client.parseDOM(html, 'p')[0]
+            data.update({'plot': plot})
+
+        return data
+
+    elif 'view' in url:
+
+        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+
+        return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
+
+    elif 'music' in url:
+
+        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
+
+        return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
+
+    else:
+
+        try:
+
+            info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
+
+            if ',' in info[1]:
+
+                genre = info[1].lstrip(u'Είδος:').split(',')
+                genre = random.choice(genre)
+                genre = genre.strip()
+
+            else:
+
+                genre = info[1].lstrip(u'Είδος:').strip()
+
+        except:
+
+            genre = control.lang(30147)
+
+        buttons = client.parseDOM(html, 'div', attrs={"style": "margin: 0px 0px 10px 10px;"})
+
+        links = []
+        hl = []
+
+        for button in buttons:
+
+            if '<ul class="dropdown-menu pull-right">' in button:
+
+                h = client.stripTags(client.parseDOM(button, 'button')).strip()
+                parts = client.parseDOM(button, 'li')
+
+                for part in parts:
+                    p = client.parseDOM(part, 'a')[0]
+                    link = client.parseDOM(part, 'a', ret='href')[0]
+                    hl.append(', '.join([h, p]))
+                    links.append(link)
+
+            else:
+
+                h = client.parseDOM(button, 'a')[0]
+                link = client.parseDOM(button, 'a', ret='href')[0]
+
+                hl.append(h)
+                links.append(link)
+
+        links = [urljoin(GM_BASE, link) for link in links]
+
+        hosts = [host.replace(
+            u'προβολή στο ', control.lang(30015)
+        ).replace(
+            u'προβολή σε ', control.lang(30015)
+        ).replace(
+            u'μέρος ', ', ' + control.lang(30225)
+        ) for host in hl]
+
+        data = {'links': links, 'hosts': hosts, 'genre': genre}
+
+        if 'text-align: justify' in html:
+            plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
+        elif 'text-justify' in html:
+            plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
+        else:
+            plot = control.lang(30085)
+
+        data.update({'plot': plot})
+
+        imdb_code = re.search(r'imdb.+?/title/([\w]+?)/', html)
+        if imdb_code:
+            code = imdb_code.group(1)
+            data.update({'code': code})
+
+        return data

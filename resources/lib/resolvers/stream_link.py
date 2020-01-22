@@ -31,10 +31,10 @@ class StreamLink:
         
         self.url = url
 
-    def wrapper(self):
+    def passthrough(self):
     
         session = streamlink.session.Streamlink()
-    
+
         custom_plugins = control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'plugins')
         session.load_plugins(custom_plugins)
 
