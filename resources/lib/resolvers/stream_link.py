@@ -89,7 +89,7 @@ class StreamLink:
                 'euronews.com' in self.url, 'filmon.com' in self.url, 'alphatv.gr' in self.url,
                 'ellinikosfm.com' in self.url, 'player.vimeo.com' in self.url, 'alphacyprus.com.cy' in self.url,
                 'antenna.gr' in self.url, 'star.gr/tv/' in self.url, 'cybc.com.cy' in self.url,
-                'omegatv' in self.url and 'live' in self.url, 'skaitv.gr' in self.url and 'episode' in self.url,
+                'omegatv' in self.url and 'live' in self.url, 'skaitv.gr' in self.url and 'live' not in self.url,
                 'webtv.ert.gr' in self.url and 'live' not in self.url, 'sigmatv.com' in self.url
             ]
         )

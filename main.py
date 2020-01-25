@@ -449,6 +449,10 @@ elif action == 'welcome':
     from resources.lib.modules import tools
     tools.welcome()
 
+elif action == 'kodi_log_upload':
+    from resources.lib.modules import helpers
+    helpers.kodi_log_upload()
+
 # Reserved might use later:
 # elif action == 'report':
 #     from resources.lib.modules import tools

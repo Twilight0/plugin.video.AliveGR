@@ -42,7 +42,7 @@ from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 def conditionals(url):
 
-    def yt_conditional(uri):
+    def yt(uri):
 
         if uri.startswith('plugin://'):
             return uri
@@ -61,7 +61,7 @@ def conditionals(url):
 
         log_debug('Resolved with youtube addon')
 
-        return yt_conditional(url)
+        return yt(url)
 
     elif 'greek-movies.com' in url:
 
@@ -107,15 +107,15 @@ def conditionals(url):
 
         if isinstance(link, list):
             try:
-                stream = yt_conditional(link[0])
+                stream = yt(link[0])
                 if not stream:
                     raise YouTubeException
             except YouTubeException:
-                return yt_conditional(link[1])
+                return yt(link[1])
         else:
             return link
 
-    elif 'skaitv.gr' in url and 'episode' not in url:
+    elif 'skaitv.gr' in url and 'live' in url:
 
         vid = cache.get(various.skai, 3, url)
         stream = youtube.wrapper(vid)

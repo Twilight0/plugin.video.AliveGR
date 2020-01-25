@@ -203,6 +203,13 @@ class Indexer:
             }
             ,
             {
+                'title': control.lang(30341),
+                'action': 'kodi_log_upload',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
                 'title': control.lang(30296),
                 'action': 'force',
                 'isFolder': 'False',

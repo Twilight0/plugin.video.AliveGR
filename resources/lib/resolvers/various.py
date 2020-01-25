@@ -18,58 +18,8 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from tulip.user_agents import randomagent, spoofer
-from tulip import client, cache
-import re, json
-from streamlink.plugin.api.utils import itertags
-
-
-def ant1gr(link):
-
-    """Alternative method"""
-
-    html = client.request(link)
-
-    param = re.search(r'\$.getJSON\(\'(?P<param>.+?)\?', html).group('param')
-    get_json = 'http://www.antenna.gr' + param
-    cookie = client.request(get_json, output='cookie', close=False, referer=link)
-    result = client.request(get_json, cookie=cookie, referer=link)
-    url = json.loads(result)['url']
-
-    if url.endswith('.mp4'):
-        return
-    else:
-        return url
-
-
-def ant1cy(link):
-
-    """Alternative method"""
-
-    api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
-
-    html = client.request(link)
-
-    m3u8 = re.findall("'(.+?)'", list(itertags(html.text, 'script'))[-2].text)[1]
-
-    stream = client.request(api_url.format(m3u8))
-
-    return stream + spoofer()
-
-
-def omegacy(link):
-
-    """ALternative method"""
-
-    cookie = client.request(link, close=False, output='cookie')
-    html = client.request(link, cookie=cookie)
-    tags = list(itertags(html, 'script'))
-
-    m3u8 = [i for i in tags if i.text.startswith(u'var playerInstance')][0].text
-
-    stream = re.findall('"(.+?)"', m3u8)[1]
-
-    return spoofer(url=stream, referer=True, ref_str=link)
+from tulip import client
+import re
 
 
 def risegr(link):
@@ -107,49 +57,13 @@ def ert(url):
 
 def skai(url):
 
-    json_object = json.loads(client.request(url))
-
-    stream = json_object['now']['livestream']
-
-    return stream
-
-
-def stargr(url):
-
-    """Alternative method"""
-
     html = client.request(url)
 
-    script = client.parseDOM(html, 'script')[5]
+    script = [i for i in client.parseDOM(html, 'script') if 'youtube.com' in i][0]
 
-    return re.search(r"'(?P<url>.+?\.m3u8)'", script).group('url')
+    vid = re.search(r'watch\?v=([\w-]{11})', script).group(1)
 
-
-def alphatv(url):
-
-    link = client.request(url)
-    link = re.findall(r'(?:\"|\')(http(?:s|)://.+?\.m3u8(?:.*?|))(?:\"|\')', link)[0]
-
-    return link + spoofer()
-
-
-def euronews(url):
-
-    """ Alternative method"""
-
-    result = client.request(url)
-    result = json.loads(result)['url']
-
-    if result.startswith('//'):
-        result = 'http:' + result
-
-    result = client.request(result)
-    primary = json.loads(result)['primary']
-
-    if primary.startswith('//'):
-        primary = 'http:' + primary
-
-    return primary
+    return vid
 
 
 def periscope_search(url):
@@ -163,18 +77,3 @@ def periscope_search(url):
     link = search.group()
 
     return link
-
-
-def kineskop(url):
-
-    """Deprecated method"""
-
-    html = client.request(url)
-
-    stream = re.search(r"getURLParam\('src','(.+?)'", html).group(1)
-
-    headers = {'User-Agent': cache.get(randomagent, 12), 'Origin': 'http://kineskop.tv', 'Referer': url}
-
-    output = stream + spoofer(headers=headers)
-
-    return output

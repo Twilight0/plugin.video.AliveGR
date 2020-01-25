@@ -103,6 +103,28 @@ def m3u8_picker(url):
     return stream_picker(qualities, urls)
 
 
+def kodi_log_upload():
+
+    exists = control.condVisibility('System.HasAddon(script.kodi.loguploader)')
+    addon_path = control.transPath(control.join('special://', 'home', 'addons', 'script.kodi.loguploader'))
+
+    if not exists:
+
+        if path.exists(addon_path):
+            control.enable_addon('script.kodi.loguploader')
+        else:
+            control.execute('InstallAddon(script.kodi.loguploader)')
+
+        while not path.exists(addon_path):
+            control.sleep(1000)
+        else:
+            control.execute('RunScript(script.kodi.loguploader)')
+
+    else:
+
+        control.execute('RunScript(script.kodi.loguploader)')
+
+
 def toggle_alt():
 
     live_enability = control.lang(30330) if control.setting('show_alt_live') == 'true' else control.lang(30335)

@@ -22,10 +22,6 @@
 
 ---
 
-### Add menu item for uploading debug log
-
----
-
 ### Add main menu item for live movies & pseudo live
 
 
