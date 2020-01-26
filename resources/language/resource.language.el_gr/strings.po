@@ -1262,6 +1262,14 @@ msgctxt "#30341"
 msgid "[COLOR green]Run/install log uploader[/COLOR]"
 msgstr "[COLOR green]Εκτέλεση/εγκατάσταση αποφορτωτή του αρχείου καταγραφής[/COLOR]"
 
+msgctxt "#30342"
+msgid "AliveGR's movies"
+msgstr "Η ταινιοθήκη του AliveGR"
+
+msgctxt "#30343"
+msgid "Random"
+msgstr "Τυχαίο"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

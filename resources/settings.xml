@@ -69,7 +69,7 @@
         <setting type="sep"/>
         <setting type="lsep" label="30009"/>
 
-        <setting id="action_type" type="select" label="30144" lvalues="30145|30146|30284" default="0"/>
+        <setting id="action_type" type="select" label="30144" lvalues="30145|30146|30284|30343" default="0"/>
         <setting id="auto_play" label="30280" type="bool" default="true" enable="eq(-1,2)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
 

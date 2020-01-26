@@ -25,7 +25,6 @@ from tulip.init import sysaddon
 from . import gm
 from . import live
 
-
 class Indexer:
 
     def __init__(self):
@@ -38,6 +37,8 @@ class Indexer:
 
         if category == 'person':
             self.list = gm.Indexer().persons_index(gm.SEARCH, post=post)
+        # elif category == 'music':
+        #     self.list = gm.Indexer().listing(gm.SEARCH, post=post, get_listing=True)
         else:
             self.list = gm.Indexer().listing(gm.SEARCH, post=post, get_listing=True)
 
@@ -178,7 +179,6 @@ class Indexer:
 
             directory.add(self.list)
 
-        # Will implement later
         # elif choice == 7:
         #
         #     str_input = control.dialog.input(
@@ -196,7 +196,7 @@ class Indexer:
         #
         #     self.list = cache.get(self.wrapper, 12, str_input, 'music')
         #
-        #     directory.add(self.list, content='tvshows', )
+        #     directory.add(self.list)
 
         else:
 

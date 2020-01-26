@@ -260,7 +260,14 @@ class Indexer:
                 try:
                     percent = control.per_cent(int(item['code']), len(self.list))
                     pd.update(percent)
-                    item.update({'url': conditionals(item['url'])})
+                    if item['url'].startswith('alivegr://'):
+                        idx = self.list.index(item)
+                        del self.list[idx]
+                        continue
+                    new_stream = conditionals(item['url'])
+                    if not new_stream:
+                        raise Exception('Stream was not resolved, skipped')
+                    item.update({'url': new_stream})
                 except Exception as e:
                     log_debug('Failed to resolve ' + item['title'] + ' , reason: ' + repr(e))
                     continue
@@ -280,7 +287,7 @@ class Indexer:
             control.sortmethods('title')
             control.sortmethods('genre')
 
-        directory.add(self.list, content='movies', as_playlist=zapping, progress=len(self.list) >= 100)
+        directory.add(self.list, content='movies', as_playlist=zapping)
 
     def modular(self, group):
 

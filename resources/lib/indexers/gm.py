@@ -22,6 +22,7 @@ from __future__ import absolute_import, unicode_literals
 import re
 import json
 import random
+from ast import literal_eval as evaluate
 
 from tulip import cache, client, directory, control
 from tulip.log import log_debug
@@ -136,7 +137,11 @@ class Indexer:
 
         self.data = cache.get(root, 24, MOVIES)[0]
 
-        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        try:
+            self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        except Exception:
+            control.setSetting('vod_group', '30213')
+            self.list = self.data
 
         for item in self.list:
             item.update({'icon': iconname('movies')})
@@ -152,7 +157,11 @@ class Indexer:
 
         self.data = cache.get(root, 24, SHORTFILMS)[0]
 
-        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        try:
+            self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        except Exception:
+            control.setSetting('vod_group', '30213')
+            self.list = self.data
 
         for item in self.list:
             item.update({'icon': iconname('short')})
@@ -168,7 +177,11 @@ class Indexer:
 
         self.data = cache.get(root, 24, SERIES)[0]
 
-        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        try:
+            self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        except Exception:
+            control.setSetting('vod_group', '30213')
+            self.list = self.data
 
         for item in self.list:
             item.update({'icon': iconname('series')})
@@ -184,7 +197,11 @@ class Indexer:
 
         self.data = cache.get(root, 24, SHOWS)[0]
 
-        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        try:
+            self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        except Exception:
+            control.setSetting('vod_group', '30213')
+            self.list = self.data
 
         for item in self.list:
             item.update({'icon': iconname('shows')})
@@ -200,7 +217,11 @@ class Indexer:
 
         self.data = cache.get(root, 24, ANIMATION)[0]
 
-        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        try:
+            self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        except Exception:
+            control.setSetting('vod_group', '30213')
+            self.list = self.data
 
         for item in self.list:
             item.update({'icon': iconname('cartoon_series')})
@@ -216,7 +237,11 @@ class Indexer:
 
         self.data = cache.get(root, 24, THEATER)[0]
 
-        self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        try:
+            self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
+        except Exception:
+            control.setSetting('vod_group', '30213')
+            self.list = self.data
 
         for item in self.list:
             item.update({'icon': iconname('theater')})
@@ -319,7 +344,7 @@ class Indexer:
 
             for item in self.list:
 
-                if control.setting('action_type') == '0':
+                if control.setting('action_type') in ['0', '3']:
                     item.update({'action': 'play', 'isFolder': 'False'})
                 else:
                     item.update({'action': 'directory'})
@@ -347,12 +372,10 @@ class Indexer:
         control.sortmethods('title')
         control.sortmethods('year')
 
-        progress = len(self.list) >= 100
-
         if url.startswith((MOVIES, THEATER, SHORTFILMS)):
-            directory.add(self.list, content='movies', progress=progress)
+            directory.add(self.list, content='movies')
         else:
-            directory.add(self.list, content='tvshows', progress=progress)
+            directory.add(self.list, content='tvshows')
 
     def epeisodia(self, url):
 
@@ -426,7 +449,7 @@ class Indexer:
             log_debug('Episode section failed to load, try resetting indexer methods')
             return
 
-        if control.setting('action_type') == '0':
+        if control.setting('action_type') in ['0', '3']:
             for item in self.list:
                 item.update({'action': 'play', 'isFolder': 'False'})
         else:
@@ -454,7 +477,7 @@ class Indexer:
         # control.sortmethods('title')
         # control.sortmethods('year')
 
-        directory.add(self.list, content='episodes', progress=len(self.list) >= 100)
+        directory.add(self.list, content='episodes')
 
     def gm_sports(self):
 
@@ -711,3 +734,12 @@ def source_maker(url):
             data.update({'code': code})
 
         return data
+
+
+def blacklister():
+
+    result = client.request('https://pastebin.com/raw/eh5pPA6K')
+
+    kids_urls = [''.join([GM_BASE, i]) for i in evaluate(result)]
+
+    return kids_urls

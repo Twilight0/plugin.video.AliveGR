@@ -1,4 +1,4 @@
-+ [B]2.0.X[/B] [COLOR green](14-01-2020)[/COLOR]
++ [B]2.0.X[/B] [COLOR green](25-01-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)
 - Rework of several modules and functions
 - Removed donation links from welcome message
@@ -8,6 +8,7 @@
 - Removed resolving capability on youtube externally
 - Added several plugins for streamlink to resolve videos from official sources
 - Simplified some settings items
+- Removed progress dialogs
 - Several bug fixes
 
 =====================

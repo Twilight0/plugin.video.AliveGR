@@ -29,10 +29,11 @@ except Exception:
     resolve_url = None
     HostedMediaFile = None
 
+from random import shuffle, choice as random_choice
 from tulip import directory, client, cache, control
 from tulip.log import log_debug
 
-from ..indexers.gm import GM_BASE, source_maker
+from ..indexers.gm import GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..resolvers import various, youtube, stream_link
 from .constants import YT_URL
 from .helpers import m3u8_picker
@@ -52,7 +53,7 @@ def conditionals(url):
             uri = YT_URL + uri
 
         try:
-            return youtube.passthrough(uri)
+            return youtube.wrapper(uri)
         except YouTubeException as exp:
             log_debug('Youtube resolver failure, reason: ' + repr(exp))
             return
@@ -164,6 +165,9 @@ def mini_picker(hl, sl):
         return stream
 
     else:
+
+        if control.setting('action_type') == '3' or 'AliveGR' in control.infoLabel('ListItem.Label'):
+            return cache.get(gm_debris, 480, random_choice(sl))
 
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
@@ -281,10 +285,45 @@ def dash_conditionals(stream):
     return dash, m3u8_dash, mimetype, manifest_type
 
 
+def pseudo_live(url):
+
+    bl_urls = cache.get(blacklister, 48)
+
+    if url.endswith('fifties'):
+        url = 'http://greek-movies.com/movies.php?y=7&l=&g=&p='
+    elif url.endswith('sixties'):
+        url = 'http://greek-movies.com/movies.php?y=6&l=&g=&p='
+    elif url.endswith('seventies'):
+        url = 'http://greek-movies.com/movies.php?y=5&l=&g=&p='
+    elif url.endswith('eighties'):
+        url = 'http://greek-movies.com/movies.php?y=4&l=&g=&p='
+    else:
+        url = 'http://greek-movies.com/movies.php?g=8&y=&l=&p='
+
+    movie_list = gm_indexer().listing(url, get_listing=True)
+
+    shuffle(movie_list)
+
+    if not url.endswith('kids'):
+
+        for i in movie_list:
+
+            if i['url'] in bl_urls:
+
+                idx = movie_list.index(i)
+                del movie_list[idx]
+
+    directory.add(movie_list, as_playlist=True, auto_play=True)
+
+
 def player(url, params, do_not_resolve=False):
 
     if url is None:
         log_debug('Nothing playable was found')
+        return
+
+    if url.startswith('alivegr://'):
+        pseudo_live(url)
         return
 
     url = url.replace('&amp;', '&')

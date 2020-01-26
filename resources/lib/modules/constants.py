@@ -53,9 +53,9 @@ TWITTER = 'https://twitter.com/TwilightZer0'
 
 LIVE_GROUPS = OrderedDict(
     [
-        ('Panhellenic', 30201), ('Pancypriot', 30202), ('International', 30203), ('Cinema', 30205), ('Misc', 30206),
-        ('Regional', 30207), ('Thematic', 30208), ('Toronto Channels', 30209), ('Web TV', 30210), ('Kids', 30032),
-        ('Music', 30125), ('Sports', 30094)
+        ('Panhellenic', 30201), ('Pancypriot', 30202), ('International', 30203), ('Cinema', 30205),
+        ('AliveGR Cinema', 30342), ('Misc', 30206), ('Regional', 30207), ('Thematic', 30208),
+        ('Toronto Channels', 30209), ('Web TV', 30210), ('Kids', 30032), ('Music', 30125), ('Sports', 30094)
     ]
 )
 
