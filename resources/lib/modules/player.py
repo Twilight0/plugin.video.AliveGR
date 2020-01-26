@@ -29,11 +29,12 @@ except Exception:
     resolve_url = None
     HostedMediaFile = None
 
+from time import sleep
 from random import shuffle, choice as random_choice
 from tulip import directory, client, cache, control
 from tulip.log import log_debug
 
-from ..indexers.gm import GM_BASE, blacklister, source_maker, Indexer as gm_indexer
+from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..resolvers import various, youtube, stream_link
 from .constants import YT_URL
 from .helpers import m3u8_picker
@@ -321,6 +322,12 @@ def player(url, params, do_not_resolve=False):
     if url is None:
         log_debug('Nothing playable was found')
         return
+
+    directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or ('episode' in url and GM_BASE in url)
+
+    if directory_boolean and control.setting('action_type') == '1' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
+        directory.run_builtin(action='directory', url=url)
+        return control.execute('DialogClose(okdialog)')
 
     if url.startswith('alivegr://'):
         pseudo_live(url)

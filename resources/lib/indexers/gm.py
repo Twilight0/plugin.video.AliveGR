@@ -24,7 +24,7 @@ import json
 import random
 from ast import literal_eval as evaluate
 
-from tulip import cache, client, directory, control
+from tulip import cache, client, directory, control, parsers
 from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
 from ..modules.themes import iconname
@@ -344,10 +344,10 @@ class Indexer:
 
             for item in self.list:
 
-                if control.setting('action_type') in ['0', '3']:
-                    item.update({'action': 'play', 'isFolder': 'False'})
-                else:
-                    item.update({'action': 'directory'})
+                item.update({'action': 'play', 'isFolder': 'False'})
+
+                if control.setting('action_type') == '1' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
+                    item.update({'isPlayable': 'False'})
 
         elif url.startswith(SPORTS):
             for item in self.list:
@@ -362,8 +362,7 @@ class Indexer:
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
-            unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
-            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
+            item.update({'cm': [bookmark_cm, refresh_cm]})
 
         if get_listing:
 
@@ -449,12 +448,12 @@ class Indexer:
             log_debug('Episode section failed to load, try resetting indexer methods')
             return
 
-        if control.setting('action_type') in ['0', '3']:
-            for item in self.list:
-                item.update({'action': 'play', 'isFolder': 'False'})
-        else:
-            for item in self.list:
-                item.update({'action': 'directory'})
+        for item in self.list:
+
+            item.update({'action': 'play', 'isFolder': 'False'})
+
+            if control.setting('action_type') == '1':
+                item.update({'isPlayable': 'False'})
 
         for item in self.list:
 
@@ -462,8 +461,7 @@ class Indexer:
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
-            unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
-            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
+            item.update({'cm': [bookmark_cm, refresh_cm]})
 
         if control.setting('episodes_reverse') == 'true':
             self.list = sorted(
@@ -578,8 +576,7 @@ class Indexer:
             bookmark['bookmark'] = item['url']
             bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
-            unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
-            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
+            item.update({'cm': [bookmark_cm, refresh_cm]})
 
         if get_list:
             return self.list
@@ -681,19 +678,22 @@ def source_maker(url):
 
             genre = control.lang(30147)
 
-        buttons = client.parseDOM(html, 'div', attrs={"style": "margin: 0px 0px 10px 10px;"})
+        div_tags = parsers.itertags(html, 'div')
+
+        buttons = [i.text for i in list(div_tags) if 'margin: 0px 0px 10px 10px;' in i.attributes.get('style', '')]
 
         links = []
         hl = []
 
         for button in buttons:
 
-            if '<ul class="dropdown-menu pull-right">' in button:
+            if 'btn btn-primary dropdown-toggle' in button:
 
-                h = client.stripTags(client.parseDOM(button, 'button')).strip()
+                h = client.stripTags(client.parseDOM(button, 'button')[0]).strip()
                 parts = client.parseDOM(button, 'li')
 
                 for part in parts:
+
                     p = client.parseDOM(part, 'a')[0]
                     link = client.parseDOM(part, 'a', ret='href')[0]
                     hl.append(', '.join([h, p]))
@@ -714,7 +714,7 @@ def source_maker(url):
         ).replace(
             u'προβολή σε ', control.lang(30015)
         ).replace(
-            u'μέρος ', ', ' + control.lang(30225)
+            u'μέρος ', control.lang(30225)
         ) for host in hl]
 
         data = {'links': links, 'hosts': hosts, 'genre': genre}
