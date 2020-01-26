@@ -346,9 +346,6 @@ class Indexer:
 
                 item.update({'action': 'play', 'isFolder': 'False'})
 
-                if control.setting('action_type') == '1' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
-                    item.update({'isPlayable': 'False'})
-
         elif url.startswith(SPORTS):
             for item in self.list:
                 item.update({'action': 'events'})
@@ -451,9 +448,6 @@ class Indexer:
         for item in self.list:
 
             item.update({'action': 'play', 'isFolder': 'False'})
-
-            if control.setting('action_type') == '1':
-                item.update({'isPlayable': 'False'})
 
         for item in self.list:
 

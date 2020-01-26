@@ -16,14 +16,6 @@
 
 #### Add search music
 
----
-
-##### Add pseudo live streams or items
-
----
-
-### Add main menu item for live movies & pseudo live
-
 
 #######################################################################################
 

@@ -30,7 +30,7 @@ except Exception:
     HostedMediaFile = None
 
 from time import sleep
-from random import shuffle, choice as random_choice
+from random import choice as random_choice
 from tulip import directory, client, cache, control
 from tulip.log import log_debug
 
@@ -146,6 +146,7 @@ def gm_debris(link):
 
     html = client.request(urljoin(GM_BASE, link))
     button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+
     return button
 
 
@@ -158,11 +159,13 @@ def gk_debris(link):
 
 def mini_picker(hl, sl):
 
-    if len(hl) == 1:
+    if len(hl) == 1 and len(sl) == 1:
 
         stream = cache.get(gm_debris, 480, sl[0])
 
-        control.infoDialog(hl[0])
+        if 'AliveGR' not in control.infoLabel('ListItem.Label'):
+            control.infoDialog(hl[0])
+
         return stream
 
     else:
@@ -173,9 +176,12 @@ def mini_picker(hl, sl):
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
         if choice <= len(sl) and not choice == -1:
+
             popped = sl[choice]
             return cache.get(gm_debris, 480, popped)
+
         else:
+
             return
 
 
@@ -253,6 +259,13 @@ def directory_picker(url, argv):
         auto_play=control.setting('auto_play') == 'true'
     )
 
+    for i in range(0, 400):
+        if control.condVisibility('Window.IsActive(busydialog)'):
+            sleep(0.05)
+        else:
+            control.execute('Dialog.Close(all,true)')
+            break
+
 
 def dash_conditionals(stream):
 
@@ -303,7 +316,7 @@ def pseudo_live(url):
 
     movie_list = gm_indexer().listing(url, get_listing=True)
 
-    shuffle(movie_list)
+    # shuffle(movie_list)
 
     if not url.endswith('kids'):
 
@@ -314,10 +327,14 @@ def pseudo_live(url):
                 idx = movie_list.index(i)
                 del movie_list[idx]
 
-    directory.add(movie_list, as_playlist=True, auto_play=True)
+    choice = random_choice(movie_list)
+
+    player(choice['url'], {'title': choice['title'], 'image': choice['image']})
+
+    # directory.add(movie_list, as_playlist=True, auto_play=True)
 
 
-def player(url, params, do_not_resolve=False):
+def player(url, params, do_not_resolve=False, resolved_mode=True):
 
     if url is None:
         log_debug('Nothing playable was found')
@@ -325,12 +342,12 @@ def player(url, params, do_not_resolve=False):
 
     directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or ('episode' in url and GM_BASE in url)
 
-    if directory_boolean and control.setting('action_type') == '1' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
-        directory.run_builtin(action='directory', url=url)
-        return control.execute('DialogClose(okdialog)')
-
     if url.startswith('alivegr://'):
         pseudo_live(url)
+        return
+
+    if directory_boolean and control.setting('action_type') == '1' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
+        directory.run_builtin(action='directory', url=url)
         return
 
     url = url.replace('&amp;', '&')
@@ -419,7 +436,13 @@ def player(url, params, do_not_resolve=False):
         meta.update({'plot': plot})
 
     try:
-        directory.resolve(stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype)
+
+        directory.resolve(
+            stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype,
+            resolved_mode=resolved_mode
+        )
+
     except:
+
         control.execute('Dialog.Close(all)')
         control.infoDialog(control.lang(30112))
