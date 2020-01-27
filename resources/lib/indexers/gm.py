@@ -413,7 +413,7 @@ class Indexer:
 
         episodes = re.compile('onclick="loadEpisode(.*?)">(.*?)</button>').findall(result)
 
-        if b'text-justify' in html:
+        if str('text-justify') in html:
             plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
         else:
             plot = control.lang(30085)

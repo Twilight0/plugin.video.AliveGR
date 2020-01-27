@@ -36,7 +36,7 @@ def risegr(link):
 def ert(url):
 
     html = client.request(url)
-    html = client.parseDOM(html, 'div', attrs={'class': 'videoWrapper'})[-1]
+    html = client.parseDOM(html, 'div', attrs={'class': 'wpb_column vc_column_container vc_col-sm-12'})[0]
     iframe = client.parseDOM(html, 'iframe', ret='src')[0]
 
     result = client.request(iframe)
