@@ -20,9 +20,9 @@
 from __future__ import absolute_import, unicode_literals
 
 from tulip import control, client, cache
-from tulip.init import syshandle
+from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
-from ..modules.constants import ART_ID, SYSADDON
+from ..modules.constants import ART_ID
 
 
 class Indexer:
@@ -38,7 +38,7 @@ class Indexer:
             {
                 'title': control.lang(30230),
                 'icon': 'https://www.iconexperience.com/_img/v_collection_png/256x256/shadow/newspaper.png',
-                'url': '{0}?action=papers'.format(SYSADDON),
+                'url': '{0}?action=papers'.format(sysaddon),
                 'fanart': control.addonInfo('fanart')
             }
             ,
@@ -183,7 +183,7 @@ class Indexer:
 
             li = control.item(label=switch['title'], iconImage=switch['icon'])
             li.setArt({'fanart': control.addonInfo('fanart')})
-            url = '{0}?action={1}'.format(SYSADDON, switch['action'])
+            url = '{0}?action={1}'.format(sysaddon, switch['action'])
             control.addItem(syshandle, url, li)
 
         for i in self.list:

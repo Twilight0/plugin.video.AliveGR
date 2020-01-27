@@ -591,7 +591,7 @@ class Indexer:
 
         for item in self.list:
 
-            item.update({'action': 'listing'})
+            item.update({'action': 'listing', 'image': iconname('user')})
 
             bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
             bookmark['bookmark'] = item['url']

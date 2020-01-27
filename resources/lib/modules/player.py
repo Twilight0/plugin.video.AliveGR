@@ -69,6 +69,12 @@ def conditionals(url):
 
         sources = cache.get(source_maker, 6, url)
 
+        if sources is None:
+            return
+
+        if len(sources['links']) == 1:
+            return conditionals(sources['links'][0])
+
         link = mini_picker(sources['hosts'], sources['links'])
 
         if link is None:

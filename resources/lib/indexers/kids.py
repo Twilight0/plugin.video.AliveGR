@@ -22,70 +22,66 @@ from __future__ import absolute_import, unicode_literals
 import json, re
 from tulip.compat import iteritems
 from tulip import control, client, cache, directory
-from tulip.init import syshandle
+from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
-from ..modules.constants import YT_ADDON, SYSADDON
+from ..modules.constants import YT_ADDON
 
 
 class Indexer:
 
     def __init__(self):
 
-        self.list = []; self.data = []
+        self.list = []
 
     def kids(self):
 
-        self.data = [
+        self.list = [
             {
                 'title': control.lang(30078),
-                'url': '{0}?action={1}'.format(SYSADDON, 'kids_live'),
+                'action': 'kids_live',
                 'icon': iconname('kids_live')
             }
             ,
             {
                 'title': control.lang(30073),
-                'url': '{0}?action={1}&url={2}'.format(SYSADDON, 'listing', 'http://greek-movies.com/movies.php?g=8&y=&l=&p='),
+                'action': 'listing',
+                'url': 'http://greek-movies.com/movies.php?g=8&y=&l=&p=',
                 'icon': iconname('cartoon_movies')
             }
             ,
             {
                 'title': control.lang(30092),
-                'url': '{0}?action={1}&url={2}'.format(SYSADDON, 'listing', 'http://greek-movies.com/shortfilm.php?g=8&y=&l=&p='),
+                'action': 'listing',
+                'url': 'http://greek-movies.com/shortfilm.php?g=8&y=&l=&p=',
                 'icon': iconname('cartoon_short')
             }
             ,
             {
                 'title': control.lang(30072),
-                'url': '{0}?action={1}'.format(SYSADDON, 'cartoon_series'),
+                'action': 'cartoon_series',
                 'icon': iconname('cartoon_series')
             }
             ,
             {
                 'title': control.lang(30074),
-                'url': '{0}?action={1}'.format(SYSADDON, 'cartoon_collection'),
+                'action': 'cartoon_collection',
                 'icon': iconname('cartoon_collection')
             }
             ,
             {
                 'title': control.lang(30075),
-                'url': '{0}?action={1}'.format(SYSADDON, 'educational'),
+                'action': 'educational',
                 'icon': iconname('educational')
             }
             ,
             {
                 'title': control.lang(30076),
-                'url': '{0}?action={1}'.format(SYSADDON, 'kids_songs'),
+                'action': 'kids_songs',
                 'icon': iconname('kids_songs')
             }
         ]
 
-        for item in self.data:
-            li = control.item(label=item['title'])
-            li.setArt({'icon': item['icon'], 'fanart': control.addonInfo('fanart')})
-            self.list.append((item['url'], li, True))
-
-        control.addItems(syshandle, self.list)
-        control.directory(syshandle)
+        directory.add(self.list)
 
     def cartoon_collection(self):
 
@@ -129,7 +125,7 @@ class Indexer:
 
         additional = {
                 'title': u'Various full length movies - Διάφορες ταινίες πλήρους μήκους',
-                'url': '{0}?action={1}'.format(SYSADDON, 'cartoon_various'),
+                'url': '{0}?action={1}'.format(sysaddon, 'cartoon_various'),
                 'icon': iconname('kids')
             }
 
