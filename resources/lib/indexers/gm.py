@@ -17,6 +17,7 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+
 from __future__ import absolute_import, unicode_literals
 
 import re
@@ -28,7 +29,6 @@ from tulip import cache, client, directory, control, parsers
 from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
 from ..modules.themes import iconname
-from tulip.init import syshandle, sysaddon
 
 GM_BASE = 'http://greek-movies.com/'
 MOVIES = urljoin(GM_BASE, 'movies.php')
@@ -83,6 +83,7 @@ def root(url):
         for item in items:
 
             name = client.parseDOM(item, 'option', attrs={'value': '.+?.php.+?'})[0]
+            name = name.replace(u'σήμερα', control.lang(30268))
             title = name[0].capitalize() + name[1:]
             link = client.parseDOM(item, 'option', ret='value')[0]
             indexer = urlparse(link).query
@@ -101,7 +102,7 @@ def root(url):
             else:
                 group = ''
 
-            root_list.append({'title': title, 'group': group, 'action': 'listing', 'url': index})
+            root_list.append({'title': title, 'group': group, 'url': index})
 
         return root_list, groups_list
 
@@ -114,12 +115,15 @@ class Indexer:
 
         self.switch = {
             'title': control.lang(30045).format(control.lang(int(control.setting('vod_group')))),
-            'icon': iconname('switcher'), 'action': 'vod_switcher&url={0}'
+            'icon': iconname('switcher'), 'action': 'vod_switcher', 'isFolder': 'False', 'isPlayable': 'False'
         }
 
     def vod_switcher(self, url):
 
         self.data = cache.get(root, 24, url)[1]
+
+        if self.data is None:
+            return
 
         translated = [control.lang(int(i)) for i in self.data]
 
@@ -137,6 +141,9 @@ class Indexer:
 
         self.data = cache.get(root, 24, MOVIES)[0]
 
+        if self.data is None:
+            return
+
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
         except Exception:
@@ -144,12 +151,14 @@ class Indexer:
             self.list = self.data
 
         for item in self.list:
-            item.update({'icon': iconname('movies')})
 
-        li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(MOVIES))
-        control.addItem(syshandle, url, li)
+            item.update({'icon': iconname('movies'), 'action': 'listing'})
+
+        if control.setting('show_vod_switcher'):
+
+            self.switch.update({'url': MOVIES})
+
+            self.list.insert(0, self.switch)
 
         directory.add(self.list)
 
@@ -157,6 +166,9 @@ class Indexer:
 
         self.data = cache.get(root, 24, SHORTFILMS)[0]
 
+        if self.data is None:
+            return
+
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
         except Exception:
@@ -164,12 +176,13 @@ class Indexer:
             self.list = self.data
 
         for item in self.list:
-            item.update({'icon': iconname('short')})
+            item.update({'icon': iconname('short'), 'action': 'listing'})
 
-        li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SHORTFILMS))
-        control.addItem(syshandle, url, li)
+        if control.setting('show_vod_switcher'):
+
+            self.switch.update({'url': SHORTFILMS})
+
+            self.list.insert(0, self.switch)
 
         directory.add(self.list)
 
@@ -177,6 +190,9 @@ class Indexer:
 
         self.data = cache.get(root, 24, SERIES)[0]
 
+        if self.data is None:
+            return
+
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
         except Exception:
@@ -184,12 +200,12 @@ class Indexer:
             self.list = self.data
 
         for item in self.list:
-            item.update({'icon': iconname('series')})
+            item.update({'icon': iconname('series'), 'action': 'listing'})
 
-        li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SERIES))
-        control.addItem(syshandle, url, li)
+        if control.setting('show_vod_switcher'):
+            self.switch.update({'url': SERIES})
+
+            self.list.insert(0, self.switch)
 
         directory.add(self.list)
 
@@ -197,6 +213,9 @@ class Indexer:
 
         self.data = cache.get(root, 24, SHOWS)[0]
 
+        if self.data is None:
+            return
+
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
         except Exception:
@@ -204,12 +223,12 @@ class Indexer:
             self.list = self.data
 
         for item in self.list:
-            item.update({'icon': iconname('shows')})
+            item.update({'icon': iconname('shows'), 'action': 'listing'})
 
-        li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(SHOWS))
-        control.addItem(syshandle, url, li)
+        if control.setting('show_vod_switcher'):
+            self.switch.update({'url': SHOWS})
+
+            self.list.insert(0, self.switch)
 
         directory.add(self.list)
 
@@ -217,6 +236,9 @@ class Indexer:
 
         self.data = cache.get(root, 24, ANIMATION)[0]
 
+        if self.data is None:
+            return
+
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
         except Exception:
@@ -224,12 +246,12 @@ class Indexer:
             self.list = self.data
 
         for item in self.list:
-            item.update({'icon': iconname('cartoon_series')})
+            item.update({'icon': iconname('cartoon_series'), 'action': 'listing'})
 
-        li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(ANIMATION))
-        control.addItem(syshandle, url, li)
+        if control.setting('show_vod_switcher'):
+            self.switch.update({'url': ANIMATION})
+
+            self.list.insert(0, self.switch)
 
         directory.add(self.list)
 
@@ -237,6 +259,9 @@ class Indexer:
 
         self.data = cache.get(root, 24, THEATER)[0]
 
+        if self.data is None:
+            return
+
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
         except Exception:
@@ -244,12 +269,12 @@ class Indexer:
             self.list = self.data
 
         for item in self.list:
-            item.update({'icon': iconname('theater')})
+            item.update({'icon': iconname('theater'), 'action': 'listing'})
 
-        li = control.item(label=self.switch['title'], iconImage=self.switch['icon'])
-        li.setArt({'fanart': control.addonInfo('fanart')})
-        url = '{0}?action={1}'.format(sysaddon, self.switch['action'].format(THEATER))
-        control.addItem(syshandle, url, li)
+        if control.setting('show_vod_switcher'):
+            self.switch.update({'url': THEATER})
+
+            self.list.insert(0, self.switch)
 
         directory.add(self.list)
 
@@ -347,10 +372,12 @@ class Indexer:
                 item.update({'action': 'play', 'isFolder': 'False'})
 
         elif url.startswith(SPORTS):
+
             for item in self.list:
                 item.update({'action': 'events'})
 
         else:
+
             for item in self.list:
                 item.update({'action': 'episodes'})
 

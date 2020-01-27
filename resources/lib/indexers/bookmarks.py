@@ -25,12 +25,6 @@ from tulip.compat import iteritems
 from tulip import bookmarks, directory
 from tulip.log import log_debug
 from ..modules.themes import iconname
-from .gm import MOVIES, THEATER, SHORTFILMS, GM_BASE
-
-
-def directory_boolean(url):
-
-    return MOVIES in url or SHORTFILMS in url or THEATER in url or ('episode' in url and GM_BASE in url)
 
 
 class Indexer:
@@ -56,9 +50,6 @@ class Indexer:
                 item = dict((k, v) for k, v in iteritems(i) if not k == 'next')
                 item['delbookmark'] = i['url']
                 i.update({'cm': [{'title': 30081, 'query': {'action': 'deleteBookmark', 'url': json.dumps(item)}}]})
-
-                if control.setting('action_type') == '1' and directory_boolean(i['url']):
-                    item.update({'isPlayable': 'False'})
 
             self.list = sorted(self.data, key=lambda k: k['title'].lower())
 

@@ -272,7 +272,7 @@ def rurl_enable():
 
         if enabled:
 
-            control.infoDialog(control.lang(30276))
+            control.infoDialog(control.lang(30339))
             return
 
         else:
@@ -281,7 +281,7 @@ def rurl_enable():
 
             if path.exists(control.transPath(home_path)):
 
-                yes = control.yesnoDialog(control.lang(30277))
+                yes = control.yesnoDialog(control.lang(30349))
 
                 if yes:
 
@@ -290,13 +290,7 @@ def rurl_enable():
 
             else:
 
-                try:
-
-                    control.execute('InstallAddon(script.module.resolveurl)')
-
-                except Exception:
-
-                    control.okDialog(heading='AliveGR', line1=control.lang(30323))
+                control.execute('InstallAddon(script.module.resolveurl)')
 
     except Exception:
 

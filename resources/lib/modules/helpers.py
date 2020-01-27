@@ -246,6 +246,18 @@ def purge_bookmarks():
         control.infoDialog(control.lang(30139))
 
 
+def delete_settings_xml():
+
+    if path.exists(control.dataPath):
+        if control.yesnoDialog(line1=control.lang(30348)):
+            control.deleteFile(control.join(control.dataPath, 'settings.xml'))
+            control.infoDialog(control.lang(30402))
+        else:
+            control.infoDialog(control.lang(30403))
+    else:
+        control.infoDialog(control.lang(30347))
+
+
 def tools_menu():
 
     control.execute('Dialog.Close(all)')

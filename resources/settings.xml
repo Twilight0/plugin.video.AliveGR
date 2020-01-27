@@ -51,6 +51,8 @@
 
     <category label="30004">
 
+        <setting label="30046" type="action" action="RunPlugin(plugin://$ID/?action=toggle_alt)" option="close"/>
+
         <setting type="lsep" label="30006"/>
 
         <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0"/>
@@ -64,7 +66,6 @@
         <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-2,0)"/>
         <setting id="live_group_switcher" type="select" label="30291" lvalues="30048|30201|30202|30203|30205|30206|30207|30208|30209|30210|30032|30125|30094|30282" default="0" enable="eq(-2,1) | eq(-1,false)"/>
         <setting id="preresolve_streams" type="bool" label="30271" default="false"/>
-        <setting id="randomize_m3u" type="bool" label="30268" default="true"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30009"/>
@@ -72,6 +73,9 @@
         <setting id="action_type" type="select" label="30144" lvalues="30145|30146|30284|30343" default="0"/>
         <setting id="auto_play" label="30280" type="bool" default="true" enable="eq(-1,2)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
+        <setting id="show_vod_switcher" label="30061" type="bool" default="true"/>
+        <!-- TODO -->
+<!--        <setting id="show_cartoons" label="30345" type="bool" default="false"/>-->
 
         <setting type="sep"/>
         <setting type="lsep" label="30298"/>
@@ -80,7 +84,6 @@
         <setting id="dm_resolve" label="30297" type="enum" lvalues="30303|30304" default="1"/>
         <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close" enable="System.HasAddon(script.module.resolveurl)"/>
         <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
-        <setting label="30046" type="action" action="RunPlugin(plugin://$ID/?action=toggle_alt)" option="close"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30272"/>
@@ -107,6 +110,7 @@
         <setting visible="true" label="30056" type="action" action="RunPlugin(plugin://$ID/?action=cache_clear)"/>
         <setting visible="true" label="30113" type="action" action="RunPlugin(plugin://$ID/?action=cache_delete)"/>
         <setting visible="true" label="30135" type="action" action="RunPlugin(plugin://$ID/?action=purge_bookmarks)"/>
+        <setting visible="true" label="30136" type="action" action="RunPlugin(plugin://$ID/?action=delete_settings_xml)" option="close"/>
 
     </category>
 

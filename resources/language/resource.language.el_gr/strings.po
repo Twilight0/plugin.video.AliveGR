@@ -555,8 +555,8 @@ msgid "Purge bookmarks"
 msgstr "Εκκαθάριση σελιδοδεικτών"
 
 msgctxt "#30136"
-msgid "Delete addon settings folder"
-msgstr "Διαγραφή φακέλου ρυθμίσεων"
+msgid "Delete addon settings.xml"
+msgstr "Διαγραφή αρχείου settings.xml"
 
 msgctxt "#30137"
 msgid "Tools"
@@ -967,8 +967,8 @@ msgid "AliveGR, version: {0}"
 msgstr "AliveGR, έκδοση: {0}"
 
 msgctxt "#30268"
-msgid "Randomize m3u playlists (pseudo-live streams)"
-msgstr "Ανακάτεμα λιστών αναπαραγωγής m3u (ψευδο-ζωντανές ροές)"
+msgid "Today"
+msgstr "Σήμερα"
 
 msgctxt "#30269"
 msgid "Developer's top 50 picks"
@@ -1269,6 +1269,30 @@ msgstr "Η ταινιοθήκη του AliveGR"
 msgctxt "#30343"
 msgid "Random"
 msgstr "Τυχαίο"
+
+msgctxt "#30344"
+msgid "Random movie selection (single)"
+msgstr "Τυχαία επιλογή ταινίας (μονή)"
+
+msgctxt "#30345"
+msgid "Show cartoons on main indexers"
+msgstr "Δείξε τα παιδικά στους κυρίους καταλόγους"
+
+msgctxt "#30346"
+msgid "Random movie selection (multiple)"
+msgstr "Τυχαία επιλογή ταινίας (πολλαπλές)"
+
+msgctxt "#30347"
+msgid "Settings folder was not found"
+msgstr "Δεν βρέθηκε ο φάκελος ρυθμίσεων"
+
+msgctxt "#30348"
+msgid "Do you want to delete the settings.xml file?"
+msgstr "Θέλετε να διαγράψετε το αρχείο settings.xml;"
+
+msgctxt "#30349"
+msgid "ResolveURL is not enabled. Do you to enabled it now?"
+msgstr "Το πρόσθετο ResolveURL δεν είναι ενεργοποιημένο. Ενεργοποίηση τώρα;"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

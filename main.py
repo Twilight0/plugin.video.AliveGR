@@ -357,9 +357,13 @@ elif action == 'purge_bookmarks':
     from resources.lib.modules import helpers
     helpers.purge_bookmarks()
 
-elif action == 'refresh':
+elif action == 'delete_settings_xml':
     from resources.lib.modules import helpers
-    helpers.refresh()
+    helpers.delete_settings_xml()
+
+elif action == 'refresh':
+    from tulip import control
+    control.refresh()
 
 elif action == 'refresh_and_clear':
     from resources.lib.modules import helpers
