@@ -1295,7 +1295,7 @@ msgid "ResolveURL is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30350"
-msgid "Additional streams menu"
+msgid "Unofficial streams menu"
 msgstr ""
 
 msgctxt "#30401"
