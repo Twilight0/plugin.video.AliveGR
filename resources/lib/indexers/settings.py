@@ -251,9 +251,9 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30294).format(separator, control.addon('script.module.streamlink').getAddonInfo('version')),
+                'title': control.lang(30294).format(separator, control.addon('script.module.streamlink.base').getAddonInfo('version')),
                 'action': 'force',
-                'image': control.addon('script.module.streamlink').getAddonInfo('icon'),
+                'image': control.addon('script.module.streamlink.base').getAddonInfo('icon'),
                 'plot': control.lang(30265),
                 'isFolder': 'False',
                 'isPlayable': 'False'
