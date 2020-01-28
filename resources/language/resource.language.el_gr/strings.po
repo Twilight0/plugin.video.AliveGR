@@ -1163,8 +1163,8 @@ msgid "Open website in browser window"
 msgstr "Άνοιγμα σελίδας σε παράθυρο φυλλομετρητή"
 
 msgctxt "#30317"
-msgid "Toggle unofficial live channels (Currently: {0})"
-msgstr "Εναλλαγή ανεπίσημων ζωντανων ροών (Τωρα ειναι: {0})"
+msgid "Live streams (Currently: {0})"
+msgstr "Ζωντανές ροές (Τωρα ειναι: {0})"
 
 msgctxt "#30318"
 msgid "Change skin"
@@ -1294,6 +1294,10 @@ msgctxt "#30349"
 msgid "ResolveURL is not enabled. Do you to enabled it now?"
 msgstr "Το πρόσθετο ResolveURL δεν είναι ενεργοποιημένο. Ενεργοποίηση τώρα;"
 
+msgctxt "#30350"
+msgid "Unofficial streams menu"
+msgstr "Μενού ανεπίσημων ροών"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"
@@ -1311,8 +1315,8 @@ msgid "Disable additional streams or menu items?"
 msgstr "Απενεργοποιηση επιπλέον ροών ή αντικειμενων μενού;"
 
 msgctxt "#30405"
-msgid "Toggle additional vod streams (Currently: {0})"
-msgstr "Εναλλαγή επιπλέον ροών on demand (Τώρα είναι: {0})"
+msgid "Vod streams (Currently: {0})"
+msgstr "Ροές κατά παραγγελία (Τώρα είναι: {0})"
 
 msgctxt "#30406"
 msgid "Enable PVR Simple Client menu now?"

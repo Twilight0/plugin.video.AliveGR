@@ -93,13 +93,6 @@ def lang_choice():
         control.execute('Dialog.Close(all)')
 
 
-def addon_version(addon_id):
-
-    version = int(control.infoLabel('System.AddonVersion({0})'.format(addon_id)).replace('.', ''))
-
-    return version
-
-
 def add_to_playlist():
 
     control.execute('Action(Queue)')
@@ -158,7 +151,7 @@ def system_info():
 
 def isa_enable():
 
-    if addon_version('xbmc.python') < 2250:
+    if control.kodi_version() < 17.0:
 
         control.infoDialog(control.lang(30322))
         return
@@ -209,7 +202,7 @@ def isa_enable():
 
 def rtmp_enable():
 
-    if addon_version('xbmc.python') < 2250:
+    if control.kodi_version() < 17.0:
 
         control.infoDialog(control.lang(30322))
         return

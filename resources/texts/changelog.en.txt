@@ -1,4 +1,4 @@
-+ [B]2.0.X[/B] [COLOR green](27-01-2020)[/COLOR]
++ [B]2.0.X[/B] [COLOR green](28-01-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)
 - Rework of several modules and functions
 - Removed donation links from welcome message
@@ -7,6 +7,7 @@
 - Removed openload streamlink plugin and accompanying settings
 - Removed resolving capability on youtube externally
 - Added several plugins for streamlink to resolve videos from official sources
+- Revamped search functionality
 - Simplified some settings items
 - Removed progress dialogs
 - New random movie pick (50ies, 60ies, 70ies, 80ies, kids)

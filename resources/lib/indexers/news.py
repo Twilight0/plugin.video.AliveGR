@@ -137,7 +137,8 @@ class Indexer:
 
                 image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='src')[0]
                 title = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='alt')[0]
-                image = self.fp_link + image
+                title = client.replaceHTMLCodes(title)
+                image = ''.join([self.fp_link, image])
                 link = image.replace('B.jpg', 'I.jpg')
 
                 data = {'title': title, 'image': image, 'url': link, 'group': group}

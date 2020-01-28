@@ -38,7 +38,6 @@ from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, sou
 from ..resolvers import various, youtube, stream_link
 from .constants import YT_URL
 from .helpers import m3u8_picker
-from .kodi import addon_version
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
@@ -283,7 +282,7 @@ def dash_conditionals(stream):
 
         inputstream_adaptive = False
 
-    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and addon_version('xbmc.python') >= 2260 and not 'dailymotion.com' in stream
+    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and not 'dailymotion.com' in stream
 
     dash = ('.mpd' in stream or 'dash' in stream or '.ism' in stream or m3u8_dash) and inputstream_adaptive
 

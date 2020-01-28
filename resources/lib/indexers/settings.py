@@ -93,6 +93,20 @@ class Indexer:
             }
             ,
             {
+                'title': control.addonInfo('name') + ': ' + control.lang(30350),
+                'action': 'toggle_alt',
+                'icon': iconname('monitor'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30320) + ': ' + control.lang(30272),
+                'action': 'input_stream_addons',
+                'icon': iconname('monitor')
+            }
+            ,
+            {
                 'title': control.addonInfo('name') + ': ' + control.lang(30056),
                 'action': 'cache_clear',
                 'icon': iconname('empty'),
@@ -141,16 +155,6 @@ class Indexer:
                 'isPlayable': 'False'
             }
         ]
-
-        if float(control.addon('xbmc.addon').getAddonInfo('version')[:4]) >= 17.0:
-
-            inputstream = {
-                'title': control.lang(30320) + ': ' + control.lang(30272),
-                'action': 'input_stream_addons',
-                'icon': iconname('monitor')
-            }
-
-            self.list.insert(6, inputstream)
 
         if control.condVisibility('Window.IsVisible(programs)'):
 

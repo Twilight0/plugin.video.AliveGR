@@ -131,7 +131,8 @@ def toggle_alt():
     vod_enability = control.lang(30330) if control.setting('show_alt_vod') == 'true' else control.lang(30335)
 
     option = control.selectDialog(
-        [control.lang(30317).format(live_enability), control.lang(30405).format(vod_enability)]
+        [control.lang(30317).format(live_enability), control.lang(30405).format(vod_enability)],
+        heading=': '.join([control.addonInfo('name'), control.lang(30350)])
         )
 
     if option == 0:
@@ -267,9 +268,9 @@ def tools_menu():
 
 def call_info():
 
-    control.execute('Dialog.Close(all)')
+    control.close_all()
 
-    control.execute('ActivateWindow(videos,"plugin://plugin.video.AliveGR/?action=info",return)')
+    control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?action=info",return)')
 
 
 def greeting():

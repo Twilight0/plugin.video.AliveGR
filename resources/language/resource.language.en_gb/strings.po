@@ -1163,7 +1163,7 @@ msgid "Open website in browser window"
 msgstr ""
 
 msgctxt "#30317"
-msgid "Toggle unofficial live channels (Currently: {0})"
+msgid "Live streams (Currently: {0})"
 msgstr ""
 
 msgctxt "#30318"
@@ -1294,6 +1294,10 @@ msgctxt "#30349"
 msgid "ResolveURL is not enabled. Do you to enabled it now?"
 msgstr ""
 
+msgctxt "#30350"
+msgid "Additional streams menu"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""
@@ -1311,7 +1315,7 @@ msgid "Disable additional streams or menu items?"
 msgstr ""
 
 msgctxt "#30405"
-msgid "Toggle additional vod streams (Currently: {0})"
+msgid "Vod streams (Currently: {0})"
 msgstr ""
 
 msgctxt "#30406"

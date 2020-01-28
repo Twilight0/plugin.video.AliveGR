@@ -21,7 +21,7 @@ from __future__ import absolute_import, unicode_literals
 
 from tulip import control, client, cache
 from .helpers import thgiliwt, cache_clear, i18n, reset_idx, leved
-from .kodi import addon_version, skin_name
+from .kodi import skin_name
 from .constants import API_KEYS, FACEBOOK, TWITTER
 import pyxbmct, re
 from os import path
@@ -50,7 +50,7 @@ def setup_iptv():
 
             return True
 
-        elif addon_version('xbmc.python') >= 2260 and not control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
+        elif control.kodi_version() >= 18.0 and not control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
 
             control.execute('InstallAddon(pvr.iptvsimple)')
 
