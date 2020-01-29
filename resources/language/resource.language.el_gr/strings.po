@@ -1339,5 +1339,5 @@ msgid "Could not enable PVR manager"
 msgstr "Αδυναμία ενεργοποίησης διαχειριστή PVR"
 
 msgctxt "#30411"
-msgid ""
-msgstr ""
+msgid "Failed"
+msgstr "Αποτυχία"

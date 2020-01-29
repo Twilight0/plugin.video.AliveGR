@@ -265,7 +265,10 @@ def rurl_enable():
 
         if enabled:
 
-            control.infoDialog(control.lang(30339))
+            control.infoDialog(
+                control.lang(30339), icon=control.addon('script.module.resolveurl').getAddonInfo('icon'), time=5000
+            )
+
             return
 
         else:
@@ -285,9 +288,11 @@ def rurl_enable():
 
                 control.execute('InstallAddon(script.module.resolveurl)')
 
+            control.infoDialog(control.lang(30402))
+
     except Exception:
 
-        control.infoDialog(control.lang(30279))
+        control.infoDialog(control.lang(30411))
 
 
 def force():

@@ -10,10 +10,6 @@
 
 ---
 
-## Complete Python 3 support (WIP)
-
----
-
 #### Add search music
 
 

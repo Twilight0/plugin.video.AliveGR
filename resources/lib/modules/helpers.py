@@ -376,18 +376,28 @@ def delete_from_file(file_, txt):
 
 def pin():
 
+    control.busy()
+
     title = control.infoLabel('ListItem.Title')
 
     add_to_file(PINNED, title)
 
     control.infoDialog(control.lang(30338), time=750)
 
+    control.idle()
+
 
 def unpin():
+
+    control.busy()
 
     title = control.infoLabel('ListItem.Title')
 
     delete_from_file(PINNED, title)
 
-    control.sleep(200)
+    control.sleep(100)
     control.refresh()
+
+    control.infoDialog(control.lang(30338), time=750)
+
+    control.idle()

@@ -1339,5 +1339,5 @@ msgid "Could not enable PVR manager"
 msgstr ""
 
 msgctxt "#30411"
-msgid ""
+msgid "Failed"
 msgstr ""

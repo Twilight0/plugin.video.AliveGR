@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.0~alpha13" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.0" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.4"/>
@@ -8,7 +8,7 @@
         <import addon="script.module.resolveurl" version="5.0.37" optional="true"/>
         <import addon="script.module.streamlink.base" version="2020.01.28"/>
         <import addon="script.module.tulip" version="2.5.5"/>
-        <import addon="plugin.video.youtube" version="6.5.2"/>
+        <import addon="plugin.video.youtube" version="6.6.0"/>
         <import addon="script.module.pyxbmct" version="1.2.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
@@ -33,7 +33,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <website>https://alivegr.net/</website>
         <size>584908</size>
-        <news>+ [B]2.0.X[/B] [COLOR green](28-01-2020)[/COLOR]
+        <news>+ [B]2.0.X[/B] [COLOR green](30-01-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)
 - Rework of several modules and functions
 - Removed donation links from welcome message
@@ -42,10 +42,12 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Removed openload streamlink plugin and accompanying settings
 - Removed resolving capability on youtube externally
 - Added several plugins for streamlink to resolve videos from official sources
+- Added the ability to pin live channels
+- Added a new menu item to view and send logs
 - Revamped search functionality
 - Simplified some settings items
 - Removed progress dialogs
-- New random movie pick (50ies, 60ies, 70ies, 80ies, kids)
+- New random movie pick (50ies, 60ies, 70ies, 80ies, kids) - will be enabled on the fly at some point
 - Several bug fixes</news>
         <assets>
             <icon>resources/media/icon.png</icon>
