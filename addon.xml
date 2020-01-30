@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.1" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.2" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -47,7 +47,8 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Revamped search functionality
 - Simplified some settings items
 - Removed progress dialogs
-- New random movie pick (50ies, 60ies, 70ies, 80ies, kids) - will be enabled on the fly at some point
+- New random movie pick (50ies, 60ies, 70ies, 80ies, kids)
+  > Ability to select from a random one or multiple ones as pseudo live playlist
 - Several bug fixes</news>
         <assets>
             <icon>resources/media/icon.png</icon>

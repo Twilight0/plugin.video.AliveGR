@@ -1271,7 +1271,7 @@ msgid "Random"
 msgstr ""
 
 msgctxt "#30344"
-msgid "Random movie selection (single)"
+msgid "Random movie selection"
 msgstr ""
 
 msgctxt "#30345"
@@ -1296,6 +1296,18 @@ msgstr ""
 
 msgctxt "#30350"
 msgid "Unofficial streams menu"
+msgstr ""
+
+msgctxt "#30351"
+msgid "Pseudo live mode"
+msgstr ""
+
+msgctxt "#30352"
+msgid "One random only"
+msgstr ""
+
+msgctxt "#30353"
+msgid "Shuffled playlist"
 msgstr ""
 
 msgctxt "#30401"

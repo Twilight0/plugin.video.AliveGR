@@ -30,7 +30,7 @@ except Exception:
     HostedMediaFile = None
 
 from time import sleep
-from random import choice as random_choice
+from random import shuffle, choice as random_choice
 from tulip import directory, client, cache, control
 from tulip.log import log_debug
 
@@ -39,6 +39,9 @@ from ..resolvers import various, youtube, stream_link
 from .constants import YT_URL
 from .helpers import m3u8_picker
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
+
+
+skip_directory = False
 
 
 def conditionals(url):
@@ -80,11 +83,7 @@ def conditionals(url):
             control.execute('Dialog.Close(all)')
         else:
             stream = conditionals(link)
-
-            if 'plot' in sources:
-                return stream, sources['plot']
-            else:
-                return stream
+            return stream
 
     elif 'gamatokid.com/movies/' in url:
 
@@ -175,7 +174,7 @@ def mini_picker(hl, sl):
 
     else:
 
-        if control.setting('action_type') == '3' or 'AliveGR' in control.infoLabel('ListItem.Label'):
+        if control.setting('action_type') == '3' or skip_directory:
             return cache.get(gm_debris, 480, random_choice(sl))
 
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
@@ -321,78 +320,78 @@ def pseudo_live(url):
 
     movie_list = gm_indexer().listing(url, get_listing=True)
 
-    # shuffle(movie_list)
-
     if not url.endswith('kids'):
 
         for i in movie_list:
 
             if i['url'] in bl_urls:
 
-                idx = movie_list.index(i)
-                del movie_list[idx]
+                del i
 
-    choice = random_choice(movie_list)
+    for i in movie_list:
+        i.update({'action': 'play_skipped'})
 
-    player(choice['url'], {'title': choice['title'], 'image': choice['image']})
+    if control.setting('pseudo_live_mode') == '0':
 
-    # directory.add(movie_list, as_playlist=True, auto_play=True)
+        choice = random_choice(movie_list)
+
+        meta = {'title': choice['title'], 'image': choice['image']}
+
+        plot = cache.get(source_maker, 6, choice['url']).get('plot')
+
+        if plot:
+            meta.update({'plot': plot})
+
+        player(choice['url'], meta)
+
+    else:
+
+        shuffle(movie_list)
+
+        directory.add(movie_list, as_playlist=True, auto_play=True)
 
 
-def player(url, params, do_not_resolve=False, resolved_mode=True):
+def player(url, params):
+
+    global skip_directory
 
     if url is None:
         log_debug('Nothing playable was found')
         return
 
-    directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or ('episode' in url and GM_BASE in url)
-
     if url.startswith('alivegr://'):
         pseudo_live(url)
         return
 
-    if directory_boolean and control.setting('action_type') == '1' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
+    url = url.replace('&amp;', '&')
+    skip_directory = params['action'] == 'play_skipped'
+
+    directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or ('episode' in url and GM_BASE in url)
+
+    if directory_boolean and control.setting('action_type') == '1' and not skip_directory:
         directory.run_builtin(action='directory', url=url)
         return
 
-    url = url.replace('&amp;', '&')
-
     log_debug('Attempting to play this url: ' + url)
 
-    if do_not_resolve:
+    if params['action'] == 'play_resolved':
         stream = url
     else:
         stream = conditionals(url)
 
-    if not stream or (len(stream) == 2 and not stream[0]):
+    if not stream:
 
         log_debug('Failed to resolve this url: {0}'.format(url))
 
         return control.execute('Dialog.Close(all)')
 
-    plot = None
-
     try:
+        plot = params.get('plot').encode('latin-1')
+    except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+        plot = params.get('plot')
 
-        if isinstance(stream, tuple):
-
-            plot = stream[1]
-            stream = stream[0]
-
-        else:
-
-            try:
-                plot = params.get('plot').encode('latin-1')
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                plot = params.get('plot')
-
-    except TypeError:
-
-        pass
-
-    else:
-
-        log_debug('Plot obtained')
+    if not plot and 'greek-movies.com' in url:
+        plot = cache.get(source_maker, 6, url).get('plot')
 
     if isinstance(stream, OrderedDict):
 
@@ -442,10 +441,7 @@ def player(url, params, do_not_resolve=False, resolved_mode=True):
 
     try:
 
-        directory.resolve(
-            stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype,
-            resolved_mode=resolved_mode
-        )
+        directory.resolve(stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype)
 
     except:
 

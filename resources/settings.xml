@@ -66,6 +66,7 @@
         <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-1,0)"/>
         <setting id="live_group_switcher" type="select" label="30291" lvalues="30048|30201|30202|30203|30205|30206|30207|30208|30209|30210|30032|30125|30094|30282" default="0" enable="eq(-2,1) | eq(-1,false)"/>
         <setting id="preresolve_streams" type="bool" label="30271" default="false"/>
+        <setting id="pseudo_live_mode" type="select" label="30351" lvalues="30352|30353" default="0"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30009"/>
@@ -102,7 +103,7 @@
     <category label="30138">
 
         <setting id="reset_idx" type="bool" label="30229" default="true"/>
-        <setting id="reset_live" type="bool" label="30266" default="true" visible="eq(-1,true)"/>
+        <setting id="reset_live" type="bool" label="30266" default="false" visible="eq(-1,true)"/>
         <setting visible="true" label="30134" type="action" action="RunPlugin(plugin://$ID/?action=reset_idx)"/>
 
         <setting type="sep"/>
@@ -140,12 +141,12 @@
 
     <category label="30115">
 
-        <setting id="changelog_lang" type="enum" label="30215" lvalues="30216|30286|30299" default="0"/>
+        <setting id="changelog_lang" type="select" label="30215" lvalues="30216|30286|30299" default="0"/>
         <setting visible="true" label="30340" type="action" action="RunPlugin(plugin://$ID/?action=changelog)"/>
 
-        <setting type="sep"/>
+<!--        <setting type="sep"/>-->
 
-        <setting id="geoloc_override" type="enum" label="30308" lvalues="30311|30309|30310" default="0"/>
+<!--        <setting id="geoloc_override" type="enum" label="30308" lvalues="30311|30309|30310" default="0"/>-->
 
         <setting type="sep"/>
 
