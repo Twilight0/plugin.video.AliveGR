@@ -40,6 +40,7 @@ SPORTS = urljoin(GM_BASE, 'sports.php')
 SHORTFILMS = urljoin(GM_BASE, 'shortfilm.php')
 MUSIC = urljoin(GM_BASE, 'music.php')
 SEARCH = urljoin(GM_BASE, 'search.php')
+PERSON = urljoin(GM_BASE, 'person.php')
 EPISODE = urljoin(GM_BASE, 'ajax.php?type=episode&epid={0}&view={1}')
 
 
@@ -365,7 +366,7 @@ class Indexer:
 
         log_debug('List of vod items ~ ' + repr(self.list))
 
-        if url.startswith((MOVIES, THEATER, SHORTFILMS)):
+        if url.startswith((MOVIES, THEATER, SHORTFILMS, PERSON)):
 
             for item in self.list:
 
@@ -574,9 +575,8 @@ class Indexer:
 
             title = client.parseDOM(person, 'a')[0]
             url = urljoin(GM_BASE, client.parseDOM(person, 'a', ret='href')[0])
-            icon = iconname('user')
 
-            i = {'title': title, 'url': url, 'icon': icon}
+            i = {'title': title, 'url': url}
 
             self.list.append(i)
 
@@ -591,7 +591,7 @@ class Indexer:
 
         for item in self.list:
 
-            item.update({'action': 'listing', 'image': iconname('user')})
+            item.update({'action': 'listing', 'icon': iconname('user')})
 
             bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
             bookmark['bookmark'] = item['url']

@@ -63,7 +63,7 @@
         <setting type="lsep" label="30007"/>
 
         <setting id="live_tv_mode" type="enum" label="30285" lvalues="30146|30284" default="0"/>
-        <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-2,0)"/>
+        <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-1,0)"/>
         <setting id="live_group_switcher" type="select" label="30291" lvalues="30048|30201|30202|30203|30205|30206|30207|30208|30209|30210|30032|30125|30094|30282" default="0" enable="eq(-2,1) | eq(-1,false)"/>
         <setting id="preresolve_streams" type="bool" label="30271" default="false"/>
 
