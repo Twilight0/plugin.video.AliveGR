@@ -41,7 +41,7 @@ class Indexer:
 
         def seq(group):
 
-            control.setSetting('live_group', str(group))
+            control.setSetting('live_group', group)
             control.idle()
             control.sleep(100)
 
@@ -52,14 +52,8 @@ class Indexer:
             heading=control.lang(30049), list=[control.lang(30048)] + translated + [control.lang(30282)]
         )
 
-        if choice == 0:
-            seq('ALL')
-        elif choice == 13:
-            seq('PINNED')
-        elif choice <= len(self.data) and not choice == -1:
-            seq(self.data[choice])
-
         if choice != -1:
+            seq(str(choice))
             control.refresh()
 
     def live(self):
@@ -159,9 +153,9 @@ class Indexer:
 
         self.list = live_data[0]
 
-        if zapping and control.setting('live_group_switcher') not in ['0', '12']:
+        if zapping and control.setting('live_group') not in ['0', '14']:
 
-            value = int(control.setting('live_group_switcher')) - 1
+            value = int(control.setting('live_group')) - 1
 
             group = str(list(LIVE_GROUPS.values())[value])
 
@@ -169,21 +163,25 @@ class Indexer:
 
         elif control.setting('show_live_switcher') == 'true':
 
-            if control.setting('live_group') not in ['ALL', 'PINNED'] and query is None:
+            if control.setting('live_group') not in ['0', '14'] and query is None:
 
-                self.list = [item for item in self.list if item['group'] == control.setting('live_group')]
-
-        elif not zapping:
-
-            if control.setting('live_group_switcher') not in ['0', '12'] and query is None:
-
-                value = int(control.setting('live_group_switcher')) - 1
+                value = int(control.setting('live_group')) - 1
 
                 group = str(list(LIVE_GROUPS.values())[value])
 
                 self.list = [item for item in self.list if item['group'] == group]
 
-        if control.setting('live_group') == 'PINNED' and query is None:
+        elif not zapping:
+
+            if control.setting('live_group') not in ['0', '14'] and query is None:
+
+                value = int(control.setting('live_group')) - 1
+
+                group = str(list(LIVE_GROUPS.values())[value])
+
+                self.list = [item for item in self.list if item['group'] == group]
+
+        if control.setting('live_group') == '14' and query is None:
 
             self.list = [item for item in self.list if item['title'] in read_from_file(PINNED)]
 
@@ -206,7 +204,7 @@ class Indexer:
 
         for item in self.list:
 
-            if control.setting('live_group') == 'PINNED':
+            if control.setting('live_group') == '14':
                 pin_cm = {'title': 30337, 'query': {'action': 'unpin'}}
             else:
                 pin_cm = {'title': 30336, 'query': {'action': 'pin'}}
@@ -231,12 +229,14 @@ class Indexer:
 
         if control.setting('show_live_switcher') == 'true' and zapping is False:
 
-            if control.setting('live_group') == 'ALL':
+            if control.setting('live_group') == '0':
                 label = control.lang(30048)
-            elif control.setting('live_group') == 'PINNED':
+            elif control.setting('live_group') == '14':
                 label = control.lang(30282)
             else:
-                label = control.lang(int(control.setting('live_group')))
+                value = int(control.setting('live_group')) - 1
+                group = int(list(LIVE_GROUPS.values())[value])
+                label = control.lang(group)
 
             switch = {
                 'title': label,
@@ -260,10 +260,6 @@ class Indexer:
                 try:
                     percent = control.per_cent(int(item['code']), len(self.list))
                     pd.update(percent)
-                    if item['url'].startswith('alivegr://'):
-                        idx = self.list.index(item)
-                        del self.list[idx]
-                        continue
                     new_stream = conditionals(item['url'])
                     if not new_stream:
                         raise Exception('Stream was not resolved, skipped')
@@ -287,7 +283,7 @@ class Indexer:
             control.sortmethods('title')
             control.sortmethods('genre')
 
-        directory.add(self.list, content='movies', as_playlist=zapping)
+        directory.add(self.list, content='videos', as_playlist=zapping)
 
     def modular(self, group):
 

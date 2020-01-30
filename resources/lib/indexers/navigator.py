@@ -170,6 +170,9 @@ class Indexer:
             }
         ]
 
+        if control.setting('live_tv_mode') == '1':
+            self.list[0].update({'isFolder': 'False', 'isPlayable': 'False'})
+
         self.menu = [i for i in self.list if i['boolean']]
 
         for item in self.menu:

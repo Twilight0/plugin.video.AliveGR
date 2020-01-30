@@ -437,7 +437,10 @@ class Indexer:
             if '\'n\')' in eid:
                 group = '1bynumber'
                 if '.' in title:
-                    season = int(title.partition('.')[0])
+                    try:
+                        season = int(title.partition('.')[0])
+                    except Exception:
+                        season = int(title.partition('.')[0][0])
                     episode_num = title.partition('.')[2]
                     title = control.lang(30066) + ' ' + str(season) + ', ' + control.lang(30067) + ' ' + episode_num
                 else:

@@ -64,7 +64,7 @@
 
         <setting id="live_tv_mode" type="enum" label="30285" lvalues="30146|30284" default="0"/>
         <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-1,0)"/>
-        <setting id="live_group_switcher" type="select" label="30291" lvalues="30048|30201|30202|30203|30205|30206|30207|30208|30209|30210|30032|30125|30094|30282" default="0" enable="eq(-2,1) | eq(-1,false)"/>
+        <setting id="live_group" type="select" label="30291" lvalues="30048|30201|30203|30202|30209|30125|30208|30207|30342|30032|30205|30206|30210|30094|30282" default="0" enable="eq(-2,1) | eq(-1,false)"/>
         <setting id="preresolve_streams" type="bool" label="30271" default="false"/>
         <setting id="pseudo_live_mode" type="select" label="30351" lvalues="30352|30353" default="0"/>
 
@@ -170,7 +170,6 @@
         <setting id="show_alt_live" type="bool" label="Show alternative live streams" default="false" visible="false"/>
         <setting id="show_alt_vod" type="bool" label="Show alternative vod streams" default="false" visible="false"/>
 
-        <setting id="live_group" label="Live Group" type="text" default="ALL" visible="false"/>
         <setting id="vod_group" label="VOD Group" type="text" default="30213" visible="false"/>
         <setting id="papers_group" label="Papers Group" type="text" default="0" visible="false"/>
 
