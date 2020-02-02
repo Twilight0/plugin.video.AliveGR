@@ -139,15 +139,6 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30111),
-                'action': 'other_addon_settings',
-                'query': 'script.module.resolveurl',
-                'icon': control.addon(id='script.module.resolveurl').getAddonInfo('icon'),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
                 'title': control.lang(30319),
                 'action': 'global_settings',
                 'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),
@@ -160,6 +151,19 @@ class Indexer:
 
             for i in self.list:
                 i.update({'cm': [{'title': 30307, 'query': {'action': 'root'}}]})
+
+        rurl = {
+                'title': control.lang(30111),
+                'action': 'other_addon_settings',
+                'query': 'script.module.resolveurl',
+                'icon': control.addon(id='script.module.resolveurl').getAddonInfo('icon'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+
+        if control.condVisibility('System.HasAddon(script.module.resolveurl)'):
+
+            self.list.insert(-2, rurl)
 
         directory.add(self.list)
 
