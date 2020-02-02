@@ -25,9 +25,9 @@ class AlphaCy(Plugin):
 
         res = self.session.http.get(self.url, headers=headers)
 
-        if 'page/live' in url:
+        if 'page/live' in self.url:
             stream = [i for i in list(itertags(res.text, 'script')) if "type: 'hls'" in i.text]
-            stream = re.search(r'''url: ['"](http.+?)['"]''', stream[0]).group(1)
+            stream = re.search(r'''url: ['"](http.+?)['"]''', stream[0].text).group(1)
             live = True
         else:
             stream = [i for i in list(itertags(html, 'script')) if "mp4" in i.text]
