@@ -152,7 +152,9 @@ class Indexer:
             for i in self.list:
                 i.update({'cm': [{'title': 30307, 'query': {'action': 'root'}}]})
 
-        rurl = {
+        if control.condVisibility('System.HasAddon(script.module.resolveurl)'):
+
+            rurl = {
                 'title': control.lang(30111),
                 'action': 'other_addon_settings',
                 'query': 'script.module.resolveurl',
@@ -160,8 +162,6 @@ class Indexer:
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
-
-        if control.condVisibility('System.HasAddon(script.module.resolveurl)'):
 
             self.list.insert(-2, rurl)
 
