@@ -273,16 +273,6 @@ class Indexer:
             }
         ]
 
-        resolveurl = {
-                'title': control.lang(30264).format(separator, control.addon('script.module.resolveurl').getAddonInfo('version')),
-                'action': 'other_addon_settings',
-                'query': 'script.module.resolveurl',
-                'plot': control.lang(30265),
-                'icon': control.addon('script.module.resolveurl').getAddonInfo('icon'),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-
         try:
 
             rurl_enabled = control.addon_details('script.module.resolveurl').get('enabled')
@@ -292,6 +282,19 @@ class Indexer:
             rurl_enabled = False
 
         if rurl_enabled:
+
+            resolveurl = {
+
+                'title': control.lang(30264).format(separator, control.addon('script.module.resolveurl').getAddonInfo('version')),
+                'action': 'other_addon_settings',
+                'query': 'script.module.resolveurl',
+                'plot': control.lang(30265),
+                'icon': control.addon('script.module.resolveurl').getAddonInfo('icon'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+
+            }
+
             self.list.insert(-2, resolveurl)
 
         directory.add(self.list, content='movies')
