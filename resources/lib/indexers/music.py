@@ -27,7 +27,7 @@ from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
 from ..modules.constants import YT_URL, ART_ID, API_KEYS
 from ..modules.helpers import thgiliwt, thumb_maker
-from resources.lib.indexers import gm
+from . import gm
 from datetime import datetime
 from youtube_requests import get_search
 
@@ -151,7 +151,7 @@ class Indexer:
 
         html = cache.get(gm.root, 96, gm.MUSIC)
 
-        options = re.compile('(<option  value=.+?</option>)', re.U).findall(html)
+        options = re.compile(r'(<option  value=.+?</option>)', re.U).findall(html)
 
         for option in options:
 
@@ -168,6 +168,14 @@ class Indexer:
     def music_list(self, url):
 
         html = client.request(url)
+
+        try:
+
+            html = html.decode('utf-8')
+
+        except Exception:
+
+            pass
 
         if 'albumlist' in html:
             artist = [client.parseDOM(html, 'h4')[0].partition(' <a')[0]]
@@ -199,7 +207,14 @@ class Indexer:
             link = client.parseDOM(item, 'a', ret='href')[0]
             link = urljoin(gm.GM_BASE, link)
 
-            data = {'title': title, 'url': link, 'image': icon, 'artist': artist}
+            if 'gapi.client.setApiKey' in html:
+                link = cache.get(gm.source_maker, 48, url)['links'][0]
+
+            data = {'title': title, 'url': link, 'image': icon}
+
+            if artist:
+
+                data.update({'artist': artist})
 
             self.list.append(data)
 
@@ -251,10 +266,9 @@ class Indexer:
             log_debug('Songs section failed to load')
             return
 
-        for item in self.list:
-            item.update({'action': 'play', 'isFolder': 'False'})
-
         for count, item in list(enumerate(self.list, start=1)):
+
+            item.update({'action': 'play', 'isFolder': 'False'})
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
             item.update({'cm': [add_to_playlist, clear_playlist], 'album': album.encode('latin-1'), 'tracknumber': count})
@@ -392,7 +406,7 @@ class Indexer:
             if url == self.rythmos_top20_url:
                 label = client.parseDOM(item, 'span', attrs={'class': 'toptitle'})[0]
                 label = client.replaceHTMLCodes(label)
-                label = re.sub('\s? ?-\s? ?', ' - ', label)
+                label = re.sub(r'\s? ?-\s? ?', ' - ', label)
                 image = client.parseDOM(item, 'img', ret='src')[0]
                 image = image.replace(' ', '%20')
                 title = label.partition(' - ')[2]
@@ -402,6 +416,7 @@ class Indexer:
                     artist = [label.partition(' - ')[0]]
             elif url == self.plus_url:
                 label = item.partition('.')[2].strip()
+                label = client.replaceHTMLCodes(label)
                 title = label.partition('-')[2]
                 if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
                     artist = label.partition('-')[0]
@@ -410,7 +425,8 @@ class Indexer:
             elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
                 a_href = client.parseDOM(item, 'a')
                 a_href = ' - '.join(a_href) if len(a_href) == 2 else a_href[0]
-                label = client.stripTags(a_href.replace('\"', '').replace('&amp;', '&').replace('\n', ' - '))
+                label = client.stripTags(a_href.replace('\"', '').replace('\n', ' - '))
+                label = client.replaceHTMLCodes(label)
                 title = label.partition(' - ')[2]
                 if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
                     artist = label.partition(' - ')[0]
@@ -418,6 +434,7 @@ class Indexer:
                     artist = [label.partition(' - ')[0]]
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
+                # noinspection PyTypeChecker
                 search = get_search(q=title + ' ' + 'official', search_type='video')[0]
                 description = search['snippet']['description']
                 year = search['snippet']['publishedAt'][:4]

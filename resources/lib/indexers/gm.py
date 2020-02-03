@@ -25,10 +25,12 @@ import json
 import random
 from ast import literal_eval as evaluate
 
+from youtube_requests import get_search
 from tulip import cache, client, directory, control, parsers
 from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
 from ..modules.themes import iconname
+from ..modules.constants import YT_URL
 
 GM_BASE = 'http://greek-movies.com/'
 MOVIES = urljoin(GM_BASE, 'movies.php')
@@ -628,7 +630,7 @@ def source_maker(url):
 
     if 'episode' in url:
 
-        episodes = re.findall('''(?:<a.+?/a>|<p.+?/p>)''', html)
+        episodes = re.findall(r'''(?:<a.+?/a>|<p.+?/p>)''', html)
 
         hl = []
         links = []
@@ -678,7 +680,11 @@ def source_maker(url):
 
     elif 'music' in url:
 
-        link = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "embed-responsive-item"})[0]
+        title = re.search(r'''search\(['"](.+?)['"]\)''', html).group(1)
+
+        link = get_search(q=title, search_type='video')[0]['id']['videoId']
+
+        link = YT_URL + link
 
         return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
 

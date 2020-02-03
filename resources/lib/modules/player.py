@@ -74,9 +74,6 @@ def conditionals(url):
         if sources is None:
             return
 
-        if len(sources['links']) == 1:
-            return conditionals(sources['links'][0])
-
         link = mini_picker(sources['hosts'], sources['links'])
 
         if link is None:
@@ -165,7 +162,10 @@ def mini_picker(hl, sl):
 
     if len(hl) == 1 and len(sl) == 1:
 
-        stream = cache.get(gm_debris, 480, sl[0])
+        if 'greek-movies.com' in sl[0]:
+            stream = cache.get(gm_debris, 480, sl[0])
+        else:
+            stream = sl[0]
 
         if 'AliveGR' not in control.infoLabel('ListItem.Label'):
             control.infoDialog(hl[0])
@@ -175,7 +175,15 @@ def mini_picker(hl, sl):
     else:
 
         if control.setting('action_type') == '3' or skip_directory:
-            return cache.get(gm_debris, 480, random_choice(sl))
+
+            url = random_choice(sl)
+
+            if control.setting('action_type') == '3' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
+
+                idx = sl.index(url)
+                control.infoDialog(hl[idx])
+
+            return cache.get(gm_debris, 480, url)
 
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
