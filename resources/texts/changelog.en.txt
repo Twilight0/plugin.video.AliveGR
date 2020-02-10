@@ -1,4 +1,4 @@
-+ [B]2.0.X[/B] [COLOR green](30-01-2020)[/COLOR]
++ [B]2.0.X[/B] [COLOR green](30-01-2020 -> 10-02-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)
 - Rework of several modules and functions
 - Removed donation links from welcome message

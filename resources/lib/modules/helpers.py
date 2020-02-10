@@ -191,11 +191,13 @@ def other_addon_settings(query):
         if query == 'script.module.resolveurl':
 
             from resolveurl import display_settings
+            display_settings()
 
         else:
 
             control.Settings(id='{0}'.format(query))
     except:
+
         pass
 
 
