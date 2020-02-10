@@ -9,6 +9,7 @@
 - Added several plugins for streamlink to resolve videos from official sources
 - Added the ability to pin live channels
 - Added a new menu item to view and send logs
+- Added an option to pick a stream randomly
 - Revamped search functionality
 - Simplified some settings items
 - Removed progress dialogs
