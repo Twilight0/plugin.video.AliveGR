@@ -1,3 +1,11 @@
++ [B]2.1.X[/B] [COLOR green]16-02-2020[/COLOR]
+- Added pseudo-live youtube-based play items
+- Inform user when unofficial streams are disabled
+- Fixed youtube api keys setup wizard
+- Disabled iptv setup action (will be re-enabled in a future release)
+- Cartoon items can now be disabled from showing up on main indexers
+
+
 + [B]2.0.X[/B] [COLOR green](30-01-2020 -> 10-02-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)
 - Rework of several modules and functions
@@ -16,7 +24,3 @@
 - New random movie pick (50ies, 60ies, 70ies, 80ies, kids)
   > Ability to select from a random one or multiple ones as pseudo live playlist
 - Several bug fixes
-
-=====================
-
-[I]Past versions:[/I]

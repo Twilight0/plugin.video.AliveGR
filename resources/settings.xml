@@ -75,8 +75,7 @@
         <setting id="auto_play" label="30280" type="bool" default="true" enable="eq(-1,2)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
         <setting id="show_vod_switcher" label="30061" type="bool" default="true"/>
-        <!-- TODO -->
-<!--        <setting id="show_cartoons" label="30345" type="bool" default="false"/>-->
+        <setting id="show_cartoons" label="30345" type="bool" default="false"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30298"/>
@@ -123,12 +122,12 @@
 
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
 
-        <setting type="lsep" label="30018"/>
+<!--        <setting type="lsep" label="30018"/>-->
 
-        <setting visible="true" label="30018" type="action" action="RunPlugin(plugin://$ID/?action=setup_iptv)"/>
-        <setting visible="true" label="30408" type="action" action="RunPlugin(plugin://$ID/?action=enable_iptv)"/>
-        <setting visible="true" label="30166" type="action" action="RunPlugin(plugin://$ID/?action=enable_proxy)"/>
-        <setting visible="true" label="30332" type="action" action="RunPlugin(plugin://$ID/?action=pvrsettings)" option="close"/>
+<!--        <setting visible="true" label="30018" type="action" action="RunPlugin(plugin://$ID/?action=setup_iptv)"/>-->
+<!--        <setting visible="true" label="30408" type="action" action="RunPlugin(plugin://$ID/?action=enable_iptv)"/>-->
+<!--        <setting visible="true" label="30166" type="action" action="RunPlugin(plugin://$ID/?action=enable_proxy)"/>-->
+<!--        <setting visible="true" label="30332" type="action" action="RunPlugin(plugin://$ID/?action=pvrsettings)" option="close"/>-->
 
         <setting type="lsep" label="30250"/>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.0.9" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.1.0" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -33,7 +33,15 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <website>https://alivegr.net/</website>
         <size>584908</size>
-        <news>+ [B]2.0.X[/B] [COLOR green](30-01-2020 -> 10-02-2020)[/COLOR]
+        <news>+ [B]2.1.X[/B] [COLOR green]16-02-2020[/COLOR]
+- Added pseudo-live youtube-based play items
+- Inform user when unofficial streams are disabled
+- Fixed youtube api keys setup wizard
+- Disabled iptv setup action (will be re-enabled in a future release)
+- Cartoon items can now be disabled from showing up on main indexers
+
+
++ [B]2.0.X[/B] [COLOR red](30-01-2020 -> 10-02-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)
 - Rework of several modules and functions
 - Removed donation links from welcome message

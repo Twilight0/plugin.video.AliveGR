@@ -31,13 +31,13 @@ except Exception:
 
 from time import sleep
 from random import shuffle, choice as random_choice
-from tulip import directory, client, cache, control
+from tulip import directory, client, cache, control, youtube as tulip_youtube
 from tulip.log import log_debug
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..resolvers import various, youtube, stream_link
-from .constants import YT_URL
-from .helpers import m3u8_picker
+from .constants import YT_URL, API_KEYS
+from .helpers import m3u8_picker, thgiliwt
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
@@ -92,17 +92,24 @@ def conditionals(url):
 
         stream = stream_link.StreamLink(url).passthrough()
 
-        log_debug('Resolved with streamlink')
+        log_debug('Resolving with streamlink')
 
         return stream
 
-    elif HostedMediaFile is not None and HostedMediaFile(url).valid_url() and control.setting('show_alt_vod') == 'true':
+    elif HostedMediaFile is not None and HostedMediaFile(url).valid_url():
 
-        stream = resolve_url(url)
+        if control.setting('show_alt_vod') == 'true':
 
-        log_debug('Resolved with resolveurl')
+            stream = resolve_url(url)
 
-        return stream
+            log_debug('Resolving with resolveurl')
+
+            return stream
+
+        else:
+
+            control.infoDialog(control.lang(30354), time=5000)
+            return 'https://static.adman.gr/inpage/blank.mp4'
 
     elif 'webtv.ert.gr' in url and 'live' in url:
 
@@ -135,6 +142,8 @@ def conditionals(url):
         link = cache.get(various.risegr, 24, url)
 
         stream = stream_link.StreamLink(link).passthrough()
+
+        log_debug('Resolving with streamlink')
 
         return stream
 
@@ -313,9 +322,11 @@ def dash_conditionals(stream):
 
 def pseudo_live(url):
 
-    bl_urls = cache.get(blacklister, 48)
+    _url = url
 
-    if url.endswith('fifties'):
+    if 'youtube' in url:
+        url = url.rpartition('/')[2]
+    elif url.endswith('fifties'):
         url = 'http://greek-movies.com/movies.php?y=7&l=&g=&p='
     elif url.endswith('sixties'):
         url = 'http://greek-movies.com/movies.php?y=6&l=&g=&p='
@@ -326,18 +337,26 @@ def pseudo_live(url):
     else:
         url = 'http://greek-movies.com/movies.php?g=8&y=&l=&p='
 
-    movie_list = gm_indexer().listing(url, get_listing=True)
+    if 'channel' in _url:
+        movie_list = tulip_youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).videos(url, limit=10)
+    elif 'playlist' in _url:
+        movie_list = tulip_youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlist(url, limit=10)
+    else:
+        movie_list = gm_indexer().listing(url, get_listing=True)
 
-    if not url.endswith('kids'):
+    if 'youtube' in _url:
+        movie_list = [i for i in movie_list if i['duration'] >= 240]
 
-        for i in movie_list:
+    if not _url.endswith('kids') and 'youtube' not in _url:
 
-            if i['url'] in bl_urls:
+        bl_urls = cache.get(blacklister, 96)
 
-                del i
+        movie_list = [i for i in movie_list if i['url'] not in bl_urls]
 
     for i in movie_list:
-        i.update({'action': 'play_skipped'})
+        i.update({'action': 'play_skipped', 'isFolder': 'False'})
+
+    plot = None
 
     if control.setting('pseudo_live_mode') == '0':
 
@@ -345,7 +364,8 @@ def pseudo_live(url):
 
         meta = {'title': choice['title'], 'image': choice['image']}
 
-        plot = cache.get(source_maker, 6, choice['url']).get('plot')
+        if 'youtube' not in _url:
+            plot = cache.get(source_maker, 6, choice['url']).get('plot')
 
         if plot:
             meta.update({'plot': plot})
@@ -372,7 +392,7 @@ def player(url, params):
         return
 
     url = url.replace('&amp;', '&')
-    skip_directory = params['action'] == 'play_skipped'
+    skip_directory = params.get('action') == 'play_skipped'
 
     directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or ('episode' in url and GM_BASE in url)
 
@@ -382,7 +402,7 @@ def player(url, params):
 
     log_debug('Attempting to play this url: ' + url)
 
-    if params['action'] == 'play_resolved':
+    if params.get('action') == 'play_resolved':
         stream = url
     else:
         stream = conditionals(url)

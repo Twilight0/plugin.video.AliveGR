@@ -294,7 +294,7 @@ def yt_setup():
 
         control.addon('plugin.video.youtube').setSetting('youtube.api.enable', API_KEYS['enablement'])
         control.addon('plugin.video.youtube').setSetting('youtube.api.id', API_KEYS['id'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.key', API_KEYS['api_key'])
+        control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(API_KEYS['api_key']))
         control.addon('plugin.video.youtube').setSetting('youtube.api.secret', API_KEYS['secret'])
 
         control.infoDialog(message=control.lang(30402), time=3000)

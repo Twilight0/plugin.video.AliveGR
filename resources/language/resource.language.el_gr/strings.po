@@ -1310,6 +1310,10 @@ msgctxt "#30353"
 msgid "Shuffled playlist"
 msgstr "Ανακατεμένη λίστα απαναραγωγής"
 
+msgctxt "#30354"
+msgid "Unofficial streams are not enabled"
+msgstr "Οι ανεπίσημες ροές δεν είναι ενεργοποιημένες"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"

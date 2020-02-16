@@ -153,6 +153,9 @@ class Indexer:
             control.setSetting('vod_group', '30213')
             self.list = self.data
 
+        if control.setting('show_cartoons') == 'false' and control.setting('vod_group') == '30200':
+            self.list = [i for i in self.list if i['title'] not in [u'Κινουμένων σχεδίων', u'Παιδικό']]
+
         for item in self.list:
 
             item.update({'icon': iconname('movies'), 'action': 'listing'})
@@ -367,6 +370,12 @@ class Indexer:
             return
 
         log_debug('List of vod items ~ ' + repr(self.list))
+
+        if url.startswith(MOVIES) and control.setting('show_cartoons') == 'false' and url != 'http://greek-movies.com/movies.php?g=8&y=&l=&p=':
+
+            bl_urls = cache.get(blacklister, 96)
+
+            self.list = [i for i in self.list if i['url'] not in bl_urls]
 
         if url.startswith((MOVIES, THEATER, SHORTFILMS, PERSON)):
 

@@ -1310,6 +1310,10 @@ msgctxt "#30353"
 msgid "Shuffled playlist"
 msgstr ""
 
+msgctxt "#30354"
+msgid "Unofficial streams are not enabled"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""
