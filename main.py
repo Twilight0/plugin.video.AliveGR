@@ -378,12 +378,12 @@ elif action == 'yt_setup':
     tools.yt_setup()
 
 elif action == 'isa_enable':
-    from resources.lib.modules import tools
-    tools.isa_enable()
+    from resources.lib.modules import kodi
+    kodi.isa_enable()
 
 elif action == 'rtmp_enable':
-    from resources.lib.modules import tools
-    tools.rtmp_enable()
+    from resources.lib.modules import kodi
+    kodi.rtmp_enable()
 
 elif action == 'changelog':
     from resources.lib.modules import tools
