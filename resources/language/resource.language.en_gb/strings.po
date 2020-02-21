@@ -171,7 +171,7 @@ msgid "Appearance"
 msgstr ""
 
 msgctxt "#30040"
-msgid "Show {0}"
+msgid ""
 msgstr ""
 
 msgctxt "#30041"
@@ -611,67 +611,67 @@ msgid "Show PVR Simple Client menu"
 msgstr ""
 
 msgctxt "#30150"
-msgid "Show Networks"
+msgid "Show networks"
 msgstr ""
 
 msgctxt "#30151"
-msgid "Show News"
+msgid "Show news"
 msgstr ""
 
 msgctxt "#30152"
-msgid "Show Movies"
+msgid "Show movies"
 msgstr ""
 
 msgctxt "#30153"
-msgid "Show Short Films"
+msgid "Show short films"
 msgstr ""
 
 msgctxt "#30154"
-msgid "Show TV Series"
+msgid "Show TV series"
 msgstr ""
 
 msgctxt "#30155"
-msgid "Show TV Shows"
+msgid "Show TV shows"
 msgstr ""
 
 msgctxt "#30156"
-msgid "Show Theater"
+msgid "Show theater"
 msgstr ""
 
 msgctxt "#30157"
-msgid "Show Documentaries"
+msgid "Show documentaries"
 msgstr ""
 
 msgctxt "#30158"
-msgid "Show Sports"
+msgid "Show sports"
 msgstr ""
 
 msgctxt "#30159"
-msgid "Show Kids Section"
+msgid "Show kids section"
 msgstr ""
 
 msgctxt "#30160"
-msgid "Show Misc Section"
+msgid "Show miscellany"
 msgstr ""
 
 msgctxt "#30161"
-msgid "Show Music"
+msgid "Show music"
 msgstr ""
 
 msgctxt "#30162"
-msgid "Show Radio"
+msgid "Show radio"
 msgstr ""
 
 msgctxt "#30163"
-msgid "Show Search Menu"
+msgid "Show search"
 msgstr ""
 
 msgctxt "#30164"
-msgid "Show Bookmarks"
+msgid "Show bookmarks"
 msgstr ""
 
 msgctxt "#30165"
-msgid "Show Tools"
+msgid "Show tools"
 msgstr ""
 
 msgctxt "#30166"
@@ -1051,7 +1051,7 @@ msgid "Quit"
 msgstr ""
 
 msgctxt "#30289"
-msgid "Show Quit"
+msgid "Show quit button"
 msgstr ""
 
 msgctxt "#30290"

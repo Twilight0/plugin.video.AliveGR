@@ -119,7 +119,7 @@ def conditionals(url):
             try:
                 stream = yt(link[0])
                 if not stream:
-                    raise YouTubeException
+                    raise YouTubeException('Changing stream')
             except YouTubeException:
                 return yt(link[1])
         else:

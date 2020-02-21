@@ -1,4 +1,4 @@
-+ [B]2.1.X[/B] [COLOR green]16-02-2020[/COLOR]
++ [B]2.1.X[/B] [COLOR green]16-02-2020 -> 21-02-2020[/COLOR]
 - Added pseudo-live youtube-based play items
 - Inform user when unofficial streams are disabled
 - Fixed youtube api keys setup wizard
@@ -6,7 +6,7 @@
 - Cartoon items can now be disabled from showing up on main indexers
 
 
-+ [B]2.0.X[/B] [COLOR green](30-01-2020 -> 10-02-2020)[/COLOR]
++ [B]2.0.X[/B] [COLOR red](30-01-2020 -> 10-02-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)
 - Rework of several modules and functions
 - Removed donation links from welcome message

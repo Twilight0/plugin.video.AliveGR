@@ -171,8 +171,8 @@ msgid "Appearance"
 msgstr "Εμφάνιση"
 
 msgctxt "#30040"
-msgid "Show {0}"
-msgstr "Δείξε {0}"
+msgid ""
+msgstr ""
 
 msgctxt "#30041"
 msgid "Pictures"
@@ -604,74 +604,74 @@ msgstr "Άγνωστο είδος"
 
 msgctxt "#30148"
 msgid "Show Live TV"
-msgstr "Δείξε την Ζωντανή Τηλεόραση"
+msgstr "Δείξε την ζωντανή τηλεόραση"
 
 msgctxt "#30149"
 msgid "Show PVR Simple Client menu"
 msgstr "Δείξε το μενού του απλού πελάτη IPTV"
 
 msgctxt "#30150"
-msgid "Show Networks"
+msgid "Show networks"
 msgstr "Δείξε τα δίκτυα"
 
 msgctxt "#30151"
-msgid "Show News"
-msgstr "Δείξε τις Ειδήσεις"
+msgid "Show news"
+msgstr "Δείξε τις ειδήσεις"
 
 msgctxt "#30152"
-msgid "Show Movies"
+msgid "Show movies"
 msgstr "Δείξε τις ταινίες"
 
 msgctxt "#30153"
-msgid "Show Short Films"
+msgid "Show short films"
 msgstr "Δείξε τις ταινίες μικρού μήκους"
 
 msgctxt "#30154"
-msgid "Show TV Series"
-msgstr "Δείξε τις Σειρές"
+msgid "Show TV series"
+msgstr "Δείξε τις σειρές"
 
 msgctxt "#30155"
-msgid "Show TV Shows"
+msgid "Show TV shows"
 msgstr "Δείξε τις εκπομπές"
 
 msgctxt "#30156"
-msgid "Show Theater"
-msgstr "Δείξε το Θέατρο"
+msgid "Show theater"
+msgstr "Δείξε το θέατρο"
 
 msgctxt "#30157"
-msgid "Show Documentaries"
-msgstr "Δείξε τα Ντοκυμαντέρ"
+msgid "Show documentaries"
+msgstr "Δείξε τα ντοκυμαντέρ"
 
 msgctxt "#30158"
-msgid "Show Sports"
+msgid "Show sports"
 msgstr "Δείξε τα αθλητικά"
 
 msgctxt "#30159"
-msgid "Show Kids Section"
+msgid "Show kids section"
 msgstr "Δείξε την ενότητα των παιδιών"
 
 msgctxt "#30160"
-msgid "Show Misc Section"
+msgid "Show miscellany"
 msgstr "Δείξε τα διάφορα"
 
 msgctxt "#30161"
-msgid "Show Music"
+msgid "Show music"
 msgstr "Δείξε την μουσική"
 
 msgctxt "#30162"
-msgid "Show Radio"
+msgid "Show radio"
 msgstr "Δείξε το ραδιόφωνο"
 
 msgctxt "#30163"
-msgid "Show Search Menu"
+msgid "Show search"
 msgstr "Δείξε την αναζήτηση"
 
 msgctxt "#30164"
-msgid "Show Bookmarks"
+msgid "Show bookmarks"
 msgstr "Δείξε τους σελιδοδείκτες"
 
 msgctxt "#30165"
-msgid "Show Tools"
+msgid "Show tools"
 msgstr "Δείξε τα εργαλεία"
 
 msgctxt "#30166"
@@ -1051,7 +1051,7 @@ msgid "Quit"
 msgstr "Εγκατάληψη"
 
 msgctxt "#30289"
-msgid "Show Quit"
+msgid "Show quit button"
 msgstr "Δείξε την εγκατάληψη"
 
 msgctxt "#30290"
