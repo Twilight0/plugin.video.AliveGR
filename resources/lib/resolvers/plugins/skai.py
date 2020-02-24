@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-
 import re, json
 
 from distutils.util import strtobool
 from streamlink.plugin import Plugin, PluginArguments, PluginArgument
 from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
+from streamlink.plugin.api.utils import itertags
 
 
 class SkaiGr(Plugin):
 
-    _url_re = re.compile(r'http://www\.skaitv\.gr/episode/\w+/[\w-]+/[\d-]+')
+    _url_re = re.compile(r'https?://www\.skai(?:tv)?\.gr/(?:episode|videos|live)/?(?:\S+|\w+/[\w-]+/[\d-]+)?')
     _player_url = 'http://videostream.skai.gr/'
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
@@ -25,11 +25,22 @@ class SkaiGr(Plugin):
 
         res = self.session.http.get(self.url, headers=headers)
 
-        json_ = re.search(r'var data = ({.+?});', res.text).group(1)
+        if '/videos' not in self.url:
 
-        json_ = json.loads(json_)
+            json_ = re.search(r'var data = ({.+?});', res.text).group(1)
 
-        stream = ''.join([self._player_url, json_['episode'][0]['media_item_file'], '.m3u8'])
+            json_ = json.loads(json_)
+
+            if '/live' not in self.url:
+                stream = ''.join([self._player_url, json_['episode'][0]['media_item_file'], '.m3u8'])
+            else:
+                stream = json_['now']['livestream']
+
+        else:
+
+            stream = [
+                i for i in list(itertags(res.text, 'meta')) if 'videostream' in i.attributes.get('content', '')
+            ][0].attributes.get('content')
 
         headers.update({"Referer": self.url})
 

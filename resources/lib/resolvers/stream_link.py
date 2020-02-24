@@ -19,7 +19,7 @@
 """
 
 import streamlink.session
-from streamlink.exceptions import NoPluginError, NoStreamsError
+from streamlink.exceptions import NoPluginError, NoStreamsError, FatalPluginError, PluginError
 from tulip import control, log
 from tulip.compat import urlencode
 from ..modules.helpers import stream_picker
@@ -29,52 +29,54 @@ class StreamLink:
 
     def __init__(self, url):
         
+        self.session = streamlink.session.Streamlink()
         self.url = url
 
     def passthrough(self):
-    
-        session = streamlink.session.Streamlink()
 
         custom_plugins = control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'plugins')
-        session.load_plugins(custom_plugins)
+        self.session.load_plugins(custom_plugins)
 
         if control.setting('sl_quality_picker') == '0':
 
             if 'omegatv.com.cy' in self.url:
-                session.set_plugin_option('omegacy', 'parse_hls', 'false')
+                self.session.set_plugin_option('omegacy', 'parse_hls', 'false')
             elif 'ant1.com.cy' in self.url:
-                session.set_plugin_option('ant1cy', 'parse_hls', 'false')
+                self.session.set_plugin_option('ant1cy', 'parse_hls', 'false')
             elif 'antenna.gr' in self.url:
-                session.set_plugin_option('ant1gr', 'parse_hls', 'false')
+                self.session.set_plugin_option('ant1gr', 'parse_hls', 'false')
             elif 'tvopen.gr' in self.url:
-                session.set_plugin_option('opentv', 'parse_hls', 'false')
+                self.session.set_plugin_option('opentv', 'parse_hls', 'false')
             elif 'star.gr/tv/' in self.url:
-                session.set_plugin_option('star', 'parse_hls', 'false')
+                self.session.set_plugin_option('star', 'parse_hls', 'false')
             elif 'cybc.com.cy' in self.url:
-                session.set_plugin_option('rik', 'parse_hls', 'false')
+                self.session.set_plugin_option('rik', 'parse_hls', 'false')
             elif 'skaitv.gr' in self.url:
-                session.set_plugin_option('skai', 'parse_hls', 'false')
+                self.session.set_plugin_option('skai', 'parse_hls', 'false')
             # elif 'dailymotion.com' in self.url:
-            #     session.set_plugin_option('dailymotion', 'parse_hls', 'false')
+            #     self.session.set_plugin_option('dailymotion', 'parse_hls', 'false')
             elif 'euronews.com' in self.url:
-                session.set_plugin_option('euronews', 'parse_hls', 'false')
+                self.session.set_plugin_option('euronews', 'parse_hls', 'false')
             elif 'alphacyprus.com.cy' in self.url:
-                session.set_plugin_option('alphacy', 'parse_hls', 'false')
+                self.session.set_plugin_option('alphacy', 'parse_hls', 'false')
             elif 'alphatv.gr' in self.url:
-                session.set_plugin_option('alphagr', 'parse_hls', 'false')
+                self.session.set_plugin_option('alphagr', 'parse_hls', 'false')
             elif 'webtv.ert.gr' in self.url:
-                session.set_plugin_option('ert', 'parse_hls', 'false')
+                self.session.set_plugin_option('ert', 'parse_hls', 'false')
             elif 'sigmatv.com' in self.url:
-                session.set_plugin_option('sigma', 'parse_hls', 'false')
+                self.session.set_plugin_option('sigma', 'parse_hls', 'false')
+
+        if 'skaitv.gr' in self.url or 'skai.gr' in self.url:
+            self.session.set_plugin_option('skai', 'parse_hls', 'false')
 
         try:
     
-            plugin = session.resolve_url(self.url)
+            plugin = self.session.resolve_url(self.url)
     
             return plugin.streams()
     
-        except (NoPluginError, NoStreamsError) as e:
-    
+        except (NoPluginError, NoStreamsError, FatalPluginError, PluginError) as e:
+
             log.log_debug('Streamlink failed due to following reason: ' + e)
             return
 
@@ -89,7 +91,7 @@ class StreamLink:
                 'euronews.com' in self.url, 'filmon.com' in self.url, 'alphatv.gr' in self.url,
                 'ellinikosfm.com' in self.url, 'player.vimeo.com' in self.url, 'alphacyprus.com.cy' in self.url,
                 'antenna.gr' in self.url, 'star.gr/tv/' in self.url, 'cybc.com.cy' in self.url,
-                'omegatv' in self.url and 'live' in self.url, 'skaitv.gr' in self.url and 'live' not in self.url,
+                'omegatv' in self.url and 'live' in self.url, 'skaitv.gr' in self.url,
                 'webtv.ert.gr' in self.url and 'live' not in self.url, 'sigmatv.com' in self.url
             ]
         )
@@ -98,14 +100,14 @@ class StreamLink:
     def can_resolve(self):
 
         try:
-            
-            if session.resolve_url(self.url):
+
+            if self.session.resolve_url(self.url):
                 return True
             else:
                 raise NoPluginError
-    
+
         except NoPluginError:
-    
+
             log.log_debug('Streamlink cannot resolve this url')
             return False
 

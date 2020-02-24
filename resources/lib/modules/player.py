@@ -125,12 +125,6 @@ def conditionals(url):
         else:
             return link
 
-    elif 'skaitv.gr' in url and 'live' in url:
-
-        vid = cache.get(various.skai, 3, url)
-        stream = youtube.wrapper(vid)
-        return stream
-
     elif 'periscope' in url and 'search' in url:
 
         stream = stream_link.StreamLink(cache.get(various.periscope_search, 6, url)).passthrough()

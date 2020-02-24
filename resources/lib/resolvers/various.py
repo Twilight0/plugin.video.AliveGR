@@ -55,17 +55,6 @@ def ert(url):
         return iframes
 
 
-def skai(url):
-
-    html = client.request(url)
-
-    script = [i for i in client.parseDOM(html, 'script') if 'youtube.com' in i][0]
-
-    vid = re.search(r'watch\?v=([\w-]{11})', script).group(1)
-
-    return vid
-
-
 def periscope_search(url):
 
     html = client.request(url)
