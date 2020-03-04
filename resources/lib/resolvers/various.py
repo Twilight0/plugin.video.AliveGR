@@ -50,7 +50,11 @@ def ert(url):
 
     else:
 
-        iframes = client.parseDOM(result, 'div', attrs={'class': 'embed-container'})[::-1]
+        iframes = [
+            client.parseDOM(i, 'iframe', ret='src')[0] for i in client.parseDOM(
+                result, 'div', attrs={'class': 'embed-container'}
+            )[::-1]
+        ]
 
         return iframes
 
