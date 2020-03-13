@@ -4,11 +4,12 @@ import re
 from distutils.util import strtobool
 from streamlink.plugin import Plugin, PluginArguments, PluginArgument
 from streamlink.stream import HLSStream, HTTPStream
+from streamlink.compat import urlparse
 from streamlink.plugin.api.useragents import CHROME
 from streamlink.plugin.api.utils import itertags
 
 
-_url_re = re.compile(r"""http://www\.alphacyprus\.com\.cy/(?:page|shows)/(?:live|all|entertainment|ellinikes-seires|informative)(?:/[\w-]+/webtv/[\w-]+)?""")
+_url_re = re.compile(r"""https?://www\.alphacyprus\.com\.cy/(?:page|shows|live)(?:/(?:all|entertainment|ellinikes-seires|informative)(?:/[\w-]+/webtv/[\w-]+)?)?""")
 
 
 class AlphaCy(Plugin):
@@ -25,13 +26,16 @@ class AlphaCy(Plugin):
 
         res = self.session.http.get(self.url, headers=headers)
 
-        if 'page/live' in self.url:
-            stream = [i for i in list(itertags(res.text, 'script')) if "type: 'hls'" in i.text]
-            stream = re.search(r'''url: ['"](http.+?)['"]''', stream[0].text).group(1)
+        if urlparse(self.url).path == '/live':
+            stream = [i for i in list(itertags(res.text, 'script')) if "hls" in i.text]
+            try:
+                stream = re.search(r'''['"](http.+?)['"]''', stream[0].text).group(1)
+            except Exception:
+                stream = None
             live = True
         else:
-            stream = [i for i in list(itertags(html, 'script')) if "mp4" in i.text]
-            stream = re.search(r'''url: ['"](http.+?\.mp4)['"]''', stream[0].text).group(1)
+            stream = [i for i in list(itertags(res.text, 'a')) if "mp4" in i.attributes.get('href', '')]
+            stream = stream[0].attributes.get('href')
             live = False
 
         headers.update({"Referer": self.url})
@@ -41,10 +45,12 @@ class AlphaCy(Plugin):
         except AttributeError:
             parse_hls = True
 
-        if parse_hls and live:
-            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
-        else:
-            return dict(vod=HTTPStream(self.session, stream, headers=headers))
+        if stream:
+
+            if parse_hls and live:
+                return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+            else:
+                return dict(vod=HTTPStream(self.session, stream, headers=headers))
 
 
 __plugin__ = AlphaCy

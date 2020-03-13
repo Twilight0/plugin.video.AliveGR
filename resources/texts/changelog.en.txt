@@ -4,7 +4,7 @@
 - Fixed youtube api keys setup wizard
 - Disabled iptv setup action (will be re-enabled in a future release)
 - Cartoon items can now be disabled from showing up on main indexers
-- Tweaked streamlink plugins (ant1cy, skai)
+- Tweaked streamlink plugins (ant1cy, skai, alphacy, ert)
 
 
 + [B]2.0.X[/B] [COLOR red](30-01-2020 -> 10-02-2020)[/COLOR]

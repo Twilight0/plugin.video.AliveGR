@@ -72,12 +72,12 @@ class StreamLink:
         try:
     
             plugin = self.session.resolve_url(self.url)
-    
+
             return plugin.streams()
-    
+
         except (NoPluginError, NoStreamsError, FatalPluginError, PluginError) as e:
 
-            log.log_debug('Streamlink failed due to following reason: ' + e)
+            log.log_debug('Streamlink failed due to following reason: ' + repr(e))
             return
 
     @property

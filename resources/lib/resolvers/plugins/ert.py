@@ -10,7 +10,7 @@ from streamlink.plugin.api.utils import itertags
 
 class Ert(Plugin):
 
-    _url_re = re.compile(r'https?://webtv\.ert\.gr/[\w-]+/[\w-]+/[\w-]+/')
+    _url_re = re.compile(r'https?://(?:webtv|archive)\.ert\.gr/(?:\d+/|[\w-]+/[\w-]+/[\w-]+/)')
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
@@ -27,7 +27,7 @@ class Ert(Plugin):
         iframe = list(itertags(res.text, 'iframe'))[0].attributes['src']
 
         res = self.session.http.get(iframe, headers=headers)
-        stream = re.search(r'var (?:HLSLink|stream) = [\'"](.+?)[\'"]', res.text).group(1)
+        stream = re.search(r'(?<!//)var (?:HLSLink|stream) = [\'"](.+?)[\'"]', res.text).group(1)
 
         headers.update({"Referer": self.url})
 
