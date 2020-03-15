@@ -34,7 +34,7 @@ class Indexer:
 
     def __init__(self):
 
-        self.list = []; self.data = []; self.groups = []
+        self.list = []; self.data = []
         self.alivegr = 'QjNi5SZ2lGbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
 
     def switcher(self):
@@ -45,7 +45,7 @@ class Indexer:
             control.idle()
             control.sleep(100)
 
-        self.groups = cache.get(self.live, 8)[1]
+        self.groups = list(LIVE_GROUPS.values())
         translated = [control.lang(i) for i in self.groups]
         self.data = [control.lang(30048)] + self.groups + [control.lang(30282)]
         choice = control.selectDialog(
@@ -131,11 +131,8 @@ class Indexer:
             )
 
             self.list.append(data)
-            self.data.append(group)
 
-        self.groups = list(OrderedDict.fromkeys(self.data))
-
-        return self.list, self.groups, updated
+        return self.list, updated
 
     def live_tv(self, zapping=False, query=None):
 
@@ -242,7 +239,7 @@ class Indexer:
                 'title': label,
                 'image': iconname('switcher'),
                 'action': 'live_switcher',
-                'plot': control.lang(30034) + '[CR]' + control.lang(30035) + live_data[2],
+                'plot': control.lang(30034) + '[CR]' + control.lang(30035) + live_data[1],
                 'isFolder': 'False', 'isPlayable': 'False'
             }
 
