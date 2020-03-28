@@ -43,7 +43,7 @@ class OpenTV(Plugin):
 
         _json_object = self.session.http.get(_json_url, headers=headers).json()
 
-        stream = _json_object.get('stream')
+        stream = _json_object.get('stream').strip()
 
         headers.update({"Referer": self.url})
 

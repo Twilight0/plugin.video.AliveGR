@@ -1,10 +1,10 @@
-+ [B]2.1.X[/B] [COLOR green]16-02-2020 -> 15-03-2020[/COLOR]
++ [B]2.1.X[/B] [COLOR green]16-02-2020 -> 28-03-2020[/COLOR]
 - Added pseudo-live youtube-based play items
 - Inform user when unofficial streams are disabled
 - Fixed youtube api keys setup wizard
 - Disabled iptv setup action (will be re-enabled in a future release)
 - Cartoon items can now be disabled from showing up on main indexers
-- Tweaked streamlink plugins (ant1cy, skai, alphacy, ert)
+- Tweaked streamlink plugins (ant1cy, skai, alphacy, ert, opentv)
 - Live groups are now in fixed order instead of dynamic (makes channel ordering more predictable)
 
 
