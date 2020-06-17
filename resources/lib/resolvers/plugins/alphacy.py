@@ -9,7 +9,7 @@ from streamlink.plugin.api.useragents import CHROME
 from streamlink.plugin.api.utils import itertags
 
 
-_url_re = re.compile(r"""https?://www\.alphacyprus\.com\.cy/(?:page|shows|live)(?:/(?:all|entertainment|ellinikes-seires|informative)(?:/[\w-]+/webtv/[\w-]+)?)?""")
+_url_re = re.compile(r"""https?://(?:www\.)?alphacyprus\.com\.cy/(?:page|shows|live)(?:/(?:all|entertainment|ellinikes-seires|informative|news)(?:/[\w-]+/webtv/[\w-]+)?)?""")
 
 
 class AlphaCy(Plugin):
@@ -24,7 +24,7 @@ class AlphaCy(Plugin):
 
         headers = {'User-Agent': CHROME}
 
-        res = self.session.http.get(self.url, headers=headers)
+        res = self.session.http.get(self.url, headers=headers, verify=False)
 
         if urlparse(self.url).path == '/live':
             stream = [i for i in list(itertags(res.text, 'script')) if "hls" in i.text]
