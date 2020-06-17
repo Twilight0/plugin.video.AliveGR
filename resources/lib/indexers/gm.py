@@ -32,7 +32,7 @@ from tulip.compat import urljoin, urlparse, range, iteritems
 from ..modules.themes import iconname
 from ..modules.constants import YT_URL
 
-GM_BASE = 'http://greek-movies.com/'
+GM_BASE = 'https://greek-movies.com/'
 MOVIES = urljoin(GM_BASE, 'movies.php')
 SHOWS = urljoin(GM_BASE, 'shows.php')
 SERIES = urljoin(GM_BASE, 'series.php')
@@ -418,12 +418,12 @@ class Indexer:
         image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail.*?'}, ret='src')[0]
         image = urljoin(GM_BASE, image)
         year = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
-        year = int(re.findall('\d{4}', year, re.U)[0])
+        year = int(re.findall(r'\d{4}', year, re.U)[0])
         name = client.parseDOM(html, 'h2')[0]
 
         result = client.parseDOM(html, 'div', attrs={'style': 'margin:20px 0px 20px 0px;'})[0]
 
-        episodes = re.compile('onclick="loadEpisode(.*?)">(.*?)</button>').findall(result)
+        episodes = re.findall(r'onclick="loadEpisode(.*?)">(.*?)</button>', result)
 
         if str('text-justify') in html:
             plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
@@ -442,8 +442,8 @@ class Indexer:
 
         for eid, title in episodes:
 
-            link = re.compile("'(.+?)'").findall(eid)
-            link = EPISODE.format(link[0], link[1])
+            link = re.search(r'\'([\w-]+)\', \'(\w)\'', eid)
+            link = EPISODE.format(link.group(1), link.group(2))
 
             if '\'n\')' in eid:
                 group = '1bynumber'
@@ -459,8 +459,8 @@ class Indexer:
             elif '\'d\')' in eid:
                 group = '2bydate'
                 row = result.split(eid)[0]
-                y = re.findall('<h4.+?bold.+?(\d{4})', row, re.U)[-1]
-                m = re.findall('width:50px..?>(.+?)<', row, re.U)[-1]
+                y = re.findall(r'<h4.+?bold.+?(\d{4})', row, re.U)[-1]
+                m = re.findall(r'width:50px..?>(.+?)<', row, re.U)[-1]
                 m = dictionary[m]
                 prefix = '0' + title if len(title) == 1 else title
                 title = prefix + '-' + m + '-' + y
@@ -676,6 +676,7 @@ def source_maker(url):
         data = {'links': links, 'hosts': hosts}
 
         if '<p class="text-muted text-justify">' in html:
+
             plot = client.parseDOM(html, 'p')[0]
             data.update({'plot': plot})
 

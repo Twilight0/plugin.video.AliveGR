@@ -1208,7 +1208,7 @@ msgstr "Περισσότερες ρυθμίσεις..."
 
 msgctxt "#30328"
 msgid "Kodi media center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
-msgstr "Μικροεφαρμογή κέντρου πολυμέσων για το Kodi[CR]Δημιουργός: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
+msgstr "Μικροεφαρμογή για το κέντρο πολυμέσων Kodi[CR]Δημιουργός: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
 
 msgctxt "#30329"
 msgid "[B]Close[/B]"

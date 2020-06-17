@@ -1,4 +1,4 @@
-+ [B]2.1.X[/B] [COLOR green]16-02-2020 -> 28-03-2020[/COLOR]
++ [B]2.1.X[/B] [COLOR green]16-02-2020 -> 17-06-2020[/COLOR]
 - Added pseudo-live youtube-based play items
 - Inform user when unofficial streams are disabled
 - Fixed youtube api keys setup wizard

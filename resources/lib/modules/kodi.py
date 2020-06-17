@@ -299,3 +299,14 @@ def force():
 
     control.execute('UpdateAddonRepos')
     control.infoDialog(control.lang(30261))
+
+
+def prevent_failure():
+
+    for i in range(0, 400):
+
+        if control.condVisibility('Window.IsActive(busydialog)'):
+            sleep(0.05)
+        else:
+            control.execute('Dialog.Close(all,true)')
+            break

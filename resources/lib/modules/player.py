@@ -36,6 +36,7 @@ from tulip.log import log_debug
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..resolvers import various, youtube, stream_link
+from .kodi import prevent_failure
 from .constants import YT_URL, API_KEYS
 from .helpers import m3u8_picker, thgiliwt
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
@@ -198,6 +199,8 @@ def mini_picker(hl, sl):
 
         else:
 
+            prevent_failure()
+
             return
 
 
@@ -275,12 +278,7 @@ def directory_picker(url, argv):
         auto_play=control.setting('auto_play') == 'true'
     )
 
-    for i in range(0, 400):
-        if control.condVisibility('Window.IsActive(busydialog)'):
-            sleep(0.05)
-        else:
-            control.execute('Dialog.Close(all,true)')
-            break
+    prevent_failure()
 
 
 def dash_conditionals(stream):
