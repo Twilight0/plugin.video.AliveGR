@@ -83,9 +83,9 @@ def conditionals(url):
             stream = conditionals(link)
             return stream
 
-    elif 'gamatokid.com/movies/' in url:
+    elif 'gamatokids.com/movies/' in url:
 
-        source = cache.get(gk_debris, 24, url)
+        source = cache.get(gk_debris, 48, url)
 
         return conditionals(source)
 
@@ -158,8 +158,13 @@ def gm_debris(link):
 
 def gk_debris(link):
 
+    print link
+
     html = client.request(link)
     source = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})[0]
+
+    print source
+
     return source
 
 

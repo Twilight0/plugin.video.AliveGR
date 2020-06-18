@@ -305,7 +305,7 @@ class Indexer:
     def _cartoon_various(self, url):
 
         if url is None:
-            url = 'https://gamatokid.com/genre/%CE%BC%CE%B5%CF%84%CE%B1%CE%B3%CE%BB%CF%89%CF%84%CE%B9%CF%83%CE%BC%CE%AD%CE%BD%CE%B1/'
+            url = 'https://gamatokids.com/genre/%CE%BC%CE%B5%CF%84%CE%B1%CE%B3%CE%BB%CF%89%CF%84%CE%B9%CF%83%CE%BC%CE%AD%CE%BD%CE%B1/'
 
         html = client.request(url)
 

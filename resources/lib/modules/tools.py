@@ -19,11 +19,11 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
+import pyxbmct, re
 from tulip import control, client, cache
 from .helpers import thgiliwt, cache_clear, i18n, reset_idx, leved
 from .kodi import skin_name
 from .constants import API_KEYS, FACEBOOK, TWITTER
-import pyxbmct, re
 from os import path
 
 
@@ -292,7 +292,6 @@ def yt_setup():
 
     def seq():
 
-        control.addon('plugin.video.youtube').setSetting('youtube.api.enable', API_KEYS['enablement'])
         control.addon('plugin.video.youtube').setSetting('youtube.api.id', API_KEYS['id'])
         control.addon('plugin.video.youtube').setSetting('youtube.api.key', thgiliwt(API_KEYS['api_key']))
         control.addon('plugin.video.youtube').setSetting('youtube.api.secret', API_KEYS['secret'])

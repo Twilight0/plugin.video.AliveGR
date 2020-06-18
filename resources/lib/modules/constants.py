@@ -18,20 +18,34 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+from random import choice
 from tulip.compat import OrderedDict
 from tulip.control import dataPath, join
 
 ########################################################################################################################
 ############### Please do not copy these keys, instead create your own with this tutorial: #############################
-###############   http://forum.kodi.tv/showthread.php?tid=267160&pid=2299960#pid2299960    #############################
+######################################   https://ytaddon.page.link/keys    #############################################
 ########################################################################################################################
 
-API_KEYS = {
-    'enablement': 'true',
-    'id': '498788153161-pe356urhr0uu2m98od6f72k0vvcdsij0.apps.googleusercontent.com',
-    'api_key': '0I1Ry82VGNWOypWMxUDR5JGMs5kQINDMmdET59UMrhTQ5NVY6lUQ',
-    'secret': 'e6RBIFCVh1Fm-IX87PVJjgUu'
+API_KEYS_1 = {
+    'id': '368042868178-4fvokphtids9eh59h4m4j0m8huvj1qb2.apps.googleusercontent.com',
+    'api_key': 'v1keo9GeEBXSJBTMYljRp1SVM5GVVJ0Q4J3UjdGRulnQ5NVY6lUQ',
+    'secret': '-YtREVjllZtljRWYj_RXVgWP'
 }
+
+API_KEYS_2 = {
+    'id': '368042868178-a0g9quroi3j9pdac38t5ieqvlqt6pd13.apps.googleusercontent.com',
+    'api_key': '0QnR0oXYulnN4EkWs9FdhREbyQENyoHT6Nmc1pUZKhmQ5NVY6lUQ',
+    'secret': 'dzRe6xooAyY7Bzbi6Rjg2EQH'
+}
+
+API_KEYS_3 = {
+    'id': '368042868178-qnk7ispjd1i1m99ke73qc814cr973skf.apps.googleusercontent.com',
+    'api_key': 'ZJlUq1SUwZUbXJkZOhGNOR3ROJzcvtWOZBTd5w2YU9UQ5NVY6lUQ',
+    'secret': 'lALRzBmftnPbUSTUTv28Gavq'
+}
+
+API_KEYS = choice([API_KEYS_1, API_KEYS_2, API_KEYS_3])
 
 ########################################################################################################################
 
