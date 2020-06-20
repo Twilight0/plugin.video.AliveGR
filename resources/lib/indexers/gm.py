@@ -442,7 +442,7 @@ class Indexer:
 
         for eid, title in episodes:
 
-            link = re.search(r'\'([\w-]+)\', \'(\w)\'', eid)
+            link = re.search(r'\'([\w-]+)\', \'(\w{1,2})\'', eid)
             link = EPISODE.format(link.group(1), link.group(2))
 
             if '\'n\')' in eid:
