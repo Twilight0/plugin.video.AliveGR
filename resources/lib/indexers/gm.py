@@ -371,7 +371,7 @@ class Indexer:
 
         log_debug('List of vod items ~ ' + repr(self.list))
 
-        if url.startswith(MOVIES) and control.setting('show_cartoons') == 'false' and url != 'http://greek-movies.com/movies.php?g=8&y=&l=&p=':
+        if url.startswith(MOVIES) and control.setting('show_cartoons') == 'false' and url != ''.join([GM_BASE, 'movies.php?g=8&y=&l=&p=']):
 
             bl_urls = cache.get(blacklister, 96)
 
