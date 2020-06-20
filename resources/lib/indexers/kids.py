@@ -25,6 +25,7 @@ from tulip import control, client, cache, directory
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
 from ..modules.constants import YT_ADDON
+from .gm import GM_BASE
 
 
 class Indexer:
@@ -45,14 +46,14 @@ class Indexer:
             {
                 'title': control.lang(30073),
                 'action': 'listing',
-                'url': 'http://greek-movies.com/movies.php?g=8&y=&l=&p=',
+                'url': ''.join([GM_BASE, 'movies.php?g=8&y=&l=&p=']),
                 'icon': iconname('cartoon_movies')
             }
             ,
             {
                 'title': control.lang(30092),
                 'action': 'listing',
-                'url': 'http://greek-movies.com/shortfilm.php?g=8&y=&l=&p=',
+                'url': ''.join([GM_BASE, 'shortfilm.php?g=8&y=&l=&p=']),
                 'icon': iconname('cartoon_short')
             }
             ,

@@ -22,9 +22,11 @@ from __future__ import absolute_import, unicode_literals
 import pyxbmct, re
 from tulip import control, client, cache
 from .helpers import thgiliwt, cache_clear, i18n, reset_idx, leved
-from .kodi import skin_name
+from .kodi import skin_name, force
 from .constants import API_KEYS, FACEBOOK, TWITTER
 from os import path
+from random import choice
+from time import time
 
 
 ########################################################################################################################
@@ -405,14 +407,21 @@ def disclaimer():
     control.dialog.textviewer(control.addonInfo('name') + ', ' + control.lang(30129), text)
 
 
-class Prompt(pyxbmct.AddonDialogWindow):
+def do_not_ask_again():
+
+    control.setSetting('new_version_prompt', 'false')
+
+    control.okDialog('AliveGR', control.lang(30361))
+
+
+class Card(pyxbmct.AddonDialogWindow):
 
     pyxbmct.skin.estuary = False if 'onfluence' in skin_name().lower() or 'aeon' in skin_name().lower() else True
 
     def __init__(self):
 
         # noinspection PyArgumentList
-        super(Prompt, self).__init__(control.lang(30267).format(control.version()))
+        super(Card, self).__init__(control.lang(30267).format(control.version()))
 
         self.changelog_button = None
         self.disclaimer_button = None
@@ -497,6 +506,75 @@ class Prompt(pyxbmct.AddonDialogWindow):
         self.setFocus(self.close_button)
 
 
+class Prompt(pyxbmct.AddonDialogWindow):
+
+    pyxbmct.skin.estuary = False if 'onfluence' in skin_name().lower() or 'aeon' in skin_name().lower() else True
+
+    def __init__(self):
+
+        # noinspection PyArgumentList
+        super(Prompt, self).__init__(control.lang(30267).format(control.version()))
+
+        self.yes_button = None
+        self.no_button = None
+        self.close_button = None
+        self.do_not_ask_again_button = None
+        self.description = None
+        self.setGeometry(854, 480, 8, 3)
+        self.set_controls()
+        self.connect(pyxbmct.ACTION_NAV_BACK, self.close)
+        self.connect(pyxbmct.ACTION_MOUSE_LEFT_CLICK, self.close)
+        self.set_navigation()
+
+    def set_controls(self):
+
+        image = pyxbmct.Image(control.fanart(), aspectRatio=2)
+        self.placeControl(image, 0, 0, 5, 3)
+        # Note
+        self.description = pyxbmct.Label(control.lang(30356).format(remote_version()), alignment=2)
+        self.placeControl(self.description, 5, 0, 2, 3)
+        # Yes button
+        self.yes_button = pyxbmct.Button(control.lang(30357))
+        self.placeControl(self.yes_button, 6, 0)
+        self.connect(self.yes_button, lambda: force())
+        # No button
+        self.no_button = pyxbmct.Button(control.lang(30358))
+        self.placeControl(self.no_button, 6, 1)
+        self.connect(self.no_button, self.close)
+        # Do not ask again button
+        self.do_not_ask_again_button = pyxbmct.Button(control.lang(30359))
+        self.placeControl(self.do_not_ask_again_button, 6, 2)
+        self.connect(self.do_not_ask_again_button, lambda: do_not_ask_again())
+        # Close button
+        self.close_button = pyxbmct.Button(control.lang(30329))
+        self.placeControl(self.close_button, 7, 0, 1, 3)
+        self.connect(self.close_button, self.close)
+
+    def set_navigation(self):
+
+        self.yes_button.controlRight(self.no_button)
+        self.yes_button.controlLeft(self.do_not_ask_again_button)
+        self.yes_button.controlDown(self.close_button)
+        self.yes_button.controlUp(self.close_button)
+
+        self.no_button.controlLeft(self.yes_button)
+        self.no_button.controlRight(self.do_not_ask_again_button)
+        self.no_button.controlDown(self.close_button)
+        self.no_button.controlUp(self.close_button)
+
+        self.do_not_ask_again_button.controlRight(self.yes_button)
+        self.do_not_ask_again_button.controlLeft(self.no_button)
+        self.do_not_ask_again_button.controlDown(self.close_button)
+        self.do_not_ask_again_button.controlUp(self.close_button)
+
+        self.close_button.controlUp(choice([self.yes_button, self.no_button, self.do_not_ask_again_button]))
+        self.close_button.controlDown(choice([self.yes_button, self.no_button, self.do_not_ask_again_button]))
+        self.close_button.controlLeft(self.do_not_ask_again_button)
+        self.close_button.controlRight(self.yes_button)
+
+        self.setFocus(self.close_button)
+
+
 def new_version(new=False):
 
     version_file = control.join(control.dataPath, 'version.txt')
@@ -531,7 +609,24 @@ def new_version(new=False):
             return False
 
 
+def remote_version():
+
+    xml = client.request('https://bitbucket.org/thgiliwt/repo.thgiliwt/raw/HEAD/_thgiliwt/addons.xml')
+
+    version = client.parseDOM(xml, 'addon', attrs={'id': 'plugin.video.AliveGR'}, ret='version')[0]
+
+    return version
+
+
 def welcome():
+
+    window = Card()
+    window.doModal()
+
+    del window
+
+
+def prompt():
 
     window = Prompt()
     window.doModal()
@@ -559,6 +654,13 @@ def checkpoint():
 
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
+
+        control.setSetting('last_check', str(time()))
+
+    elif control.setting('new_version_prompt') == 'true' and float(control.setting('last_check')) > time() + 22000 and remote_version() != control.version():
+
+        prompt()
+        control.setSetting('last_check', str(time()))
 
 
 def dev():

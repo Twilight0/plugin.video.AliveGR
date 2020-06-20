@@ -29,7 +29,6 @@ except Exception:
     resolve_url = None
     HostedMediaFile = None
 
-from time import sleep
 from random import shuffle, choice as random_choice
 from tulip import directory, client, cache, control, youtube as tulip_youtube
 from tulip.log import log_debug
@@ -93,7 +92,7 @@ def conditionals(url):
 
         stream = stream_link.StreamLink(url).passthrough()
 
-        log_debug('Resolving with streamlink')
+        log_debug('Attempt resolving with streamlink')
 
         return stream
 
@@ -103,7 +102,7 @@ def conditionals(url):
 
             stream = resolve_url(url)
 
-            log_debug('Resolving with resolveurl')
+            log_debug('Attempt resolving with resolveurl')
 
             return stream
 
@@ -111,21 +110,6 @@ def conditionals(url):
 
             control.infoDialog(control.lang(30354), time=5000)
             return 'https://static.adman.gr/inpage/blank.mp4'
-
-    elif 'webtv.ert.gr' in url and 'live' in url:
-
-        link = cache.get(various.ert, 12, url)
-
-        if isinstance(link, list):
-            try:
-                stream = yt(link[0])
-                if not stream:
-                    raise YouTubeException('Changing stream')
-                return stream
-            except YouTubeException:
-                return yt(link[1])
-        else:
-            return link
 
     elif 'periscope' in url and 'search' in url:
 
@@ -139,7 +123,7 @@ def conditionals(url):
 
         stream = stream_link.StreamLink(link).passthrough()
 
-        log_debug('Resolving with streamlink')
+        log_debug('Attempt resolving with streamlink')
 
         return stream
 
@@ -158,12 +142,8 @@ def gm_debris(link):
 
 def gk_debris(link):
 
-    print link
-
     html = client.request(link)
     source = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})[0]
-
-    print source
 
     return source
 
@@ -205,8 +185,6 @@ def mini_picker(hl, sl):
         else:
 
             prevent_failure()
-
-            return
 
 
 def items_directory(url, params):

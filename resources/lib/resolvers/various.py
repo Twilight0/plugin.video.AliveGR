@@ -2,7 +2,7 @@
 
 """
     AliveGR Add-on
-    Author: Thgiliwt
+    Author: Twilight0
 
         This program is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -31,32 +31,6 @@ def risegr(link):
     vimeo_url = 'https://player.vimeo.com/video/' + vimeo_id
 
     return vimeo_url
-
-
-def ert(url):
-
-    html = client.request(url)
-    html = client.parseDOM(html, 'div', attrs={'class': 'wpb_column vc_column_container vc_col-sm-12'})[0]
-    iframe = client.parseDOM(html, 'iframe', ret='src')[0]
-
-    result = client.request(iframe)
-
-    url = re.search(r'var (?:HLSLink|stream) = [\'"](.+?)[\'"]', result)
-
-    if url:
-
-        url = url.group(1)
-        return url
-
-    else:
-
-        iframes = [
-            client.parseDOM(i, 'iframe', ret='src')[0] for i in client.parseDOM(
-                result, 'div', attrs={'class': 'embed-container'}
-            )[::-1]
-        ]
-
-        return iframes
 
 
 def periscope_search(url):

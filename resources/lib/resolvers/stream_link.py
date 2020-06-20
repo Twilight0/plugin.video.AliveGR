@@ -2,7 +2,7 @@
 
 """
     AliveGR Add-on
-    Author: Thgiliwt
+    Author: Twilight0
 
         This program is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -92,7 +92,7 @@ class StreamLink:
                 'ellinikosfm.com' in self.url, 'player.vimeo.com' in self.url, 'alphacyprus.com.cy' in self.url,
                 'antenna.gr' in self.url, 'star.gr/tv/' in self.url, 'cybc.com.cy' in self.url,
                 'omegatv' in self.url and 'live' in self.url, 'skaitv.gr' in self.url,
-                'webtv.ert.gr' in self.url and 'live' not in self.url, 'sigmatv.com' in self.url
+                'webtv.ert.gr' in self.url, 'sigmatv.com' in self.url
             ]
         )
 

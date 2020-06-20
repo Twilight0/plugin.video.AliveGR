@@ -19,12 +19,12 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-import re
+import re, json
 from datetime import datetime
 from base64 import b64decode
 from tulip import cache, control, directory, client
 from tulip.log import log_debug
-from tulip.compat import OrderedDict, str, is_py3
+from tulip.compat import str, is_py3
 from ..modules.themes import iconname
 from ..modules.helpers import thgiliwt, bourtsa, read_from_file
 from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED
@@ -71,11 +71,11 @@ class Indexer:
             if control.setting('local_remote') == '0':
                 local = control.setting('live_local')
                 try:
-                    with open(local, encoding='utf-8') as xml:
-                        result = xml.read()
+                    with open(local, encoding='utf-8') as _json:
+                        result = _json.read()
                 except Exception:
-                    with open(local) as xml:
-                        result = xml.read()
+                    with open(local) as _json:
+                        result = _json.read()
             elif control.setting('local_remote') == '1':
                 result = client.request(control.setting('live_remote'))
             else:
@@ -85,26 +85,25 @@ class Indexer:
         if is_py3 and isinstance(result, bytes):
             result = result.decode('utf-8')
 
-        if control.setting('debug') == 'false':
-            channels = client.parseDOM(result, 'channel', attrs={'enable': '1'})
-        else:
-            channels = client.parseDOM(result, 'channel', attrs={'enable': '1|2'})
+        channel_list = json.loads(result)
 
-        updated = client.parseDOM(result, 'channels', ret='updated')[0]
+        channels = [i for i in channel_list['channels'] if i['enable']]
+
+        updated = channel_list['updated']
 
         for channel in channels:
 
-            title = client.parseDOM(channel, 'name')[0]
-            image = client.parseDOM(channel, 'logo')[0]
+            title = channel['name']
+            image = channel['logo']
             if not image.startswith('http'):
                 image = control.addonmedia(image, LOGOS_ID, theme='logos', media_subfolder=False)
-            group = client.parseDOM(channel, 'group')[0]
+            group = channel['group']
             group = LIVE_GROUPS[group]
-            url = client.parseDOM(channel, 'url')[0]
+            url = channel['url']
 
-            website = client.parseDOM(channel, 'website')[0].replace('&amp;', '&')
+            website = channel['website']
 
-            info = client.parseDOM(channel, 'info')[0]
+            info = channel['info']
             if len(info) == 5 and info[:5].isdigit():
                 info = control.lang(int(info))
 

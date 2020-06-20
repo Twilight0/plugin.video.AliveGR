@@ -18,6 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+from time import sleep
 from tulip import control, client
 from os import path
 
@@ -305,7 +306,7 @@ def prevent_failure():
 
     for i in range(0, 400):
 
-        if control.condVisibility('Window.IsActive(busydialog)'):
+        if control.condVisibility('Window.IsActive(busydialognocancel)'):
             sleep(0.05)
         else:
             control.execute('Dialog.Close(all,true)')

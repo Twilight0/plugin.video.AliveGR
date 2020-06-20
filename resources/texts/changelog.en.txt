@@ -1,4 +1,10 @@
-+ [B]2.1.X[/B] [COLOR green]16-02-2020 -> 18-06-2020[/COLOR]
++ [B]2.2.X[/B] [COLOR green]19-06-2020[/COLOR]
+- Changed from xml to json list for live channels list
+- Updated ert plugin
+- New (or different) version prompt & help user to force check for updates
+- Various bug fixes
+
++ [B]2.1.X[/B] [COLOR red]16-02-2020 -> 18-06-2020[/COLOR]
 - Added pseudo-live youtube-based play items
 - Inform user when unofficial streams are disabled
 - Fixed youtube api keys setup wizard

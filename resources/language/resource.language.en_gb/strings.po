@@ -1314,6 +1314,34 @@ msgctxt "#30354"
 msgid "Unofficial streams are not enabled"
 msgstr ""
 
+msgctxt "#30355"
+msgid "AliveGR has been updated on the remote server"
+msgstr ""
+
+msgctxt "#30356"
+msgid "Local AliveGR version is different than the one on the remote server ({0})[CR]Do you like to force check for updates?"
+msgstr ""
+
+msgctxt "#30357"
+msgid "Yes"
+msgstr ""
+
+msgctxt "#30358"
+msgid "Νο"
+msgstr ""
+
+msgctxt "#30359"
+msgid "Do not ask again"
+msgstr ""
+
+msgctxt "#30360"
+msgid "Enable prompt for new remote AliveGR version"
+msgstr ""
+
+msgctxt "#30361"
+msgid "You can enable the prompt in the settings window, maintenance tab"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr ""

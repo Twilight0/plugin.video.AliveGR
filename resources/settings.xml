@@ -104,6 +104,7 @@
         <setting id="reset_idx" type="bool" label="30229" default="true"/>
         <setting id="reset_live" type="bool" label="30266" default="false" visible="eq(-1,true)"/>
         <setting visible="true" label="30134" type="action" action="RunPlugin(plugin://$ID/?action=reset_idx)"/>
+        <setting id="new_version_prompt" type="bool" label="30360" default="true"/>
 
         <setting type="sep"/>
 
@@ -171,6 +172,7 @@
 
         <setting id="vod_group" label="VOD Group" type="text" default="30213" visible="false"/>
         <setting id="papers_group" label="Papers Group" type="text" default="0" visible="false"/>
+        <setting id="last_check" label="Last update check" type="text" default="0" visible="false"/>
 
         <!--<setting id="bookmarks_group" label="Bookmarks Group" type="text" default="ALL" visible="false"/>-->
         <!--<setting id="ytdl_quality_picker" type="enum" label="30262" lvalues="30168|30169" default="0"/>-->

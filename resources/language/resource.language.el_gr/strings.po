@@ -1314,6 +1314,30 @@ msgctxt "#30354"
 msgid "Unofficial streams are not enabled"
 msgstr "Οι ανεπίσημες ροές δεν είναι ενεργοποιημένες"
 
+msgctxt "#30356"
+msgid "Local AliveGR version is different than the one on the remote server ({0})[CR]Do you like to force check for updates?"
+msgstr "Η τοπική έκδοση του AliveGR είναι διαφορετική από αυτήν στον απομακρυσμένη εξυπηρετητή ({0})[CR]Θέλετε να επιβάλετε τον έλεγχο ενημερώσεων;"
+
+msgctxt "#30357"
+msgid "Yes"
+msgstr "Ναί"
+
+msgctxt "#30358"
+msgid "Νο"
+msgstr "Όχι"
+
+msgctxt "#30359"
+msgid "Do not ask again"
+msgstr "Να μην ξαναγίνει ερώτηση"
+
+msgctxt "#30360"
+msgid "Enable prompt for new remote AliveGR version"
+msgstr "Ενεργοποίηση ερώτησης για νέα απομακρυσμένη έκδοση του AliveGR"
+
+msgctxt "#30361"
+msgid "You can enable the prompt in the settings window, maintenance tab"
+msgstr "Μπορείτε να ενεργοποιήσετε το ερώτημα στο παράθυρο ρυθμίσεων, στην καρτέλλα συντήρηση"
+
 msgctxt "#30401"
 msgid "Clear addon's cache?"
 msgstr "Καθαρισμός προσωρινής μνήμης του AliveGR;"
