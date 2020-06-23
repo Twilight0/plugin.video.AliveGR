@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.2.2" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.2.3" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -33,7 +33,8 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://bitbucket.org/thgiliwt/plugin.video.alivegr</source>
         <website>https://alivegr.net/</website>
         <size>584908</size>
-        <news>+ [B]2.2.X[/B] [COLOR green]20-06-2020[/COLOR]
+        <news>+ [B]2.2.X[/B] [COLOR green]20-06-2020 - 23-06-2020[/COLOR]
+- Enabled adaptive stream selection for dailymotion
 - Changed from xml to json list for live channels list
 - Updated ert plugin
 - New (or different) version prompt &amp; help user to force check for updates

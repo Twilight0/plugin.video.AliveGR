@@ -144,10 +144,6 @@
         <setting id="changelog_lang" type="select" label="30215" lvalues="30216|30286|30299" default="0"/>
         <setting visible="true" label="30340" type="action" action="RunPlugin(plugin://$ID/?action=changelog)"/>
 
-<!--        <setting type="sep"/>-->
-
-<!--        <setting id="geoloc_override" type="enum" label="30308" lvalues="30311|30309|30310" default="0"/>-->
-
         <setting type="sep"/>
 
         <setting visible="true" label="30013" type="action" action="RunPlugin(plugin://$ID/?action=developer_mode)"/>

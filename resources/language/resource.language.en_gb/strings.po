@@ -1131,15 +1131,15 @@ msgid "Geo loc function override"
 msgstr ""
 
 msgctxt "#30309"
-msgid "Force Greece"
+msgid ""
 msgstr ""
 
 msgctxt "#30310"
-msgid "Force Worldwide"
+msgid ""
 msgstr ""
 
 msgctxt "#30311"
-msgid "Do not force"
+msgid ""
 msgstr ""
 
 msgctxt "#30312"

@@ -318,18 +318,17 @@ def xteni(s):
 
 def geo_loc():
 
-    json_obj = client.request('http://extreme-ip-lookup.com/json/')
+    json_obj = client.request('https://extreme-ip-lookup.com/json/', output='json')
 
     if not json_obj or 'error' in json_obj:
-        json_obj = client.request('http://ip-api.com/json/')
+        json_obj = client.request('https://ip-api.com/json/', output='json')
 
-    if control.setting('geoloc_override') == '0':
-        country = json.loads(json_obj)['country']
-        return country
-    elif control.setting('geoloc_override') == '1':
-        return 'Greece'
-    else:
-        return 'Worldwide'
+    if not json_obj or 'error' in json_obj:
+        json_obj = client.request('https://geoip.siliconweb.com/geo.json', output='json')
+
+    country = json_obj.get('country', 'Worldwide')
+
+    return country
 
 
 def add_to_file(file_, txt):
