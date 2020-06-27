@@ -49,6 +49,8 @@ class Star(Plugin):
 
         if not stream:
             raise PluginError('Did not find the playable url')
+        elif 'starx' not in self.url:
+            stream = stream.group('url')
 
         headers.update({"Referer": self.url})
 

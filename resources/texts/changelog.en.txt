@@ -1,4 +1,4 @@
-+ [B]2.2.X[/B] [COLOR green]20-06-2020 - 27-06-2020[/COLOR]
++ [B]2.2.X[/B] [COLOR green]20-06-2020 - 28-06-2020[/COLOR]
 - Enabled adaptive stream selection for dailymotion
 - Changed from xml to json list for live channels list
 - Updated ert plugin
