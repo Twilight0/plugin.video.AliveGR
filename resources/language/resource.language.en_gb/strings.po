@@ -575,11 +575,11 @@ msgid "Settings folder no longer exists"
 msgstr ""
 
 msgctxt "#30141"
-msgid "Paypal"
+msgid "[COLOR white]Paypal[/COLOR]"
 msgstr ""
 
 msgctxt "#30142"
-msgid "Patreon"
+msgid "[COLOR white]Patreon[/COLOR]"
 msgstr ""
 
 msgctxt "#30143"

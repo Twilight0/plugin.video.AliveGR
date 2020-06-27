@@ -12,8 +12,7 @@ from streamlink.exceptions import PluginError
 
 class Star(Plugin):
 
-    _url_re = re.compile(r'https?://www\.star\.gr/tv/(?:live-stream|psychagogia|enimerosi)/(?:[\w-]+/v/\d+/.+?/)?')
-    _api_url = 'https://www.star.gr/tv/ajax/Atcom.Sites.StarTV.Components.Show.PopupSliderItems?showid={show_id}&type=Episode&itemIndex={item_index}&seasonid={season_id}&single=false'
+    _url_re = re.compile(r'https?://www\.starx?\.gr/(?:tv|show)/(?:live-stream/|(?:psychagogia|enimerosi|[\w-]+)/[\w-]+/(?:[\w-]+-\d+/|\d+))')
     _player_url = 'https://cdnapisec.kaltura.com/p/713821/sp/0/playManifest/entryId/{0}/format/applehttp/protocol/https/flavorParamId/0/manifest.m3u8'
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
@@ -26,36 +25,30 @@ class Star(Plugin):
 
         headers = {'User-Agent': CHROME}
 
-        if 'live-stream' in self.url:
-            live = True
-        else:
-            live = False
-
         res = self.session.http.get(self.url, headers=headers)
 
-        if live:
+        if 'live-stream' in self.url:
 
             html = [i.text for i in list(itertags(res.text, 'script'))]
 
             html = [i for i in html if 'm3u8' in i][0]
 
-        else:
+            stream = re.search(r"(?P<url>http.+?\.m3u8)", html)
+
+        elif 'starx' in self.url:
 
             try:
-                text = [i.text for i in list(itertags(res.text, 'li')) if self.url in i.text][0]
-
-                item_index, show_id, season_id = re.search(r'data-index="(\d+)".+?data-showid="(\d+)".+?data-seasonid="(\d+)"', text, re.S).groups()
+                vid = re.search(r"kalturaPlayer\('(?P<id>\w+)'", res.text).group('id')
+                stream = self._player_url.format(vid)
             except Exception:
-                raise PluginError('Did not match regex patterns to pass into the playable url')
+                stream = None
 
-            html = self.session.http.get(self._api_url.format(show_id=show_id, item_index=item_index, season_id=season_id), headers=headers).text
-
-        stream = re.search(r"(?P<url>http.+?\.m3u8)", html)
-
-        if stream:
-            stream = stream.group('url')
         else:
-            stream = self._player_url.format(re.search(r'kaltura-player(\w+)', html).group('url'))
+
+            stream = re.search(r"(?P<url>http.+?\.m3u8)", res.text)
+
+        if not stream:
+            raise PluginError('Did not find the playable url')
 
         headers.update({"Referer": self.url})
 

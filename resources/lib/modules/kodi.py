@@ -308,6 +308,8 @@ def prevent_failure():
 
         if control.condVisibility('Window.IsActive(busydialognocancel)'):
             sleep(0.05)
+        elif control.condVisibility('Window.IsActive(busydialog)'):
+            sleep(0.05)
         else:
             control.execute('Dialog.Close(all,true)')
             break

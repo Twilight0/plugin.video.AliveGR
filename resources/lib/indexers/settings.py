@@ -20,7 +20,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from ..modules.themes import iconname
-from ..modules.constants import ART_ID
+from ..modules.constants import ART_ID, PAYPAL, PATREON
 from tulip import control, directory
 
 
@@ -232,6 +232,22 @@ class Indexer:
                 'icon': control.addonmedia(
                     addonid=ART_ID, theme='icons', icon='bitbucket.png', media_subfolder=False
                 ),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30141) + ': [COLOR cyan]' + PAYPAL + '[/COLOR]',
+                'action': 'open_link',
+                'url': PAYPAL,
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30142) + ': [COLOR cyan]' + PATREON + '[/COLOR]',
+                'action': 'open_link',
+                'url': PATREON,
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }

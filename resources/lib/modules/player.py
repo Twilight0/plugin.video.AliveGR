@@ -92,7 +92,7 @@ def conditionals(url):
 
         stream = stream_link.StreamLink(url).passthrough()
 
-        log_debug('Attempt resolving with streamlink')
+        log_debug('Attempting to resolve with streamlink')
 
         return stream
 
@@ -102,7 +102,7 @@ def conditionals(url):
 
             stream = resolve_url(url)
 
-            log_debug('Attempt resolving with resolveurl')
+            log_debug('Attempting to resolve with resolveurl')
 
             return stream
 
@@ -123,7 +123,7 @@ def conditionals(url):
 
         stream = stream_link.StreamLink(link).passthrough()
 
-        log_debug('Attempt resolving with streamlink')
+        log_debug('Attempting to resolve with streamlink')
 
         return stream
 

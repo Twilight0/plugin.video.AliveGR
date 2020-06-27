@@ -636,6 +636,8 @@ def prompt():
 
 def checkpoint():
 
+    check = time() + 22000
+
     if new_version():
 
         # if control.yesnoDialog(control.lang(30267)):
@@ -655,12 +657,12 @@ def checkpoint():
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
 
-        control.setSetting('last_check', str(time()))
+        control.setSetting('last_check', str(check))
 
-    elif control.setting('new_version_prompt') == 'true' and float(control.setting('last_check')) > time() + 22000 and remote_version() != control.version():
+    elif control.setting('new_version_prompt') == 'true' and time() > float(control.setting('last_check')) and remote_version() != control.version():
 
         prompt()
-        control.setSetting('last_check', str(time()))
+        control.setSetting('last_check', str(check))
 
 
 def dev():

@@ -34,18 +34,24 @@ API_KEYS_1 = {
 }
 
 API_KEYS_2 = {
-    'id': '368042868178-a0g9quroi3j9pdac38t5ieqvlqt6pd13.apps.googleusercontent.com',
-    'api_key': '0QnR0oXYulnN4EkWs9FdhREbyQENyoHT6Nmc1pUZKhmQ5NVY6lUQ',
-    'secret': 'dzRe6xooAyY7Bzbi6Rjg2EQH'
+    'id': '427433549692-u6qr22obbb005l41onggbfeecrp0ssj1.apps.googleusercontent.com',
+    'api_key': 'R5Ud3sGMNlDO3pndNRlRsJ2QFFXYxoFeDxmaOdjbC9ER5NVY6lUQ',
+    'secret': 'tcLHhf_ptYutl-HzYvSpQ7rJ'
 }
 
 API_KEYS_3 = {
-    'id': '368042868178-qnk7ispjd1i1m99ke73qc814cr973skf.apps.googleusercontent.com',
-    'api_key': 'ZJlUq1SUwZUbXJkZOhGNOR3ROJzcvtWOZBTd5w2YU9UQ5NVY6lUQ',
-    'secret': 'lALRzBmftnPbUSTUTv28Gavq'
+    'id': '809692766230-5cb1visviarrsou7rhd4d2s2rh2d68n2.apps.googleusercontent.com',
+    'api_key': '0YFeFhzTJFWTrJWZlZkM2MFe1VTM3RUYGFETihEdthWQ5NVY6lUQ',
+    'secret': '96w2Pc99Ih1HDuaek5LE8YvG'
 }
 
-API_KEYS = choice([API_KEYS_1, API_KEYS_2, API_KEYS_3])
+API_KEYS_4 = {
+    'id': '692804738907-sjq35lum9kcovk5o6kk3gkvn19neivu9.apps.googleusercontent.com',
+    'api_key': 'JZ1Q4wkTrFWTI1mQvFUTPJXWzZzQzlEdON3atIDcwVXQ5NVY6lUQ',
+    'secret': 'xFWM0vkol6TMXaFyAx78MKkX'
+}
+
+API_KEYS = choice([API_KEYS_1, API_KEYS_2, API_KEYS_3, API_KEYS_4])
 
 ########################################################################################################################
 
@@ -61,6 +67,8 @@ PLAY_ACTION = '?action=play&url='
 WEBSITE = 'https://www.alivegr.net'
 FACEBOOK = 'https://www.facebook.com/alivegr/'
 TWITTER = 'https://twitter.com/TwilightZer0'
+PAYPAL = 'https://www.paypal.me/AliveGR'
+PATREON = 'https://www.patreon.com/twilight0'
 
 ########################################################################################################################
 
