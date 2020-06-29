@@ -4,6 +4,7 @@
 - Updated ert plugin
 - Updated star plugin
 - New (or different) version prompt & help user to force check for updates
+- Allow ok.ru links for streamlink
 - Various bug fixes
 
 + [B]2.1.X[/B] [COLOR red]16-02-2020 -> 18-06-2020[/COLOR]

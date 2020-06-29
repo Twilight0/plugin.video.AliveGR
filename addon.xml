@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.2.5" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.2.6" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -39,6 +39,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Updated ert plugin
 - Updated star plugin
 - New (or different) version prompt &amp; help user to force check for updates
+- Allow ok.ru links for streamlink
 - Various bug fixes
 
 + [B]2.1.X[/B] [COLOR green]16-02-2020 -> 18-06-2020[/COLOR]
