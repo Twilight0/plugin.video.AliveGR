@@ -1,7 +1,7 @@
 # = AliveGR Kodi addon git repository =
 ## Your one addon for everything greek related
 
-![](https://bitbucket.org/thgiliwt/repo.thgiliwt/raw/HEAD/_thgiliwt/plugin.video.AliveGR/icon.png)
+![](https://raw.githubusercontent.com/Twilight0/plugin.video.AliveGR/master/resources/media/icon.png)
 
 - Live TV
 - Radio
@@ -19,17 +19,15 @@
 
 - Windows 10 64 bit
 - Ubuntu Linux 64 bit
-- Android 7.1.2 & 4.2.2
+- Android 5, 7 & 8
 
 **Kodi Versions tested:**
 
-- Jarvis 16.1 (deprecated support for this version)
-- Krypton 17.6 (deprecated support for this version)
-- Leia 18.1 (x64)
+- Leia 18.X (x64)
 
 **Repository zip for updates:**
 
-[repository.thgiliwt-1.8.0.zip](https://bitbucket.org/thgiliwt/plugin.video.alivegr/downloads/repository.thgiliwt-1.8.0.zip "Repo ZIP")
+[repository.twilight0-1.3.zip](https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/repository.twilight0/repository.twilight0-1.3.zip "Repo ZIP")
 
 **Source url for the same zip to add into Kodi's file manager sources:**
 
