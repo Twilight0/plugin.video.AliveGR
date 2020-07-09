@@ -90,7 +90,7 @@ class Indexer:
             }
             ,
             {
-                'title': 'TORONTO CHANNELS',
+                'title': 'BCI GREEK TV',
                 'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='tc_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.Toronto-Channels/',
                 'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='tc_fanart.jpg', media_subfolder=False)

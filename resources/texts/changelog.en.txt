@@ -1,10 +1,11 @@
-+ [B]2.2.X[/B] [COLOR green]20-06-2020 - 28-06-2020[/COLOR]
++ [B]2.2.X[/B] [COLOR green]20-06-2020 - 09-07-2020[/COLOR]
 - Enabled adaptive stream selection for dailymotion
 - Changed from xml to json list for live channels list
 - Updated ert plugin
 - Updated star plugin
 - New (or different) version prompt & help user to force check for updates
 - Allow ok.ru links for streamlink
+- Removed bookmarking feature from series episodes
 - Various bug fixes
 
 + [B]2.1.X[/B] [COLOR red]16-02-2020 -> 18-06-2020[/COLOR]
@@ -16,7 +17,6 @@
 - Tweaked streamlink plugins (ant1cy, skai, alphacy, ert, opentv)
 - Live groups are now in fixed order instead of dynamic (makes channel ordering more predictable)
 - New youtube API keys
-
 
 + [B]2.0.X[/B] [COLOR red](30-01-2020 -> 10-02-2020)[/COLOR]
 - Complete Python 3 support (Kodi ver.19+)

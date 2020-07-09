@@ -611,7 +611,7 @@ def new_version(new=False):
 
 def remote_version():
 
-    xml = client.request('https://bitbucket.org/thgiliwt/repo.thgiliwt/raw/HEAD/_thgiliwt/addons.xml')
+    xml = client.request('https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/addons.xml')
 
     version = client.parseDOM(xml, 'addon', attrs={'id': 'plugin.video.AliveGR'}, ret='version')[0]
 

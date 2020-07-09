@@ -140,7 +140,7 @@ msgstr "Ταινίες"
 
 msgctxt "#30032"
 msgid "Kids"
-msgstr "Για τα παιδιά"
+msgstr "Παιδικά"
 
 msgctxt "#30033"
 msgid "No bookmarks found"
@@ -648,7 +648,7 @@ msgstr "Δείξε τα αθλητικά"
 
 msgctxt "#30159"
 msgid "Show kids section"
-msgstr "Δείξε την ενότητα των παιδιών"
+msgstr "Δείξε την ενότητα των παιδικών"
 
 msgctxt "#30160"
 msgid "Show miscellany"
@@ -679,8 +679,8 @@ msgid "Enable local proxy module"
 msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
 msgctxt "#30167"
-msgid "Streamlink (secondary resolvers)"
-msgstr "Streamlink (δευτερεύοντες επιλυτές)"
+msgid "Streamlink"
+msgstr "Streamlink"
 
 msgctxt "#30168"
 msgid "Best"
@@ -903,12 +903,12 @@ msgid "Youtube"
 msgstr ""
 
 msgctxt "#30252"
-msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
+msgid "Inputstream adaptive addon is not enabled. Do you to enabled it now?"
 msgstr "Το πρόσθετο inputstream adaptive δεν είναι ενεργοποιημένο. Θέλετε να το ενεργοποιήσετε τώρα;"
 
 msgctxt "#30253"
-msgid "Activate (or install) inputstream adaptive (MPEG-DASH)"
-msgstr "Ενεργοποίηση (ή εγκατάσταση) προσθέτου inputstream adaptive (MPEG-DASH)"
+msgid "Activate (or install) inputstream adaptive addon"
+msgstr "Ενεργοποίηση (ή εγκατάσταση) προσθέτου inputstream adaptive"
 
 msgctxt "#30254"
 msgid "Inputstream adaptive addon is already enabled"
@@ -991,8 +991,8 @@ msgid "Input stream addon settings"
 msgstr "Ρυθμίσεις προσθέτου μεταβλητής ποιότητας"
 
 msgctxt "#30274"
-msgid "Utilize MPEG-DASH"
-msgstr "Κάνε χρήση του MPEG-DASH"
+msgid ""
+msgstr ""
 
 msgctxt "#30275"
 msgid "Activate (or install) RTMP addon"
@@ -1111,8 +1111,8 @@ msgid "ResolveURL"
 msgstr "ResolveURL"
 
 msgctxt "#30304"
-msgid "Streamlink"
-msgstr "Streamlink"
+msgid ""
+msgstr ""
 
 msgctxt "#30305"
 msgid "Externally via browser window"

@@ -903,11 +903,11 @@ msgid "Youtube"
 msgstr ""
 
 msgctxt "#30252"
-msgid "Inputstream adaptive (DASH) is not enabled. Do you to enabled it now?"
+msgid "Inputstream adaptive addon is not enabled. Do you to enabled it now?"
 msgstr ""
 
 msgctxt "#30253"
-msgid "Activate (or install) inputstream adaptive (MPEG-DASH)"
+msgid "Activate (or install) inputstream adaptive addon"
 msgstr ""
 
 msgctxt "#30254"
@@ -991,7 +991,7 @@ msgid "Input stream addon settings"
 msgstr ""
 
 msgctxt "#30274"
-msgid "Utilize MPEG-DASH"
+msgid ""
 msgstr ""
 
 msgctxt "#30275"
@@ -1111,7 +1111,7 @@ msgid "ResolveURL"
 msgstr ""
 
 msgctxt "#30304"
-msgid "Streamlink"
+msgid ""
 msgstr ""
 
 msgctxt "#30305"

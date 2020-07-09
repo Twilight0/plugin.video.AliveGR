@@ -23,14 +23,13 @@ from __future__ import absolute_import, unicode_literals
 
 ########################################################################################################################
 
-import sys
+from sys import argv
 # noinspection PyUnresolvedReferences
 from resources.lib.modules.tools import checkpoint
 from tulip.compat import parse_qsl
 
 ########################################################################################################################
 
-argv = sys.argv
 params = dict(parse_qsl(argv[2].replace('?', '')))
 
 ########################################################################################################################
@@ -42,8 +41,6 @@ image = params.get('image')
 title = params.get('title')
 name = params.get('name')
 query = params.get('query')
-plot = params.get('plot')
-genre = params.get('genre')
 
 ########################################################################################################################
 
