@@ -38,9 +38,20 @@
 
 **Source url for the same zip to add into Kodi's file manager sources:**
 
-[http://alivegr.net/master](http://alivegr.net/master "Repo ZIP")
+[https://alivegr.net/master](http://alivegr.net/master "Repo ZIP")
+
+_or alternatively in case website is down, use this one:_
+
+[https://twilight0.github.io/repo.twilight0/](https://twilight0.github.io/repo.twilight0/ "Repo ZIP")
 
 It also has many tools and settings so that you can tweak your viewing experience.
 **Have fun.**
+
+------------
+
 Artwork is made by me. Icons were layered with existing flat icons from
 **Flaticon.com:** [Link](http://www.flaticon.com/ "Flaticon.com")
+
+------------
+
+Licence: GNU GPL, version 3
