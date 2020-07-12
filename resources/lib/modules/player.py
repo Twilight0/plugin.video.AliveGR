@@ -20,7 +20,7 @@
 from __future__ import absolute_import, unicode_literals
 
 # import YDStreamExtractor
-from tulip.compat import urljoin, parse_qsl, OrderedDict, zip
+from tulip.compat import urljoin, parse_qsl, OrderedDict, zip, urlsplit
 
 try:
     from resolveurl import resolve as resolve_url
@@ -87,6 +87,12 @@ def conditionals(url):
         source = cache.get(gk_debris, 48, url)
 
         return conditionals(source)
+
+    elif url.startswith('iptv://'):
+
+        stream = cache.get(various.iptv, 2, urlsplit(url).netloc)
+
+        return stream
 
     elif stream_link.StreamLink(url).hosts:
 

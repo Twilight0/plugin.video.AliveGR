@@ -20,6 +20,7 @@
 
 from tulip import client
 import re
+from tulip.parsers import itertags_wrapper
 
 
 def risegr(link):
@@ -44,3 +45,25 @@ def periscope_search(url):
     link = search.group()
 
     return link
+
+
+def iptv(name):
+
+    html = client.request('https://www.dailyiptvlist.com/european-m3u-iptv/greece-greek/')
+
+    latest = itertags_wrapper(html, 'a', {'title': 'Greece iptv m3u autoupdate links \d{2}.+'}, 'href')[0]
+
+    nested = client.request(latest)
+
+    playlists = itertags_wrapper(nested, 'a', {'href': '.+dailyiptvlist.com.+\.m3u'}, 'href')
+
+    m3u = '\n'.join([client.request(i) for i in playlists])
+
+    links = re.findall(r',(.+)$\r?\n(.+)', m3u, re.MULTILINE)
+
+    try:
+        url = [i for i in links if name.lower() in i[0].lower().decode('utf-8')][0][1][:-1]
+    except Exception:
+        url = [i for i in links if name.lower() in i[0].lower()][0][1][:-1]
+
+    return url

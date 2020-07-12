@@ -1111,7 +1111,7 @@ msgid "ResolveURL"
 msgstr ""
 
 msgctxt "#30304"
-msgid ""
+msgid "Resolving streams, please wait..."
 msgstr ""
 
 msgctxt "#30305"

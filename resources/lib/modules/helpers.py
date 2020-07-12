@@ -21,13 +21,14 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 from zlib import decompress, compress
-from .constants import PINNED
+from .constants import PINNED, SCRAMBLE
 from .kodi import rurl_enable
 from os import path
 from base64 import b64decode
 from tulip import control, cache, client, m3u8
 from tulip.compat import parse_qsl, urljoin
 from tulip.log import log_debug
+from youtube_registration import register_api_keys
 
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 
@@ -401,3 +402,28 @@ def unpin():
     control.infoDialog(control.lang(30338), time=750)
 
     control.idle()
+
+
+def keys_registration():
+
+    filepath = control.transPath(
+        control.join(control.addon('plugin.video.youtube').getAddonInfo('profile'), 'api_keys.json')
+    )
+
+    setting = control.addon('plugin.video.youtube').getSetting('youtube.allow.dev.keys') == 'true'
+
+    if path.exists(filepath):
+
+        f = open(filepath)
+
+        jsonstore = json.load(f)
+
+        no_keys = control.addonInfo('id') not in jsonstore.get('keys', 'developer').get('developer')
+
+        if setting and no_keys:
+
+            keys = json.loads(decompress(b64decode(SCRAMBLE)))
+
+            register_api_keys(control.addonInfo('id'), keys['api_key'], keys['id'], keys['secret'])
+
+        f.close()

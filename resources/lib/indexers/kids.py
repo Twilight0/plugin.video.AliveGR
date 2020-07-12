@@ -25,6 +25,7 @@ from tulip import control, client, cache, directory
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
 from ..modules.constants import YT_ADDON
+from ..modules.helpers import keys_registration
 from .gm import GM_BASE
 
 
@@ -33,6 +34,7 @@ class Indexer:
     def __init__(self):
 
         self.list = []
+        keys_registration()
 
     def kids(self):
 
@@ -123,6 +125,9 @@ class Indexer:
                 'icon': 'https://i.ytimg.com/vi/MPtZ_VHNg34/mqdefault.jpg'
             }
         ]
+
+        for i in self.data:
+            i['url'] = '?'.join([i['url'], 'addon_id={}'.format(control.addonInfo('id'))])
 
         additional = {
                 'title': u'Various full length movies - Διάφορες ταινίες πλήρους μήκους',

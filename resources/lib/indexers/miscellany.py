@@ -22,7 +22,7 @@ from __future__ import absolute_import, unicode_literals
 from tulip import cache, client, control
 from tulip.log import log_debug
 from tulip.init import syshandle
-from ..modules.helpers import thgiliwt
+from ..modules.helpers import thgiliwt, keys_registration
 from ..modules.constants import YT_ADDON
 
 
@@ -32,12 +32,13 @@ class Indexer:
 
         self.list = [] ; self.data = []
         self.misc = 'wWb45SeuFGbsV2YzlWbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
+        keys_registration()
 
     def misc_list(self):
 
         if control.setting('debug') == 'false':
 
-            playlists = client.request(
+            playlist = client.request(
                 thgiliwt('=' + self.misc), headers={'User-Agent': 'AliveGR, version: ' + control.version()}
             )
 
@@ -47,16 +48,16 @@ class Indexer:
                 local = control.setting('misc_local')
                 try:
                     with open(local, encoding='utf-8') as xml:
-                        playlists = xml.read()
+                        playlist = xml.read()
                 except Exception:
                     with open(local) as xml:
-                        playlists = xml.read()
+                        playlist = xml.read()
             elif control.setting('local_remote') == '1':
-                playlists = client.request(control.setting('misc_remote'))
+                playlist = client.request(control.setting('misc_remote'))
             else:
-                playlists = client.request(thgiliwt('==' + self.misc))
+                playlist = client.request(thgiliwt('==' + self.misc))
 
-        self.data = client.parseDOM(playlists, 'item')
+        self.data = client.parseDOM(playlist, 'item')
 
         for item in self.data:
 
@@ -64,6 +65,7 @@ class Indexer:
             icon = client.parseDOM(item, 'icon')[0]
             url = client.parseDOM(item, 'url')[0]
             url = url.replace('https://www.youtube.com/channel', '{0}/channel'.format(YT_ADDON))
+            url = '?'.join([url, 'addon_id={}'.format(control.addonInfo('id'))])
 
             item_data = (dict(title=title, icon=icon, url=url))
 

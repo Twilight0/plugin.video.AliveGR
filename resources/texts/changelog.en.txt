@@ -1,4 +1,10 @@
-+ [B]2.2.X[/B] [COLOR green]20-06-2020 - 09-07-2020[/COLOR]
++ [B]2.3.0[/B] [COLOR green]12-07-2020[/COLOR]
+- Added a new set of youtube api keys for kids & miscellany section
+- New resolver for alternative streams
+- Removed alivegr:// urls from live playlist mode
+  > (these are pseudo live streams and cannot be properly played in this mode)
+
++ [B]2.2.X[/B] [COLOR red]20-06-2020 - 09-07-2020[/COLOR]
 - Enabled adaptive stream selection for dailymotion
 - Changed from xml to json list for live channels list
 - Updated ert plugin

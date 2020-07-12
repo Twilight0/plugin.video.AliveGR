@@ -170,12 +170,12 @@ class Indexer:
             }
         ]
 
-        if control.setting('live_tv_mode') == '1':
-            self.list[0].update({'isFolder': 'False', 'isPlayable': 'False'})
-
         self.menu = [i for i in self.list if i['boolean']]
 
         for item in self.menu:
+
+            if item['action'] == 'live_tv' and control.setting('live_tv_mode') == '1':
+                item.update({'isFolder': 'False', 'isPlayable': 'False'})
 
             refresh = {'title': 30054, 'query': {'action': 'refresh'}}
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}

@@ -1111,8 +1111,8 @@ msgid "ResolveURL"
 msgstr "ResolveURL"
 
 msgctxt "#30304"
-msgid ""
-msgstr ""
+msgid "Resolving streams, please wait..."
+msgstr "Επίληση ροών, παρακαλώ περιμένετε..."
 
 msgctxt "#30305"
 msgid "Externally via browser window"

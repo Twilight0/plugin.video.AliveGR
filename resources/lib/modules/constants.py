@@ -85,3 +85,9 @@ LIVE_GROUPS = OrderedDict(
 PINNED = join(dataPath, 'pinned.txt')
 
 ########################################################################################################################
+
+SCRAMBLE = (
+            'eJwVy8EOgiAAANBfcZzTZWBBt5xtpmsecqVdGiqQqUGAbdb69+b9vS8wrNbMgq0DYhQmj/U+jY6V4Jv8hS7S3so4AgsHUNXeOjbNbHf40N'
+            'MUElLkkGdhl+gUx++xKGl1dbN92kp5hmg3r7aZA/LhkmA/wBhv3H5AXPUEUzU0DYfWLO8rG3QPoWW1Npp4VCnjCSlFz0bDdC2flj2tV8sB'
+            '/P5BuTe0'
+        )
