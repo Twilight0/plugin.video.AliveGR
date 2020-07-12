@@ -27,7 +27,7 @@ from tulip.log import log_debug
 from tulip.compat import str, is_py3
 from ..modules.themes import iconname
 from ..modules.helpers import thgiliwt, bourtsa, read_from_file
-from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED
+from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED, CACHE_DEBUG
 
 
 class Indexer:
@@ -138,7 +138,9 @@ class Indexer:
         if control.setting('live_tv_mode') == '1' and query is None:
             zapping = True
 
-        if control.setting('debug') == 'false':
+        if CACHE_DEBUG:
+            live_data = self.live()
+        elif control.setting('debug') == 'false':
             live_data = cache.get(self.live, 8)
         else:
             live_data = cache.get(self.live, int(control.setting('cache_period')))
@@ -294,7 +296,10 @@ class Indexer:
         else:
             fanart = control.addonInfo('fanart')
 
-        self.data = cache.get(self.live, 8)[0]
+        if CACHE_DEBUG:
+            self.data = self.live()[0]
+        else:
+            self.data = cache.get(self.live, 8)[0]
         self.list = [item for item in self.data if item['group'] == group]
 
         year = datetime.now().year

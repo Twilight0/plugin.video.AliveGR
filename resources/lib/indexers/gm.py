@@ -30,7 +30,7 @@ from tulip import cache, client, directory, control, parsers
 from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL
+from ..modules.constants import YT_URL, CACHE_DEBUG
 
 GM_BASE = 'https://greek-movies.com/'
 MOVIES = urljoin(GM_BASE, 'movies.php')
@@ -123,7 +123,10 @@ class Indexer:
 
     def vod_switcher(self, url):
 
-        self.data = cache.get(root, 24, url)[1]
+        if CACHE_DEBUG:
+            self.data = root(url)[1]
+        else:
+            self.data = cache.get(root, 24, url)[1]
 
         if self.data is None:
             return
@@ -142,7 +145,10 @@ class Indexer:
 
     def movies(self):
 
-        self.data = cache.get(root, 24, MOVIES)[0]
+        if CACHE_DEBUG:
+            self.data = root(MOVIES)[0]
+        else:
+            self.data = cache.get(root, 24, MOVIES)[0]
 
         if self.data is None:
             return
@@ -170,7 +176,10 @@ class Indexer:
 
     def short_films(self):
 
-        self.data = cache.get(root, 24, SHORTFILMS)[0]
+        if CACHE_DEBUG:
+            self.data = root(SHORTFILMS)[0]
+        else:
+            self.data = cache.get(root, 24, SHORTFILMS)[0]
 
         if self.data is None:
             return
@@ -194,7 +203,10 @@ class Indexer:
 
     def series(self):
 
-        self.data = cache.get(root, 24, SERIES)[0]
+        if CACHE_DEBUG:
+            self.data = root(SERIES)[0]
+        else:
+            self.data = cache.get(root, 24, SERIES)[0]
 
         if self.data is None:
             return
@@ -217,7 +229,10 @@ class Indexer:
 
     def shows(self):
 
-        self.data = cache.get(root, 24, SHOWS)[0]
+        if CACHE_DEBUG:
+            self.data = root(SHOWS)[0]
+        else:
+            self.data = cache.get(root, 24, SHOWS)[0]
 
         if self.data is None:
             return
@@ -240,7 +255,10 @@ class Indexer:
 
     def cartoons_series(self):
 
-        self.data = cache.get(root, 24, ANIMATION)[0]
+        if CACHE_DEBUG:
+            self.data = root(ANIMATION)[0]
+        else:
+            self.data = cache.get(root, 24, ANIMATION)[0]
 
         if self.data is None:
             return
@@ -263,7 +281,10 @@ class Indexer:
 
     def theater(self):
 
-        self.data = cache.get(root, 24, THEATER)[0]
+        if CACHE_DEBUG:
+            self.data = root(THEATER)[0]
+        else:
+            self.data = cache.get(root, 24, THEATER)[0]
 
         if self.data is None:
             return
@@ -363,7 +384,10 @@ class Indexer:
 
     def listing(self, url, post=None, get_listing=False):
 
-        self.list = cache.get(self.items_list, 12, url, post)
+        if CACHE_DEBUG:
+             self.list = self.items_list(url, post)
+        else:
+             self.list = cache.get(self.items_list, 12, url, post)
 
         if self.list is None:
             log_debug('Listing section failed to load, try resetting indexer methods')
@@ -373,7 +397,10 @@ class Indexer:
 
         if url.startswith(MOVIES) and control.setting('show_cartoons') == 'false' and url != ''.join([GM_BASE, 'movies.php?g=8&y=&l=&p=']):
 
-            bl_urls = cache.get(blacklister, 96)
+            if CACHE_DEBUG:
+                bl_urls = blacklister()
+            else:
+                bl_urls = cache.get(blacklister, 96)
 
             self.list = [i for i in self.list if i['url'] not in bl_urls]
 
@@ -484,7 +511,10 @@ class Indexer:
 
     def episodes(self, url):
 
-        self.list = cache.get(self.epeisodia, 12, url)
+        if CACHE_DEBUG:
+            self.list = self.epeisodia(url)
+        else:
+            self.list = cache.get(self.epeisodia, 12, url)
 
         if self.list is None:
             log_debug('Episode section failed to load, try resetting indexer methods')
@@ -518,7 +548,11 @@ class Indexer:
 
     def gm_sports(self):
 
-        html = cache.get(root, 48, SPORTS)
+        if CACHE_DEBUG:
+            html = root(SPORTS)
+        else:
+            html = cache.get(root, 48, SPORTS)
+
         options = re.compile('(<option value.+?</option>)', re.U).findall(html)
 
         icons = ['https://www.shareicon.net/data/256x256/2015/11/08/157712_sport_512x512.png',
@@ -601,7 +635,10 @@ class Indexer:
 
     def persons_index(self, url, post, get_list=True):
 
-        self.list = cache.get(self.persons_listing, 48, url, post)
+        if CACHE_DEBUG:
+            self.list = self.persons_listing(url, post)
+        else:
+            self.list = cache.get(self.persons_listing, 48, url, post)
 
         if self.list is None:
             return

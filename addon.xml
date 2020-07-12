@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.0" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.1" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -32,9 +32,11 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
         <size>604700</size>
-        <news>+ [B]2.3.0[/B] [COLOR green]12-07-2020[/COLOR]
+        <news>+ [B]2.3.X[/B] [COLOR green]12-07-2020 - 13-07-2020[/COLOR]
+- Added a way for the developer to disable caching entirely on the fly
 - Added a new set of youtube api keys for kids &amp; miscellany section
 - New resolver for alternative streams
+- Updated various kids movies indexer
 - Removed alivegr:// urls from live playlist mode
   > (these are pseudo live streams and cannot be properly played in this mode)
 

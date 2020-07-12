@@ -20,7 +20,7 @@
 
 from random import choice
 from tulip.compat import OrderedDict
-from tulip.control import dataPath, join
+from tulip.control import dataPath, join, setting
 
 ########################################################################################################################
 ############### Please do not copy these keys, instead create your own with this tutorial: #############################
@@ -91,3 +91,5 @@ SCRAMBLE = (
             'MUElLkkGdhl+gUx++xKGl1dbN92kp5hmg3r7aZA/LhkmA/wBhv3H5AXPUEUzU0DYfWLO8rG3QPoWW1Npp4VCnjCSlFz0bDdC2flj2tV8sB'
             '/P5BuTe0'
         )
+
+CACHE_DEBUG = setting('do_not_use_cache') == 'true' and setting('debug') == 'true'

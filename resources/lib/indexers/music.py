@@ -25,7 +25,7 @@ from tulip import control, directory, cache, client, youtube
 from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL, ART_ID, API_KEYS
+from ..modules.constants import YT_URL, ART_ID, API_KEYS, CACHE_DEBUG
 from ..modules.helpers import thgiliwt, thumb_maker
 from . import gm
 from datetime import datetime
@@ -149,7 +149,10 @@ class Indexer:
 
     def gm_music(self):
 
-        html = cache.get(gm.root, 96, gm.MUSIC)
+        if CACHE_DEBUG:
+            html = gm.root(gm.MUSIC)
+        else:
+            html = cache.get(gm.root, 96, gm.MUSIC)
 
         options = re.compile(r'(<option  value=.+?</option>)', re.U).findall(html)
 
@@ -208,7 +211,10 @@ class Indexer:
             link = urljoin(gm.GM_BASE, link)
 
             if 'gapi.client.setApiKey' in html:
-                link = cache.get(gm.source_maker, 48, url)['links'][0]
+                if CACHE_DEBUG:
+                    link = gm.source_maker(url)['links'][0]
+                else:
+                    link = cache.get(gm.source_maker, 48, url)['links'][0]
 
             data = {'title': title, 'url': link, 'image': icon}
 
@@ -222,7 +228,10 @@ class Indexer:
 
     def artist_index(self, url, get_list=False):
 
-        self.list = cache.get(self.music_list, 48, url)
+        if CACHE_DEBUG:
+            self.list = self.music_list(url)
+        else:
+            self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
             log_debug('Artist\'s section failed to load')
@@ -242,7 +251,10 @@ class Indexer:
 
     def album_index(self, url):
 
-        self.list = cache.get(self.music_list, 48, url)
+        if CACHE_DEBUG:
+            self.list = self.music_list(url)
+        else:
+            self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
             log_debug('Album index section failed to load')
@@ -260,7 +272,10 @@ class Indexer:
 
     def songs_index(self, url, album):
 
-        self.list = cache.get(self.music_list, 48, url)
+        if CACHE_DEBUG:
+            self.list = self.music_list(url)
+        else:
+            self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
             log_debug('Songs section failed to load')

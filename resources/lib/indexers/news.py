@@ -22,7 +22,7 @@ from __future__ import absolute_import, unicode_literals
 from tulip import control, client, cache
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
-from ..modules.constants import ART_ID
+from ..modules.constants import ART_ID, CACHE_DEBUG
 
 
 class Indexer:
@@ -149,7 +149,10 @@ class Indexer:
 
     def papers_index(self):
 
-        self.data = cache.get(self.front_pages, 12)
+        if CACHE_DEBUG:
+            self.data = self.front_pages()
+        else:
+            self.data = cache.get(self.front_pages, 12)
 
         if not self.data:
             return

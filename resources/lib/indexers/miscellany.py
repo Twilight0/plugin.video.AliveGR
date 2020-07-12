@@ -23,7 +23,7 @@ from tulip import cache, client, control
 from tulip.log import log_debug
 from tulip.init import syshandle
 from ..modules.helpers import thgiliwt, keys_registration
-from ..modules.constants import YT_ADDON
+from ..modules.constants import YT_ADDON, CACHE_DEBUG
 
 
 class Indexer:
@@ -75,7 +75,9 @@ class Indexer:
 
     def miscellany(self):
 
-        if control.setting('debug') == 'true':
+        if CACHE_DEBUG:
+            self.data = self.misc_list()
+        elif control.setting('debug') == 'true':
             self.data = cache.get(self.misc_list, int(control.setting('cache_period')))
         else:
             self.data = cache.get(self.misc_list, 24)

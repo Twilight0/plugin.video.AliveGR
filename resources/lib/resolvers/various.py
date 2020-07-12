@@ -20,6 +20,7 @@
 
 from tulip import client
 import re
+from random import choice
 from tulip.parsers import itertags_wrapper
 
 
@@ -62,8 +63,10 @@ def iptv(name):
     links = re.findall(r',(.+)$\r?\n(.+)', m3u, re.MULTILINE)
 
     try:
-        url = [i for i in links if name.lower() in i[0].lower().decode('utf-8')][0][1][:-1]
+        urls = [i for i in links if name.lower() in i[0].lower().decode('utf-8')]
     except Exception:
-        url = [i for i in links if name.lower() in i[0].lower()][0][1][:-1]
+        urls = [i for i in links if name.lower() in i[0].lower()]
+
+    url = choice(urls)[1][:-1]
 
     return url

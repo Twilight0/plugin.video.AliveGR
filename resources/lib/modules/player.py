@@ -34,9 +34,10 @@ from tulip import directory, client, cache, control, youtube as tulip_youtube
 from tulip.log import log_debug
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
+from ..indexers.kids import BASE_LINK_GK
 from ..resolvers import various, youtube, stream_link
 from .kodi import prevent_failure
-from .constants import YT_URL, API_KEYS
+from .constants import YT_URL, API_KEYS, CACHE_DEBUG
 from .helpers import m3u8_picker, thgiliwt
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
@@ -69,7 +70,10 @@ def conditionals(url):
 
     elif 'greek-movies.com' in url:
 
-        sources = cache.get(source_maker, 6, url)
+        if CACHE_DEBUG:
+            sources = source_maker(url)
+        else:
+            sources = cache.get(source_maker, 6, url)
 
         if sources is None:
             return
@@ -82,15 +86,21 @@ def conditionals(url):
             stream = conditionals(link)
             return stream
 
-    elif 'gamatokids.com/movies/' in url:
+    elif BASE_LINK_GK in url:
 
-        source = cache.get(gk_debris, 48, url)
+        if CACHE_DEBUG:
+            source = gk_debris(url)
+        else:
+            source = cache.get(gk_debris, 48, url)
 
         return conditionals(source)
 
     elif url.startswith('iptv://'):
 
-        stream = cache.get(various.iptv, 2, urlsplit(url).netloc)
+        if CACHE_DEBUG:
+            stream = various.iptv(urlsplit(url).netloc)
+        else:
+            stream = cache.get(various.iptv, 2, urlsplit(url).netloc)
 
         return stream
 
@@ -119,13 +129,19 @@ def conditionals(url):
 
     elif 'periscope' in url and 'search' in url:
 
-        stream = stream_link.StreamLink(cache.get(various.periscope_search, 6, url)).passthrough()
+        if CACHE_DEBUG:
+            stream = stream_link.StreamLink(various.periscope_search(url)).passthrough()
+        else:
+            stream = stream_link.StreamLink(cache.get(various.periscope_search, 6, url)).passthrough()
 
         return stream
 
     elif 'rise.gr' in url:
 
-        link = cache.get(various.risegr, 24, url)
+        if CACHE_DEBUG:
+            link = various.risegr(url)
+        else:
+            link = cache.get(various.risegr, 24, url)
 
         stream = stream_link.StreamLink(link).passthrough()
 
@@ -159,7 +175,10 @@ def mini_picker(hl, sl):
     if len(hl) == 1 and len(sl) == 1:
 
         if 'greek-movies.com' in sl[0]:
-            stream = cache.get(gm_debris, 480, sl[0])
+            if CACHE_DEBUG:
+                stream = gm_debris(sl[0])
+            else:
+                stream = cache.get(gm_debris, 9600, sl[0])
         else:
             stream = sl[0]
 
@@ -179,14 +198,20 @@ def mini_picker(hl, sl):
                 idx = sl.index(url)
                 control.infoDialog(hl[idx])
 
-            return cache.get(gm_debris, 480, url)
+            if CACHE_DEBUG:
+                return gm_debris(url)
+            else:
+                return cache.get(gm_debris, 9600, url)
 
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
         if choice <= len(sl) and not choice == -1:
 
             popped = sl[choice]
-            return cache.get(gm_debris, 480, popped)
+            if CACHE_DEBUG:
+                return gm_debris(popped)
+            else:
+                return cache.get(gm_debris, 9600, popped)
 
         else:
 
@@ -195,7 +220,10 @@ def mini_picker(hl, sl):
 
 def items_directory(url, params):
 
-    sources = cache.get(source_maker, 6, url)
+    if CACHE_DEBUG:
+        sources = source_maker(url)
+    else:
+        sources = cache.get(source_maker, 6, url)
 
     lists = list(zip(sources['hosts'], sources['links']))
 
@@ -251,7 +279,10 @@ def directory_picker(url, argv):
 
     params = dict(parse_qsl(argv[2].replace('?', '')))
 
-    items = cache.get(items_directory, 12, url, params)
+    if CACHE_DEBUG:
+        items = items_directory(url, params)
+    else:
+        items = cache.get(items_directory, 12, url, params)
 
     if items is None:
         return
@@ -309,15 +340,15 @@ def pseudo_live(url):
     if 'youtube' in url:
         url = url.rpartition('/')[2]
     elif url.endswith('fifties'):
-        url = 'http://greek-movies.com/movies.php?y=7&l=&g=&p='
+        url = '{0}movies.php?y=7&l=&g=&p='.format(GM_BASE)
     elif url.endswith('sixties'):
-        url = 'http://greek-movies.com/movies.php?y=6&l=&g=&p='
+        url = '{0}movies.php?y=6&l=&g=&p='.format(GM_BASE)
     elif url.endswith('seventies'):
-        url = 'http://greek-movies.com/movies.php?y=5&l=&g=&p='
+        url = '{0}movies.php?y=5&l=&g=&p='.format(GM_BASE)
     elif url.endswith('eighties'):
-        url = 'http://greek-movies.com/movies.php?y=4&l=&g=&p='
+        url = '{0}movies.php?y=4&l=&g=&p='.format(GM_BASE)
     else:
-        url = 'http://greek-movies.com/movies.php?g=8&y=&l=&p='
+        url = '{0}movies.php?g=8&y=&l=&p='.format(GM_BASE)
 
     if 'channel' in _url:
         movie_list = tulip_youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).videos(url, limit=10)
@@ -331,7 +362,10 @@ def pseudo_live(url):
 
     if not _url.endswith('kids') and 'youtube' not in _url:
 
-        bl_urls = cache.get(blacklister, 96)
+        if CACHE_DEBUG:
+            bl_urls = blacklister()
+        else:
+            bl_urls = cache.get(blacklister, 96)
 
         movie_list = [i for i in movie_list if i['url'] not in bl_urls]
 
@@ -347,7 +381,10 @@ def pseudo_live(url):
         meta = {'title': choice['title'], 'image': choice['image']}
 
         if 'youtube' not in _url:
-            plot = cache.get(source_maker, 6, choice['url']).get('plot')
+            if CACHE_DEBUG:
+                plot = source_maker(choice['url']).get('plot')
+            else:
+                plot = cache.get(source_maker, 6, choice['url']).get('plot')
 
         if plot:
             meta.update({'plot': plot})
@@ -401,7 +438,10 @@ def player(url, params):
         plot = params.get('plot')
 
     if not plot and 'greek-movies.com' in url:
-        plot = cache.get(source_maker, 6, url).get('plot')
+        if CACHE_DEBUG:
+            plot = source_maker(url).get('plot')
+        else:
+            plot = cache.get(source_maker, 6, url).get('plot')
 
     if isinstance(stream, OrderedDict):
 

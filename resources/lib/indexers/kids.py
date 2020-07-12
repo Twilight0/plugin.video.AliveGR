@@ -24,9 +24,11 @@ from tulip.compat import iteritems
 from tulip import control, client, cache, directory
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
-from ..modules.constants import YT_ADDON
+from ..modules.constants import YT_ADDON, CACHE_DEBUG
 from ..modules.helpers import keys_registration
 from .gm import GM_BASE
+
+BASE_LINK_GK = 'http://gamatotv2.com'
 
 
 class Indexer:
@@ -311,7 +313,7 @@ class Indexer:
     def _cartoon_various(self, url):
 
         if url is None:
-            url = 'https://gamatokids.com/genre/%CE%BC%CE%B5%CF%84%CE%B1%CE%B3%CE%BB%CF%89%CF%84%CE%B9%CF%83%CE%BC%CE%AD%CE%BD%CE%B1/'
+            url = '{0}/kids/genre/%CE%BC%CE%B5%CF%84%CE%B1%CE%B3%CE%BB%CF%89%CF%84%CE%B9%CF%83%CE%BC%CE%AD%CE%BD%CE%B1/'.format(BASE_LINK_GK)
 
         html = client.request(url)
 
@@ -353,7 +355,10 @@ class Indexer:
 
     def cartoon_various(self, url):
 
-        self.list = cache.get(self._cartoon_various, 3, url)
+        if CACHE_DEBUG:
+            self.list = self._cartoon_various(url)
+        else:
+            self.list = cache.get(self._cartoon_various, 3, url)
 
         if self.list is None:
             return

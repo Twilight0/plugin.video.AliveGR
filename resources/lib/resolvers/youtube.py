@@ -18,7 +18,7 @@
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from ..modules.constants import YT_URL
+from ..modules.constants import YT_URL, CACHE_DEBUG
 import re, youtube_resolver
 from tulip import control, client, cache
 from ..modules.helpers import stream_picker
@@ -47,7 +47,10 @@ def wrapper(url):
 
     if url.endswith('/live'):
 
-        url = cache.get(generic, 6, url)
+        if CACHE_DEBUG:
+            url = generic(url)
+        else:
+            url = cache.get(generic, 6, url)
 
         if not url:
 
