@@ -1,10 +1,14 @@
-+ [B]2.3.X[/B] [COLOR green]12-07-2020 - 13-07-2020[/COLOR]
++ [B]2.3.X[/B] [COLOR green]12-07-2020 - 16-07-2020[/COLOR]
+- Added screenshots
 - Added a way for the developer to disable caching entirely on the fly
-- Added a new set of youtube api keys for kids &amp; miscellany section
+- Added a new set of youtube api keys for kids & miscellany section
 - New resolver for alternative streams
 - Updated various kids movies indexer
 - Removed alivegr:// urls from live playlist mode
   > (these are pseudo live streams and cannot be properly played in this mode)
+- Moved main imports on top of the module
+- Various github related changes
+- Various other tweaks and bug fixes
 
 + [B]2.2.X[/B] [COLOR red]20-06-2020 - 09-07-2020[/COLOR]
 - Enabled adaptive stream selection for dailymotion

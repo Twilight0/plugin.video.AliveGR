@@ -4,18 +4,8 @@
     AliveGR Addon
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
 # Needs refinement
@@ -58,18 +48,6 @@
 #         control.execute('Dialog.Close(all)')
 #         import sys; sys.exit()
 
-
-# Reserved might user later
-# def block_check():
-#
-#     if control.condVisibility('System.HasAddon(plugin.program.G.K.N.Wizard)'):
-#
-#         settings_xml = control.join(control.dataPath, 'settings.xml')
-#         control.deleteFile(settings_xml)
-#         control.okDialog(control.lang(30270), control.lang(30271))
-#
-#     else: pass
-
 # Reserved might user later, needs refinement:
 # def mailer(title):
 #
@@ -92,3 +70,30 @@
 #     server.login(username, password)
 #     server.sendmail(sender, rcvr, text)
 #     server.quit()
+
+
+MODES = [
+    content == 'video', content == 'audio', content == 'image', content == 'executable', action is None,
+    action == 'root', action == 'live_tv', action == 'pvr_client', action == 'networks', action == 'news',
+    action == 'movies', action == 'short_films', action == 'shows', action == 'series', action == 'kids',
+    action == 'kids_live', action == 'cartoon_series', action == 'cartoon_collection', action == 'cartoon_various',
+    action == 'educational', action == 'kids_songs', action == 'listing', action == 'episodes', action == 'sports',
+    action == 'gm_sports', action == 'sports_news', action == 'events', action == 'theater', action == 'miscellany',
+    action == 'audio', action == 'music', action == 'music_live', action == 'gm_music', action == 'artist_index',
+    action == 'album_index', action == 'songs_index', action == 'mgreekz_index', action == 'mgreekz_list',
+    action == 'mgreekz_top10', action == 'top20_list', action == 'top50_list', action == 'techno_choices',
+    action == 'radio', action == 'papers', action == 'papers_index', action == 'addBookmark', action == 'deleteBookmark',
+    action == 'pin', action == 'unpin', action == 'bookmarks', action == 'search', action == 'settings',
+    action == 'tools_menu', action == 'openSettings', action == 'other_addon_settings',
+    action in ['play', 'play_resolved', 'play_skipped'], action == 'directory', action == 'live_switcher',
+    action == 'vod_switcher', action == 'papers_switcher', action == 'setup_iptv', action == 'enable_iptv',
+    action == 'enable_proxy', action == 'setup_various_keymaps', action == 'add_to_playlist', action == 'clear_playlist',
+    action == 'toggle_watched', action == 'toggle_debug', action == 'skin_debug', action == 'reload_skin',
+    action == 'skin_choice', action == 'cache_clear', action == 'cache_delete', action == 'purge_bookmarks',
+    action == 'delete_settings_xml', action == 'refresh', action == 'refresh_and_clear', action == 'reset_idx',
+    action == 'yt_setup', action == 'isa_enable', action == 'rtmp_enable', action == 'changelog',
+    action == 'developer_mode', action == 'info', action == 'input_stream_addons', action == 'call_info',
+    action == 'open_link', action == 'force', action == 'dmca', action == 'pp', action == 'system_info',
+    action == 'lang_choice', action == 'toggle_alt', action == 'quit', action == 'global_settings',
+    action == 'pvrsettings', action == 'activate_audio_addon', action == 'welcome', action == 'kodi_log_upload'
+]

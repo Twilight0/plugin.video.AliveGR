@@ -4,18 +4,8 @@
     AliveGR Addon
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
 from time import sleep
@@ -304,12 +294,15 @@ def force():
 
 def prevent_failure():
 
+    if control.kodi_version() >= 18.0:
+        active_window = 'busydialognocancel'
+    else:
+        active_window = 'busydialog'
+
     for i in range(0, 400):
 
-        if control.condVisibility('Window.IsActive(busydialognocancel)'):
-            sleep(0.05)
-        elif control.condVisibility('Window.IsActive(busydialog)'):
-            sleep(0.05)
+        if control.condVisibility('Window.IsActive({})'.format(active_window)):
+            control.sleep(100)
         else:
             control.execute('Dialog.Close(all,true)')
             break

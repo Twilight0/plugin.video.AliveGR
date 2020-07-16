@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.1" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.2" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -27,18 +27,22 @@ Kindly note that AliveGR is not an official part of the media player you are run
 Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο σε δημόσιους ιστότοπους. Το παρόν λογισμικό ενεργεί μόνο ως μηχανή αναζήτησης.
 Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του αναπαραγωγέα πολυμέσων Kodi ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς καμία εγγύηση καλής λειτουργίας.</disclaimer>
         <language>en el</language>
-        <license>GNU GPL, version 3</license>
+        <license>GPL-3.0-only</license>
         <forum>https://github.com/Twilight0/plugin.video.AliveGR/issues</forum>
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
-        <size>604700</size>
-        <news>+ [B]2.3.X[/B] [COLOR green]12-07-2020 - 13-07-2020[/COLOR]
+        <size>1200000</size>
+        <news>+ [B]2.3.X[/B] [COLOR green]12-07-2020 - 16-07-2020[/COLOR]
+- Added screenshots
 - Added a way for the developer to disable caching entirely on the fly
 - Added a new set of youtube api keys for kids &amp; miscellany section
 - New resolver for alternative streams
 - Updated various kids movies indexer
 - Removed alivegr:// urls from live playlist mode
   > (these are pseudo live streams and cannot be properly played in this mode)
+- Moved main imports on top of the module
+- Various github related changes
+- Various other tweaks and bug fixes
 
 + [B]2.2.X[/B] [COLOR red]20-06-2020 - 09-07-2020[/COLOR]
 - Enabled adaptive stream selection for dailymotion
@@ -62,7 +66,11 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <assets>
             <icon>resources/media/icon.png</icon>
             <fanart>resources/media/fanart.jpg</fanart>
-            <!--<screenshot>resources/alivegr-1.jpg</screenshot>-->
+            <screenshot>resources/media/main_menu.jpg</screenshot>
+            <screenshot>resources/media/live_streams.jpg</screenshot>
+            <screenshot>resources/media/movies.jpg</screenshot>
+            <screenshot>resources/media/tv_series.jpg</screenshot>
+            <screenshot>resources/media/networks.jpg</screenshot>
         </assets>
     </extension>
 </addon>

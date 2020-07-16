@@ -1,22 +1,12 @@
 # -*- coding: utf-8 -*-
 
-"""
-    AliveGR Add-on
-    Author: Twilight0
+'''
+    AliveGR Addon
+    Author Twilight0
 
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 3 of the License, or
-        (at your option) any later version.
-
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
 
 import streamlink.session
 from streamlink.exceptions import NoPluginError, NoStreamsError, FatalPluginError, PluginError
@@ -51,8 +41,8 @@ class StreamLink:
                 self.session.set_plugin_option('star', 'parse_hls', 'false')
             elif 'cybc.com.cy' in self.url:
                 self.session.set_plugin_option('rik', 'parse_hls', 'false')
-            elif 'skaitv.gr' in self.url:
-                self.session.set_plugin_option('skai', 'parse_hls', 'false')
+            # elif 'skaitv.gr' in self.url or 'skai.gr' in self.url:
+            #     self.session.set_plugin_option('skai', 'parse_hls', 'false')
             elif 'dailymotion.com' in self.url:
                 self.session.set_plugin_option('dailymotion', 'parse_hls', 'false')
             elif 'euronews.com' in self.url:
@@ -67,7 +57,7 @@ class StreamLink:
                 self.session.set_plugin_option('sigma', 'parse_hls', 'false')
 
         if 'skaitv.gr' in self.url or 'skai.gr' in self.url:
-            self.session.set_plugin_option('skai', 'parse_hls', 'false')
+            self.session.set_plugin_option('skai', 'parse_hls', 'true')
 
         try:
     
