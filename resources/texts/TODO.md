@@ -6,21 +6,22 @@
 
 ---
 
-### Check youtube setup action
+#### Add search music
 
 ---
 
-#### Add search music
+#### Introduce pagination on indexers over 150 items via a switcher
 
+---
 
-#######################################################################################
+#### Add switching scheme in the bookmarks section
+
+---
+
+## Utilize url dispatcher
+
+---
 
 - **Id will change to "plugin.program.alivegr":**
 
     You have nothing to worry about this actually, I'll do the replacement semi-automatically by asking users first
-
-- **Search functionality has been revamped:** 
-
-    Now you can search by action/actress or even director
-
-#############################################################################

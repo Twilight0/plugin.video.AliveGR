@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.2" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.3" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -32,7 +32,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
         <size>1200000</size>
-        <news>+ [B]2.3.X[/B] [COLOR green]12-07-2020 - 16-07-2020[/COLOR]
+        <news>+ [B]2.3.X[/B] [COLOR green]12-07-2020 - 17-07-2020[/COLOR]
 - Added screenshots
 - Added a way for the developer to disable caching entirely on the fly
 - Added a new set of youtube api keys for kids &amp; miscellany section
@@ -52,17 +52,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - New (or different) version prompt &amp; help user to force check for updates
 - Allow ok.ru links for streamlink
 - Removed bookmarking feature from series episodes
-- Various bug fixes
-
-+ [B]2.1.X[/B] [COLOR red]16-02-2020 -> 18-06-2020[/COLOR]
-- Added pseudo-live youtube-based play items
-- Inform user when unofficial streams are disabled
-- Fixed youtube api keys setup wizard
-- Disabled iptv setup action (will be re-enabled in a future release)
-- Cartoon items can now be disabled from showing up on main indexers
-- Tweaked streamlink plugins (ant1cy, skai, alphacy, ert, opentv)
-- Live groups are now in fixed order instead of dynamic (makes channel ordering more predictable)
-- New youtube API keys</news>
+- Various bug fixes</news>
         <assets>
             <icon>resources/media/icon.png</icon>
             <fanart>resources/media/fanart.jpg</fanart>

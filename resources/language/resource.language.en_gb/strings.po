@@ -679,7 +679,7 @@ msgid "Enable local proxy module"
 msgstr ""
 
 msgctxt "#30167"
-msgid "Streamlink (secondary resolvers)"
+msgid "Streamlink"
 msgstr ""
 
 msgctxt "#30168"
