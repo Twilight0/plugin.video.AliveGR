@@ -21,6 +21,7 @@ from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
 from ..modules.themes import iconname
 from ..modules.constants import YT_URL, CACHE_DEBUG
+from ..modules.helpers import keys_registration
 
 GM_BASE = 'https://greek-movies.com/'
 MOVIES = urljoin(GM_BASE, 'movies.php')
@@ -720,9 +721,11 @@ def source_maker(url):
 
     elif 'music' in url:
 
+        keys_registration()
+
         title = re.search(r'''search\(['"](.+?)['"]\)''', html).group(1)
 
-        link = get_search(q=title, search_type='video')[0]['id']['videoId']
+        link = get_search(q=title, search_type='video', addon_id=control.addonInfo('id'))[0]['id']['videoId']
 
         link = YT_URL + link
 

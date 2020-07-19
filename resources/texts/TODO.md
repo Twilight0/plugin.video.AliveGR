@@ -22,6 +22,12 @@
 
 ---
 
+#### Combine kids indexers (greek-movies.com + gamatotv2.com)
+
+---
+
+### Combine alternative live streams into a single item and give choice
+
 - **Id will change to "plugin.program.alivegr":**
 
     You have nothing to worry about this actually, I'll do the replacement semi-automatically by asking users first

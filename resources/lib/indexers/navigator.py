@@ -198,11 +198,13 @@ class Indexer:
         ]
 
         for item in self.list:
+
             refresh = {'title': 30054, 'query': {'action': 'refresh'}}
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
+
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
 
         directory.add(self.list)

@@ -11,7 +11,7 @@ from streamlink.plugin.api import validate
 
 class Ert(Plugin):
 
-    _url_re = re.compile(r'https?://(?:webtv|archive)\.ert\.gr/(?:\d+/|\w+-live/|[\w-]+/[\w-]+/[\w-]+/)')
+    _url_re = re.compile(r'https?://(?:webtv|archive|www)\.ert(?:flix)?\.gr/(?:\d+/|\w+-live/|[\w-]+/[\w-]+/[\w-]+/)')
 
     arguments = PluginArguments(
         PluginArgument("parse_hls", default='true'), PluginArgument("force_gr_stream", default='false')

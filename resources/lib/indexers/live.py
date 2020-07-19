@@ -130,10 +130,8 @@ class Indexer:
 
         if CACHE_DEBUG:
             live_data = self.live()
-        elif control.setting('debug') == 'false':
-            live_data = cache.get(self.live, 8)
         else:
-            live_data = cache.get(self.live, int(control.setting('cache_period')))
+            live_data = cache.get(self.live, 8)
 
         if live_data is None:
             log_debug('Live channels list did not load successfully')

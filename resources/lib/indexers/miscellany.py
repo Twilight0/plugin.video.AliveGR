@@ -67,8 +67,6 @@ class Indexer:
 
         if CACHE_DEBUG:
             self.data = self.misc_list()
-        elif control.setting('debug') == 'true':
-            self.data = cache.get(self.misc_list, int(control.setting('cache_period')))
         else:
             self.data = cache.get(self.misc_list, 24)
 

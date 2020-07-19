@@ -160,10 +160,8 @@
         <setting id="top50_local" label="Local top 50 playlist file" type="file" default="" visible="eq(-9,true) + eq(-5,0)"/>
         <setting id="top50_remote" label="Remote top 50 playlist url" type="text" default="" visible="eq(-10,true) + eq(-6,1)"/>
         <setting id="do_not_use_cache" type="bool" label="Do not use cache" default="false" visible="eq(-11,true)"/>
-        <setting id="cache_period" type="number" label="Custom cache period" default="4" visible="eq(-12,true) + eq(-1,true)"/>
         <setting id="old_settings" type="bool" label="30133" default="false" visible="eq(-12,true)"/>
 
-        <setting id="kids_menu" type="bool" label="Kids menu items" default="false" visible="false"/>
         <setting id="show_alt_live" type="bool" label="Show alternative live streams" default="false" visible="false"/>
         <setting id="show_alt_vod" type="bool" label="Show alternative vod streams" default="false" visible="false"/>
 

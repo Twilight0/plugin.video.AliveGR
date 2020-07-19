@@ -9,8 +9,9 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-# import YDStreamExtractor
-from tulip.compat import urljoin, parse_qsl, OrderedDict, zip, urlsplit
+import re
+
+from tulip.compat import urljoin, parse_qsl, OrderedDict, zip, urlsplit, urlparse
 
 try:
     from resolveurl import resolve as resolve_url
@@ -21,6 +22,7 @@ except Exception:
 
 from random import shuffle, choice as random_choice
 from tulip import directory, client, cache, control, youtube as tulip_youtube
+from tulip.parsers import itertags_wrapper
 from tulip.log import log_debug
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
@@ -33,6 +35,7 @@ from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
 skip_directory = False
+SEPARATOR = ' - ' if control.setting('wrap_labels') == '1' else '[CR]'
 
 
 def conditionals(url):
@@ -79,11 +82,13 @@ def conditionals(url):
     elif BASE_LINK_GK in url:
 
         if CACHE_DEBUG:
-            source = gk_debris(url)
+            sources = gk_debris(url)
         else:
-            source = cache.get(gk_debris, 48, url)
+            sources = cache.get(gk_debris, 48, url)
 
-        return conditionals(source)
+        link = mini_picker(sources['hosts'], sources['links'])
+
+        return conditionals(link)
 
     elif url.startswith('iptv://'):
 
@@ -155,9 +160,21 @@ def gm_debris(link):
 def gk_debris(link):
 
     html = client.request(link)
-    source = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})[0]
+    sources = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})
+    movie_data = client.parseDOM(html, 'div', {'class': 'data'})[0]
+    title = client.parseDOM(movie_data, 'h1')[0]
+    year = client.parseDOM(movie_data, 'span', attrs={'class': 'date'})[0][-4:]
+    image = itertags_wrapper(html, 'img', {'alt': title.encode('utf-8')}, ret='src')[0]
+    hosts = ['- '.join([control.lang(30015), urlparse(s).netloc]) for s in sources]
+    duration = client.parseDOM(movie_data, 'span', {'class': 'runtime'})[0]
+    duration = re.search(r'(\d{2,3})', duration).group(1)
 
-    return source
+    data = {
+        'links': sources, 'hosts': hosts, 'title': title, 'year': int(year), 'image': image,
+        'duration': int(duration) * 60
+    }
+
+    return data
 
 
 def mini_picker(hl, sl):
@@ -182,33 +199,43 @@ def mini_picker(hl, sl):
         if control.setting('action_type') == '3' or skip_directory:
 
             url = random_choice(sl)
+            idx = sl.index(url)
 
             if control.setting('action_type') == '3' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
 
-                idx = sl.index(url)
                 control.infoDialog(hl[idx])
 
-            if CACHE_DEBUG:
-                return gm_debris(url)
+            if 'greek-movies.com' in sl[idx]:
+
+                if CACHE_DEBUG:
+                    return gm_debris(url)
+                else:
+                    return cache.get(gm_debris, 9600, url)
+
             else:
-                return cache.get(gm_debris, 9600, url)
+
+                return url
 
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
         if choice <= len(sl) and not choice == -1:
 
             popped = sl[choice]
-            if CACHE_DEBUG:
-                return gm_debris(popped)
+
+            if 'greek-movies.com' in popped:
+                if CACHE_DEBUG:
+                    return gm_debris(popped)
+                else:
+                    return cache.get(gm_debris, 9600, popped)
             else:
-                return cache.get(gm_debris, 9600, popped)
+                return popped
 
         else:
 
             prevent_failure()
 
 
-def items_directory(url, params):
+def gm_filler(url, params):
 
     if CACHE_DEBUG:
         sources = source_maker(url)
@@ -234,8 +261,6 @@ def items_directory(url, params):
     except KeyError:
         genre = control.lang(30147)
 
-    separator = ' - ' if control.setting('wrap_labels') == '1' else '[CR]'
-
     for h, l in lists:
 
         html = client.request(l)
@@ -249,10 +274,10 @@ def items_directory(url, params):
             if episode[-4:].isdigit():
                 raise IndexError
             episode = episode.partition(': ')[2]
-            label = title + ' - ' + episode + separator + h
+            label = title + ' - ' + episode + SEPARATOR + h
             title = title + ' - ' + episode
         except IndexError:
-            label = title + separator + h
+            label = title + SEPARATOR + h
         # plot = title + '[CR]' + control.lang(30090) + ': ' + year + '[CR]' + description
 
         data = {
@@ -265,9 +290,53 @@ def items_directory(url, params):
     return items
 
 
+def gk_filler(url):
+
+    items = []
+
+    if CACHE_DEBUG:
+        sources = gk_debris(url)
+    else:
+        sources = cache.get(gk_debris, 6, url)
+
+    lists = list(
+        zip(
+            sources['hosts'], sources['links']
+        )
+    )
+
+    t = sources['title']
+    y = sources['year']
+    i = sources['image']
+    d= sources['duration']
+
+    for h, l in lists:
+
+        label = SEPARATOR.join([t, h])
+
+        data = {
+            'label': label, 'title': '{0} ({1})'.format(t, y), 'url': l, 'image': i, 'year': y, 'duration': d
+        }
+
+        items.append(data)
+
+    return items
+
+
+def items_directory(url, params):
+
+    if 'greek-movies.com' in url:
+
+        return gm_filler(url, params)
+
+    else:
+
+        return gk_filler(url)
+
+
 def directory_picker(url, argv):
 
-    params = dict(parse_qsl(argv[2].replace('?', '')))
+    params = dict(parse_qsl(argv[2][1:]))
 
     if CACHE_DEBUG:
         items = items_directory(url, params)
@@ -403,7 +472,9 @@ def player(url, params):
     url = url.replace('&amp;', '&')
     skip_directory = params.get('action') == 'play_skipped'
 
-    directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or ('episode' in url and GM_BASE in url)
+    directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or BASE_LINK_GK in url or (
+            'episode' in url and GM_BASE in url
+    )
 
     if directory_boolean and control.setting('action_type') == '1' and not skip_directory:
         directory.run_builtin(action='directory', url=url)

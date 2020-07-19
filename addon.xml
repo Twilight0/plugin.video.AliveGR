@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.3" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.3.4" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -9,6 +9,7 @@
         <import addon="script.module.tulip" version="2.6.1"/>
         <import addon="plugin.video.youtube" version="6.8.2"/>
         <import addon="script.module.pyxbmct" version="1.3.0"/>
+        <import addon="script.module.jsbeautifier"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
         <provides>video audio image executable</provides>
@@ -36,13 +37,14 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Added screenshots
 - Added a way for the developer to disable caching entirely on the fly
 - Added a new set of youtube api keys for kids &amp; miscellany section
-- New resolver for alternative streams
-- Updated various kids movies indexer
+- New resolvers for alternative streams
+- Updated various kids movies indexer and added multi choice of streams
 - Removed alivegr:// urls from live playlist mode
   > (these are pseudo live streams and cannot be properly played in this mode)
 - Moved main imports on top of the module
 - Various github related changes
 - Various other tweaks and bug fixes
+- Added a new dependency for alternative resolvers (jsbeautifier)
 
 + [B]2.2.X[/B] [COLOR red]20-06-2020 - 09-07-2020[/COLOR]
 - Enabled adaptive stream selection for dailymotion

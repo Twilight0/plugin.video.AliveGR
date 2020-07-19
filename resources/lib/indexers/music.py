@@ -16,7 +16,7 @@ from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
 from ..modules.constants import YT_URL, ART_ID, API_KEYS, CACHE_DEBUG
-from ..modules.helpers import thgiliwt, thumb_maker
+from ..modules.helpers import thgiliwt, thumb_maker, keys_registration
 from . import gm
 from datetime import datetime
 from youtube_requests import get_search
@@ -41,6 +41,7 @@ class Indexer:
         else:
             self.content = 'musicvideos'
             self.infotype = 'video'
+        keys_registration()
 
     def menu(self):
 
@@ -347,7 +348,7 @@ class Indexer:
             if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
                 artists = ' / '.join(artists)
 
-            search = get_search(q=title + ' ' + 'official', search_type='video')[0]
+            search = get_search(q=title + ' ' + 'official', search_type='video', addon_id=control.addonInfo('id'))[0]
             vid = search['id']['videoId']
             link = YT_URL + vid
             image = thumb_maker(link.rpartition('/' if 'youtu.be' in link else '=')[2])
@@ -440,7 +441,7 @@ class Indexer:
 
             if any([url == self.rythmos_top20_url, url == self.plus_url]):
                 # noinspection PyTypeChecker
-                search = get_search(q=title + ' ' + 'official', search_type='video')[0]
+                search = get_search(q=title + ' ' + 'official', search_type='video', addon_id=control.addonInfo('id'))[0]
                 description = search['snippet']['description']
                 year = search['snippet']['publishedAt'][:4]
                 vid = search['id']['videoId']
