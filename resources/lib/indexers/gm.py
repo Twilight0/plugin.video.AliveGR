@@ -413,13 +413,11 @@ class Indexer:
 
         for item in self.list:
 
-            if item['action'] != 'episodes':
-
-                bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
-                bookmark['bookmark'] = item['url']
-                bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-                refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
-                item.update({'cm': [bookmark_cm, refresh_cm]})
+            bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
+            bookmark['bookmark'] = item['url']
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
+            item.update({'cm': [bookmark_cm, refresh_cm]})
 
         if get_listing:
 
