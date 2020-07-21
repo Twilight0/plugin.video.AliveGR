@@ -75,11 +75,10 @@ class StreamLink:
                 'facebook' in self.url, 'ttvnw' in self.url, 'periscope' in self.url and 'search' not in self.url,
                 'pscp' in self.url, 'ant1.com.cy' in self.url, 'netwix.gr' in self.url, 'tvopen.gr' in self.url,
                 'euronews.com' in self.url, 'filmon.com' in self.url, 'alphatv.gr' in self.url,
-                'ellinikosfm.com' in self.url, 'player.vimeo.com' in self.url, 'alphacyprus.com.cy' in self.url,
+                'player.vimeo.com' in self.url, 'alphacyprus.com.cy' in self.url, 'sigmatv.com' in self.url,
                 'antenna.gr' in self.url, 'star.gr/tv/' in self.url, 'cybc.com.cy' in self.url,
                 'omegatv' in self.url and 'live' in self.url, 'skaitv.gr' in self.url,
-                'cloudb.me' in self.url and control.setting('show_alt_vod') == 'true', 'webtv.ert.gr' in self.url,
-                'sigmatv.com' in self.url, 'ok.ru' in self.url, 'ertflix.gr' in self.url
+                'webtv.ert.gr' in self.url, 'ok.ru' in self.url, 'ertflix.gr' in self.url
             ]
 
         return any(_hosts)

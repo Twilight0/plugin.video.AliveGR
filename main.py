@@ -8,8 +8,6 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
-########################################################################################################################
-
 from sys import argv
 # noinspection PyUnresolvedReferences
 from resources.lib.modules import tools, kodi, helpers, player
@@ -21,11 +19,7 @@ from tulip.compat import parse_qsl
 from tulip.directory import run_builtin
 from tulip import control, bookmarks as bm
 
-########################################################################################################################
-
 params = dict(parse_qsl(argv[2][1:]))
-
-########################################################################################################################
 
 content = params.get('content_type')
 action = params.get('action')
@@ -35,7 +29,7 @@ title = params.get('title')
 name = params.get('name')
 query = params.get('query')
 
-########################################################################################################################
+# Entry:
 
 if content == 'video':
 
@@ -433,12 +427,8 @@ elif action == 'kodi_log_upload':
 
     helpers.kodi_log_upload()
 
-# Reserved might use later:
-# elif action == 'report':
-#
-#     tools.mailer(text=title)
 
-
+# Always run:
 if __name__ == '__main__':
 
     tools.checkpoint()

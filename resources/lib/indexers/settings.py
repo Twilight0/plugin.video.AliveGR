@@ -270,7 +270,7 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30258).format(separator, control.addon('xbmc.addon').getAddonInfo('version').rpartition('.')[0]),
+                'title': control.lang(30258).format(separator, control.kodi_version()),
                 'action': 'system_info',
                 'plot': control.lang(30263),
                 'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),

@@ -171,8 +171,8 @@ msgid "Appearance"
 msgstr "Εμφάνιση"
 
 msgctxt "#30040"
-msgid ""
-msgstr ""
+msgid "Notify about chosen host"
+msgstr "Ειδοποίηση για τον επιλεγμένο πάροχο"
 
 msgctxt "#30041"
 msgid "Pictures"

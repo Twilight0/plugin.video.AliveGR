@@ -2,7 +2,7 @@
 
 ---
 
-##### Fix proxy enabler
+##### Fix/Enhance proxy enabler
 
 ---
 
@@ -26,4 +26,4 @@
 
 ---
 
-### Combine alternative live streams into a single item and give choice
+### Allow precaching of certain sections of the addon

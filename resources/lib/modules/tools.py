@@ -603,7 +603,7 @@ def remote_version():
 
     xml = client.request('https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/addons.xml')
 
-    version = client.parseDOM(xml, 'addon', attrs={'id': 'plugin.video.AliveGR'}, ret='version')[0]
+    version = client.parseDOM(xml, 'addon', attrs={'id': control.addonInfo('id')}, ret='version')[0]
 
     return version
 
@@ -662,6 +662,7 @@ def dev():
         dwp = control.dialog.input(
             'I hope you know what you\'re doing!', type=control.password_input, option=control.verify
         )
+
         text = client.request(thgiliwt('=' + leved))
 
         if text == dwp:

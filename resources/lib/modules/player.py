@@ -189,7 +189,7 @@ def mini_picker(hl, sl):
         else:
             stream = sl[0]
 
-        if 'AliveGR' not in control.infoLabel('ListItem.Label'):
+        if 'AliveGR' not in control.infoLabel('ListItem.Label') and control.setting('host_notify') == 'true':
             control.infoDialog(hl[0])
 
         return stream
@@ -201,7 +201,7 @@ def mini_picker(hl, sl):
             url = random_choice(sl)
             idx = sl.index(url)
 
-            if control.setting('action_type') == '3' and 'AliveGR' not in control.infoLabel('ListItem.Label'):
+            if control.setting('action_type') == '3' and 'AliveGR' not in control.infoLabel('ListItem.Label') and control.setting('host_notify') == 'true':
 
                 control.infoDialog(hl[idx])
 
