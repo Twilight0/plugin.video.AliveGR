@@ -38,7 +38,7 @@
 
 **Source url for the same zip to add into Kodi's file manager sources:**
 
-[https://alivegr.net/master](http://alivegr.net/master "Repo ZIP")
+[https://alivegr.net/master](https://alivegr.net/master "Repo ZIP")
 
 _or alternatively in case website is down, use this one:_
 
@@ -50,7 +50,7 @@ It also has many tools and settings so that you can tweak your viewing experienc
 ------------
 
 Artwork is made by me. Icons were layered with existing flat icons from
-**Flaticon.com:** [Link](http://www.flaticon.com/ "Flaticon.com")
+**Flaticon.com:** [Link](https://www.flaticon.com/ "Flaticon.com")
 
 ------------
 
