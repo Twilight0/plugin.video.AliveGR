@@ -35,7 +35,7 @@ class Indexer:
             {
                 'title': control.lang(30118),
                 'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.ert.gr/?action=episodes&url=https%3a%2f%2fwebtv.ert.gr%2fcategory%2feidiseis%2f',
+                'url': 'plugin://plugin.video.ert.gr/?action=listing&url=https%3A%2F%2Fwww.ertflix.gr%2Fcategory%2Fenimerosi-24%2F',
                 'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_fanart.jpg', media_subfolder=False)
             }
             ,

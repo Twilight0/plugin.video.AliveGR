@@ -231,6 +231,11 @@ elif action == 'bookmarks':
 
     bookmarks.Indexer().bookmarks()
 
+elif action == 'clear_bookmarks':
+    bm.clear('bookmark', file_=control.bookmarksFile, notify=False)
+    control.sleep(200)
+    control.refresh()
+
 elif action == 'search':
 
     search.Indexer().search()

@@ -11,6 +11,7 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
+from tulip.cleantitle import strip_accents
 from tulip.compat import iteritems
 from tulip import bookmarks, directory
 from tulip.log import log_debug
@@ -41,6 +42,14 @@ class Indexer:
                 item['delbookmark'] = i['url']
                 i.update({'cm': [{'title': 30081, 'query': {'action': 'deleteBookmark', 'url': json.dumps(item)}}]})
 
-            self.list = sorted(self.data, key=lambda k: k['title'].lower())
+            self.list = sorted(self.data, key=lambda k: strip_accents(k['title'].lower()))
+
+            clear_all = {
+                'title': 30274,
+                'action': 'clear_bookmarks',
+                'icon': iconname('empty')
+            }
+
+            self.list.insert(0, clear_all)
 
             directory.add(self.list)

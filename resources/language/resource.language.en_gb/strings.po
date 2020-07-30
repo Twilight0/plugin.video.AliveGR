@@ -991,7 +991,7 @@ msgid "Input stream addon settings"
 msgstr ""
 
 msgctxt "#30274"
-msgid ""
+msgid "Clear all bookmarks"
 msgstr ""
 
 msgctxt "#30275"

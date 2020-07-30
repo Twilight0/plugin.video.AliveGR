@@ -991,8 +991,8 @@ msgid "Input stream addon settings"
 msgstr "Ρυθμίσεις προσθέτου μεταβλητής ποιότητας"
 
 msgctxt "#30274"
-msgid ""
-msgstr ""
+msgid "Clear all bookmarks"
+msgstr "Εκκαθάριση όλων των σελιδοδεικτών"
 
 msgctxt "#30275"
 msgid "Activate (or install) RTMP addon"

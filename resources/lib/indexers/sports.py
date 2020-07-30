@@ -44,9 +44,9 @@ class Indexer:
 
         self.data = [
             {
-                'title': 'EPT Sports',
+                'title': 'ERT Sports',
                 'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.ert.gr/?action=sports&url=https%3a%2f%2fwebtv.ert.gr%2fshows%2fathlitika%2f',
+                'url': 'plugin://plugin.video.ert.gr/?action=listing&url=https%3A%2F%2Fwww.ertflix.gr%2Fcategory%2Fathlitika%2F',
                 'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_fanart.jpg', media_subfolder=False)
             }
             ,
