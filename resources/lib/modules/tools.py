@@ -157,7 +157,7 @@ def setup_various_keymaps(keymap):
 
         location = control.join(keymap_settings_folder, 'alivegr_tvguide.xml')
 
-        lang_int = 30025
+        lang_int = 30022
 
         def seq():
 
@@ -239,6 +239,34 @@ def setup_various_keymaps(keymap):
                         f.write(to_write)
 
                 control.execute('Action(reloadkeymaps)')
+
+    elif keymap == 'samsung':
+
+        string = '''<keymap>
+    <global>
+        <keyboard>
+            <key id="61670">contextmenu</key>
+        </keyboard>
+    </global>
+    <fullscreenvideo>
+        <keyboard>
+            <key id="61670">osd</key>
+        </keyboard>
+    </fullscreenvideo>
+</keymap>'''
+
+        location = control.join(keymap_settings_folder, 'samsung.xml')
+
+        lang_int = 30022
+
+        def seq():
+
+            try:
+                with open(location, mode='w', encoding='utf-8') as f:
+                    f.write(string)
+            except Exception:
+                with open(location, 'w') as f:
+                    f.write(string)
 
     yes = control.yesnoDialog(control.lang(lang_int))
 

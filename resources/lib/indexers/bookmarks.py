@@ -13,6 +13,7 @@ import json
 
 from tulip.cleantitle import strip_accents
 from tulip.compat import iteritems
+from tulip.control import setting
 from tulip import bookmarks, directory
 from tulip.log import log_debug
 from ..modules.themes import iconname
@@ -44,12 +45,14 @@ class Indexer:
 
             self.list = sorted(self.data, key=lambda k: strip_accents(k['title'].lower()))
 
-            clear_all = {
-                'title': 30274,
-                'action': 'clear_bookmarks',
-                'icon': iconname('empty')
-            }
+            if setting('show_clear_bookmarks') == 'true':
 
-            self.list.insert(0, clear_all)
+                clear_all = {
+                    'title': 30274,
+                    'action': 'clear_bookmarks',
+                    'icon': iconname('empty')
+                }
+
+                self.list.insert(0, clear_all)
 
             directory.add(self.list)

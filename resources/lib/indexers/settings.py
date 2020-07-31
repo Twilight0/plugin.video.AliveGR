@@ -106,7 +106,7 @@ class Indexer:
             ,
             {
                 'title': control.addonInfo('name') + ': ' + control.lang(30135),
-                'action': 'purge_bookmarks',
+                'action': 'clear_bookmarks',
                 'icon': iconname('empty'),
                 'isFolder': 'False',
                 'isPlayable': 'False'

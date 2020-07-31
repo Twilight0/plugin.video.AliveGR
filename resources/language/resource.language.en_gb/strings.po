@@ -87,7 +87,7 @@ msgid "IPTV Simple Client Integration"
 msgstr ""
 
 msgctxt "#30019"
-msgid "Previous Menu Key Setup"
+msgid "Previous menu key setup (PVR window)"
 msgstr ""
 
 msgctxt "#30020"
@@ -111,7 +111,7 @@ msgid "Process complete"
 msgstr ""
 
 msgctxt "#30025"
-msgid "This action will add a modified keyboard shortcut in the"
+msgid ""
 msgstr ""
 
 msgctxt "#30026"
@@ -847,7 +847,7 @@ msgid "Add enhanced mouse keymap for newspaper covers viewing"
 msgstr ""
 
 msgctxt "#30238"
-msgid "This action will modify existing keymap (pictures window only)"
+msgid "This action will modify existing keymap (pictures window only), proceed?"
 msgstr ""
 
 msgctxt "#30239"
@@ -1131,15 +1131,15 @@ msgid "Geo loc function override"
 msgstr ""
 
 msgctxt "#30309"
-msgid ""
+msgid "Show clear bookmarks item"
 msgstr ""
 
 msgctxt "#30310"
-msgid ""
+msgid "Add keymap for samsung TVs CEC remote"
 msgstr ""
 
 msgctxt "#30311"
-msgid ""
+msgid "Clear all bookmarks, are you sure?"
 msgstr ""
 
 msgctxt "#30312"

@@ -18,6 +18,7 @@
         <setting type="lsep" label=""/>
 
         <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="1"/>
+        <setting id="show_clear_bookmarks" label="30309" type="bool" default="true"/>
 
     </category>
 
@@ -135,6 +136,7 @@
 
         <setting visible="true" label="30019" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=previous)"/>
         <setting visible="true" label="30237" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=mouse)"/>
+        <setting visible="true" label="30310" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=samsung)"/>
 
     </category>
 
