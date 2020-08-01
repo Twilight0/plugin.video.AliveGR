@@ -85,7 +85,7 @@ def setup_iptv():
 
         integer = 30023
 
-    if control.yesnoDialog(line1=control.lang(integer), line2='', line3=control.lang(30022)):
+    if control.yesnoDialog(line1=control.lang(integer) + '[CR]' + control.lang(30022)):
 
         success = install()
 
@@ -120,7 +120,7 @@ def enable_iptv():
 
     else:
 
-        if control.yesnoDialog(line1=control.lang(30406), line2='', line3=''):
+        if control.yesnoDialog(line1=control.lang(30406)):
 
             control.enable_addon('pvr.iptvsimple')
 
@@ -338,14 +338,14 @@ def yt_setup():
 
         if control.addon('plugin.video.youtube').getSetting('youtube.api.enable') == 'true':
 
-            if control.yesnoDialog(line1=control.lang(30069), line2=control.lang(30022), line3=''):
+            if control.yesnoDialog(line1=control.lang(30069) + '[CR]' + control.lang(30022)):
                 seq()
             else:
                 control.infoDialog(message=control.lang(30029), time=3000)
 
         else:
 
-            if control.yesnoDialog(line1=control.lang(30070), line2=control.lang(30022), line3=''):
+            if control.yesnoDialog(line1=control.lang(30070) + '[CR]' + control.lang(30022)):
                 seq()
             else:
                 control.infoDialog(message=control.lang(30029), time=3000)
@@ -354,11 +354,11 @@ def yt_setup():
 
     process()
 
-    if control.yesnoDialog(line1=control.lang(30132), line2='', line3=''):
+    if control.yesnoDialog(line1=control.lang(30132)):
 
         wizard()
 
-    if control.condVisibility('System.HasAddon(inputstream.adaptive)') and control.yesnoDialog(line1=control.lang(30287), line2='', line3=''):
+    if control.condVisibility('System.HasAddon(inputstream.adaptive)') and control.yesnoDialog(line1=control.lang(30287)):
 
         yt_mpd()
 
