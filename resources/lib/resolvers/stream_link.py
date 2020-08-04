@@ -8,6 +8,7 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
+import json
 import streamlink.session
 from streamlink.exceptions import NoPluginError, NoStreamsError, FatalPluginError, PluginError
 from tulip import control, log

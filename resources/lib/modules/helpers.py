@@ -186,7 +186,7 @@ def other_addon_settings(query):
 
         else:
 
-            control.Settings(id='{0}'.format(query))
+            control.openSettings(id='{0}'.format(query))
     except:
 
         pass

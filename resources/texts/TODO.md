@@ -27,3 +27,7 @@
 ---
 
 ### Allow precaching of certain sections of the addon
+
+---
+
+### Fix frontpages

@@ -3,3 +3,5 @@
 \.vscode/*
 Alivegr.code-workspace
 \.pylintrc
+
+.env
