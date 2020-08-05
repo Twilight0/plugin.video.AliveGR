@@ -20,7 +20,8 @@ assignees: Twilight0
 Platform:
 
 - [ ] Windows
-- [ ] Linux (& Raspberry Pi or other SBCs)
+- [ ] Linux Desktop (Regular x86 PCs or ARM)
+- [ ] Linux embedded (LibreELEC, CoreELEC, OSMC)
 - [ ] Darwin (Mac OSX or iOS)
 - [ ] Android
 
@@ -28,7 +29,7 @@ Platform:
 
 ...
 
-### Names of menu items on the test or urls from the _greek-movies.com_ website
+### Names of menu items tested or urls from the _greek-movies.com_ website
 
 1. ...
 2. ...
@@ -38,9 +39,10 @@ Platform:
 
 Make sure to **remove usernames, passwords or IP addresses if visible**
 You can upload your logs to pastebin.com or kodi's own hastebin.com
+Look here on how to upload your log: [https://kodi.wiki/view/Log_file](https://kodi.wiki/view/Log_file)
 
 ```
-Replace this test with your LOG or provide a valid url with the log.
+Replace this text with your LOG or provide a valid url with the log.
 ```
 
 ### Comments, screenshots, etc.
