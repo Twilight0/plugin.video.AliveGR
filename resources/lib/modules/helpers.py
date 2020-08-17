@@ -46,7 +46,7 @@ def m3u8_picker(url):
         if '|' not in url:
             raise TypeError
 
-        link, sep, head = url.rpartition('|')
+        link, _, head = url.rpartition('|')
 
         headers = dict(parse_qsl(head))
         streams = m3u8.load(link, headers=headers).playlists
@@ -68,10 +68,7 @@ def m3u8_picker(url):
         if quality == 'None':
             quality = 'Auto'
 
-        uri = stream.uri
-
-        if not uri.startswith('http'):
-            uri = urljoin(stream.base_uri, uri)
+        uri = stream.absolute_uri
 
         qualities.append(quality)
 

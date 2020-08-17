@@ -111,7 +111,7 @@ msgid "Process complete"
 msgstr ""
 
 msgctxt "#30025"
-msgid ""
+msgid "ResolveURL settings"
 msgstr ""
 
 msgctxt "#30026"
@@ -1340,6 +1340,10 @@ msgstr ""
 
 msgctxt "#30361"
 msgid "You can enable the prompt in the settings window, maintenance tab"
+msgstr ""
+
+msgctxt "#30362"
+msgid "Parse HLS Dailymotion streams"
 msgstr ""
 
 msgctxt "#30401"

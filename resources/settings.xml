@@ -59,6 +59,7 @@
         <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0"/>
         <setting id="sl_quality_picker" type="enum" label="30167" lvalues="30168|30169" default="0"/>
         <setting id="m3u8_quality_picker" type="select" label="30219" lvalues="30168|30169|30204" default="2"/>
+        <setting label="30025" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close" enable="System.HasAddon(script.module.resolveurl)"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30007"/>
@@ -84,7 +85,7 @@
 
         <setting id="audio_only" label="30224" type="bool" default="false"/>
         <setting id="dm_resolve" label="30297" type="enum" lvalues="30303|30167" default="1"/>
-        <setting label="30111" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close" enable="System.HasAddon(script.module.resolveurl)"/>
+        <setting id="parse_hls_dm" label="30362" type="bool" default="true" enable="eq(-1,1) + eq(-22,0)"/>
         <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
 
         <setting type="sep"/>

@@ -28,8 +28,8 @@
 
 - Youtube addon (responsible for resolving various youtube-sourced videos)
 - Streamlink (primary resolvers, useful for obtaining playable links from official sources)
-- ResolveURL (optional, useful for resolving content for various hosts)
-- Tulip (library/framework, the backbone of AliveGR)
+- ResolveURL (optional, useful for resolving content from other secondary hosts)
+- Tulip (library/framework, AliveGR's backbone)
 - Pyxbmct (creates various prompts when update is present)
 
 **Repository zip for updates:**

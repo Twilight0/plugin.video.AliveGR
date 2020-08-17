@@ -45,7 +45,7 @@ class StreamLink:
             elif 'skaitv.gr' in self.url or 'skai.gr' in self.url:
                 self.session.set_plugin_option('skai', 'parse_hls', 'false')
             elif 'dailymotion.com' in self.url:
-                self.session.set_plugin_option('dailymotion', 'parse_hls', 'false')
+                self.session.set_plugin_option('dailymotion', 'parse_hls', control.setting('parse_hls_dm'))
             elif 'euronews.com' in self.url:
                 self.session.set_plugin_option('euronews', 'parse_hls', 'false')
             elif 'alphacyprus.com.cy' in self.url:

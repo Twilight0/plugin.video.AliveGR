@@ -31,3 +31,11 @@
 ---
 
 ### Fix frontpages
+
+---
+
+### Build mirror script
+
+---
+
+#### Build setup script

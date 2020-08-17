@@ -11,7 +11,7 @@ from __future__ import absolute_import, unicode_literals
 
 import re
 
-from tulip.compat import urljoin, parse_qsl, OrderedDict, zip, urlsplit, urlparse
+from tulip.compat import urljoin, parse_qsl, OrderedDict, zip, urlsplit, urlparse, urlencode
 
 try:
     from resolveurl import resolve as resolve_url
@@ -473,7 +473,7 @@ def player(url, params):
     skip_directory = params.get('action') == 'play_skipped'
 
     directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or BASE_LINK_GK in url or (
-            'episode' in url and GM_BASE in url
+        'episode' in url and GM_BASE in url
     )
 
     if directory_boolean and control.setting('action_type') == '1' and not skip_directory:
@@ -528,11 +528,20 @@ def player(url, params):
 
         log_debug('Stream has been resolved: ' + stream)
 
-    if '|' in stream or '|' in url:
+    else:
 
-        from tulip.compat import parse_qsl
+        log_debug('Attempting direct playback: ' + stream)
 
-        log_debug('Appending custom headers: ' + repr(dict(parse_qsl(stream.rpartition('|')[2]))))
+    # process headers if necessary:
+    if '|' in stream:
+
+        stream, sep, headers = stream.rpartition('|')
+
+        headers = dict(parse_qsl(headers))
+
+        log_debug('Appending custom headers: ' + repr(headers))
+
+        stream = sep.join([stream, urlencode(headers)])
 
     try:
 

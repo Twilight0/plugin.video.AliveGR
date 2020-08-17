@@ -87,8 +87,8 @@ msgid "IPTV Simple Client Integration"
 msgstr "Ενσωμάτωση με τον πελάτη IPTV Simple"
 
 msgctxt "#30019"
-msgid "Previous Menu Key Setup"
-msgstr "Ρύθμιση πλήκτρου επιστροφής"
+msgid "Previous menu key setup (PVR window)"
+msgstr "Ρύθμιση πλήκτρου επιστροφής (Παράθυρο PVR)"
 
 msgctxt "#30020"
 msgid "Previous menu key setup (PVR window)"
@@ -111,8 +111,8 @@ msgid "Process complete"
 msgstr "Η ενέργεια έχει πλέον ολοκληρωθεί"
 
 msgctxt "#30025"
-msgid ""
-msgstr ""
+msgid "ResolveURL settings"
+msgstr "Ρυθμίσεις ResolveURL"
 
 msgctxt "#30026"
 msgid "TV Guide window"
@@ -1337,6 +1337,10 @@ msgstr "Ενεργοποίηση ερώτησης για νέα απομακρυ
 msgctxt "#30361"
 msgid "You can enable the prompt in the settings window, maintenance tab"
 msgstr "Μπορείτε να ενεργοποιήσετε το ερώτημα στο παράθυρο ρυθμίσεων, στην καρτέλλα συντήρηση"
+
+msgctxt "#30362"
+msgid "Parse HLS Dailymotion streams"
+msgstr "Ανάλυση ροών HLS Dailymotion"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"

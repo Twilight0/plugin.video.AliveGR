@@ -654,7 +654,7 @@ def prompt():
 
 def checkpoint():
 
-    check = time() + 22000
+    check = time() + 10800
 
     if new_version():
 
