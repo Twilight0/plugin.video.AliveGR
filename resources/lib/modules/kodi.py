@@ -8,8 +8,8 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
-from time import sleep
 from tulip import control, client
+from tulip.compat import range
 from os import path
 
 
@@ -299,7 +299,7 @@ def prevent_failure():
     else:
         active_window = 'busydialog'
 
-    for i in range(0, 400):
+    for i in range(0, 1000):
 
         if control.condVisibility('Window.IsActive({})'.format(active_window)):
             control.sleep(100)

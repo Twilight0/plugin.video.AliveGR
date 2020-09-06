@@ -12,6 +12,8 @@ from tulip import client
 import re
 from random import choice
 from tulip.parsers import itertags_wrapper
+from tulip.compat import urlparse
+from tulip.control import lang
 
 
 def risegr(link):
@@ -57,6 +59,8 @@ def iptv(name):
     except Exception:
         urls = [i for i in links if name.lower() in i[0].lower()]
 
-    url = choice(urls)[1][:-1]
+    hosts = [''.join([lang(30015), urlparse(u[1][:-1]).hostname]) for u in urls]
 
-    return url
+    urls = [u[1][:-1] for u in urls]
+
+    return hosts, urls

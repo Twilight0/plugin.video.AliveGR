@@ -93,9 +93,11 @@ def conditionals(url):
     elif url.startswith('iptv://'):
 
         if CACHE_DEBUG:
-            stream = various.iptv(urlsplit(url).netloc)
+            hosts, urls = various.iptv(urlsplit(url).netloc)
         else:
-            stream = cache.get(various.iptv, 2, urlsplit(url).netloc)
+            hosts, urls = cache.get(various.iptv, 2, urlsplit(url).netloc)
+
+        stream = mini_picker(hosts, urls)
 
         return stream
 
