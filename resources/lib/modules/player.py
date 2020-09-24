@@ -92,10 +92,13 @@ def conditionals(url):
 
     elif url.startswith('iptv://'):
 
-        if CACHE_DEBUG:
-            hosts, urls = various.iptv(urlsplit(url).netloc)
-        else:
-            hosts, urls = cache.get(various.iptv, 2, urlsplit(url).netloc)
+        try:
+            if CACHE_DEBUG:
+                hosts, urls = various.iptv(urlsplit(url).netloc)
+            else:
+                hosts, urls = cache.get(various.iptv, 2, urlsplit(url).netloc)
+        except Exception:
+            return
 
         stream = mini_picker(hosts, urls)
 
@@ -493,7 +496,7 @@ def player(url, params):
 
         log_debug('Failed to resolve this url: {0}'.format(url))
 
-        return control.execute('Dialog.Close(all)')
+        return
 
     try:
         plot = params.get('plot').encode('latin-1')
@@ -564,6 +567,9 @@ def player(url, params):
     try:
 
         directory.resolve(stream, meta=meta, icon=image, dash=dash, manifest_type=manifest_type, mimetype=mimetype)
+
+        if url.startswith('iptv://') or 'kineskop.tv' in url:
+            control.execute('PlayerControl(RepeatOne)')
 
     except:
 

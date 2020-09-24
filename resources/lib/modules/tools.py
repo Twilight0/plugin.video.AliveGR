@@ -633,6 +633,8 @@ def remote_version():
 
     version = client.parseDOM(xml, 'addon', attrs={'id': control.addonInfo('id')}, ret='version')[0]
 
+    version = int(version.replace('.', ''))
+
     return version
 
 
@@ -677,7 +679,13 @@ def checkpoint():
 
         control.setSetting('last_check', str(check))
 
-    elif control.setting('new_version_prompt') == 'true' and time() > float(control.setting('last_check')) and remote_version() != control.version():
+    elif control.setting(
+            'new_version_prompt'
+    ) == 'true' and time() > float(
+        control.setting('last_check')
+    ) and remote_version() > int(
+        control.version().replace('.', '')
+    ):
 
         prompt()
         control.setSetting('last_check', str(check))

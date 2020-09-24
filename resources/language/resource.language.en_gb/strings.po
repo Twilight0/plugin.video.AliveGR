@@ -819,7 +819,7 @@ msgid "News front pages"
 msgstr ""
 
 msgctxt "#30231"
-msgid "General"
+msgid "Politics"
 msgstr ""
 
 msgctxt "#30232"

@@ -141,7 +141,7 @@ class Indexer:
 
         if zapping or control.setting('preresolve_streams') == 'true':
 
-            self.list = [i for i in self.list if not i['url'].startswith('alivegr://')]
+            self.list = [i for i in self.list if not i['url'].startswith(('alivegr://', 'iptv://'))]
 
         if zapping and control.setting('live_group') not in ['0', '14']:
 

@@ -80,7 +80,7 @@ class Indexer:
             list_item = control.item(label=item['title'])
             list_item.setArt({'icon': item['icon'], 'fanart': item['fanart']})
             url = item['url']
-            isFolder = True
+            isFolder = True if 'papers' not in item['url'] else False
             self.list.append((url, list_item, isFolder))
 
         control.addItems(syshandle, self.list)
@@ -125,11 +125,11 @@ class Indexer:
 
             for i in items:
 
-                image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='src')[0]
                 title = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='alt')[0]
                 title = client.replaceHTMLCodes(title)
+                image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='src')[0]
                 image = ''.join([self.fp_link, image])
-                link = image.replace('B.jpg', 'I.jpg')
+                link = image.replace('300.jpg', 'I.jpg')
 
                 data = {'title': title, 'image': image, 'url': link, 'group': group}
 
@@ -186,8 +186,7 @@ class Indexer:
             li.setArt({'poster': i['image'], 'thumb': i['image'], 'fanart': control.addonInfo('fanart')})
             li.setInfo('image', {'title': i['title'], 'picturepath': i['url']})
             url = i['url']
-            isFolder = False
-            self.directory.append((url, li, isFolder))
+            self.directory.append((url, li, False))
 
         control.addItems(syshandle, self.directory)
         control.directory(syshandle)

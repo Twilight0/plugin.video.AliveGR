@@ -44,7 +44,7 @@ def iptv(name):
 
     html = client.request('https://www.dailyiptvlist.com/european-m3u-iptv/greece-greek/')
 
-    latest = itertags_wrapper(html, 'a', {'title': 'Greece iptv m3u autoupdate links \d{2}.+'}, 'href')[0]
+    latest = itertags_wrapper(html, 'a', {'class': 'image-link'}, 'href')[0]
 
     nested = client.request(latest)
 

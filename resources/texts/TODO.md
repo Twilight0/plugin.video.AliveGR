@@ -30,10 +30,6 @@
 
 ---
 
-### Fix frontpages
-
----
-
 ### Build mirror script
 
 ---
