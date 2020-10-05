@@ -22,7 +22,7 @@
 
 ---
 
-#### Combine kids indexers (greek-movies.com + gamatotv2.com)
+#### Combine kids indexers (greek-movies.com + gamatotv4.com)
 
 ---
 

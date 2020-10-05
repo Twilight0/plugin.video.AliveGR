@@ -10,10 +10,10 @@
 
 from tulip import client
 import re
-from random import choice
 from tulip.parsers import itertags_wrapper
 from tulip.compat import urlparse
 from tulip.control import lang
+from tulip.log import log_debug
 
 
 def risegr(link):
@@ -55,12 +55,26 @@ def iptv(name):
     links = re.findall(r',(.+)$\r?\n(.+)', m3u, re.MULTILINE)
 
     try:
-        urls = [i for i in links if name.lower() in i[0].lower().decode('utf-8')]
+        result = [i for i in links if name.lower() in i[0].lower().decode('utf-8')]
     except Exception:
-        urls = [i for i in links if name.lower() in i[0].lower()]
+        result = [i for i in links if name.lower() in i[0].lower()]
 
-    hosts = [''.join([lang(30015), urlparse(u[1][:-1]).hostname]) for u in urls]
+    urls = [u[1][:-1] for u in result if _check_url(u[1][:-1])]
 
-    urls = [u[1][:-1] for u in urls]
+    if not urls:
+        log_debug('Did not find alternative links')
+        return
+
+    hosts = [''.join([lang(30015), urlparse(url).hostname]) for url in urls]
 
     return hosts, urls
+
+
+def _check_url(url):
+
+    try:
+        ok = client.request(url, output='response', timeout=10)[0] == u'200'
+    except Exception:
+        ok = False
+
+    return ok

@@ -18,7 +18,7 @@ from ..modules.constants import YT_ADDON, CACHE_DEBUG
 from ..modules.helpers import keys_registration
 from .gm import GM_BASE
 
-BASE_LINK_GK = 'http://gamatotv2.com'
+BASE_LINK_GK = 'http://gamatotv4.com'
 
 
 class Indexer:

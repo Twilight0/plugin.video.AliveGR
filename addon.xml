@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.4.0" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.4.1" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.26.0"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -32,7 +32,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
         <size>1200000</size>
-        <news>+ [B]2.4.X[/B] [COLOR green]24-09-2020 - ...[/COLOR]
+        <news>+ [B]2.4.X[/B] [COLOR green]24-09-2020 - 05-10-2020[/COLOR]
 - Repeat some alternative streams because they fail every few seconds or minutes
 - Re-addition of kineskop resolver as streamlink plugin
 - Fixed front pages image full view
