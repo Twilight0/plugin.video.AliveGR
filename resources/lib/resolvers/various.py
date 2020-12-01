@@ -42,7 +42,7 @@ def periscope_search(url):
 
 def iptv(name):
 
-    html = client.request('https://www.dailyiptvlist.com/european-m3u-iptv/greece-greek/')
+    html = client.request('https://www.dailyiptvlist.com/m3u-iptv-europe/greece-greek/')
 
     latest = itertags_wrapper(html, 'a', {'class': 'image-link'}, 'href')[0]
 
