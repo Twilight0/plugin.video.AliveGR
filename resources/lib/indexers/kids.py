@@ -15,10 +15,10 @@ from tulip import control, client, cache, directory
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
 from ..modules.constants import YT_ADDON, CACHE_DEBUG
-from ..modules.helpers import keys_registration
+from ..modules.utils import keys_registration
 from .gm import GM_BASE
 
-BASE_LINK_GK = 'http://gamatotv4.com'
+BASE_LINK_GK = 'http://gamato2.com'
 
 
 class Indexer:
@@ -26,6 +26,7 @@ class Indexer:
     def __init__(self):
 
         self.list = []
+        self.data = []
         keys_registration()
 
     def kids(self):

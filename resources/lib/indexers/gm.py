@@ -19,9 +19,10 @@ from youtube_requests import get_search
 from tulip import cache, client, directory, control, parsers
 from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
+from tulip.utils import list_divider
 from ..modules.themes import iconname
 from ..modules.constants import YT_URL, CACHE_DEBUG
-from ..modules.helpers import keys_registration
+from ..modules.utils import keys_registration, page_menu
 
 GM_BASE = 'https://greek-movies.com/'
 MOVIES = urljoin(GM_BASE, 'movies.php')
@@ -424,6 +425,23 @@ class Indexer:
 
             return self.list
 
+        if len(self.list) > int(control.setting('pagination_integer')) and control.setting('paginate_items') == 'true':
+
+            try:
+
+                pages = list_divider(self.list, int(control.setting('pagination_integer')))
+                self.list = pages[int(control.setting('page'))]
+                reset = False
+
+            except Exception:
+
+                pages = list_divider(self.list, int(control.setting('pagination_integer')))
+                self.list = pages[0]
+                reset = True
+
+            self.list.insert(0, page_menu(len(pages), reset=reset))
+
+        control.sortmethods()
         control.sortmethods('title')
         control.sortmethods('year')
 
@@ -530,7 +548,23 @@ class Indexer:
 
             self.list = sorted(self.list, key=lambda k: k['group'])
 
-        # control.sortmethods('unsorted')
+        if len(self.list) > int(control.setting('pagination_integer')) and control.setting('paginate_items') == 'true':
+
+            try:
+
+                pages = list_divider(self.list, int(control.setting('pagination_integer')))
+                self.list = pages[int(control.setting('page'))]
+                reset = False
+
+            except Exception:
+
+                pages = list_divider(self.list, int(control.setting('pagination_integer')))
+                self.list = pages[0]
+                reset = True
+
+            self.list.insert(0, page_menu(len(pages), reset=reset))
+
+        control.sortmethods()
         # control.sortmethods('title')
         # control.sortmethods('year')
 

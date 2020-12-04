@@ -13,7 +13,7 @@ import streamlink.session
 from streamlink.exceptions import NoPluginError, NoStreamsError, FatalPluginError, PluginError
 from tulip import control, log
 from tulip.compat import urlencode
-from ..modules.helpers import stream_picker
+from ..modules.utils import stream_picker
 
 
 class StreamLink:

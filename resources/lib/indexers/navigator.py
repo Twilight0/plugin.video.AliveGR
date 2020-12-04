@@ -11,7 +11,7 @@ from __future__ import absolute_import, unicode_literals
 
 from tulip import control, directory
 from ..modules.themes import iconname
-from ..modules.helpers import reset_idx as reset
+from ..modules.utils import reset_idx as reset
 
 
 class Indexer:

@@ -12,7 +12,7 @@ from __future__ import absolute_import, unicode_literals
 from tulip import cache, client, control
 from tulip.log import log_debug
 from tulip.init import syshandle
-from ..modules.helpers import thgiliwt, keys_registration
+from ..modules.utils import thgiliwt, keys_registration
 from ..modules.constants import YT_ADDON, CACHE_DEBUG
 
 

@@ -11,7 +11,7 @@
 from ..modules.constants import YT_URL, CACHE_DEBUG
 import re, youtube_resolver
 from tulip import control, client, cache
-from ..modules.helpers import stream_picker
+from ..modules.utils import stream_picker
 
 
 def generic(url, add_base=False):

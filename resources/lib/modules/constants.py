@@ -8,40 +8,33 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
-from random import choice
 from tulip.compat import OrderedDict
 from tulip.control import dataPath, join, setting
 
-########################################################################################################################
-############### Please do not copy these keys, instead create your own with this tutorial: #############################
-######################################   https://ytaddon.page.link/keys    #############################################
-########################################################################################################################
+SCRAMBLE_1 = (
+    'eJwVy8sKgkAUANBfiVmXzAz5qJ0ipYVQmKGrGMfrc3xrqdG/h/tzvqgH3sGAjhvkxkVHw6GzqpNxJqZPHZ/fSidA2w1iTfYqYF6Zbi/MnXXxCK2FTB'
+    '7Rg4+o3EtmeE/msPFuXu14Ku11ZdEaZE3Be0KpohF1J9oExxxDeijGNyujtMWjwCAXap7TPAWJNU0vJXWdCBh76HhdDVANEq9L9PsD2lw48A=='
+)
 
-API_KEYS_1 = {
-    'id': '368042868178-4fvokphtids9eh59h4m4j0m8huvj1qb2.apps.googleusercontent.com',
-    'api_key': 'v1keo9GeEBXSJBTMYljRp1SVM5GVVJ0Q4J3UjdGRulnQ5NVY6lUQ',
-    'secret': '-YtREVjllZtljRWYj_RXVgWP'
-}
+SCRAMBLE_2 = (
+    'eJwVy80OgiAAAOBXcZzLqfhD3SzXqqHOXJcuzoghCkL+ZNZ69+b9+76gp6SjA9gaYFdJiGcfuVUC32x/PuaQyUM8gZUBSs2Lhs4LC0+fMp/Di0+KiU'
+    'c4yTMfy9szSq82jiW2U8lEEmbL4o8l2BvLRhBB17OctTXekWZqaDqvFjCg/qtFIoCe47mEcFGbpda9yZRigo497YhqB9oOJlES/P42mTb7'
+)
 
-API_KEYS_2 = {
-    'id': '427433549692-u6qr22obbb005l41onggbfeecrp0ssj1.apps.googleusercontent.com',
-    'api_key': 'R5Ud3sGMNlDO3pndNRlRsJ2QFFXYxoFeDxmaOdjbC9ER5NVY6lUQ',
-    'secret': 'tcLHhf_ptYutl-HzYvSpQ7rJ'
-}
+SCRAMBLE_3 = (
+    'eJwVy80OgiAAAOBXcZzLpaiwblmt2cHNXHlshoSm/AREWuvdm/fv+wJDiaYWrD2QR/sDZhdYMVq4gmPS3RVmaQkWHqhVd+3pNLNN9qnLKUV5Mwbbyv'
+    'XTTpywJiy4Ze+CjBVz/MjH87y6Zg4hQhhHME5gGC5lsNJtopUwLaY6gLEbkGjM00qH4pY9/Fop4zMp2UBfhmoihaXC+kRy8PsD58A5Rw=='
+)
 
-API_KEYS_3 = {
-    'id': '809692766230-5cb1visviarrsou7rhd4d2s2rh2d68n2.apps.googleusercontent.com',
-    'api_key': '0YFeFhzTJFWTrJWZlZkM2MFe1VTM3RUYGFETihEdthWQ5NVY6lUQ',
-    'secret': '96w2Pc99Ih1HDuaek5LE8YvG'
-}
+SCRAMBLE_4 = (
+    'eJwVy8EKgjAYAOBXkZ1TclOX3cxDKFFIFnqSuX6npNtySlj07uH9+77IAB9hQnsLiViFpCEiU36B8yXPzpTpVxqjjYWY7qonLCuLkg+7LrGuTMwPKR'
+    '3vl7ddRa6mZVjYfSrKpDwNx9u6uscawoDgbeBR6gW2hBH3Hpsp+JISCnPQd7hu63baDaThrsO0No5QSvQwGxi5khPIyeFqQL8/GFw28Q=='
+)
 
-API_KEYS_4 = {
-    'id': '692804738907-sjq35lum9kcovk5o6kk3gkvn19neivu9.apps.googleusercontent.com',
-    'api_key': 'JZ1Q4wkTrFWTI1mQvFUTPJXWzZzQzlEdON3atIDcwVXQ5NVY6lUQ',
-    'secret': 'xFWM0vkol6TMXaFyAx78MKkX'
-}
-
-API_KEYS = choice([API_KEYS_1, API_KEYS_2, API_KEYS_3, API_KEYS_4])
+SCRAMBLE_5 = (
+    'eJwVy90KgjAYANBXkV2XlL+zOzUhTSIysTsZc4pm+/xZS43ePbw/54tGRgcm0EFByyfapyWRu865lzfeADTVw40TtFEQ6er8yeaVueFCktkPbZkeJy'
+    '8LPKLF/fmUR2IyLmDNewP8axasqy7WYGGMdVszsWkZ26bqoSeyrfWCtMzRuGbQQRSUUlnKAg8q6bpRrQCqlr1HNlDggnGhUnih3x/3kTk3'
+)
 
 ########################################################################################################################
 
@@ -76,11 +69,5 @@ LIVE_GROUPS = OrderedDict(
 PINNED = join(dataPath, 'pinned.txt')
 
 ########################################################################################################################
-
-SCRAMBLE = (
-            'eJwVy8EOgiAAANBfcZzTZWBBt5xtpmsecqVdGiqQqUGAbdb69+b9vS8wrNbMgq0DYhQmj/U+jY6V4Jv8hS7S3so4AgsHUNXeOjbNbHf40N'
-            'MUElLkkGdhl+gUx++xKGl1dbN92kp5hmg3r7aZA/LhkmA/wBhv3H5AXPUEUzU0DYfWLO8rG3QPoWW1Npp4VCnjCSlFz0bDdC2flj2tV8sB'
-            '/P5BuTe0'
-        )
 
 CACHE_DEBUG = setting('do_not_use_cache') == 'true' and setting('debug') == 'true'

@@ -1389,3 +1389,23 @@ msgstr ""
 msgctxt "#30411"
 msgid "Failed"
 msgstr ""
+
+msgctxt "#30412"
+msgid "Paginate items"
+msgstr ""
+
+msgctxt "#30413"
+msgid "Every ... items"
+msgstr ""
+
+msgctxt "#30414"
+msgid "Change page (current page {0})"
+msgstr ""
+
+msgctxt "#30415"
+msgid "Page {0}"
+msgstr ""
+
+msgctxt "#30416"
+msgid "Select a page"
+msgstr ""

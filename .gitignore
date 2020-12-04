@@ -1,6 +1,7 @@
 
 \.idea/*
 \.vscode/*
+\tests/*
 Alivegr.code-workspace
 \.pylintrc
 

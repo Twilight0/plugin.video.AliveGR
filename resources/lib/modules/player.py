@@ -29,8 +29,8 @@ from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, sou
 from ..indexers.kids import BASE_LINK_GK
 from ..resolvers import various, youtube, stream_link
 from .kodi import prevent_failure
-from .constants import YT_URL, API_KEYS, CACHE_DEBUG
-from .helpers import m3u8_picker, thgiliwt
+from .constants import YT_URL, CACHE_DEBUG
+from .utils import m3u8_picker, thgiliwt, api_keys
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
@@ -415,9 +415,9 @@ def pseudo_live(url):
         url = '{0}movies.php?g=8&y=&l=&p='.format(GM_BASE)
 
     if 'channel' in _url:
-        movie_list = tulip_youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).videos(url, limit=10)
+        movie_list = tulip_youtube.youtube(key=api_keys()['api_key'], replace_url=False).videos(url, limit=10)
     elif 'playlist' in _url:
-        movie_list = tulip_youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlist(url, limit=10)
+        movie_list = tulip_youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist(url, limit=10)
     else:
         movie_list = gm_indexer().listing(url, get_listing=True)
 

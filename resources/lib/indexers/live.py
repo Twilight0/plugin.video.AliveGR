@@ -15,16 +15,20 @@ from base64 import b64decode
 from tulip import cache, control, directory, client
 from tulip.log import log_debug
 from tulip.compat import str, is_py3
+from tulip.utils import percent
 from ..modules.themes import iconname
-from ..modules.helpers import thgiliwt, bourtsa, read_from_file
+from ..modules.utils import thgiliwt, bourtsa, read_from_file
 from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED, CACHE_DEBUG
+from ..modules.player import conditionals
 
 
 class Indexer:
 
     def __init__(self):
 
-        self.list = []; self.data = []
+        self.list = []
+        self.data = []
+        self.groups = []
         self.alivegr = 'QjNi5SZ2lGbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
 
     def switcher(self):
@@ -240,16 +244,14 @@ class Indexer:
 
         if control.setting('preresolve_streams') == 'true':
 
-            from resources.lib.modules.player import conditionals
-
             pd = control.progressDialogGB
             pd.create(control.name())
 
             for item in self.list:
 
                 try:
-                    percent = control.per_cent(int(item['code']), len(self.list))
-                    pd.update(percent)
+                    _percent = percent(int(item['code']), len(self.list))
+                    pd.update(_percent)
                     new_stream = conditionals(item['url'])
                     if not new_stream:
                         raise Exception('Stream was not resolved, skipped')

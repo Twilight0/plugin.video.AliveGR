@@ -1385,3 +1385,23 @@ msgstr "Αδυναμία ενεργοποίησης διαχειριστή PVR"
 msgctxt "#30411"
 msgid "Failed"
 msgstr "Αποτυχία"
+
+msgctxt "#30412"
+msgid "Paginate items"
+msgstr "Σελιδοποίησε τα αντικείμενα"
+
+msgctxt "#30413"
+msgid "Every ... items"
+msgstr "Κάθε ... αντικείμενα"
+
+msgctxt "#30414"
+msgid "Change page (current page {0})"
+msgstr "Αλλαγή σελίδας (τρέχουσα σελίδα {0})"
+
+msgctxt "#30415"
+msgid "Page {0}"
+msgstr "Σελίδα {0}"
+
+msgctxt "#30416"
+msgid "Select a page"
+msgstr "Επιλογή σελίδας"

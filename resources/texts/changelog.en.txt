@@ -1,4 +1,9 @@
-+ [B]2.4.X[/B] [COLOR green]24-09-2020 - 05-10-2020[/COLOR]
++ [B]2.5.X[/B] [COLOR green]04-12-2020 - 04-12-2020[/COLOR]
+- Reworked some modules
+- Added pagination function
+- Updated youtube api keys and tweaked its function for applying keys
+
++ [B]2.4.X[/B] [COLOR red]24-09-2020 - 05-10-2020[/COLOR]
 - Repeat some alternative streams because they fail every few seconds or minutes
 - Re-addition of kineskop resolver as streamlink plugin
 - Fixed front pages image full view

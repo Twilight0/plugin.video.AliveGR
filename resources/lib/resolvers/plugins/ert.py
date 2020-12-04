@@ -6,7 +6,6 @@ from streamlink.plugin import Plugin, PluginArguments, PluginArgument
 from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
 from streamlink.plugin.api.utils import itertags
-from streamlink.plugin.api import validate
 
 
 class Ert(Plugin):

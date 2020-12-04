@@ -15,8 +15,8 @@ from tulip import control, directory, cache, client, youtube
 from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL, ART_ID, API_KEYS, CACHE_DEBUG
-from ..modules.helpers import thgiliwt, thumb_maker, keys_registration
+from ..modules.constants import YT_URL, ART_ID, CACHE_DEBUG
+from ..modules.utils import thgiliwt, thumb_maker, keys_registration, api_keys
 from . import gm
 from datetime import datetime
 from youtube_requests import get_search
@@ -283,7 +283,7 @@ class Indexer:
 
     def mgreekz_index(self):
 
-        self.data = cache.get(youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlists, 48, self.mgreekz_id)
+        self.data = cache.get(youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlists, 48, self.mgreekz_id)
 
         for i in self.data:
             i.update(
@@ -306,7 +306,7 @@ class Indexer:
 
     def mgreekz_list(self, url):
 
-        self.list = cache.get(youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlist, 12, url)
+        self.list = cache.get(youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist, 12, url)
 
         if self.list is None:
 
@@ -571,7 +571,7 @@ class Indexer:
 
     def techno_choices(self, url):
 
-        self.list = cache.get(youtube.youtube(key=thgiliwt(API_KEYS['api_key']), replace_url=False).playlist, 12, url)
+        self.list = cache.get(youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist, 12, url)
 
         if self.list is None:
 

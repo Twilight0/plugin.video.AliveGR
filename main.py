@@ -10,7 +10,7 @@
 
 from sys import argv
 # noinspection PyUnresolvedReferences
-from resources.lib.modules import tools, kodi, helpers, player
+from resources.lib.modules import utils, kodi, player
 # noinspection PyUnresolvedReferences
 from resources.lib.indexers import (
     navigator, settings, news, live, networks, gm, kids, sports, miscellany, radios, music, bookmarks, search
@@ -205,7 +205,7 @@ elif action == 'radio':
 
 elif action == 'papers':
 
-    helpers.papers()
+    utils.papers()
 
 elif action == 'papers_index':
 
@@ -221,11 +221,11 @@ elif action == 'deleteBookmark':
 
 elif action == 'pin':
 
-    helpers.pin()
+    utils.pin()
 
 elif action == 'unpin':
 
-    helpers.unpin()
+    utils.unpin()
 
 elif action == 'bookmarks':
 
@@ -246,7 +246,7 @@ elif action == 'settings':
 
 elif action == 'tools_menu':
 
-    helpers.tools_menu()
+    utils.tools_menu()
 
 elif action == 'openSettings':
 
@@ -254,7 +254,7 @@ elif action == 'openSettings':
 
 elif action == 'other_addon_settings':
 
-    helpers.other_addon_settings(query)
+    utils.other_addon_settings(query)
 
 elif action in ['play', 'play_resolved', 'play_skipped']:
 
@@ -276,21 +276,25 @@ elif action == 'papers_switcher':
 
     news.Indexer().switcher()
 
+elif action == 'page_selector':
+
+    utils.page_selector(query)
+
 elif action == 'setup_iptv':
 
-    tools.setup_iptv()
+    utils.setup_iptv()
 
 elif action == 'enable_iptv':
 
-    tools.enable_iptv()
+    utils.enable_iptv()
 
 elif action == 'enable_proxy':
 
-    tools.enable_proxy_module()
+    utils.enable_proxy_module()
 
 elif action == 'setup_various_keymaps':
 
-    tools.setup_various_keymaps(query)
+    utils.setup_various_keymaps(query)
 
 elif action == 'add_to_playlist':
 
@@ -322,19 +326,19 @@ elif action == 'skin_choice':
 
 elif action == 'cache_clear':
 
-    helpers.cache_clear()
+    utils.cache_clear()
 
 elif action == 'cache_delete':
 
-    helpers.cache.delete()
+    utils.cache.delete()
 
 elif action == 'purge_bookmarks':
 
-    helpers.purge_bookmarks()
+    utils.purge_bookmarks()
 
 elif action == 'delete_settings_xml':
 
-    helpers.delete_settings_xml()
+    utils.delete_settings_xml()
 
 elif action == 'refresh':
 
@@ -342,15 +346,15 @@ elif action == 'refresh':
 
 elif action == 'refresh_and_clear':
 
-    helpers.refresh_and_clear()
+    utils.refresh_and_clear()
 
 elif action == 'reset_idx':
 
-    helpers.reset_idx(force=query == 'force')
+    utils.reset_idx(force=query == 'force')
 
 elif action == 'yt_setup':
 
-    tools.yt_setup()
+    utils.yt_setup()
 
 elif action == 'isa_enable':
 
@@ -362,11 +366,11 @@ elif action == 'rtmp_enable':
 
 elif action == 'changelog':
 
-    tools.changelog()
+    utils.changelog()
 
 elif action == 'developer_mode':
 
-    tools.dev()
+    utils.dev()
 
 elif action == 'info':
 
@@ -378,7 +382,7 @@ elif action == 'input_stream_addons':
 
 elif action == 'call_info':
 
-    helpers.call_info()
+    utils.call_info()
 
 elif action == 'open_link':
 
@@ -390,11 +394,11 @@ elif action == 'force':
 
 elif action == 'dmca':
 
-    tools.dmca()
+    utils.dmca()
 
 elif action == 'pp':
 
-    tools.pp()
+    utils.pp()
 
 elif action == 'system_info':
 
@@ -406,7 +410,7 @@ elif action == 'lang_choice':
 
 elif action == 'toggle_alt':
 
-    helpers.toggle_alt()
+    utils.toggle_alt()
 
 elif action == 'quit':
 
@@ -422,18 +426,18 @@ elif action == 'pvrsettings':
 
 elif action == 'activate_audio_addon':
 
-    helpers.activate_audio_addon(url, query=query)
+    utils.activate_audio_addon(url, query=query)
 
 elif action == 'welcome':
 
-    tools.welcome()
+    utils.welcome()
 
 elif action == 'kodi_log_upload':
 
-    helpers.kodi_log_upload()
+    utils.kodi_log_upload()
 
 
 # Always run:
 if __name__ == '__main__':
 
-    tools.checkpoint()
+    utils.checkpoint()
