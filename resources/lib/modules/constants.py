@@ -22,8 +22,8 @@ SCRAMBLE_2 = (
 )
 
 SCRAMBLE_3 = (
-    'eJwVy80OgiAAAOBXcZzLpaiwblmt2cHNXHlshoSm/AREWuvdm/fv+wJDiaYWrD2QR/sDZhdYMVq4gmPS3RVmaQkWHqhVd+3pNLNN9qnLKUV5Mwbbyv'
-    'XTTpywJiy4Ze+CjBVz/MjH87y6Zg4hQhhHME5gGC5lsNJtopUwLaY6gLEbkGjM00qH4pY9/Fop4zMp2UBfhmoihaXC+kRy8PsD58A5Rw=='
+    'eJwVy90KgjAYANBXkV2XlL+zOzUhTSIysTsZc4pm+/xZS43ePbw/54tGRgcm0EFByyfapyWRu865lzfeADTVw40TtFEQ6er8yeaVueFCktkPbZkeJy'
+    '8LPKLF/fmUR2IyLmDNewP8axasqy7WYGGMdVszsWkZ26bqoSeyrfWCtMzRuGbQQRSUUlnKAg8q6bpRrQCqlr1HNlDggnGhUnih3x/3kTk3'
 )
 
 SCRAMBLE_4 = (

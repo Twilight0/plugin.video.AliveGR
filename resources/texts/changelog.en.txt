@@ -1,4 +1,4 @@
-+ [B]2.5.X[/B] [COLOR green]04-12-2020 - 04-12-2020[/COLOR]
++ [B]2.5.X[/B] [COLOR green]04-12-2020 - 06-12-2020[/COLOR]
 - Reworked some modules
 - Added pagination function
 - Updated youtube api keys and tweaked its function for applying keys
