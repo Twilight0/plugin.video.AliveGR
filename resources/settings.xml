@@ -20,7 +20,8 @@
         <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="1"/>
         <setting id="show_clear_bookmarks" label="30309" type="bool" default="true"/>
         <setting id="paginate_items" label="30412" type="bool" default="true"/>
-        <setting id="pagination_integer" type="slider" label="30413" default="100" range="50,50,300" option="int" enable="eq(-1,true)"/>
+        <setting id="pagination_reset" label="30418" type="bool" default="false" enable="eq(-1,true)"/>
+        <setting id="pagination_integer" type="slider" label="30413" default="100" range="50,50,300" option="int" enable="eq(-2,true)"/>
 
     </category>
 
@@ -127,6 +128,8 @@
         <setting type="lsep" label="30251"/>
 
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
+        <setting id="keys_are_set" type="bool" label="API Keys toggler" default="false" visible="false"/>
+        <setting id="keys_choice" label="30417" type="select" values="0|1|2|3|4" default="0" visible="eq(-1,true)"/>
 
 <!--        <setting type="lsep" label="30018"/>-->
 
@@ -175,8 +178,6 @@
         <setting id="papers_group" label="Papers Group" type="text" default="0" visible="false"/>
         <setting id="last_check" label="Last update check" type="text" default="0" visible="false"/>
         <setting id="page" label="Page" type="text" default="0" visible="false"/>
-        <setting id="keys_are_set" type="bool" label="API Keys toggler" default="false" visible="false"/>
-        <setting id="keys_choice" label="Youtube keys" type="text" default="0" visible="false"/>
         <!--<setting id="bookmarks_group" label="Bookmarks Group" type="text" default="ALL" visible="false"/>-->
         <!--<setting id="ytdl_quality_picker" type="enum" label="30262" lvalues="30168|30169" default="0"/>-->
 

@@ -1143,9 +1143,15 @@ def page_selector(query):
     _choice = control.selectDialog(pages, heading=control.lang(30416))
 
     if _choice != -1:
+
         control.setSetting('page', str(_choice))
         control.sleep(200)
         control.refresh()
+
+        control.sleep(500)
+
+        if control.setting('pagination_reset'):
+            control.setSetting('page', '0')
 
 
 def page_menu(pages, reset=False):

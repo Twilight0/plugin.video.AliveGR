@@ -1405,3 +1405,11 @@ msgstr "Σελίδα {0}"
 msgctxt "#30416"
 msgid "Select a page"
 msgstr "Επιλογή σελίδας"
+
+msgctxt "#30417"
+msgid "Keys set #"
+msgstr "Α/α του σετ κλειδιών"
+
+msgctxt "#30418"
+msgid "Reset after every choice"
+msgstr "Μηδένισε μετά από κάθε επιλογή"

@@ -1409,3 +1409,11 @@ msgstr ""
 msgctxt "#30416"
 msgid "Select a page"
 msgstr ""
+
+msgctxt "#30417"
+msgid "Keys set #"
+msgstr ""
+
+msgctxt "#30418"
+msgid "Reset after every choice"
+msgstr ""
