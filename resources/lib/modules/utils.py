@@ -1148,9 +1148,8 @@ def page_selector(query):
         control.sleep(200)
         control.refresh()
 
-        control.sleep(500)
-
-        if control.setting('pagination_reset'):
+        if control.setting('pagination_reset') == 'true':
+            control.sleep(500)
             control.setSetting('page', '0')
 
 
