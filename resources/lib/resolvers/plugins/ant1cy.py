@@ -1,68 +1,65 @@
 # -*- coding: utf-8 -*-
+
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
 import re
-
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
-from streamlink.exceptions import NoStreamsError
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-class Ant1Cy(Plugin):
+class Ant1cy(ResolveUrl):
 
-    _url_re = re.compile(r'https?://w{3}\.ant1\.com\.cy/(?:web-tv-live|webtv/show-page/(?:episodes|episodeinner)/\?(?:show|showID)=\d+&episodeID=\d+)/?')
+    name = 'ant1gr'
+    domains = ['ant1.com.cy']
+    pattern = r'(?://|\.)(ant1\.com\.cy)/(?:webtv/show-page/(?:episodeinner|episodes)/\?show(?:ID)?=)?((?:\d+&episodeID=\d+|web-tv-live))'
 
-    _api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
+    def __init__(self):
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+        self.api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return cls._url_re.match(url)
+    def get_media_url(self, host, media_id):
 
-    def _get_streams(self):
+        headers = {'User-Agent': common.RAND_UA}
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
 
-        headers = {'User-Agent': CHROME}
+        if 'web-tv-live' in web_url:
 
-        if 'web-tv-live' in self.url:
-            live = True
-        else:
-            live = False
-            self.url = self.url.replace('episodeinner', 'episodes').replace('showID', 'show')
-
-        get_page = self.session.http.get(self.url, headers=headers)
-
-        if live:
-
-            tags = list(itertags(get_page.text, 'script'))
-
-            tag = [i for i in tags if 'm3u8' in i.text][0].text
-
-            m3u8 = re.search(r'''["'](http.+?\.m3u8)['"]''', tag)
+            m3u8 = re.search(r'''["'](http.+?\.m3u8)['"]''', res)
 
             if m3u8:
                 m3u8 = m3u8.group(1)
             else:
-                raise NoStreamsError('Ant1 CY Broadcast is currently disabled')
+                raise ResolverError('Ant1 CY Broadcast is currently disabled')
 
         else:
 
-            m3u8 = re.search(r"&quot;(http.+?master\.m3u8)&quot;", get_page.text).group(1)
+            try:
+                m3u8 = re.search(r"&quot;(http.+?master\.m3u8)&quot;", res).group(1)
+            except Exception:
+                raise ResolverError('Video not found')
 
-        stream = self.session.http.get(self._api_url.format(m3u8), headers=headers).text
+        stream = self.net.http_GET(self.api_url.format(m3u8), headers=headers).content
 
-        headers.update({"Referer": self.url})
+        return stream + helpers.append_headers(headers)
 
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
+    def get_url(self, host, media_id):
 
-        if parse_hls:
-            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        if 'web-tv-live' in media_id:
+
+            return self._default_get_url(host, media_id, template='https://www.{host}/{media_id}/')
+
         else:
-            return dict(stream=HTTPStream(self.session, stream, headers=headers))
 
+            show_id, episodeid = re.search(r'(\d+)&episodeID=(\d+)', media_id).groups()
 
-__plugin__ = Ant1Cy
+            template = 'https://www.{0}/webtv/show-page/episodes/?show={1}&episodeID={2}'.format(host, show_id, episodeid)
+
+            return self._default_get_url(host, media_id, template=template)

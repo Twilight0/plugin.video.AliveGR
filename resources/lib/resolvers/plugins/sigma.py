@@ -1,52 +1,49 @@
 # -*- coding: utf-8 -*-
+
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
 import re
-
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-_url_re = re.compile(r"""https?://www\.sigmatv\.com/(?:live|webtv|shows)(?:/view/\d+|/[\w-]+/episodes/\w+)?""")
+class Sigma(ResolveUrl):
 
+    name = 'sigmatv'
+    domains = ['sigmatv.com']
+    pattern = r'(?://|\.)(sigmatv\.com)/((?:webtv|shows|live)/?.*)'
 
-class Sigma(Plugin):
+    def get_media_url(self, host, media_id):
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+        headers = {'User-Agent': common.RAND_UA}
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return _url_re.match(url)
-
-    def _get_streams(self):
-
-        headers = {'User-Agent': CHROME}
-
-        res = self.session.http.get(self.url, headers=headers)
-
-        if 'page/live' in self.url:
-            stream = ''.join(['https:', [i for i in list(itertags(res.text, 'source'))][0].attributes['src']])
-            live = True
-        else:
-            stream = [(i.attributes['type'], ''.join(['https:', i.attributes['src']])) for i in list(itertags(res.text, 'source'))[:-1]]
-            live = False
-
-        headers.update({"Referer": self.url})
-
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
-
-        if live:
-            if parse_hls:
-                yield HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        if media_id == 'live':
+            stream = re.search(r'''application/x-mpegurl" src="(.+\.m3u8)"''', res)
+            if stream:
+                stream = ''.join(['https:', stream.group(1)])
             else:
-                yield dict(live=HTTPStream(self.session, stream, headers=headers))
+                raise ResolverError('Live stream not found')
         else:
-            for q, s in stream:
-                yield q, HTTPStream(self.session, s, headers=headers)
+            stream = re.search(r'''type="video/mp4" src="(//.+\.mp4)"''', res)
 
+            if stream:
+                stream = stream.group(1)
+            elif 'You are not allowed to view this content' in res:
+                raise ResolverError('Source website does not allow this content to be played')
+            else:
+                raise ResolverError('Video not found')
 
-__plugin__ = Sigma
+        return stream + helpers.append_headers(headers)
+
+    def get_url(self, host, media_id):
+
+        return self._default_get_url(host, media_id, template='http://{host}/{media_id}')

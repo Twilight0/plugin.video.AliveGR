@@ -385,7 +385,6 @@ class Indexer:
             log_debug('Listing section failed to load, try resetting indexer methods')
             return
 
-
         log_debug('Listing function loaded: ' + repr(self.list))
 
         if url.startswith(MOVIES) and control.setting('show_cartoons') == 'false' and url != ''.join([GM_BASE, 'movies.php?g=8&y=&l=&p=']):
@@ -397,20 +396,21 @@ class Indexer:
 
             self.list = [i for i in self.list if i['url'] not in bl_urls]
 
-        if url.startswith((MOVIES, THEATER, SHORTFILMS, PERSON)):
+        for item in self.list:
 
-            for item in self.list:
-
+            if url.startswith(
+                    (
+                            MOVIES, THEATER, SHORTFILMS, PERSON, SEARCH
+                    )
+            ) and item['url'].startswith(
+                (
+                        MOVIES, THEATER, SHORTFILMS, PERSON
+                )
+            ):
                 item.update({'action': 'play', 'isFolder': 'False'})
-
-        elif url.startswith(SPORTS):
-
-            for item in self.list:
+            elif url.startswith(SPORTS):
                 item.update({'action': 'events'})
-
-        else:
-
-            for item in self.list:
+            else:
                 item.update({'action': 'episodes'})
 
         for item in self.list:

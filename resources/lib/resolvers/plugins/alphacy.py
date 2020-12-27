@@ -1,56 +1,40 @@
 # -*- coding: utf-8 -*-
+
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
 import re
-
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.compat import urlparse
-from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-_url_re = re.compile(r"""https?://(?:www\.)?alphacyprus\.com\.cy/(?:page|shows|live)(?:/(?:all|entertainment|ellinikes-seires|informative|news)(?:/[\w-]+/webtv/[\w-]+)?)?""")
+class AlphaCY(ResolveUrl):
 
+    name = 'alphacy'
+    domains = ['alphacyprus.com.cy']
+    pattern = r'(?://|\.)(alphacyprus\.com\.cy)/((?:page|shows|live)(?:/(?:all|entertainment|ellinikes-seires|informative|news)(?:/[\w-]+/webtv/[\w-]+)?)?)'
 
-class AlphaCy(Plugin):
+    def get_media_url(self, host, media_id):
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+        headers = {'User-Agent': common.RAND_UA}
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return _url_re.match(url)
-
-    def _get_streams(self):
-
-        headers = {'User-Agent': CHROME}
-
-        res = self.session.http.get(self.url, headers=headers, verify=False)
-
-        if urlparse(self.url).path == '/live':
-            stream = [i for i in list(itertags(res.text, 'script')) if "hls" in i.text]
-            try:
-                stream = re.search(r'''['"](http.+?)['"]''', stream[0].text).group(1)
-            except Exception:
-                stream = None
-            live = True
-        else:
-            stream = [i for i in list(itertags(res.text, 'a')) if "mp4" in i.attributes.get('href', '')]
-            stream = stream[0].attributes.get('href')
-            live = False
-
-        headers.update({"Referer": self.url})
-
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
+        stream = re.search(r'''['"](http.+(?:mp4|m3u8.+))['"]''', res)
 
         if stream:
+            stream = stream.group(1)
+        else:
+            raise ResolverError('Video not found')
 
-            if parse_hls and live:
-                return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
-            else:
-                return dict(vod=HTTPStream(self.session, stream, headers=headers))
+        return stream + helpers.append_headers(headers)
 
+    def get_url(self, host, media_id):
 
-__plugin__ = AlphaCy
+        return self._default_get_url(host, media_id, template='https://www.{host}/{media_id}')

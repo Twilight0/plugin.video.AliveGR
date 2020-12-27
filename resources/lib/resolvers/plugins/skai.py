@@ -1,58 +1,61 @@
 # -*- coding: utf-8 -*-
+
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
 import re, json
-
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-class SkaiGr(Plugin):
+class Skai(ResolveUrl):
 
-    _url_re = re.compile(r'https?://www\.skai(?:tv)?\.gr/(?:episode|videos|live)/?(?:\S+|\w+/[\w-]+/[\d-]+)?')
-    _player_url = 'http://videostream.skai.gr/'
+    name = 'skai'
+    domains = ['skai.gr', 'skaitv.gr']
+    pattern = r'(?://|\.)(skai(?:tv)?\.gr)/((?:live|episode|videos).*)'
+    player_url = 'http://videostream.skai.gr/'
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+    def get_media_url(self, host, media_id):
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return cls._url_re.match(url)
+        headers = {'User-Agent': common.RAND_UA}
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
 
-    def _get_streams(self):
+        if media_id == 'live':
 
-        headers = {'User-Agent': CHROME}
+            stream = re.search(r'livestream":"(https.+?)"', res)
 
-        res = self.session.http.get(self.url, headers=headers)
-
-        if '/videos' not in self.url:
-
-            json_ = re.search(r'var data = ({.+?});', res.text).group(1)
-
-            json_ = json.loads(json_)
-
-            if '/live' not in self.url:
-                stream = ''.join([self._player_url, json_['episode'][0]['media_item_file'], '.m3u8'])
+            if stream:
+                stream = stream.group(1).replace('\\', '')
             else:
-                stream = json_['now']['livestream']
+                raise ResolverError('Stream not found')
+
+        elif 'videos' not in media_id:
+
+            data = re.search(r'var data = ({.+?});', res)
+            if not data:
+                raise ResolverError('Stream not found')
+            else:
+                json_ = json.loads(data.group(1))
+                stream = ''.join([self.player_url, json_['episode'][0]['media_item_file'], '.m3u8'])
 
         else:
 
-            stream = [
-                i for i in list(itertags(res.text, 'meta')) if 'videostream' in i.attributes.get('content', '')
-            ][0].attributes.get('content')
+            stream = re.search(r'"og:video" content=" ?(https://videostream\.skai\.gr/.+\.mp4\.m3u8)"', res)
 
-        headers.update({"Referer": self.url})
+            if stream:
+                stream = stream.group(1)
+            else:
+                raise ResolverError('Stream not found')
 
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
+        return stream + helpers.append_headers(headers)
 
-        if parse_hls:
-            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
-        else:
-            return dict(vod=HTTPStream(self.session, stream, headers=headers))
+    def get_url(self, host, media_id):
 
-
-__plugin__ = SkaiGr
+        return self._default_get_url(host, media_id, template='https://www.{host}/{media_id}')

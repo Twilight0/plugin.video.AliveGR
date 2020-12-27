@@ -1,73 +1,66 @@
 # -*- coding: utf-8 -*-
-import re, json
 
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
+import re
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-_url_re = re.compile(r"""https?://www\.alphatv\.gr/(?:live|show|web-tv|news)/(?:[\w-]+/(?:[\w-]+)/)?\??(?:\d+/[\w-]+/|vtype=player&vid=(?P<vid>\d+)&showId=(?P<show_id>\d+)(?:&year=(?P<year>\d{4}))?)?""")
-_api_url = 'https://www.alphatv.gr/ajax/Isobar.AlphaTv.Components.PopUpVideo.PopUpVideo.PlayMedia/?vid={vid}&showId={show_id}'
+class AlphaGR(ResolveUrl):
 
-class AlphaGr(Plugin):
+    name = 'alphagr'
+    domains = ['alphatv.gr']
+    pattern = r'(?://|\.)(alphatv\.gr)/(?:show/[\w-]+/(?:[\w-]+)?/\?vtype=player&vid=)?(news/.+|\d+&showId=\d+&year=\d{4}|live)'
+    api_url = 'https://www.alphatv.gr/ajax/Isobar.AlphaTv.Components.PopUpVideo.PopUpVideo.PlayMedia/?vid={vid}&showId={show_id}&year={year}'
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+    def get_media_url(self, host, media_id):
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return _url_re.match(url)
+        headers = {'User-Agent': common.RAND_UA}
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
 
-    def _get_streams(self):
+        if media_id == 'live':
 
-        headers = {'User-Agent': CHROME}
-        live = False
+            stream = re.search(r'data-liveurl="(https.+m3u8)"', res)
 
-        res = self.session.http.get(self.url, headers=headers)
+            if stream:
+                stream = stream.group(1)
+            else:
+                raise ResolverError('Live stream not found')
 
-        if '/live' in self.url:
-            stream = [i for i in list(itertags(res.text, 'div')) if 'data-liveurl' in i.attributes]
-            stream = stream[0].attributes['data-liveurl']
-            live = True
         else:
-            if 'vtype' in self.url:
-                vid = _url_re.match(self.url).group('vid')
-                show_id = _url_re.match(self.url).group('show_id')
-                res = self.session.http.get(_api_url.format(vid=vid, show_id=show_id), headers=headers)
-            vid = [i for i in list(itertags(res.text, 'div')) if 'data-plugin-player' in i.attributes][0].attributes['data-plugin-player']
-            try:
-                stream = json.loads(self._replace_html_codes(vid.decode('utf-8')))['Url']
-            except Exception:
-                stream = json.loads(self._replace_html_codes(vid))['Url']
 
-        headers.update({"Referer": self.url})
+            stream = re.search(r'(https.+mp4.+?)&quot', res)
 
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
+            if stream:
+                stream = stream.group(1)
+            else:
+                raise ResolverError('Video not found')
 
-        if parse_hls and live:
-            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        return stream + helpers.append_headers(headers)
+
+    def get_url(self, host, media_id):
+
+        if media_id == 'live':
+
+            return self._default_get_url(host, media_id, template='https://www.{host}/{media_id}/')
+
+        elif 'news' in media_id:
+
+            return self._default_get_url(host, media_id, template='https://www.{host}/{media_id}')
+
         else:
-            return dict(stream=HTTPStream(self.session, stream, headers=headers))
 
-    def _replace_html_codes(self, txt):
+            vid, show_id, year = re.search(r'(\d+)&showId=(\d+)&year=(\d{4})', media_id).groups()
 
-        try:
-            from HTMLParser import HTMLParser
-            unescape = HTMLParser().unescape
-        except Exception:
-            from html import unescape
+            template = self.api_url.format(vid=vid, show_id=show_id, year=year)
 
-        txt = re.sub("(&#[0-9]+)([^;^0-9]+)", "\\1;\\2", txt)
-        txt = unescape(txt)
-        txt = txt.replace("&quot;", "\"")
-        txt = txt.replace("&amp;", "&")
-        txt = txt.replace("&#38;", "&")
-        txt = txt.replace("&nbsp;", "")
-
-        return txt
-
-__plugin__ = AlphaGr
+            return self._default_get_url(host, media_id, template=template)

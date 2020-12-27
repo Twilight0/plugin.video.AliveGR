@@ -1,67 +1,117 @@
 # -*- coding: utf-8 -*-
-import re, json
 
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
+import json
+import re
+from six.moves import urllib_request, urllib_error
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-class Ert(Plugin):
+class Ert(ResolveUrl):
 
-    _url_re = re.compile(r'https?://(?:webtv|archive|www)\.ert(?:flix)?\.gr/(?:\d+/|\w+-live/|[\w-]+/[\w-]+/[\w-]+/)')
+    name = 'ert'
+    domains = ['webtv.ert.gr', 'www.ertflix.gr', 'archive.ert.gr']
+    pattern = r'//((?:www|archive|webtv)\.ert(?:flix)?\.gr)/(.+)'
 
-    arguments = PluginArguments(
-        PluginArgument("parse_hls", default='true'), PluginArgument("force_gr_stream", default='false')
-    )
+    def get_media_url(self, host, media_id):
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return cls._url_re.match(url)
+        headers = {'User-Agent': common.RAND_UA}
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
+        iframe = re.search(r'''iframe src=['"](https.+?)['"]''', res)
 
-    def _get_streams(self):
-
-        headers = {'User-Agent': CHROME}
-
-        res = self.session.http.get(self.url, headers=headers)
-
-        iframe = list(itertags(res.text, 'iframe'))[0].attributes['src']
-
-        res = self.session.http.get(iframe, headers=headers)
-        streams = re.findall(r'var (?:HLSLink|stream)(?:ww)?\s+=\s+[\'"](.+?)[\'"]', res.text)
-
-        try:
-            force_gr = bool(strtobool(self.get_option('force_gr_stream')))
-        except AttributeError:
-            force_gr = True
-
-        if (len(streams) == 2 and self._geo_detect()) or force_gr:
-            stream = streams[0]
+        if not iframe:
+            raise ResolverError('Video not found')
         else:
-            stream = streams[-1]
+            iframe = iframe.group(1)
 
-        headers.update({"Referer": self.url})
+        html = self.net.http_GET(iframe, headers=headers).content
+        streams = re.findall(r'''(?:HLSLink|var stream(?:ww)?) = ['"](https.+)['"]''', html)
 
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
+        if not streams:
+            raise ResolverError('Error in searching urls from within the html')
 
-        if parse_hls:
-            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        if '-live' in media_id:
+
+            if self._geo_detect():
+                stream = [i for i in streams if 'ww' not in i][0]
+            else:
+                stream = [i for i in streams if 'ww' in i][0]
+
+            return stream + helpers.append_headers(headers)
+
         else:
-            return dict(vod=HTTPStream(self.session, stream, headers=headers))
 
+            if len(streams) >= 2:
+
+                url = [s for s in streams if 'dvrorigingr' in s or 'archive' in s][0]
+
+                try:
+                    video_ok = self._test_stream(url)
+                except Exception:
+                    video_ok = None
+
+                if video_ok:
+
+                    return url + helpers.append_headers(headers)
+
+                else:
+
+                    url = [s for s in streams if 'dvrorigin' in s][0]
+
+                    return url + helpers.append_headers(headers)
+
+            else:
+
+                return streams[0] + helpers.append_headers(headers)
+
+    def get_url(self, host, media_id):
+
+        return self._default_get_url(host, media_id, 'https://{host}/{media_id}')
+
+    @common.cache.cache_method(cache_limit=24)
     def _geo_detect(self):
 
-        _json = self.session.http.get('https://geoip.siliconweb.com/geo.json').text
+        _json = self.net.http_GET('https://geoip.siliconweb.com/geo.json').content
 
         _json = json.loads(_json)
 
         if 'GR' in _json['country']:
             return True
 
+    def _test_stream(self, url):
 
-__plugin__ = Ert
+        try:
+            request = urllib_request.Request(url)
+            request.get_method = lambda: 'HEAD'
+            http_code = urllib_request.urlopen(request, timeout=15).getcode()
+        except urllib_error.HTTPError as e:
+            if isinstance(e, urllib_error.HTTPError):
+                http_code = e.code
+                if http_code == 405:
+                    http_code = 200
+            else:
+                http_code = 600
+        except urllib_error.URLError as e:
+            http_code = 500
+            if hasattr(e, 'reason'):
+                if 'unknown url type' in str(e.reason).lower():
+                    return True
+
+        except Exception as e:
+            http_code = 601
+            msg = str(e)
+            if msg == "''":
+                http_code = 504
+
+        return int(http_code) < 400 or int(http_code) == 504
 

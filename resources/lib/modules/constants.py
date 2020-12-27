@@ -71,3 +71,16 @@ PINNED = join(dataPath, 'pinned.txt')
 ########################################################################################################################
 
 CACHE_DEBUG = setting('do_not_use_cache') == 'true' and setting('debug') == 'true'
+SEPARATOR = ' - ' if setting('wrap_labels') == '1' else '[CR]'
+
+
+def HOSTS(url):
+
+    _hosts = [
+        'dailymotion' in url, 'ant1.com.cy' in url, 'netwix.gr' in url, 'tvopen.gr' in url,
+        'euronews.com' in url, 'alphatv.gr' in url, 'alphacyprus.com.cy' in url, 'sigmatv.com' in url,
+        'antenna.gr' in url, 'star.gr/tv/' in url, 'cybc.com.cy' in url, 'omegatv' in url and 'live' in url,
+        'skaitv.gr' in url, 'kineskop.tv' in url, 'webtv.ert.gr' in url, 'ok.ru' in url, 'ertflix.gr' in url
+    ]
+
+    return any(_hosts)

@@ -679,7 +679,7 @@ msgid "Enable local proxy module"
 msgstr ""
 
 msgctxt "#30167"
-msgid "Streamlink"
+msgid ""
 msgstr ""
 
 msgctxt "#30168"
@@ -1071,7 +1071,7 @@ msgid "Switch to zapping mode"
 msgstr ""
 
 msgctxt "#30294"
-msgid "[COLOR white]Streamlink version:[/COLOR]{0}[COLOR gray]{1}[/COLOR]"
+msgid ""
 msgstr ""
 
 msgctxt "#30295"
@@ -1251,7 +1251,7 @@ msgid "Done"
 msgstr ""
 
 msgctxt "#30339"
-msgid "ResolveURL has already been activated"
+msgid ""
 msgstr ""
 
 msgctxt "#30340"
@@ -1291,7 +1291,7 @@ msgid "Do you want to delete the settings.xml file?"
 msgstr ""
 
 msgctxt "#30349"
-msgid "ResolveURL is not enabled. Do you to enabled it now?"
+msgid ""
 msgstr ""
 
 msgctxt "#30350"

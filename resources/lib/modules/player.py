@@ -11,14 +11,10 @@ from __future__ import absolute_import, unicode_literals
 
 import re
 
-from tulip.compat import urljoin, parse_qsl, OrderedDict, zip, urlsplit, urlparse, urlencode
+from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode
 
-try:
-    from resolveurl import resolve as resolve_url
-    from resolveurl.hmf import HostedMediaFile
-except Exception:
-    resolve_url = None
-    HostedMediaFile = None
+from resolveurl import add_plugin_dirs, resolve as resolve_url
+from resolveurl.hmf import HostedMediaFile
 
 from random import shuffle, choice as random_choice
 from tulip import directory, client, cache, control, youtube as tulip_youtube
@@ -27,18 +23,18 @@ from tulip.log import log_debug
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..indexers.kids import BASE_LINK_GK
-from ..resolvers import various, youtube, stream_link
+from ..resolvers import common, youtube
 from .kodi import prevent_failure
-from .constants import YT_URL, CACHE_DEBUG
-from .utils import m3u8_picker, thgiliwt, api_keys
+from .constants import YT_URL, CACHE_DEBUG, HOSTS, SEPARATOR
+from .utils import m3u8_picker, api_keys
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 
 
 skip_directory = False
-SEPARATOR = ' - ' if control.setting('wrap_labels') == '1' else '[CR]'
-
 
 def conditionals(url):
+
+    add_plugin_dirs(control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'plugins'))
 
     def yt(uri):
 
@@ -94,9 +90,9 @@ def conditionals(url):
 
         try:
             if CACHE_DEBUG:
-                hosts, urls = various.iptv(urlsplit(url).netloc)
+                hosts, urls = common.iptv(urlsplit(url).netloc)
             else:
-                hosts, urls = cache.get(various.iptv, 2, urlsplit(url).netloc)
+                hosts, urls = cache.get(common.iptv, 2, urlsplit(url).netloc)
         except Exception:
             return
 
@@ -104,21 +100,17 @@ def conditionals(url):
 
         return stream
 
-    elif stream_link.StreamLink(url).hosts:
+    elif HOSTS(url) and HostedMediaFile(url).valid_url():
 
-        stream = stream_link.StreamLink(url).passthrough()
-
-        log_debug('Attempting to resolve with streamlink')
+        stream = resolve_url(url)
 
         return stream
 
-    elif HostedMediaFile is not None and HostedMediaFile(url).valid_url():
+    elif HostedMediaFile(url).valid_url():
 
         if control.setting('show_alt_vod') == 'true':
 
             stream = resolve_url(url)
-
-            log_debug('Attempting to resolve with resolveurl')
 
             return stream
 
@@ -126,28 +118,6 @@ def conditionals(url):
 
             control.infoDialog(control.lang(30354), time=5000)
             return 'https://static.adman.gr/inpage/blank.mp4'
-
-    elif 'periscope' in url and 'search' in url:
-
-        if CACHE_DEBUG:
-            stream = stream_link.StreamLink(various.periscope_search(url)).passthrough()
-        else:
-            stream = stream_link.StreamLink(cache.get(various.periscope_search, 6, url)).passthrough()
-
-        return stream
-
-    elif 'rise.gr' in url:
-
-        if CACHE_DEBUG:
-            link = various.risegr(url)
-        else:
-            link = cache.get(various.risegr, 24, url)
-
-        stream = stream_link.StreamLink(link).passthrough()
-
-        log_debug('Attempting to resolve with streamlink')
-
-        return stream
 
     else:
 
@@ -509,25 +479,17 @@ def player(url, params):
         else:
             plot = cache.get(source_maker, 6, url).get('plot')
 
-    if isinstance(stream, OrderedDict):
+    dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
 
-        stream = stream_link.stream_processor(stream)
+    if not m3u8_dash and control.setting('m3u8_quality_picker') == '1' and '.m3u8' in stream:
 
-        dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
+        try:
 
-    else:
+            stream = m3u8_picker(stream)
 
-        dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
+        except TypeError:
 
-        if not m3u8_dash and control.setting('m3u8_quality_picker') == '1' and '.m3u8' in stream:
-
-            try:
-
-                stream = m3u8_picker(stream)
-
-            except TypeError:
-
-                pass
+            pass
 
     if stream != url:
 

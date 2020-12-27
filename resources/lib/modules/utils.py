@@ -14,7 +14,7 @@ import pyxbmct, re, json
 from tulip import control, client, cache, m3u8
 from tulip.compat import parse_qsl
 from tulip.log import log_debug
-from .kodi import skin_name, force as force_, rurl_enable
+from .kodi import skin_name, force as force_
 from .themes import iconname
 from .constants import FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5
 from os import path
@@ -160,7 +160,6 @@ def toggle_alt():
             if yes:
 
                 control.setSetting('show_alt_vod', 'true')
-                rurl_enable()
 
         else:
 
@@ -1149,7 +1148,8 @@ def page_selector(query):
         control.refresh()
 
         if control.setting('pagination_reset') == 'true':
-            control.sleep(500)
+            # wait a second in order to ensure container is first loaded then reset the page
+            control.sleep(1000)
             control.setSetting('page', '0')
 
 

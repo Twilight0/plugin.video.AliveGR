@@ -242,50 +242,6 @@ def rtmp_enable():
         control.infoDialog(control.lang(30279))
 
 
-def rurl_enable():
-
-    try:
-
-        enabled = control.addon_details('script.module.resolveurl').get('enabled')
-
-    except Exception:
-
-        enabled = False
-
-    try:
-
-        if enabled:
-
-            control.infoDialog(
-                control.lang(30339), icon=control.addon('script.module.resolveurl').getAddonInfo('icon'), time=5000
-            )
-
-            return
-
-        else:
-
-            home_path = control.join('special://home', 'addons', 'script.module.resolveurl')
-
-            if path.exists(control.transPath(home_path)):
-
-                yes = control.yesnoDialog(control.lang(30349))
-
-                if yes:
-
-                    control.enable_addon('script.module.resolveurl')
-                    control.infoDialog(control.lang(30402))
-
-            else:
-
-                control.execute('InstallAddon(script.module.resolveurl)')
-
-            control.infoDialog(control.lang(30402))
-
-    except Exception:
-
-        control.infoDialog(control.lang(30411))
-
-
 def force():
 
     control.execute('UpdateAddonRepos')

@@ -679,8 +679,8 @@ msgid "Enable local proxy module"
 msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
 
 msgctxt "#30167"
-msgid "Streamlink"
-msgstr "Streamlink"
+msgid ""
+msgstr ""
 
 msgctxt "#30168"
 msgid "Best"
@@ -1071,8 +1071,8 @@ msgid "Switch to zapping mode"
 msgstr "Αλλαγή σε λειτουργία ζάπινγκ"
 
 msgctxt "#30294"
-msgid "[COLOR white]Streamlink version:[/COLOR]{0}[COLOR gray]{1}[/COLOR]"
-msgstr "[COLOR white]Streamlink έκδοση:[/COLOR]{0}[COLOR gray]{1}[/COLOR]"
+msgid ""
+msgstr ""
 
 msgctxt "#30295"
 msgid "[COLOR white][B]Toggle Debug[/B][/COLOR]"
@@ -1251,8 +1251,8 @@ msgid "Done"
 msgstr "Έγινε"
 
 msgctxt "#30339"
-msgid "ResolveURL has already been activated"
-msgstr "Το πρόσθετο ResolveURL είναι ήδη ενεργοποιημένο"
+msgid ""
+msgstr ""
 
 msgctxt "#30340"
 msgid "View changelog"
@@ -1291,8 +1291,8 @@ msgid "Do you want to delete the settings.xml file?"
 msgstr "Θέλετε να διαγράψετε το αρχείο settings.xml;"
 
 msgctxt "#30349"
-msgid "ResolveURL is not enabled. Do you to enabled it now?"
-msgstr "Το πρόσθετο ResolveURL δεν είναι ενεργοποιημένο. Ενεργοποίηση τώρα;"
+msgid ""
+msgstr ""
 
 msgctxt "#30350"
 msgid "Unofficial streams menu"

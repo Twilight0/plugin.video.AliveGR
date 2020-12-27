@@ -1,49 +1,45 @@
 # -*- coding: utf-8 -*-
-import re, json
 
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArgument, PluginArguments
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.plugin.api.useragents import CHROME
-from streamlink.plugin.api.utils import itertags
-from streamlink.compat import urlencode
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
+import re
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
 
 
-class OmegaCy(Plugin):
+class OmegaCY(ResolveUrl):
 
-    _url_re = re.compile(r'https?://www\.omegatv\.com\.cy/live/')
+    name = 'omegacy'
+    domains = ['omegatv.com.cy']
+    pattern = r'(?://|\.)(omegatv\.com\.cy)/(.+)'
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+    def get_media_url(self, host, media_id):
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return cls._url_re.match(url)
+        headers = {'User-Agent': common.RAND_UA}
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
 
-    def _get_streams(self):
-
-        headers = {'User-Agent': CHROME}
-
-        cookie = urlencode(dict(self.session.http.head(self.url, headers={'User-Agent': CHROME}).cookies.items()))
-        headers.update({'Cookie': cookie})
-        res = self.session.http.get(self.url, headers=headers)
-        tags = list(itertags(res.text, 'script'))
-
-        text = [i for i in tags if 'OmegaTvLive' in i.text][0].text
-
-        stream = json.loads(re.search('({.+})', text).group(1))['video']['source']['src']
-
-        headers.update({"Referer": self.url})
-        del headers['Cookie']
-
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
-
-        if parse_hls:
-            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        if media_id == 'live/':
+            stream = re.search(r'''['"]src['"]: ['"](.+m3u8.+)['"]''', res)
         else:
-            return dict(live=HTTPStream(self.session, stream, headers=headers))
+            iframe = re.search(r'''iframe.+"(.+LiveMediaPlayer.+)"''', res).group(1)
+            html = self.net.http_GET(iframe, headers=headers).content
+            stream = re.search(r"file: '(http://.+?\.mp4.+?)'", html)
 
+        if stream:
+            stream = stream.group(1)
+        else:
+            raise ResolverError('Video not found')
 
-__plugin__ = OmegaCy
+        return stream + helpers.append_headers(headers)
+
+    def get_url(self, host, media_id):
+
+        return self._default_get_url(host, media_id, template='http://www.{host}/{media_id}')

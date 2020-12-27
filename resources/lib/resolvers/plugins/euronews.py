@@ -1,76 +1,68 @@
 # -*- coding: utf-8 -*-
-import re
 
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.plugin.api import validate
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.utils.url import update_scheme
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
+import re, json
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl, ResolverError
+
+_subdomains = ['gr', 'www', 'fr', 'de', 'it', 'es', 'pt', 'ru', 'tr', 'hu', 'per', 'arabic']
+_domains = ['.'.join([i, 'euronews.com']) for i in _subdomains]
 
 
-class Euronews(Plugin):
+class Euronews(ResolveUrl):
 
-    _url_re = re.compile(r'(?P<scheme>https?)://(?P<subdomain>\w+)\.?euronews.com/(?P<path>live|.*)')
-    _re_vod = re.compile(r'<meta\s+property="og:video"\s+content="(http.*?)"\s*/>')
-    _live_api_url = "http://{0}.euronews.com/api/watchlive.json"
-    _live_schema = validate.Schema({
-        u"url": validate.url()
-    })
-    _stream_api_schema = validate.Schema({
-        u'status': u'ok',
-        u'primary': validate.url(),
-        validate.optional(u'backup'): validate.url()
-    })
+    name = 'euronews'
+    domains = _domains + ['www.euronews.al']
+    pattern = r'(\w{2,6}\.euronews\.com)/(?P<path>live|.*)'
+    re_vod = re.compile(r'(?:<meta\s+property="og:video"\s+content="(?P<url>http.*?)"\s*/>|youtubevideoid\\":\\"(?P<id>[\w-]{11})\\")')
+    live_api_url = "http://{0}/api/watchlive.json"
+    headers = {'User-Agent': common.RAND_UA}
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+    def get_media_url(self, host, media_id):
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return cls._url_re.match(url)
+        web_url = self.get_url(host, media_id)
 
-    def _get_vod_stream(self):
-        """
-        Find the VOD video url
-        :return: video url
-        """
-        res = self.session.http.get(self.url)
-        video_urls = self._re_vod.findall(res.text)
-        if len(video_urls):
-            return dict(vod=HTTPStream(self.session, video_urls[0]))
-
-    def _get_live_streams(self, match):
-        """
-        Get the live stream in a particular language
-        :param match:
-        :return:
-        """
-        live_url = self._live_api_url.format(match.get("subdomain"))
-        live_res = self.session.http.json(self.session.http.get(live_url), schema=self._live_schema)
-
-        api_url = update_scheme("{0}:///".format(match.get("scheme")), live_res["url"])
-        api_res = self.session.http.json(self.session.http.get(api_url), schema=self._stream_api_schema)
-
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
-
-        if parse_hls:
-            return HLSStream.parse_variant_playlist(self.session, api_res["primary"])
+        if media_id == 'live':
+            stream = self._get_live_streams(host)
+            if not stream:
+                raise ResolverError('Live stream is probably geoblocked in your region')
+            else:
+                return stream + helpers.append_headers(self.headers)
         else:
-            return dict(stream=HTTPStream(self.session, api_res["primary"]))
+            res = self.net.http_GET(web_url).content
+            stream = self.re_vod.search(res)
 
-    def _get_streams(self):
-        """
-        Find the streams for euronews
-        :return:
-        """
-        match = self._url_re.match(self.url).groupdict()
+            if stream.group('url'):
+                stream = stream.group('url')
+                return stream + helpers.append_headers(self.headers)
+            elif stream.group('id'):
+                stream = stream.group('id')
+                return 'plugin://plugin.video.youtube/play/?video_id={}'.format(stream)
+            else:
+                raise ResolverError('This video is probably geoblocked in your region')
 
-        if match.get("path") == "live":
-            return self._get_live_streams(match)
+    def _get_live_streams(self, host):
+
+        live_url = self.live_api_url.format(host)
+        live_res = self.net.http_GET(live_url, headers=self.headers).content
+        _json = json.loads(live_res)
+        live_res = self.net.http_GET(''.join(['https:', _json.get('url')]), headers=self.headers).content
+        _json = json.loads(live_res)
+        if _json.get('status') == 'ko':
+            return False
+        elif _json.get('status') == 'ok':
+            return _json.get('primary')
         else:
-            return self._get_vod_stream()
+            raise ResolverError('Unknown error occured')
 
+    def get_url(self, host, media_id):
 
-__plugin__ = Euronews
+        return self._default_get_url(host, media_id, template='https://{host}/{media_id}')

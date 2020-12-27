@@ -1,63 +1,49 @@
 # -*- coding: utf-8 -*-
+
+'''
+    AliveGR Addon
+    Author Twilight0
+
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
+'''
+
+import json
 import re
-
-from streamlink.compat import urljoin
-from distutils.util import strtobool
-from streamlink.plugin import Plugin, PluginArguments, PluginArgument
-from streamlink.stream import HLSStream, HTTPStream
-from streamlink.plugin.api.useragents import CHROME
+from six.moves.urllib_parse import urljoin
+from resolveurl import common
+from resolveurl.plugins.lib import helpers
+from resolveurl.resolver import ResolveUrl
 
 
-class Ant1Gr(Plugin):
+class Ant1gr(ResolveUrl):
 
-    _url_re = re.compile(r'(?P<scheme>https?)://www\.(?P<domain>antenna|netwix)\.gr/(?P<path>Live|watch)(?:/\d+/[\w-]+)?')
+    name = 'ant1gr'
+    domains = ['antenna.gr', 'netwix.gr']
+    pattern = r'(?://|\.)((?:antenna|netwix)\.gr)/(?:watch|embed)?/?(\d+|Live)'
 
-    _param_re = re.compile(r"\$.getJSON\(\'(?P<param>.+?)[?'](?:.+?cid: '(?P<id>\d+)')?")
-    _base_link = '{0}://www.{1}.gr'
+    def get_media_url(self, host, media_id):
 
-    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
+        headers = {'User-Agent': common.RAND_UA}
 
-    @classmethod
-    def can_handle_url(cls, url):
-        return cls._url_re.match(url)
-
-    def _get_streams(self):
-
-        headers = {'User-Agent': CHROME}
-
-        if self.url.endswith('/Live'):
-            live = True
-        else:
-            live = False
-
-        res = self.session.http.get(self.url, headers=headers)
-
-        match = self._param_re.search(res.text)
-        domain = self._url_re.match(self.url).group('domain')
-        scheme = self._url_re.match(self.url).group('scheme')
-
+        base_link = 'http://www.{0}'.format(host)
+        web_url = self.get_url(host, media_id)
+        res = self.net.http_GET(web_url, headers=headers).content
+        param_re = re.compile(r"\$.getJSON\(\'(?P<param>.+?)[?'](?:.+?cid: '(?P<id>\d+)')?")
+        match = param_re.search(res)
         param = match.group('param')
+        param = '?'.join([param, 'cid={0}'.format(match.group('id'))])
 
-        if not live:
-            param = '?'.join([param, 'cid={0}'.format(match.group('id'))])
+        _url = urljoin(base_link, param)
+        if 'antenna.gr' in _url:
+            _url = _url.replace('http', 'https')
+        _json = json.loads(self.net.http_GET(_url, headers=headers).content)
+        stream = _json.get('url')
 
-        _json_url = urljoin(self._base_link.format(scheme, domain), param)
+        return stream + helpers.append_headers(headers)
 
-        _json_object = self.session.http.get(_json_url, headers=headers).json()
-
-        stream = _json_object.get('url')
-
-        headers.update({"Referer": self.url})
-
-        try:
-            parse_hls = bool(strtobool(self.get_option('parse_hls')))
-        except AttributeError:
-            parse_hls = True
-
-        if parse_hls:
-            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+    def get_url(self, host, media_id):
+        if media_id == 'Live':
+            return self._default_get_url(host, media_id, 'http://www.{host}/{media_id}')
         else:
-            return dict(stream=HTTPStream(self.session, stream, headers=headers))
-
-
-__plugin__ = Ant1Gr
+            return self._default_get_url(host, media_id, 'http://www.{host}/embed/{media_id}')
