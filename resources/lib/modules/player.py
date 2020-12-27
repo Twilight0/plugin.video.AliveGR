@@ -10,16 +10,14 @@
 from __future__ import absolute_import, unicode_literals
 
 import re
-
-from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode
-
+from random import shuffle, choice as random_choice
 from resolveurl import add_plugin_dirs, resolve as resolve_url
 from resolveurl.hmf import HostedMediaFile
-
-from random import shuffle, choice as random_choice
+from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 from tulip import directory, client, cache, control, youtube as tulip_youtube
 from tulip.parsers import itertags_wrapper
 from tulip.log import log_debug
+from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..indexers.kids import BASE_LINK_GK
@@ -27,10 +25,9 @@ from ..resolvers import common, youtube
 from .kodi import prevent_failure
 from .constants import YT_URL, CACHE_DEBUG, HOSTS, SEPARATOR
 from .utils import m3u8_picker, api_keys
-from youtube_plugin.youtube.youtube_exceptions import YouTubeException
-
 
 skip_directory = False
+
 
 def conditionals(url):
 

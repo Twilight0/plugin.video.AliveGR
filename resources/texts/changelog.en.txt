@@ -1,4 +1,9 @@
-+ [B]2.5.X[/B] [COLOR green]04-12-2020 - 06-12-2020[/COLOR]
++ [B]2.6.X[/B] [COLOR green]28-12-2020 - XX-XX-XXXX[/COLOR]
+- Removed streamlink from dependencies and converted existing plugins for resolveurl usage
+- Fix search for movies
+- ResolveURL is no longer imported optionally
+
++ [B]2.5.X[/B] [COLOR red]04-12-2020 - 06-12-2020[/COLOR]
 - Reworked some modules
 - Added pagination function
 - Updated youtube api keys and tweaked its function for applying keys
