@@ -5,7 +5,7 @@
 
 - Live TV
 - Radio stations (via secondary installable addons)
-- News
+- News (& front pages from newspapers in high quality)
 - Movies
 - Kids content
 - Documentaries
@@ -13,6 +13,7 @@
 - Music
 - TV Series & TV Shows
 - Short Films
+- & Various others
 
 **Primary OSes tested:**
 
@@ -27,8 +28,7 @@
 **Dependencies:**
 
 - Youtube addon (responsible for resolving various youtube-sourced videos)
-- Streamlink (primary resolvers, useful for obtaining playable links from official sources)
-- ResolveURL (optional, useful for resolving content from other secondary hosts)
+- ResolveURL (the main resolvers, useful for converting html/js into playable content from various hosts)
 - Tulip (library/framework, AliveGR's backbone)
 - Pyxbmct (creates various prompts when update is present)
 

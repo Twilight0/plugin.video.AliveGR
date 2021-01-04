@@ -40,6 +40,8 @@ SCRAMBLE_5 = (
 
 ART_ID = 'resource.images.alivegr.artwork'
 LOGOS_ID = 'resource.images.alivegr.logos'
+PLUGINS_ID = 'script.module.resolveurl.pluginsgr'
+PLUGINS_PATH = 'special://home/addons/{0}/resources/plugins/'.format(PLUGINS_ID)
 YT_ADDON = 'plugin://plugin.video.youtube'
 YT_URL = 'https://www.youtube.com/watch?v='
 YT_PREFIX = YT_ADDON + '/play/?video_id='

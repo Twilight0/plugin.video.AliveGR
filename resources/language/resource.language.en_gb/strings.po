@@ -1311,7 +1311,7 @@ msgid "Shuffled playlist"
 msgstr ""
 
 msgctxt "#30354"
-msgid "Unofficial streams are not enabled"
+msgid "Unofficial streams are not enabled, if you want them enabled, please go to the tools sub menu and execute \"Unofficial streams menu\""
 msgstr ""
 
 msgctxt "#30355"

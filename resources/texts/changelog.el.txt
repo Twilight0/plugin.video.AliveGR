@@ -1,4 +1,4 @@
-+ [B]2.6.X[/B] [COLOR green]28-12-2020 - XX-XX-XXXX[/COLOR]
++ [B]2.6.X[/B] [COLOR green]04-01-2021 - XX-XX-XXXX[/COLOR]
 - Αφαίρεση του streamlink από τις εξαρτήσεις και μετατροπή των υπαρχόντων plugins για χρήση στο resolveurl
 - Διόρθωση της αναζήτησης για τις ταινίες
 - Το ResolveURL δεν εισάγεται πλέον επιλεκτικά

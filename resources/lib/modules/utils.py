@@ -1074,6 +1074,10 @@ def prompt():
 def checkpoint():
 
     check = time() + 10800
+    try:
+        new_version_prompt = control.setting('new_version_prompt') == 'true' and remote_version() > int(control.version().replace('.', ''))
+    except ValueError:  # will fail if version install is alpha or beta
+        new_version_prompt = False
 
     if new_version():
 
@@ -1086,9 +1090,9 @@ def checkpoint():
 
         if control.setting('debug') == 'true' or control.setting('toggler') == 'true':
 
-            from tulip.log import log_notice
+            from tulip.log import log_debug
 
-            log_notice('Debug settings have been reset, please do not touch these settings manually,'
+            log_debug('Debug settings have been reset, please do not touch these settings manually,'
                        ' they are *only* meant to help developer test various aspects.')
 
             control.setSetting('debug', 'false')
@@ -1096,13 +1100,7 @@ def checkpoint():
 
         control.setSetting('last_check', str(check))
 
-    elif control.setting(
-            'new_version_prompt'
-    ) == 'true' and time() > float(
-        control.setting('last_check')
-    ) and remote_version() > int(
-        control.version().replace('.', '')
-    ):
+    elif new_version_prompt and time() > float(control.setting('last_check')):
 
         prompt()
         control.setSetting('last_check', str(check))

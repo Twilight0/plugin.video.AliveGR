@@ -23,7 +23,7 @@ from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, sou
 from ..indexers.kids import BASE_LINK_GK
 from ..resolvers import common, youtube
 from .kodi import prevent_failure
-from .constants import YT_URL, CACHE_DEBUG, HOSTS, SEPARATOR
+from .constants import YT_URL, CACHE_DEBUG, HOSTS, SEPARATOR, PLUGINS_PATH
 from .utils import m3u8_picker, api_keys
 
 skip_directory = False
@@ -31,7 +31,7 @@ skip_directory = False
 
 def conditionals(url):
 
-    add_plugin_dirs(control.join(control.addonPath, 'resources', 'lib', 'resolvers', 'plugins'))
+    add_plugin_dirs(control.transPath(PLUGINS_PATH))
 
     def yt(uri):
 
@@ -113,7 +113,7 @@ def conditionals(url):
 
         else:
 
-            control.infoDialog(control.lang(30354), time=5000)
+            control.okDialog('AliveGR', control.lang(30354))
             return 'https://static.adman.gr/inpage/blank.mp4'
 
     else:

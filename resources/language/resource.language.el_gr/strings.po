@@ -1311,8 +1311,8 @@ msgid "Shuffled playlist"
 msgstr "Ανακατεμένη λίστα απαναραγωγής"
 
 msgctxt "#30354"
-msgid "Unofficial streams are not enabled"
-msgstr "Οι ανεπίσημες ροές δεν είναι ενεργοποιημένες"
+msgid "Unofficial streams are not enabled, if you want them enabled, please go to the tools sub menu and execute \"Unofficial streams menu\""
+msgstr "Οι ανεπίσημες ροές δεν είναι ενεργοποιημένες, εάν τις θέλετε ενεργοποιημένες παρακαλώ πηγαίντε στα εργαλεία και εκτελέστε το \"Μενού ανεπίσημων ροών\""
 
 msgctxt "#30356"
 msgid "Local AliveGR version is different than the one on the remote server ({0})[CR]Do you like to force check for updates?"
