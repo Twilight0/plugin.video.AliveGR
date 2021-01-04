@@ -83,7 +83,7 @@ class Indexer:
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30350),
+                'title': '[B]' + control.addonInfo('name') + ': ' + control.lang(30350) + '[/B]',
                 'action': 'toggle_alt',
                 'icon': iconname('monitor'),
                 'isFolder': 'False',
@@ -259,15 +259,15 @@ class Indexer:
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
-            ,
-            {
-                'title': control.lang(30294).format(separator, control.addon('script.module.streamlink.base').getAddonInfo('version')),
-                'action': 'force',
-                'image': control.addon('script.module.streamlink.base').getAddonInfo('icon'),
-                'plot': control.lang(30265),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
+            # ,
+            # {
+            #     'title': control.lang(30294).format(separator, control.addon('script.module.streamlink.base').getAddonInfo('version')),
+            #     'action': 'force',
+            #     'image': control.addon('script.module.streamlink.base').getAddonInfo('icon'),
+            #     'plot': control.lang(30265),
+            #     'isFolder': 'False',
+            #     'isPlayable': 'False'
+            # }
             ,
             {
                 'title': control.lang(30258).format(separator, control.kodi_version()),
