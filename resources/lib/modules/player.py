@@ -17,10 +17,10 @@ from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 from tulip import directory, client, cache, control, youtube as tulip_youtube
 from tulip.parsers import itertags_wrapper
 from tulip.log import log_debug
-from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode
+from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode, urllib2
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
-from ..indexers.kids import BASE_LINK_GK
+from ..indexers.kids import GK_BASE
 from ..resolvers import common, youtube
 from .kodi import prevent_failure
 from .constants import YT_URL, CACHE_DEBUG, HOSTS, SEPARATOR, PLUGINS_PATH
@@ -54,7 +54,46 @@ def conditionals(url):
 
         return yt(url)
 
-    elif 'greek-movies.com' in url:
+    elif url.startswith('iptv://'):
+
+        try:
+            if CACHE_DEBUG:
+                hosts, urls = common.iptv(urlsplit(url).netloc)
+            else:
+                hosts, urls = cache.get(common.iptv, 2, urlsplit(url).netloc)
+        except Exception:
+            return
+
+        stream = mini_picker(hosts, urls, dont_check=True)
+
+        return stream
+
+    elif HOSTS(url) and HostedMediaFile(url).valid_url():
+
+        try:
+            stream = resolve_url(url)
+        except urllib2.HTTPError:
+            return url
+
+        return stream
+
+    elif HostedMediaFile(url).valid_url():
+
+        if control.setting('show_alt_vod') == 'true':
+
+            try:
+                stream = resolve_url(url)
+            except urllib2.HTTPError:
+                return url
+
+            return stream
+
+        else:
+
+            control.okDialog('AliveGR', control.lang(30354))
+            return 'https://static.adman.gr/inpage/blank.mp4'
+
+    elif GM_BASE in url:
 
         if CACHE_DEBUG:
             sources = source_maker(url)
@@ -66,13 +105,13 @@ def conditionals(url):
 
         link = mini_picker(sources['hosts'], sources['links'])
 
-        if link is None:
-            control.execute('Dialog.Close(all)')
-        else:
-            stream = conditionals(link)
-            return stream
+        if not link:
+            return
 
-    elif BASE_LINK_GK in url:
+        stream = conditionals(link)
+        return stream
+
+    elif GK_BASE in url:
 
         if CACHE_DEBUG:
             sources = gk_debris(url)
@@ -81,40 +120,10 @@ def conditionals(url):
 
         link = mini_picker(sources['hosts'], sources['links'])
 
-        return conditionals(link)
-
-    elif url.startswith('iptv://'):
-
-        try:
-            if CACHE_DEBUG:
-                hosts, urls = common.iptv(urlsplit(url).netloc)
-            else:
-                hosts, urls = cache.get(common.iptv, 2, urlsplit(url).netloc)
-        except Exception:
+        if not link:
             return
 
-        stream = mini_picker(hosts, urls)
-
-        return stream
-
-    elif HOSTS(url) and HostedMediaFile(url).valid_url():
-
-        stream = resolve_url(url)
-
-        return stream
-
-    elif HostedMediaFile(url).valid_url():
-
-        if control.setting('show_alt_vod') == 'true':
-
-            stream = resolve_url(url)
-
-            return stream
-
-        else:
-
-            control.okDialog('AliveGR', control.lang(30354))
-            return 'https://static.adman.gr/inpage/blank.mp4'
+        return conditionals(link)
 
     else:
 
@@ -149,20 +158,35 @@ def gk_debris(link):
     return data
 
 
-def mini_picker(hl, sl):
+def check_stream(stream_list):
+
+    if not stream_list:
+        return
+
+    shuffle(stream_list)
+
+    for stream in stream_list:
+
+        if stream.startswith('iptv://'):
+            continue
+        elif stream.endswith('blank.mp4'):
+            return
+
+        resolved = conditionals(stream)
+
+        if resolved:
+            return resolved
+        elif not resolved:
+            log_debug('Removing unplayable stream: {0}'.format(stream))
+            stream_list.remove(stream)
+            return check_stream(stream_list)
+
+
+def mini_picker(hl, sl, dont_check=False):
 
     if len(hl) == 1 and len(sl) == 1:
 
-        if 'greek-movies.com' in sl[0]:
-            if CACHE_DEBUG:
-                stream = gm_debris(sl[0])
-            else:
-                stream = cache.get(gm_debris, 9600, sl[0])
-        else:
-            stream = sl[0]
-
-        if 'AliveGR' not in control.infoLabel('ListItem.Label') and control.setting('host_notify') == 'true':
-            control.infoDialog(hl[0])
+        stream = sl[0]
 
         return stream
 
@@ -170,37 +194,21 @@ def mini_picker(hl, sl):
 
         if control.setting('action_type') == '3' or skip_directory:
 
-            url = random_choice(sl)
-            idx = sl.index(url)
-
-            if control.setting('action_type') == '3' and 'AliveGR' not in control.infoLabel('ListItem.Label') and control.setting('host_notify') == 'true':
-
-                control.infoDialog(hl[idx])
-
-            if 'greek-movies.com' in sl[idx]:
-
-                if CACHE_DEBUG:
-                    return gm_debris(url)
+            try:
+                if dont_check:
+                    url = random_choice(sl)
                 else:
-                    return cache.get(gm_debris, 9600, url)
+                    url = check_stream(sl)
+            except Exception:
+                return
 
-            else:
-
-                return url
+            return url
 
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
         if choice <= len(sl) and not choice == -1:
 
-            popped = sl[choice]
-
-            if 'greek-movies.com' in popped:
-                if CACHE_DEBUG:
-                    return gm_debris(popped)
-                else:
-                    return cache.get(gm_debris, 9600, popped)
-            else:
-                return popped
+            return sl[choice]
 
         else:
 
@@ -438,13 +446,15 @@ def player(url, params):
         return
 
     if url.startswith('alivegr://'):
+        log_debug('Attempting pseudo live playback')
+        skip_directory = True
         pseudo_live(url)
         return
 
     url = url.replace('&amp;', '&')
     skip_directory = params.get('action') == 'play_skipped'
 
-    directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or BASE_LINK_GK in url or (
+    directory_boolean = MOVIES in url or SHORTFILMS in url or THEATER in url or GK_BASE in url or (
         'episode' in url and GM_BASE in url
     )
 

@@ -16,7 +16,7 @@ import random
 from ast import literal_eval as evaluate
 
 from youtube_requests import get_search
-from tulip import cache, client, directory, control, parsers
+from tulip import cache, client, directory, control, parsers, cleantitle
 from tulip.log import log_debug
 from tulip.compat import urljoin, urlparse, range, iteritems
 from tulip.utils import list_divider
@@ -385,8 +385,6 @@ class Indexer:
             log_debug('Listing section failed to load, try resetting indexer methods')
             return
 
-        log_debug('Listing function loaded: ' + repr(self.list))
-
         if url.startswith(MOVIES) and control.setting('show_cartoons') == 'false' and url != ''.join([GM_BASE, 'movies.php?g=8&y=&l=&p=']):
 
             if CACHE_DEBUG:
@@ -427,6 +425,14 @@ class Indexer:
 
         if len(self.list) > int(control.setting('pagination_integer')) and control.setting('paginate_items') == 'true':
 
+            if control.setting('sort_method') == '0':
+                self.list.sort(
+                    key=lambda k: cleantitle.strip_accents(k['title'].lower()),
+                    reverse=control.setting('reverse_order') == 'true'
+                )
+            elif control.setting('sort_method') == '1':
+                self.list.sort(key=lambda k: k['year'], reverse=control.setting('reverse_order') == 'true')
+
             try:
 
                 pages = list_divider(self.list, int(control.setting('pagination_integer')))
@@ -441,9 +447,11 @@ class Indexer:
 
             self.list.insert(0, page_menu(len(pages), reset=reset))
 
-        control.sortmethods()
-        control.sortmethods('title')
-        control.sortmethods('year')
+        if control.setting('paginate_items') == 'false' or len(self.list) <= int(control.setting('pagination_integer')):
+
+            control.sortmethods()
+            control.sortmethods('title')
+            control.sortmethods('year')
 
         if url.startswith((MOVIES, THEATER, SHORTFILMS)):
             directory.add(self.list, content='movies')

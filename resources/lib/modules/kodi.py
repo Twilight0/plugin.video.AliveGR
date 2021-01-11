@@ -250,14 +250,9 @@ def force():
 
 def prevent_failure():
 
-    if control.kodi_version() >= 18.0:
-        active_window = 'busydialognocancel'
-    else:
-        active_window = 'busydialog'
+    for i in range(0, 500):
 
-    for i in range(0, 1000):
-
-        if control.condVisibility('Window.IsActive({})'.format(active_window)):
+        if control.condVisibility('Window.IsActive(busydialog)'):
             control.sleep(100)
         else:
             control.execute('Dialog.Close(all,true)')

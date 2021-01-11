@@ -1,7 +1,11 @@
-+ [B]2.6.X[/B] [COLOR green]04-01-2021 - XX-XX-XXXX[/COLOR]
-- Removed streamlink from dependencies and converted existing plugins for resolveurl usage
-- Fix search for movies
++ [B]2.6.X[/B] [COLOR green]04-01-2021 - 11-01-2021[/COLOR]
 - ResolveURL is no longer imported optionally
+- Removed streamlink from dependencies and converted existing plugins for resolveurl usage
+- Fix search function for movies
+- Added sort methods for when pagination is enabled, because there is no proper way to control sort via Kodi's native method
+- Check streams when random stream action is selected for smooth transition between items back to back playback (or pseudo live)
+- Change priorities of the resolvers on conditional function in the player module and have done some cleanup
+- Removed host choice notification
 
 + [B]2.5.X[/B] [COLOR red]04-12-2020 - 06-12-2020[/COLOR]
 - Reworked some modules

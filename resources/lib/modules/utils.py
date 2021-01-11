@@ -223,10 +223,10 @@ def activate_audio_addon(url, query=None):
     directory.run_builtin(addon_id=url, action=query if query is not None else None, content_type='audio')
 
 
-def cache_clear():
+def cache_clear(notify=True):
 
     log_debug('Cache has been cleared')
-    cache.clear(withyes=False)
+    cache.clear(withyes=False, notify=notify)
 
 
 def cache_delete():
@@ -1085,7 +1085,7 @@ def checkpoint():
         #     changelog()
         welcome()
 
-        cache_clear()
+        cache_clear(notify=False)
         reset_idx(notify=False)
 
         if control.setting('debug') == 'true' or control.setting('toggler') == 'true':

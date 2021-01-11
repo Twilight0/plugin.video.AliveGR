@@ -10,15 +10,15 @@
 
 ---
 
-#### Introduce pagination on indexers over 150 items via a switcher
-
----
-
 #### Add switching scheme in the bookmarks section
 
 ---
 
-## Utilize url dispatcher
+### Make a wizard setup action
+
+---
+
+### Utilize url dispatcher
 
 ---
 

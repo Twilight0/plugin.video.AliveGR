@@ -17,11 +17,15 @@
 
         <setting type="lsep" label=""/>
 
-        <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="1"/>
+        <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="0"/>
         <setting id="show_clear_bookmarks" label="30309" type="bool" default="true"/>
         <setting id="paginate_items" label="30412" type="bool" default="true"/>
-        <setting id="pagination_reset" label="30418" type="bool" default="false" enable="eq(-1,true)"/>
-        <setting id="pagination_integer" type="slider" label="30413" default="100" range="50,50,300" option="int" enable="eq(-2,true)"/>
+        <setting id="pagination_reset" label="30418" type="bool" default="false" visible="eq(-1,true)"/>
+        <setting id="pagination_integer" type="slider" label="30413" default="100" range="50,50,300" option="int" visible="eq(-2,true)"/>
+        <setting type="sep"/>
+        <setting type="lsep" label="30349" visible="eq(-3,true)"/>
+        <setting id="sort_method" type="enum" label="30419" lvalues="30167|30294" default="0" visible="eq(-5,true)"/>
+        <setting id="reverse_order" label="30339" type="bool" default="false" visible="eq(-6,true)"/>
 
     </category>
 
@@ -76,8 +80,7 @@
         <setting type="lsep" label="30009"/>
 
         <setting id="action_type" type="select" label="30144" lvalues="30145|30146|30284|30343" default="0"/>
-        <setting id="host_notify" label="30040" type="bool" default="true" enable="eq(-1,0) | eq(-1,3)"/>
-        <setting id="auto_play" label="30280" type="bool" default="true" enable="eq(-2,2)"/>
+        <setting id="auto_play" label="30280" type="bool" default="true" enable="eq(-1,2)"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
         <setting id="show_vod_switcher" label="30061" type="bool" default="true"/>
         <setting id="show_cartoons" label="30345" type="bool" default="false"/>
