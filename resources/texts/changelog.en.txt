@@ -1,4 +1,4 @@
-+ [B]2.6.X[/B] [COLOR green]04-01-2021 - 11-01-2021[/COLOR]
++ [B]2.6.X[/B] [COLOR green]04-01-2021 - 19-01-2021[/COLOR]
 - ResolveURL is no longer imported optionally
 - Removed streamlink from dependencies and converted existing plugins for resolveurl usage
 - Fix search function for movies

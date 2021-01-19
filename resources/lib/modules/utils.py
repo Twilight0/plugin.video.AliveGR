@@ -143,6 +143,7 @@ def toggle_alt():
             if yes:
 
                 control.setSetting('show_alt_live', 'true')
+                control.infoDialog(message=control.lang(30402), time=1000)
         else:
 
             yes = control.yesnoDialog(control.lang(30404))
@@ -150,6 +151,7 @@ def toggle_alt():
             if yes:
 
                 control.setSetting('show_alt_live', 'false')
+                control.infoDialog(message=control.lang(30402), time=1000)
 
     elif option == 1:
 
@@ -160,6 +162,7 @@ def toggle_alt():
             if yes:
 
                 control.setSetting('show_alt_vod', 'true')
+                control.infoDialog(message=control.lang(30402), time=1000)
 
         else:
 
@@ -168,6 +171,7 @@ def toggle_alt():
             if yes:
 
                 control.setSetting('show_alt_vod', 'false')
+                control.infoDialog(message=control.lang(30402), time=1000)
 
 
 def i18n():

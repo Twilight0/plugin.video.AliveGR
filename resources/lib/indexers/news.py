@@ -175,15 +175,15 @@ class Indexer:
 
         if control.setting('show_pic_switcher') == 'true':
 
-            li = control.item(label=switch['title'], iconImage=switch['icon'])
-            li.setArt({'fanart': control.addonInfo('fanart')})
+            li = control.item(label=switch['title'])
+            li.setArt({'icon': switch['icon'],'fanart': control.addonInfo('fanart')})
             url = '{0}?action={1}'.format(sysaddon, switch['action'])
             control.addItem(syshandle, url, li)
 
         for i in self.list:
 
-            li = control.item(label=i['title'], iconImage=i['image'])
-            li.setArt({'poster': i['image'], 'thumb': i['image'], 'fanart': control.addonInfo('fanart')})
+            li = control.item(label=i['title'])
+            li.setArt({'icon': i['image'], 'poster': i['image'], 'thumb': i['image'], 'fanart': control.addonInfo('fanart')})
             li.setInfo('image', {'title': i['title'], 'picturepath': i['url']})
             url = i['url']
             self.directory.append((url, li, False))
