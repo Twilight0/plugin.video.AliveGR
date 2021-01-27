@@ -1,4 +1,4 @@
-+ [B]2.6.X[/B] [COLOR green]04-01-2021 - 19-01-2021[/COLOR]
++ [B]2.6.X[/B] [COLOR green]04-01-2021 -> 27-01-2021[/COLOR]
 - ResolveURL is no longer imported optionally
 - Removed streamlink from dependencies and converted existing plugins for resolveurl usage
 - Fix search function for movies
@@ -6,20 +6,21 @@
 - Check streams when random stream action is selected for smooth transition between items back to back playback (or pseudo live)
 - Change priorities of the resolvers on conditional function in the player module and have done some cleanup
 - Removed host choice notification
+- Fixed gamato kids indexer
 
-+ [B]2.5.X[/B] [COLOR red]04-12-2020 - 06-12-2020[/COLOR]
++ [B]2.5.X[/B] [COLOR red]04-12-2020 -> 06-12-2020[/COLOR]
 - Reworked some modules
 - Added pagination function
 - Updated youtube api keys and tweaked its function for applying keys
 
-+ [B]2.4.X[/B] [COLOR red]24-09-2020 - 05-10-2020[/COLOR]
++ [B]2.4.X[/B] [COLOR red]24-09-2020 -> 05-10-2020[/COLOR]
 - Repeat some alternative streams because they fail every few seconds or minutes
 - Re-addition of kineskop resolver as streamlink plugin
 - Fixed front pages image full view
 - Prompt window for new version only if remote is higher than local
 - Various bug fixes
 
-+ [B]2.3.X[/B] [COLOR red]12-07-2020 - 06-09-2020[/COLOR]
++ [B]2.3.X[/B] [COLOR red]12-07-2020 -> 06-09-2020[/COLOR]
 - Added screenshots
 - Added a way for the developer to disable caching entirely on the fly
 - Added a new set of youtube api keys for kids &amp; miscellany section
@@ -32,7 +33,7 @@
 - Various github related changes
 - Various other tweaks and bug fixes
 
-+ [B]2.2.X[/B] [COLOR red]20-06-2020 - 09-07-2020[/COLOR]
++ [B]2.2.X[/B] [COLOR red]20-06-2020 -> 09-07-2020[/COLOR]
 - Enabled adaptive stream selection for dailymotion
 - Changed from xml to json list for live channels list
 - Updated ert plugin

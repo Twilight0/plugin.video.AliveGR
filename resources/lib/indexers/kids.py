@@ -18,7 +18,7 @@ from ..modules.constants import YT_ADDON, CACHE_DEBUG
 from ..modules.utils import keys_registration
 from .gm import GM_BASE
 
-GK_BASE = 'http://gamato2.com'
+GK_BASE = 'https://gamato3.com'
 
 
 class Indexer:
@@ -304,7 +304,7 @@ class Indexer:
     def _cartoon_various(self, url):
 
         if url is None:
-            url = '{0}/kids/genre/%CE%BC%CE%B5%CF%84%CE%B1%CE%B3%CE%BB%CF%89%CF%84%CE%B9%CF%83%CE%BC%CE%AD%CE%BD%CE%B1/'.format(BASE_LINK_GK)
+            url = '{0}/genre/gamato/'.format(GK_BASE)
 
         html = client.request(url)
 
@@ -318,19 +318,25 @@ class Indexer:
 
             h3 = client.parseDOM(item, 'h3')[0]
             title = client.parseDOM(h3, 'a')[0]
-            title = title.replace('&#8211;', '-').replace('&#038;', '&').replace('&#8217;', '\'').replace('&#8230;', '...')
+            title = client.replaceHTMLCodes(title)
             url = client.parseDOM(h3, 'a', ret='href')[0]
+
             meta = client.parseDOM(item, 'div', attrs={'class': 'metadata'})[0]
+
             try:
+
                 span = client.parseDOM(meta, 'span')
                 etos = [s for s in span if len(s) == 4][0]
                 plot = client.parseDOM(item, 'div', attrs={'class': 'texto'})[0]
                 duration = [s for s in span if s.endswith('min')][0]
                 duration = int(re.search(r'(\d+)', duration).group(1)) * 60
+
             except IndexError:
+
                 plot = u'Μεταγλωτισμένο'
-                etos = '2019'
+                etos = '2020'
                 duration = 3600
+
             year = ''.join(['(', etos, ')'])
             label = ' '.join([title, year])
             image = client.parseDOM(item, 'img', ret='src')[0]

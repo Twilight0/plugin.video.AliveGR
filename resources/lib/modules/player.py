@@ -99,9 +99,8 @@ def conditionals(url):
             sources = source_maker(url)
         else:
             sources = cache.get(source_maker, 6, url)
-
-        if sources is None:
-            return
+            if not sources:
+                return
 
         link = mini_picker(sources['hosts'], sources['links'])
 
@@ -114,16 +113,13 @@ def conditionals(url):
     elif GK_BASE in url:
 
         if CACHE_DEBUG:
-            sources = gk_debris(url)
+            stream = gk_debris(url)
         else:
-            sources = cache.get(gk_debris, 48, url)
-
-        link = mini_picker(sources['hosts'], sources['links'])
-
-        if not link:
+            stream = cache.get(gk_debris, 48, url)
+        if not stream:
             return
-
-        return conditionals(link)
+        else:
+            return stream
 
     else:
 
@@ -141,21 +137,10 @@ def gm_debris(link):
 def gk_debris(link):
 
     html = client.request(link)
-    sources = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})
-    movie_data = client.parseDOM(html, 'div', {'class': 'data'})[0]
-    title = client.parseDOM(movie_data, 'h1')[0]
-    year = client.parseDOM(movie_data, 'span', attrs={'class': 'date'})[0][-4:]
-    image = itertags_wrapper(html, 'img', {'alt': title.encode('utf-8')}, ret='src')[0]
-    hosts = ['- '.join([control.lang(30015), urlparse(s).netloc]) for s in sources]
-    duration = client.parseDOM(movie_data, 'span', {'class': 'runtime'})[0]
-    duration = re.search(r'(\d{2,3})', duration).group(1)
+    url = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})[0]
+    url = dict(parse_qsl(urlparse(url).query)).get('source')
 
-    data = {
-        'links': sources, 'hosts': hosts, 'title': title, 'year': int(year), 'image': image,
-        'duration': int(duration) * 60
-    }
-
-    return data
+    return url
 
 
 def check_stream(stream_list):
