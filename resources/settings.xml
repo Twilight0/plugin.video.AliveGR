@@ -129,7 +129,7 @@
 
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
         <setting id="keys_are_set" type="bool" label="API Keys toggler" default="false" visible="false"/>
-        <setting id="keys_choice" label="30417" type="select" values="0|1|2|3|4" default="0" visible="eq(-1,true)"/>
+        <setting id="keys_choice" label="30417" type="select" values="0|1|2|3|4|5" default="0" visible="eq(-1,true)"/>
 
 <!--        <setting type="lsep" label="30018"/>-->
 
