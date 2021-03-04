@@ -1,4 +1,4 @@
-+ [B]2.6.X[/B] [COLOR green]04-01-2021 -> 27-01-2021[/COLOR]
++ [B]2.6.X[/B] [COLOR green]04-01-2021 - 04-03-2021[/COLOR]
 - Το ResolveURL δεν εισάγεται πλέον επιλεκτικά
 - Αφαίρεση του streamlink από τις εξαρτήσεις και μετατροπή των υπαρχόντων plugins για χρήση στο resolveurl
 - Διόρθωση της αναζήτησης για τις ταινίες
@@ -7,17 +7,9 @@
 - Αλλαγή προτεραιότητας στους επιλυτές στην μονάδα player και τακτοποίηση στοιχείων στον κώδικα
 - Αφαίρεση της ειδοποίησης για την επιλογή φιλοξενητή
 - Διόρθωση καταλόγων gamato kids
+- Προσθήκη επιπλέον κλειδιών για Youtube
 
-+ [B]2.6.X[/B] [COLOR green]04-01-2021 -> 11-01-2021[/COLOR]
-- ResolveURL is no longer imported optionally
-- Removed streamlink from dependencies and converted existing plugins for resolveurl usage
-- Fix search function for movies
-- Added sort methods for when pagination is enabled, because there is no proper way to control sort via Kodi's native method
-- Check streams when random stream action is selected for smooth transition between items back to back playback (or pseudo live)
-- Change priorities of the resolvers in the player module and have done some cleanup
-- Removed host choice notification
-
-+ [B]2.5.X[/B] [COLOR green]04-12-2020 -> 06-12-2020[/COLOR]
++ [B]2.5.X[/B] [COLOR red]04-12-2020 -> 06-12-2020[/COLOR]
 - Τροποποίηση κάποιων μονάδων
 - Προσθήκη σελιδοποίησης σε μερικούς καταλόγους
 - Ενημέρωση κλειδιών youtube api και τροποποίηση της λειτουργίας για εφαρμογή των κλειδιών

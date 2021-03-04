@@ -1,4 +1,4 @@
-+ [B]2.6.X[/B] [COLOR green]04-01-2021 -> 27-01-2021[/COLOR]
++ [B]2.6.X[/B] [COLOR green]04-01-2021 - 04-03-2021[/COLOR]
 - ResolveURL is no longer imported optionally
 - Removed streamlink from dependencies and converted existing plugins for resolveurl usage
 - Fix search function for movies
@@ -7,6 +7,7 @@
 - Change priorities of the resolvers on conditional function in the player module and have done some cleanup
 - Removed host choice notification
 - Fixed gamato kids indexer
+- Added additional youtube api keys
 
 + [B]2.5.X[/B] [COLOR red]04-12-2020 -> 06-12-2020[/COLOR]
 - Reworked some modules

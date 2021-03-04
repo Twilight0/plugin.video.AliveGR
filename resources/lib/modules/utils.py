@@ -16,7 +16,9 @@ from tulip.compat import parse_qsl
 from tulip.log import log_debug
 from .kodi import skin_name, force as force_
 from .themes import iconname
-from .constants import FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5
+from .constants import (
+    FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5, SCRAMBLE_6
+)
 from os import path
 from random import choice
 from time import time
@@ -378,7 +380,7 @@ def delete_from_file(file_, txt):
 
 def api_keys():
 
-    keys_list = [SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5]
+    keys_list = [SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5, SCRAMBLE_6]
 
     if control.setting('keys_are_set') == 'false':
 

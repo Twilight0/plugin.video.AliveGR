@@ -36,6 +36,11 @@ SCRAMBLE_5 = (
     '8LPKLF/fmUR2IyLmDNewP8axasqy7WYGGMdVszsWkZ26bqoSeyrfWCtMzRuGbQQRSUUlnKAg8q6bpRrQCqlr1HNlDggnGhUnih3x/3kTk3'
 )
 
+SCRAMBLE_6 = (
+    'eJwVzNsOgiAAANBfaTynEw3D3rSc2arlujz44pDwRgITcrPWvzc/4JwvaJ9gswAYIYigsw486Fp+UzUV9hRz1NgLbETHOZUjxw1EZmSBTZTSdi1l/W'
+    'JvzQYqhWHC2FT2YLkARLUFZ9PchumHXKeI8FCe4HaXT64+x2VHHnhM85vl+kOWJfvVrDSjAzMzOgyqV7qIS/9ujklkBI6dSxL74PcHEj435A=='
+)
+
 ########################################################################################################################
 
 ART_ID = 'resource.images.alivegr.artwork'

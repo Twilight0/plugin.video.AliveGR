@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.6.4" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.6.5" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.addon" version="18.0.000"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
         <import addon="resource.images.alivegr.logos" version="1.0.2"/>
         <import addon="script.module.resolveurl" version="5.1.18"/>
         <import addon="script.module.resolveurl.pluginsgr" version="0.0.5"/>
-        <import addon="script.module.tulip" version="2.8.3"/>
+        <import addon="script.module.tulip" version="2.8.6"/>
         <import addon="plugin.video.youtube" version="6.8.8"/>
         <import addon="script.module.pyxbmct" version="1.3.0"/>
     </requires>
@@ -32,7 +32,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
         <size>1200000</size>
-        <news>+ [B]2.6.X[/B] [COLOR green]04-01-2021 - 27-01-2021[/COLOR]
+        <news>+ [B]2.6.X[/B] [COLOR green]04-01-2021 - 04-03-2021[/COLOR]
 - ResolveURL is no longer imported optionally
 - Removed streamlink from dependencies and converted existing plugins for resolveurl usage
 - Fix search function for movies
@@ -41,6 +41,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
 - Change priorities of the resolvers in the player module and have done some cleanup
 - Removed host choice notification
 - Fixed gamato kids indexer
+- Added additional youtube api keys
 
 + [B]2.5.X[/B] [COLOR red]04-12-2020 - 06-12-2020[/COLOR]
 - Reworked some modules
