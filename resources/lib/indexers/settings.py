@@ -201,6 +201,15 @@ class Indexer:
             }
             ,
             {
+                'title': control.lang(30469),
+                'action': 'apply_new_settings',
+                'plot': control.lang(30469),
+                'icon': control.addonInfo('icon'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
                 'title': control.lang(30341),
                 'action': 'kodi_log_upload',
                 'isFolder': 'False',
@@ -259,15 +268,6 @@ class Indexer:
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
-            # ,
-            # {
-            #     'title': control.lang(30294).format(separator, control.addon('script.module.streamlink.base').getAddonInfo('version')),
-            #     'action': 'force',
-            #     'image': control.addon('script.module.streamlink.base').getAddonInfo('icon'),
-            #     'plot': control.lang(30265),
-            #     'isFolder': 'False',
-            #     'isPlayable': 'False'
-            # }
             ,
             {
                 'title': control.lang(30258).format(separator, control.kodi_version()),

@@ -1314,6 +1314,10 @@ msgctxt "#30354"
 msgid "Unofficial streams are not enabled, if you want them enabled, please go to the tools sub menu and execute \"Unofficial streams menu\""
 msgstr "Οι ανεπίσημες ροές δεν είναι ενεργοποιημένες, εάν τις θέλετε ενεργοποιημένες παρακαλώ πηγαίντε στα εργαλεία και εκτελέστε το \"Μενού ανεπίσημων ροών\""
 
+msgctxt "#30355"
+msgid "AliveGR has been updated on the remote server"
+msgstr "Το AliveGR έχει ενημερωθεί στον απομακρυσμένο εξυπηρετητή"
+
 msgctxt "#30356"
 msgid "Local AliveGR version is different than the one on the remote server ({0})[CR]Do you like to force check for updates?"
 msgstr "Η τοπική έκδοση του AliveGR είναι διαφορετική από αυτήν στον απομακρυσμένη εξυπηρετητή ({0})[CR]Θέλετε να επιβάλετε τον έλεγχο ενημερώσεων;"
@@ -1417,3 +1421,263 @@ msgstr "Μηδένισε την σελίδα μετά από κάθε επιλο
 msgctxt "#30419"
 msgid "Sort method"
 msgstr "Μέθοδος ταξινόμισης"
+
+msgctxt "#30420"
+msgid "Changes AliveGR's icon set (refresh containers/folders or exit addon and load another, reenter in order for theme to load)"
+msgstr "Αλλάζει το σετ εικονιδίων του AliveGR (ανανεώστε τον κατάλογο/φάκελο ή βγείτε προς άλλο πρόσθετο και ξαναμπείτε για να φορτωθεί το σετ)"
+
+msgctxt "#30421"
+msgid "Changes the whole media's center skin"
+msgstr "Αλλάζει ολόκληρο το κέλυφος του κέντρου πολυμέσων"
+
+msgctxt "#30422"
+msgid "Some folders have both English & Greek into their titles and this setting takes care of the display accordingly"
+msgstr "Κάποιοι φάκελοι έχουν Αγγλικά και Ελληνικά στους τίτλους τους, αυτή η ρύθμιση φροντίζει την απεικόνιση αναλόγως"
+
+msgctxt "#30423"
+msgid "Changes some locale settings on the media center"
+msgstr "Αλλάζει κάποιες ρυθμίσεις σχετικά με τα τοπικά στο κέντρο πολυμέσων"
+
+msgctxt "#30424"
+msgid "Changes whether labels take one or two lines"
+msgstr "Αλλάζει το πότε οι ετικέτες απεικονίζονται σε μία η δύο γραμμές"
+
+msgctxt "#30425"
+msgid "Toggles on/off the \"Clear bookmarkes\" menu item into the bookmarks folder"
+msgstr "(Απ)ενεργοποιεί το αντικείμενο \"Εκκαθάριση σελιδοδεικτών\" από τον φάκελο των σελιδοδεικτών του AliveGR"
+
+msgctxt "#30426"
+msgid "Toggles on/off the pagination function. I advise to leave it on for lower end devices. Change pages via the provided menu item."
+msgstr "(Απ)ενεργοποιεί την λειτουργία σελιδοποίησης. Σας συμβουλεύω να το αφήσετε ενεργοποιημένο για τις πιο αδύναμες συσκευές. Αλλάξτε σελίδα από το παρεχόμενο μενού."
+
+msgctxt "#30427"
+msgid "Resets the selected page back to the first one after you make a choice"
+msgstr "Επαναφέρει την επιλεγμένη σελίδα στην πρώτη αφού πραγματοποιηθεί η επιλογή"
+
+msgctxt "#30428"
+msgid "How many menu items should a page contain (stepped every 50 items)"
+msgstr "Πόσα αντικείμενα θα πρέπει να έχει κάθε σελίδα (με κάθε 50 αντικείμενα ανά σκαλοπάτι)"
+
+msgctxt "#30429"
+msgid "Sort method when pagination is enabled (it pre-sorts the items before the split and overrides Kodi's internal sort method)"
+msgstr "Μέθοδος ταξινόμισης όταν η σελιδοποίηση είναι ενεργή (κάνει ταξινόμιση πριν την διαίρεση και αντικαθιστά την εσωτερική μέθοδο ταξινόμισης)"
+
+msgctxt "#30430"
+msgid "Changes settings related to appearance, feel & display"
+msgstr "Αλλαγή ρυθμίσεων σχετικά με την εμφάνιση και την απεικόνιση"
+
+msgctxt "#30431"
+msgid "Toggle on/off main menu items/folders"
+msgstr "(Απ)ενεργοποιηση φακέλων στο κυρίως μενού"
+
+msgctxt "#30432"
+msgid "Changes settings related to both Live and VOD streams"
+msgstr "Αλλαγή ρυθμίσεων σχετικά με τις ροές κατα βούληση και τις ζωντανές"
+
+msgctxt "#30433"
+msgid "Settings related to keeping AliveGR's settings and behaviour clean"
+msgstr ""
+
+msgctxt "#30434"
+msgid "Perform various actions, such as applying keymaps, settings to other addons etc."
+msgstr "Εκτέλεση διαφόρων ενεργειών, όπως εφαρμογή χαρτών πλήκτρων, ρυθμίσεις άλλων προσθέτων κτλ."
+
+msgctxt "#30435"
+msgid "This page has some really advanced stuff only meant to help me, the developer, test some things"
+msgstr "Αυτή η σελίδα έχει μερικά στοιχεία για προχωρημένους τα οποία βρίσκονται για να με βοηθουν (τον προγραμματιστή) σε δοκιμές"
+
+msgctxt "#30436"
+msgid "This action will allow you to toggle on/off alternative streams (from sources other than official, youtube and dailymotion ones)"
+msgstr "Αυτή η ενέργεια σας επιτρέπει να (απ)ενεργοποιείτε τις εναλλακτικές ροές (από πηγές εκτός των επίσημων, του youtube και του dailymotion)"
+
+msgctxt "#30437"
+msgid "This setting will switch between manual option and \"best\" quality, for youtube streams only."
+msgstr "Αυτή η ρύθμιση θα κάνει εναλλαγή μεταξύ της χειροκίνητης επιλογής και της \"βέλτιστης\" ποιότητας, για ροές youtube μόνο."
+
+msgctxt "#30438"
+msgid "This option will switch between fully manual choice, adaptive (for this change settings on inputstream addon optionally), and best. HLS/M3U8 only."
+msgstr "Αυτή η επιλογή θα εναλλάξει μεταξύ της χειροκίνητης, μεταβλητής (γι' αυτο άλλαξε ρυθμίσεις στο πρόσθετο inputstream προαιρετικά), και της βέλτιστης. Για ροές HLS/M3U8 μόνο."
+
+msgctxt "#30439"
+msgid "This button will open ResolveURL settings, where you can change the setting for manual quality choice on alternative streams (external resolvers)"
+msgstr "Αυτό το πλήκτρο θα ανοίξει τις ρυθμίσεις του ResolveURL, όπου μπορείτε να αλλαξετε την ρύρθμιση για την επιλογή ποιότητας των εναλλακτικών ροών (εξωτερικοί επιλυτές)"
+
+msgctxt "#30440"
+msgid "This setting will alter the behaviour of live tv listing into playlist mode. Good for those who know what they are doing. Change channels with next/previous buttons."
+msgstr "Αυτή η ρύθμιση θα αλλάξει την συμπεριφορά της ζωντανής τηλεόρασης σε λίστα αναπαραγωγής. Καλό για όσους γνωρίζουν τι κάνουν. Αλλαγή καναλιών με τα επόμενο/προηγούμενο πλήκτρα."
+
+msgctxt "#30441"
+msgid "This setting toggles on/off the helper button which changes live tv groups. Setting this off will allow the user to change group from the setting bellow."
+msgstr "Αυτή η ρύθμιση εναλλάζει το βοηθητικό πλήκτρο αλλαγής μεταξύ των ομαδών των ζωντανών ροών. Θέτοντας την επιλογή αυτή εκτός, επιτρέπει στον χρήστη να αλλάξει ομάδα από την επιλογή παρακάτω."
+
+msgctxt "#30442"
+msgid "This setting can help you choose manually live tv group. Set the group switcher to off to enable this option or have playlist mode enabled."
+msgstr "Αυτή η ρύθμιση μπορεί να σας βοηθήσει να επιλέξετε χειροκίνητα την ομάδα των ζωντανών ροών. Απενεργοποιήστε τον εναλλάκτη ομαδών για την ενεργοποίηση αυτης της επιλογής ή να έχετε την λίστα αναπαραγωγής ως την επιλεγμένη συμπεριφορά."
+
+msgctxt "#30443"
+msgid "This option will preresolve streams directly into their playable format for quicker playback, but it is unstable, use only for testing purposes."
+msgstr "Αυτη η επιλογή θα προ-επιλυσει τις ροές απευθείας στην μορφή αναπαραγωγής για γρηγοροτερη εκτέλεση, αλλά είναι ασταθές, ιδανικό για δοκιμαστικούς σκοπούς"
+
+msgctxt "#30444"
+msgid "Allows you to change the way you choose a source for playback. Dialog, random, directory or playlist. Dialog is the recommended/default method. Playlist is the least stable."
+msgstr "Σας επιτρέπει να αλλάξετε τον τρόπο που επιλέγετε ροή για αναπαραγωγή. Διάλογος, τυχαίο, κατάλογος ή λίστα αναπαραγωγής. Ο διάλογος είναι ο προτεινόμενος/εξ'ορισμού τρόπος. Η λίστα αναπαραγωγής είναι ο λιγότερο σταθερός."
+
+msgctxt "#30445"
+msgid "Will autoplay first (or the first one that has been found) when playlist action is enabled."
+msgstr "Θα αναπαράξει την πρώτη ροή (ή αυτήν που έχει βρεθεί) όταν η λίστα αναπαραγωγής είναι ενεργοποιημένη."
+
+msgctxt "#30446"
+msgid "Will reverse episode order. Defaults to being enabled."
+msgstr "Θα αντιστρέψει τον σειρά εμφάνισης των επεισοδίων. Εξ'ορισμού ενεργοποιημένο."
+
+msgctxt "#30447"
+msgid "Enables the button which allows you to switch between \"group by title, by year, by genre" etc.\"."
+msgstr "Ενεργοποιεί το πλήκτρο που επιτρέπει την αλλαγή μεταξύ \"ομαδοποίηση κατα τίτλο, κατ' έτος, είδος κτλ.\""
+
+msgctxt "#30448"
+msgid "Will index cartoon/family movies in the main indexers."
+msgstr "Θα παρουσιάσει τις παιδικές ταινίες στους κυρίους καταλόγους."
+
+msgctxt "#30449"
+msgid "Plays audio only. Youtube streams only and only on music indexers in audio mode"
+msgstr "Αναπαραγωγή μόνο του ήχου. Μόνο ροές youtube και μόνο στους καταλόγους μουσικής σε λειτουργία ήχου."
+
+msgctxt "#30450"
+msgid "Switches pseudo live mode from one random pick and sequential."
+msgstr "Αλλάζει μεταξύ μιας τυχαίας επιλογής και κατα σειρά στην λειτουργία ψευδο-ζωντανών ροών."
+
+msgctxt "#30451"
+msgid "Opens youtube addon settings."
+msgstr "Ανοίγει το παράθυρο ρυθμίσεων του προσθέτου youtube."
+
+msgctxt "#30452"
+msgid "Opens the window to change things or do actions on input streams addons"
+msgstr "Ανοίγει το παράθυρο για αλλαγή στοιχείων ή ενέργειες στα πρόσθετα inputstream"
+
+msgctxt "#30453"
+msgid "Shows the switcher on newspaper front pages menu"
+msgstr "Εμφάνιση του εναλλάκτη στο μενού πρωτοσέλιδων εφημερίδων"
+
+msgctxt "#30454"
+msgid "Auto reset the category grouping (by title, year or genre)"
+msgstr "Αυτόματη επαναφορά της κατηγοριοποίησης (ανά τίτλο, έτος ή είδος)"
+
+msgctxt "#30455"
+msgid "Additionally auto reset the live group"
+msgstr "Επιπρόσθετα επανέφερε την ομάδα ζωντανών ροών"
+
+msgctxt "#30456"
+msgid "Manually reset the category grouping"
+msgstr "Επανέφερε χειροκίνητα την κατηγοριοποίηση"
+
+msgctxt "#30457"
+msgid "Prompts when a new version is available"
+msgstr "Προτροπή όταν η νέα έκδοση είναι διαθέσιμη"
+
+msgctxt "#30458"
+msgid "Clear AliveGR's function cache"
+msgstr "Εκκαθάριση της μνήμης λειτουργιών του AliveGR"
+
+msgctxt "#30459"
+msgid "Delete AliveGR's function cache.db"
+msgstr "Διαγραφή της μνήμης λειτουργιών cache.db του AliveGR"
+
+msgctxt "#30460"
+msgid "Delete AliveGR's bookmarks.db"
+msgstr "Διαγραφή του αρχείου bookmarks.db του AliveGR"
+
+msgctxt "#30461"
+msgid "Delete AliveGR's settings.xml (located in the userdata folder)"
+msgstr "Διαγραφή settings.xml του AliveGR (βρίσκεται στον φάκελο userdata)"
+
+msgctxt "#30462"
+msgid "This action will setup Youtube with AliveGR's keys, set for Greek region and activate MPEG-DASH"
+msgstr "Αυτή η ενέργεια θα ρυθμίσει το Youtube με τα κλειδιά του AliveGR, θα το θέσει στα ελληνικά και να ενεργοποιήσει το MPEG-DASH"
+
+msgctxt "#30463"
+msgid "S/N of the Youtube API set of keys"
+msgstr "Α/Α του σετ κλειδιών του Youtube API"
+
+msgctxt "#30464"
+msgid "Setup a keymap for altering the behaviour of previous key on PVR Client (from backwards to previous window)"
+msgstr "Ρύθμιση του χάρτη πλήκτρων για αλλαγή συμπεριφοράς του πλήκτρου \"προηγούμενο\" στο παράθυρο PVR (από μετάβαση προς τα πίσω, στο προηγούμενο παράθυρο)"
+
+msgctxt "#30465"
+msgid "Setup a keymap for altering the behaviour of the mouse when viewing pictures"
+msgstr "Ρύθμιση του χάρτη πλήκτρων για αλλαγή συμπεριφοράς του ποντικιού όταν απεικονίζονται εικόνες"
+
+msgctxt "#30466"
+msgid "Setup a keymap for altering the behaviour of the tv remote on Samsung TVs via CEC (blue coloured key acts as context menu)"
+msgstr "Ρύθμιση του χάρτη πλήκτρων για αλλαγή συμπεριφοράς του χειριστηρίου σε τηλεοράσεις Samsung μέσω CEC (το χρωματισμένο μπλε θα ενεργεί ως εναλλακτικό μενου)"
+
+msgctxt "#30467"
+msgid "The language of the changelog"
+msgstr "Η γλώσσα του αρχείου καταγραφής"
+
+msgctxt "#30468"
+msgid "Enable only when you know what you 're going to do, requires a passphrase"
+msgstr "Ενεργοποίηστε μόνο όταν ξερετε τι κάνετε, απαιτεί κωδικό"
+
+msgctxt "#30469"
+msgid "Apply new settings format manually"
+msgstr "Εφαρμογή των νέων ρυθμίσεων χειροκίνητα"
+
+msgctxt "#30470"
+msgid "Debugging Mode"
+msgstr "Λειτουργία αποσφαλμάτωσης"
+
+msgctxt "#30471"
+msgid "Toggle system-wide debug"
+msgstr "Εναλλαγή αποσφαλμάτωσης σε όλο το σύστημα"
+
+msgctxt "#30472"
+msgid "Toggle skin debugging"
+msgstr "Εναλλαγή αποσφαλμάτωσης κελύφους"
+
+msgctxt "#30473"
+msgid "Reload skin"
+msgstr "Επαναφόρτωση κελύφους"
+
+msgctxt "#30474"
+msgid "Local/Remote Selector"
+msgstr "Εναλλάκτης Τοπικού/Απομακρυσμένου"
+
+msgctxt "#30475"
+msgid "Local playlist file"
+msgstr "Τοπικό αρχείο αναπαραγωγήςς"
+
+msgctxt "#30476"
+msgid "Remote playlist url"
+msgstr "Απομακρυσμένο url λίστας αναπαραγωγής"
+
+msgctxt "#30477"
+msgid "Local misc playlist file"
+msgstr "Τοπικό αρχείο λίστας αναπαραγωγής misc"
+
+msgctxt "#30478"
+msgid "Remote misc playlist url"
+msgstr "Απομακρυσμένο url λίστας αναπαραγωγής misc"
+
+msgctxt "#30479"
+msgid "Local top 50 playlist file"
+msgstr "Τοπικό αρχείο λίστας αναπαραγωγής top 50"
+
+msgctxt "#30480"
+msgid "Remote top 50 playlist url"
+msgstr "Απομακρυσμένο url λίστας αναπαραγωγής top 50"
+
+msgctxt "#30481"
+msgid "Do not use cache"
+msgstr "Μη γίνει χρήση μνήμης λειτουργιών"
+
+msgctxt "#30482"
+msgid ""
+msgstr ""
+
+msgctxt "#30483"
+msgid ""
+msgstr ""
+
+msgctxt "#30484"
+msgid ""
+msgstr ""

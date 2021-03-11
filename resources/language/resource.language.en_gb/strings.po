@@ -1421,3 +1421,263 @@ msgstr ""
 msgctxt "#30419"
 msgid "Sort method"
 msgstr ""
+
+msgctxt "#30420"
+msgid "Changes AliveGR's icon set (refresh containers/folders or exit addon and load another, reenter in order for theme to load)"
+msgstr ""
+
+msgctxt "#30421"
+msgid "Changes the whole media's center skin"
+msgstr ""
+
+msgctxt "#30422"
+msgid "Some folders have both English & Greek into their titles and this setting takes care of the display accordingly"
+msgstr ""
+
+msgctxt "#30423"
+msgid "Changes some locale settings on the media center"
+msgstr ""
+
+msgctxt "#30424"
+msgid "Changes whether labels take one or two lines"
+msgstr ""
+
+msgctxt "#30425"
+msgid "Toggles on/off the \"Clear bookmarkes\" menu item into the bookmarks folder"
+msgstr ""
+
+msgctxt "#30426"
+msgid "Toggles on/off the pagination function. I advise to leave it on for lower end devices. Change pages via the provided menu item."
+msgstr ""
+
+msgctxt "#30427"
+msgid "Resets the selected page back to the first one after you make a choice"
+msgstr ""
+
+msgctxt "#30428"
+msgid "How many menu items should a page contain (stepped every 50 items)"
+msgstr ""
+
+msgctxt "#30429"
+msgid "Sort method when pagination is enabled (it pre-sorts the items before the split and overrides Kodi's internal sort method)"
+msgstr ""
+
+msgctxt "#30430"
+msgid "Changes settings related to appearance, feel & display"
+msgstr ""
+
+msgctxt "#30431"
+msgid "Toggle on/off main menu items/folders"
+msgstr ""
+
+msgctxt "#30432"
+msgid "Changes settings related to both Live and VOD streams"
+msgstr ""
+
+msgctxt "#30433"
+msgid "Settings related to keeping AliveGR's settings and behaviour clean"
+msgstr ""
+
+msgctxt "#30434"
+msgid "Perform various actions, such as applying keymaps, settings to other addons etc."
+msgstr ""
+
+msgctxt "#30435"
+msgid "This page has some really advanced stuff only meant to help me, the developer, test some things"
+msgstr ""
+
+msgctxt "#30436"
+msgid "This action will allow you to toggle on/off alternative streams (from sources other than official, youtube and dailymotion ones)"
+msgstr ""
+
+msgctxt "#30437"
+msgid "This setting will switch between manual option and \"best\" quality, for youtube streams only."
+msgstr ""
+
+msgctxt "#30438"
+msgid "This option will switch between fully manual choice, adaptive (for this change settings on inputstream addon optionally), and best. HLS/M3U8 only."
+msgstr ""
+
+msgctxt "#30439"
+msgid "This button will open ResolveURL settings, where you can change the setting for manual quality choice on alternative streams (external resolvers)"
+msgstr ""
+
+msgctxt "#30440"
+msgid "This setting will alter the behaviour of live tv listing into playlist mode. Good for those who know what they are doing. Change channels with next/previous buttons."
+msgstr ""
+
+msgctxt "#30441"
+msgid "This setting toggles on/off the helper button which changes live tv groups. Setting this off will allow the user to change group from the setting bellow."
+msgstr ""
+
+msgctxt "#30442"
+msgid "This setting can help you choose manually live tv group. Set the group switcher to off to enable this option or have playlist mode enabled."
+msgstr ""
+
+msgctxt "#30443"
+msgid "This option will preresolve streams directly into their playable format for quicker playback, but it is unstable, use only for testing purposes."
+msgstr ""
+
+msgctxt "#30444"
+msgid "Allows you to change the way you choose a source for playback. Dialog, random, directory or playlist. Dialog is the recommended/default method. Playlist is the least stable."
+msgstr ""
+
+msgctxt "#30445"
+msgid "Will autoplay first (or the first one that has been found) when playlist action is enabled."
+msgstr ""
+
+msgctxt "#30446"
+msgid "Will reverse episode order. Defaults to being enabled."
+msgstr ""
+
+msgctxt "#30447"
+msgid "Enables the button which allows you to switch between \"group by title, by year, by genre" etc.\"."
+msgstr ""
+
+msgctxt "#30448"
+msgid "Will index cartoon/family movies in the main indexers."
+msgstr ""
+
+msgctxt "#30449"
+msgid "Plays audio only. Youtube streams only and only on music indexers in audio mode"
+msgstr ""
+
+msgctxt "#30450"
+msgid "Switches pseudo live mode from one random pick and sequential."
+msgstr ""
+
+msgctxt "#30451"
+msgid "Opens youtube addon settings."
+msgstr ""
+
+msgctxt "#30452"
+msgid "Opens the window to change things or do actions on input streams addons"
+msgstr ""
+
+msgctxt "#30453"
+msgid "Shows the switcher on newspaper front pages menu"
+msgstr ""
+
+msgctxt "#30454"
+msgid "Auto reset the category grouping (by title, year or genre)"
+msgstr ""
+
+msgctxt "#30455"
+msgid "Additionally auto reset the live group"
+msgstr ""
+
+msgctxt "#30456"
+msgid "Manually reset the category grouping"
+msgstr ""
+
+msgctxt "#30457"
+msgid "Prompts when a new version is available"
+msgstr ""
+
+msgctxt "#30458"
+msgid "Clear AliveGR's function cache"
+msgstr ""
+
+msgctxt "#30459"
+msgid "Delete AliveGR's function cache.db"
+msgstr ""
+
+msgctxt "#30460"
+msgid "Delete AliveGR's bookmarks.db"
+msgstr ""
+
+msgctxt "#30461"
+msgid "Delete AliveGR's settings.xml (located in the userdata folder)"
+msgstr ""
+
+msgctxt "#30462"
+msgid "This action will setup Youtube with AliveGR's keys, set for Greek region and activate MPEG-DASH"
+msgstr ""
+
+msgctxt "#30463"
+msgid "S/N of the Youtube API set of keys"
+msgstr ""
+
+msgctxt "#30464"
+msgid "Setup a keymap for altering the behaviour of previous key on PVR Client (from backwards to previous window)"
+msgstr ""
+
+msgctxt "#30465"
+msgid "Setup a keymap for altering the behaviour of the mouse when viewing pictures"
+msgstr ""
+
+msgctxt "#30466"
+msgid "Setup a keymap for altering the behaviour of the tv remote on Samsung TVs via CEC (blue coloured key acts as context menu)"
+msgstr ""
+
+msgctxt "#30467"
+msgid "The language of the changelog"
+msgstr ""
+
+msgctxt "#30468"
+msgid "Enable only when you know what you 're going to do, requires a passphrase"
+msgstr ""
+
+msgctxt "#30469"
+msgid "Apply new settings format manually"
+msgstr ""
+
+msgctxt "#30470"
+msgid "Debugging Mode"
+msgstr ""
+
+msgctxt "#30471"
+msgid "Toggle system-wide debug"
+msgstr ""
+
+msgctxt "#30472"
+msgid "Toggle skin debugging"
+msgstr ""
+
+msgctxt "#30473"
+msgid "Reload skin"
+msgstr ""
+
+msgctxt "#30474"
+msgid "Local/Remote Selector"
+msgstr ""
+
+msgctxt "#30475"
+msgid "Local playlist file"
+msgstr ""
+
+msgctxt "#30476"
+msgid "Remote playlist url"
+msgstr ""
+
+msgctxt "#30477"
+msgid "Local misc playlist file"
+msgstr ""
+
+msgctxt "#30478"
+msgid "Remote misc playlist url"
+msgstr ""
+
+msgctxt "#30479"
+msgid "Local top 50 playlist file"
+msgstr ""
+
+msgctxt "#30480"
+msgid "Remote top 50 playlist url"
+msgstr ""
+
+msgctxt "#30481"
+msgid "Do not use cache"
+msgstr ""
+
+msgctxt "#30482"
+msgid ""
+msgstr ""
+
+msgctxt "#30483"
+msgid ""
+msgstr ""
+
+msgctxt "#30484"
+msgid ""
+msgstr ""

@@ -74,7 +74,7 @@
         <setting id="show_live_switcher" type="bool" label="30061" default="true" enable="eq(-1,0)"/>
         <setting id="live_group" type="select" label="30291" lvalues="30048|30201|30202|30203|30207|30209|30125|30208|30205|30342|30032|30094|30210|30206|30282" default="0" enable="eq(-2,1) | eq(-1,false)"/>
         <setting id="preresolve_streams" type="bool" label="30271" default="false"/>
-        <setting id="pseudo_live_mode" type="select" label="30351" lvalues="30352|30353" default="0"/>
+        <setting id="pseudo_live_mode" type="select" label="30351" lvalues="30352|30353" default="1"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30009"/>
@@ -129,7 +129,7 @@
 
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
         <setting id="keys_are_set" type="bool" label="API Keys toggler" default="false" visible="false"/>
-        <setting id="keys_choice" label="30417" type="select" values="0|1|2|3|4|5" default="0" visible="eq(-1,true)"/>
+        <setting id="keys_choice" label="30417" type="select" values="1|2|3|4|5|6" default="1" visible="eq(-1,true)"/>
 
 <!--        <setting type="lsep" label="30018"/>-->
 
@@ -156,19 +156,19 @@
         <setting type="sep"/>
 
         <setting visible="true" label="30013" type="action" action="RunPlugin(plugin://$ID/?action=developer_mode)"/>
-        <setting id="toggler" type="bool" label="toggler" default="false" visible="false"/>
-        <setting id="debug" type="bool" label="Debugging Mode" default="false" visible="eq(-1,true)"/>
-        <setting label="Toggle system-wide debug" type="action" action="RunPlugin(plugin://$ID/?action=toggle_debug)" visible="eq(-1,true)"/>
-        <setting label="Toggle skin debugging" type="action" action="RunPlugin(plugin://$ID/?action=skin_debug)" visible="eq(-2,true)"/>
-        <setting label="Reload skin" type="action" action="RunPlugin(plugin://$ID/?action=reload_skin)" visible="eq(-3,true)"/>
-        <setting id="local_remote" type="enum" label="Local/Remote Selector" values="Local|Remote|Default" default="2" visible="eq(-4,true)"/>
-        <setting id="live_local" label="Local playlist file" type="file" default="" visible="eq(-5,true) + eq(-1,0)"/>
-        <setting id="live_remote" label="Remote playlist url" type="text" default="" visible="eq(-6,true) + eq(-2,1)"/>
-        <setting id="misc_local" label="Local misc playlist file" type="file" default="" visible="eq(-7,true) + eq(-3,0)"/>
-        <setting id="misc_remote" label="Remote misc playlist url" type="text" default="" visible="eq(-8,true) + eq(-4,1)"/>
-        <setting id="top50_local" label="Local top 50 playlist file" type="file" default="" visible="eq(-9,true) + eq(-5,0)"/>
-        <setting id="top50_remote" label="Remote top 50 playlist url" type="text" default="" visible="eq(-10,true) + eq(-6,1)"/>
-        <setting id="do_not_use_cache" type="bool" label="Do not use cache" default="false" visible="eq(-11,true)"/>
+        <setting id="toggler" type="bool" label="Toggler" default="false" visible="false"/>
+        <setting id="debug" type="bool" label="30470" default="false" visible="eq(-1,true)"/>
+        <setting label="30471" type="action" action="RunPlugin(plugin://$ID/?action=toggle_debug)" visible="eq(-1,true)"/>
+        <setting label="30472" type="action" action="RunPlugin(plugin://$ID/?action=skin_debug)" visible="eq(-2,true)"/>
+        <setting label="30473" type="action" action="RunPlugin(plugin://$ID/?action=reload_skin)" visible="eq(-3,true)"/>
+        <setting id="local_remote" type="enum" label="30474" values="Local|Remote|Default" default="2" visible="eq(-4,true)"/>
+        <setting id="live_local" label="30475" type="file" default="" visible="eq(-5,true) + eq(-1,0)"/>
+        <setting id="live_remote" label="30476" type="text" default="" visible="eq(-6,true) + eq(-2,1)"/>
+        <setting id="misc_local" label="30477" type="file" default="" visible="eq(-7,true) + eq(-3,0)"/>
+        <setting id="misc_remote" label="30478" type="text" default="" visible="eq(-8,true) + eq(-4,1)"/>
+        <setting id="top50_local" label="30479" type="file" default="" visible="eq(-9,true) + eq(-5,0)"/>
+        <setting id="top50_remote" label="30480" type="text" default="" visible="eq(-10,true) + eq(-6,1)"/>
+        <setting id="do_not_use_cache" type="bool" label="30481" default="false" visible="eq(-11,true)"/>
         <setting id="old_settings" type="bool" label="30133" default="false" visible="eq(-12,true)"/>
 
         <setting id="show_alt_live" type="bool" label="Show alternative live streams" default="false" visible="false"/>

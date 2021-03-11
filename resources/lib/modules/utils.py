@@ -387,13 +387,13 @@ def api_keys():
         balancer = choice(keys_list)
 
         control.setSetting('keys_are_set', 'true')
-        control.setSetting('keys_choice', str(keys_list.index(balancer)))
+        control.setSetting('keys_choice', str(keys_list.index(balancer) + 1))
 
         return json.loads(decompress(b64decode(balancer)))
 
     else:
 
-        return json.loads(decompress(b64decode(keys_list[int(control.setting('keys_choice'))])))
+        return json.loads(decompress(b64decode(keys_list[int(control.setting('keys_choice')) - 1])))
 
 
 def pin():
@@ -1174,3 +1174,17 @@ def page_menu(pages, reset=False):
     }
 
     return menu
+
+
+def apply_new_settings():
+
+    original_settings = 'special://home/addons/{}/resources/settings.xml'.format(control.addonInfo('id'))
+    new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(control.addonInfo('id'))
+
+    with open(control.transPath(new_settings)) as new_f:
+        new_settings_text = new_f.read()
+
+        with open(control.transPath(original_settings), 'w') as f:
+            f.write(new_settings_text)
+
+    control.infoDialog(message=control.lang(30402), time=1000)

@@ -1,4 +1,10 @@
-+ [B]2.6.X[/B] [COLOR green]04-01-2021 - 04-03-2021[/COLOR]
++ [B]2.7.X[/B] [COLOR green]11-03-2021 - XX-XX-2021[/COLOR]
+- AliveGR will now apply the new settings format for Kodi 19+
+  > Provides all new helper translation strings
+- Youtube API keys sets now start from 1 instead of 0
+- Various other tweaks and fixes
+
++ [B]2.6.X[/B] [COLOR red]04-01-2021 - 04-03-2021[/COLOR]
 - ResolveURL is no longer imported optionally
 - Removed streamlink from dependencies and converted existing plugins for resolveurl usage
 - Fix search function for movies

@@ -436,6 +436,10 @@ elif action == 'kodi_log_upload':
 
     utils.kodi_log_upload()
 
+elif action == 'apply_new_settings':
+
+    utils.apply_new_settings()
+
 
 # Always run:
 if __name__ == '__main__':
