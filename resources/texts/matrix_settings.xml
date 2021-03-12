@@ -552,12 +552,12 @@
 					</dependencies>
 					<control type="button" format="action"/>
 				</setting>
-				<setting id="keys_are_set" type="boolean" label="API Keys toggler" help="">
-					<level>0</level>
+				<setting id="keys_are_set" type="boolean" label="30301" help="30302">
+					<level>1</level>
 					<default>false</default>
 					<dependencies>
 						<dependency type="visible">
-							<condition on="property" name="InfoBool">false</condition>
+							<condition on="property" name="InfoBool">true</condition>
 						</dependency>
 					</dependencies>
 					<control type="toggle"/>

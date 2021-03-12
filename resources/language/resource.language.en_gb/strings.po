@@ -1095,27 +1095,27 @@ msgid "Greek"
 msgstr ""
 
 msgctxt "#30300"
-msgid "Resolve openload with"
+msgid "New settings format can only be applied on Kodi 19+"
 msgstr ""
 
 msgctxt "#30301"
-msgid "Internally"
+msgid "API Keys toggler"
 msgstr ""
 
 msgctxt "#30302"
-msgid "Externally"
+msgid "This boolean will mark that keys have been set (disable only when you want to change the set of keys)"
 msgstr ""
 
 msgctxt "#30303"
-msgid "ResolveURL"
+msgid ""
 msgstr ""
 
 msgctxt "#30304"
-msgid "Resolving streams, please wait..."
+msgid ""
 msgstr ""
 
 msgctxt "#30305"
-msgid "Externally via browser window"
+msgid ""
 msgstr ""
 
 msgctxt "#30306"
@@ -1619,7 +1619,7 @@ msgid "Enable only when you know what you 're going to do, requires a passphrase
 msgstr ""
 
 msgctxt "#30469"
-msgid "Apply new settings format manually"
+msgid "Apply new settings format manually (Kodi 19+ only)"
 msgstr ""
 
 msgctxt "#30470"

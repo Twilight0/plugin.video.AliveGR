@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.7.0" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.7.1" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.addon" version="18.0.000"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -33,7 +33,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
         <size>1200000</size>
-        <news>+ [B]2.7.X[/B] [COLOR green]11-03-2021 - XX-XX-2021[/COLOR]
+        <news>+ [B]2.7.X[/B] [COLOR green]11-03-2021 - 12-03-2021[/COLOR]
 - AliveGR will now apply the new settings format for Kodi 19+
   > Provides all new helper translation strings
 - Youtube API keys sets now start from 1 instead of 0

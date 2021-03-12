@@ -12,7 +12,7 @@ from __future__ import absolute_import, unicode_literals
 
 import pyxbmct, re, json
 from tulip import control, client, cache, m3u8
-from tulip.compat import parse_qsl
+from tulip.compat import parse_qsl, is_py3
 from tulip.log import log_debug
 from .kodi import skin_name, force as force_
 from .themes import iconname
@@ -1178,13 +1178,19 @@ def page_menu(pages, reset=False):
 
 def apply_new_settings():
 
-    original_settings = 'special://home/addons/{}/resources/settings.xml'.format(control.addonInfo('id'))
-    new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(control.addonInfo('id'))
+    if is_py3:
 
-    with open(control.transPath(new_settings)) as new_f:
-        new_settings_text = new_f.read()
+        original_settings = 'special://home/addons/{}/resources/settings.xml'.format(control.addonInfo('id'))
+        new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(control.addonInfo('id'))
 
-        with open(control.transPath(original_settings), 'w') as f:
-            f.write(new_settings_text)
+        with open(control.transPath(new_settings)) as new_f:
+            new_settings_text = new_f.read()
 
-    control.infoDialog(message=control.lang(30402), time=1000)
+            with open(control.transPath(original_settings), 'w') as f:
+                f.write(new_settings_text)
+
+        control.infoDialog(message=control.lang(30402), time=1000)
+
+    else:
+
+        control.infoDialog(message=control.lang(30300), time=3000)

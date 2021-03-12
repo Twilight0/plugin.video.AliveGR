@@ -1095,28 +1095,28 @@ msgid "Greek"
 msgstr "Ελληνικά"
 
 msgctxt "#30300"
-msgid "Resolve openload with"
-msgstr "Επίλυση openload με το"
+msgid "New settings format can only be applied on Kodi 19+"
+msgstr "Η νέα μορφή ρυθμίσεων μπορεί να εφαρμοστεί μόνο στο Kodi 19+"
 
 msgctxt "#30301"
-msgid "Internally"
-msgstr "Εσωτερικά"
+msgid "API Keys toggler"
+msgstr "Διακόπτης εφαρμογής κλειδιών API"
 
 msgctxt "#30302"
-msgid "Externally"
-msgstr "Εξωτερικά"
+msgid "This boolean will mark that keys have been set (disable only when you want to change the set of keys)"
+msgstr "Αυτή η δυαδική τιμή θα μαρκάρει ότι τα κλειδιά έχουν τεθεί (απενεργοποιείστε μόνο όταν θέλετε να αλλάξετε σετ)"
 
 msgctxt "#30303"
-msgid "ResolveURL"
-msgstr "ResolveURL"
+msgid ""
+msgstr ""
 
 msgctxt "#30304"
-msgid "Resolving streams, please wait..."
-msgstr "Επίληση ροών, παρακαλώ περιμένετε..."
+msgid ""
+msgstr ""
 
 msgctxt "#30305"
-msgid "Externally via browser window"
-msgstr "Εξωτερικά μέσω παραθύρου φυλλομετρητή"
+msgid ""
+msgstr ""
 
 msgctxt "#30306"
 msgid "[COLOR white]Please like facebook page:[/COLOR]{0}[COLOR blue]facebook.com/alivegr/[/COLOR]"
@@ -1619,8 +1619,8 @@ msgid "Enable only when you know what you 're going to do, requires a passphrase
 msgstr "Ενεργοποίηστε μόνο όταν ξερετε τι κάνετε, απαιτεί κωδικό"
 
 msgctxt "#30469"
-msgid "Apply new settings format manually"
-msgstr "Εφαρμογή των νέων ρυθμίσεων χειροκίνητα"
+msgid "Apply new settings format manually (Kodi 19+ only)"
+msgstr "Εφαρμογή των νέων ρυθμίσεων χειροκίνητα (Μόνο Kodi 19+)"
 
 msgctxt "#30470"
 msgid "Debugging Mode"
