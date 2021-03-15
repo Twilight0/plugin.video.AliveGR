@@ -424,9 +424,9 @@ elif action == 'pvrsettings':
 
     kodi.pvrsettings()
 
-elif action == 'activate_audio_addon':
+elif action == 'activate_other_addon':
 
-    utils.activate_audio_addon(url, query=query)
+    utils.activate_other_addon(url, query=query)
 
 elif action == 'welcome':
 

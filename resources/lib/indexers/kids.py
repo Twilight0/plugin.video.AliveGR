@@ -71,6 +71,14 @@ class Indexer:
             }
             ,
             {
+                'title': control.lang(30262),
+                'action': 'activate_other_addon',
+                'url': 'plugin://plugin.video.ert.gr/?action=kids',
+                'icon': iconname('cartoon_collection'),
+                'isFolder': 'False', 'isPlayable': 'False'
+            }
+            ,
+            {
                 'title': control.lang(30076),
                 'action': 'kids_songs',
                 'icon': iconname('kids_songs')

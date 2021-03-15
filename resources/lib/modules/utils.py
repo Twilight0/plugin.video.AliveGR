@@ -11,8 +11,8 @@
 from __future__ import absolute_import, unicode_literals
 
 import pyxbmct, re, json
-from tulip import control, client, cache, m3u8
-from tulip.compat import parse_qsl, is_py3
+from tulip import control, client, cache, m3u8, directory
+from tulip.compat import parse_qsl, is_py3, urlparse
 from tulip.log import log_debug
 from .kodi import skin_name, force as force_
 from .themes import iconname
@@ -222,11 +222,20 @@ def reset_idx(notify=True, force=False):
         log_debug('Indexers have been reset')
 
 
-def activate_audio_addon(url, query=None):
+def activate_other_addon(url, query=None):
 
-    from tulip import directory
+    if not url.startswith('plugin://'):
+        url = ''.join(['plugin://', url, '/'])
 
-    directory.run_builtin(addon_id=url, action=query if query is not None else None, content_type='audio')
+    parsed = urlparse(url)
+
+    if not control.condVisibility('System.HasAddon({0})'.format(parsed.netloc)):
+        control.execute('InstallAddon({0})'.format(parsed.netloc))
+
+    params = dict(parse_qsl(parsed.query))
+    action = params.get('action')
+
+    directory.run_builtin(addon_id=parsed.netloc, action=action, content_type=query)
 
 
 def cache_clear(notify=True):

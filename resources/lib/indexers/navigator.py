@@ -171,7 +171,7 @@ class Indexer:
             cache_clear = {'title': 30056, 'query': {'action': 'cache_clear'}}
             reset_idx = {'title': 30134, 'query': {'action': 'reset_idx', 'query': 'force'}}
             settings = {'title': 30011, 'query': {'action': 'openSettings'}}
-            go_to_audio = {'title': 30321, 'query': {'action': 'activate_audio_addon', 'url': 'plugin.video.AliveGR'}}
+            go_to_audio = {'title': 30321, 'query': {'action': 'activate_other_addon', 'url': 'plugin.video.AliveGR', 'query': 'audio'}}
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
             ii_cm = {'title': 30255, 'query': {'action': 'call_info'}}
             item.update({'cm': [ii_cm, refresh, cache_clear, reset_idx, settings, go_to_audio, tools]})

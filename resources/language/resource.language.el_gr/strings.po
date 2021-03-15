@@ -943,8 +943,8 @@ msgid "Forced updating of addons repositories"
 msgstr "Επιβολή ενημέρωσης αποθετηρίων προσθέτων"
 
 msgctxt "#30262"
-msgid "Quality choice (Youtube-DL)"
-msgstr "Επιλογή ποιότητας (Youtube-DL)"
+msgid "ERTflix kids content"
+msgstr "Παιδικό περιεχόμενο του ERTflix"
 
 msgctxt "#30263"
 msgid "Thank you for using AliveGR addon"
@@ -1083,8 +1083,8 @@ msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
 msgstr "[COLOR white][B]Επιβολή ελέγχου ενημερώσεων[/B][/COLOR]"
 
 msgctxt "#30297"
-msgid "Resolve dailymotion with"
-msgstr "Επίλυση ροών dailymotion με το"
+msgid ""
+msgstr ""
 
 msgctxt "#30298"
 msgid "Resolvers"

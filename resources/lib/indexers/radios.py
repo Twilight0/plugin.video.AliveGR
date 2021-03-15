@@ -27,8 +27,7 @@ class Indexer:
             {
                 'title': 'EPT PLAYER RADIO STATIONS',
                 'image': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_fanart.jpg', media_subfolder=False),
-                'url': 'plugin.video.ert.gr',
-                'query': 'radios'
+                'url': 'plugin://plugin.video.ert.gr/?action=radios'
             }
             ,
             {
@@ -40,7 +39,7 @@ class Indexer:
 
     def radio(self):
 
-        for station in self.addons:
-            station.update({'action': 'activate_audio_addon', 'isFolder': 'False', 'isPlayable': 'False' })
+        for addon in self.addons:
+            addon.update({'action': 'activate_other_addon', 'isFolder': 'False', 'isPlayable': 'False', 'query': 'audio'})
 
         directory.add(self.addons)
