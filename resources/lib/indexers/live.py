@@ -289,7 +289,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = self.live()[0]
         else:
-            self.data = cache.get(self.live, 8)[0]
+            try:
+                self.data = cache.get(self.live, 8)[0]
+            except Exception:
+                self.data = None
+                return
         self.list = [item for item in self.data if item['group'] == group]
 
         year = datetime.now().year

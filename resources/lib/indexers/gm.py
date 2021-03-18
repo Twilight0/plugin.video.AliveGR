@@ -118,10 +118,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = root(url)[1]
         else:
-            self.data = cache.get(root, 24, url)[1]
-
-        if self.data is None:
-            return
+            try:
+                self.data = cache.get(root, 24, url)[1]
+            except Exception:
+                self.data = None
+                return
 
         translated = [control.lang(int(i)) for i in self.data]
 
@@ -140,10 +141,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = root(MOVIES)[0]
         else:
-            self.data = cache.get(root, 24, MOVIES)[0]
-
-        if self.data is None:
-            return
+            try:
+                self.data = cache.get(root, 24, MOVIES)[0]
+            except Exception:
+                self.data = None
+                return
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -171,10 +173,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = root(SHORTFILMS)[0]
         else:
-            self.data = cache.get(root, 24, SHORTFILMS)[0]
-
-        if self.data is None:
-            return
+            try:
+                self.data = cache.get(root, 24, SHORTFILMS)[0]
+            except Exception:
+                self.data = None
+                return
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -198,10 +201,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = root(SERIES)[0]
         else:
-            self.data = cache.get(root, 24, SERIES)[0]
-
-        if self.data is None:
-            return
+            try:
+                self.data = cache.get(root, 24, SERIES)[0]
+            except Exception:
+                self.data = None
+                return
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -224,10 +228,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = root(SHOWS)[0]
         else:
-            self.data = cache.get(root, 24, SHOWS)[0]
-
-        if self.data is None:
-            return
+            try:
+                self.data = cache.get(root, 24, SHOWS)[0]
+            except Exception:
+                self.data = None
+                return
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -250,10 +255,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = root(ANIMATION)[0]
         else:
-            self.data = cache.get(root, 24, ANIMATION)[0]
-
-        if self.data is None:
-            return
+            try:
+                self.data = cache.get(root, 24, ANIMATION)[0]
+            except Exception:
+                self.data = None
+                return
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -276,10 +282,11 @@ class Indexer:
         if CACHE_DEBUG:
             self.data = root(THEATER)[0]
         else:
-            self.data = cache.get(root, 24, THEATER)[0]
-
-        if self.data is None:
-            return
+            try:
+                self.data = cache.get(root, 24, THEATER)[0]
+            except Exception:
+                self.data = None
+                return
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -377,9 +384,9 @@ class Indexer:
     def listing(self, url, post=None, get_listing=False):
 
         if CACHE_DEBUG:
-             self.list = self.items_list(url, post)
+            self.list = self.items_list(url, post)
         else:
-             self.list = cache.get(self.items_list, 12, url, post)
+            self.list = cache.get(self.items_list, 12, url, post)
 
         if self.list is None:
             log_debug('Listing section failed to load, try resetting indexer methods')
