@@ -9,13 +9,11 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-import re
 from random import shuffle, choice as random_choice
 from resolveurl import add_plugin_dirs, resolve as resolve_url
 from resolveurl.hmf import HostedMediaFile
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
-from tulip import directory, client, cache, control, youtube as tulip_youtube
-from tulip.parsers import itertags_wrapper
+from tulip import directory, client, control, youtube as tulip_youtube
 from tulip.log import log_debug
 from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode, urllib2
 
@@ -23,7 +21,7 @@ from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, sou
 from ..indexers.kids import GK_BASE
 from ..resolvers import common, youtube
 from .kodi import prevent_failure
-from .constants import YT_URL, CACHE_DEBUG, HOSTS, SEPARATOR, PLUGINS_PATH
+from .constants import YT_URL, HOSTS, SEPARATOR, PLUGINS_PATH, cache_function, cache_duration
 from .utils import m3u8_picker, api_keys
 
 skip_directory = False
@@ -57,10 +55,7 @@ def conditionals(url):
     elif url.startswith('iptv://'):
 
         try:
-            if CACHE_DEBUG:
-                hosts, urls = common.iptv(urlsplit(url).netloc)
-            else:
-                hosts, urls = cache.get(common.iptv, 2, urlsplit(url).netloc)
+            hosts, urls = common.iptv(urlsplit(url).netloc)
         except Exception:
             return
 
@@ -95,12 +90,7 @@ def conditionals(url):
 
     elif GM_BASE in url:
 
-        if CACHE_DEBUG:
-            sources = source_maker(url)
-        else:
-            sources = cache.get(source_maker, 6, url)
-            if not sources:
-                return
+        sources = source_maker(url)
 
         link = mini_picker(sources['hosts'], sources['links'])
 
@@ -112,14 +102,9 @@ def conditionals(url):
 
     elif GK_BASE in url:
 
-        if CACHE_DEBUG:
-            stream = gk_debris(url)
-        else:
-            stream = cache.get(gk_debris, 48, url)
-        if not stream:
-            return
-        else:
-            return stream
+        stream = gk_debris(url)
+
+        return stream
 
     else:
 
@@ -134,6 +119,7 @@ def gm_debris(link):
     return button
 
 
+@cache_function(cache_duration(360))
 def gk_debris(link):
 
     html = client.request(link)
@@ -202,10 +188,7 @@ def mini_picker(hl, sl, dont_check=False):
 
 def gm_filler(url, params):
 
-    if CACHE_DEBUG:
-        sources = source_maker(url)
-    else:
-        sources = cache.get(source_maker, 6, url)
+    sources = source_maker(url)
 
     lists = list(zip(sources['hosts'], sources['links']))
 
@@ -259,10 +242,7 @@ def gk_filler(url):
 
     items = []
 
-    if CACHE_DEBUG:
-        sources = gk_debris(url)
-    else:
-        sources = cache.get(gk_debris, 6, url)
+    sources = gk_debris(url)
 
     lists = list(
         zip(
@@ -288,6 +268,7 @@ def gk_filler(url):
     return items
 
 
+@cache_function(cache_duration(660))
 def items_directory(url, params):
 
     if 'greek-movies.com' in url:
@@ -303,10 +284,7 @@ def directory_picker(url, argv):
 
     params = dict(parse_qsl(argv[2][1:]))
 
-    if CACHE_DEBUG:
-        items = items_directory(url, params)
-    else:
-        items = cache.get(items_directory, 12, url, params)
+    items = items_directory(url, params)
 
     if items is None:
         return
@@ -386,12 +364,7 @@ def pseudo_live(url):
 
     if not _url.endswith('kids') and 'youtube' not in _url:
 
-        if CACHE_DEBUG:
-            bl_urls = blacklister()
-        else:
-            bl_urls = cache.get(blacklister, 96)
-
-        movie_list = [i for i in movie_list if i['url'] not in bl_urls]
+        movie_list = [i for i in movie_list if i['url'] not in blacklister()]
 
     for i in movie_list:
         i.update({'action': 'play_skipped', 'isFolder': 'False'})
@@ -405,10 +378,7 @@ def pseudo_live(url):
         meta = {'title': choice['title'], 'image': choice['image']}
 
         if 'youtube' not in _url:
-            if CACHE_DEBUG:
-                plot = source_maker(choice['url']).get('plot')
-            else:
-                plot = cache.get(source_maker, 6, choice['url']).get('plot')
+            plot = source_maker(choice['url']).get('plot')
 
         if plot:
             meta.update({'plot': plot})
@@ -466,10 +436,7 @@ def player(url, params):
         plot = params.get('plot')
 
     if not plot and 'greek-movies.com' in url:
-        if CACHE_DEBUG:
-            plot = source_maker(url).get('plot')
-        else:
-            plot = cache.get(source_maker, 6, url).get('plot')
+        plot = source_maker(url).get('plot')
 
     dash, m3u8_dash, mimetype, manifest_type = dash_conditionals(stream)
 

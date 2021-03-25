@@ -11,12 +11,12 @@ from __future__ import absolute_import, unicode_literals
 
 import json, re
 
-from tulip import control, directory, cache, client, youtube
+from tulip import control, directory, cache, client
 from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL, ART_ID, CACHE_DEBUG
-from ..modules.utils import thgiliwt, thumb_maker, keys_registration, api_keys
+from ..modules.constants import YT_URL, ART_ID, cache_method, cache_duration
+from ..modules.utils import thgiliwt, thumb_maker, keys_registration, api_keys, yt_playlists, yt_playlist
 from . import gm
 from datetime import datetime
 from youtube_requests import get_search
@@ -140,10 +140,7 @@ class Indexer:
 
     def gm_music(self):
 
-        if CACHE_DEBUG:
-            html = gm.root(gm.MUSIC)
-        else:
-            html = cache.get(gm.root, 96, gm.MUSIC)
+        html = gm.root(gm.MUSIC)
 
         options = re.compile(r'(<option  value=.+?</option>)', re.U).findall(html)
 
@@ -159,6 +156,7 @@ class Indexer:
 
         directory.add(self.list)
 
+    @cache_method(cache_duration(2880))
     def music_list(self, url):
 
         html = client.request(url)
@@ -202,10 +200,7 @@ class Indexer:
             link = urljoin(gm.GM_BASE, link)
 
             if 'gapi.client.setApiKey' in html:
-                if CACHE_DEBUG:
-                    link = gm.source_maker(url)['links'][0]
-                else:
-                    link = cache.get(gm.source_maker, 48, url)['links'][0]
+                link = gm.source_maker(url)['links'][0]
 
             data = {'title': title, 'url': link, 'image': icon}
 
@@ -219,14 +214,7 @@ class Indexer:
 
     def artist_index(self, url, get_list=False):
 
-        if CACHE_DEBUG:
-            self.list = self.music_list(url)
-        else:
-            self.list = cache.get(self.music_list, 48, url)
-
-        if self.list is None:
-            log_debug('Artist\'s section failed to load')
-            return
+        self.list = self.music_list(url)
 
         for item in self.list:
             item.update({'action': 'album_index'})
@@ -242,14 +230,7 @@ class Indexer:
 
     def album_index(self, url):
 
-        if CACHE_DEBUG:
-            self.list = self.music_list(url)
-        else:
-            self.list = cache.get(self.music_list, 48, url)
-
-        if self.list is None:
-            log_debug('Album index section failed to load')
-            return
+        self.list = self.music_list(url)
 
         for item in self.list:
             item.update(
@@ -263,14 +244,7 @@ class Indexer:
 
     def songs_index(self, url, album):
 
-        if CACHE_DEBUG:
-            self.list = self.music_list(url)
-        else:
-            self.list = cache.get(self.music_list, 48, url)
-
-        if self.list is None:
-            log_debug('Songs section failed to load')
-            return
+        self.list = self.music_list(url)
 
         for count, item in list(enumerate(self.list, start=1)):
 
@@ -283,7 +257,7 @@ class Indexer:
 
     def mgreekz_index(self):
 
-        self.data = cache.get(youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlists, 48, self.mgreekz_id)
+        self.data = yt_playlists(self.mgreekz_id)
 
         for i in self.data:
             i.update(
@@ -306,11 +280,7 @@ class Indexer:
 
     def mgreekz_list(self, url):
 
-        self.list = cache.get(youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist, 12, url)
-
-        if self.list is None:
-
-            return
+        self.list = yt_playlist(url)
 
         for i in self.list:
             i.update(
@@ -321,6 +291,7 @@ class Indexer:
 
         directory.add(self.list, content=self.content, infotype=self.infotype)
 
+    @cache_method(cache_duration(1440))
     def _mgreekz_top10(self):
 
         html = client.request(self.mgreekz_url)
@@ -364,7 +335,7 @@ class Indexer:
 
     def mgreekz_top10(self):
 
-        self.list = cache.get(self._mgreekz_top10, 24)
+        self.list = self._mgreekz_top10()
 
         if self.list is None:
             log_debug('Mad Greekz top 10 section failed to load')
@@ -389,6 +360,7 @@ class Indexer:
         control.sortmethods('tracknum', mask='%A')
         directory.add(self.list, content=self.content, infotype=self.infotype)
 
+    @cache_method(cache_duration(1440))
     def _top20(self, url):
 
         cookie = client.request(url, close=False, output='cookie')
@@ -464,7 +436,7 @@ class Indexer:
 
     def top20_list(self, url):
 
-        self.list = cache.get(self._top20, 24, url)
+        self.list = self._top20(url)
 
         if self.list is None:
             log_debug('Top 20 list section failed to load')
@@ -500,6 +472,7 @@ class Indexer:
         control.sortmethods('tracknum', mask='%A')
         directory.add(self.list, content=self.content, infotype=self.infotype)
 
+    @cache_method(cache_duration(2880))
     def _top50(self, url):
 
         if control.setting('debug') == 'false':
@@ -546,7 +519,7 @@ class Indexer:
 
     def top50_list(self, url):
 
-        self.list = cache.get(self._top50, 48, url)
+        self.list = self._top50(url)
 
         if self.list is None:
             log_debug('Developer\'s picks section failed to load')
@@ -571,7 +544,7 @@ class Indexer:
 
     def techno_choices(self, url):
 
-        self.list = cache.get(youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist, 12, url)
+        self.list = yt_playlist(url)
 
         if self.list is None:
 

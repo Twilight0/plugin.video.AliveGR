@@ -9,11 +9,10 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-from tulip import cache, client, control
-from tulip.log import log_debug
+from tulip import client, control
 from tulip.init import syshandle
 from ..modules.utils import thgiliwt, keys_registration
-from ..modules.constants import YT_ADDON, CACHE_DEBUG
+from ..modules.constants import YT_ADDON, cache_duration, cache_method
 
 
 class Indexer:
@@ -24,6 +23,7 @@ class Indexer:
         self.misc = 'wWb45SeuFGbsV2YzlWbvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
         keys_registration()
 
+    @cache_method(cache_duration(1440))
     def misc_list(self):
 
         if control.setting('debug') == 'false':
@@ -65,14 +65,7 @@ class Indexer:
 
     def miscellany(self):
 
-        if CACHE_DEBUG:
-            self.data = self.misc_list()
-        else:
-            self.data = cache.get(self.misc_list, 24)
-
-        if self.data is None:
-            log_debug('Misc channels list did not load successfully')
-            return
+        self.data = self.misc_list()
 
         self.list = []
 

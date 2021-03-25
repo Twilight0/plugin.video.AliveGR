@@ -339,8 +339,8 @@ msgid "Remove from Bookmarks"
 msgstr "Αφαίρεση από τους σελιδοδείκτες"
 
 msgctxt "#30082"
-msgid "Cache clear & Playlist refresh"
-msgstr "Καθαρισμός & Ανανέωση λίστας"
+msgid "Cache clear & playlist refresh"
+msgstr "Καθαρισμός & ανανέωση λίστας"
 
 msgctxt "#30083"
 msgid "Short Films"
@@ -463,8 +463,8 @@ msgid "Stream not resolvable"
 msgstr "Ροή μη επιλύσιμη"
 
 msgctxt "#30113"
-msgid "Delete cache file"
-msgstr "Διαγραφή αρχείου προσωρινής μνήμης"
+msgid ""
+msgstr ""
 
 msgctxt "#30114"
 msgid "This action will enable additional unofficial streams. Enable at your own risk.[CR]Proceed?"
@@ -928,7 +928,7 @@ msgstr "[COLOR white]Βιβλιοθήκες tulip έκδοση:[/COLOR]{0}[COLOR
 
 msgctxt "#30258"
 msgid "[COLOR white]Kodi version:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
-msgstr "[COLOR white]Kodi έκδοση:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
+msgstr "[COLOR white]Έκδοση Kodi:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
 
 msgctxt "#30259"
 msgid "[COLOR white]Follow me on Twitter:[/COLOR]{0}[COLOR blue]twitter.com/TwilightZer0[/COLOR]"
@@ -1107,8 +1107,8 @@ msgid "This boolean will mark that keys have been set (disable only when you wan
 msgstr "Αυτή η δυαδική τιμή θα μαρκάρει ότι τα κλειδιά έχουν τεθεί (απενεργοποιείστε μόνο όταν θέλετε να αλλάξετε σετ)"
 
 msgctxt "#30303"
-msgid ""
-msgstr ""
+msgid "[COLOR blue]Python version:[/COLOR]{0}[COLOR yellow]{1}[/COLOR]"
+msgstr "[COLOR white]Έκδοση μεταφραστής Python:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
 
 msgctxt "#30304"
 msgid ""
@@ -1579,8 +1579,8 @@ msgid "Clear AliveGR's function cache"
 msgstr "Εκκαθάριση της μνήμης λειτουργιών του AliveGR"
 
 msgctxt "#30459"
-msgid "Delete AliveGR's function cache.db"
-msgstr "Διαγραφή της μνήμης λειτουργιών cache.db του AliveGR"
+msgid ""
+msgstr ""
 
 msgctxt "#30460"
 msgid "Delete AliveGR's bookmarks.db"

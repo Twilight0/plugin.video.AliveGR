@@ -8,12 +8,13 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
-from ..modules.constants import YT_URL, CACHE_DEBUG
+from ..modules.constants import YT_URL, cache_function, cache_duration
 import re, youtube_resolver
-from tulip import control, client, cache
+from tulip import control, client
 from ..modules.utils import stream_picker
 
 
+@cache_function(cache_duration(360))
 def generic(url, add_base=False):
 
     html = client.request(url)
@@ -37,10 +38,7 @@ def wrapper(url):
 
     if url.endswith('/live'):
 
-        if CACHE_DEBUG:
-            url = generic(url)
-        else:
-            url = cache.get(generic, 6, url)
+        url = generic(url)
 
         if not url:
 

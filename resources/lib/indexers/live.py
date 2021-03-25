@@ -12,13 +12,13 @@ from __future__ import absolute_import, unicode_literals
 import re, json
 from datetime import datetime
 from base64 import b64decode
-from tulip import cache, control, directory, client
+from tulip import control, directory, client
 from tulip.log import log_debug
 from tulip.compat import str, is_py3
 from tulip.utils import percent
 from ..modules.themes import iconname
 from ..modules.utils import thgiliwt, bourtsa, read_from_file
-from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED, CACHE_DEBUG
+from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED, cache_method, cache_duration
 from ..modules.player import conditionals
 
 
@@ -50,6 +50,7 @@ class Indexer:
             seq(str(choice))
             control.refresh()
 
+    @cache_method(cache_duration(480))
     def live(self):
 
         if control.setting('debug') == 'false':
@@ -132,10 +133,7 @@ class Indexer:
         if control.setting('live_tv_mode') == '1' and query is None:
             zapping = True
 
-        if CACHE_DEBUG:
-            live_data = self.live()
-        else:
-            live_data = cache.get(self.live, 8)
+        live_data = self.live()
 
         if live_data is None:
             log_debug('Live channels list did not load successfully')
@@ -286,14 +284,7 @@ class Indexer:
         else:
             fanart = control.addonInfo('fanart')
 
-        if CACHE_DEBUG:
-            self.data = self.live()[0]
-        else:
-            try:
-                self.data = cache.get(self.live, 8)[0]
-            except Exception:
-                self.data = None
-                return
+        self.data = self.live()[0]
         self.list = [item for item in self.data if item['group'] == group]
 
         year = datetime.now().year

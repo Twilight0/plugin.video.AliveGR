@@ -9,6 +9,7 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
+import sys
 from ..modules.themes import iconname
 from ..modules.constants import ART_ID, PAYPAL, PATREON, SUPPORT
 from tulip import control, directory
@@ -201,7 +202,7 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30469),
+                'title': '[B]' + control.lang(30469) + '[/B]',
                 'action': 'apply_new_settings',
                 'plot': control.lang(30469),
                 'icon': control.addonInfo('icon'),
@@ -270,26 +271,6 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30258).format(separator, control.kodi_version()),
-                'action': 'system_info',
-                'plot': control.lang(30263),
-                'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-        ]
-
-        try:
-
-            rurl_enabled = control.addon_details('script.module.resolveurl').get('enabled')
-
-        except Exception:
-
-            rurl_enabled = False
-
-        if rurl_enabled:
-
-            resolveurl = {
 
                 'title': control.lang(30264).format(separator, control.addon('script.module.resolveurl').getAddonInfo('version')),
                 'action': 'other_addon_settings',
@@ -300,8 +281,25 @@ class Indexer:
                 'isPlayable': 'False'
 
             }
-
-            self.list.insert(-2, resolveurl)
+            ,
+            {
+                'title': control.lang(30258).format(separator, control.kodi_version()),
+                'action': 'system_info',
+                'plot': control.lang(30263),
+                'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30303).format(separator, '.'.join([str(sys.version_info[0]), str(sys.version_info[1]), str(sys.version_info[2])])),
+                'action': 'system_info',
+                'plot': control.lang(30263),
+                'image': 'https://awaywithideas.com/wp-content/uploads/2019/10/Python.svg_-e1571602766898.png',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+        ]
 
         directory.add(self.list, content='movies')
 

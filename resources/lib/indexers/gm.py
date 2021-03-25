@@ -16,12 +16,11 @@ import random
 from ast import literal_eval as evaluate
 
 from youtube_requests import get_search
-from tulip import cache, client, directory, control, parsers, cleantitle
-from tulip.log import log_debug
+from tulip import client, directory, control, parsers, cleantitle
 from tulip.compat import urljoin, urlparse, range, iteritems
 from tulip.utils import list_divider
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL, CACHE_DEBUG
+from ..modules.constants import YT_URL, cache_function, cache_method, cache_duration
 from ..modules.utils import keys_registration, page_menu
 
 GM_BASE = 'https://greek-movies.com/'
@@ -38,6 +37,7 @@ PERSON = urljoin(GM_BASE, 'person.php')
 EPISODE = urljoin(GM_BASE, 'ajax.php?type=episode&epid={0}&view={1}')
 
 
+@cache_function(cache_duration(720))
 def root(url):
 
     root_list = []
@@ -115,14 +115,7 @@ class Indexer:
 
     def vod_switcher(self, url):
 
-        if CACHE_DEBUG:
-            self.data = root(url)[1]
-        else:
-            try:
-                self.data = cache.get(root, 24, url)[1]
-            except Exception:
-                self.data = None
-                return
+        self.data = root(url)[1]
 
         translated = [control.lang(int(i)) for i in self.data]
 
@@ -138,14 +131,7 @@ class Indexer:
 
     def movies(self):
 
-        if CACHE_DEBUG:
-            self.data = root(MOVIES)[0]
-        else:
-            try:
-                self.data = cache.get(root, 24, MOVIES)[0]
-            except Exception:
-                self.data = None
-                return
+        self.data = root(MOVIES)[0]
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -170,14 +156,7 @@ class Indexer:
 
     def short_films(self):
 
-        if CACHE_DEBUG:
-            self.data = root(SHORTFILMS)[0]
-        else:
-            try:
-                self.data = cache.get(root, 24, SHORTFILMS)[0]
-            except Exception:
-                self.data = None
-                return
+        self.data = root(SHORTFILMS)[0]
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -198,14 +177,7 @@ class Indexer:
 
     def series(self):
 
-        if CACHE_DEBUG:
-            self.data = root(SERIES)[0]
-        else:
-            try:
-                self.data = cache.get(root, 24, SERIES)[0]
-            except Exception:
-                self.data = None
-                return
+        self.data = root(SERIES)[0]
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -225,14 +197,7 @@ class Indexer:
 
     def shows(self):
 
-        if CACHE_DEBUG:
-            self.data = root(SHOWS)[0]
-        else:
-            try:
-                self.data = cache.get(root, 24, SHOWS)[0]
-            except Exception:
-                self.data = None
-                return
+        self.data = root(SHOWS)[0]
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -252,14 +217,7 @@ class Indexer:
 
     def cartoons_series(self):
 
-        if CACHE_DEBUG:
-            self.data = root(ANIMATION)[0]
-        else:
-            try:
-                self.data = cache.get(root, 24, ANIMATION)[0]
-            except Exception:
-                self.data = None
-                return
+        self.data = root(ANIMATION)[0]
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -279,14 +237,7 @@ class Indexer:
 
     def theater(self):
 
-        if CACHE_DEBUG:
-            self.data = root(THEATER)[0]
-        else:
-            try:
-                self.data = cache.get(root, 24, THEATER)[0]
-            except Exception:
-                self.data = None
-                return
+        self.data = root(THEATER)[0]
 
         try:
             self.list = [item for item in self.data if item['group'] == control.setting('vod_group')]
@@ -304,6 +255,7 @@ class Indexer:
 
         directory.add(self.list)
 
+    @cache_method(cache_duration(720))
     def items_list(self, url, post=None):
 
         indexer = urlparse(url).query
@@ -383,23 +335,11 @@ class Indexer:
 
     def listing(self, url, post=None, get_listing=False):
 
-        if CACHE_DEBUG:
-            self.list = self.items_list(url, post)
-        else:
-            self.list = cache.get(self.items_list, 12, url, post)
-
-        if self.list is None:
-            log_debug('Listing section failed to load, try resetting indexer methods')
-            return
+        self.list = self.items_list(url, post)
 
         if url.startswith(MOVIES) and control.setting('show_cartoons') == 'false' and url != ''.join([GM_BASE, 'movies.php?g=8&y=&l=&p=']):
 
-            if CACHE_DEBUG:
-                bl_urls = blacklister()
-            else:
-                bl_urls = cache.get(blacklister, 96)
-
-            self.list = [i for i in self.list if i['url'] not in bl_urls]
+            self.list = [i for i in self.list if i['url'] not in blacklister()]
 
         for item in self.list:
 
@@ -465,6 +405,7 @@ class Indexer:
         else:
             directory.add(self.list, content='tvshows')
 
+    @cache_method(cache_duration(720))
     def epeisodia(self, url):
 
         html = client.request(url)
@@ -534,14 +475,7 @@ class Indexer:
 
     def episodes(self, url):
 
-        if CACHE_DEBUG:
-            self.list = self.epeisodia(url)
-        else:
-            self.list = cache.get(self.epeisodia, 12, url)
-
-        if self.list is None:
-            log_debug('Episode section failed to load, try resetting indexer methods')
-            return
+        self.list = self.epeisodia(url)
 
         for item in self.list:
 
@@ -587,10 +521,7 @@ class Indexer:
 
     def gm_sports(self):
 
-        if CACHE_DEBUG:
-            html = root(SPORTS)
-        else:
-            html = cache.get(root, 48, SPORTS)
+        html = root(SPORTS)
 
         options = re.compile('(<option value.+?</option>)', re.U).findall(html)
 
@@ -614,6 +545,7 @@ class Indexer:
 
         directory.add(self.list)
 
+    @cache_method(cache_duration(720))
     def event_list(self, url):
 
         html = client.request(url)
@@ -639,11 +571,7 @@ class Indexer:
 
     def events(self, url):
 
-        self.list = cache.get(self.event_list, 12, url)
-
-        if self.list is None:
-            log_debug('Events section failed to load, try resetting indexer methods')
-            return
+        self.list = self.event_list(url)
 
         for item in self.list:
             bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
@@ -653,6 +581,7 @@ class Indexer:
 
         directory.add(self.list)
 
+    @cache_method(cache_duration(720))
     def persons_listing(self, url, post):
 
         html = client.request(url, post=post)
@@ -674,10 +603,7 @@ class Indexer:
 
     def persons_index(self, url, post, get_list=True):
 
-        if CACHE_DEBUG:
-            self.list = self.persons_listing(url, post)
-        else:
-            self.list = cache.get(self.persons_listing, 48, url, post)
+        self.list = self.persons_listing(url, post)
 
         if self.list is None:
             return
@@ -698,6 +624,7 @@ class Indexer:
             directory.add(self.list)
 
 
+@cache_function(cache_duration(360))
 def source_maker(url):
 
     if 'episode' in url:
@@ -857,6 +784,7 @@ def source_maker(url):
         return data
 
 
+@cache_function(cache_duration(5760))
 def blacklister():
 
     result = client.request('https://pastebin.com/raw/eh5pPA6K')

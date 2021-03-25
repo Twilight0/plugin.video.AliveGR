@@ -10,6 +10,10 @@
 
 from tulip.compat import OrderedDict
 from tulip.control import dataPath, join, setting
+from tulip.cache import FunctionCache
+
+cache_function = FunctionCache().cache_function
+cache_method = FunctionCache().cache_method
 
 SCRAMBLE_1 = (
     'eJwVy8sKgkAUANBfiVmXzAz5qJ0ipYVQmKGrGMfrc3xrqdG/h/tzvqgH3sGAjhvkxkVHw6GzqpNxJqZPHZ/fSidA2w1iTfYqYF6Zbi/MnXXxCK2FTB'
@@ -91,3 +95,10 @@ def HOSTS(url):
     ]
 
     return any(_hosts)
+
+
+def cache_duration(duration):
+    if CACHE_DEBUG:
+        return 0
+    else:
+        return duration

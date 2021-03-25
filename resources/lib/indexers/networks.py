@@ -59,13 +59,6 @@ class Indexer:
             }
             ,
             {
-                'title': 'EURONEWS',
-                'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='euronews_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.euronews.com/',
-                'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='euronews_fanart.jpg', media_subfolder=False)
-            }
-            ,
-            {
                 'title': 'NOVASPORTS',
                 'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='nova_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.novasports.gr/',

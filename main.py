@@ -328,10 +328,6 @@ elif action == 'cache_clear':
 
     utils.cache_clear()
 
-elif action == 'cache_delete':
-
-    utils.cache.delete()
-
 elif action == 'purge_bookmarks':
 
     utils.purge_bookmarks()

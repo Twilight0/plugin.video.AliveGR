@@ -9,10 +9,10 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-from tulip import control, client, cache
+from tulip import control, client
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
-from ..modules.constants import ART_ID, CACHE_DEBUG
+from ..modules.constants import ART_ID, cache_method, cache_duration
 
 
 class Indexer:
@@ -66,13 +66,6 @@ class Indexer:
                 'url': 'plugin://plugin.video.skai.gr/?action=news',
                 'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='skai_fanart.jpg', media_subfolder=False)
             }
-            ,
-            {
-                'title': 'Euronews',
-                'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='euronews_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.euronews.com/?action=videos&url=%22methodName%22%3a%22content.getThemeDetails%22%2c%22params%22%3a%7b%22tId%22%3a%221%22%7d',
-                'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='euronews_fanart.jpg', media_subfolder=False)
-            }
         ]
 
         for item in items:
@@ -110,6 +103,7 @@ class Indexer:
         else:
             control.execute('Dialog.Close(all)')
 
+    @cache_method(cache_duration(720))
     def front_pages(self):
 
         html = client.request(self.fp_link)
@@ -139,13 +133,7 @@ class Indexer:
 
     def papers_index(self):
 
-        if CACHE_DEBUG:
-            self.data = self.front_pages()
-        else:
-            self.data = cache.get(self.front_pages, 12)
-
-        if not self.data:
-            return
+        self.data = self.front_pages()
 
         for i in self.data:
             i.update({'action': None, 'isFolder': 'False'})

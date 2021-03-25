@@ -8,12 +8,15 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
+from __future__ import absolute_import
+
 from tulip import client
 import re
 from tulip.parsers import itertags_wrapper
 from tulip.compat import urlparse
 from tulip.control import lang
 from tulip.log import log_debug
+from ..modules.constants import cache_function, cache_duration
 
 
 def risegr(link):
@@ -40,6 +43,7 @@ def periscope_search(url):
     return link
 
 
+@cache_function(cache_duration(120))
 def iptv(name):
 
     html = client.request('https://www.dailyiptvlist.com/iptv-europe-free-m3u/greece-greek/')
@@ -70,6 +74,7 @@ def iptv(name):
     return hosts, urls
 
 
+@cache_function(cache_duration(60))
 def _check_url(url):
 
     try:

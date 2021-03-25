@@ -65,13 +65,6 @@ class Indexer:
             }
             ,
             {
-                'title': 'Euronews Sports',
-                'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='euronews_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.euronews.com/?action=videos&url=%22methodName%22%3a%22content.getThemeDetails%22%2c%22params%22%3a%7b%22tId%22%3a%228%22%7d',
-                'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='euronews_fanart.jpg', media_subfolder=False)
-            }
-            ,
-            {
                 'title': 'NovaSports',
                 'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='nova_icon.png', media_subfolder=False),
                 'url': 'plugin://plugin.video.novasports.gr/',

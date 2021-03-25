@@ -11,13 +11,14 @@
 from __future__ import absolute_import, unicode_literals
 
 import pyxbmct, re, json
-from tulip import control, client, cache, m3u8, directory
+from tulip import control, client, cache, m3u8, directory, youtube
 from tulip.compat import parse_qsl, is_py3, urlparse
 from tulip.log import log_debug
 from .kodi import skin_name, force as force_
 from .themes import iconname
 from .constants import (
-    FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5, SCRAMBLE_6
+    FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5, SCRAMBLE_6,
+    cache_duration
 )
 from os import path
 from random import choice
@@ -32,6 +33,8 @@ from youtube_registration import register_api_keys
 iptv_folder = control.transPath('special://profile/addon_data/pvr.iptvsimple')
 vtpi = 'wWb45ycn5Wa0RXZz9ld0BXavcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
+reset_cache = cache.FunctionCache().reset_cache
+cache_function = cache.FunctionCache().cache_function
 
 
 def papers():
@@ -241,12 +244,7 @@ def activate_other_addon(url, query=None):
 def cache_clear(notify=True):
 
     log_debug('Cache has been cleared')
-    cache.clear(withyes=False, notify=notify)
-
-
-def cache_delete():
-
-    cache.delete(withyes=False)
+    reset_cache(notify=notify)
 
 
 def purge_bookmarks():
@@ -1059,6 +1057,7 @@ def new_version(new=False):
             return False
 
 
+@cache_function(cache_duration(360))
 def remote_version():
 
     xml = client.request('https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/addons.xml')
@@ -1203,3 +1202,21 @@ def apply_new_settings():
     else:
 
         control.infoDialog(message=control.lang(30300), time=3000)
+
+
+@cache_function(cache_duration(30))
+def yt_videos(url):
+
+    return youtube.youtube(key=api_keys()['api_key'], replace_url=False).videos(url)
+
+
+@cache_function(cache_duration(60))
+def yt_playlist(url):
+
+    return youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist(url)
+
+
+@cache_function(cache_duration(480))
+def yt_playlists(url):
+
+    return youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlists(url)

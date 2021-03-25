@@ -494,19 +494,6 @@
 					</dependencies>
 					<control type="button" format="action"/>
 				</setting>
-				<setting id="cache_delete" type="action" label="30113" help="30459">
-					<level>1</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=cache_delete)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
 				<setting id="purge_bookmarks" type="action" label="30135" help="30460">
 					<level>1</level>
 					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=purge_bookmarks)</data>

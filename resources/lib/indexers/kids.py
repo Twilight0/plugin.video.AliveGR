@@ -11,10 +11,10 @@ from __future__ import absolute_import, unicode_literals
 
 import json, re
 from tulip.compat import iteritems
-from tulip import control, client, cache, directory
+from tulip import control, client, directory
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
-from ..modules.constants import YT_ADDON, CACHE_DEBUG
+from ..modules.constants import YT_ADDON, cache_method, cache_duration
 from ..modules.utils import keys_registration
 from .gm import GM_BASE
 
@@ -309,6 +309,7 @@ class Indexer:
         control.addItems(syshandle, self.list)
         control.directory(syshandle)
 
+    @cache_method(cache_duration(180))
     def _cartoon_various(self, url):
 
         if url is None:
@@ -360,13 +361,7 @@ class Indexer:
 
     def cartoon_various(self, url):
 
-        if CACHE_DEBUG:
-            self.list = self._cartoon_various(url)
-        else:
-            self.list = cache.get(self._cartoon_various, 3, url)
-
-        if self.list is None:
-            return
+        self.list = self._cartoon_various(url)
 
         for item in self.list:
 

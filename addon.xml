@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.7.3" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.8.0" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.addon" version="18.0.000"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
@@ -33,22 +33,19 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
         <size>1200000</size>
-        <news>+ [B]2.7.X[/B] [COLOR green]11-03-2021 - 12-03-2021[/COLOR]
+        <news>+ [B]2.8.X[/B] [COLOR green]25-03-2021 - XX-XX-2021[/COLOR]
+- Change caching method
+- Debugging mode tweaks
+- Removed cache delete functions
+- Pagination is now disabled by default
+- Remove Euronews items
+- Some bug fixes
+
++ [B]2.7.X[/B] [COLOR red]11-03-2021 - 19-03-2021[/COLOR]
 - AliveGR will now apply the new settings format for Kodi 19+
   > Provides all new helper translation strings
 - Youtube API keys sets now start from 1 instead of 0
-- Various other tweaks and fixes
-
-+ [B]2.6.X[/B] [COLOR red]04-01-2021 - 04-03-2021[/COLOR]
-- ResolveURL is no longer imported optionally
-- Removed streamlink from dependencies and converted existing plugins for resolveurl usage
-- Fix search function for movies
-- Added sort methods for when pagination is enabled, because there is no proper way to control sort via Kodi's native method
-- Check streams when random stream action is selected for smooth transition between items back to back playback (or pseudo live)
-- Change priorities of the resolvers in the player module and have done some cleanup
-- Removed host choice notification
-- Fixed gamato kids indexer
-- Added additional youtube api keys</news>
+- Various other tweaks and fixes</news>
         <assets>
             <icon>resources/media/icon.png</icon>
             <fanart>resources/media/fanart.jpg</fanart>
