@@ -15,7 +15,7 @@ from resolveurl.hmf import HostedMediaFile
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 from tulip import directory, client, control, youtube as tulip_youtube
 from tulip.log import log_debug
-from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode, urllib2
+from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode, urllib2, is_py2
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..indexers.kids import GK_BASE
@@ -183,7 +183,7 @@ def mini_picker(hl, sl, dont_check=False):
 
         else:
 
-            prevent_failure()
+            return 'https://static.adman.gr/inpage/blank.mp4'
 
 
 def gm_filler(url, params):
@@ -228,8 +228,11 @@ def gm_filler(url, params):
             label = title + SEPARATOR + h
         # plot = title + '[CR]' + control.lang(30090) + ': ' + year + '[CR]' + description
 
+        if is_py2:
+            title = title + ' ({})'.format(year)
+
         data = {
-            'label': label, 'title': title + ' ({})'.format(year), 'url': button, 'image': image, 'plot': description,
+            'label': label, 'title': title, 'url': button, 'image': image, 'plot': description,
             'year': int(year), 'genre': genre, 'name': title
         }
 

@@ -646,7 +646,7 @@
 			</group>
 			<group id="2">
 				<setting id="developer_mode" type="action" label="30013" help="30468">
-					<level>0</level>
+					<level>3</level>
 					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=developer_mode)</data>
 					<constraints>
 						<allowempty>true</allowempty>
