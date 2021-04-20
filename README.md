@@ -24,17 +24,18 @@
 **Kodi Versions tested:**
 
 - Leia 18.X (x64)
+- Matrix 19.X (x64)
 
 **Dependencies:**
 
 - Youtube addon (responsible for resolving various youtube-sourced videos)
 - ResolveURL (the main resolvers, useful for converting html/js into playable content from various hosts)
-- Tulip (library/framework, AliveGR's backbone)
+- Tulip (library/framework, AliveGR's sidekick)
 - Pyxbmct (creates various prompts when update is present)
 
 **Repository zip for updates:**
 
-[repository.twilight0-1.3.zip](https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/repository.twilight0/repository.twilight0-1.3.zip "Repo ZIP")
+[repository.twilight0-1.4.zip](https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/repository.twilight0/repository.twilight0-1.4.zip "Repo ZIP")
 
 **Source url for the same zip to add into Kodi's file manager sources:**
 

@@ -102,9 +102,13 @@ def conditionals(url):
 
     elif GK_BASE in url:
 
-        stream = gk_debris(url)
+        streams = gk_debris(url)
 
-        return stream
+        hl = [''.join([control.lang(30015), urlsplit(url).netloc]) for url in streams]
+
+        url = mini_picker(hl=hl, sl=streams, dont_check=True)
+
+        return resolve_url(url)
 
     else:
 
@@ -123,10 +127,11 @@ def gm_debris(link):
 def gk_debris(link):
 
     html = client.request(link)
-    url = client.parseDOM(html, 'iframe', ret='src', attrs={"class": "metaframe rptss"})[0]
-    url = dict(parse_qsl(urlparse(url).query)).get('source')
+    urls = client.parseDOM(html, 'tr', attrs={'id': 'link-\d+'})
+    urls = [u for u in client.parseDOM(urls, 'a', ret='href')]
+    urls = [client.request(u, output='geturl') for u in urls]
 
-    return url
+    return urls
 
 
 def check_stream(stream_list):

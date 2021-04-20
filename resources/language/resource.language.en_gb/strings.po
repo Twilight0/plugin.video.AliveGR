@@ -1163,7 +1163,7 @@ msgid "Open website in browser window"
 msgstr ""
 
 msgctxt "#30317"
-msgid "Live streams (Currently: {0})"
+msgid "[B]Live streams:[/B] ({0})"
 msgstr ""
 
 msgctxt "#30318"
@@ -1363,7 +1363,7 @@ msgid "Disable additional streams or menu items?"
 msgstr ""
 
 msgctxt "#30405"
-msgid "Vod streams (Currently: {0})"
+msgid "Vod streams: ({0})"
 msgstr ""
 
 msgctxt "#30406"

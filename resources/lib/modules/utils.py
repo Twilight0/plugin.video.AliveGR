@@ -12,7 +12,7 @@ from __future__ import absolute_import, unicode_literals
 
 import pyxbmct, re, json
 from tulip import control, client, cache, m3u8, directory, youtube
-from tulip.compat import parse_qsl, is_py3, urlparse
+from tulip.compat import parse_qsl, is_py3, urlparse, py2_uni
 from tulip.log import log_debug
 from .kodi import skin_name, force as force_
 from .themes import iconname
@@ -129,8 +129,15 @@ def kodi_log_upload():
 
 def toggle_alt():
 
-    live_enability = control.lang(30330) if control.setting('show_alt_live') == 'true' else control.lang(30335)
-    vod_enability = control.lang(30330) if control.setting('show_alt_vod') == 'true' else control.lang(30335)
+    if control.setting('show_alt_live') == 'true':
+        live_enability = '[COLOR green]' + control.lang(30330) + '[/COLOR]'
+    else:
+        live_enability = '[COLOR red]' + control.lang(30335) + '[/COLOR]'
+
+    if control.setting('show_alt_vod') == 'true':
+        vod_enability = '[COLOR green]' + control.lang(30330) + '[/COLOR]'
+    else:
+        vod_enability = '[COLOR red]' + control.lang(30335) + '[/COLOR]'
 
     option = control.selectDialog(
         [
@@ -811,7 +818,7 @@ def file_to_text(file_):
     return result
 
 
-def changelog():
+def changelog(get_text=False):
 
     if control.setting('changelog_lang') == '0' and 'Greek' in control.infoLabel('System.Language'):
         change_txt = 'changelog.el.txt'
@@ -824,7 +831,10 @@ def changelog():
 
     change_txt = control.join(control.addonPath, 'resources', 'texts', change_txt)
 
-    control.dialog.textviewer(control.addonInfo('name') + ', ' + control.lang(30110), file_to_text(change_txt))
+    if get_text:
+        return py2_uni(file_to_text(change_txt)).partition(u'\n\n')[0]
+    else:
+        control.dialog.textviewer(control.addonInfo('name') + ', ' + control.lang(30110), file_to_text(change_txt))
 
 
 def dmca():

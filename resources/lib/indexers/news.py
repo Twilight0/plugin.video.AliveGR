@@ -90,15 +90,13 @@ class Indexer:
             control.refresh()
 
         groups = (
-            [control.lang(30235), control.lang(30231), control.lang(30232), control.lang(30233), control.lang(30234)],
-            ['0', '1', '2', '3', '4']
+            [control.lang(30231), control.lang(30232), control.lang(30233), control.lang(30234)],
+            ['0', '1', '2', '3']
         )
 
         choice = control.selectDialog(heading=control.lang(30049), list=groups[0])
 
-        if choice == 0:
-            seq('0')
-        elif choice <= len(groups[0]) and not choice == -1:
+        if choice <= len(groups[0]) and not choice == -1:
             seq(groups[1][choice])
         else:
             control.execute('Dialog.Close(all)')
@@ -113,7 +111,7 @@ class Indexer:
         except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
             groups = client.parseDOM(html, 'div', attrs={'class': 'tabbertab.+?'})
 
-        for group, papers in list(enumerate(groups, start=1)):
+        for group, papers in list(enumerate(groups)):
 
             items = client.parseDOM(papers, 'div', attrs={'class': 'thumber'})
 
@@ -138,22 +136,20 @@ class Indexer:
         for i in self.data:
             i.update({'action': None, 'isFolder': 'False'})
 
-        self.list = [
-            item for item in self.data if any(
-                item['group'] == group for group in [int(control.setting('papers_group'))]
-            )
-        ] if not control.setting('papers_group') == '0' else self.data
+        try:
+            self.list = [item for item in self.data if item['group'] == int(control.setting('papers_group'))]
+        except Exception:
+            self.list = [item for item in self.data if item['group'] == 0]
+            control.setSetting('papers_group', '0')
 
         if control.setting('papers_group') == '1':
-            integer = 30231
-        elif control.setting('papers_group') == '2':
             integer = 30232
-        elif control.setting('papers_group') == '3':
+        elif control.setting('papers_group') == '2':
             integer = 30233
-        elif control.setting('papers_group') == '4':
+        elif control.setting('papers_group') == '3':
             integer = 30234
         else:
-            integer = 30235
+            integer = 30231
 
         switch = {
             'title': control.lang(30047).format(control.lang(integer)),

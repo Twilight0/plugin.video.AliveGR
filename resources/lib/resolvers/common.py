@@ -46,7 +46,7 @@ def periscope_search(url):
 @cache_function(cache_duration(120))
 def iptv(name):
 
-    html = client.request('https://www.dailyiptvlist.com/iptv-europe-free-m3u/greece-greek/')
+    html = client.request('https://www.dailyiptvlist.com/iptv-europe-free-m-3-u/greece-greek/')
 
     latest = itertags_wrapper(html, 'a', {'class': 'image-link'}, 'href')[0]
 

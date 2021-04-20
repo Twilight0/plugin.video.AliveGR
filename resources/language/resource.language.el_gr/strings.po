@@ -1163,8 +1163,8 @@ msgid "Open website in browser window"
 msgstr "Άνοιγμα σελίδας σε παράθυρο φυλλομετρητή"
 
 msgctxt "#30317"
-msgid "Live streams (Currently: {0})"
-msgstr "Ζωντανές ροές (Τωρα ειναι: {0})"
+msgid "[B]Live streams:[/B] ({0})"
+msgstr "[B]Ζωντανές ροές:[/B] ({0})"
 
 msgctxt "#30318"
 msgid "Change skin"
@@ -1363,8 +1363,8 @@ msgid "Disable additional streams or menu items?"
 msgstr "Απενεργοποιηση επιπλέον ροών ή αντικειμενων μενού;"
 
 msgctxt "#30405"
-msgid "Vod streams (Currently: {0})"
-msgstr "Ροές κατά παραγγελία (Τώρα είναι: {0})"
+msgid "Vod streams: ({0})"
+msgstr "Ροές κατά παραγγελία: ({0})"
 
 msgctxt "#30406"
 msgid "Enable PVR Simple Client menu now?"

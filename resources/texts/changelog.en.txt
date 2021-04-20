@@ -1,4 +1,4 @@
-+ [B]2.8.X[/B] [COLOR green]25-03-2021 - 02-04-2021[/COLOR]
++ [B]2.8.X[/B] [COLOR green]25-03-2021 - 20-04-2021[/COLOR]
 - Change caching method
 - New settings.xml for Matrix+
 - Labeling tweaks for directory mode
@@ -8,6 +8,7 @@
 - Remove Euronews items
 - Bumped dependencies
 - Some bug fixes
+- Various other insignificant tweaks
 
 + [B]2.7.X[/B] [COLOR red]11-03-2021 - 19-03-2021[/COLOR]
 - AliveGR will now apply the new settings format for Kodi 19+

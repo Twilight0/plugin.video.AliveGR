@@ -12,6 +12,7 @@ from __future__ import absolute_import, unicode_literals
 import sys
 from ..modules.themes import iconname
 from ..modules.constants import ART_ID, PAYPAL, PATREON, SUPPORT
+from ..modules.utils import changelog
 from tulip import control, directory
 
 
@@ -25,9 +26,17 @@ class Indexer:
 
         self.list = [
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30255),
+                'title': '[B]' + control.addonInfo('name') + ': ' + control.lang(30255) + '[/B]',
                 'action': 'info',
                 'icon': control.addonInfo('icon')
+            }
+            ,
+            {
+                'title': '[B]' + control.addonInfo('name') + ': ' + control.lang(30350) + '[/B]',
+                'action': 'toggle_alt',
+                'icon': iconname('monitor'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
             }
             ,
             {
@@ -84,20 +93,6 @@ class Indexer:
             }
             ,
             {
-                'title': '[B]' + control.addonInfo('name') + ': ' + control.lang(30350) + '[/B]',
-                'action': 'toggle_alt',
-                'icon': iconname('monitor'),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
-                'title': control.lang(30320) + ': ' + control.lang(30272),
-                'action': 'input_stream_addons',
-                'icon': iconname('monitor')
-            }
-            ,
-            {
                 'title': control.addonInfo('name') + ': ' + control.lang(30056),
                 'action': 'cache_clear',
                 'icon': iconname('empty'),
@@ -122,11 +117,9 @@ class Indexer:
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30110),
-                'action': 'changelog',
-                'icon': control.addonInfo('icon'),
-                'isFolder': 'False',
-                'isPlayable': 'False'
+                'title': control.lang(30320) + ': ' + control.lang(30272),
+                'action': 'input_stream_addons',
+                'icon': iconname('monitor')
             }
             ,
             {
@@ -142,19 +135,6 @@ class Indexer:
 
             for i in self.list:
                 i.update({'cm': [{'title': 30307, 'query': {'action': 'root'}}]})
-
-        if control.condVisibility('System.HasAddon(script.module.resolveurl)'):
-
-            rurl = {
-                'title': control.lang(30111),
-                'action': 'other_addon_settings',
-                'query': 'script.module.resolveurl',
-                'icon': control.addon(id='script.module.resolveurl').getAddonInfo('icon'),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-
-            self.list.insert(-2, rurl)
 
         directory.add(self.list)
 
@@ -190,6 +170,15 @@ class Indexer:
             {
                 'title': control.lang(30290),
                 'action': 'pp',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': '[B]' + control.lang(30110) + '[/B]',
+                'action': 'changelog',
+                'icon': control.addonInfo('icon'),
+                'plot': changelog(get_text=True),
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }

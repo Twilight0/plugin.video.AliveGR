@@ -24,8 +24,8 @@
         <setting id="pagination_integer" type="slider" label="30413" default="100" range="50,50,300" option="int" visible="eq(-2,true)"/>
         <setting type="sep"/>
         <setting type="lsep" label="30349" visible="eq(-3,true)"/>
-        <setting id="sort_method" type="enum" label="30419" lvalues="30167|30294" default="0" visible="eq(-5,true)"/>
-        <setting id="reverse_order" label="30339" type="bool" default="false" visible="eq(-6,true)"/>
+        <setting id="sort_method" type="enum" label="30419" lvalues="30167|30294" default="0" enable="eq(-5,true)"/>
+        <setting id="reverse_order" label="30339" type="bool" default="false" enable="eq(-6,true)"/>
 
     </category>
 
