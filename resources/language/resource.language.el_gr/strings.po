@@ -1108,7 +1108,7 @@ msgstr "Αυτή η δυαδική τιμή θα μαρκάρει ότι τα κ
 
 msgctxt "#30303"
 msgid "[COLOR blue]Python version:[/COLOR]{0}[COLOR yellow]{1}[/COLOR]"
-msgstr "[COLOR white]Έκδοση μεταφραστής Python:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
+msgstr "[COLOR white]Έκδοση μεταφραστή Python:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
 
 msgctxt "#30304"
 msgid ""

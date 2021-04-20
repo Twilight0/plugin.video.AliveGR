@@ -78,7 +78,7 @@
 					<level>3</level>
 					<default>false</default>
 					<dependencies>
-						<dependency type="visible">
+						<dependency type="enable">
 							<condition operator="is" setting="paginate_items">true</condition>
 						</dependency>
 					</dependencies>
@@ -93,7 +93,7 @@
 						<maximum>300</maximum>
 					</constraints>
 					<dependencies>
-						<dependency type="visible">
+						<dependency type="enable">
 							<condition operator="is" setting="paginate_items">true</condition>
 						</dependency>
 					</dependencies>
@@ -707,6 +707,19 @@
 				<setting id="reload_skin" type="action" label="30473" help="">
 					<level>0</level>
 					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=reload_skin)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debug">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action"/>
+				</setting>
+				<setting id="apply_new_settings" type="action" label="30469" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=apply_new_settings)</data>
 					<constraints>
 						<allowempty>true</allowempty>
 					</constraints>

@@ -11,12 +11,12 @@ from __future__ import absolute_import, unicode_literals
 
 import json, re
 
-from tulip import control, directory, cache, client
+from tulip import control, directory, client
 from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
 from ..modules.constants import YT_URL, ART_ID, cache_method, cache_duration
-from ..modules.utils import thgiliwt, thumb_maker, keys_registration, api_keys, yt_playlists, yt_playlist
+from ..modules.utils import thgiliwt, thumb_maker, keys_registration, yt_playlists, yt_playlist
 from . import gm
 from datetime import datetime
 from youtube_requests import get_search
@@ -29,12 +29,8 @@ class Indexer:
 
         self.list = []; self.data = []
         self.mgreekz_id = 'UClMj1LyMRBMu_TG1B1BirqQ'
-        self.mgreekz_url = 'http://mad.tv/'
-        self.rythmos_url = 'https://www.rythmosfm.gr/'
-        self.plus_url = 'http://plusradio.gr/top20'
-        self.radiopolis_url_gr = 'http://www.radiopolis.gr/elliniko-radio-polis-top-20/'
-        self.radiopolis_url_other = 'http://www.radiopolis.gr/to-kseno-polis-top-20/'
-        self.rythmos_top20_url = urljoin(self.rythmos_url, 'community/top20/')
+        self.radiopolis_url_gr = 'https://www.radiopolis.gr/elliniko-radio-polis-top-20/'
+        self.radiopolis_url_other = 'https://www.radiopolis.gr/to-kseno-polis-top-20/'
         if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
             self.content = 'songs'
             self.infotype = 'music'
@@ -67,36 +63,6 @@ class Indexer:
                 'fanart': control.addonmedia(
                     addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
                 )
-            }
-            ,
-            {
-                'title': control.lang(30127),
-                'action': 'mgreekz_top10',
-                'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
-                'fanart': control.addonmedia(
-                    addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
-                )
-            }
-            ,
-            {
-                'title': control.lang(30128),
-                'action': 'top20_list',
-                'url': self.rythmos_top20_url,
-                'image': 'https://is3-ssl.mzstatic.com/image/thumb/Purple62/v4/3e/a4/48/3ea44865-8cb2-5fec-be70-188a060b712c/source/256x256bb.jpg',
-                'fanart': control.addonmedia(
-                    addonid=ART_ID,
-                    theme='networks',
-                    icon='rythmos_fanart.jpg',
-                    media_subfolder=False
-                )
-            }
-            ,
-            {
-                'title': control.lang(30221),
-                'action': 'top20_list',
-                'url': self.plus_url,
-                'image': 'https://is5-ssl.mzstatic.com/image/thumb/Purple20/v4/e8/99/e8/e899e8ea-0df6-0f60-d66d-b82b8021e8af/source/256x256bb.jpg',
-                'fanart': 'https://i.imgur.com/G8koVR8.jpg'
             }
             ,
             {
@@ -135,7 +101,6 @@ class Indexer:
         if control.condVisibility('Window.IsVisible(music)'):
             del self.list[0]
 
-        log_debug('Music section loaded')
         directory.add(self.list)
 
     def gm_music(self):
@@ -366,64 +331,28 @@ class Indexer:
         cookie = client.request(url, close=False, output='cookie')
         html = client.request(url, cookie=cookie)
 
-        if url == self.rythmos_top20_url:
-            attributes = {'class': 'va-title'}
-        elif url == self.plus_url:
-            attributes = {'class': 'element element-itemname first last'}
-        elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-            attributes = {'class': 'thetopdata'}
+        attributes = {'class': 'thetopdata'}
 
-        items = client.parseDOM(
-            html, 'td' if 'radiopolis' in url else 'div', attrs=attributes
-        )
+        items = client.parseDOM(html, 'td', attrs=attributes)
 
         year = str(datetime.now().year)
 
         for item in items:
 
-            if url == self.rythmos_top20_url:
-                label = client.parseDOM(item, 'span', attrs={'class': 'toptitle'})[0]
-                label = client.replaceHTMLCodes(label)
-                label = re.sub(r'\s? ?-\s? ?', ' - ', label)
-                image = client.parseDOM(item, 'img', ret='src')[0]
-                image = image.replace(' ', '%20')
-                title = label.partition(' - ')[2]
-                if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
-                    artist = label.partition(' - ')[0]
-                else:
-                    artist = [label.partition(' - ')[0]]
-            elif url == self.plus_url:
-                label = item.partition('.')[2].strip()
-                label = client.replaceHTMLCodes(label)
-                title = label.partition('-')[2]
-                if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
-                    artist = label.partition('-')[0]
-                else:
-                    artist = [label.partition('-')[0]]
-            elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-                a_href = client.parseDOM(item, 'a')
-                a_href = ' - '.join(a_href) if len(a_href) == 2 else a_href[0]
-                label = client.stripTags(a_href.replace('\"', '').replace('\n', ' - '))
-                label = client.replaceHTMLCodes(label)
-                title = label.partition(' - ')[2]
-                if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
-                    artist = label.partition(' - ')[0]
-                else:
-                    artist = [label.partition(' - ')[0]]
+            a_href = client.parseDOM(item, 'a')
+            a_href = ' - '.join(a_href) if len(a_href) == 2 else a_href[0]
+            label = client.stripTags(a_href.replace('\"', '').replace('\n', ' - '))
+            label = client.replaceHTMLCodes(label)
+            title = label.partition(' - ')[2]
+            if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
+                artist = label.partition(' - ')[0]
+            else:
+                artist = [label.partition(' - ')[0]]
 
-            if any([url == self.rythmos_top20_url, url == self.plus_url]):
-                # noinspection PyTypeChecker
-                search = get_search(q=title + ' ' + 'official', search_type='video', addon_id=control.addonInfo('id'))[0]
-                description = search['snippet']['description']
-                year = search['snippet']['publishedAt'][:4]
-                vid = search['id']['videoId']
-                image = search['snippet']['thumbnails']['default']['url']
-                link = YT_URL + vid
-            elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-                links = client.parseDOM(item, 'a', ret='href')
-                link = links[1] if len(links) == 2 else links[0]
-                image = thumb_maker(link.rpartition('/' if 'youtu.be' in link else '=')[2])
-                description = None
+            links = client.parseDOM(item, 'a', ret='href')
+            link = links[1] if len(links) == 2 else links[0]
+            image = thumb_maker(link.rpartition('/' if 'youtu.be' in link else '=')[2])
+            description = None
 
             self.list.append(
                 {
@@ -442,16 +371,7 @@ class Indexer:
             log_debug('Top 20 list section failed to load')
             return
 
-        if url == self.rythmos_top20_url:
-            fanart = control.addonmedia(
-                addonid=ART_ID, theme='networks', icon='rythmos_fanart.jpg',
-                media_subfolder=False
-            )
-            album = control.lang(30128)
-        elif url == self.plus_url:
-            fanart = 'https://i.imgur.com/G8koVR8.jpg'
-            album = control.lang(30221)
-        elif url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
+        if url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
             fanart = 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             album = control.lang(30222)
         else:

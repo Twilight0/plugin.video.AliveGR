@@ -319,7 +319,7 @@ class Indexer:
 
         next_link = client.parseDOM(html, 'a', attrs={'class': 'arrow_pag'}, ret='href')[-1]
 
-        html = client.parseDOM(html, 'div', attrs={'class': 'items'})[0]
+        html = client.parseDOM(html, 'div', attrs={'class': 'items normal'})[0]
 
         items = client.parseDOM(html, 'article', attrs={'id': r'post-\d+'})
 
@@ -367,11 +367,8 @@ class Indexer:
 
             item.update({'action': 'play', 'isFolder': 'False', 'nextaction': 'cartoon_various'})
 
-            bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
-            bookmark['bookmark'] = item['url']
-            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
             unwatched_cm = {'title': 30228, 'query': {'action': 'toggle_watched'}}
-            item.update({'cm': [bookmark_cm, refresh_cm, unwatched_cm]})
+            item.update({'cm': [refresh_cm, unwatched_cm]})
 
         directory.add(self.list)

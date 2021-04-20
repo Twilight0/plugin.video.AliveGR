@@ -191,15 +191,6 @@ class Indexer:
             }
             ,
             {
-                'title': '[B]' + control.lang(30469) + '[/B]',
-                'action': 'apply_new_settings',
-                'plot': control.lang(30469),
-                'icon': control.addonInfo('icon'),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
                 'title': control.lang(30341),
                 'action': 'kodi_log_upload',
                 'isFolder': 'False',

@@ -20,8 +20,8 @@
         <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="0"/>
         <setting id="show_clear_bookmarks" label="30309" type="bool" default="true"/>
         <setting id="paginate_items" label="30412" type="bool" default="false"/>
-        <setting id="pagination_reset" label="30418" type="bool" default="false" visible="eq(-1,true)"/>
-        <setting id="pagination_integer" type="slider" label="30413" default="100" range="50,50,300" option="int" visible="eq(-2,true)"/>
+        <setting id="pagination_reset" label="30418" type="bool" default="false" enable="eq(-1,true)"/>
+        <setting id="pagination_integer" type="slider" label="30413" default="100" range="50,50,300" option="int" enable="eq(-2,true)"/>
         <setting type="sep"/>
         <setting type="lsep" label="30349" visible="eq(-3,true)"/>
         <setting id="sort_method" type="enum" label="30419" lvalues="30167|30294" default="0" enable="eq(-5,true)"/>
@@ -160,15 +160,16 @@
         <setting label="30471" type="action" action="RunPlugin(plugin://$ID/?action=toggle_debug)" visible="eq(-1,true)"/>
         <setting label="30472" type="action" action="RunPlugin(plugin://$ID/?action=skin_debug)" visible="eq(-2,true)"/>
         <setting label="30473" type="action" action="RunPlugin(plugin://$ID/?action=reload_skin)" visible="eq(-3,true)"/>
-        <setting id="local_remote" type="enum" label="30474" values="Local|Remote|Default" default="2" visible="eq(-4,true)"/>
-        <setting id="live_local" label="30475" type="file" default="" visible="eq(-5,true) + eq(-1,0)"/>
-        <setting id="live_remote" label="30476" type="text" default="" visible="eq(-6,true) + eq(-2,1)"/>
-        <setting id="misc_local" label="30477" type="file" default="" visible="eq(-7,true) + eq(-3,0)"/>
-        <setting id="misc_remote" label="30478" type="text" default="" visible="eq(-8,true) + eq(-4,1)"/>
-        <setting id="top50_local" label="30479" type="file" default="" visible="eq(-9,true) + eq(-5,0)"/>
-        <setting id="top50_remote" label="30480" type="text" default="" visible="eq(-10,true) + eq(-6,1)"/>
-        <setting id="do_not_use_cache" type="bool" label="30481" default="false" visible="eq(-11,true)"/>
-        <setting id="old_settings" type="bool" label="30133" default="false" visible="eq(-12,true)"/>
+        <setting label="30469" type="action" action="RunPlugin(plugin://$ID/?action=apply_new_settings)" visible="eq(-4,true)"/>
+        <setting id="local_remote" type="enum" label="30474" values="Local|Remote|Default" default="2" visible="eq(-5,true)"/>
+        <setting id="live_local" label="30475" type="file" default="" visible="eq(-6,true) + eq(-1,0)"/>
+        <setting id="live_remote" label="30476" type="text" default="" visible="eq(-7,true) + eq(-2,1)"/>
+        <setting id="misc_local" label="30477" type="file" default="" visible="eq(-8,true) + eq(-3,0)"/>
+        <setting id="misc_remote" label="30478" type="text" default="" visible="eq(-9,true) + eq(-4,1)"/>
+        <setting id="top50_local" label="30479" type="file" default="" visible="eq(-10,true) + eq(-5,0)"/>
+        <setting id="top50_remote" label="30480" type="text" default="" visible="eq(-11,true) + eq(-6,1)"/>
+        <setting id="do_not_use_cache" type="bool" label="30481" default="false" visible="eq(-12,true)"/>
+        <setting id="old_settings" type="bool" label="30133" default="false" visible="eq(-13,true)"/>
 
         <setting id="show_alt_live" type="bool" label="Show alternative live streams" default="false" visible="false"/>
         <setting id="show_alt_vod" type="bool" label="Show alternative vod streams" default="false" visible="false"/>
