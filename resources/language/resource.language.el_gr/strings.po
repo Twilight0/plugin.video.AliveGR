@@ -1083,8 +1083,8 @@ msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
 msgstr "[COLOR white][B]Επιβολή ελέγχου ενημερώσεων[/B][/COLOR]"
 
 msgctxt "#30297"
-msgid ""
-msgstr ""
+msgid "Auto check streams sequentially"
+msgstr "Αυτόματος έλεγχος ροής σε σειρά"
 
 msgctxt "#30298"
 msgid "Resolvers"
@@ -1111,8 +1111,8 @@ msgid "[COLOR blue]Python version:[/COLOR]{0}[COLOR yellow]{1}[/COLOR]"
 msgstr "[COLOR white]Έκδοση μεταφραστή Python:[/COLOR]{0}[COLOR cyan]{1}[/COLOR]"
 
 msgctxt "#30304"
-msgid ""
-msgstr ""
+msgid "Check streams when picking one from the list"
+msgstr "Έλεγχος ροών προτού επιλεχθεί από την λίστα"
 
 msgctxt "#30305"
 msgid ""
@@ -1343,8 +1343,8 @@ msgid "You can enable the prompt in the settings window, maintenance tab"
 msgstr "Μπορείτε να ενεργοποιήσετε το ερώτημα στο παράθυρο ρυθμίσεων, στην καρτέλλα συντήρηση"
 
 msgctxt "#30362"
-msgid "Parse HLS Dailymotion streams"
-msgstr "Ανάλυση ροών HLS Dailymotion"
+msgid "Nothing playable was found"
+msgstr "Δεν βρέθηκε ροή για αναπαραγωγή"
 
 msgctxt "#30401"
 msgid "Clear addon's cache?"
@@ -1579,8 +1579,8 @@ msgid "Clear AliveGR's function cache"
 msgstr "Εκκαθάριση της μνήμης λειτουργιών του AliveGR"
 
 msgctxt "#30459"
-msgid ""
-msgstr ""
+msgid "Checking..."
+msgstr "Έλεγχος..."
 
 msgctxt "#30460"
 msgid "Delete AliveGR's bookmarks.db"

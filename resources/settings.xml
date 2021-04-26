@@ -79,8 +79,8 @@
         <setting type="sep"/>
         <setting type="lsep" label="30009"/>
 
-        <setting id="action_type" type="select" label="30144" lvalues="30145|30146|30284|30343" default="0"/>
-        <setting id="auto_play" label="30280" type="bool" default="true" enable="eq(-1,2)"/>
+        <setting id="action_type" type="select" label="30144" lvalues="30145|30146|30343" default="0"/>
+        <setting id="check_streams" label="30297" type="bool" default="false"/>
         <setting id="episodes_reverse" label="30043" type="bool" default="true"/>
         <setting id="show_vod_switcher" label="30061" type="bool" default="true"/>
         <setting id="show_cartoons" label="30345" type="bool" default="false"/>

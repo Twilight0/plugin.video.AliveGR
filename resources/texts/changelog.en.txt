@@ -1,4 +1,9 @@
-+ [B]2.8.X[/B] [COLOR green]25-03-2021 - 20-04-2021[/COLOR]
++ [B]2.9.X[/B] [COLOR green]27-04-2021 - XX-XX-2021[/COLOR]
+- Some bug fixes
+- Check streams when picking a stream sequentially (default being off)
+- Removed playlist mode from vod stream choices
+
++ [B]2.8.X[/B] [COLOR red]25-03-2021 - 20-04-2021[/COLOR]
 - Change caching method
 - New settings.xml for Matrix+
 - Labeling tweaks for directory mode

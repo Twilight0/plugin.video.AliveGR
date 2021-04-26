@@ -479,12 +479,8 @@ class Indexer:
 
         for item in self.list:
 
-            item.update({'action': 'play', 'isFolder': 'False'})
-
-        for item in self.list:
-
             refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
-            item.update({'cm': [refresh_cm]})
+            item.update({'action': 'play', 'isFolder': 'False', 'cm': [refresh_cm]})
 
         if control.setting('episodes_reverse') == 'true':
 
@@ -691,8 +687,9 @@ def source_maker(url):
     elif 'view' in url:
 
         link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+        host = urlparse(link).netloc.replace('www.', '').capitalize()
 
-        return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
+        return {'links': [link], 'hosts': [''.join([control.lang(30015), host])]}
 
     elif 'music' in url:
 

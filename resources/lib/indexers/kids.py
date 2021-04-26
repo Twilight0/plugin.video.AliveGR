@@ -319,7 +319,7 @@ class Indexer:
 
         next_link = client.parseDOM(html, 'a', attrs={'class': 'arrow_pag'}, ret='href')[-1]
 
-        html = client.parseDOM(html, 'div', attrs={'class': 'items normal'})[0]
+        html = client.parseDOM(html, 'div', attrs={'class': 'items'})[0]
 
         items = client.parseDOM(html, 'article', attrs={'id': r'post-\d+'})
 

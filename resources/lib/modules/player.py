@@ -9,13 +9,17 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
+import json
+import re
 from random import shuffle, choice as random_choice
 from resolveurl import add_plugin_dirs, resolve as resolve_url
 from resolveurl.hmf import HostedMediaFile
+from resolveurl.resolver import ResolverError
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 from tulip import directory, client, control, youtube as tulip_youtube
 from tulip.log import log_debug
-from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlparse, urlencode, urllib2, is_py2
+from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlencode, urllib2, is_py2
+from tulip.utils import percent
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..indexers.kids import GK_BASE
@@ -78,6 +82,8 @@ def conditionals(url):
 
             try:
                 stream = resolve_url(url)
+            except ResolverError:
+                return
             except urllib2.HTTPError:
                 return url
 
@@ -104,9 +110,7 @@ def conditionals(url):
 
         streams = gk_debris(url)
 
-        hl = [''.join([control.lang(30015), urlsplit(url).netloc]) for url in streams]
-
-        url = mini_picker(hl=hl, sl=streams, dont_check=True)
+        url = mini_picker(hl=streams['hosts'], sl=streams['links'])
 
         return resolve_url(url)
 
@@ -115,47 +119,74 @@ def conditionals(url):
         return url
 
 
-def gm_debris(link):
-
-    html = client.request(urljoin(GM_BASE, link))
-    button = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
-
-    return button
-
-
 @cache_function(cache_duration(360))
 def gk_debris(link):
 
     html = client.request(link)
     urls = client.parseDOM(html, 'tr', attrs={'id': 'link-\d+'})
+    item_data = client.parseDOM(html, 'div', attrs={'class': 'data'})[0]
+    duration = client.parseDOM(item_data, 'span', attrs={'itemprop': 'duration'})[0]
+    duration = re.search(r'(\d{2,3})', duration).group(1)
+    title = client.parseDOM(item_data, 'h1')[0]
+    year = client.parseDOM(item_data, 'span', attrs={'itemprop': 'dateCreated'})[0]
+    year = re.search(r'(\d{4})', year).group(1)
+    image = client.parseDOM(html, 'img', attrs={'itemprop': 'image'}, ret='src')[0]
     urls = [u for u in client.parseDOM(urls, 'a', ret='href')]
     urls = [client.request(u, output='geturl') for u in urls]
 
-    return urls
+    data = {
+        'links': urls, 'hosts': [''.join([control.lang(30015), urlsplit(url).netloc]) for url in urls],
+        'title': title, 'year': int(year), 'image': image, 'duration': int(duration) * 60
+    }
+
+    return data
 
 
-def check_stream(stream_list):
+def check_stream(stream_list, shuffle_list=True, start_from=0, show_pd=False, cycle_list=True):
 
     if not stream_list:
         return
 
-    shuffle(stream_list)
+    if shuffle_list:
+        shuffle(stream_list)
 
-    for stream in stream_list:
+    for c, stream in list(enumerate(stream_list[start_from:])):
 
         if stream.startswith('iptv://'):
             continue
         elif stream.endswith('blank.mp4'):
-            return
+            return stream
 
-        resolved = conditionals(stream)
+        if show_pd:
+            pd = control.progressDialog
+            pd.create(control.name(), control.lang(30459))
+
+        try:
+            resolved = conditionals(stream)
+        except Exception:
+            resolved = False
 
         if resolved:
+            if show_pd:
+                pd.close()
             return resolved
+        elif show_pd and pd.iscanceled():
+            return
+        elif c == len(stream_list[start_from:]) and not resolved:
+            control.infoDialog(control.lang(30411))
+            if show_pd:
+                pd.close()
         elif not resolved:
-            log_debug('Removing unplayable stream: {0}'.format(stream))
-            stream_list.remove(stream)
-            return check_stream(stream_list)
+            if cycle_list:
+                log_debug('Removing unplayable stream: {0}'.format(stream))
+                stream_list.remove(stream)
+                return check_stream(stream_list)
+            else:
+                if show_pd:
+                    _percent = percent(c, len(stream_list[start_from:]))
+                    pd.update(_percent, control.lang(30459))
+                control.sleep(500)
+                continue
 
 
 def mini_picker(hl, sl, dont_check=False):
@@ -168,7 +199,7 @@ def mini_picker(hl, sl, dont_check=False):
 
     else:
 
-        if control.setting('action_type') == '3' or skip_directory:
+        if control.setting('action_type') == '2' or skip_directory:
 
             try:
                 if dont_check:
@@ -182,13 +213,12 @@ def mini_picker(hl, sl, dont_check=False):
 
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
-        if choice <= len(sl) and not choice == -1:
-
+        if choice == -1:
+            return prevent_failure()
+        elif control.setting('check_streams') == 'false':
             return sl[choice]
-
         else:
-
-            return 'https://static.adman.gr/inpage/blank.mp4'
+            return check_stream(sl, False, start_from=choice, show_pd=True, cycle_list=False)
 
 
 def gm_filler(url, params):
@@ -241,6 +271,9 @@ def gm_filler(url, params):
             'year': int(year), 'genre': genre, 'name': title
         }
 
+        if control.setting('check_streams'):
+            data.update({'query': json.dumps(sources['links'])})
+
         items.append(data)
 
     return items
@@ -270,6 +303,9 @@ def gk_filler(url):
         data = {
             'label': label, 'title': '{0} ({1})'.format(t, y), 'url': l, 'image': i, 'year': y, 'duration': d
         }
+
+        if control.setting('check_streams'):
+            data.update({'query': json.dumps(sources['links'])})
 
         items.append(data)
 
@@ -304,8 +340,7 @@ def directory_picker(url, argv):
         i.update({'cm': [add_to_playlist, clear_playlist], 'action': 'play', 'isFolder': 'False'})
 
     directory.add(
-        items, content='movies', argv=argv, as_playlist=control.setting('action_type') == '2',
-        auto_play=control.setting('auto_play') == 'true'
+        items, content='movies', argv=argv
     )
 
     prevent_failure()
@@ -429,6 +464,10 @@ def player(url, params):
 
     if params.get('action') == 'play_resolved':
         stream = url
+    elif params.get('query') and control.setting('check_streams') == 'true':
+        sl = json.loads(params.get('query'))
+        index = int(control.infoLabel('Container.CurrentItem')) - 1
+        stream = check_stream(sl, False, start_from=index, show_pd=True, cycle_list=False)
     else:
         stream = conditionals(url)
 

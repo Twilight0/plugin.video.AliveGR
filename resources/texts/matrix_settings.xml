@@ -370,22 +370,16 @@
 						<options>
 							<option label="30145">0</option>
 							<option label="30146">1</option>
-							<option label="30284">2</option>
-							<option label="30343">3</option>
+							<option label="30343">2</option>
 						</options>
 					</constraints>
 					<control type="list" format="string">
 						<heading>30144</heading>
 					</control>
 				</setting>
-				<setting id="auto_play" type="boolean" label="30280" help="30445">
+				<setting id="check_streams" type="boolean" label="30297" help="30304">
 					<level>3</level>
-					<default>true</default>
-					<dependencies>
-						<dependency type="enable">
-							<condition operator="is" setting="action_type">2</condition>
-						</dependency>
-					</dependencies>
+					<default>false</default>
 					<control type="toggle"/>
 				</setting>
 				<setting id="episodes_reverse" type="boolean" label="30043" help="30446">

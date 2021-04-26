@@ -1083,7 +1083,7 @@ msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
 msgstr ""
 
 msgctxt "#30297"
-msgid ""
+msgid "Auto check streams sequentially"
 msgstr ""
 
 msgctxt "#30298"
@@ -1111,7 +1111,7 @@ msgid "[COLOR blue]Python version:[/COLOR]{0}[COLOR yellow]{1}[/COLOR]"
 msgstr ""
 
 msgctxt "#30304"
-msgid ""
+msgid "Check streams when picking one from the list"
 msgstr ""
 
 msgctxt "#30305"
@@ -1343,7 +1343,7 @@ msgid "You can enable the prompt in the settings window, maintenance tab"
 msgstr ""
 
 msgctxt "#30362"
-msgid ""
+msgid "Nothing playable was found"
 msgstr ""
 
 msgctxt "#30401"
@@ -1579,7 +1579,7 @@ msgid "Clear AliveGR's function cache"
 msgstr ""
 
 msgctxt "#30459"
-msgid ""
+msgid "Checking..."
 msgstr ""
 
 msgctxt "#30460"
