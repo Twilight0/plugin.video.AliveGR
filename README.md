@@ -19,7 +19,7 @@
 
 - Windows 10 64 bit
 - Ubuntu Linux 64 bit
-- Android 5, 7 & 8
+- Android (various versions)
 
 **Kodi Versions tested:**
 

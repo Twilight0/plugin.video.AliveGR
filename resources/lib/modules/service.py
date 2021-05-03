@@ -20,7 +20,7 @@ else:
 addon_id = 'plugin.video.AliveGR'
 original_settings = 'special://home/addons/{}/resources/settings.xml'.format(addon_id)
 new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(addon_id)
-datapath = 'special://profile/addon/plugin.video.AliveGR/'
+datapath = 'special://profile/addon_data/plugin.video.AliveGR/'
 __addon__ = Addon(addon_id)
 
 

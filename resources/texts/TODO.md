@@ -2,10 +2,6 @@
 
 ---
 
-##### Fix/Enhance proxy enabler
-
----
-
 #### Add search music
 
 ---
@@ -19,18 +15,6 @@
 ---
 
 ### Utilize url dispatcher
-
----
-
-#### Combine kids indexers (greek-movies.com + gamatotv4.com)
-
----
-
-### Allow precaching of certain sections of the addon
-
----
-
-### Build mirror script
 
 ---
 
