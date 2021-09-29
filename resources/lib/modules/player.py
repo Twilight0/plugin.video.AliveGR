@@ -214,7 +214,7 @@ def mini_picker(hl, sl, dont_check=False):
         choice = control.selectDialog(heading=control.lang(30064), list=hl)
 
         if choice == -1:
-            return prevent_failure()
+            return
         elif control.setting('check_streams') == 'false':
             return sl[choice]
         else:

@@ -317,17 +317,17 @@ class Indexer:
 
             image = client.parseDOM(item, 'img', ret='src')[0]
 
-            name = title.rpartition(' (')[0]
-
             image = urljoin(GM_BASE, image)
             link = client.parseDOM(item, 'a', ret='href')[0]
             link = urljoin(GM_BASE, link)
-            year = re.findall(r'.*?\((\d{4})', title, re.U)[0]
+            pattern = re.compile(r'(.*?) \((\d{4})')
+            label = pattern.search(title)
+            year = int(label.group(2))
+            name = label.group(1)
 
             self.list.append(
                 {
-                    'title': title, 'url': link,
-                    'image': image, 'year': int(year), 'name': name
+                    'label': title, 'title': name, 'url': link, 'image': image, 'year': year, 'name': name
                 }
             )
 
@@ -412,7 +412,7 @@ class Indexer:
         image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail.*?'}, ret='src')[0]
         image = urljoin(GM_BASE, image)
         year = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
-        year = int(re.findall(r'\d{4}', year, re.U)[0])
+        year = int(re.search(r'(\d{4})', year).group(1))
         name = client.parseDOM(html, 'h2')[0]
 
         result = client.parseDOM(html, 'div', attrs={'style': 'margin:20px 0px 20px 0px;'})[0]
@@ -762,7 +762,9 @@ def source_maker(url):
             u'μέρος ', control.lang(30225)
         ) for host in hl]
 
-        data = {'links': links, 'hosts': hosts, 'genre': genre}
+        domains = [host.replace(u'προβολή στο ', '').replace(u'προβολή σε ', '').replace(u'μέρος ', '') for host in hl]
+
+        data = {'links': links, 'hosts': hosts, 'genre': genre, 'domains': domains}
 
         if 'text-align: justify' in html:
             plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]

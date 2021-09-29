@@ -1,5 +1,5 @@
-+ [COLOR green]2.9.X[/COLOR] [I]27-04-2021 - 03-05-2021[/I]
-- Some bug fixes
++ [COLOR green]2.9.X[/COLOR] [I]27-04-2021 - 27-09-2021[/I]
+- Some bug & labeling fixes
 - Check streams when picking a stream sequentially (default being off)
 - Removed playlist mode from vod stream choices
 
