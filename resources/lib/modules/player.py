@@ -256,7 +256,7 @@ def gm_filler(url, params):
             episode = client.stripTags(client.parseDOM(html, 'h4')[-1])
             if episode[-4:].isdigit():
                 raise IndexError
-            episode = episode.partition(': ')[2]
+            episode = episode.partition(': ')[2].strip()
             label = title + ' - ' + episode + SEPARATOR + h
             title = title + ' - ' + episode
         except IndexError:

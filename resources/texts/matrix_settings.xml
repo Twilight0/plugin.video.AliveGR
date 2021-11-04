@@ -71,7 +71,7 @@
 				</setting>
 				<setting id="paginate_items" type="boolean" label="30412" help="30426">
 					<level>0</level>
-					<default>true</default>
+					<default>false</default>
 					<control type="toggle"/>
 				</setting>
 				<setting id="pagination_reset" type="boolean" label="30418" help="30427">

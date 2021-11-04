@@ -20,7 +20,7 @@ from tulip import client, directory, control, parsers, cleantitle
 from tulip.compat import urljoin, urlparse, range, iteritems
 from tulip.utils import list_divider
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL, cache_function, cache_method, cache_duration
+from ..modules.constants import YT_URL, cache_function, cache_method, cache_duration, SEPARATOR
 from ..modules.utils import keys_registration, page_menu
 
 GM_BASE = 'https://greek-movies.com/'
@@ -396,8 +396,8 @@ class Indexer:
 
         if control.setting('paginate_items') == 'false' or len(self.list) <= int(control.setting('pagination_integer')):
 
-            control.sortmethods()
-            control.sortmethods('title')
+            control.sortmethods(mask='%Y')
+            control.sortmethods('label', mask='%Y')
             control.sortmethods('year')
 
         if url.startswith((MOVIES, THEATER, SHORTFILMS)):
@@ -443,11 +443,11 @@ class Indexer:
                 group = '1bynumber'
                 if '.' in title:
                     try:
-                        season = int(title.partition('.')[0])
+                        season = title.partition('.')[0]
                     except Exception:
-                        season = int(title.partition('.')[0][0])
+                        season = title.partition('.')[0][0]
                     episode_num = title.partition('.')[2]
-                    title = control.lang(30066) + ' ' + str(season) + ', ' + control.lang(30067) + ' ' + episode_num
+                    title = control.lang(30067) + ' ' + season + '.' + episode_num
                 else:
                     title = control.lang(30067) + ' ' + title
             elif '\'d\')' in eid:
@@ -461,11 +461,9 @@ class Indexer:
             else:
                 group = '3bytitle'
 
-            separator = ' - ' if control.setting('wrap_labels') == '1' else '[CR]'
-
             self.list.append(
                 {
-                    'title': name + separator + title, 'url': link, 'group': group,
+                    'label': name + SEPARATOR + title, 'title': name + ' - ' + title, 'url': link, 'group': group,
                     'name': name, 'image': image, 'plot': plot, 'year': year,
                     'genre': genre
                 }
