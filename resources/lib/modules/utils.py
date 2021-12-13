@@ -244,8 +244,9 @@ def activate_other_addon(url, query=None):
 
     params = dict(parse_qsl(parsed.query))
     action = params.get('action')
+    url = params.get('url')
 
-    directory.run_builtin(addon_id=parsed.netloc, action=action, content_type=query)
+    directory.run_builtin(addon_id=parsed.netloc, action=action, url=url, content_type=query)
 
 
 def cache_clear(notify=True):
