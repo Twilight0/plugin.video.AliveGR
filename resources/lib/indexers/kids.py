@@ -73,7 +73,7 @@ class Indexer:
             {
                 'title': control.lang(30262),
                 'action': 'activate_other_addon',
-                'url': 'plugin://plugin.video.ert.gr/?action=kids',
+                'url': 'plugin://plugin.video.ert.gr/?action=categories&url=https%3A%2F%2Fwww.ertflix.gr%2Fshow%2Fchildren',
                 'icon': iconname('cartoon_collection'),
                 'isFolder': 'False', 'isPlayable': 'False'
             }

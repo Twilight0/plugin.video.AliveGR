@@ -29,8 +29,6 @@ class Indexer:
 
         self.list = []; self.data = []
         self.mgreekz_id = 'UClMj1LyMRBMu_TG1B1BirqQ'
-        self.radiopolis_url_gr = 'https://www.radiopolis.gr/elliniko-radio-polis-top-20/'
-        self.radiopolis_url_other = 'https://www.radiopolis.gr/to-kseno-polis-top-20/'
         if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
             self.content = 'songs'
             self.infotype = 'music'
@@ -63,22 +61,6 @@ class Indexer:
                 'fanart': control.addonmedia(
                     addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
                 )
-            }
-            ,
-            {
-                'title': control.lang(30222),
-                'action': 'top20_list',
-                'url': self.radiopolis_url_gr,
-                'image': 'http://www.radiopolis.gr/wp-content/uploads/2017/11/noimageavailable.jpg',
-                'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
-            }
-            ,
-            {
-                'title': control.lang(30223),
-                'action': 'top20_list',
-                'url': self.radiopolis_url_other,
-                'image': 'http://www.radiopolis.gr/wp-content/uploads/2017/11/noimageavailable.jpg',
-                'fanart': 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
             }
             ,
             {
@@ -256,72 +238,6 @@ class Indexer:
 
         directory.add(self.list, content=self.content, infotype=self.infotype)
 
-    @cache_method(cache_duration(1440))
-    def _top20(self, url):
-
-        cookie = client.request(url, close=False, output='cookie')
-        html = client.request(url, cookie=cookie)
-
-        attributes = {'class': 'thetopdata'}
-
-        items = client.parseDOM(html, 'td', attrs=attributes)
-
-        year = str(datetime.now().year)
-
-        for item in items:
-
-            a_href = client.parseDOM(item, 'a')
-            a_href = ' - '.join(a_href) if len(a_href) == 2 else a_href[0]
-            label = client.stripTags(a_href.replace('\"', '').replace('\n', ' - '))
-            label = client.replaceHTMLCodes(label)
-            title = label.partition(' - ')[2]
-            if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
-                artist = label.partition(' - ')[0]
-            else:
-                artist = [label.partition(' - ')[0]]
-
-            links = client.parseDOM(item, 'a', ret='href')
-            link = links[1] if len(links) == 2 else links[0]
-            image = thumb_maker(link.rpartition('/' if 'youtu.be' in link else '=')[2])
-            description = None
-
-            self.list.append(
-                {
-                    'label': label, 'url': link, 'image': image, 'title': title, 'artist': artist, 'plot': description,
-                    'year': int(year)
-                }
-            )
-
-        return self.list
-
-    def top20_list(self, url):
-
-        self.list = self._top20(url)
-
-        if self.list is None:
-            log_debug('Top 20 list section failed to load')
-            return
-
-        if url == self.radiopolis_url_gr or url == self.radiopolis_url_other:
-            fanart = 'https://i.ytimg.com/vi/tCupKdpHVx8/maxresdefault.jpg'
-            album = control.lang(30222)
-        else:
-            fanart = control.addonInfo('fanart')
-            album = 'AliveGR \'s Top Music'
-
-        for count, item in list(enumerate(self.list, start=1)):
-
-            add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
-            clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update(
-                {
-                    'tracknumber': count, 'cm': [add_to_playlist, clear_playlist], 'album': album, 'fanart': fanart,
-                    'action': 'play', 'isFolder': 'False', 'code': count
-                }
-            )
-
-        control.sortmethods('tracknum', mask='%A')
-        directory.add(self.list, content=self.content, infotype=self.infotype)
 
     @cache_method(cache_duration(2880))
     def _top50(self, url):

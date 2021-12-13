@@ -483,8 +483,8 @@ msgid "Sports & Events"
 msgstr "Αθλήματα & Αγώνες"
 
 msgctxt "#30118"
-msgid "ERT News"
-msgstr "Δελτία Ειδήσεων της ΕΡΤ"
+msgid "ERT News & Information"
+msgstr "ΕΡΤ Ειδήσεις και ενημέρωση"
 
 msgctxt "#30119"
 msgid "Ant1 News"

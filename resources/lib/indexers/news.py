@@ -35,15 +35,8 @@ class Indexer:
             {
                 'title': control.lang(30118),
                 'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.ert.gr/?action=listing&url=https%3A%2F%2Fwww.ertflix.gr%2Fcategory%2Fenimerosi-24%2F',
+                'url': 'plugin://plugin.video.ert.gr/?action=categories&url=https%3A%2F%2Fwww.ertflix.gr%2Fshow%2Fnews',
                 'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='ert_fanart.jpg', media_subfolder=False)
-            }
-            ,
-            {
-                'title': control.lang(30119),
-                'icon': control.addonmedia(addonid=ART_ID, theme='networks', icon='ant1_icon.png', media_subfolder=False),
-                'url': 'plugin://plugin.video.antenna.gr/?action=videos&url=https%3a%2f%2fwww.antenna.gr%2fant1news%2fvideos',
-                'fanart': control.addonmedia(addonid=ART_ID, theme='networks', icon='ant1_fanart.jpg', media_subfolder=False)
             }
             ,
             {
