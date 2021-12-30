@@ -142,11 +142,6 @@ def system_info():
 
 def isa_enable():
 
-    if control.kodi_version() < 17.0:
-
-        control.infoDialog(control.lang(30322))
-        return
-
     try:
 
         enabled = control.addon_details('inputstream.adaptive').get('enabled')
@@ -192,11 +187,6 @@ def isa_enable():
 
 
 def rtmp_enable():
-
-    if control.kodi_version() < 17.0:
-
-        control.infoDialog(control.lang(30322))
-        return
 
     try:
 

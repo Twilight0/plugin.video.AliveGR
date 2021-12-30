@@ -55,7 +55,7 @@ class Indexer:
             icon = client.parseDOM(item, 'icon')[0]
             url = client.parseDOM(item, 'url')[0]
             url = url.replace('https://www.youtube.com/channel', '{0}/channel'.format(YT_ADDON))
-            url = '?'.join([url, 'addon_id={}'.format(control.addonInfo('id'))])
+            url = '/?'.join([url, 'addon_id={}'.format(control.addonInfo('id'))])
 
             item_data = {'title': title, 'icon': icon, 'url': url}
 

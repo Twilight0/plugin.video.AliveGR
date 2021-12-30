@@ -531,8 +531,8 @@ msgid "Disclaimer"
 msgstr "Αποποίηση ευθυνών"
 
 msgctxt "#30130"
-msgid "In order to use AliveGR addon please install respective repository zip addon from [COLOR yellow]http://alivegr.net/master[/COLOR]"
-msgstr "Για να επιτραπεί η χρήση της μικροεφαρμογής AliveGR παρακαλώ εγκαταστείστε το zip αποθετήριό του από την διεύθυνση [COLOR yellow]http://alivegr.net/master[/COLOR]"
+msgid ""
+msgstr ""
 
 msgctxt "#30131"
 msgid "[COLOR blue]Links:[/COLOR]"
@@ -543,8 +543,8 @@ msgid "Do you want to disable first time prompt and set Greek Language & Region?
 msgstr "Θέλετε να απενεργοποιήσετε το οδηγό ρυθμίσεων και χρήση γλώσσας & περιοχής για Ελλάδα;"
 
 msgctxt "#30133"
-msgid "Use old method for calling settings window"
-msgstr "Κάνε χρήση παλαιάς μεθόδου κλήσης παραθύρου ρυθμίσεων"
+msgid ""
+msgstr ""
 
 msgctxt "#30134"
 msgid "Reset indexer methods"

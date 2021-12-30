@@ -169,7 +169,6 @@
         <setting id="top50_local" label="30479" type="file" default="" visible="eq(-10,true) + eq(-5,0)"/>
         <setting id="top50_remote" label="30480" type="text" default="" visible="eq(-11,true) + eq(-6,1)"/>
         <setting id="do_not_use_cache" type="bool" label="30481" default="false" visible="eq(-12,true)"/>
-        <setting id="old_settings" type="bool" label="30133" default="false" visible="eq(-13,true)"/>
 
         <setting id="show_alt_live" type="bool" label="Show alternative live streams" default="false" visible="false"/>
         <setting id="show_alt_vod" type="bool" label="Show alternative vod streams" default="false" visible="false"/>
@@ -179,7 +178,6 @@
         <setting id="last_check" label="Last update check" type="text" default="0" visible="false"/>
         <setting id="page" label="Page" type="text" default="0" visible="false"/>
         <!--<setting id="bookmarks_group" label="Bookmarks Group" type="text" default="ALL" visible="false"/>-->
-        <!--<setting id="ytdl_quality_picker" type="enum" label="30262" lvalues="30168|30169" default="0"/>-->
 
     </category>
 

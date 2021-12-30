@@ -531,7 +531,7 @@ msgid "Disclaimer"
 msgstr ""
 
 msgctxt "#30130"
-msgid "In order to use AliveGR addon please install respective repository zip addon from [COLOR yellow]http://alivegr.net/master[/COLOR]"
+msgid ""
 msgstr ""
 
 msgctxt "#30131"
@@ -543,7 +543,7 @@ msgid "Do you want to disable first time prompt and set Greek Language & Region?
 msgstr ""
 
 msgctxt "#30133"
-msgid "Use old method for calling settings window"
+msgid ""
 msgstr ""
 
 msgctxt "#30134"

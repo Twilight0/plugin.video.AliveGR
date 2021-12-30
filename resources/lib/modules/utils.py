@@ -17,7 +17,7 @@ from tulip.log import log_debug
 from .kodi import skin_name, force as force_
 from .themes import iconname
 from .constants import (
-    FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5, SCRAMBLE_6,
+    FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_0, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5,
     cache_duration
 )
 from os import path
@@ -395,7 +395,7 @@ def delete_from_file(file_, txt):
 
 def api_keys():
 
-    keys_list = [SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5, SCRAMBLE_6]
+    keys_list = [SCRAMBLE_0, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5]
 
     if control.setting('keys_are_set') == 'false':
 
@@ -442,25 +442,11 @@ def unpin():
 
 def keys_registration():
 
-    filepath = control.transPath(
-        control.join(control.addon('plugin.video.youtube').getAddonInfo('profile'), 'api_keys.json')
-    )
-
     setting = control.addon('plugin.video.youtube').getSetting('youtube.allow.dev.keys') == 'true'
 
-    if path.exists(filepath):
+    if setting:
 
-        f = open(filepath)
-
-        jsonstore = json.load(f)
-
-        no_keys = control.addonInfo('id') not in jsonstore.get('keys', 'developer').get('developer')
-
-        if setting and no_keys:
-
-            register_api_keys(control.addonInfo('id'), api_keys()['api_key'], api_keys()['id'], api_keys()['secret'])
-
-        f.close()
+        register_api_keys(control.addonInfo('id'), api_keys()['api_key'], api_keys()['id'], api_keys()['secret'])
 
 
 def setup_iptv():
@@ -691,6 +677,11 @@ def setup_various_keymaps(keymap):
             <key id="61670">osd</key>
         </keyboard>
     </fullscreenvideo>
+    <visualisation>
+        <keyboard>
+            <key id="61670">osd</key>
+        </keyboard>
+    </visualisation>
 </keymap>'''
 
         location = control.join(keymap_settings_folder, 'samsung.xml')

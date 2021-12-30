@@ -15,34 +15,34 @@ from tulip.cache import FunctionCache
 cache_function = FunctionCache().cache_function
 cache_method = FunctionCache().cache_method
 
+SCRAMBLE_0 = (
+    'eJwVzNsKgjAYAOBXiV2XbCMPdadIaSEUZuhVzPl7nGctNXr38AG+74uyCB03SNYUvCeUKhpRd6JNcMwxpIdifLMySls8CgxyoeY5zVOQWNP0UlLXiY'
+    'Cxh47X1QDVIPG6RNsNYk32KmBeW91emDvr4hFaC5k8ogcfUbmXzPCezGHj3bza8VTaq+qBdzCsyI2LjoZDZ1Un40xMnzo+v5VOgH5/P3M48A=='
+)
+
 SCRAMBLE_1 = (
-    'eJwVy8sKgkAUANBfiVmXzAz5qJ0ipYVQmKGrGMfrc3xrqdG/h/tzvqgH3sGAjhvkxkVHw6GzqpNxJqZPHZ/fSidA2w1iTfYqYF6Zbi/MnXXxCK2FTB'
-    '7Rg4+o3EtmeE/msPFuXu14Ku11ZdEaZE3Be0KpohF1J9oExxxDeijGNyujtMWjwCAXap7TPAWJNU0vJXWdCBh76HhdDVANEq9L9PsD2lw48A=='
+    'eJwVzNsOgiAAANBfcTyXU/FCvVmuVUOduV56cUYMURDyklnr35sfcM4X8AfYGsDeWDaCCLqe5ayt8Y40U0PTebWAAfVfLRIB9BzPJYSL2iy17k2mFB'
+    'N07GlHVDvQdjCJkmBlgFLzoqHz0oanT5nP4cUnxcQjnOSZj+XtGaVXG8cS26lkIgmzRfWUdHRY0K6SEM8+cqsEvtn+fMwhk4d4Ar8/krE2+w=='
 )
 
 SCRAMBLE_2 = (
-    'eJwVy80OgiAAAOBXcZzLqfhD3SzXqqHOXJcuzoghCkL+ZNZ69+b9+76gp6SjA9gaYFdJiGcfuVUC32x/PuaQyUM8gZUBSs2Lhs4LC0+fMp/Di0+KiU'
-    'c4yTMfy9szSq82jiW2U8lEEmbL4o8l2BvLRhBB17OctTXekWZqaDqvFjCg/qtFIoCe47mEcFGbpda9yZRigo497YhqB9oOJlES/P42mTb7'
+    'eJwVzN0KgjAYANBXkV2XlL+zOzUhTSIysTsZc4pm+/xZS43ePXyAc76oLtBBQRbGWLc1E5uWsW2qHnoi21ovSMscjWsGHURBKZWlLPCgkq4b1Qqgat'
+    'l7ZAMFLhgXKoUX2iiIdHX+ZPPauuFCktkPbZkeJy8LPKLF/fmUR2IyLmDNewP8axasamR0YGJFyyfapyWRu865lzfeADTVw40T9PsDY3A5Nw=='
 )
 
 SCRAMBLE_3 = (
-    'eJwVy90KgjAYANBXkV2XlL+zOzUhTSIysTsZc4pm+/xZS43ePbw/54tGRgcm0EFByyfapyWRu865lzfeADTVw40TtFEQ6er8yeaVueFCktkPbZkeJy'
-    '8LPKLF/fmUR2IyLmDNewP8axasqy7WYGGMdVszsWkZ26bqoSeyrfWCtMzRuGbQQRSUUlnKAg8q6bpRrQCqlr1HNlDggnGhUnih3x/3kTk3'
+    'eJwVzN0KgjAYANBXiV2nzL9p3VlKhBFoYLEbGfphw59N3YoVvXv4AOd8EW/QfoMCjB0cEA8TL7BGorXfR+6LdZMaoq4J9eK22GXMiRwycZtJuditEG'
+    '0PeoG5FqOCUdm1GNB2g5jkVQdmbePzh93MQT7hQjVkpjqxiZeOTnNe5BDS3ihKrXRVC9QzqBUlu9Yzxfg43vOrGsBPSh779J2h3x/Yvzg/'
 )
 
 SCRAMBLE_4 = (
-    'eJwVy8EKgjAYAOBXkZ1TclOX3cxDKFFIFnqSuX6npNtySlj07uH9+77IAB9hQnsLiViFpCEiU36B8yXPzpTpVxqjjYWY7qonLCuLkg+7LrGuTMwPKR'
-    '3vl7ddRa6mZVjYfSrKpDwNx9u6uscawoDgbeBR6gW2hBH3Hpsp+JISCnPQd7hu63baDaThrsO0No5QSvQwGxi5khPIyeFqQL8/GFw28Q=='
+    'eJwVzNsKgjAAANBfkT2n6FSmvYmFiBaEgdWL2DacudzavGTRv4cfcM4XtARsDQBt23ND5AbIR+bEOHJ8F1JFJGyIoynhbJp80XWB0i2xaim11QjRcD'
+    'pqqrDoB9oPFhZPsDFALduqo8vaRumnLpZYJUWJdnJuH+Se5yFbrsf3+VXtyShiJHiwKk2xosOKmjQ5lCdmcpxF3s1mwyWbR+hh8PsDOlU4+A=='
 )
 
 SCRAMBLE_5 = (
-    'eJwVy90KgjAYANBXkV2XlL+zOzUhTSIysTsZc4pm+/xZS43ePbw/54tGRgcm0EFByyfapyWRu865lzfeADTVw40TtFEQ6er8yeaVueFCktkPbZkeJy'
-    '8LPKLF/fmUR2IyLmDNewP8axasqy7WYGGMdVszsWkZ26bqoSeyrfWCtMzRuGbQQRSUUlnKAg8q6bpRrQCqlr1HNlDggnGhUnih3x/3kTk3'
-)
-
-SCRAMBLE_6 = (
-    'eJwVzNsOgiAAANBfaTynEw3D3rSc2arlujz44pDwRgITcrPWvzc/4JwvaJ9gswAYIYigsw486Fp+UzUV9hRz1NgLbETHOZUjxw1EZmSBTZTSdi1l/W'
-    'JvzQYqhWHC2FT2YLkARLUFZ9PchumHXKeI8FCe4HaXT64+x2VHHnhM85vl+kOWJfvVrDSjAzMzOgyqV7qIS/9ujklkBI6dSxL74PcHEj435A=='
+    'eJwVzEkOgjAUANCrkK6FUJDJnVFAI4jEYNQNwfaHqaWMCzDe3XCA976opGgnIdO0sIUdSzMcLKuFzgvV1qjd4Wabc8acybZKCp1eTRWvlaxtByUXIm'
+    'cwDdAT0YzQjAoRHG0klLVlWsO8tvvzkt3nw0ecBpfQyLkG78VPYta9YrdmkJGoDWsermoA0sO4osBL8M2InwJERbtUzh8XPy69I/r9AeCkOHc='
 )
 
 ########################################################################################################################

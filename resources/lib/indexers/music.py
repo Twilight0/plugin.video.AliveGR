@@ -238,7 +238,6 @@ class Indexer:
 
         directory.add(self.list, content=self.content, infotype=self.infotype)
 
-
     @cache_method(cache_duration(2880))
     def _top50(self, url):
 

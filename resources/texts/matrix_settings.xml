@@ -862,16 +862,6 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
-				<setting id="old_settings" type="boolean" label="30133" help="">
-					<level>0</level>
-					<default>false</default>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="debug">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="toggle"/>
-				</setting>
 				<setting id="show_alt_live" type="boolean" label="Show alternative live streams" help="">
 					<level>0</level>
 					<default>false</default>
