@@ -9,13 +9,11 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-import json, re
-from tulip.compat import iteritems
+import re
 from tulip import control, client, directory
 from tulip.init import syshandle, sysaddon
 from ..modules.themes import iconname
 from ..modules.constants import YT_ADDON, cache_method, cache_duration
-from ..modules.utils import keys_registration
 from .gm import GM_BASE
 
 GK_BASE = 'https://gamatotv.info'
@@ -27,7 +25,6 @@ class Indexer:
 
         self.list = []
         self.data = []
-        keys_registration()
 
     def kids(self):
 

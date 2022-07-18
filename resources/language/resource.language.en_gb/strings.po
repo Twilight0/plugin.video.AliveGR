@@ -75,7 +75,7 @@ msgid "Watch at "
 msgstr ""
 
 msgctxt "#30016"
-msgid "Currently Down"
+msgid "New search"
 msgstr ""
 
 msgctxt "#30017"
@@ -159,7 +159,7 @@ msgid "IPTV Simple Client"
 msgstr ""
 
 msgctxt "#30037"
-msgid "More maintenance tools"
+msgid "Search history size"
 msgstr ""
 
 msgctxt "#30038"
@@ -171,7 +171,7 @@ msgid "Appearance"
 msgstr ""
 
 msgctxt "#30040"
-msgid ""
+msgid "Youtube keys are not set"
 msgstr ""
 
 msgctxt "#30041"
@@ -415,7 +415,7 @@ msgid " for "
 msgstr ""
 
 msgctxt "#30101"
-msgid "Actor/Actress"
+msgid "Actor/Actress/Director"
 msgstr ""
 
 msgctxt "#30102"
@@ -463,7 +463,7 @@ msgid "Stream not resolvable"
 msgstr ""
 
 msgctxt "#30113"
-msgid ""
+msgid "Live TV Channel"
 msgstr ""
 
 msgctxt "#30114"
@@ -531,7 +531,7 @@ msgid "Disclaimer"
 msgstr ""
 
 msgctxt "#30130"
-msgid ""
+msgid "Movie"
 msgstr ""
 
 msgctxt "#30131"
@@ -543,7 +543,7 @@ msgid "Do you want to disable first time prompt and set Greek Language & Region?
 msgstr ""
 
 msgctxt "#30133"
-msgid ""
+msgid "TV Show"
 msgstr ""
 
 msgctxt "#30134"
@@ -963,7 +963,7 @@ msgid "Also reset live channel groups"
 msgstr ""
 
 msgctxt "#30267"
-msgid "AliveGR, version: {0}"
+msgid "[B]AliveGR[/B], version: [COLOR green]{0}[/COLOR], developer: [B]Twilight0[/B] ([I]https://alivegr.net[/I])"
 msgstr ""
 
 msgctxt "#30268"
@@ -1115,7 +1115,7 @@ msgid "Check streams when picking one from the list"
 msgstr ""
 
 msgctxt "#30305"
-msgid ""
+msgid "TV Serie"
 msgstr ""
 
 msgctxt "#30306"
@@ -1219,7 +1219,7 @@ msgid "Enabled"
 msgstr ""
 
 msgctxt "#30331"
-msgid "[COLOR white][I]Welcome note[/I][/COLOR]"
+msgid "[COLOR white][B]Welcome note[/B][/COLOR]"
 msgstr ""
 
 msgctxt "#30332"
@@ -1319,7 +1319,7 @@ msgid "AliveGR has been updated on the remote server"
 msgstr ""
 
 msgctxt "#30356"
-msgid "Local AliveGR version is different than the one on the remote server ({0})[CR]Do you like to force check for updates?"
+msgid "Local AliveGR version is different than the one on the remote server ({0})"
 msgstr ""
 
 msgctxt "#30357"
@@ -1327,7 +1327,7 @@ msgid "Yes"
 msgstr ""
 
 msgctxt "#30358"
-msgid "Νο"
+msgid "No"
 msgstr ""
 
 msgctxt "#30359"
@@ -1671,13 +1671,85 @@ msgid "Do not use cache"
 msgstr ""
 
 msgctxt "#30482"
-msgid ""
+msgid "Do you like to check for updates?"
 msgstr ""
 
 msgctxt "#30483"
-msgid ""
+msgid "This setting adjusts the history size of search terms"
 msgstr ""
 
 msgctxt "#30484"
+msgid "Do you want to delete history.csv?"
+msgstr ""
+
+msgctxt "#30485"
+msgid "Delete this item"
+msgstr ""
+
+msgctxt "#30486"
+msgid "Add item"
+msgstr ""
+
+msgctxt "#30487"
+msgid "History.csv was not found"
+msgstr ""
+
+msgctxt "#30488"
+msgid "Stop playback on return (only on fullscreen video)"
+msgstr ""
+
+msgctxt "#30489"
+msgid "This keymap will stop playback entirely when you press return/previous when its on full screen video. Long press now behaves as default instead."
+msgstr ""
+
+msgctxt "#30490"
+msgid ""
+msgstr ""
+
+msgctxt "#30491"
+msgid ""
+msgstr ""
+
+msgctxt "#30492"
+msgid ""
+msgstr ""
+
+msgctxt "#30493"
+msgid ""
+msgstr ""
+
+msgctxt "#30494"
+msgid ""
+msgstr ""
+
+msgctxt "#30495"
+msgid ""
+msgstr ""
+
+msgctxt "#30496"
+msgid ""
+msgstr ""
+
+msgctxt "#30497"
+msgid ""
+msgstr ""
+
+msgctxt "#30498"
+msgid ""
+msgstr ""
+
+msgctxt "#30499"
+msgid ""
+msgstr ""
+
+msgctxt "#30500"
+msgid ""
+msgstr ""
+
+msgctxt "#30501"
+msgid ""
+msgstr ""
+
+msgctxt "#30502"
 msgid ""
 msgstr ""

@@ -186,6 +186,28 @@ def isa_enable():
         control.infoDialog(control.lang(30278))
 
 
+def log_upload():
+
+    exists = control.condVisibility('System.HasAddon(script.kodi.loguploader)')
+    addon_path = control.transPath(control.join('special://', 'home', 'addons', 'script.kodi.loguploader'))
+
+    if not exists:
+
+        if path.exists(addon_path):
+            control.enable_addon('script.kodi.loguploader')
+        else:
+            control.execute('InstallAddon(script.kodi.loguploader)')
+
+        while not path.exists(addon_path):
+            control.sleep(1000)
+        else:
+            control.execute('RunScript(script.kodi.loguploader)')
+
+    else:
+
+        control.execute('RunScript(script.kodi.loguploader)')
+
+
 def rtmp_enable():
 
     try:

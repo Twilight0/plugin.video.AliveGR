@@ -10,22 +10,19 @@
 
 from __future__ import absolute_import, unicode_literals
 
-import pyxbmct, re, json
-from tulip import control, client, cache, m3u8, directory, youtube
+import re
+import codecs
+from tulip import control, client, cache, m3u8, directory
 from tulip.compat import parse_qsl, is_py3, urlparse, py2_uni
 from tulip.log import log_debug
-from .kodi import skin_name, force as force_
-from .themes import iconname
-from .constants import (
-    FACEBOOK, TWITTER, WEBSITE, PINNED, SCRAMBLE_0, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5,
-    cache_duration
-)
+from resources.lib.modules.themes import iconname
+from resources.lib.modules.constants import WEBSITE, PINNED, HISTORY, cache_duration
+from resources.lib.modules.kodi import force
 from os import path
-from random import choice
 from time import time
 from base64 import b64decode
 from zlib import decompress, compress
-from youtube_registration import register_api_keys
+from scrapetube.list_formation import list_playlist_videos, list_playlists
 
 
 ########################################################################################################################
@@ -103,28 +100,6 @@ def m3u8_picker(url):
         return url
 
     return stream_picker(qualities, urls)
-
-
-def kodi_log_upload():
-
-    exists = control.condVisibility('System.HasAddon(script.kodi.loguploader)')
-    addon_path = control.transPath(control.join('special://', 'home', 'addons', 'script.kodi.loguploader'))
-
-    if not exists:
-
-        if path.exists(addon_path):
-            control.enable_addon('script.kodi.loguploader')
-        else:
-            control.execute('InstallAddon(script.kodi.loguploader)')
-
-        while not path.exists(addon_path):
-            control.sleep(1000)
-        else:
-            control.execute('RunScript(script.kodi.loguploader)')
-
-    else:
-
-        control.execute('RunScript(script.kodi.loguploader)')
 
 
 def toggle_alt():
@@ -267,6 +242,18 @@ def purge_bookmarks():
         control.infoDialog(control.lang(30139))
 
 
+def delete_history():
+
+    if path.exists(HISTORY):
+        if control.yesnoDialog(line1=control.lang(30484)):
+            control.deleteFile(HISTORY)
+            control.infoDialog(control.lang(30402))
+        else:
+            control.infoDialog(control.lang(30403))
+    else:
+        control.infoDialog(control.lang(30347))
+
+
 def delete_settings_xml():
 
     if path.exists(control.dataPath):
@@ -276,7 +263,7 @@ def delete_settings_xml():
         else:
             control.infoDialog(control.lang(30403))
     else:
-        control.infoDialog(control.lang(30347))
+        control.infoDialog(control.lang(30487))
 
 
 def tools_menu():
@@ -290,7 +277,7 @@ def call_info():
 
     control.close_all()
 
-    control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?action=info",return)')
+    control.execute('ActivateWindow(programs,"plugin://plugin.video.AliveGR/?content_type=executable&action=info",return)')
 
 
 def greeting():
@@ -350,7 +337,7 @@ def geo_loc():
     return country
 
 
-def add_to_file(file_, txt):
+def pin_to_file(file_, txt):
 
     if not control.exists(file_):
         control.makeFiles(control.dataPath)
@@ -358,13 +345,13 @@ def add_to_file(file_, txt):
     if not txt:
         return
 
-    if txt not in read_from_file(file_):
+    if txt not in pinned_from_file(file_):
 
         with open(file_, 'a') as f:
             f.writelines(txt + '\n')
 
 
-def read_from_file(file_):
+def pinned_from_file(file_):
 
     if control.exists(file_):
 
@@ -378,7 +365,7 @@ def read_from_file(file_):
         return ['']
 
 
-def delete_from_file(file_, txt):
+def unpin_from_file(file_, txt):
 
     with open(file_, 'r') as f:
         text = [i.rstrip('\n') for i in f.readlines()]
@@ -393,31 +380,13 @@ def delete_from_file(file_, txt):
         f.write(text)
 
 
-def api_keys():
-
-    keys_list = [SCRAMBLE_0, SCRAMBLE_1, SCRAMBLE_2, SCRAMBLE_3, SCRAMBLE_4, SCRAMBLE_5]
-
-    if control.setting('keys_are_set') == 'false':
-
-        balancer = choice(keys_list)
-
-        control.setSetting('keys_are_set', 'true')
-        control.setSetting('keys_choice', str(keys_list.index(balancer) + 1))
-
-        return json.loads(decompress(b64decode(balancer)))
-
-    else:
-
-        return json.loads(decompress(b64decode(keys_list[int(control.setting('keys_choice')) - 1])))
-
-
 def pin():
 
     control.busy()
 
     title = control.infoLabel('ListItem.Title')
 
-    add_to_file(PINNED, title)
+    pin_to_file(PINNED, title)
 
     control.infoDialog(control.lang(30338), time=750)
 
@@ -430,7 +399,7 @@ def unpin():
 
     title = control.infoLabel('ListItem.Title')
 
-    delete_from_file(PINNED, title)
+    unpin_from_file(PINNED, title)
 
     control.sleep(100)
     control.refresh()
@@ -438,15 +407,6 @@ def unpin():
     control.infoDialog(control.lang(30338), time=750)
 
     control.idle()
-
-
-def keys_registration():
-
-    setting = control.addon('plugin.video.youtube').getSetting('youtube.allow.dev.keys') == 'true'
-
-    if setting:
-
-        register_api_keys(control.addonInfo('id'), api_keys()['api_key'], api_keys()['id'], api_keys()['secret'])
 
 
 def setup_iptv():
@@ -598,12 +558,9 @@ def setup_various_keymaps(keymap):
     </tvchannels>
 </keymap>
 """
-            try:
-                with open(location, mode='w', encoding='utf-8') as f:
-                    f.write(previous_keymap)
-            except Exception:
-                with open(location, 'w') as f:
-                    f.write(previous_keymap)
+
+            with open(location, 'w') as f:
+                f.write(previous_keymap)
 
     elif keymap == 'mouse':
 
@@ -655,12 +612,8 @@ def setup_various_keymaps(keymap):
 
                 to_write = string_start + joined + string_end
 
-                try:
-                    with open(location, mode='w', encoding='utf-8') as f:
-                        f.write(to_write)
-                except Exception:
-                    with open(location, 'w') as f:
-                        f.write(to_write)
+                with open(location, 'w') as f:
+                    f.write(to_write)
 
                 control.execute('Action(reloadkeymaps)')
 
@@ -690,12 +643,38 @@ def setup_various_keymaps(keymap):
 
         def seq():
 
-            try:
-                with open(location, mode='w', encoding='utf-8') as f:
-                    f.write(string)
-            except Exception:
-                with open(location, 'w') as f:
-                    f.write(string)
+            with open(location, 'w') as f:
+                f.write(string)
+
+    elif keymap == 'stop_playback':
+
+        string = '''<keymap>
+    <fullscreenvideo>
+        <keyboard>
+            <key id="61448">stop</key>
+        </keyboard>
+        <keyboard>
+            <key id="61448" mod="longpress">back</key>
+        </keyboard>
+    </fullscreenvideo>
+    <visualisation>
+        <keyboard>
+            <key id="61448">stop</key>
+        </keyboard>
+        <keyboard>
+            <key id="61448" mod="longpress">back</key>
+        </keyboard>
+    </visualisation>
+</keymap>'''
+
+        location = control.join(keymap_settings_folder, 'stop_playback.xml')
+
+        lang_int = 30022
+
+        def seq():
+
+            with open(location, 'w') as f:
+                f.write(string)
 
     yes = control.yesnoDialog(control.lang(lang_int))
 
@@ -739,14 +718,6 @@ def setup_various_keymaps(keymap):
 
 def yt_setup():
 
-    def seq():
-
-        control.addon('plugin.video.youtube').setSetting('youtube.api.id', api_keys()['id'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.key', api_keys()['api_key'])
-        control.addon('plugin.video.youtube').setSetting('youtube.api.secret', api_keys()['secret'])
-
-        control.infoDialog(message=control.lang(30402), time=3000)
-
     def wizard():
 
         control.addon('plugin.video.youtube').setSetting('kodion.setup_wizard', 'false')
@@ -762,26 +733,6 @@ def yt_setup():
         control.infoDialog(message=control.lang(30402), time=3000)
 
 ########################################################################################################################
-
-    def process():
-
-        if control.addon('plugin.video.youtube').getSetting('youtube.api.enable') == 'true':
-
-            if control.yesnoDialog(line1=control.lang(30069) + '[CR]' + control.lang(30022)):
-                seq()
-            else:
-                control.infoDialog(message=control.lang(30029), time=3000)
-
-        else:
-
-            if control.yesnoDialog(line1=control.lang(30070) + '[CR]' + control.lang(30022)):
-                seq()
-            else:
-                control.infoDialog(message=control.lang(30029), time=3000)
-
-########################################################################################################################
-
-    process()
 
     if control.yesnoDialog(line1=control.lang(30132)):
 
@@ -808,6 +759,121 @@ def file_to_text(file_):
             result = text.read()
 
     return result
+
+
+def trim_history():
+
+    """
+    Trims history to what is set in settings
+    :return:
+    """
+
+    history_size = int(control.setting('history_size'))
+
+    if is_py3:
+        f = open(HISTORY, 'r', encoding='utf-8')
+    else:
+        f = codecs.open(HISTORY, 'r', encoding='utf-8')
+
+    text = [i.rstrip('\n') for i in f.readlines()][::-1]
+
+    f.close()
+
+    if len(text) > history_size:
+
+        if is_py3:
+            f = open(HISTORY, 'w', encoding='utf-8')
+        else:
+            f = codecs.open(HISTORY, 'w', encoding='utf-8')
+
+        dif = history_size - len(text)
+        result = text[:dif][::-1]
+        f.write('\n'.join(result) + '\n')
+        f.close()
+
+
+def add_to_history(txt):
+
+    if not txt:
+        return
+
+    try:
+
+        if is_py3:
+            f = open(HISTORY, 'r', encoding='utf-8')
+            if txt + '\n' in f.readlines():
+                return
+            else:
+                pass
+        else:
+            f = codecs.open(HISTORY, 'r', encoding='utf-8')
+            if py2_uni(txt) + '\n' in f.readlines():
+                return
+            else:
+                pass
+        f.close()
+
+    except IOError:
+        pass
+
+    if is_py3:
+        f = open(HISTORY, 'a', encoding='utf-8')
+    else:
+        f = codecs.open(HISTORY, 'a', encoding='utf-8')
+
+    f.writelines(txt + '\n')
+    f.close()
+    trim_history()
+
+
+def delete_from_history(txt):
+
+    if is_py3:
+        f = open(HISTORY, 'r', encoding='utf-8')
+    else:
+        f = codecs.open(HISTORY, 'r', encoding='utf-8')
+
+    lines = f.readlines()
+    f.close()
+
+    if py2_uni(txt) + '\n' in lines:
+        lines.remove(py2_uni(txt) + '\n')
+    else:
+        return
+
+    if is_py3:
+        f = open(HISTORY, 'w', encoding='utf-8')
+    else:
+        f = codecs.open(HISTORY, 'w', encoding='utf-8')
+
+    f.write(''.join(lines))
+    f.close()
+
+    control.refresh()
+
+
+def read_from_history():
+
+    """
+    Reads from history file which is stored in plain text, line by line
+    :return: List
+    """
+
+    if control.exists(HISTORY):
+
+        if is_py3:
+            f = open(HISTORY, 'r', encoding='utf-8')
+        else:
+            f = codecs.open(HISTORY, 'r', encoding='utf-8')
+        text = [i.rstrip('\n') for i in f.readlines()][::-1]
+
+        f.close()
+
+        return text
+
+    else:
+
+        return
 
 
 def changelog(get_text=False):
@@ -864,165 +930,36 @@ def do_not_ask_again():
     control.okDialog('AliveGR', control.lang(30361))
 
 
-class Card(pyxbmct.AddonDialogWindow):
+def prompt():
 
-    pyxbmct.skin.estuary = False if 'onfluence' in skin_name().lower() or 'aeon' in skin_name().lower() else True
+    control.okDialog('AliveGR', control.lang(30356).format(remote_version()))
 
-    def __init__(self):
+    choices = [control.lang(30357), control.lang(30358), control.lang(30359)]
 
-        # noinspection PyArgumentList
-        super(Card, self).__init__(control.lang(30267).format(control.version()))
+    _choice = control.selectDialog(choices, heading=control.lang(30482))
 
-        self.changelog_button = None
-        self.disclaimer_button = None
-        self.close_button = None
-        self.external_label = None
-        self.description = None
-        self.facebook_button = None
-        self.twitter_button = None
-        self.website_button = None
-        self.setGeometry(854, 480, 8, 3)
-        self.set_controls()
-        self.connect(pyxbmct.ACTION_NAV_BACK, self.close)
-        self.set_navigation()
-
-    def set_controls(self):
-
-        image = pyxbmct.Image(control.fanart(), aspectRatio=2)
-        self.placeControl(image, 0, 0, 5, 3)
-        # Note
-        self.description = pyxbmct.Label(control.lang(30328), alignment=2)
-        self.placeControl(self.description, 5, 0, 2, 3)
-        # Click to open label
-        # self.external_label = pyxbmct.Label(control.lang(30131), alignment=pyxbmct.ALIGN_CENTER_Y | pyxbmct.ALIGN_CENTER_X)
-        # self.placeControl(self.external_label, 6, 0, 1, 1)
-        # Twitter button
-        self.twitter_button = pyxbmct.Button('Twitter')
-        self.placeControl(self.twitter_button, 6, 0)
-        self.connect(self.twitter_button, lambda: control.open_web_browser(TWITTER))
-        # Website
-        self.website_button = pyxbmct.Button(control.lang(30333))
-        self.placeControl(self.website_button, 6, 1)
-        self.connect(self.website_button, lambda: control.open_web_browser(WEBSITE))
-        # Facebook button
-        self.facebook_button = pyxbmct.Button('Facebook')
-        self.placeControl(self.facebook_button, 6, 2)
-        self.connect(self.facebook_button, lambda: control.open_web_browser(FACEBOOK))
-        # Close button
-        self.close_button = pyxbmct.Button(control.lang(30329))
-        self.placeControl(self.close_button, 7, 1)
-        self.connect(self.close_button, self.close)
-        # Changelog button
-        self.changelog_button = pyxbmct.Button(control.lang(30110))
-        self.placeControl(self.changelog_button, 7, 0)
-        self.connect(self.changelog_button, lambda: changelog())
-        # Disclaimer button
-        self.disclaimer_button = pyxbmct.Button(control.lang(30129))
-        self.placeControl(self.disclaimer_button, 7, 2)
-        self.connect(self.disclaimer_button, lambda: disclaimer())
-
-    def set_navigation(self):
-
-        self.twitter_button.controlDown(self.changelog_button)
-        self.twitter_button.controlLeft(self.facebook_button)
-        self.twitter_button.controlRight(self.website_button)
-        self.twitter_button.controlUp(self.changelog_button)
-
-        self.website_button.controlRight(self.facebook_button)
-        self.website_button.controlLeft(self.twitter_button)
-        self.website_button.controlDown(self.close_button)
-        self.website_button.controlUp(self.close_button)
-
-        self.facebook_button.controlDown(self.disclaimer_button)
-        self.facebook_button.controlRight(self.twitter_button)
-        self.facebook_button.controlUp(self.disclaimer_button)
-        self.facebook_button.controlLeft(self.website_button)
-
-        self.close_button.controlLeft(self.changelog_button)
-        self.close_button.controlRight(self.disclaimer_button)
-        self.close_button.controlUp(self.website_button)
-        self.close_button.controlDown(self.website_button)
-
-        self.changelog_button.controlRight(self.close_button)
-        self.changelog_button.controlLeft(self.disclaimer_button)
-        self.changelog_button.controlUp(self.twitter_button)
-        self.changelog_button.controlDown(self.twitter_button)
-
-        self.disclaimer_button.controlLeft(self.close_button)
-        self.disclaimer_button.controlRight(self.changelog_button)
-        self.disclaimer_button.controlUp(self.facebook_button)
-        self.disclaimer_button.controlDown(self.facebook_button)
-
-        self.setFocus(self.close_button)
+    if _choice == 0:
+        force()
+    elif _choice == 1:
+        control.close_all()
+    elif _choice == 2:
+        do_not_ask_again()
 
 
-class Prompt(pyxbmct.AddonDialogWindow):
+def welcome():
 
-    pyxbmct.skin.estuary = False if 'onfluence' in skin_name().lower() or 'aeon' in skin_name().lower() else True
+    choices = [control.lang(30329), control.lang(30340), control.lang(30129), control.lang(30333)]
 
-    def __init__(self):
+    _choice = control.selectDialog(choices, heading=control.lang(30267).format(control.version()))
 
-        # noinspection PyArgumentList
-        super(Prompt, self).__init__(control.lang(30267).format(control.version()))
-
-        self.yes_button = None
-        self.no_button = None
-        self.close_button = None
-        self.do_not_ask_again_button = None
-        self.description = None
-        self.setGeometry(854, 480, 8, 3)
-        self.set_controls()
-        self.connect(pyxbmct.ACTION_NAV_BACK, self.close)
-        self.connect(pyxbmct.ACTION_MOUSE_LEFT_CLICK, self.close)
-        self.set_navigation()
-
-    def set_controls(self):
-
-        image = pyxbmct.Image(control.fanart(), aspectRatio=2)
-        self.placeControl(image, 0, 0, 5, 3)
-        # Note
-        self.description = pyxbmct.Label(control.lang(30356).format(remote_version()), alignment=2)
-        self.placeControl(self.description, 5, 0, 2, 3)
-        # Yes button
-        self.yes_button = pyxbmct.Button(control.lang(30357))
-        self.placeControl(self.yes_button, 6, 0)
-        self.connect(self.yes_button, lambda: force_())
-        # No button
-        self.no_button = pyxbmct.Button(control.lang(30358))
-        self.placeControl(self.no_button, 6, 1)
-        self.connect(self.no_button, self.close)
-        # Do not ask again button
-        self.do_not_ask_again_button = pyxbmct.Button(control.lang(30359))
-        self.placeControl(self.do_not_ask_again_button, 6, 2)
-        self.connect(self.do_not_ask_again_button, lambda: do_not_ask_again())
-        # Close button
-        self.close_button = pyxbmct.Button(control.lang(30329))
-        self.placeControl(self.close_button, 7, 0, 1, 3)
-        self.connect(self.close_button, self.close)
-
-    def set_navigation(self):
-
-        self.yes_button.controlRight(self.no_button)
-        self.yes_button.controlLeft(self.do_not_ask_again_button)
-        self.yes_button.controlDown(self.close_button)
-        self.yes_button.controlUp(self.close_button)
-
-        self.no_button.controlLeft(self.yes_button)
-        self.no_button.controlRight(self.do_not_ask_again_button)
-        self.no_button.controlDown(self.close_button)
-        self.no_button.controlUp(self.close_button)
-
-        self.do_not_ask_again_button.controlRight(self.yes_button)
-        self.do_not_ask_again_button.controlLeft(self.no_button)
-        self.do_not_ask_again_button.controlDown(self.close_button)
-        self.do_not_ask_again_button.controlUp(self.close_button)
-
-        self.close_button.controlUp(choice([self.yes_button, self.no_button, self.do_not_ask_again_button]))
-        self.close_button.controlDown(choice([self.yes_button, self.no_button, self.do_not_ask_again_button]))
-        self.close_button.controlLeft(self.do_not_ask_again_button)
-        self.close_button.controlRight(self.yes_button)
-
-        self.setFocus(self.close_button)
+    if _choice in [0, -1]:
+        control.close_all()
+    elif _choice == 1:
+        changelog()
+    elif _choice == 2:
+        disclaimer()
+    elif _choice == 3:
+        control.open_web_browser(WEBSITE)
 
 
 def new_version(new=False):
@@ -1069,22 +1006,6 @@ def remote_version():
     version = int(version.replace('.', ''))
 
     return version
-
-
-def welcome():
-
-    window = Card()
-    window.doModal()
-
-    del window
-
-
-def prompt():
-
-    window = Prompt()
-    window.doModal()
-
-    del window
 
 
 def checkpoint():
@@ -1206,19 +1127,13 @@ def apply_new_settings():
         control.infoDialog(message=control.lang(30300), time=3000)
 
 
-@cache_function(cache_duration(30))
-def yt_videos(url):
-
-    return youtube.youtube(key=api_keys()['api_key'], replace_url=False).videos(url)
-
-
 @cache_function(cache_duration(60))
 def yt_playlist(url):
 
-    return youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist(url)
+    return list_playlist_videos(url)
 
 
 @cache_function(cache_duration(480))
 def yt_playlists(url):
 
-    return youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlists(url)
+    return list_playlists(url)

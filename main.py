@@ -55,6 +55,10 @@ elif action == 'root':
 
     run_builtin(content_type='video')
 
+elif action == 'generic_index':
+
+    navigator.Indexer().generic(query)
+
 elif action == 'live_tv':
 
     live.Indexer().live_tv()
@@ -179,18 +183,6 @@ elif action == 'mgreekz_index':
 
     music.Indexer().mgreekz_index()
 
-elif action == 'mgreekz_list':
-
-    music.Indexer().mgreekz_list(url)
-
-elif action == 'mgreekz_top10':
-
-    music.Indexer().mgreekz_top10()
-
-elif action == 'top20_list':
-
-    music.Indexer().top20_list(url)
-
 elif action == 'top50_list':
 
     music.Indexer().top50_list(url)
@@ -236,9 +228,21 @@ elif action == 'clear_bookmarks':
     control.sleep(200)
     control.refresh()
 
-elif action == 'search':
+elif action in ['search', 'add_to_history']:
 
-    search.Indexer().search()
+    search.Indexer().search(action, query)
+
+elif action == 'delete_from_history':
+
+    utils.delete_from_history(query)
+
+elif action == 'search_index':
+
+    search.Indexer().search_index()
+
+elif action == 'search_index':
+
+    search.Indexer().search_index()
 
 elif action == 'settings':
 
@@ -430,7 +434,7 @@ elif action == 'welcome':
 
 elif action == 'kodi_log_upload':
 
-    utils.kodi_log_upload()
+    kodi.log_upload()
 
 elif action == 'apply_new_settings':
 

@@ -11,22 +11,24 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 import re
+
 from random import shuffle, choice as random_choice
 from resolveurl import add_plugin_dirs, resolve as resolve_url
 from resolveurl.hmf import HostedMediaFile
 from resolveurl.resolver import ResolverError
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
-from tulip import directory, client, control, youtube as tulip_youtube
+from tulip import directory, client, control
 from tulip.log import log_debug
-from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlencode, urllib2, is_py2
+from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlencode, urllib2, is_py2, urlparse, HTTPError
 from tulip.utils import percent
+from scrapetube.list_formation import list_playlist_videos, list_channel_videos
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, source_maker, Indexer as gm_indexer
 from ..indexers.kids import GK_BASE
-from ..resolvers import common, youtube
+from ..resolvers import youtube
 from .kodi import prevent_failure
 from .constants import YT_URL, HOSTS, SEPARATOR, PLUGINS_PATH, cache_function, cache_duration
-from .utils import m3u8_picker, api_keys
+from .utils import m3u8_picker
 
 skip_directory = False
 
@@ -56,22 +58,11 @@ def conditionals(url):
 
         return yt(url)
 
-    elif url.startswith('iptv://'):
-
-        try:
-            hosts, urls = common.iptv(urlsplit(url).netloc)
-        except Exception:
-            return
-
-        stream = mini_picker(hosts, urls, dont_check=True)
-
-        return stream
-
     elif HOSTS(url) and HostedMediaFile(url).valid_url():
 
         try:
             stream = resolve_url(url)
-        except urllib2.HTTPError:
+        except HTTPError:
             return url
 
         return stream
@@ -84,7 +75,7 @@ def conditionals(url):
                 stream = resolve_url(url)
             except ResolverError:
                 return
-            except urllib2.HTTPError:
+            except HTTPError:
                 return url
 
             return stream
@@ -380,11 +371,7 @@ def dash_conditionals(stream):
 
 def pseudo_live(url):
 
-    _url = url
-
-    if 'youtube' in url:
-        url = url.rpartition('/')[2]
-    elif url.endswith('fifties'):
+    if url.endswith('fifties'):
         url = '{0}movies.php?y=7&l=&g=&p='.format(GM_BASE)
     elif url.endswith('sixties'):
         url = '{0}movies.php?y=6&l=&g=&p='.format(GM_BASE)
@@ -395,17 +382,17 @@ def pseudo_live(url):
     else:
         url = '{0}movies.php?g=8&y=&l=&p='.format(GM_BASE)
 
-    if 'channel' in _url:
-        movie_list = tulip_youtube.youtube(key=api_keys()['api_key'], replace_url=False).videos(url, limit=10)
-    elif 'playlist' in _url:
-        movie_list = tulip_youtube.youtube(key=api_keys()['api_key'], replace_url=False).playlist(url, limit=10)
+    if 'channel' in url:
+        movie_list = list_channel_videos(urlparse(url).path[1:])
+    elif 'playlist' in url:
+        movie_list = list_playlist_videos(urlparse(url).path[1:])
     else:
         movie_list = gm_indexer().listing(url, get_listing=True)
 
-    if 'youtube' in _url:
+    if 'youtube' in url:
         movie_list = [i for i in movie_list if i['duration'] >= 240]
 
-    if not _url.endswith('kids') and 'youtube' not in _url:
+    if not url.endswith('kids') and 'youtube' not in url:
 
         movie_list = [i for i in movie_list if i['url'] not in blacklister()]
 
@@ -420,7 +407,7 @@ def pseudo_live(url):
 
         meta = {'title': choice['title'], 'image': choice['image']}
 
-        if 'youtube' not in _url:
+        if 'youtube' not in url:
             plot = source_maker(choice['url']).get('plot')
 
         if plot:

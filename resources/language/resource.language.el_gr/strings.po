@@ -75,8 +75,8 @@ msgid "Watch at "
 msgstr "Προβολή στο "
 
 msgctxt "#30016"
-msgid "Currently Down"
-msgstr "Προσωρινά Εκτός"
+msgid "New search"
+msgstr "Νέα αναζήτηση"
 
 msgctxt "#30017"
 msgid "Actions"
@@ -159,8 +159,8 @@ msgid "IPTV Simple Client"
 msgstr "Πελάτης IPTV Simple"
 
 msgctxt "#30037"
-msgid "More maintenance tools"
-msgstr "Περισσότερα εργαλεία συντήρησης"
+msgid "Search history size"
+msgstr "Μέγεθος ιστορικού"
 
 msgctxt "#30038"
 msgid "Resolve youtube streams"
@@ -171,8 +171,8 @@ msgid "Appearance"
 msgstr "Εμφάνιση"
 
 msgctxt "#30040"
-msgid ""
-msgstr ""
+msgid "Youtube keys are not set"
+msgstr "Δεν έχουν εφαρμοστεί κλειδιά youtube"
 
 msgctxt "#30041"
 msgid "Pictures"
@@ -415,8 +415,8 @@ msgid " for "
 msgstr " για "
 
 msgctxt "#30101"
-msgid "Actor/Actress"
-msgstr "Ηθοποιός/Πρόσωπο"
+msgid "Actor/Actress/Director"
+msgstr "Ηθοποιός/Πρόσωπο/Σκηνοθέτης"
 
 msgctxt "#30102"
 msgid "AliveGR's Icons set"
@@ -463,8 +463,8 @@ msgid "Stream not resolvable"
 msgstr "Ροή μη επιλύσιμη"
 
 msgctxt "#30113"
-msgid ""
-msgstr ""
+msgid "Live TV Channel"
+msgstr "Τηλεοπτικό κανάλι"
 
 msgctxt "#30114"
 msgid "This action will enable additional unofficial streams. Enable at your own risk.[CR]Proceed?"
@@ -531,8 +531,8 @@ msgid "Disclaimer"
 msgstr "Αποποίηση ευθυνών"
 
 msgctxt "#30130"
-msgid ""
-msgstr ""
+msgid "Movie"
+msgstr "Ταινία"
 
 msgctxt "#30131"
 msgid "[COLOR blue]Links:[/COLOR]"
@@ -543,8 +543,8 @@ msgid "Do you want to disable first time prompt and set Greek Language & Region?
 msgstr "Θέλετε να απενεργοποιήσετε το οδηγό ρυθμίσεων και χρήση γλώσσας & περιοχής για Ελλάδα;"
 
 msgctxt "#30133"
-msgid ""
-msgstr ""
+msgid "TV Show"
+msgstr "Τηλεοπτική εκπομπή"
 
 msgctxt "#30134"
 msgid "Reset indexer methods"
@@ -963,8 +963,8 @@ msgid "Also reset live channel groups"
 msgstr "Κάνε επαναφορά και στις ομάδες ζωντανών ροών"
 
 msgctxt "#30267"
-msgid "AliveGR, version: {0}"
-msgstr "AliveGR, έκδοση: {0}"
+msgid "[B]AliveGR[/B], version: [COLOR green]{0}[/COLOR], developer: [B]Twilight0[/B] ([I]https://alivegr.net[/I])"
+msgstr "[B]AliveGR[/B], έκδοση: [COLOR green]{0}[/COLOR], δημιουργός: [B]Twilight0[/B] ([I]https://alivegr.net[/I])"
 
 msgctxt "#30268"
 msgid "Today"
@@ -1115,8 +1115,8 @@ msgid "Check streams when picking one from the list"
 msgstr "Έλεγχος ροών προτού επιλεχθεί από την λίστα"
 
 msgctxt "#30305"
-msgid ""
-msgstr ""
+msgid "TV Serie"
+msgstr "Τηλεοπτική σειρά"
 
 msgctxt "#30306"
 msgid "[COLOR white]Please like facebook page:[/COLOR]{0}[COLOR blue]facebook.com/alivegr/[/COLOR]"
@@ -1219,8 +1219,8 @@ msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
 msgctxt "#30331"
-msgid "[COLOR white][I]Welcome note[/I][/COLOR]"
-msgstr "[COLOR white][I]Μήνυμα καλωσορίσματος[/I][/COLOR]"
+msgid "[COLOR white][B]Welcome note[/B][/COLOR]"
+msgstr "[COLOR white][B]Μήνυμα καλωσορίσματος[/B][/COLOR]"
 
 msgctxt "#30332"
 msgid "Open PVR Settings"
@@ -1319,15 +1319,15 @@ msgid "AliveGR has been updated on the remote server"
 msgstr "Το AliveGR έχει ενημερωθεί στον απομακρυσμένο εξυπηρετητή"
 
 msgctxt "#30356"
-msgid "Local AliveGR version is different than the one on the remote server ({0})[CR]Do you like to force check for updates?"
-msgstr "Η τοπική έκδοση του AliveGR είναι διαφορετική από αυτήν στον απομακρυσμένη εξυπηρετητή ({0})[CR]Θέλετε να επιβάλετε τον έλεγχο ενημερώσεων;"
+msgid "Local AliveGR version is different than the one on the remote server ({0})"
+msgstr "Η τοπική έκδοση του AliveGR είναι διαφορετική από αυτήν στον απομακρυσμένη εξυπηρετητή ({0})"
 
 msgctxt "#30357"
 msgid "Yes"
 msgstr "Ναί"
 
 msgctxt "#30358"
-msgid "Νο"
+msgid "No"
 msgstr "Όχι"
 
 msgctxt "#30359"
@@ -1476,7 +1476,7 @@ msgstr "Αλλαγή ρυθμίσεων σχετικά με τις ροές κα
 
 msgctxt "#30433"
 msgid "Settings related to keeping AliveGR's settings and behaviour clean"
-msgstr ""
+msgstr "Ρυθμίσεις που αφορούν την συμπεριφορά και τις ρυθμίσεις τακτοποιημένα"
 
 msgctxt "#30434"
 msgid "Perform various actions, such as applying keymaps, settings to other addons etc."
@@ -1671,13 +1671,85 @@ msgid "Do not use cache"
 msgstr "Μη γίνει χρήση μνήμης λειτουργιών"
 
 msgctxt "#30482"
-msgid ""
-msgstr ""
+msgid "Do you like to check for updates?"
+msgstr "Θέλετε να επιβάλετε έλεγχο νέων εκδόσεων;"
 
 msgctxt "#30483"
+msgid "This setting adjusts the history size of search terms"
+msgstr "Αυτή η ρύθμιση μεταβάλει το μέγεθος του ιστορικού αναζήτησης"
+
+msgctxt "#30484"
+msgid "Do you want to delete history.csv?"
+msgstr "Θέλετε να σβήσετε το history.csv;"
+
+msgctxt "#30485"
+msgid "Delete this item"
+msgstr "Διαγραφή αυτού του αντικειμένου"
+
+msgctxt "#30486"
+msgid "Add item"
+msgstr "Προσθήκη αντικειμένου"
+
+msgctxt "#30487"
+msgid "History.csv was not found"
+msgstr "Το αρχείο history.csv δεν βρεθηκε"
+
+msgctxt "#30488"
+msgid "Stop playback on return (only on fullscreen video)"
+msgstr "Διακοπή αναπαραγωγής κατά την επιστροφή (μόνο σε βίντεο πλήρους οθόνης)"
+
+msgctxt "#30489"
+msgid "This keymap will stop playback entirely when you press return/previous when its on full screen video. Long press now behaves as default instead."
+msgstr "Αυτός ο χάρτης θα διακόψει την αναπαραγωγή εντελώς όταν πατηθεί η επιστροφή σε βίντεο πλήρους οθόνης. Με παρατεταμένο πάτημα εκτελεί ενέργεια όπως στον εξ'ορισμού χάρτη."
+
+msgctxt "#30490"
 msgid ""
 msgstr ""
 
-msgctxt "#30484"
+msgctxt "#30491"
+msgid ""
+msgstr ""
+
+msgctxt "#30492"
+msgid ""
+msgstr ""
+
+msgctxt "#30493"
+msgid ""
+msgstr ""
+
+msgctxt "#30494"
+msgid ""
+msgstr ""
+
+msgctxt "#30495"
+msgid ""
+msgstr ""
+
+msgctxt "#30496"
+msgid ""
+msgstr ""
+
+msgctxt "#30497"
+msgid ""
+msgstr ""
+
+msgctxt "#30498"
+msgid ""
+msgstr ""
+
+msgctxt "#30499"
+msgid ""
+msgstr ""
+
+msgctxt "#30500"
+msgid ""
+msgstr ""
+
+msgctxt "#30501"
+msgid ""
+msgstr ""
+
+msgctxt "#30502"
 msgid ""
 msgstr ""

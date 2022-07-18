@@ -17,7 +17,7 @@ from tulip.log import log_debug
 from tulip.compat import str, is_py3
 from tulip.utils import percent
 from ..modules.themes import iconname
-from ..modules.utils import thgiliwt, bourtsa, read_from_file
+from ..modules.utils import thgiliwt, bourtsa, pinned_from_file
 from ..modules.constants import LIVE_GROUPS, LOGOS_ID, PINNED, cache_method, cache_duration
 from ..modules.player import conditionals
 
@@ -175,7 +175,7 @@ class Indexer:
 
         if control.setting('live_group') == '14' and query is None:
 
-            self.list = [item for item in self.list if item['title'] in read_from_file(PINNED)]
+            self.list = [item for item in self.list if item['title'] in pinned_from_file(PINNED)]
 
         if control.setting('show_alt_live') == 'false':
 

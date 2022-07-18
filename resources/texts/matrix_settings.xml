@@ -51,6 +51,18 @@
 				</setting>
 			</group>
 			<group id="3" label="">
+				<setting id="history_size" type="integer" label="30037" help="30483">
+					<level>1</level>
+					<default>10</default>
+					<constraints>
+						<minimum>5</minimum>
+						<step>5</step>
+						<maximum>30</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
 				<setting id="wrap_labels" type="integer" label="30313" help="30424">
 					<level>1</level>
 					<default>0</default>
@@ -533,7 +545,7 @@
 					</dependencies>
 					<control type="button" format="action"/>
 				</setting>
-				<setting id="keys_are_set" type="boolean" label="30301" help="30302">
+				<!-- <setting id="keys_are_set" type="boolean" label="30301" help="30302">
 					<level>1</level>
 					<default>false</default>
 					<dependencies>
@@ -564,7 +576,7 @@
 					<control type="list" format="string">
 						<heading>30417</heading>
 					</control>
-				</setting>
+				</setting> -->
 			</group>
 			<group id="2" label="30250">
 				<setting id="setup_various_keymaps_previous" type="action" label="30019" help="30464">
@@ -596,6 +608,19 @@
 				<setting id="setup_various_keymaps_samsung" type="action" label="30310" help="30466">
 					<level>2</level>
 					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=samsung)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition on="property" name="InfoBool">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action"/>
+				</setting>
+				<setting id="setup_various_keymaps_previous" type="action" label="30488" help="30489">
+					<level>3</level>
+					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=stop_playback)</data>
 					<constraints>
 						<allowempty>true</allowempty>
 					</constraints>

@@ -7,6 +7,7 @@
     SPDX-License-Identifier: GPL-3.0-only
     See LICENSES/GPL-3.0-only for more information.
 '''
+
 from __future__ import absolute_import, unicode_literals
 
 import sys
@@ -223,14 +224,14 @@ class Indexer:
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
-            ,
-            {
-                'title': control.lang(30142) + ': [COLOR cyan]' + PATREON + '[/COLOR]',
-                'action': 'open_link',
-                'url': PATREON,
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
+            # ,
+            # {
+            #     'title': control.lang(30142) + ': [COLOR cyan]' + PATREON + '[/COLOR]',
+            #     'action': 'open_link',
+            #     'url': PATREON,
+            #     'isFolder': 'False',
+            #     'isPlayable': 'False'
+            # }
             ,
             {
                 'title': control.lang(30256).format(separator, control.addonInfo('version')),
@@ -275,7 +276,7 @@ class Indexer:
                 'title': control.lang(30303).format(separator, '.'.join([str(sys.version_info[0]), str(sys.version_info[1]), str(sys.version_info[2])])),
                 'action': 'system_info',
                 'plot': control.lang(30263),
-                'image': 'https://awaywithideas.com/wp-content/uploads/2019/10/Python.svg_-e1571602766898.png',
+                'image': 'https://www.python.org/static/opengraph-icon-200x200.png',
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }

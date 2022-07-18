@@ -15,13 +15,13 @@ import json
 import random
 from ast import literal_eval as evaluate
 
-from youtube_requests import get_search
 from tulip import client, directory, control, parsers, cleantitle
 from tulip.compat import urljoin, urlparse, range, iteritems
 from tulip.utils import list_divider
+from scrapetube.list_formation import list_search
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL, cache_function, cache_method, cache_duration, SEPARATOR
-from ..modules.utils import keys_registration, page_menu
+from ..modules.constants import cache_function, cache_method, cache_duration, SEPARATOR
+from ..modules.utils import page_menu
 
 GM_BASE = 'https://greek-movies.com/'
 MOVIES = urljoin(GM_BASE, 'movies.php')
@@ -691,13 +691,9 @@ def source_maker(url):
 
     elif 'music' in url:
 
-        keys_registration()
-
         title = re.search(r'''search\(['"](.+?)['"]\)''', html).group(1)
 
-        link = get_search(q=title, search_type='video', addon_id=control.addonInfo('id'))[0]['id']['videoId']
-
-        link = YT_URL + link
+        link = list_search(query=title, limit=1)[0]['url']
 
         return {'links': [link], 'hosts': [''.join([control.lang(30015), 'Youtube'])]}
 

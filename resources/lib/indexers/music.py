@@ -15,11 +15,9 @@ from tulip import control, directory, client
 from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
-from ..modules.constants import YT_URL, ART_ID, cache_method, cache_duration
-from ..modules.utils import thgiliwt, thumb_maker, keys_registration, yt_playlists, yt_playlist
+from ..modules.constants import ART_ID, cache_method, cache_duration, YT_ADDON, YT_ADDON_ID
+from ..modules.utils import thgiliwt, thumb_maker, yt_playlist
 from . import gm
-from datetime import datetime
-from youtube_requests import get_search
 
 
 # noinspection PyUnboundLocalVariable
@@ -28,14 +26,14 @@ class Indexer:
     def __init__(self):
 
         self.list = []; self.data = []
-        self.mgreekz_id = 'UClMj1LyMRBMu_TG1B1BirqQ'
+        self.mgreekz_id = 'https://www.youtube.com/channel/UClMj1LyMRBMu_TG1B1BirqQ/'
+        self.mgreekz_id = self.mgreekz_id.replace('https://www.youtube.com/channel', '{0}/channel'.format(YT_ADDON))
         if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
             self.content = 'songs'
             self.infotype = 'music'
         else:
             self.content = 'musicvideos'
             self.infotype = 'video'
-        keys_registration()
 
     def menu(self):
 
@@ -60,7 +58,8 @@ class Indexer:
                 'image': 'https://pbs.twimg.com/profile_images/697098521527328772/VY8e_klm_400x400.png',
                 'fanart': control.addonmedia(
                     addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
-                )
+                ),
+                'isFolder': 'False', 'isPlayable': 'False'
             }
             ,
             {
@@ -204,39 +203,7 @@ class Indexer:
 
     def mgreekz_index(self):
 
-        self.data = yt_playlists(self.mgreekz_id)
-
-        for i in self.data:
-            i.update(
-                {
-                    'action': 'mgreekz_list', 'fanart': control.addonmedia(
-                    addonid=ART_ID, theme='networks', icon='mgz_fanart.jpg', media_subfolder=False
-                )
-                }
-            )
-
-        for item in self.data:
-            bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
-            bookmark['bookmark'] = item['url']
-            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            item.update({'cm': [bookmark_cm]})
-
-        self.list = sorted(self.data, key=lambda k: k['title'].lower())
-
-        directory.add(self.list)
-
-    def mgreekz_list(self, url):
-
-        self.list = yt_playlist(url)
-
-        for i in self.list:
-            i.update(
-                {
-                    'action': 'play', 'isFolder': 'False',
-                }
-            )
-
-        directory.add(self.list, content=self.content, infotype=self.infotype)
+        control.execute('Container.Update("{0}")'.format(self.mgreekz_id))
 
     @cache_method(cache_duration(2880))
     def _top50(self, url):
@@ -317,66 +284,10 @@ class Indexer:
             return
 
         for i in self.list:
-            i['label'] = i.pop('title')
-            # process stupid descriptions/comments put up by uploaders on labels
-            i['label'] = re.sub(
-                r'PREMIERE ?:|\(full version\)\.mp4|\(?(?:Un)?Official.*\)? ?(?:HD)?|\[?HD (?:108|72)0p\]?|\[HQ\]|\\\\ Free Download',
-                '', i['label'], flags=re.IGNORECASE
-            )
-
-        for count, i in list(enumerate(self.list, start=1)):
-
-            try:
-                i['label'] = i['label'].decode('utf-8')
-            except Exception:
-                pass
-
-            if u'–' in i['label']:
-                sep = u'–'
-            elif ':' in i['label'] and not '-' in i['label']:
-                sep = ':'
-            elif '-' in i['label']:
-                sep = '-'
-            else:
-                sep = ' '
-
-            artist, separator, title = i['label'].partition(sep)
-
-            if sep not in i['label']:
-
-                title = i['label']
-
-            if '&' in artist:
-                artists_separator = '&'
-            elif ',' in artist:
-                artists_separator = ','
-            elif 'feat.' in artist:
-                artists_separator = 'feat.'
-            elif 'feat' in artist:
-                artists_separator = 'feat'
-            elif 'Feat' in artist:
-                artists_separator = 'Feat'
-            else:
-                artists_separator = None
-
-            if artists_separator:
-                artist = [a.strip() for a in artist.split(artists_separator)]
-                on_label = ' / '.join(artist)
-            else:
-                on_label = artist.strip()
-                artist = [artist.strip()]
-
             i.update(
                 {
-                    'action': 'play', 'isFolder': 'False', 'title': title, 'label': ' '.join([on_label, separator , title]),
-                    'album': control.lang(30292), 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg',
-                    'tracknumber': count, 'count': count, 'artist': artist
+                    'action': 'play', 'isFolder': 'False',
                 }
             )
 
-            if control.setting('audio_only') == 'true' and control.condVisibility('Window.IsVisible(music)'):
-                i['artist'] = on_label
-
-        control.sortmethods('tracknum', mask='%A')
-
-        directory.add(self.list, content=self.content, infotype=self.infotype)
+        directory.add(self.list)

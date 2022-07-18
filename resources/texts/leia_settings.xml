@@ -17,6 +17,7 @@
 
         <setting type="lsep" label=""/>
 
+        <setting id="history_size" type="slider" label="30037" default="10" range="5,5,30" option="int"/>
         <setting id="wrap_labels" type="select" label="30313" lvalues="30314|30315" default="0"/>
         <setting id="show_clear_bookmarks" label="30309" type="bool" default="true"/>
         <setting id="paginate_items" label="30412" type="bool" default="false"/>
@@ -127,8 +128,8 @@
         <setting type="lsep" label="30251"/>
 
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
-        <setting id="keys_are_set" type="bool" label="30301" default="false"/>
-        <setting id="keys_choice" label="30417" type="select" values="1|2|3|4|5|6" default="1" visible="eq(-1,true)"/>
+        <!-- <setting id="keys_are_set" type="bool" label="30301" default="false"/>
+        <setting id="keys_choice" label="30417" type="select" values="1|2|3|4|5|6" default="1" visible="eq(-1,true)"/> -->
 
 <!--        <setting type="lsep" label="30018"/>-->
 
@@ -142,6 +143,7 @@
         <setting visible="true" label="30019" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=previous)"/>
         <setting visible="true" label="30237" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=mouse)"/>
         <setting visible="true" label="30310" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=samsung)"/>
+        <setting visible="true" label="30488" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=stop_playback)"/>
 
     </category>
 

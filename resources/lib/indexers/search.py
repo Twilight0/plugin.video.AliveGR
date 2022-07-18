@@ -9,18 +9,22 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-from tulip.compat import quote
+import json
+
+from tulip.compat import quote, quote_plus
 from tulip import directory, control, cleantitle
-from tulip.init import sysaddon
 from . import gm
 from . import live
+from ..modules.themes import iconname
+from ..modules.utils import add_to_history, read_from_history
+from ..modules.constants import QUERY_MAP
 
 
 class Indexer:
 
     def __init__(self):
 
-        self.list = [] ; self.data = []
+        self.list = []; self.data = []
 
     def wrapper(self, str_input, category):
 
@@ -28,167 +32,282 @@ class Indexer:
 
         if category == 'person':
             self.list = gm.Indexer().persons_index(gm.SEARCH, post=post)
-        # elif category == 'music':
-        #     self.list = gm.Indexer().listing(gm.SEARCH, post=post, get_listing=True)
         else:
             self.list = gm.Indexer().listing(gm.SEARCH, post=post, get_listing=True)
 
         return self.list
 
-    def search(self):
+    def search_index(self):
 
-        choices = [
-            control.lang(30096), control.lang(30031), control.lang(30030), control.lang(30063), control.lang(30068), control.lang(30097),
-            control.lang(30101)  #, control.lang(30125)
+        add_to_history_cm = {'title': 30486, 'query': {'action': 'add_to_history'}}
+        refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
+
+        self.list = [
+            {
+                'title': control.lang(30016),
+                'action': 'search',
+                'icon': iconname('search'),
+                'isFolder': 'False', 'isPlayable': 'False',
+                'cm': [add_to_history_cm, refresh_cm]
+            }
         ]
 
-        choice = control.selectDialog(heading=control.lang(30095), list=choices)
+        history = read_from_history()
+
+        if history:
+
+            search_history = [
+                {
+                    'title': i.split(',')[1] + ' (' + control.lang(QUERY_MAP.get(i.split(',')[0])) + ')',
+                    'action': 'search', 'query': i,
+                    'cm': [
+                        add_to_history_cm,
+                        {'title': 30485, 'query': {'action': 'delete_from_history', 'query': i}},
+                        refresh_cm
+                    ]
+                } for i in read_from_history()
+            ]
+
+            for i in search_history:
+                if i['query'].split(',')[0] == 'Live TV Channel':
+                    i.update({'image': iconname('monitor')})
+                elif i['query'].split(',')[0] == 'TV Serie':
+                    i.update({'image': iconname('series')})
+                elif i['query'].split(',')[0] == 'TV Show':
+                    i.update({'image': iconname('shows')})
+                elif i['query'].split(',')[0] == 'Movie':
+                    i.update({'image': iconname('movies')})
+                elif i['query'].split(',')[0] == 'Theater':
+                    i.update({'image': iconname('theater')})
+                elif i['query'].split(',')[0] == 'Cartoon':
+                    i.update({'image': iconname('kids')})
+                elif i['query'].split(',')[0] == 'Person':
+                    i.update({'image': iconname('user')})
+
+            self.list.extend(search_history)
+
+        directory.add(self.list)
+
+    def search(self, action, query=None):
+
+        if query is not None:
+            choice = list(QUERY_MAP.keys()).index(query.split(',')[0])
+            str_input = query.split(',')[1]
+        else:
+            choice = None
+            str_input = None
+
+        if choice is None:
+
+            choices = [
+                control.lang(30096), control.lang(30031), control.lang(30030), control.lang(30063), control.lang(30068),
+                control.lang(30097), control.lang(30101)
+            ]
+
+            choice = control.selectDialog(heading=control.lang(30095), list=choices)
 
         if choice == 0:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096)
-            )
+            if str_input is None:
 
-            if not str_input:
+                str_input = control.dialog.input(
+                    heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096)
+                )
+
+                if not str_input:
+                    return
+
+            add_to_history(u"Live TV Channel,{0}".format(str_input))
+
+            if action == 'add_to_history':
+                control.refresh()
                 return
 
             self.list = live.Indexer().live_tv(zapping=False, query=str_input.lower())
 
-            directory.add(self.list)
+            if query:
+                directory.add(self.list)
+            else:
+                directory.run_builtin(action='generic_index', query=quote_plus(json.dumps(self.list)))
 
         elif choice == 1:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30031)
-            )
+            if str_input is None:
 
-            try:
-                str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                str_input = cleantitle.strip_accents(str_input)
+                str_input = control.dialog.input(
+                    heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30031)
+                )
+
+                try:
+                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                    str_input = cleantitle.strip_accents(str_input)
 
             if not str_input:
+                return
+
+            add_to_history(u"Movie,{0}".format(str_input))
+
+            if action == 'add_to_history':
+                control.refresh()
                 return
 
             self.list = self.wrapper(str_input, 'movies')
 
-            directory.add(self.list, content='movies')
+            if query:
+                directory.add(self.list, content='movies')
+            else:
+                directory.run_builtin(action='generic_index', query=quote_plus(json.dumps(self.list)))
 
         elif choice == 2:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30030)
-            )
+            if str_input is None:
 
-            if not str_input:
+                str_input = control.dialog.input(
+                    heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30030)
+                )
 
+                if not str_input:
+
+                    return
+
+                try:
+                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                    str_input = cleantitle.strip_accents(str_input)
+
+            add_to_history(u"TV Serie,{0}".format(str_input))
+
+            if action == 'add_to_history':
+                control.refresh()
                 return
-
-            try:
-                str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                str_input = cleantitle.strip_accents(str_input)
 
             self.list = self.wrapper(str_input, 'series')
 
-            directory.add(self.list, content='tvshows')
+            if query is not None:
+                directory.add(self.list, content='tvshows')
+            else:
+                directory.run_builtin(action='generic_index', query=quote_plus(json.dumps(self.list)))
 
         elif choice == 3:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30063)
-            )
-
             if not str_input:
 
-                return
+                str_input = control.dialog.input(
+                    heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30063)
+                )
 
-            try:
-                str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                str_input = cleantitle.strip_accents(str_input)
+                if not str_input:
+
+                    return
+
+                try:
+                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                    str_input = cleantitle.strip_accents(str_input)
+
+            add_to_history(u"TV Show,{0}".format(str_input))
+
+            if action == 'add_to_history':
+                control.refresh()
+                return
 
             self.list = self.wrapper(str_input, 'shows')
 
-            directory.add(self.list, content='tvshows')
+            if query is not None:
+                directory.add(self.list, content='tvshows')
+            else:
+                directory.run_builtin(action='generic_index', query=quote_plus(json.dumps(self.list)))
 
         elif choice == 4:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30068)
-            )
+            if str_input is None:
 
-            if not str_input:
+                str_input = control.dialog.input(
+                    heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30068)
+                )
 
+                if not str_input:
+
+                    return
+
+                try:
+                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                    str_input = cleantitle.strip_accents(str_input)
+
+            add_to_history(u"Theater,{0}".format(str_input))
+
+            if action == 'add_to_history':
+                control.refresh()
                 return
-
-            try:
-                str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                str_input = cleantitle.strip_accents(str_input)
 
             self.list = self.wrapper(str_input, 'theater')
 
-            directory.add(self.list, content='tvshows')
+            if query is not None:
+                directory.add(self.list, content='movies')
+            else:
+                directory.run_builtin(action='generic_index', query=quote_plus(json.dumps(self.list)))
 
         elif choice == 5:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
-            )
+            if str_input is None:
+                str_input = control.dialog.input(
+                    heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30097)
+                )
 
-            if not str_input:
+                if not str_input:
 
+                    return
+
+                try:
+                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                    str_input = cleantitle.strip_accents(str_input)
+
+            add_to_history(u"Cartoon,{0}".format(str_input))
+
+            if action == 'add_to_history':
+                control.refresh()
                 return
-
-            try:
-                str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                str_input = cleantitle.strip_accents(str_input)
 
             self.list = self.wrapper(str_input, 'animation')
 
-            directory.add(self.list, content='tvshows')
+            if query is not None:
+                directory.add(self.list, content='tvshows')
+            else:
+                directory.run_builtin(action='generic_index', query=quote_plus(json.dumps(self.list)))
 
         elif choice == 6:
 
-            str_input = control.dialog.input(
-                heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30101)
-            )
+            if str_input is None:
 
-            if not str_input:
+                str_input = control.dialog.input(
+                    heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30101)
+                )
 
+                if not str_input:
+
+                    return
+
+                try:
+                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
+                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
+                    str_input = cleantitle.strip_accents(str_input)
+
+            add_to_history(u"Person,{0}".format(str_input))
+
+            if action == 'add_to_history':
+                control.refresh()
                 return
-
-            try:
-                str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-            except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                str_input = cleantitle.strip_accents(str_input)
 
             self.list = self.wrapper(str_input, 'person')
 
-            directory.add(self.list)
-
-        # elif choice == 7:
-        #
-        #     str_input = control.dialog.input(
-        #         heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30125)
-        #     )
-        #
-        #     if not str_input:
-        #
-        #         return
-        #
-        #     try:
-        #         str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-        #     except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-        #         str_input = cleantitle.strip_accents(str_input)
-        #
-        #     self.list = cache.get(self.wrapper, 12, str_input, 'music')
-        #
-        #     directory.add(self.list)
+            if query is not None:
+                directory.add(self.list)
+            else:
+                directory.run_builtin(action='generic_index', query=quote_plus(json.dumps(self.list)))
 
         else:
 
-            control.execute('ActivateWindow(videos,"{0}")'.format(sysaddon))
+            control.close_all()
