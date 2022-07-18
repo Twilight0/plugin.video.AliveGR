@@ -19,7 +19,7 @@ from resolveurl.resolver import ResolverError
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
 from tulip import directory, client, control
 from tulip.log import log_debug
-from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlencode, urllib2, is_py2, urlparse, HTTPError
+from tulip.compat import urljoin, parse_qsl, zip, urlsplit, urlencode, is_py2, urlparse, HTTPError
 from tulip.utils import percent
 from scrapetube.list_formation import list_playlist_videos, list_channel_videos
 
@@ -97,7 +97,7 @@ def conditionals(url):
         stream = conditionals(link)
         return stream
 
-    elif GK_BASE in url:
+    elif urlparse(GK_BASE).netloc in url:
 
         streams = gk_debris(url)
 
@@ -116,8 +116,6 @@ def gk_debris(link):
     html = client.request(link)
     urls = client.parseDOM(html, 'tr', attrs={'id': 'link-\d+'})
     item_data = client.parseDOM(html, 'div', attrs={'class': 'data'})[0]
-    duration = client.parseDOM(item_data, 'span', attrs={'itemprop': 'duration'})[0]
-    duration = re.search(r'(\d{2,3})', duration).group(1)
     title = client.parseDOM(item_data, 'h1')[0]
     year = client.parseDOM(item_data, 'span', attrs={'itemprop': 'dateCreated'})[0]
     year = re.search(r'(\d{4})', year).group(1)
@@ -127,7 +125,7 @@ def gk_debris(link):
 
     data = {
         'links': urls, 'hosts': [''.join([control.lang(30015), urlsplit(url).netloc]) for url in urls],
-        'title': title, 'year': int(year), 'image': image, 'duration': int(duration) * 60
+        'title': title, 'year': int(year), 'image': image
     }
 
     return data
@@ -285,14 +283,13 @@ def gk_filler(url):
     t = sources['title']
     y = sources['year']
     i = sources['image']
-    d= sources['duration']
 
     for h, l in lists:
 
         label = SEPARATOR.join([t, h])
 
         data = {
-            'label': label, 'title': '{0} ({1})'.format(t, y), 'url': l, 'image': i, 'year': y, 'duration': d
+            'label': label, 'title': '{0} ({1})'.format(t, y), 'url': l, 'image': i, 'year': y
         }
 
         if control.setting('check_streams'):
