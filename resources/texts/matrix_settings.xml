@@ -618,7 +618,7 @@
 					</dependencies>
 					<control type="button" format="action"/>
 				</setting>
-				<setting id="setup_various_keymaps_previous" type="action" label="30488" help="30489">
+				<setting id="setup_various_keymaps_stop_playback" type="action" label="30488" help="30489">
 					<level>3</level>
 					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=stop_playback)</data>
 					<constraints>
