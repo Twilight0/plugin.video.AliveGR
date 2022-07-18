@@ -179,12 +179,20 @@ class Indexer:
         self.list = self.music_list(url)
 
         for item in self.list:
+
+            try:
+                year = int(item['title'].partition(' (')[2][:-1])
+            except ValueError:
+                year = None
+
             item.update(
                 {
                     'action': 'songs_index', 'name': item['title'].partition(' (')[0],
-                    'year': int(item['title'].partition(' (')[2][:-1])
                 }
             )
+
+            if year:
+                item.update({'year': year})
 
         directory.add(self.list, content=self.content, infotype=self.infotype)
 
@@ -197,7 +205,10 @@ class Indexer:
             item.update({'action': 'play', 'isFolder': 'False'})
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}
             clear_playlist = {'title': 30227, 'query': {'action': 'clear_playlist'}}
-            item.update({'cm': [add_to_playlist, clear_playlist], 'album': album.encode('latin-1'), 'tracknumber': count})
+            try:
+                item.update({'cm': [add_to_playlist, clear_playlist], 'album': album.encode('latin-1'), 'tracknumber': count})
+            except:
+                item.update({'cm': [add_to_playlist, clear_playlist], 'album': album, 'tracknumber': count})
 
         directory.add(self.list, content=self.content, infotype=self.infotype)
 
