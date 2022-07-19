@@ -128,8 +128,11 @@
         <setting type="lsep" label="30251"/>
 
         <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
-        <!-- <setting id="keys_are_set" type="bool" label="30301" default="false"/>
-        <setting id="keys_choice" label="30417" type="select" values="1|2|3|4|5|6" default="1" visible="eq(-1,true)"/> -->
+
+        <setting type="lsep" label="30491"/>
+
+        <setting visible="true" label="30490" type="action" action="RunPlugin(plugin://$ID/?action=isa_setup)"/>
+        <setting visible="true" label="30332" type="action" action="RunPlugin(plugin://$ID/?action=pvrsettings)" option="close"/>
 
 <!--        <setting type="lsep" label="30018"/>-->
 

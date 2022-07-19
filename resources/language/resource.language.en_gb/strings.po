@@ -71,7 +71,7 @@ msgid "TV Guide"
 msgstr ""
 
 msgctxt "#30015"
-msgid "Watch at "
+msgid "Watch at: "
 msgstr ""
 
 msgctxt "#30016"
@@ -1519,11 +1519,11 @@ msgid "This option will preresolve streams directly into their playable format f
 msgstr ""
 
 msgctxt "#30444"
-msgid "Allows you to change the way you choose a source for playback. Dialog, random, directory or playlist. Dialog is the recommended/default method. Playlist is the least stable."
+msgid "Allows you to change the way you choose a source for playback. Dialog, random or directory. Dialog is the recommended/default method"
 msgstr ""
 
 msgctxt "#30445"
-msgid "Will autoplay first (or the first one that has been found) when playlist action is enabled."
+msgid ""
 msgstr ""
 
 msgctxt "#30446"
@@ -1579,7 +1579,7 @@ msgid "Clear AliveGR's function cache"
 msgstr ""
 
 msgctxt "#30459"
-msgid "Checking..."
+msgid "Checking: "
 msgstr ""
 
 msgctxt "#30460"
@@ -1703,15 +1703,15 @@ msgid "This keymap will stop playback entirely when you press return/previous wh
 msgstr ""
 
 msgctxt "#30490"
-msgid ""
+msgid "Setup inputstream adaptive with recommended settings"
 msgstr ""
 
 msgctxt "#30491"
-msgid ""
+msgid "Other addons"
 msgstr ""
 
 msgctxt "#30492"
-msgid ""
+msgid "This action will setup inputstream adaptive with recommended settings"
 msgstr ""
 
 msgctxt "#30493"

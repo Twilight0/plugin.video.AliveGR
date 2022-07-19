@@ -146,7 +146,7 @@ class Indexer:
             link = urljoin(gm.GM_BASE, link)
 
             if 'gapi.client.setApiKey' in html:
-                link = gm.source_maker(url)['links'][0]
+                link = gm.gm_source_maker(url)['links'][0]
 
             data = {'title': title, 'url': link, 'image': icon}
 

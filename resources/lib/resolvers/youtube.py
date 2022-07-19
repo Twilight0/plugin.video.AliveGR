@@ -65,7 +65,9 @@ def wrapper(url):
             qualities = [i['title'] for i in audio_choices]
             urls = [i['url'] for i in audio_choices]
 
-            resolved = stream_picker(qualities, urls)
+            links = list(zip(qualities, urls))
+
+            resolved = stream_picker(links)
 
         return resolved
 
@@ -74,7 +76,8 @@ def wrapper(url):
         qualities = [i['title'] for i in streams]
         urls = [i['url'] for i in streams]
 
-        resolved = stream_picker(qualities, urls)
+        links = list(zip(qualities, urls))
+        resolved = stream_picker(links)
 
         return resolved
 

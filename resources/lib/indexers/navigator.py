@@ -12,6 +12,7 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from tulip import control, directory
+from tulip.log import log_debug
 from ..modules.themes import iconname
 from ..modules.utils import reset_idx as reset
 
@@ -23,6 +24,8 @@ class Indexer:
         self.list = []; self.menu = []
 
     def root(self):
+
+        log_debug("Opening up")
 
         self.list = [
             {

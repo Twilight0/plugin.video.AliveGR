@@ -545,40 +545,36 @@
 					</dependencies>
 					<control type="button" format="action"/>
 				</setting>
-				<!-- <setting id="keys_are_set" type="boolean" label="30301" help="30302">
-					<level>1</level>
-					<default>false</default>
+			</group>
+			<group id="2" label="30491">
+				<setting id="isa_setup" type="action" label="30490" help="30492">
+					<level>2</level>
+					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=isa_setup)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
 					<dependencies>
 						<dependency type="visible">
 							<condition on="property" name="InfoBool">true</condition>
 						</dependency>
 					</dependencies>
-					<control type="toggle"/>
+					<control type="button" format="action"/>
 				</setting>
-				<setting id="keys_choice" type="string" label="30417" help="30463">
+				<setting id="pvrsettings" type="action" label="30332" help="30493">
 					<level>2</level>
-					<default>1</default>
+					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=pvrsettings)</data>
 					<constraints>
-						<options>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-							<option>6</option>
-						</options>
+						<allowempty>true</allowempty>
 					</constraints>
 					<dependencies>
 						<dependency type="visible">
-							<condition operator="is" setting="keys_are_set">true</condition>
+							<condition on="property" name="InfoBool">true</condition>
 						</dependency>
 					</dependencies>
-					<control type="list" format="string">
-						<heading>30417</heading>
-					</control>
-				</setting> -->
+					<control type="button" format="action"/>
+				</setting>
 			</group>
-			<group id="2" label="30250">
+			<group id="3" label="30250">
 				<setting id="setup_various_keymaps_previous" type="action" label="30019" help="30464">
 					<level>3</level>
 					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=previous)</data>

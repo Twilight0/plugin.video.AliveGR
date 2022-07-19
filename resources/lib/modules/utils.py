@@ -41,12 +41,12 @@ def papers():
     control.execute('ActivateWindow(10002,"plugin://plugin.video.AliveGR/?content_type=image",return)')
 
 
-def stream_picker(qualities, urls):
+def stream_picker(links):
 
-    _choice = control.selectDialog(heading=control.lang(30006), list=qualities)
+    _choice = control.selectDialog(heading=control.lang(30006), list=[link[0] for link in links])
 
-    if _choice <= len(qualities) and not _choice == -1:
-        popped = urls[_choice]
+    if _choice <= len(links) and not _choice == -1:
+        popped = [link[1] for link in links][_choice]
         return popped
 
 
@@ -99,7 +99,9 @@ def m3u8_picker(url):
 
         return url
 
-    return stream_picker(qualities, urls)
+    links = list(zip(qualities, urls))
+
+    return stream_picker(links)
 
 
 def toggle_alt():
@@ -714,6 +716,39 @@ def setup_various_keymaps(keymap):
     else:
 
         control.infoDialog(control.lang(30403))
+
+
+def isa_setup():
+
+    settings_file = '''<settings version="2">
+    <setting id="MINBANDWIDTH" default="true">0</setting>
+    <setting id="MAXBANDWIDTH" default="true">0</setting>
+    <setting id="MAXRESOLUTION" default="true">0</setting>
+    <setting id="MAXRESOLUTIONSECURE" default="true">0</setting>
+    <setting id="STREAMSELECTION">2</setting>
+    <setting id="MEDIATYPE" default="true">0</setting>
+    <setting id="HDCPOVERRIDE" default="true">false</setting>
+    <setting id="IGNOREDISPLAY" default="true">false</setting>
+    <setting id="DECRYPTERPATH" default="true">special://xbmcbinaddons</setting>
+    <setting id="WIDEVINE_API" default="true">10</setting>
+    <setting id="PRERELEASEFEATURES" default="true">false</setting>
+</settings>
+'''
+
+    def wizard():
+
+        lines = settings_file.splitlines()[1:-1]
+
+        for line in lines:
+
+            control.addon('inputstream.adaptive').setSetting(
+                re.search(r'id="(\w+)"', line).group(1), re.search(r'>([\w/:]+)<', line).group(1)
+            )
+
+    if control.yesnoDialog(line1=control.lang(30022)):
+
+        wizard()
+        control.infoDialog(message=control.lang(30402), time=3000)
 
 
 def yt_setup():

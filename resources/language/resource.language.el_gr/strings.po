@@ -71,8 +71,8 @@ msgid "TV Guide"
 msgstr "Οδηγός Τηλεόρασης"
 
 msgctxt "#30015"
-msgid "Watch at "
-msgstr "Προβολή στο "
+msgid "Watch at: "
+msgstr "Προβολή στο: "
 
 msgctxt "#30016"
 msgid "New search"
@@ -1519,12 +1519,12 @@ msgid "This option will preresolve streams directly into their playable format f
 msgstr "Αυτη η επιλογή θα προ-επιλυσει τις ροές απευθείας στην μορφή αναπαραγωγής για γρηγοροτερη εκτέλεση, αλλά είναι ασταθές, ιδανικό για δοκιμαστικούς σκοπούς"
 
 msgctxt "#30444"
-msgid "Allows you to change the way you choose a source for playback. Dialog, random, directory or playlist. Dialog is the recommended/default method. Playlist is the least stable."
-msgstr "Σας επιτρέπει να αλλάξετε τον τρόπο που επιλέγετε ροή για αναπαραγωγή. Διάλογος, τυχαίο, κατάλογος ή λίστα αναπαραγωγής. Ο διάλογος είναι ο προτεινόμενος/εξ'ορισμού τρόπος. Η λίστα αναπαραγωγής είναι ο λιγότερο σταθερός."
+msgid "Allows you to change the way you choose a source for playback. Dialog, random or directory. Dialog is the recommended/default method"
+msgstr "Σας επιτρέπει να αλλάξετε τον τρόπο που επιλέγετε ροή για αναπαραγωγή. Διάλογος, τυχαίο ή κατάλογος. Ο διάλογος είναι ο προτεινόμενος/εξ'ορισμού τρόπος."
 
 msgctxt "#30445"
-msgid "Will autoplay first (or the first one that has been found) when playlist action is enabled."
-msgstr "Θα αναπαράξει την πρώτη ροή (ή αυτήν που έχει βρεθεί) όταν η λίστα αναπαραγωγής είναι ενεργοποιημένη."
+msgid ""
+msgstr ""
 
 msgctxt "#30446"
 msgid "Will reverse episode order. Defaults to being enabled."
@@ -1579,8 +1579,8 @@ msgid "Clear AliveGR's function cache"
 msgstr "Εκκαθάριση της μνήμης λειτουργιών του AliveGR"
 
 msgctxt "#30459"
-msgid "Checking..."
-msgstr "Έλεγχος..."
+msgid "Checking: "
+msgstr "Έλεγχος: "
 
 msgctxt "#30460"
 msgid "Delete AliveGR's bookmarks.db"
@@ -1703,20 +1703,20 @@ msgid "This keymap will stop playback entirely when you press return/previous wh
 msgstr "Αυτός ο χάρτης θα διακόψει την αναπαραγωγή εντελώς όταν πατηθεί η επιστροφή σε βίντεο πλήρους οθόνης. Με παρατεταμένο πάτημα εκτελεί ενέργεια όπως στον εξ'ορισμού χάρτη."
 
 msgctxt "#30490"
-msgid ""
-msgstr ""
+msgid "Setup inputstream adaptive with recommended settings"
+msgstr "Ρυθμίστε το inputstream adaptive με τις προτεινόμενες ρυθμίσεις"
 
 msgctxt "#30491"
-msgid ""
-msgstr ""
+msgid "Other addons"
+msgstr "Άλλα πρόσθετα"
 
 msgctxt "#30492"
-msgid ""
-msgstr ""
+msgid "This action will setup inputstream adaptive with recommended settings"
+msgstr "Αυτή η ενέργεια θα ρυθμίσει το inputstream adaptive με τις προτεινόμενες ρυθμίσεις"
 
 msgctxt "#30493"
-msgid ""
-msgstr ""
+msgid "This action opens PVR Simple Client settings window"
+msgstr "Αυτή η ενέργεια ανοίγει το παράθυρο ρυθμίσεων του PVR Simple Client"
 
 msgctxt "#30494"
 msgid ""

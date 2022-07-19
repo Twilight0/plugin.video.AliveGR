@@ -360,6 +360,10 @@ elif action == 'isa_enable':
 
     kodi.isa_enable()
 
+elif action == 'isa_setup':
+
+    utils.isa_setup()
+
 elif action == 'rtmp_enable':
 
     kodi.rtmp_enable()
