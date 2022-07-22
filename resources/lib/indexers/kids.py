@@ -341,12 +341,12 @@ class Indexer:
             except IndexError:
 
                 plot = u'Μεταγλωτισμένο'
-                etos = '2020'
+                etos = '2022'
                 duration = 3600
 
             year = ''.join(['(', etos, ')'])
             label = ' '.join([title, year])
-            image = client.parseDOM(item, 'img', ret='src')[0]
+            image = client.parseDOM(item, 'img', ret='data-lazy-src')[0]
 
             i = {
                 'title': label, 'url': url, 'image': image, 'nextlabel': 30334, 'next': next_link,
