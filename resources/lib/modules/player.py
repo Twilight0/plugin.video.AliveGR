@@ -53,6 +53,7 @@ def conditionals(url):
             log_debug('Youtube resolver failure, reason: ' + repr(exp))
             return
 
+
     if 'youtu' in url or len(url) == 11:
 
         log_debug('Resolving with youtube addon...')
@@ -91,13 +92,9 @@ def conditionals(url):
     elif GM_BASE in url:
 
         sources = gm_source_maker(url)
-
         stream = mini_picker(sources['links'])
 
-        if control.setting('check_streams') == 'true':
-            return stream
-        else:
-            return conditionals(stream)
+        return conditionals(stream)
 
     elif urlparse(GK_BASE).netloc in url:
 
@@ -271,7 +268,7 @@ def gk_directory(url):
             'label': label, 'title': '{0} ({1})'.format(t, y), 'url': l, 'image': i, 'year': y
         }
 
-        if control.setting('check_streams'):
+        if control.setting('check_streams') == 'true':
             data.update({'query': json.dumps(links)})
 
         items.append(data)

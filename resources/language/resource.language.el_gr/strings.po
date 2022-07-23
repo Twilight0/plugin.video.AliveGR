@@ -1308,7 +1308,7 @@ msgstr "Μία μόνο τυχαία επιλογή"
 
 msgctxt "#30353"
 msgid "Shuffled playlist"
-msgstr "Ανακατεμένη λίστα απαναραγωγής"
+msgstr "Ανακατεμένη λίστα αναπαραγωγής"
 
 msgctxt "#30354"
 msgid "Unofficial streams are not enabled, if you want them enabled, please go to the tools sub menu and execute \"Unofficial streams menu\""
