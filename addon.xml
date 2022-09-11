@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.10.6" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.10.7" provider-name="Twilight0">
     <requires>
-        <import addon="xbmc.addon" version="18.0.000"/>
+        <import addon="xbmc.addon" version="17.9.910"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.5"/>
         <import addon="resource.images.alivegr.logos" version="1.0.2"/>
         <import addon="script.module.resolveurl" version="5.1.49"/>
@@ -23,8 +23,8 @@
 On demand content is scraped from various websites and is freely available on the internet on public domains. This software acts only as a search engine.
 Kindly note that AliveGR is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system and it is provided "as is" with no warranty.</disclaimer>
         <summary lang="el_GR">Πρόσθετο AliveGR</summary>
-        <description lang="el_GR">Το πρόσθετο AliveGR επιτρέπει την θέαση ροών με περιεχόμενο κυρίως εις την Ελληνική γλώσσα.</description>
-        <disclaimer lang="el_GR">Ο δημιουργός του AliveGR δεν φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
+        <description lang="el_GR">Το πρόσθετο AliveGR επιτρέπει τη θέαση ροών με περιεχόμενο κυρίως εις την Ελληνική γλώσσα.</description>
+        <disclaimer lang="el_GR">Ο δημιουργός του AliveGR δε φιλοξενεί ή παρέχει οποιοδήποτε από τα απεικονιζόμενα πολυμέσα και περιεχόμένο εντός του μενού του και δεν μπορεί να θεωρηθεί υπεύθυνος για την ποιότητα ή την διαθεσιμότητα των ροών.
 Το περιεχόμενο αναπαραγωγής κατά βούληση φιλτράρεται από διάφορες ιστοσελίδες ελεύθερα διαθέσιμες στο διαδίκτυο σε δημόσιους ιστότοπους. Το παρόν λογισμικό ενεργεί μόνο ως μηχανή αναζήτησης.
 Παρακαλώ προσέξτε ότι το AliveGR δεν είναι επίσημο κομμάτι του αναπαραγωγέα πολυμέσων Kodi ή της καθορισμένης χρήσης του, είναι απλά μία μικροεφαρμογή που προστέθηκε στο σύστημά σας και που παρέχεται "όπως είναι" χωρίς καμία εγγύηση καλής λειτουργίας.</disclaimer>
         <language>en el</language>
@@ -32,8 +32,7 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <forum>https://github.com/Twilight0/plugin.video.AliveGR/issues</forum>
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
-        <size>1500240</size>
-        <news>+ [COLOR green]2.10.X series[/COLOR] [I]18-07-2022 - 19-07-2022[/I]
+        <news>+ [COLOR green]2.10.X series[/COLOR] [I]18-07-2022 - 11-09-2022[/I]
 
 Fixes:
 - GM music indexer playback

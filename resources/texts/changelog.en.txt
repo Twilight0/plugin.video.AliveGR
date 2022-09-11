@@ -1,4 +1,4 @@
-+ [COLOR green]2.10.X series[/COLOR] [I]18-07-2022 - 19-07-2022[/I]
++ [COLOR green]2.10.X series[/COLOR] [I]18-07-2022 - 11-09-2022[/I]
 
 Fixes:
 - GM music indexer playback

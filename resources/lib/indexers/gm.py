@@ -522,7 +522,7 @@ class Indexer:
         icons = ['https://www.shareicon.net/data/256x256/2015/11/08/157712_sport_512x512.png',
                  'https://www.shareicon.net/data/256x256/2015/12/07/196797_ball_256x256.png']
 
-        items = zip(options, icons)
+        items = list(zip(options, icons))
 
         for item, image in items:
 
