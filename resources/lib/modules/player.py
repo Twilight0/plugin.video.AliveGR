@@ -10,7 +10,6 @@
 from __future__ import absolute_import, unicode_literals
 
 import json
-import re
 
 from random import shuffle, choice as random_choice
 from resolveurl import add_plugin_dirs, resolve as resolve_url
@@ -18,18 +17,21 @@ from resolveurl.hmf import HostedMediaFile
 from resolveurl.resolver import ResolverError
 # noinspection PyUnresolvedReferences
 from youtube_plugin.youtube.youtube_exceptions import YouTubeException
-from tulip import directory, client, control
+from tulip import directory, control
 from tulip.log import log_debug
+from tulip.net import Net as net_client
 from tulip.compat import urljoin, parse_qsl, urlencode, is_py2, urlparse, HTTPError
 from tulip.utils import percent
+from tulip.parsers import parseDOM
+from tulip.cleantitle import stripTags
 from scrapetube.list_formation import list_playlist_videos, list_channel_videos
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, gm_source_maker, Indexer as gm_indexer
 from ..indexers.kids import GK_BASE, gk_source_maker
 from ..resolvers import youtube
 from .kodi import prevent_failure
-from .constants import YT_URL, HOSTS, SEPARATOR, PLUGINS_PATH, cache_function, cache_duration
-from .utils import m3u8_picker
+from .constants import YT_URL, HOSTS, SEPARATOR, PLUGINS_PATH, cache_function, cache_duration, PLAYBACK_HISTORY
+from .utils import m3u8_picker, add_to_file
 
 skip_directory = False
 
@@ -215,14 +217,14 @@ def gm_directory(url, params):
 
     for h, l in lists:
 
-        html = client.request(l)
-        button = client.parseDOM(html, 'a', attrs={'role': 'button'}, ret='href')[0]
-        image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
+        html = net_client().http_GET(l).content
+        button = parseDOM(html, 'a', attrs={'role': 'button'}, ret='href')[0]
+        image = parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive'}, ret='src')[0]
         image = urljoin(GM_BASE, image)
-        title = client.parseDOM(html, 'h3')[0]
-        year = [y[-4:] for y in client.parseDOM(html, 'h4') if str(y[-4:]).isdigit()][0]
+        title = parseDOM(html, 'h3')[0]
+        year = [y[-4:] for y in parseDOM(html, 'h4') if str(y[-4:]).isdigit()][0]
         try:
-            episode = client.stripTags(client.parseDOM(html, 'h4')[-1])
+            episode = stripTags(parseDOM(html, 'h4')[-1])
             if episode[-4:].isdigit():
                 raise IndexError
             episode = episode.partition(': ')[2].strip()
@@ -436,6 +438,10 @@ def player(url, params):
         log_debug('Failed to resolve this url: {0}'.format(url))
 
         return
+
+    elif control.setting('show_history') == 'true' and not url.startswith('alivegr://'):
+        params.update({'isFolder': 'False'})
+        add_to_file(PLAYBACK_HISTORY, json.dumps(params))
 
     try:
         plot = params.get('plot').encode('latin-1')

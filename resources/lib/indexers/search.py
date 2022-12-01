@@ -11,13 +11,13 @@ from __future__ import absolute_import, unicode_literals
 
 import json
 
-from tulip.compat import quote, quote_plus
+from tulip.compat import quote, quote_plus, py2_uni
 from tulip import directory, control, cleantitle
 from . import gm
 from . import live
 from ..modules.themes import iconname
-from ..modules.utils import add_to_history, read_from_history
-from ..modules.constants import QUERY_MAP
+from ..modules.utils import add_to_file, read_from_file
+from ..modules.constants import QUERY_MAP, SEARCH_HISTORY
 
 
 class Indexer:
@@ -39,7 +39,7 @@ class Indexer:
 
     def search_index(self):
 
-        add_to_history_cm = {'title': 30486, 'query': {'action': 'add_to_history'}}
+        add_to_search_history_cm = {'title': 30486, 'query': {'action': 'add_to_search_history'}}
         refresh_cm = {'title': 30054, 'query': {'action': 'refresh'}}
 
         self.list = [
@@ -48,11 +48,11 @@ class Indexer:
                 'action': 'search',
                 'icon': iconname('search'),
                 'isFolder': 'False', 'isPlayable': 'False',
-                'cm': [add_to_history_cm, refresh_cm]
+                'cm': [add_to_search_history_cm, refresh_cm]
             }
         ]
 
-        history = read_from_history()
+        history = read_from_file(SEARCH_HISTORY)
 
         if history:
 
@@ -61,11 +61,12 @@ class Indexer:
                     'title': i.split(',')[1] + ' (' + control.lang(QUERY_MAP.get(i.split(',')[0])) + ')',
                     'action': 'search', 'query': i,
                     'cm': [
-                        add_to_history_cm,
+                        add_to_search_history_cm,
                         {'title': 30485, 'query': {'action': 'delete_from_history', 'query': i}},
+                        {'title': 30494, 'query': {'action': 'change_search_term', 'query': i}},
                         refresh_cm
                     ]
-                } for i in read_from_history()
+                } for i in history
             ]
 
             for i in search_history:
@@ -114,12 +115,14 @@ class Indexer:
                     heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30096)
                 )
 
+                str_input = py2_uni(str_input)
+
                 if not str_input:
                     return
 
-            add_to_history(u"Live TV Channel,{0}".format(str_input))
+            add_to_file(SEARCH_HISTORY, u"Live TV Channel,{0}".format(str_input))
 
-            if action == 'add_to_history':
+            if action == 'add_to_search_history':
                 control.refresh()
                 return
 
@@ -138,17 +141,14 @@ class Indexer:
                     heading=control.lang(30095).partition(' ')[0] + control.lang(30100) + control.lang(30031)
                 )
 
-                try:
-                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                    str_input = cleantitle.strip_accents(str_input)
+                str_input = cleantitle.strip_accents(py2_uni(str_input))
 
             if not str_input:
                 return
 
-            add_to_history(u"Movie,{0}".format(str_input))
+            add_to_file(SEARCH_HISTORY, u"Movie,{0}".format(str_input))
 
-            if action == 'add_to_history':
+            if action == 'add_to_search_history':
                 control.refresh()
                 return
 
@@ -171,14 +171,11 @@ class Indexer:
 
                     return
 
-                try:
-                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                    str_input = cleantitle.strip_accents(str_input)
+                str_input = cleantitle.strip_accents(py2_uni(str_input))
 
-            add_to_history(u"TV Serie,{0}".format(str_input))
+            add_to_file(SEARCH_HISTORY, u"TV Serie,{0}".format(str_input))
 
-            if action == 'add_to_history':
+            if action == 'add_to_search_history':
                 control.refresh()
                 return
 
@@ -201,14 +198,11 @@ class Indexer:
 
                     return
 
-                try:
-                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                    str_input = cleantitle.strip_accents(str_input)
+                str_input = cleantitle.strip_accents(py2_uni(str_input))
 
-            add_to_history(u"TV Show,{0}".format(str_input))
+            add_to_file(SEARCH_HISTORY, u"TV Show,{0}".format(str_input))
 
-            if action == 'add_to_history':
+            if action == 'add_to_search_history':
                 control.refresh()
                 return
 
@@ -236,9 +230,9 @@ class Indexer:
                 except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
                     str_input = cleantitle.strip_accents(str_input)
 
-            add_to_history(u"Theater,{0}".format(str_input))
+            add_to_file(SEARCH_HISTORY, u"Theater,{0}".format(str_input))
 
-            if action == 'add_to_history':
+            if action == 'add_to_search_history':
                 control.refresh()
                 return
 
@@ -260,14 +254,11 @@ class Indexer:
 
                     return
 
-                try:
-                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                    str_input = cleantitle.strip_accents(str_input)
+                str_input = cleantitle.strip_accents(py2_uni(str_input))
 
-            add_to_history(u"Cartoon,{0}".format(str_input))
+            add_to_file(SEARCH_HISTORY, u"Cartoon,{0}".format(str_input))
 
-            if action == 'add_to_history':
+            if action == 'add_to_search_history':
                 control.refresh()
                 return
 
@@ -290,14 +281,11 @@ class Indexer:
 
                     return
 
-                try:
-                    str_input = cleantitle.strip_accents(str_input.decode('utf-8'))
-                except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-                    str_input = cleantitle.strip_accents(str_input)
+                str_input = cleantitle.strip_accents(py2_uni(str_input))
 
-            add_to_history(u"Person,{0}".format(str_input))
+            add_to_file(SEARCH_HISTORY, u"Person,{0}".format(str_input))
 
-            if action == 'add_to_history':
+            if action == 'add_to_search_history':
                 control.refresh()
                 return
 

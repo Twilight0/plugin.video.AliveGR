@@ -10,13 +10,18 @@
 
 from __future__ import absolute_import, unicode_literals
 
+import os.path
+from os import rename
 import re
 import codecs
-from tulip import control, client, cache, m3u8, directory
+import hashlib
+from tulip import control, cache, m3u8, directory, cleantitle
+from tulip.net import Net as net_client
+from tulip.parsers import parseDOM
 from tulip.compat import parse_qsl, is_py3, urlparse, py2_uni
 from tulip.log import log_debug
 from resources.lib.modules.themes import iconname
-from resources.lib.modules.constants import WEBSITE, PINNED, HISTORY, cache_duration
+from resources.lib.modules.constants import WEBSITE, PINNED, SEARCH_HISTORY, PLAYBACK_HISTORY, cache_duration
 from resources.lib.modules.kodi import force
 from os import path
 from time import time
@@ -187,16 +192,16 @@ def other_addon_settings(query):
         else:
 
             control.openSettings(id='{0}'.format(query))
-    except:
+    except Exception:
 
         pass
 
 
-def reset_idx(notify=True, force=False):
+def reset_idx(notify=True, forceit=False):
 
-    if control.setting('reset_idx') == 'true' or force:
+    if control.setting('reset_idx') == 'true' or forceit:
 
-        if control.setting('reset_live') == 'true' or force:
+        if control.setting('reset_live') == 'true' or forceit:
 
             control.setSetting('live_group', '0')
 
@@ -244,11 +249,11 @@ def purge_bookmarks():
         control.infoDialog(control.lang(30139))
 
 
-def delete_history():
+def delete_search_history():
 
-    if path.exists(HISTORY):
-        if control.yesnoDialog(line1=control.lang(30484)):
-            control.deleteFile(HISTORY)
+    if path.exists(SEARCH_HISTORY):
+        if control.yesnoDialog(line1=control.lang(30484).format(path.basename(SEARCH_HISTORY))):
+            control.deleteFile(SEARCH_HISTORY)
             control.infoDialog(control.lang(30402))
         else:
             control.infoDialog(control.lang(30403))
@@ -256,16 +261,16 @@ def delete_history():
         control.infoDialog(control.lang(30347))
 
 
-def delete_settings_xml():
+def delete_playback_history():
 
-    if path.exists(control.dataPath):
-        if control.yesnoDialog(line1=control.lang(30348)):
-            control.deleteFile(control.join(control.dataPath, 'settings.xml'))
+    if path.exists(PLAYBACK_HISTORY):
+        if control.yesnoDialog(line1=control.lang(30484).format(path.basename(PLAYBACK_HISTORY))):
+            control.deleteFile(PLAYBACK_HISTORY)
             control.infoDialog(control.lang(30402))
         else:
             control.infoDialog(control.lang(30403))
     else:
-        control.infoDialog(control.lang(30487))
+        control.infoDialog(control.lang(30347))
 
 
 def tools_menu():
@@ -326,13 +331,13 @@ def xteni(s):
 
 def geo_loc():
 
-    json_obj = client.request('https://extreme-ip-lookup.com/json/', output='json')
+    json_obj = net_client().http_GET('https://extreme-ip-lookup.com/json/').get_json()
 
     if not json_obj or 'error' in json_obj:
-        json_obj = client.request('https://ip-api.com/json/', output='json')
+        json_obj = net_client().http_GET('https://ip-api.com/json/').get_json()
 
     if not json_obj or 'error' in json_obj:
-        json_obj = client.request('https://geoip.siliconweb.com/geo.json', output='json')
+        json_obj = net_client().http_GET('https://geoip.siliconweb.com/geo.json').get_json()
 
     country = json_obj.get('country', 'Worldwide')
 
@@ -382,26 +387,26 @@ def unpin_from_file(file_, txt):
         f.write(text)
 
 
-def pin():
+def pin(query):
 
     control.busy()
 
-    title = control.infoLabel('ListItem.Title')
-
-    pin_to_file(PINNED, title)
+    # title = control.infoLabel('ListItem.Title')
+    # pin_to_file(PINNED, title)
+    pin_to_file(PINNED, query)
 
     control.infoDialog(control.lang(30338), time=750)
 
     control.idle()
 
 
-def unpin():
+def unpin(query):
 
     control.busy()
 
-    title = control.infoLabel('ListItem.Title')
-
-    unpin_from_file(PINNED, title)
+    # title = control.infoLabel('ListItem.Title')
+    # unpin_from_file(PINNED, title)
+    unpin_from_file(PINNED, query)
 
     control.sleep(100)
     control.refresh()
@@ -428,7 +433,7 @@ def setup_iptv():
 
             return True
 
-        elif control.kodi_version() >= 18.0 and not control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
+        elif not control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
 
             control.execute('InstallAddon(pvr.iptvsimple)')
 
@@ -443,12 +448,11 @@ def setup_iptv():
             return False
 
     def setup_client(apply=False):
-
-        url = thgiliwt('=' + vtpi)
-
+        # https://raw.githubusercontent.com/free-greek-iptv/greek-iptv/master/android.m3u
+        url = 'https://github.com/GreekTVApp/EPG-GRCY/releases/download/EPG/epg.xml.gz'
         if apply:
 
-            xml = client.request(url)
+            xml = net_client().http_GET(url).content
 
             settings = re.findall(r'id="(\w*?)" value="(\S*?)"', xml)
 
@@ -460,8 +464,6 @@ def setup_iptv():
 
             if not path.exists(iptv_folder):
                 control.makeFile(iptv_folder)
-
-            client.retriever(url, control.join(iptv_folder, "settings.xml"))
 
     if path.exists(control.join(iptv_folder, 'settings.xml')):
 
@@ -480,7 +482,6 @@ def setup_iptv():
             setup_client(apply=success == 'enabled')
             control.infoDialog(message=control.lang(30024), time=2000)
             enable_iptv()
-            enable_proxy_module()
 
         else:
 
@@ -513,23 +514,6 @@ def enable_iptv():
             if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
 
                 control.execute('StartPVRManager')
-
-
-def enable_proxy_module():
-
-    if control.condVisibility('System.HasAddon(service.streamlink.proxy)'):
-
-        control.infoDialog(control.lang(30143))
-
-    else:
-
-        if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-
-            control.execute('RunPlugin(plugin://service.streamlink.proxy/)')
-
-        else:
-
-            control.execute('InstallAddon(service.streamlink.proxy)')
 
 
 def setup_various_keymaps(keymap):
@@ -796,113 +780,116 @@ def file_to_text(file_):
     return result
 
 
-def trim_history():
-
-    """
-    Trims history to what is set in settings
-    :return:
-    """
+def trim_content(f):
 
     history_size = int(control.setting('history_size'))
 
     if is_py3:
-        f = open(HISTORY, 'r', encoding='utf-8')
+        file_ = open(f, 'r', encoding='utf-8')
     else:
-        f = codecs.open(HISTORY, 'r', encoding='utf-8')
+        file_ = codecs.open(f, 'r', encoding='utf-8')
 
-    text = [i.rstrip('\n') for i in f.readlines()][::-1]
+    text = [i.rstrip('\n') for i in file_.readlines()][::-1]
 
-    f.close()
+    file_.close()
 
     if len(text) > history_size:
 
         if is_py3:
-            f = open(HISTORY, 'w', encoding='utf-8')
+            file_ = open(f, 'w', encoding='utf-8')
         else:
-            f = codecs.open(HISTORY, 'w', encoding='utf-8')
+            file_ = codecs.open(f, 'w', encoding='utf-8')
 
         dif = history_size - len(text)
         result = text[:dif][::-1]
-        f.write('\n'.join(result) + '\n')
-        f.close()
+        file_.write('\n'.join(result) + '\n')
+        file_.close()
 
 
-def add_to_history(txt):
+def add_to_file(f, text, trim_file=True):
 
-    if not txt:
+    if not text:
         return
 
     try:
 
         if is_py3:
-            f = open(HISTORY, 'r', encoding='utf-8')
-            if txt + '\n' in f.readlines():
+            file_ = open(f, 'r', encoding='utf-8')
+            if text + '\n' in file_.readlines():
                 return
             else:
                 pass
         else:
-            f = codecs.open(HISTORY, 'r', encoding='utf-8')
-            if py2_uni(txt) + '\n' in f.readlines():
+            file_ = codecs.open(f, 'r', encoding='utf-8')
+            if py2_uni(text) + '\n' in file_.readlines():
                 return
             else:
                 pass
-        f.close()
+        file_.close()
 
     except IOError:
-        pass
+        log_debug('File {0} does not exist, creating new...'.format(os.path.basename(f)))
 
     if is_py3:
-        f = open(HISTORY, 'a', encoding='utf-8')
+        file_ = open(f, 'a', encoding='utf-8')
     else:
-        f = codecs.open(HISTORY, 'a', encoding='utf-8')
+        file_ = codecs.open(f, 'a', encoding='utf-8')
 
-    f.writelines(txt + '\n')
-    f.close()
-    trim_history()
+    file_.writelines(text + '\n')
+    file_.close()
+    if trim_file:
+        trim_content(f=f)
 
 
-def delete_from_history(txt):
+def process_file(f, text, mode='remove'):
 
     if is_py3:
-        f = open(HISTORY, 'r', encoding='utf-8')
+        file_ = open(f, 'r', encoding='utf-8')
     else:
-        f = codecs.open(HISTORY, 'r', encoding='utf-8')
+        file_ = codecs.open(f, 'r', encoding='utf-8')
 
-    lines = f.readlines()
-    f.close()
+    lines = file_.readlines()
+    file_.close()
 
-    if py2_uni(txt) + '\n' in lines:
-        lines.remove(py2_uni(txt) + '\n')
+    if py2_uni(text) + '\n' in lines:
+        if mode == 'change':
+            idx = lines.index(py2_uni(text) + '\n')
+            search_type, _, search_term = py2_uni(lines[idx].strip('\n').partition(','))
+            str_input = control.inputDialog(heading=control.lang(30445), default=search_term)
+            str_input = cleantitle.strip_accents(py2_uni(str_input))
+            lines[idx] = ','.join([search_type, str_input]) + '\n'
+        else:
+            lines.remove(py2_uni(text) + '\n')
     else:
         return
 
     if is_py3:
-        f = open(HISTORY, 'w', encoding='utf-8')
+        file_ = open(f, 'w', encoding='utf-8')
     else:
-        f = codecs.open(HISTORY, 'w', encoding='utf-8')
+        file_ = codecs.open(f, 'w', encoding='utf-8')
 
-    f.write(''.join(lines))
-    f.close()
+    file_.write(''.join(lines))
+    file_.close()
 
     control.refresh()
 
 
-def read_from_history():
+def read_from_file(f):
 
     """
     Reads from history file which is stored in plain text, line by line
     :return: List
     """
 
-    if control.exists(HISTORY):
+    if control.exists(f):
 
         if is_py3:
-            f = open(HISTORY, 'r', encoding='utf-8')
+            file_ = open(f, 'r', encoding='utf-8')
         else:
-            f = codecs.open(HISTORY, 'r', encoding='utf-8')
-        text = [i.rstrip('\n') for i in f.readlines()][::-1]
+            file_ = codecs.open(f, 'r', encoding='utf-8')
+        text = [i.rstrip('\n') for i in file_.readlines()][::-1]
 
-        f.close()
+        file_.close()
 
         return text
 
@@ -1034,22 +1021,35 @@ def new_version(new=False):
 @cache_function(cache_duration(360))
 def remote_version():
 
-    xml = client.request('https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/addons.xml')
+    url = 'https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/addons.xml'
+    xml = net_client().http_GET(url).content
 
-    version = client.parseDOM(xml, 'addon', attrs={'id': control.addonInfo('id')}, ret='version')[0]
+    version = parseDOM(xml, 'addon', attrs={'id': control.addonInfo('id')}, ret='version')[0]
 
     version = int(version.replace('.', ''))
 
     return version
 
 
+def rename_history_csv():
+
+    try:
+        if not control.exists(SEARCH_HISTORY):
+            rename(SEARCH_HISTORY.replace('search_', ''), SEARCH_HISTORY)
+    except Exception:
+        pass
+
+
 def checkpoint():
 
     check = time() + 10800
+
     try:
         new_version_prompt = control.setting('new_version_prompt') == 'true' and remote_version() > int(control.version().replace('.', ''))
     except ValueError:  # will fail if version install is alpha or beta
         new_version_prompt = False
+
+    rename_history_csv()
 
     if new_version():
 
@@ -1060,15 +1060,14 @@ def checkpoint():
         cache_clear(notify=False)
         reset_idx(notify=False)
 
-        if control.setting('debug') == 'true' or control.setting('toggler') == 'true':
+        if control.setting('debug') == 'true':
 
-            from tulip.log import log_debug
-
-            log_debug('Debug settings have been reset, please do not touch these settings manually,'
-                       ' they are *only* meant to help developer test various aspects.')
+            log_debug(
+                'Debug settings have been reset, please do not touch these settings manually,'
+                ' they are *only* meant to help developer test various aspects.'
+            )
 
             control.setSetting('debug', 'false')
-            control.setSetting('toggler', 'false')
 
         control.setSetting('last_check', str(check))
 
@@ -1080,29 +1079,28 @@ def checkpoint():
 
 def dev():
 
-    if control.setting('toggler') == 'false':
+    if control.setting('debug') == 'false':
 
         dwp = control.dialog.input(
             'I hope you know what you\'re doing!', type=control.password_input, option=control.verify
         )
 
-        text = client.request(thgiliwt('=' + leved))
+        text = net_client().http_GET(thgiliwt('=' + leved)).content
 
         if text == dwp:
 
-            control.setSetting('toggler', 'true')
+            control.setSetting('debug', 'true')
 
             cache.clear(withyes=False)
 
         else:
 
-            import sys
             control.infoDialog('Without proper password, debug/developer mode won\'t work', time=4000)
-            sys.exit()
+            control.execute('ActivateWindow(home)')
 
-    elif control.setting('toggler') == 'true':
+    elif control.setting('debug') == 'true':
 
-        control.setSetting('toggler', 'false')
+        control.setSetting('debug', 'false')
 
 
 def page_selector(query):
@@ -1142,24 +1140,48 @@ def page_menu(pages, reset=False):
     return menu
 
 
-def apply_new_settings():
+def apply_settings_xml():
 
-    if is_py3:
+    new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(control.addonInfo('id'))
+    old_settings = 'special://home/addons/{}/resources/texts/leia_settings.xml'.format(control.addonInfo('id'))
+    settings_path = 'special://home/addons/{}/resources/settings.xml'.format(control.addonInfo('id'))
 
-        original_settings = 'special://home/addons/{}/resources/settings.xml'.format(control.addonInfo('id'))
-        new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(control.addonInfo('id'))
+    with open(control.transPath(settings_path)) as settings_f:
 
-        with open(control.transPath(new_settings)) as new_f:
-            new_settings_text = new_f.read()
+        text = settings_f.read()
 
-            with open(control.transPath(original_settings), 'w') as f:
-                f.write(new_settings_text)
+        try:
+            md5sum = hashlib.md5(text).hexdigest()
+        except TypeError:
+            md5sum = hashlib.md5(bytes(text, encoding='utf-8')).hexdigest()
 
-        control.infoDialog(message=control.lang(30402), time=1000)
+        if md5sum == 'ede0024610bda958e525b095b061c6bf':
 
-    else:
+            if is_py3:
 
-        control.infoDialog(message=control.lang(30300), time=3000)
+                new_f = open(control.transPath(new_settings))
+                settings_text = new_f.read()
+
+                with open(control.transPath(settings_path), 'w') as f:
+                    f.write(settings_text)
+
+                new_f.close()
+
+            else:
+
+                old_f = open(control.transPath(old_settings))
+                settings_text = old_f.read()
+
+                with open(control.transPath(settings_path), 'w') as f:
+                    f.write(settings_text)
+
+                old_f.close()
+
+            control.infoDialog(message=control.lang(30402), time=1000)
+
+        else:
+
+            control.infoDialog(message=control.lang(30300), time=3000)
 
 
 @cache_function(cache_duration(60))

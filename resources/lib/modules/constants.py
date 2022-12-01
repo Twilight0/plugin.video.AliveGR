@@ -56,7 +56,8 @@ QUERY_MAP = OrderedDict(
 ########################################################################################################################
 
 PINNED = join(dataPath, 'pinned.txt')
-HISTORY = join(dataPath, 'history.csv')
+SEARCH_HISTORY = join(dataPath, 'search_history.csv')
+PLAYBACK_HISTORY = join(dataPath, 'playback_history.list')
 
 ########################################################################################################################
 

@@ -1,0 +1,18 @@
+<settings version="2">
+    <setting id="epgCache">true</setting>
+    <setting id="epgPath" default="true"></setting>
+    <setting id="epgPathType">1</setting>
+    <setting id="epgTimeShift" default="true">0</setting>
+    <setting id="epgTSOverride" default="true">false</setting>
+    <setting id="epgUrl">{epg_url}</setting>
+    <setting id="logoBaseUrl" default="true"></setting>
+    <setting id="logoFromEpg" default="true">0</setting>
+    <setting id="logoPath" default="true"></setting>
+    <setting id="logoPathType">1</setting>
+    <setting id="m3uCache">true</setting>
+    <setting id="m3uPath" default="true"></setting>
+    <setting id="m3uPathType">1</setting>
+    <setting id="m3uUrl">{m3u_url}</setting>
+    <setting id="startNum">1</setting>
+    <setting id="userAgent" default="true"></setting>
+</settings>

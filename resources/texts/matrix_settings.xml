@@ -205,7 +205,7 @@
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="show_misc" type="boolean" label="30160" help="">
+				<setting id="show_history" type="boolean" label="30160" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
@@ -373,8 +373,7 @@
 					</control>
 				</setting>
 			</group>
-			<group id="5"/>
-			<group id="6" label="30009">
+			<group id="5" label="30009">
 				<setting id="action_type" type="integer" label="30144" help="30444">
 					<level>1</level>
 					<default>0</default>
@@ -428,23 +427,9 @@
 					</control>
 				</setting>
 			</group>
-			<group id="9"/>
-			<group id="10" label="30272">
-				<setting id="input_stream_addons" type="action" label="30273" help="30452">
-					<level>2</level>
-					<data>ActivateWindow(videos,plugin://plugin.video.AliveGR/?action=input_stream_addons)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-			</group>
-			<group id="11"/>
-			<group id="12" label="30041">
-				<setting id="show_pic_switcher" type="boolean" label="30042" help="30453">
-					<level>3</level>
+			<group id="9" label="30041">
+				<setting id="show_pic_switcher" type="boolean" label="30042" help="">
+					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
@@ -467,165 +452,10 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
-				<setting id="reset_idx_action" type="action" label="30134" help="30456">
-					<level>1</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=reset_idx)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
 				<setting id="new_version_prompt" type="boolean" label="30360" help="30457">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
-				</setting>
-			</group>
-			<group id="2">
-				<setting id="cache_clear" type="action" label="30056" help="30458">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=cache_clear)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="purge_bookmarks" type="action" label="30135" help="30460">
-					<level>1</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=purge_bookmarks)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="delete_settings_xml" type="action" label="30136" help="30461">
-					<level>3</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=delete_settings_xml)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-			</group>
-		</category>
-		<category id="actions" label="30017" help="30434">
-			<group id="1" label="30251">
-				<setting id="yt_setup" type="action" label="30071" help="30462">
-					<level>1</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=yt_setup)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-			</group>
-			<group id="2" label="30491">
-				<setting id="isa_setup" type="action" label="30490" help="30492">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=isa_setup)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="pvrsettings" type="action" label="30332" help="30493">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=pvrsettings)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-			</group>
-			<group id="3" label="30250">
-				<setting id="setup_various_keymaps_previous" type="action" label="30019" help="30464">
-					<level>3</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=previous)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="setup_various_keymaps_mouse" type="action" label="30237" help="30465">
-					<level>3</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=mouse)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="setup_various_keymaps_samsung" type="action" label="30310" help="30466">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=samsung)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="setup_various_keymaps_stop_playback" type="action" label="30488" help="30489">
-					<level>3</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=setup_various_keymaps&amp;query=stop_playback)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
 				</setting>
 			</group>
 		</category>
@@ -645,19 +475,6 @@
 						<heading>30215</heading>
 					</control>
 				</setting>
-				<setting id="changelog" type="action" label="30340" help="30340">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=changelog)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
 			</group>
 			<group id="2">
 				<setting id="developer_mode" type="action" label="30013" help="30468">
@@ -673,7 +490,7 @@
 					</dependencies>
 					<control type="button" format="action"/>
 				</setting>
-				<setting id="toggler" type="boolean" label="Toggler" help="">
+				<setting id="debug" type="boolean" label="30470" help="">
 					<level>0</level>
 					<default>false</default>
 					<dependencies>
@@ -682,68 +499,6 @@
 						</dependency>
 					</dependencies>
 					<control type="toggle"/>
-				</setting>
-				<setting id="debug" type="boolean" label="30470" help="">
-					<level>0</level>
-					<default>false</default>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="toggler">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="toggle"/>
-				</setting>
-				<setting id="toggle_debug" type="action" label="30471" help="">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=toggle_debug)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="debug">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="skin_debug" type="action" label="30472" help="">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=skin_debug)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="debug">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="reload_skin" type="action" label="30473" help="">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=reload_skin)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="debug">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="apply_new_settings" type="action" label="30469" help="">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.AliveGR/?action=apply_new_settings)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="debug">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
 				</setting>
 				<setting id="local_remote" type="integer" label="30474" help="">
 					<level>0</level>
@@ -771,10 +526,7 @@
 					</constraints>
 					<dependencies>
 						<dependency type="visible">
-							<and>
-								<condition operator="is" setting="debug">true</condition>
-								<condition operator="is" setting="local_remote">0</condition>
-							</and>
+							<condition operator="is" setting="debug">true</condition>
 						</dependency>
 					</dependencies>
 					<control type="button" format="file">
@@ -789,51 +541,11 @@
 					</constraints>
 					<dependencies>
 						<dependency type="visible">
-							<and>
-								<condition operator="is" setting="debug">true</condition>
-								<condition operator="is" setting="local_remote">1</condition>
-							</and>
+							<condition operator="is" setting="debug">true</condition>
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
 						<heading>30476</heading>
-					</control>
-				</setting>
-				<setting id="misc_local" type="path" label="30477" help="">
-					<level>0</level>
-					<default/>
-					<constraints>
-						<writable>false</writable>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<and>
-								<condition operator="is" setting="debug">true</condition>
-								<condition operator="is" setting="local_remote">0</condition>
-							</and>
-						</dependency>
-					</dependencies>
-					<control type="button" format="file">
-						<heading>30477</heading>
-					</control>
-				</setting>
-				<setting id="misc_remote" type="string" label="30478" help="">
-					<level>0</level>
-					<default/>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<and>
-								<condition operator="is" setting="debug">true</condition>
-								<condition operator="is" setting="local_remote">1</condition>
-							</and>
-						</dependency>
-					</dependencies>
-					<control type="edit" format="string">
-						<heading>Remote misc playlist url</heading>
 					</control>
 				</setting>
 				<setting id="top50_local" type="path" label="30479" help="">
@@ -845,10 +557,7 @@
 					</constraints>
 					<dependencies>
 						<dependency type="visible">
-							<and>
-								<condition operator="is" setting="debug">true</condition>
-								<condition operator="is" setting="local_remote">0</condition>
-							</and>
+							<condition operator="is" setting="debug">true</condition>
 						</dependency>
 					</dependencies>
 					<control type="button" format="file">
@@ -863,10 +572,7 @@
 					</constraints>
 					<dependencies>
 						<dependency type="visible">
-							<and>
-								<condition operator="is" setting="debug">true</condition>
-								<condition operator="is" setting="local_remote">1</condition>
-							</and>
+							<condition operator="is" setting="debug">true</condition>
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">

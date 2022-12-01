@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+
+    <category label="30115">
+
+        <setting label="30469" type="action" action="RunPlugin(plugin://$ID/?action=apply_new_settings)" visible="true"/>
+
+    </category>
+
+</settings>
+

@@ -12,7 +12,7 @@ from __future__ import absolute_import, unicode_literals
 
 import sys
 from ..modules.themes import iconname
-from ..modules.constants import ART_ID, PAYPAL, PATREON, SUPPORT
+from ..modules.constants import ART_ID, PAYPAL, SUPPORT
 from ..modules.utils import changelog
 from tulip import control, directory
 
@@ -33,11 +33,9 @@ class Indexer:
             }
             ,
             {
-                'title': '[B]' + control.addonInfo('name') + ': ' + control.lang(30350) + '[/B]',
-                'action': 'toggle_alt',
-                'icon': iconname('monitor'),
-                'isFolder': 'False',
-                'isPlayable': 'False'
+                'title': '[B]' + control.addonInfo('name') + ': ' + control.lang(30017) + '[/B]',
+                'action': 'actions',
+                'icon': control.addonInfo('icon')
             }
             ,
             {
@@ -76,19 +74,37 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30011) + ': ' + control.lang(30017),
+                'title': control.addonInfo('name') + ': ' + control.lang(30115),
                 'action': 'openSettings',
                 'query': '4.0',
-                'icon': iconname('settings'),
+                'icon': iconname('godmode'),
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
             ,
             {
-                'title': control.addonInfo('name') + ': ' + control.lang(30115),
-                'action': 'openSettings',
-                'query': '5.0',
-                'icon': iconname('godmode'),
+                'title': control.lang(30319),
+                'action': 'global_settings',
+                'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+        ]
+
+        if control.condVisibility('Window.IsVisible(programs)'):
+
+            for i in self.list:
+                i.update({'cm': [{'title': 30307, 'query': {'action': 'root'}}]})
+
+        directory.add(self.list)
+
+    def actions(self):
+
+        self.list = [
+            {
+                'title': control.addonInfo('name') + ': ' + control.lang(30350),
+                'action': 'toggle_alt',
+                'icon': iconname('monitor'),
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
@@ -110,6 +126,22 @@ class Indexer:
             }
             ,
             {
+                'title': control.addonInfo('name') + ': ' + control.lang(30408),
+                'action': 'clear_search_history',
+                'icon': iconname('empty'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.addonInfo('name') + ': ' + control.lang(30471),
+                'action': 'clear_playback_history',
+                'icon': iconname('empty'),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
                 'title': control.addonInfo('name') + ': ' + control.lang(30134),
                 'action': 'reset_idx',
                 'icon': iconname('settings'),
@@ -124,18 +156,49 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30319),
-                'action': 'global_settings',
-                'icon': control.addonmedia(addonid=ART_ID, theme='icons', icon='kodi.png', media_subfolder=False),
+                'title': '[B]' + control.lang(30340) + '[/B]',
+                'action': 'changelog',
+                'icon': control.addonInfo('icon'),
+                'plot': changelog(get_text=True),
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30295),
+                'action': 'toggle_debug',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30341),
+                'action': 'kodi_log_upload',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30472),
+                'action': 'skin_debug',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30469),
+                'action': 'apply_settings_xml',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
+                'title': control.lang(30296),
+                'action': 'force',
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
         ]
-
-        if control.condVisibility('Window.IsVisible(programs)'):
-
-            for i in self.list:
-                i.update({'cm': [{'title': 30307, 'query': {'action': 'root'}}]})
 
         directory.add(self.list)
 
@@ -176,36 +239,6 @@ class Indexer:
             }
             ,
             {
-                'title': '[B]' + control.lang(30110) + '[/B]',
-                'action': 'changelog',
-                'icon': control.addonInfo('icon'),
-                'plot': changelog(get_text=True),
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
-                'title': control.lang(30295),
-                'action': 'toggle_debug',
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
-                'title': control.lang(30341),
-                'action': 'kodi_log_upload',
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
-                'title': control.lang(30296),
-                'action': 'force',
-                'isFolder': 'False',
-                'isPlayable': 'False'
-            }
-            ,
-            {
                 'title': control.lang(30260).format(separator),
                 'action': 'open_link',
                 'url': SUPPORT,
@@ -224,14 +257,6 @@ class Indexer:
                 'isFolder': 'False',
                 'isPlayable': 'False'
             }
-            # ,
-            # {
-            #     'title': control.lang(30142) + ': [COLOR cyan]' + PATREON + '[/COLOR]',
-            #     'action': 'open_link',
-            #     'url': PATREON,
-            #     'isFolder': 'False',
-            #     'isPlayable': 'False'
-            # }
             ,
             {
                 'title': control.lang(30256).format(separator, control.addonInfo('version')),

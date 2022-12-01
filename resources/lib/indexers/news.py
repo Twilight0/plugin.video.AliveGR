@@ -9,8 +9,11 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-from tulip import control, client
+from tulip import control
+from tulip.net import Net as net_client
 from tulip.init import syshandle, sysaddon
+from tulip.cleantitle import replaceHTMLCodes
+from tulip.parsers import parseDOM
 from ..modules.themes import iconname
 from ..modules.constants import ART_ID, cache_method, cache_duration
 
@@ -104,22 +107,22 @@ class Indexer:
     @cache_method(cache_duration(720))
     def front_pages(self):
 
-        html = client.request(self.fp_link)
+        html = net_client().http_GET(self.fp_link).content
 
         try:
-            groups = client.parseDOM(html.decode('utf-8'), 'div', attrs={'class': 'tabbertab.+?'})
+            groups = parseDOM(html.decode('utf-8'), 'div', attrs={'class': 'tabbertab.+?'})
         except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
-            groups = client.parseDOM(html, 'div', attrs={'class': 'tabbertab.+?'})
+            groups = parseDOM(html, 'div', attrs={'class': 'tabbertab.+?'})
 
         for group, papers in list(enumerate(groups)):
 
-            items = client.parseDOM(papers, 'div', attrs={'class': 'thumber'})
+            items = parseDOM(papers, 'div', attrs={'class': 'thumber'})
 
             for i in items:
 
-                title = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='alt')[0]
-                title = client.replaceHTMLCodes(title)
-                image = client.parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='src')[0]
+                title = parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='alt')[0]
+                title = replaceHTMLCodes(title)
+                image = parseDOM(i, 'img', attrs={'style': 'padding:5px.+?'}, ret='src')[0]
                 image = ''.join([self.fp_link, image])
                 link = image.replace('300.jpg', 'I.jpg')
 

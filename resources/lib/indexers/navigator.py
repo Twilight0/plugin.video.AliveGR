@@ -12,9 +12,11 @@ from __future__ import absolute_import, unicode_literals
 import json
 
 from tulip import control, directory
+from tulip.compat import iteritems
 from tulip.log import log_debug
 from ..modules.themes import iconname
-from ..modules.utils import reset_idx as reset
+from ..modules.utils import file_to_text, read_from_file, reset_idx as reset
+from ..modules.constants import PLAYBACK_HISTORY
 
 
 class Indexer:
@@ -115,13 +117,6 @@ class Indexer:
             }
             ,
             {
-                'title': control.lang(30012),
-                'action': 'miscellany',
-                'icon': iconname('miscellany'),
-                'boolean': control.setting('show_misc') == 'true'
-            }
-            ,
-            {
                 'title': control.lang(30002),
                 'action': 'radio',
                 'icon': iconname('radios'),
@@ -140,6 +135,13 @@ class Indexer:
                 'action': 'search_index',
                 'icon': iconname('search'),
                 'boolean': control.setting('show_search') == 'true'
+            }
+            ,
+            {
+                'title': control.lang(30012),
+                'action': 'playback_history',
+                'icon': iconname('history'),
+                'boolean': control.setting('show_history') == 'true'
             }
             ,
             {
@@ -211,6 +213,24 @@ class Indexer:
             tools = {'title': 30137, 'query': {'action': 'tools_menu'}}
 
             item.update({'cm': [refresh, cache_clear, reset_idx, settings, tools]})
+
+        directory.add(self.list)
+
+    def playback_history(self):
+
+        lines = read_from_file(PLAYBACK_HISTORY)
+
+        if not lines:
+            return
+
+        self.list = [json.loads(line) for line in lines]
+
+        for i in self.list:
+            bookmark = dict((k, v) for k, v in iteritems(i) if not k == 'next')
+            bookmark['bookmark'] = i['url']
+            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+            remove_from_history_cm = {'title': 30485, 'query': {'action': 'delete_from_history', 'query': json.dumps(i)}}
+            i.update({'cm': [bookmark_cm, remove_from_history_cm]})
 
         directory.add(self.list)
 

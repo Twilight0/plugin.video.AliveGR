@@ -8,12 +8,12 @@
         <setting type="lsep" label=""/>
 
         <setting id="theme" type="enum" label="30102" lvalues="30103|30104" default="0"/>
-        <setting label="30318" type="action" action="RunPlugin(plugin://$ID/?action=skin_choice)"/>
+        <setting label="30318" type="action" action="RunPlugin(plugin://plugin.video.AliveGR/?action=skin_choice)"/>
 
         <setting type="lsep" label=""/>
 
         <setting id="lang_split" type="select" label="30057" lvalues="30216|30058|30059|30060" default="0"/>
-        <setting label="30109" type="action" action="RunPlugin(plugin://$ID/?action=lang_choice)" option="close"/>
+        <setting label="30109" type="action" action="RunPlugin(plugin://plugin.video.AliveGR/?action=lang_choice)" option="close"/>
 
         <setting type="lsep" label=""/>
 
@@ -46,7 +46,7 @@
         <setting id="show_docs" label="30157" type="bool" default="true"/>
         <setting id="show_sports" label="30158" type="bool" default="true"/>
         <setting id="show_kids" label="30159" type="bool" default="true"/>
-        <setting id="show_misc" label="30160" type="bool" default="true"/>
+        <setting id="show_history" label="30160" type="bool" default="true"/>
         <setting id="show_radio" label="30162" type="bool" default="true"/>
         <setting id="show_music" label="30161" type="bool" default="true"/>
         <setting id="show_search" label="30163" type="bool" default="true"/>
@@ -60,13 +60,13 @@
 
     <category label="30004">
 
-        <setting label="30046" type="action" action="RunPlugin(plugin://$ID/?action=toggle_alt)" option="close"/>
+        <setting label="30046" type="action" action="RunPlugin(plugin://plugin.video.AliveGR/?action=toggle_alt)" option="close"/>
 
         <setting type="lsep" label="30006"/>
 
         <setting id="yt_quality_picker" type="enum" label="30251" lvalues="30168|30169" default="0"/>
         <setting id="m3u8_quality_picker" type="select" label="30219" lvalues="30168|30169|30204" default="2"/>
-        <setting label="30025" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close" enable="System.HasAddon(script.module.resolveurl)"/>
+        <setting label="30025" type="action" action="RunPlugin(plugin://plugin.video.AliveGR/?action=other_addon_settings&amp;query=script.module.resolveurl)" option="close" enable="System.HasAddon(script.module.resolveurl)"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30007"/>
@@ -90,12 +90,7 @@
         <setting type="lsep" label="30298"/>
 
         <setting id="audio_only" label="30224" type="bool" default="false"/>
-        <setting label="30281" type="action" action="RunPlugin(plugin://$ID/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
-
-        <setting type="sep"/>
-        <setting type="lsep" label="30272"/>
-
-        <setting label="30273" type="action" action="ActivateWindow(videos,plugin://$ID/?action=input_stream_addons)" option="close"/>
+        <setting label="30281" type="action" action="RunPlugin(plugin://plugin.video.AliveGR/?action=other_addon_settings&amp;query=plugin.video.youtube)" option="close"/>
 
         <setting type="sep"/>
         <setting type="lsep" label="30041"/>
@@ -103,50 +98,14 @@
         <setting id="show_pic_switcher" type="bool" label="30042" default="true"/>
 
     </category>
-
+    
     <!--Maintenance-->
 
     <category label="30138">
 
         <setting id="reset_idx" type="bool" label="30229" default="true"/>
         <setting id="reset_live" type="bool" label="30266" default="false" visible="eq(-1,true)"/>
-        <setting visible="true" label="30134" type="action" action="RunPlugin(plugin://$ID/?action=reset_idx)"/>
         <setting id="new_version_prompt" type="bool" label="30360" default="true"/>
-
-        <setting type="sep"/>
-
-        <setting visible="true" label="30056" type="action" action="RunPlugin(plugin://$ID/?action=cache_clear)"/>
-        <setting visible="true" label="30135" type="action" action="RunPlugin(plugin://$ID/?action=purge_bookmarks)"/>
-        <setting visible="true" label="30136" type="action" action="RunPlugin(plugin://$ID/?action=delete_settings_xml)" option="close"/>
-
-    </category>
-
-    <!--Actions-->
-
-    <category label="30017">
-
-        <setting type="lsep" label="30251"/>
-
-        <setting visible="true" label="30071" type="action" action="RunPlugin(plugin://$ID/?action=yt_setup)"/>
-
-        <setting type="lsep" label="30491"/>
-
-        <setting visible="true" label="30490" type="action" action="RunPlugin(plugin://$ID/?action=isa_setup)"/>
-        <setting visible="true" label="30332" type="action" action="RunPlugin(plugin://$ID/?action=pvrsettings)" option="close"/>
-
-<!--        <setting type="lsep" label="30018"/>-->
-
-<!--        <setting visible="true" label="30018" type="action" action="RunPlugin(plugin://$ID/?action=setup_iptv)"/>-->
-<!--        <setting visible="true" label="30408" type="action" action="RunPlugin(plugin://$ID/?action=enable_iptv)"/>-->
-<!--        <setting visible="true" label="30166" type="action" action="RunPlugin(plugin://$ID/?action=enable_proxy)"/>-->
-<!--        <setting visible="true" label="30332" type="action" action="RunPlugin(plugin://$ID/?action=pvrsettings)" option="close"/>-->
-
-        <setting type="lsep" label="30250"/>
-
-        <setting visible="true" label="30019" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=previous)"/>
-        <setting visible="true" label="30237" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=mouse)"/>
-        <setting visible="true" label="30310" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=samsung)"/>
-        <setting visible="true" label="30488" type="action" action="RunPlugin(plugin://$ID/?action=setup_various_keymaps&amp;query=stop_playback)"/>
 
     </category>
 
@@ -155,25 +114,17 @@
     <category label="30115">
 
         <setting id="changelog_lang" type="select" label="30215" lvalues="30216|30286|30299" default="0"/>
-        <setting visible="true" label="30340" type="action" action="RunPlugin(plugin://$ID/?action=changelog)"/>
 
         <setting type="sep"/>
 
-        <setting visible="true" label="30013" type="action" action="RunPlugin(plugin://$ID/?action=developer_mode)"/>
-        <setting id="toggler" type="bool" label="Toggler" default="false" visible="false"/>
-        <setting id="debug" type="bool" label="30470" default="false" visible="eq(-1,true)"/>
-        <setting label="30471" type="action" action="RunPlugin(plugin://$ID/?action=toggle_debug)" visible="eq(-1,true)"/>
-        <setting label="30472" type="action" action="RunPlugin(plugin://$ID/?action=skin_debug)" visible="eq(-2,true)"/>
-        <setting label="30473" type="action" action="RunPlugin(plugin://$ID/?action=reload_skin)" visible="eq(-3,true)"/>
-        <setting label="30469" type="action" action="RunPlugin(plugin://$ID/?action=apply_new_settings)" visible="eq(-4,true)"/>
-        <setting id="local_remote" type="enum" label="30474" values="Local|Remote|Default" default="2" visible="eq(-5,true)"/>
-        <setting id="live_local" label="30475" type="file" default="" visible="eq(-6,true) + eq(-1,0)"/>
-        <setting id="live_remote" label="30476" type="text" default="" visible="eq(-7,true) + eq(-2,1)"/>
-        <setting id="misc_local" label="30477" type="file" default="" visible="eq(-8,true) + eq(-3,0)"/>
-        <setting id="misc_remote" label="30478" type="text" default="" visible="eq(-9,true) + eq(-4,1)"/>
-        <setting id="top50_local" label="30479" type="file" default="" visible="eq(-10,true) + eq(-5,0)"/>
-        <setting id="top50_remote" label="30480" type="text" default="" visible="eq(-11,true) + eq(-6,1)"/>
-        <setting id="do_not_use_cache" type="bool" label="30481" default="false" visible="eq(-12,true)"/>
+        <setting visible="true" label="30013" type="action" action="RunPlugin(plugin://plugin.video.AliveGR/?action=developer_mode)"/>
+        <setting id="debug" type="bool" label="30470" default="false" visible="false"/>
+        <setting id="local_remote" type="enum" label="30474" values="Local|Remote|Default" default="2" visible="eq(-1,true)"/>
+        <setting id="live_local" label="30475" type="file" default="" visible="eq(-2,true)"/>
+        <setting id="live_remote" label="30476" type="text" default="" visible="eq(-3,true)"/>
+        <setting id="top50_local" label="30479" type="file" default="" visible="eq(-4,true)"/>
+        <setting id="top50_remote" label="30480" type="text" default="" visible="eq(-5,true)"/>
+        <setting id="do_not_use_cache" type="bool" label="30481" default="false" visible="eq(-8,true)"/>
 
         <setting id="show_alt_live" type="bool" label="Show alternative live streams" default="false" visible="false"/>
         <setting id="show_alt_vod" type="bool" label="Show alternative vod streams" default="false" visible="false"/>

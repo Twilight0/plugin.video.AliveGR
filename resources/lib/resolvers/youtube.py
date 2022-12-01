@@ -8,16 +8,18 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
+import re
+import youtube_resolver
 from ..modules.constants import YT_URL, cache_function, cache_duration
-import re, youtube_resolver
-from tulip import control, client
+from tulip import control
+from tulip.net import Net as net_client
 from ..modules.utils import stream_picker
 
 
 @cache_function(cache_duration(360))
 def generic(url, add_base=False):
 
-    html = client.request(url)
+    html = net_client().http_GET(url).content
 
     try:
         video_id = re.search(r'videoId.+?([\w-]{11})', html).group(1)

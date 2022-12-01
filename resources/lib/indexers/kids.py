@@ -10,14 +10,17 @@
 from __future__ import absolute_import, unicode_literals
 
 import re
-from tulip import control, client, directory
+from tulip import control, directory
+from tulip.net import Net as net_client
+from tulip.cleantitle import replaceHTMLCodes
+from tulip.parsers import parseDOM
 from tulip.init import syshandle, sysaddon
 from tulip.compat import urlsplit
 from ..modules.themes import iconname
 from ..modules.constants import YT_ADDON, cache_method, cache_duration, cache_function
 from .gm import GM_BASE
 
-GK_BASE = 'http://gamatotv.info'
+GK_BASE = 'https://gmtv.co'
 
 
 class Indexer:
@@ -124,9 +127,6 @@ class Indexer:
                 'icon': 'https://i.ytimg.com/vi/MPtZ_VHNg34/mqdefault.jpg'
             }
         ]
-
-        for i in self.data:
-            i['url'] = '?'.join([i['url'], 'addon_id={}'.format(control.addonInfo('id'))])
 
         additional = {
                 'title': u'Various full length movies - Διάφορες ταινίες πλήρους μήκους',
@@ -311,30 +311,33 @@ class Indexer:
     def _cartoon_various(self, url):
 
         if url is None:
-            url = '{0}/genre/gamato/'.format(GK_BASE)
+            url = '{0}/genre/kids'.format(GK_BASE)
 
-        html = client.request(url)
+        html = net_client().http_GET(url).content
 
-        next_link = client.parseDOM(html, 'a', attrs={'class': 'arrow_pag'}, ret='href')[-1]
+        try:
+            next_link = parseDOM(html, 'a', attrs={'class': 'arrow_pag'}, ret='href')[-1]
+        except Exception:
+            next_link = None
 
-        html = client.parseDOM(html, 'div', attrs={'class': 'items'})[0]
+        html = parseDOM(html, 'div', attrs={'class': 'items'})[0]
 
-        items = client.parseDOM(html, 'article', attrs={'id': r'post-\d+'})
+        items = parseDOM(html, 'article', attrs={'id': r'post-\d+'})
 
         for item in items:
 
-            h3 = client.parseDOM(item, 'h3')[0]
-            title = client.parseDOM(h3, 'a')[0]
-            title = client.replaceHTMLCodes(title)
-            url = client.parseDOM(h3, 'a', ret='href')[0]
+            h3 = parseDOM(item, 'h3')[0]
+            title = parseDOM(h3, 'a')[0]
+            title = replaceHTMLCodes(title)
+            url = parseDOM(h3, 'a', ret='href')[0]
 
-            meta = client.parseDOM(item, 'div', attrs={'class': 'metadata'})[0]
+            meta = parseDOM(item, 'div', attrs={'class': 'metadata'})[0]
 
             try:
 
-                span = client.parseDOM(meta, 'span')
+                span = parseDOM(meta, 'span')
                 etos = [s for s in span if len(s) == 4][0]
-                plot = client.parseDOM(item, 'div', attrs={'class': 'texto'})[0]
+                plot = parseDOM(item, 'div', attrs={'class': 'texto'})[0]
                 duration = [s for s in span if s.endswith('min')][0]
                 duration = int(re.search(r'(\d+)', duration).group(1)) * 60
 
@@ -346,12 +349,18 @@ class Indexer:
 
             year = ''.join(['(', etos, ')'])
             label = ' '.join([title, year])
-            image = client.parseDOM(item, 'img', ret='data-lazy-src')[0]
+            try:
+                image = parseDOM(item, 'img', ret='data-lazy-src')[0]
+            except Exception:
+                image = parseDOM(item, 'img', ret='src')[0]
 
             i = {
-                'title': label, 'url': url, 'image': image, 'nextlabel': 30334, 'next': next_link,
-                'plot': plot, 'duration': duration, 'year': int(etos), 'nexticon': iconname('next')
+                'title': title, 'label': label, 'url': url, 'image': image, 'nextlabel': 30334,
+                'plot': plot, 'duration': duration, 'year': int(etos)
             }
+
+            if next_link:
+                i.update({'next': next_link, 'nexticon': iconname('next')})
 
             self.list.append(i)
 
@@ -375,15 +384,15 @@ class Indexer:
 @cache_function(cache_duration(360))
 def gk_source_maker(link):
 
-    html = client.request(link)
-    urls = client.parseDOM(html, 'tr', attrs={'id': 'link-\d+'})
-    item_data = client.parseDOM(html, 'div', attrs={'class': 'data'})[0]
-    title = client.parseDOM(item_data, 'h1')[0]
-    year = client.parseDOM(item_data, 'span', attrs={'itemprop': 'dateCreated'})[0]
+    html = net_client().http_GET(link).content
+    urls = parseDOM(html, 'tr', attrs={'id': 'link-\d+'})
+    item_data = parseDOM(html, 'div', attrs={'class': 'data'})[0]
+    title = parseDOM(item_data, 'h1')[0]
+    year = parseDOM(item_data, 'span', attrs={'itemprop': 'dateCreated'})[0]
     year = re.search(r'(\d{4})', year).group(1)
-    image = client.parseDOM(html, 'img', attrs={'itemprop': 'image'}, ret='src')[0]
-    urls = [u for u in client.parseDOM(urls, 'a', ret='href')]
-    urls = [client.request(u, output='geturl') for u in urls]
+    image = parseDOM(html, 'img', attrs={'itemprop': 'image'}, ret='src')[0]
+    urls = [u for u in parseDOM(urls, 'a', ret='href')]
+    urls = [net_client().http_GET(u).get_url() for u in urls]
 
     hosts = [''.join([control.lang(30015), urlsplit(url).netloc]) for url in urls]
 

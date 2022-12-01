@@ -3,7 +3,7 @@
 
 ![](https://raw.githubusercontent.com/Twilight0/plugin.video.AliveGR/master/resources/media/icon.png)
 
-- Live TV
+- Live TV (& pseudo live)
 - Radio stations (via secondary installable addons)
 - News (& front pages from newspapers in high quality)
 - Movies
@@ -30,8 +30,9 @@
 
 - Youtube addon (responsible for resolving various youtube-sourced videos)
 - ResolveURL (the main resolvers, useful for converting html/js into playable content from various hosts)
+- PluginsGR (secondary resolvers for pulling content from official sources)
 - Tulip (library/framework, AliveGR's sidekick)
-- Pyxbmct (creates various prompts when update is present)
+- Scrapetube (Searches and makes indexes from content pulled from Youtube)
 
 **Repository zip for updates:**
 

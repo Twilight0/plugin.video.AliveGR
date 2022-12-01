@@ -8,7 +8,8 @@
     See LICENSES/GPL-3.0-only for more information.
 '''
 
-from tulip import control, client
+from tulip import control
+from tulip.parsers import parseDOM
 from tulip.compat import range
 from os import path
 
@@ -54,7 +55,7 @@ def skin_name():
             xml = f.read()
 
     try:
-        name = client.parseDOM(xml, u'addon', ret='name')[0]
+        name = parseDOM(xml, u'addon', ret='name')[0]
     except IndexError:
         name = 'not found'
 
@@ -121,7 +122,7 @@ def global_settings():
     control.execute('ActivateWindow(settings,return)')
 
 
-def pvrsettings():
+def pvr_settings():
 
     control.execute('Dialog.Close(all)')
 
@@ -186,28 +187,6 @@ def isa_enable():
         control.infoDialog(control.lang(30278))
 
 
-def log_upload():
-
-    exists = control.condVisibility('System.HasAddon(script.kodi.loguploader)')
-    addon_path = control.transPath(control.join('special://', 'home', 'addons', 'script.kodi.loguploader'))
-
-    if not exists:
-
-        if path.exists(addon_path):
-            control.enable_addon('script.kodi.loguploader')
-        else:
-            control.execute('InstallAddon(script.kodi.loguploader)')
-
-        while not path.exists(addon_path):
-            control.sleep(1000)
-        else:
-            control.execute('RunScript(script.kodi.loguploader)')
-
-    else:
-
-        control.execute('RunScript(script.kodi.loguploader)')
-
-
 def rtmp_enable():
 
     try:
@@ -252,6 +231,28 @@ def rtmp_enable():
     except Exception:
 
         control.infoDialog(control.lang(30279))
+
+
+def log_upload():
+
+    exists = control.condVisibility('System.HasAddon(script.kodi.loguploader)')
+    addon_path = control.transPath(control.join('special://', 'home', 'addons', 'script.kodi.loguploader'))
+
+    if not exists:
+
+        if path.exists(addon_path):
+            control.enable_addon('script.kodi.loguploader')
+        else:
+            control.execute('InstallAddon(script.kodi.loguploader)')
+
+        while not path.exists(addon_path):
+            control.sleep(1000)
+        else:
+            control.execute('RunScript(script.kodi.loguploader)')
+
+    else:
+
+        control.execute('RunScript(script.kodi.loguploader)')
 
 
 def force():

@@ -9,12 +9,13 @@
 '''
 from __future__ import absolute_import, unicode_literals
 
-import re, json
+import re, json, codecs
 from datetime import datetime
 from base64 import b64decode
-from tulip import control, directory, client
+from tulip import control, directory
+from tulip.net import Net as net_client
 from tulip.log import log_debug
-from tulip.compat import str, is_py3
+from tulip.compat import str, is_py3, py3_dec
 from tulip.utils import percent
 from ..modules.themes import iconname
 from ..modules.utils import thgiliwt, bourtsa, pinned_from_file
@@ -55,9 +56,9 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            result = client.request(
-                thgiliwt('=' + self.alivegr), headers={'User-Agent': 'AliveGR, version: ' + control.version()}, as_bytes=True
-            )
+            result = net_client().http_GET(
+                thgiliwt('==' + self.alivegr), headers={'User-Agent': 'AliveGR, version: ' + control.version()}
+            ).nodecode(True).content
 
             result = bourtsa(b64decode(result))
 
@@ -65,25 +66,21 @@ class Indexer:
 
             if control.setting('local_remote') == '0':
                 local = control.setting('live_local')
-                try:
+                if is_py3:
                     with open(local, encoding='utf-8') as _json:
                         result = _json.read()
-                except Exception:
-                    with open(local) as _json:
+                else:
+                    with codecs.open(local, encoding='utf-8') as _json:
                         result = _json.read()
             elif control.setting('local_remote') == '1':
-                result = client.request(control.setting('live_remote'))
+                result = net_client().http_GET(control.setting('live_remote')).content
             else:
-                result = client.request(thgiliwt('==' + self.alivegr), as_bytes=True)
+                result = net_client().http_GET(thgiliwt('==' + self.alivegr)).nodecode(True).content
                 result = bourtsa(b64decode(result))
 
-        if is_py3 and isinstance(result, bytes):
-            result = result.decode('utf-8')
-
+        result = py3_dec(result)
         channel_list = json.loads(result)
-
         channels = [i for i in channel_list['channels'] if i['enable']]
-
         updated = channel_list['updated']
 
         for channel in channels:
@@ -197,9 +194,9 @@ class Indexer:
         for item in self.list:
 
             if control.setting('live_group') == '14':
-                pin_cm = {'title': 30337, 'query': {'action': 'unpin'}}
+                pin_cm = {'title': 30337, 'query': {'action': 'unpin', 'query': item['title']}}
             else:
-                pin_cm = {'title': 30336, 'query': {'action': 'pin'}}
+                pin_cm = {'title': 30336, 'query': {'action': 'pin', 'query': item['title']}}
 
             menu = [pin_cm]
 

@@ -11,11 +11,13 @@ from __future__ import absolute_import, unicode_literals
 
 import json, re
 
-from tulip import control, directory, client
+from tulip import control, directory
+from tulip.parsers import parseDOM
+from tulip.net import Net as net_client
 from tulip.log import log_debug
 from tulip.compat import urljoin, iteritems
 from ..modules.themes import iconname
-from ..modules.constants import ART_ID, cache_method, cache_duration, YT_ADDON, YT_ADDON_ID
+from ..modules.constants import ART_ID, cache_method, cache_duration, YT_ADDON
 from ..modules.utils import thgiliwt, thumb_maker, yt_playlist
 from . import gm
 
@@ -92,8 +94,8 @@ class Indexer:
 
         for option in options:
 
-            title = client.parseDOM(option, 'option')[0]
-            link = client.parseDOM(option, 'option', ret='value')[0]
+            title = parseDOM(option, 'option')[0]
+            link = parseDOM(option, 'option', ret='value')[0]
             link = urljoin(gm.GM_BASE, link)
 
             data = {'title': title, 'url': link, 'image': iconname('music'), 'action': 'artist_index'}
@@ -105,7 +107,7 @@ class Indexer:
     @cache_method(cache_duration(2880))
     def music_list(self, url):
 
-        html = client.request(url)
+        html = net_client().http_GET(url).content
 
         try:
 
@@ -116,7 +118,7 @@ class Indexer:
             pass
 
         if 'albumlist' in html:
-            artist = [client.parseDOM(html, 'h4')[0].partition(' <a')[0]]
+            artist = [parseDOM(html, 'h4')[0].partition(' <a')[0]]
         else:
             artist = None
 
@@ -124,25 +126,25 @@ class Indexer:
             artist = ''.join(artist)
 
         if 'songlist' in html:
-            songlist = client.parseDOM(html, 'div', attrs={'class': 'songlist'})[0]
-            items = client.parseDOM(songlist, 'li')
+            songlist = parseDOM(html, 'div', attrs={'class': 'songlist'})[0]
+            items = parseDOM(songlist, 'li')
         elif 'albumlist' in html:
-            albumlist = client.parseDOM(html, 'div', attrs={'class': 'albumlist'})[0]
-            items = client.parseDOM(albumlist, 'li')
+            albumlist = parseDOM(html, 'div', attrs={'class': 'albumlist'})[0]
+            items = parseDOM(albumlist, 'li')
         else:
-            artistlist = client.parseDOM(html, 'div', attrs={'class': 'artistlist'})[0]
-            items = client.parseDOM(artistlist, 'li')
+            artistlist = parseDOM(html, 'div', attrs={'class': 'artistlist'})[0]
+            items = parseDOM(artistlist, 'li')
 
         if 'icon/music' in html:
-            icon = client.parseDOM(html, 'img', attrs={'class': 'img-responsive'}, ret='src')[-1]
+            icon = parseDOM(html, 'img', attrs={'class': 'img-responsive'}, ret='src')[-1]
             icon = urljoin(gm.GM_BASE, icon)
         else:
             icon = iconname('music')
 
         for item in items:
 
-            title = client.parseDOM(item, 'a')[0]
-            link = client.parseDOM(item, 'a', ret='href')[0]
+            title = parseDOM(item, 'a')[0]
+            link = parseDOM(item, 'a', ret='href')[0]
             link = urljoin(gm.GM_BASE, link)
 
             if 'gapi.client.setApiKey' in html:
@@ -221,7 +223,7 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            playlists = client.request(thgiliwt(url), headers={'User-Agent': 'AliveGR, version: ' + control.version()})
+            playlist = net_client().http_GET(thgiliwt(url), headers={'User-Agent': 'AliveGR, version: ' + control.version()}).content
 
         else:
 
@@ -229,25 +231,25 @@ class Indexer:
                 local = control.setting('top50_local')
                 try:
                     with open(local, encoding='utf-8') as xml:
-                        playlists = xml.read()
+                        playlist = xml.read()
                 except Exception:
                     with open(local) as xml:
-                        playlists = xml.read()
+                        playlist = xml.read()
             elif control.setting('local_remote') == '1':
-                playlists = client.request(control.setting('top50_remote'))
+                playlist = net_client().http_GET(control.setting('top50_remote')).content
             else:
-                playlists = client.request(url)
+                playlist = net_client().http_GET(url).content
 
-        self.data = client.parseDOM(playlists, 'item')
+        self.data = parseDOM(playlist, 'item')
 
         for item in self.data:
 
-            title = client.parseDOM(item, 'title')[0]
-            genre = client.parseDOM(item, 'genre')[0]
-            url = client.parseDOM(item, 'url')[0]
+            title = parseDOM(item, 'title')[0]
+            genre = parseDOM(item, 'genre')[0]
+            url = parseDOM(item, 'url')[0]
             image = thumb_maker(url.rpartition('=')[2])
-            plot = client.parseDOM(item, 'description')[0]
-            duration = client.parseDOM(item, 'duration')[0].split(':')
+            plot = parseDOM(item, 'description')[0]
+            duration = parseDOM(item, 'duration')[0].split(':')
             duration = (int(duration[0]) * 60) + int(duration[1])
 
             item_data = (

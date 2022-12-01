@@ -59,7 +59,7 @@ msgid "Settings"
 msgstr ""
 
 msgctxt "#30012"
-msgid "Miscellany"
+msgid "Playback history"
 msgstr ""
 
 msgctxt "#30013"
@@ -159,7 +159,7 @@ msgid "IPTV Simple Client"
 msgstr ""
 
 msgctxt "#30037"
-msgid "Search history size"
+msgid "Search & playback history size"
 msgstr ""
 
 msgctxt "#30038"
@@ -235,7 +235,7 @@ msgid "Bookmarks"
 msgstr ""
 
 msgctxt "#30056"
-msgid "Cache clear"
+msgid "Clear function cache"
 msgstr ""
 
 msgctxt "#30057"
@@ -451,7 +451,7 @@ msgid "Locale"
 msgstr ""
 
 msgctxt "#30110"
-msgid "Changelog"
+msgid ""
 msgstr ""
 
 msgctxt "#30111"
@@ -651,7 +651,7 @@ msgid "Show kids section"
 msgstr ""
 
 msgctxt "#30160"
-msgid "Show miscellany"
+msgid "Show playback history"
 msgstr ""
 
 msgctxt "#30161"
@@ -1075,7 +1075,7 @@ msgid "By year"
 msgstr ""
 
 msgctxt "#30295"
-msgid "[COLOR white][B]Toggle Debug[/B][/COLOR]"
+msgid "[COLOR white][B]Toggle system wide debugging[/B][/COLOR]"
 msgstr ""
 
 msgctxt "#30296"
@@ -1095,7 +1095,7 @@ msgid "Greek"
 msgstr ""
 
 msgctxt "#30300"
-msgid "New settings format can only be applied on Kodi 19+"
+msgid "Settings.xml file is already applied"
 msgstr ""
 
 msgctxt "#30301"
@@ -1187,7 +1187,7 @@ msgid "System is not compatible with inputstream type addons"
 msgstr ""
 
 msgctxt "#30323"
-msgid "Could not install requested addon, to install it you have to try another way such as your distribution's repositories."
+msgid "Could not install requested addon, to install it you have to try another way such as your Linux distribution's repositories"
 msgstr ""
 
 msgctxt "#30324"
@@ -1375,7 +1375,7 @@ msgid "PVR Simple Client & Live TV is already enabled"
 msgstr ""
 
 msgctxt "#30408"
-msgid "Enable PVR Simple Client & native Live TV menu"
+msgid "Clear search history"
 msgstr ""
 
 msgctxt "#30409"
@@ -1523,7 +1523,7 @@ msgid "Allows you to change the way you choose a source for playback. Dialog, ra
 msgstr ""
 
 msgctxt "#30445"
-msgid ""
+msgid "Change your search term (No greeklish, please)"
 msgstr ""
 
 msgctxt "#30446"
@@ -1531,7 +1531,7 @@ msgid "Will reverse episode order. Defaults to being enabled."
 msgstr ""
 
 msgctxt "#30447"
-msgid "Enables the button which allows you to switch between \"group by title, by year, by genre" etc.\"."
+msgid "Enables the button which allows you to switch between groups (by title, by year, by genre, etc)"
 msgstr ""
 
 msgctxt "#30448"
@@ -1627,11 +1627,11 @@ msgid "Debugging Mode"
 msgstr ""
 
 msgctxt "#30471"
-msgid "Toggle system-wide debug"
+msgid "Clear playback history"
 msgstr ""
 
 msgctxt "#30472"
-msgid "Toggle skin debugging"
+msgid "[COLOR white][B]Toggle skin debugging[/B][/COLOR]"
 msgstr ""
 
 msgctxt "#30473"
@@ -1679,7 +1679,7 @@ msgid "This setting adjusts the history size of search terms"
 msgstr ""
 
 msgctxt "#30484"
-msgid "Do you want to delete history.csv?"
+msgid "Do you want to delete '{0}'?"
 msgstr ""
 
 msgctxt "#30485"
@@ -1715,11 +1715,11 @@ msgid "This action will setup inputstream adaptive with recommended settings"
 msgstr ""
 
 msgctxt "#30493"
-msgid ""
+msgid "This action opens PVR Simple Client settings window"
 msgstr ""
 
 msgctxt "#30494"
-msgid ""
+msgid "Change search term"
 msgstr ""
 
 msgctxt "#30495"

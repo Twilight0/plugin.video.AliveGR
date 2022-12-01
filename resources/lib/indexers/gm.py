@@ -15,9 +15,11 @@ import json
 import random
 from ast import literal_eval as evaluate
 
-from tulip import client, directory, control, parsers, cleantitle
+from tulip import directory, control, parsers, cleantitle
+from tulip.net import Net as net_client
 from tulip.compat import urljoin, urlparse, range, iteritems, py2_uni
 from tulip.utils import list_divider
+from tulip.parsers import parseDOM
 from scrapetube.list_formation import list_search
 from ..modules.themes import iconname
 from ..modules.constants import cache_function, cache_method, cache_duration, SEPARATOR
@@ -43,24 +45,24 @@ def root(url):
     root_list = []
     groups_list = []
 
-    html = client.request(url)
+    html = net_client().http_GET(url).content
 
     if url == SPORTS:
 
-        sports_index = client.parseDOM(html, 'div', attrs={'class': 'col-xs-6 text-center'})[0]
+        sports_index = parseDOM(html, 'div', attrs={'class': 'col-xs-6 text-center'})[0]
         return sports_index
 
     elif url == MUSIC:
 
-        music_index = client.parseDOM(html, 'div', attrs={'class': 'col-sm-5 col-md-4'})[0]
+        music_index = parseDOM(html, 'div', attrs={'class': 'col-sm-5 col-md-4'})[0]
         return music_index
 
     else:
 
-        result = client.parseDOM(html, 'div', attrs={'class': 'row', 'style': 'margin-bottom: 20px;'})[0]
+        result = parseDOM(html, 'div', attrs={'class': 'row', 'style': 'margin-bottom: 20px;'})[0]
         items = re.findall('(<option  ?value=.*?</option>)', result, re.U)
 
-        groups = client.parseDOM(result, 'option', attrs={'selected value': '.+?'})
+        groups = parseDOM(result, 'option', attrs={'selected value': '.+?'})
 
         for group in groups:
             if group == u'ΑΡΧΙΚΑ':
@@ -77,10 +79,10 @@ def root(url):
 
         for item in items:
 
-            name = client.parseDOM(item, 'option', attrs={'value': '.+?.php.+?'})[0]
+            name = parseDOM(item, 'option', attrs={'value': '.+?.php.+?'})[0]
             name = name.replace(u'σήμερα', control.lang(30268))
             title = name[0].capitalize() + name[1:]
-            link = client.parseDOM(item, 'option', ret='value')[0]
+            link = parseDOM(item, 'option', ret='value')[0]
             indexer = urlparse(link).query
             index = urljoin(GM_BASE, link)
 
@@ -292,33 +294,33 @@ class Indexer:
 
             for content in self.years:
                 links = GM_BASE + url.rpartition('/')[2].partition('&')[0] + '&' + content
-                try:
-                    htmls = client.request(links).decode('utf-8')
-                except AttributeError:
-                    htmls = client.request(links)
+                htmls = py2_uni(net_client().http_GET(links).content)
                 self.data.append(htmls)
 
             result = u''.join(self.data)
 
-            content = client.parseDOM(result, 'div', attrs={'class': 'col-xs-6 col-sm-4 col-md-3'})
+            content = parseDOM(result, 'div', attrs={'class': 'col-xs-6 col-sm-4 col-md-3'})
 
         else:
 
-            html = client.request(url, post=post)
+            if post:
+                html = net_client().http_POST(url, form_data=post).content
+            else:
+                html = net_client().http_GET(url).content
 
-            content = client.parseDOM(html, 'div', attrs={'class': 'col-xs-6 col-sm-4 col-md-3'})
+            content = parseDOM(html, 'div', attrs={'class': 'col-xs-6 col-sm-4 col-md-3'})
 
         contents = ''.join(content)
         items = re.findall('(<a.*?href.*?div.*?</a>)', contents, re.U)
 
         for item in items:
 
-            title = client.parseDOM(item, 'h4')[0]
+            title = parseDOM(item, 'h4')[0]
 
-            image = client.parseDOM(item, 'img', ret='src')[0]
+            image = parseDOM(item, 'img', ret='src')[0]
 
             image = urljoin(GM_BASE, image)
-            link = client.parseDOM(item, 'a', ret='href')[0]
+            link = parseDOM(item, 'a', ret='href')[0]
             link = urljoin(GM_BASE, link)
             pattern = re.compile(r'(.*?) \((\d{4})')
             label = pattern.search(title)
@@ -408,23 +410,23 @@ class Indexer:
     @cache_method(cache_duration(720))
     def epeisodia(self, url):
 
-        html = client.request(url)
-        image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail.*?'}, ret='src')[0]
+        html = net_client().http_GET(url).content
+        image = parseDOM(html, 'img', attrs={'class': 'thumbnail.*?'}, ret='src')[0]
         image = urljoin(GM_BASE, image)
-        year = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
+        year = parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})[0]
         year = int(re.search(r'(\d{4})', year).group(1))
-        name = client.parseDOM(html, 'h2')[0]
+        name = parseDOM(html, 'h2')[0]
 
-        result = client.parseDOM(html, 'div', attrs={'style': 'margin:20px 0px 20px 0px;'})[0]
+        result = parseDOM(html, 'div', attrs={'style': 'margin:20px 0px 20px 0px;'})[0]
 
         episodes = re.findall(r'onclick="loadEpisode(.*?)">(.*?)</button>', result)
 
         if str('text-justify') in html:
-            plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
+            plot = parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
         else:
             plot = control.lang(30085)
 
-        info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
+        info = parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
         genre = info[1].lstrip(u'Είδος:').strip()
 
         dictionary = {
@@ -526,9 +528,9 @@ class Indexer:
 
         for item, image in items:
 
-            title = client.parseDOM(item, 'option')[0]
-            url = client.parseDOM(item, 'option', ret='value')[0]
-            url = client.replaceHTMLCodes(url)
+            title = parseDOM(item, 'option')[0]
+            url = parseDOM(item, 'option', ret='value')[0]
+            url = cleantitle.replaceHTMLCodes(url)
             index = urljoin(GM_BASE, url)
 
             data = {
@@ -542,17 +544,17 @@ class Indexer:
     @cache_method(cache_duration(720))
     def event_list(self, url):
 
-        html = client.request(url)
-        items = client.parseDOM(html, 'div', attrs={'style': 'margin-bottom: 10px'})
+        html = net_client().http_GET(url).content
+        items = parseDOM(html, 'div', attrs={'style': 'margin-bottom: 10px'})
 
         for item in items:
 
-            title = client.parseDOM(item, 'a', attrs={'class': 'btn btn-default'})[0]
-            image = client.parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive pull-right'}, ret='src')[0]
+            title = parseDOM(item, 'a', attrs={'class': 'btn btn-default'})[0]
+            image = parseDOM(html, 'img', attrs={'class': 'thumbnail img-responsive pull-right'}, ret='src')[0]
             image = urljoin(GM_BASE, image)
-            link = client.parseDOM(item, 'a', attrs={'class': 'btn btn-default'}, ret='href')[0]
+            link = parseDOM(item, 'a', attrs={'class': 'btn btn-default'}, ret='href')[0]
             link = urljoin(GM_BASE, link)
-            plot = client.parseDOM(item, 'span', attrs={'class': 'pull-right'})[0]
+            plot = parseDOM(item, 'span', attrs={'class': 'pull-right'})[0]
 
             self.list.append(
                 {
@@ -578,16 +580,16 @@ class Indexer:
     @cache_method(cache_duration(720))
     def persons_listing(self, url, post):
 
-        html = client.request(url, post=post)
+        html = net_client().http_POST(url, form_data=post).content
 
-        content = client.parseDOM(html, 'div', attrs={'style': 'margin-left:20px;'})[0]
+        content = parseDOM(html, 'div', attrs={'style': 'margin-left:20px;'})[0]
 
-        persons = client.parseDOM(content, 'h4')
+        persons = parseDOM(content, 'h4')
 
         for person in persons:
 
-            title = client.parseDOM(person, 'a')[0]
-            url = urljoin(GM_BASE, client.parseDOM(person, 'a', ret='href')[0])
+            title = parseDOM(person, 'a')[0]
+            url = urljoin(GM_BASE, parseDOM(person, 'a', ret='href')[0])
 
             i = {'title': title, 'url': url}
 
@@ -623,11 +625,11 @@ def gm_source_maker(url):
 
     if 'episode' in url:
 
-        html = client.request(url=url.partition('?')[0], post=url.partition('?')[2])
+        html = net_client().http_POST(url.partition('?')[0], form_data=url.partition('?')[2]).content
 
     else:
 
-        html = client.request(url)
+        html = net_client().http_GET(url).content
 
     html = py2_uni(html)
 
@@ -642,10 +644,10 @@ def gm_source_maker(url):
 
             if '<p style="margin-top:0px; margin-bottom:4px;">' in episode:
 
-                host = client.parseDOM(episode, 'p')[0].split('<')[0]
+                host = parseDOM(episode, 'p')[0].split('<')[0]
 
-                pts = client.parseDOM(episode, 'a')
-                lks = client.parseDOM(episode, 'a', ret='href')
+                pts = parseDOM(episode, 'a')
+                lks = parseDOM(episode, 'a', ret='href')
 
                 for p in pts:
                     hl.append(u''.join([host, control.lang(30225), p]))
@@ -655,8 +657,8 @@ def gm_source_maker(url):
 
             else:
 
-                pts = client.parseDOM(episode, 'a')
-                lks = client.parseDOM(episode, 'a', ret='href')
+                pts = parseDOM(episode, 'a')
+                lks = parseDOM(episode, 'a', ret='href')
 
                 for p in pts:
                     hl.append(p)
@@ -673,14 +675,14 @@ def gm_source_maker(url):
 
         if '<p class="text-muted text-justify">' in html:
 
-            plot = client.parseDOM(html, 'p')[0]
+            plot = parseDOM(html, 'p')[0]
             data.update({'plot': plot})
 
         return data
 
     elif 'view' in url:
 
-        link = client.parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
+        link = parseDOM(html, 'a', ret='href', attrs={"class": "btn btn-primary"})[0]
         host = urlparse(link).netloc.replace('www.', '').capitalize()
 
         return {'links': [(''.join([control.lang(30015), host]), link)]}
@@ -697,7 +699,7 @@ def gm_source_maker(url):
 
         try:
 
-            info = client.parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
+            info = parseDOM(html, 'h4', attrs={'style': 'text-indent:10px;'})
 
             if ',' in info[1]:
 
@@ -724,20 +726,20 @@ def gm_source_maker(url):
 
             if 'btn btn-primary dropdown-toggle' in button:
 
-                host = client.stripTags(client.parseDOM(button, 'button')[0]).strip()
-                parts = client.parseDOM(button, 'li')
+                host = cleantitle.stripTags(parseDOM(button, 'button')[0]).strip()
+                parts = parseDOM(button, 'li')
 
                 for part in parts:
 
-                    part_ = client.parseDOM(part, 'a')[0]
-                    link = client.parseDOM(part, 'a', ret='href')[0]
+                    part_ = parseDOM(part, 'a')[0]
+                    link = parseDOM(part, 'a', ret='href')[0]
                     hl.append(', '.join([host, part_]))
                     links.append(link)
 
             else:
 
-                host = client.parseDOM(button, 'a')[0]
-                link = client.parseDOM(button, 'a', ret='href')[0]
+                host = parseDOM(button, 'a')[0]
+                link = parseDOM(button, 'a', ret='href')[0]
 
                 hl.append(host)
                 links.append(link)
@@ -757,9 +759,9 @@ def gm_source_maker(url):
         data = {'links': links_list, 'genre': genre}
 
         if 'text-align: justify' in html:
-            plot = client.parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
+            plot = parseDOM(html, 'p', attrs={'style': 'text-align: justify'})[0]
         elif 'text-justify' in html:
-            plot = client.parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
+            plot = parseDOM(html, 'p', attrs={'class': 'text-justify'})[0]
         else:
             plot = control.lang(30085)
 
@@ -776,7 +778,7 @@ def gm_source_maker(url):
 @cache_function(cache_duration(5760))
 def blacklister():
 
-    result = client.request('https://pastebin.com/raw/eh5pPA6K')
+    result = net_client().http_GET('https://pastebin.com/raw/eh5pPA6K').content
 
     kids_urls = [''.join([GM_BASE, i]) for i in evaluate(result)]
 
