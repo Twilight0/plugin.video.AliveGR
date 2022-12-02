@@ -1021,7 +1021,7 @@ def new_version(new=False):
 @cache_function(cache_duration(360))
 def remote_version():
 
-    url = 'https://raw.githubusercontent.com/Twilight0/repo.twilight0/master/_zips/addons.xml'
+    url = 'https://raw.githubusercontent.com/Twilight0/repository.twilight0/master/_zips/addons.xml'
     xml = net_client().http_GET(url).content
 
     version = parseDOM(xml, 'addon', attrs={'id': control.addonInfo('id')}, ret='version')[0]
