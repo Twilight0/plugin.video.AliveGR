@@ -439,8 +439,8 @@ msgid "Click to open a brief text by the developer"
 msgstr "Επιλέξτε για διαβάσετε ένα σύντοκο κείμενο από τον δημιουργό"
 
 msgctxt "#30107"
-msgid "Restart AliveGR for theme to be applied"
-msgstr "Επανεκκινήστε το AliveGR για να εφαρμοστούν οι αλλαγές"
+msgid "Restart PVR IPTV Simple if necessary to load new settings"
+msgstr "Επανεκκινήστε τον πελάτη IPTV Simple εάν είναι απαραίτητο για να εφαρμοστούν οι αλλαγές"
 
 msgctxt "#30108"
 msgid "or via context menu -> Refresh"
@@ -451,8 +451,8 @@ msgid "Locale"
 msgstr "Τοπικά"
 
 msgctxt "#30110"
-msgid ""
-msgstr ""
+msgid "No playback history present"
+msgstr "Απουσία ιστορικού αναπαραγωγής"
 
 msgctxt "#30111"
 msgid "Open ResolveURL's settings window"
@@ -675,8 +675,8 @@ msgid "Show tools"
 msgstr "Δείξε τα εργαλεία"
 
 msgctxt "#30166"
-msgid "Enable local proxy module"
-msgstr "Ενεργοποίηση προσθετου τοπικής επίλυσης ροών"
+msgid "Please install IPTV Simple Client (PVR) first and try again"
+msgstr "Παρακαλώ εγκαταστήστε τον πελάτη IPTV Simple (PVR) και ξαναπροσπαθήστε"
 
 msgctxt "#30167"
 msgid "By name"

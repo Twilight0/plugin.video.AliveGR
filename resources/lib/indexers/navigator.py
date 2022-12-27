@@ -221,18 +221,23 @@ class Indexer:
         lines = read_from_file(PLAYBACK_HISTORY)
 
         if not lines:
-            return
 
-        self.list = [json.loads(line) for line in lines]
+            self.list = [{'title': 30110, 'action':  None, 'icon': iconname('empty')}]
+            directory.add(self.list)
 
-        for i in self.list:
-            bookmark = dict((k, v) for k, v in iteritems(i) if not k == 'next')
-            bookmark['bookmark'] = i['url']
-            bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
-            remove_from_history_cm = {'title': 30485, 'query': {'action': 'delete_from_history', 'query': json.dumps(i)}}
-            i.update({'cm': [bookmark_cm, remove_from_history_cm]})
+        else:
 
-        directory.add(self.list)
+            self.list = [json.loads(line) for line in lines]
+
+            for i in self.list:
+                bookmark = dict((k, v) for k, v in iteritems(i) if not k == 'next')
+                bookmark['bookmark'] = i['url']
+                bookmark_cm = {'title': 30080, 'query': {'action': 'addBookmark', 'url': json.dumps(bookmark)}}
+                remove_from_history_cm = {'title': 30485, 'query': {'action': 'delete_from_history', 'query': json.dumps(i)}}
+                clear_history_cm = {'title': 30471, 'query': {'action': 'clear_playback_history'}}
+                i.update({'cm': [bookmark_cm, remove_from_history_cm, clear_history_cm]})
+
+            directory.add(self.list)
 
     def generic(self, query, content='videos'):
 

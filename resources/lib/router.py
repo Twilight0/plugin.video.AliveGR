@@ -234,7 +234,7 @@ def route():
 
     elif action == 'delete_from_history':
 
-        if query.startswith('{'):
+        if query and query.startswith('{'):
             f = PLAYBACK_HISTORY
         else:
             f = SEARCH_HISTORY
@@ -301,10 +301,6 @@ def route():
 
         utils.setup_iptv()
 
-    # elif action == 'enable_proxy':
-
-    #     utils.enable_proxy_module()
-
     elif action == 'setup_various_keymaps':
 
         utils.setup_various_keymaps(query)
@@ -319,11 +315,11 @@ def route():
 
     elif action == 'clear_search_history':
 
-        utils.delete_search_history()
+        utils.clear_search_history()
 
     elif action == 'clear_playback_history':
 
-        utils.delete_playback_history()
+        utils.clear_playback_history()
 
     elif action == 'toggle_watched':
 

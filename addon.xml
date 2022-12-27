@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.AliveGR" name="AliveGR" version="2.11.0~alpha3" provider-name="Twilight0">
+<addon id="plugin.video.AliveGR" name="AliveGR" version="2.11.0" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.addon" version="17.9.910"/>
         <import addon="resource.images.alivegr.artwork" version="3.0.6"/>
         <import addon="resource.images.alivegr.logos" version="1.0.2"/>
         <import addon="script.module.resolveurl" version="5.1.84"/>
         <import addon="script.module.resolveurl.pluginsgr" version="0.0.13"/>
-        <import addon="script.module.scrapetube" version="2.3.1"/>
-        <import addon="script.module.tulip" version="3.0.2"/>
+        <import addon="script.module.scrapetube" version="2.3.1.1"/>
+        <import addon="script.module.tulip" version="3.1.0"/>
         <import addon="plugin.video.youtube" version="6.8.18"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
@@ -32,12 +32,13 @@ Kindly note that AliveGR is not an official part of the media player you are run
         <forum>https://github.com/Twilight0/plugin.video.AliveGR/issues</forum>
         <source>https://github.com/Twilight0/plugin.video.AliveGR</source>
         <website>https://alivegr.net/</website>
-        <news>+ [COLOR green]2.11.X series[/COLOR] [I]11-09-2022 - 01-12-2022[/I]
+        <news>+ [COLOR green]2.11.X series[/COLOR] [I]11-09-2022 - 28-12-2022[/I]
 
 Additions:
 - Playback history
 - Add capability to rename/change search history items
 - Add capability of auto container refresh on certain settings change (ie icon theme)
+- IPTV Setup client setup reapplied and simplified
 
 Fixes:
 - The usual bug fixes here and there

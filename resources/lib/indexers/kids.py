@@ -20,7 +20,7 @@ from ..modules.themes import iconname
 from ..modules.constants import YT_ADDON, cache_method, cache_duration, cache_function
 from .gm import GM_BASE
 
-GK_BASE = 'https://gmtv.co'
+GK_BASE = 'https://gamatomovies.tv'
 
 
 class Indexer:

@@ -27,13 +27,15 @@ from os import path
 from time import time
 from base64 import b64decode
 from zlib import decompress, compress
-from scrapetube.list_formation import list_playlist_videos, list_playlists
+from scrapetube.wrapper import list_playlist_videos, list_playlists
 
 
 ########################################################################################################################
 
 iptv_folder = control.transPath('special://profile/addon_data/pvr.iptvsimple')
-vtpi = 'wWb45ycn5Wa0RXZz9ld0BXavcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa'
+m3u_url = 'https://raw.githubusercontent.com/free-greek-iptv/greek-iptv/master/android.m3u'
+epg_url = 'https://github.com/GreekTVApp/EPG-GRCY/releases/download/EPG/epg.xml.gz'
+
 leved = 'Q2dw5CchN3c39mck9ydhJ3L0VmbuI3ZlZXasF2LvoDc0RHa'
 reset_cache = cache.FunctionCache().reset_cache
 cache_function = cache.FunctionCache().cache_function
@@ -249,24 +251,26 @@ def purge_bookmarks():
         control.infoDialog(control.lang(30139))
 
 
-def delete_search_history():
+def clear_search_history():
 
     if path.exists(SEARCH_HISTORY):
         if control.yesnoDialog(line1=control.lang(30484).format(path.basename(SEARCH_HISTORY))):
             control.deleteFile(SEARCH_HISTORY)
             control.infoDialog(control.lang(30402))
+            control.refresh()
         else:
             control.infoDialog(control.lang(30403))
     else:
         control.infoDialog(control.lang(30347))
 
 
-def delete_playback_history():
+def clear_playback_history():
 
     if path.exists(PLAYBACK_HISTORY):
         if control.yesnoDialog(line1=control.lang(30484).format(path.basename(PLAYBACK_HISTORY))):
             control.deleteFile(PLAYBACK_HISTORY)
             control.infoDialog(control.lang(30402))
+            control.refresh()
         else:
             control.infoDialog(control.lang(30403))
     else:
@@ -418,102 +422,24 @@ def unpin(query):
 
 def setup_iptv():
 
-    xbmc_path = control.join('special://xbmc', 'addons', 'pvr.iptvsimple')
-    home_path = control.join('special://home', 'addons', 'pvr.iptvsimple')
+    try:
+        enabled = control.addon_details('pvr.iptvsimple')['enabled']
+    except Exception:
+        enabled = None
 
-    def install():
+    if not enabled:
 
-        if control.conditional_visibility('System.Platform.Linux') and not (path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path))):
+        control.okDialog(heading='AliveGR', line1=control.lang(30166))
 
-            control.okDialog(heading='AliveGR', line1=control.lang(30323))
-
-            return False
-
-        elif path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path)):
-
-            return True
-
-        elif not control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
-
-            control.execute('InstallAddon(pvr.iptvsimple)')
-
-            return True
-
-        elif control.condVisibility('System.HasAddon(pvr.iptvsimple)'):
-
-            return 'enabled'
-
-        else:
-
-            return False
-
-    def setup_client(apply=False):
-        # https://raw.githubusercontent.com/free-greek-iptv/greek-iptv/master/android.m3u
-        url = 'https://github.com/GreekTVApp/EPG-GRCY/releases/download/EPG/epg.xml.gz'
-        if apply:
-
-            xml = net_client().http_GET(url).content
-
-            settings = re.findall(r'id="(\w*?)" value="(\S*?)"', xml)
-
-            for k, v in settings:
-
-                control.addon('pvr.iptvsimple').setSetting(k, v)
-
-        else:
-
-            if not path.exists(iptv_folder):
-                control.makeFile(iptv_folder)
-
-    if path.exists(control.join(iptv_folder, 'settings.xml')):
-
-        integer = 30021
+        return
 
     else:
 
-        integer = 30023
+        control.addon('pvr.iptvsimple').setSetting('m3uUrl', m3u_url)
+        control.addon('pvr.iptvsimple').setSetting('epgUrl', epg_url)
+        control.addon('pvr.iptvsimple').setSetting('m3uCache', 'false')
 
-    if control.yesnoDialog(line1=control.lang(integer) + '[CR]' + control.lang(30022)):
-
-        success = install()
-
-        if success:
-
-            setup_client(apply=success == 'enabled')
-            control.infoDialog(message=control.lang(30024), time=2000)
-            enable_iptv()
-
-        else:
-
-            control.okDialog('AliveGR', control.lang(30410))
-
-    else:
-
-        control.infoDialog(message=control.lang(30029), time=2000)
-
-
-def enable_iptv():
-
-    xbmc_path = control.join('special://xbmc', 'addons', 'pvr.iptvsimple')
-    home_path = control.join('special://home', 'addons', 'pvr.iptvsimple')
-
-    if control.condVisibility('Pvr.HasTVChannels') and (path.exists(control.transPath(xbmc_path)) or path.exists(control.transPath(home_path))) and control.addon_details('pvr.iptvsimple').get('enabled'):
-
-        control.infoDialog(message=control.lang(30407), time=4000)
-
-    elif not path.exists(control.join(iptv_folder, 'settings.xml')):
-
-        control.infoDialog(message=control.lang(30409), time=4000)
-
-    else:
-
-        if control.yesnoDialog(line1=control.lang(30406)):
-
-            control.enable_addon('pvr.iptvsimple')
-
-            if control.infoLabel('System.AddonVersion(xbmc.python)') == '2.24.0':
-
-                control.execute('StartPVRManager')
+        control.okDialog(heading=control.lang(30402), line1=control.lang(30107))
 
 
 def setup_various_keymaps(keymap):

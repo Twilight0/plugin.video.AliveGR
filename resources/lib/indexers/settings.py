@@ -110,6 +110,13 @@ class Indexer:
             }
             ,
             {
+                'title': control.addonInfo('name') + ': ' +control.lang(30018),
+                'action': 'setup_iptv',
+                'isFolder': 'False',
+                'isPlayable': 'False'
+            }
+            ,
+            {
                 'title': control.addonInfo('name') + ': ' + control.lang(30056),
                 'action': 'cache_clear',
                 'icon': iconname('empty'),

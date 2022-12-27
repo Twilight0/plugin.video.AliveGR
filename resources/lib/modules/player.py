@@ -24,7 +24,7 @@ from tulip.compat import urljoin, parse_qsl, urlencode, is_py2, urlparse, HTTPEr
 from tulip.utils import percent
 from tulip.parsers import parseDOM
 from tulip.cleantitle import stripTags
-from scrapetube.list_formation import list_playlist_videos, list_channel_videos
+from scrapetube.wrapper import list_playlist_videos, list_channel_videos
 
 from ..indexers.gm import MOVIES, SHORTFILMS, THEATER, GM_BASE, blacklister, gm_source_maker, Indexer as gm_indexer
 from ..indexers.kids import GK_BASE, gk_source_maker

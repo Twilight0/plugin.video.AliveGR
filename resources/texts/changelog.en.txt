@@ -1,9 +1,10 @@
-+ [COLOR green]2.11.X series[/COLOR] [I]11-09-2022 - 01-12-2022[/I]
++ [COLOR green]2.11.X series[/COLOR] [I]11-09-2022 - 28-12-2022[/I]
 
 Additions:
 - Playback history
 - Add capability to rename/change search history items
 - Add capability of auto container refresh on certain settings change (ie icon theme)
+- IPTV Setup client setup reapplied and simplified
 
 Fixes:
 - The usual bug fixes here and there

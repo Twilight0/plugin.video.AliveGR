@@ -20,7 +20,7 @@ from tulip.net import Net as net_client
 from tulip.compat import urljoin, urlparse, range, iteritems, py2_uni
 from tulip.utils import list_divider
 from tulip.parsers import parseDOM
-from scrapetube.list_formation import list_search
+from scrapetube.wrapper import list_search
 from ..modules.themes import iconname
 from ..modules.constants import cache_function, cache_method, cache_duration, SEPARATOR
 from ..modules.utils import page_menu
