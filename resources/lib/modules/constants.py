@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-'''
-    AliveGR Addon
-    Author Twilight0
-
-    SPDX-License-Identifier: GPL-3.0-only
-    See LICENSES/GPL-3.0-only for more information.
-'''
+# AliveGR Addon
+# Author Twilight0
+# SPDX-License-Identifier: GPL-3.0-only
+# See LICENSES/GPL-3.0-only for more information.
 
 from tulip.compat import OrderedDict
 from tulip.control import dataPath, join, setting
@@ -41,7 +38,7 @@ SUPPORT = 'https://github.com/Twilight0/plugin.video.AliveGR/issues'
 LIVE_GROUPS = OrderedDict(
     [
         ('Panhellenic', 30201), ('Pancypriot', 30202), ('International', 30203), ('Regional', 30207),
-        ('Toronto Channels', 30209), ('Music', 30125), ('Thematic', 30208), ('Cinema', 30205),
+        ('Editors Choice', 30209), ('Music', 30125), ('Thematic', 30208), ('Cinema', 30205),
         ('AliveGR Cinema', 30342), ('Kids', 30032), ('Sports', 30094), ('Web TV', 30210), ('Misc', 30206)
     ]
 )

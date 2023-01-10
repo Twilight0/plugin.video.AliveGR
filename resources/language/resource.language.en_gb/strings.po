@@ -731,7 +731,7 @@ msgid "Thematic"
 msgstr ""
 
 msgctxt "#30209"
-msgid "Toronto Channels"
+msgid "Editor's Choice"
 msgstr ""
 
 msgctxt "#30210"
@@ -1723,7 +1723,7 @@ msgid "Change search term"
 msgstr ""
 
 msgctxt "#30495"
-msgid ""
+msgid "Show alternative live stream list"
 msgstr ""
 
 msgctxt "#30496"

@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-'''
-    AliveGR Addon
-    Author Twilight0
-
-    SPDX-License-Identifier: GPL-3.0-only
-    See LICENSES/GPL-3.0-only for more information.
-'''
+# AliveGR Addon
+# Author Twilight0
+# SPDX-License-Identifier: GPL-3.0-only
+# See LICENSES/GPL-3.0-only for more information.
 
 from __future__ import absolute_import
 from sys import argv
@@ -62,6 +59,10 @@ def route():
     elif action == 'live_tv':
 
         live.Indexer().live_tv()
+
+    elif action == 'live_m3u':
+
+        live.Indexer().live_m3u()
 
     elif action == 'pvr_client':
 

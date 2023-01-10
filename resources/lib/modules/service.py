@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-'''
-    AliveGR Addon
-    Author Twilight0
-
-    SPDX-License-Identifier: GPL-3.0-only
-    See LICENSES/GPL-3.0-only for more information.
-'''
+# AliveGR Addon
+# Author Twilight0
+# SPDX-License-Identifier: GPL-3.0-only
+# See LICENSES/GPL-3.0-only for more information.
 
 import os
 import sys
@@ -100,6 +97,7 @@ class Daemon:
         self.lang_split = __addon__.getSetting('lang_split')
         self.theme = __addon__.getSetting('theme')
         self.show_live = __addon__.getSetting('show_live')
+        self.show_m3u = __addon__.getSetting('show_m3u')
         self.show_pvr = __addon__.getSetting('show_pvr')
         self.show_networks = __addon__.getSetting('show_networks')
         self.show_news = __addon__.getSetting('show_news')

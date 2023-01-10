@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-'''
-    AliveGR Addon
-    Author Twilight0
-
-    SPDX-License-Identifier: GPL-3.0-only
-    See LICENSES/GPL-3.0-only for more information.
-'''
+# AliveGR Addon
+# Author Twilight0
+# SPDX-License-Identifier: GPL-3.0-only
+# See LICENSES/GPL-3.0-only for more information.
 from __future__ import absolute_import, unicode_literals
 
 import json
@@ -35,6 +32,13 @@ class Indexer:
                 'action': 'live_tv',
                 'icon': iconname('monitor'),
                 'boolean': control.setting('show_live') == 'true'
+            }
+            ,
+            {
+                'title': control.lang(30001),
+                'action': 'live_m3u',
+                'icon': iconname('monitor'),
+                'boolean': control.setting('show_live') == 'false' and control.setting('show_m3u') == 'true'
             }
             ,
             {

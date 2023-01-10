@@ -35,6 +35,7 @@
     <category label="30005">
 
         <setting id="show_live" label="30148" type="bool" default="true"/>
+        <setting id="show_m3u" label="30495" type="bool" default="true" enable="eq(-1,false)"/>
         <setting id="show_pvr" label="30149" type="bool" default="false"/>
         <setting id="show_networks" label="30150" type="bool" default="true"/>
         <setting id="show_news" label="30151" type="bool" default="true"/>

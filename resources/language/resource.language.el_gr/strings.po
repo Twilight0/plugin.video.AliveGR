@@ -731,8 +731,8 @@ msgid "Thematic"
 msgstr "Θεματικά"
 
 msgctxt "#30209"
-msgid "Toronto Channels"
-msgstr "Κανάλια Τορόντο"
+msgid "Editor's Choice"
+msgstr "Η επιλογές του συντάκτη"
 
 msgctxt "#30210"
 msgid "Web TV"
@@ -1723,8 +1723,8 @@ msgid "Change search term"
 msgstr "Αλλαγή όρου αναζήτησης"
 
 msgctxt "#30495"
-msgid ""
-msgstr ""
+msgid "Show alternative live stream list"
+msgstr "Δείξε εναλλακτική λίστα ζωντανών ροών"
 
 msgctxt "#30496"
 msgid ""

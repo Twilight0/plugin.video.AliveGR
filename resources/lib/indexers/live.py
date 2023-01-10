@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-'''
-    AliveGR Addon
-    Author Twilight0
-
-    SPDX-License-Identifier: GPL-3.0-only
-    See LICENSES/GPL-3.0-only for more information.
-'''
+# AliveGR Addon
+# Author Twilight0
+# SPDX-License-Identifier: GPL-3.0-only
+# See LICENSES/GPL-3.0-only for more information.
 from __future__ import absolute_import, unicode_literals
 
 import re, json, codecs
@@ -271,6 +268,38 @@ class Indexer:
             control.sortmethods('genre')
 
         directory.add(self.list, content='videos', as_playlist=zapping)
+
+
+    @cache_method(cache_duration(480))
+    def cached_live_m3u(self):
+
+        result = net_client().http_GET(
+            'https://raw.githubusercontent.com/free-greek-iptv/greek-iptv/master/android.m3u', headers={'User-Agent': 'AliveGR, version: ' + control.version()}
+            ).content
+
+        items = re.findall(r'#EXTINF:.+?\n.+?$', result, re.M)
+
+        for item in items:
+
+            title = re.search(r',(.+)', item).group(1)
+            image = re.search(r'tvg-logo="(.+)"', item).group(1)
+            url = re.search(r'\n(.+)', item).group(1)
+
+            data = {'title': title, 'image': image, 'url': url}
+
+            self.list.append(data)
+
+        return self.list
+
+    def live_m3u(self):
+
+        self.list = self.cached_live_m3u()
+
+        for i in self.list:
+
+            i.update({'action': 'play', 'isFolder': 'False'})
+
+        directory.add(self.list)
 
     def modular(self, group):
 
