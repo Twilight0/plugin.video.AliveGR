@@ -6,12 +6,24 @@
 # See LICENSES/GPL-3.0-only for more information.
 
 import os
+import sys
+import hashlib
 import xbmc
 from xbmcaddon import Addon
 
+if sys.version_info[0] == 3:
+    from xbmcvfs import translatePath
+else:
+    from xbmc import translatePath
+
 addon_id = 'plugin.video.AliveGR'
+new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(addon_id)
+old_settings = 'special://home/addons/{}/resources/texts/leia_settings.xml'.format(addon_id)
+settings_path = 'special://home/addons/{}/resources/settings.xml'.format(addon_id)
+datapath = 'special://profile/addon_data/plugin.video.AliveGR/'
 __addon__ = Addon(addon_id)
 monitor = xbmc.Monitor
+it_exists = os.path.exists
 
 
 class WatchChanges(xbmc.Monitor):
@@ -37,6 +49,37 @@ class Daemon:
         self._service_setup()
 
         while not self.Monitor.abortRequested():
+
+            with open(translatePath(settings_path)) as settings_f:
+
+                text = settings_f.read()
+
+                try:
+                    md5sum = hashlib.md5(text).hexdigest()
+                except TypeError:
+                    md5sum = hashlib.md5(bytes(text, encoding='utf-8')).hexdigest()
+
+                if md5sum == 'ede0024610bda958e525b095b061c6bf':
+
+                    if sys.version_info[0] == 3:
+
+                        new_f = open(translatePath(new_settings))
+                        settings_text = new_f.read()
+
+                        with open(translatePath(settings_path), 'w') as f:
+                            f.write(settings_text)
+
+                        new_f.close()
+
+                    else:
+
+                        old_f = open(translatePath(old_settings))
+                        settings_text = old_f.read()
+
+                        with open(translatePath(settings_path), 'w') as f:
+                            f.write(settings_text)
+
+                        old_f.close()
 
             if self.Monitor.waitForAbort(360):
                 break
