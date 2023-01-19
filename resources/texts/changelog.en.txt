@@ -1,3 +1,8 @@
++ [COLOR green]2.12.X series[/COLOR] [I]19-01-2023 - XX-XX-2023[/I]
+~ Separate branches for Leia and Matrix+ and simplify settings.xml
+
+[======]
+
 + [COLOR green]2.11.X series[/COLOR] [I]11-09-2022 - 10-01-2022[/I]
 
 Additions:
@@ -23,8 +28,6 @@ Replacements/Substitutions:
 Removals:
 - Changelog in news section (addon.xml) will contain only the latest version, please refer to changelog.txt for more details about past versions
 - Miscellany section
-
-[======]
 
 + [COLOR red]2.10.X series[/COLOR] [I]18-07-2022 - 11-09-2022[/I]
 

@@ -1063,50 +1063,6 @@ def page_menu(pages, reset=False):
     return menu
 
 
-def apply_settings_xml():
-
-    new_settings = 'special://home/addons/{}/resources/texts/matrix_settings.xml'.format(control.addonInfo('id'))
-    old_settings = 'special://home/addons/{}/resources/texts/leia_settings.xml'.format(control.addonInfo('id'))
-    settings_path = 'special://home/addons/{}/resources/settings.xml'.format(control.addonInfo('id'))
-
-    with open(control.transPath(settings_path)) as settings_f:
-
-        text = settings_f.read()
-
-        try:
-            md5sum = hashlib.md5(text).hexdigest()
-        except TypeError:
-            md5sum = hashlib.md5(bytes(text, encoding='utf-8')).hexdigest()
-
-        if md5sum == 'ede0024610bda958e525b095b061c6bf':
-
-            if is_py3:
-
-                new_f = open(control.transPath(new_settings))
-                settings_text = new_f.read()
-
-                with open(control.transPath(settings_path), 'w') as f:
-                    f.write(settings_text)
-
-                new_f.close()
-
-            else:
-
-                old_f = open(control.transPath(old_settings))
-                settings_text = old_f.read()
-
-                with open(control.transPath(settings_path), 'w') as f:
-                    f.write(settings_text)
-
-                old_f.close()
-
-            control.infoDialog(message=control.lang(30402), time=1000)
-
-        else:
-
-            control.infoDialog(message=control.lang(30300), time=3000)
-
-
 @cache_function(cache_duration(60))
 def yt_playlist(url):
 
