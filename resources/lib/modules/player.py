@@ -319,7 +319,7 @@ def dash_conditionals(stream):
 
         inputstream_adaptive = False
 
-    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2'
+    m3u8_dash = ('.hls' in stream or '.m3u8' in stream) and control.setting('m3u8_quality_picker') == '2' and not 'greektv.ca' in stream
 
     dash = ('.mpd' in stream or 'dash' in stream or '.ism' in stream or m3u8_dash) and inputstream_adaptive
 
